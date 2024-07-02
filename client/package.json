@@ -1,0 +1,37 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "nuxt start",
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "dev:host": "nuxt dev --host",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@iconify-json/mdi": "^1.1.66",
+    "@nuxt/fonts": "^0.6.1",
+    "@nuxt/ui": "^2.15.2",
+    "@nuxtjs/i18n": "^8.3.0",
+    "@pinia/nuxt": "^0.5.1",
+    "@vuelidate/components": "^1.2.6",
+    "@vuelidate/core": "^2.0.3",
+    "@vuelidate/validators": "^2.0.4",
+    "axios": "^1.6.8",
+    "dayjs": "^1.11.11",
+    "lodash.debounce": "^4.0.8",
+    "nuxt": "^3.11.2",
+    "pinia": "^2.1.7",
+    "qrcode.vue": "^3.4.1",
+    "socket.io-client": "^4.7.5",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@types/lodash.debounce": "^4.0.9",
+    "sass": "^1.75.0"
+  }
+}

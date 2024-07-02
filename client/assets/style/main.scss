@@ -1,0 +1,94 @@
+:root {
+  // color configurations for Nuxt UI
+  --color-primary-50: 255 248 236;
+  --color-primary-100: 255 240 211;
+  --color-primary-200: 255 220 165;
+  --color-primary-300: 255 194 109;
+  --color-primary-400: 255 157 50;
+  --color-primary-500: 255 127 10;
+  --color-primary-600: 255 102 0;
+  --color-primary-700: 204 73 2;
+  --color-primary-800: 161 57 11;
+  --color-primary-900: 130 49 12;
+  --color-primary-950: 70 22 4;
+  --color-primary-50: 255 248 236;
+
+  --color-gray-50: 246 246 246;
+  --color-gray-100: 231 231 231;
+  --color-gray-200: 209 209 209;
+  --color-gray-300: 176 176 176;
+  --color-gray-400: 136 136 136;
+  --color-gray-500: 107 107 107;
+  --color-gray-600: 93 93 93;
+  --color-gray-700: 79 79 79;
+  --color-gray-800: 69 69 69;
+  --color-gray-900: 61 61 61;
+  --color-gray-950: 38 38 38;
+
+  // custom colors
+  --color-border: 232, 231, 231;
+  --color-pale: 120, 120, 120;
+  --color-text-default: 21, 21, 21;
+  --color-background: 254, 254, 254;
+  --color-background-2: 220, 220, 220;
+
+  // custom Scrollbar
+  --color-scrollbar-trak: #E7E9EB;
+  --color-scrollbar-thumb: #C7C7C7;
+  --color-scrollbar-thumb-hover: #878787;
+}
+
+.dark {
+  --color-border: 40, 40, 40;
+  --color-text-default: 240, 240, 240;
+  --color-background: 21, 21, 21;
+  --color-background-2: 32, 32, 32;
+
+  // custom Scrollbar
+  --color-scrollbar-trak: #384968;
+  --color-scrollbar-thumb: #314152;
+  --color-scrollbar-thumb-hover: #3a5068;
+}
+
+body {
+  font-family: "Inter";
+  font-size: 15px;
+}
+
+.inner {
+  margin: auto;
+  width: 100%;
+  max-width: 1300px;
+  @media only screen and (max-width: 1340px) {
+    @apply px-3;
+  }
+}
+
+.both {
+  @apply grid grid-cols-2 gap-4;
+  @media only screen and (max-width: 769px) {
+    @apply grid-cols-1;
+  }
+}
+.payment-address-input input{
+  cursor: default !important;
+}
+
+/* Custom Scroll */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--color-scrollbar-trak);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-thumb-hover);
+}
