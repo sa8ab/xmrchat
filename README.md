@@ -152,7 +152,7 @@ Change .env file with yours.
 docker compose up -d
 ```
 
-### <a name="client">3. Client</a>
+### <a name="client">4. Client</a>
 
 ```console
 cd client
