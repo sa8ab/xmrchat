@@ -9,7 +9,7 @@
 
 ## Overview
 
-XMRChat is a tip-for-chat application. Users can set up a page and have others send chat messages in exchange for XMR. The application is built with a focus on privacy and security, and it is designed to be self-hosted.
+XMRChat is a tip-for-chat application. Users can set up a page and have others send chat messages in exchange for XMR. The application is built with a focus on privacy and security.
 
 ### Table of Contents 🤸
 
