@@ -1,0 +1,7 @@
+node_modules
+*.env
+dist
+src/routes-types.ts
+data/
+redis/
+src/uploads/

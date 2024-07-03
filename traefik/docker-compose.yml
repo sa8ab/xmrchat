@@ -1,0 +1,51 @@
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik-proxy
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.api.rule=Host(`traefik.${DOMAIN_NAME:-xmrchat.com}`)
+      - traefik.http.routers.api.entrypoints=websecure
+      - traefik.http.routers.api.service=api@internal
+
+      # pass: StrongPass
+      - "traefik.http.routers.api.middlewares=dashboard_auth"
+      - "traefik.http.middlewares.dashboard_auth.basicauth.users=${USER}:${PASSWORD}"
+      - "traefik.http.routers.api.tls=true"
+      - "traefik.http.routers.api.tls.certresolver=myresolver"
+
+      # Redirect all HTTP to HTTPS permanently
+      - traefik.http.routers.http_catchall.rule=HostRegexp(`{any:.+}`)
+      - traefik.http.routers.http_catchall.entrypoints=web
+      - traefik.http.routers.http_catchall.middlewares=https_redirect
+      - traefik.http.middlewares.https_redirect.redirectscheme.scheme=https
+      - traefik.http.middlewares.https_redirect.redirectscheme.permanent=true
+    command:
+      - --api.insecure=true # Enable insecure API (you might want to secure this in production)
+      - --log.level=DEBUG
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entryPoints.websecure.address=:443
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entryPoint.to=websecure
+
+      - --certificatesresolvers.myresolver.acme.tlschallenge=true
+      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
+    networks:
+      - traefik
+    ports:
+      - "80:80"
+      # - "8080:8080"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - letsencrypt:/letsencrypt
+
+volumes:
+  letsencrypt: {}
+
+networks:
+  traefik:
+    name: traefik
+    external: true

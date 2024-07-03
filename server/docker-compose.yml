@@ -1,0 +1,66 @@
+services:
+    backend:
+        container_name: xmrchat-back-end
+        build:
+            dockerfile: Dockerfile
+            target: backend
+        ports:
+            - ":${APP_PORT:-3000}"
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.backend.entrypoints=websecure"
+            # - "traefik.http.routers.backend.rule=Host(`${DOMAIN_NAME:-xmrchat.com}`) && PathPrefix(`/api`)"
+            - "traefik.http.routers.backend.rule=Host(`api.${DOMAIN_NAME:-xmrchat.com}`) || Host(`api.xmrchat.com`) "
+            - "traefik.tcp.routers.backend.tls=true"
+            - "traefik.http.routers.backend.tls.certresolver=myresolver"
+            - "traefik.http.services.backend.loadbalancer.server.port=${APP_PORT:-3000}"
+        volumes:
+            - ./src/uploads:/usr/src/app/uploads
+        networks:
+            - xmrchat
+            - traefik
+    postgres:
+        image: postgres
+        container_name: xmrchat-db
+        restart: always
+        ports:
+            # - "${DB_PORT:-5432}:5432"
+            - "5432:5432"
+        environment:
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: ${DB_NAME}
+
+        volumes:
+            - ./data:/var/lib/postgresql/data
+        networks:
+            - xmrchat
+
+    redis:
+        image: redis/redis-stack:latest
+        container_name: xmrchat-redis
+        restart: always
+        ports:
+            - "${REDIS_PORT:-6379}:${REDIS_PORT:-6379}"
+        # command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+
+        environment:
+            - REDIS_ARGS=--requirepass ${REDIS_PASSWORD}
+
+            # - REDIS_USER=${REDIS_USER}
+            # - REDIS_PASSWORD=${REDIS_PASSWORD}
+            # - REDIS_PORT=${REDIS_PORT:-6379}
+            # - REDIS_DATABASES=16
+            # - REDIS_DISABLE_DEFAULT_USER=true
+        volumes:
+            - ./redis/data:/data
+            # - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+        networks:
+            - xmrchat
+
+networks:
+    xmrchat:
+        driver: bridge
+    traefik:
+        name: traefik
+        external: true

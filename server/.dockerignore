@@ -1,0 +1,14 @@
+.vscode
+node_modules
+.editorconfig
+.eslintignore
+.eslintrc.json
+.gitignore
+.prettierrc.js
+README.md
+
+data/
+redis/
+monero/
+traefik/
+Makefile

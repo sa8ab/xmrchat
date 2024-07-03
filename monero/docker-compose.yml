@@ -1,0 +1,70 @@
+services:
+  monero:
+    container_name: monero
+    build:
+      context: ./monero
+    restart: always
+    user: root
+    ports:
+      # - :80
+      - :18080
+      - :18081
+      - :18082
+      - :18083
+      - :18084
+    command:
+      - --p2p-bind-ip=0.0.0.0
+      - --p2p-bind-port=18080
+      - --rpc-bind-ip=0.0.0.0
+      - --rpc-bind-port=18081
+      # - --log-level=4
+      - --non-interactive
+      - --rpc-ssl=disabled
+      - --rpc-access-control-origins=monero
+      - --disable-rpc-ban
+      - --confirm-external-bind
+      - --zmq-pub=tcp://0.0.0.0:18084
+      - --zmq-rpc-bind-port=1882
+      - --zmq-rpc-bind-ip=0.0.0.0
+
+    volumes:
+      - bitmonero:/root/.bitmonero
+    networks:
+      - traefik
+
+  lws:
+    depends_on:
+      - monero
+    container_name: lws
+    user: root
+    build:
+      context: ./monero-lws
+    restart: always
+    ports:
+      # - :80
+      - :8443
+    command:
+      - --db-path=/home/monero-lws/.bitmonero/light_wallet_server
+      - --daemon=tcp://monero:1882
+      - --sub=tcp://monero:18084
+      # - --zmq-pub=tcp://monero:18084
+      - --log-level=4
+      - --webhook-ssl-verification=none
+      - --disable-admin-auth
+      - --admin-rest-server=http://0.0.0.0:8443/admin
+      - --rest-server=http://0.0.0.0:8443/basic
+      - --access-control-origin=lws:8443
+      - --confirm-external-bind
+    volumes:
+      - monerolws:/home/monero-lws
+    networks:
+      - traefik
+
+volumes:
+  bitmonero: {}
+  monerolws: {}
+
+networks:
+  traefik:
+    name: traefik
+    external: true
