@@ -137,6 +137,11 @@ const env = cleanEnv(process.env, {
 		example: 'sample',
 		devDefault: 'sample',
 	}),
+	DOMAIN_NAME: str({
+		desc: 'pure Domain name like xmrchat.com without any https or "/"',
+		example: 'xmrchat.com',
+		devDefault: 'xmrchat.com',
+	}),
 });
 
 // @ts-expect-error This is a hack to make the cleaned env available globally.
@@ -181,6 +186,7 @@ declare global {
 			MONERO_LWS_WEBHOOK_SECURE_TOKEN: string;
 			MONERO_ADMIN_WALLET_PRIMARY_ADDRESS: string;
 			MONERO_ADMIN_WALLET_PRIVATE_VIEW_KEY: string;
+			DOMAIN_NAME: string;
 		}
 	}
 }

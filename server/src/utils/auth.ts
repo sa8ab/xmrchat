@@ -1,4 +1,3 @@
-
 import { Lucia, verifyRequestOrigin } from 'lucia';
 import { NodePostgresAdapter } from '@lucia-auth/adapter-postgresql';
 
@@ -17,11 +16,11 @@ export const lucia = new Lucia(adapter, {
 	sessionCookie: {
 		attributes: {
 			secure: false,
-			domain: "xmrchat.com"
+			domain: process.env.DOMAIN_NAME,
 		},
 		expires: true,
 	},
-	getUserAttributes: user => {
+	getUserAttributes: (user) => {
 		delete user.password;
 		delete user.password_salt;
 
@@ -42,7 +41,7 @@ declare module 'lucia' {
 export const SessionValidationMiddleware = (app: Elysia) => {
 	return app.derive(
 		async (
-			context
+			context,
 		): Promise<{
 			user: User | null;
 			session: Session | null;
@@ -60,13 +59,16 @@ export const SessionValidationMiddleware = (app: Elysia) => {
 				};
 			}
 
-			const authorizationHeader = context.request.headers.get("Authorization");
-			const headerSessionId = lucia.readBearerToken(authorizationHeader ?? "");
+			const authorizationHeader =
+				context.request.headers.get("Authorization");
+			const headerSessionId = lucia.readBearerToken(
+				authorizationHeader ?? '',
+			);
 
 			const cookieHeader = context.request.headers.get('Cookie') ?? '';
 			const cookieSessionId = lucia.readSessionCookie(cookieHeader);
 
-			const sessionId = headerSessionId || cookieSessionId
+			const sessionId = headerSessionId || cookieSessionId;
 			if (!sessionId) {
 				return {
 					user: null,
@@ -93,6 +95,6 @@ export const SessionValidationMiddleware = (app: Elysia) => {
 				user,
 				session,
 			};
-		}
+		},
 	);
 };

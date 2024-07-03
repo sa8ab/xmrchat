@@ -25,7 +25,7 @@ function generateOTP() {
 
 const EmailTemplates: any = {};
 EmailTemplates['EMAIL_VERIFICATION'] = (otp: string) => {
-	const link = `https://xmrchat.com/auth/email_verification?token=${otp}`;
+	const link = `https://${process.env.DOMAIN_NAME}/auth/email_verification?token=${otp}`;
 
 	const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml">
@@ -85,7 +85,7 @@ EmailTemplates['EMAIL_VERIFICATION'] = (otp: string) => {
 	};
 };
 EmailTemplates['RESET_PASSWORD'] = (otp: string) => {
-	const link = `https://xmrchat.com/auth/reset_password?token=${otp}`;
+	const link = `https://${process.env.DOMAIN_NAME}/auth/reset_password?token=${otp}`;
 	const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
   
