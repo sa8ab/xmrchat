@@ -16,8 +16,6 @@ COPY . .
 RUN apt-get update && apt-get install -y git
 RUN git apply ./patches/elysia-autoload+0.1.9.patch
 
-RUN bun run frontend:build
-
 
 ENV NODE_ENV development
 
