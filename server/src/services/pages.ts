@@ -110,6 +110,7 @@ const UpdatePage = async (
 		//description?: string;
 		payment_address?: string;
 		featured_tip?: string;
+		twitch_channel?: string;
 		view_key?: string;
 		logo?: string;
 		cover_image?: string;
@@ -200,6 +201,7 @@ const UpdatePage = async (
 			//description: payload.description,
 			payment_address: payload.payment_address,
 			featured_tip: payload.featured_tip,
+			twitch_channel: payload.twitch_channel,
 			view_key: payload.view_key,
 			logo: payload.logo,
 			cover_image: payload.cover_image,

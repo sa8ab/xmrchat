@@ -8,6 +8,13 @@ const page_name = t.String({
 	maxLength: 64,
 });
 
+const twitch_channel = t.String({
+	examples: ['streamerspage'],
+	description: 'The name of the twitch channel.',
+	minLength: 3,
+	maxLength: 64,
+});
+
 const page_path = t.String({
 	examples: ['my_page'],
 	description: 'The path that the page will be accessible from.',
@@ -29,4 +36,4 @@ const adult = t.Boolean({
 	description: 'Whether the page contains adult content or not.',
 });
 
-export {page_name, page_path, page_description, adult};
+export {page_name, page_path, page_description, adult, twitch_channel};

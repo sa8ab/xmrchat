@@ -1,4 +1,3 @@
-
 import { Kysely, sql } from 'kysely';
 
 import {
@@ -57,19 +56,29 @@ export async function up(db: Kysely<never>): Promise<void> {
 		.addColumn('view_key', 'varchar(64)', col => col.notNull())
 		.addColumn('logo', 'varchar(64)')
 		.addColumn('cover_image', 'varchar(64)')
+		.addColumn('twitch_channel', 'varchar(64)')
 		.addColumn('adult', 'boolean', col => col.notNull())
+		.$call(addCreationTimestamp)
+		.execute();
+
+	await db.schema
+		.createTable('settings')
+		.addColumn('id', 'varchar(64)', col => col.notNull().primaryKey())
+		.addColumn('key', 'varchar(100)', col => col.notNull())
+		.addColumn('value', 'varchar(500)', col => col.notNull())
 		.$call(addCreationTimestamp)
 		.execute();
 
 	await db.schema
 		.createTable('page_tiers')
 		.$call(addUUID4)
-		.$call(page_id)
+		// .$call(page_id)
 		.addColumn('name', 'varchar(32)', col => col.notNull())
 		.addColumn('description', 'varchar(1024)')
 		.addColumn('amount', 'varchar(32)', col => col.notNull())
 		.$call(addCreationTimestamp)
 		.execute();
+
 
 	await db.schema
 		.createTable('tips')
@@ -116,5 +125,6 @@ export async function down(db: Kysely<never>): Promise<void> {
 	await db.schema.dropTable('user_sessions').execute();
 	await db.schema.dropTable('users').execute();
 	await db.schema.dropTable('user_tokens').execute();
+	await db.schema.dropTable('settings').execute();
 	await sql`DROP EXTENSION IF EXISTS "uuid-ossp";`.execute(db);
 }

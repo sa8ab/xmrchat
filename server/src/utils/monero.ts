@@ -1,11 +1,49 @@
 import { base58xmr } from "@scure/base";
 import { keccak_256 } from "@noble/hashes/sha3";
 import { bytesToHex, randomBytes, hexToBytes } from "@noble/hashes/utils";
+import { MoneroUtils } from 'monero-ts';
 import axios from 'axios';
 import { db } from '../db/connect';
 import { createConnection } from '../utils/redis';
 import type { ReservationData } from '../types/reservationData';
 import { notificationEmitter } from '../events/notification.event';
+import Twitch from './twitch';
+import TTLCache from '@isaacs/ttlcache';
+
+
+const priceCache = new TTLCache({ ttl: 60 * 1000 });
+
+
+
+export const getMoneroToUSDPrice = async () => {
+	const price = priceCache.get('price');
+	if (price) {
+		return { price };
+	}
+
+
+	const response = await fetch(
+		'https://localmonero.co/web/ticker?currencyCode=USD'
+	);
+
+	const data = await response.json();
+	const avg = data.USD?.avg_6h;
+
+	priceCache.set('price', avg);
+	if (!avg) {
+		const response = await fetch(
+			'https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=USD'
+		);
+
+		const data = await response.json();
+		const price = data.USD;
+
+		priceCache.set('price', price);
+		return { price: price };
+	}
+	return { price: avg };
+
+}
 
 function keccak(bytes: any) {
 	const h = keccak_256.create();
@@ -267,7 +305,7 @@ export class moneroLWS {
 
 				const page = await db
 					.selectFrom('pages')
-					.select(['user_id', 'id', 'path'])
+					.select(['user_id', 'id', 'path','twitch_channel'])
 					.where('id', '=', existingTip.page_id)
 					.executeTakeFirst();
 
@@ -300,6 +338,21 @@ export class moneroLWS {
 						paid_amount: String(paid_amount),
 					},
 				});
+
+
+				if (!!page?.twitch_channel) {
+					try {
+						const twitch = await Twitch.getInstance(page.twitch_channel)
+						const moneroUSDPrice = await getMoneroToUSDPrice()
+						const paidAmountInUsd = (MoneroUtils.atomicUnitsToXmr(existingTip?.amount || '') * moneroUSDPrice.price);
+						let message = `${existingTip?.name || 'Anonymous'} tipped $${paidAmountInUsd.toFixed(2)}`
+						if (!!existingTip?.message) message = message + `: ${existingTip?.message}`
+						twitch.sendMessage(message)
+					} catch (error) {
+						console.log('ERROR at twitch sending message:', error, page?.twitch_channel)
+					}
+
+				}
 
 				break;
 			}

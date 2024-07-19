@@ -19,6 +19,7 @@ export interface Pages {
 	view_key: string;
 	user_id: string;
 	featured_tip: string | null;
+	twitch_channel: string | null;
 }
 
 export interface PageTiers {
@@ -54,9 +55,18 @@ export interface Users {
 	username: string;
 }
 
+export interface Settings {
+	creation: Generated<Timestamp>;
+	id: Generated<string>;
+	key: string | null;
+	value: string | null;
+}
+
+
 export interface DB {
 	page_tiers: PageTiers;
 	pages: Pages;
 	tips: Tips;
 	users: Users;
+	settings: Settings
 }

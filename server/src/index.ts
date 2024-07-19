@@ -10,6 +10,7 @@ import cors from '@elysiajs/cors';
 import { notificationEmitter } from './events/notification.event';
 import { moneroLWS } from './utils/monero';
 import { db } from './db/connect';
+import Twitch from './utils/twitch';
 
 const app = new Elysia()
 	.ws(
@@ -127,6 +128,12 @@ const app = new Elysia()
 			const lws = new moneroLWS()
 			const res = await lws.listAccounts()
 			console.log('LWS CONNECTION TEST', res)
+
+			try {
+				await Twitch.tokenUpdatingSchedule()
+			} catch (error) {
+				console.log('ERROR at twich token updating scheduler:', error)
+			}
 		}
 	);
 

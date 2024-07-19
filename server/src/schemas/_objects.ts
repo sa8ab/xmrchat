@@ -7,7 +7,7 @@ import {
 	payment_address,
 	view_key,
 } from './components/_general';
-import { page_description, page_name, page_path } from './components/pages';
+import { page_description, page_name, page_path, twitch_channel } from './components/pages';
 import { tier_description, tier_name } from './components/page_tiers';
 import { message, paid, paid_at, tip_private, tip_name } from './components/tips';
 import { email, password, username, is_email_verified } from './components/users';
@@ -67,7 +67,25 @@ export const PageObject = t.Object({
 	logo: t.Optional(ids.image_id),
 	cover_image: t.Optional(ids.image_id),
 	featured_tip: t.Optional(ids.tip_id),
+	twitch_channel: twitch_channel,
 	adult: t.Boolean(),
 	creation,
 	tiers: t.Optional(t.Array(PageTierObject))
+});
+
+
+export const SettingObject = t.Object({
+	id: ids.page_id,
+	key: t.String({
+		examples: ['key'],
+		description: 'key of setting params.',
+		minLength: 0,
+		maxLength: 100,
+	}),
+	value: t.String({
+		examples: ['value'],
+		description: 'value of setting params.',
+		minLength: 0,
+		maxLength: 100,
+	}),
 });
