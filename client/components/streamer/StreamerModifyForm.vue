@@ -48,6 +48,7 @@ const state = reactive<State>({
     view_key: undefined,
     slug: undefined,
     tiers: [],
+    twitch_channel: undefined,
   },
   slugAvailable: false,
   loadingSlug: false,
@@ -130,6 +131,7 @@ const handleSubmit = async () => {
         payment_address: state.form.payment_address,
         view_key: state.form.view_key,
         tiers: state.form.tiers,
+        twitch_channel: state.form.twitch_channel,
       });
       toast.add({ title: "Page updated!" });
       navigateTo(toStreamerDisplay()?.path);
@@ -173,6 +175,7 @@ const getPage = async () => {
       payment_address: response.payment_address,
       view_key: response.view_key,
       slug: response.path,
+      twitch_channel: response.twitch_channel,
       tiers:
         response.tiers?.map((tier) => ({
           name: tier.name,
@@ -309,6 +312,18 @@ const { getValidationAttrs } = useValidations(v);
         </UFormGroup>
       </div>
 
+      <div class="both">
+        <UFormGroup
+          size="lg"
+          label="Twitch channel name"
+          name="twitch_channel"
+          hint="Optional"
+          help="Lowercase name of your twitch channel. Used to inform tips via xmr_chat twitch bot."
+        >
+          <UInput v-model="state.form.twitch_channel" />
+        </UFormGroup>
+      </div>
+
       <div class="single">
         <UFormGroup label="Tip Amount Suggestions">
           <StreamerTipSuggestions v-model="state.form.tiers" />
@@ -352,7 +367,7 @@ const { getValidationAttrs } = useValidations(v);
 
 <style scoped lang="scss">
 .create-modify-form {
-  @apply flex gap-4 flex-col max-w-[860px];
+  @apply flex gap-6 flex-col max-w-[860px];
   .both {
     .buttons {
       @apply inline-flex gap-2;

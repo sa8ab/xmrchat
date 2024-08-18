@@ -35,6 +35,12 @@ export const useValidations = (generalV?: Ref<Validation>) => {
       baseMaxLength(...v)
     );
 
+  const minValue = (...v: Parameters<typeof baseMinValue>) =>
+    helpers.withMessage(
+      ({ $params }) => t("validations.minValue", { value: $params.min }),
+      baseMinValue(...v)
+    );
+
   const sameAs = (...v: Parameters<typeof baseSameAs>) =>
     helpers.withMessage(
       ({ $params }) =>
@@ -50,7 +56,9 @@ export const useValidations = (generalV?: Ref<Validation>) => {
   );
 
   const streamerSlugInternalBase = (v: string) =>
-    !["auth", "guides", "streamer", "contact"].includes(v);
+    !["auth", "guides", "streamer", "contact", "creator", "creators"].includes(
+      v
+    );
 
   const streamerSlugInternal = helpers.withMessage(
     "This slug is not usable.",
@@ -85,6 +93,7 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     numberic,
     minLength,
     maxLength,
+    minValue,
     sameAs,
     streamerSlug,
     streamerSlugInternal,

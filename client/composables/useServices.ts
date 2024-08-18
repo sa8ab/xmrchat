@@ -87,7 +87,7 @@ export const useServices = () => {
 
   const getMyPage = async () => {
     const res = await axios.get<StreamerPage[]>("/v1/pages");
-    return res.data.toSorted((a, b) => b.path.localeCompare(a.path))[0];
+    return getFirstStreamerPage(res.data);
   };
 
   const updateStreamer = async (slug: string, params: any) => {
@@ -118,6 +118,13 @@ export const useServices = () => {
     return res;
   };
 
+  const getCreators = async (params?: any) => {
+    const res = await axios.get<{ pages: StreamerPage }>(`/v1/pages/search`, {
+      params,
+    });
+    return res.data;
+  };
+
   return {
     checkSession,
     login,
@@ -137,5 +144,6 @@ export const useServices = () => {
     forgotPassword,
     resetPassword,
     confirmEmail,
+    getCreators,
   };
 };

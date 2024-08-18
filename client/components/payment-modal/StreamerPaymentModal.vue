@@ -15,7 +15,7 @@ const active = defineModel<boolean>("active");
 // const { checkReservation: checkReservationApi } = useServices();
 const { toStreamerDisplay } = useRouteLocation();
 const toast = useToast();
-const { state: authState } = useAuthStore();
+const { state: authState, checkSession } = useAuthStore();
 
 // const paymentInterval = ref<NodeJS.Timeout | undefined>(undefined);
 
@@ -42,6 +42,8 @@ const { init, disconnect } = usePaymentSocket({
     toast.add({
       title: "Tip received successfully!",
     });
+    // to update header to show view and edit of page.
+    checkSession();
     return navigateTo(toStreamerDisplay()?.path);
   },
 

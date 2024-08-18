@@ -1,11 +1,14 @@
 <script lang="ts" setup>
-const { toStreamerEdit, toStreamer } = useRouteLocation();
-const props = defineProps<{
-  actions?: boolean;
-  slug?: string;
-  logoId?: string;
-  bannerId?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    logoId?: string;
+    bannerId?: string;
+    showTitle?: boolean;
+  }>(),
+  {
+    showTitle: true,
+  }
+);
 </script>
 
 <template>
@@ -16,19 +19,7 @@ const props = defineProps<{
     <div class="options">
       <div class="logo-and-name">
         <GeneralImage :id="logoId" variant="logo" class="logo" />
-        <div class="name font-bold text-2xl p-2">Send Tip</div>
-      </div>
-      <div class="flex gap-2 my-3" v-if="actions">
-        <UButton variant="outline" v-if="slug" :to="toStreamer(slug)">
-          View Page
-        </UButton>
-        <UTooltip text="Edit Page">
-          <UButton
-            :to="toStreamerEdit()"
-            icon="i-heroicons-pencil-solid"
-            square
-          ></UButton>
-        </UTooltip>
+        <div class="name font-bold text-2xl p-2" v-if="showTitle">Send Tip</div>
       </div>
     </div>
   </div>

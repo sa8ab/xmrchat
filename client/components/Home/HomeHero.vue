@@ -16,7 +16,7 @@ const { toStreamerDisplay } = useRouteLocation();
       <p class="description">Tip your favorite streamer in cryptocurrency.</p>
       <div>
         <UButton size="xl" :to="toStreamerDisplay()">
-          My Streamer Tip Page
+          Creators Start Here
         </UButton>
       </div>
     </div>

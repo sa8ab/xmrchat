@@ -15,7 +15,7 @@ onMounted(() => startTipsInterval());
 
 const startTipsInterval = () => {
   stopTipsInterval();
-  interval.value = setInterval(() => refresh(), 4000);
+  interval.value = setInterval(() => refresh(), 8000);
 };
 
 const stopTipsInterval = () => {
@@ -41,9 +41,9 @@ const columns = [
     key: "paidAt",
     label: "Date",
   },
-  {
-    key: "actions",
-  },
+  // {
+  //   key: "actions",
+  // },
 ];
 </script>
 
@@ -54,15 +54,18 @@ const columns = [
       :rows="data"
       :columns="columns"
       class="border border-border rounded-md"
+      :ui="{
+        td: { base: 'whitespace-normal' },
+      }"
     >
       <template #paidAt-data="{ row }">
         <div class="paid-at">
           {{ new Date(row.paid_at).toLocaleString() }}
         </div>
       </template>
-      <template #actions-data="{ row }">
+      <!-- <template #actions-data="{ row }">
         <UButton>Feature</UButton>
-      </template>
+      </template> -->
       <template #empty-state>
         <NoItems />
       </template>

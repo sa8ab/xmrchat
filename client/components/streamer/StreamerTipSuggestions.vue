@@ -72,7 +72,7 @@ const rules = computed(() => {
     </div>
     <UButton
       icon="i-heroicons-plus"
-      variant="solid"
+      variant="outline"
       @click="newTier"
       size="sm"
       class="mt-2"

@@ -13,9 +13,10 @@ const props = defineProps<{
   streamerPage?: StreamerPage | null;
 }>();
 
-const { required } = useValidations();
+const { required, minLength, maxLength, minValue } = useValidations();
 const { sendTipToStreamer: sendTipToStreamerApi, getPrice: getPriceApi } =
   useServices();
+const { minXMRPayAmount } = useAppConfig();
 
 const emit = defineEmits<{
   done: [TipCreationResponse];
@@ -26,6 +27,7 @@ interface State {
   buttonsAmount: any;
   loading: boolean;
   errorMessage?: string;
+  price?: number;
 }
 
 const state = reactive<State>({
@@ -40,14 +42,23 @@ const state = reactive<State>({
   errorMessage: undefined,
 });
 
-// Vuelidatte Validation Parameteres
+onMounted(async () => {
+  state.price = await getPriceApi();
+});
+
+const minUSDAmount = computed(() => {
+  if (!state.price) return 0;
+  return (Math.ceil(minXMRPayAmount * state.price * 100) / 100).toFixed(2);
+});
 
 const v = useVuelidate<State["form"]>(
-  {
-    name: { required },
-    amount: { required },
-    message: { required },
-  },
+  computed(() => {
+    return {
+      name: { required, minLength: minLength(2), maxLength: maxLength(40) },
+      amount: { required, minValue: minValue(minUSDAmount.value) },
+      message: { minLength: minLength(3), maxLength: maxLength(255) },
+    };
+  }),
   toRef(state, "form")
 );
 
@@ -61,12 +72,17 @@ const handleSubmit = async () => {
   try {
     state.loading = true;
 
-    const price = await getPriceApi();
+    if (!state.price) {
+      state.price = await getPriceApi();
+    }
 
-    const xmrAmount = Math.round((state.form.amount / price) * 1e12).toString();
+    const xmrAmount = Math.round(
+      (state.form.amount / (state.price as number)) * 1e12
+    ).toString();
 
     const response = await sendTipToStreamerApi(props.streamerId, {
       ...state.form,
+      message: state.form.message || undefined,
       amount: xmrAmount,
     });
 
@@ -89,6 +105,8 @@ defineExpose({
     };
   },
 });
+
+const messageLength = computed(() => state.form.message?.length || 0);
 </script>
 
 <template>
@@ -136,6 +154,7 @@ defineExpose({
             :error="getValidationAttrs('message').error"
             label="Message"
             name="message"
+            :hint="`${messageLength} / 255`"
           >
             <UTextarea
               @blur="getValidationAttrs('message').onBlur"

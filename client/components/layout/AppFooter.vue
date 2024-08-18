@@ -15,6 +15,7 @@ const { socials } = useAppConfig();
           target="_blank"
         >
           <UIcon name="i-mdi-email text-xl"></UIcon>
+          <span class="sr-only">Contact via email</span>
         </UButton>
         <UButton
           variant="ghost"
@@ -24,6 +25,7 @@ const { socials } = useAppConfig();
           target="_blank"
         >
           <UIcon name="i-mdi-twitter text-xl"></UIcon>
+          <span class="sr-only">Follow us on X</span>
         </UButton>
       </div>
     </div>

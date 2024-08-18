@@ -30,7 +30,9 @@ const toggleTheme = () => (colorMode.preference = nextMode.value);
 
 <template>
   <ClientOnly>
-    <UButton @click="toggleTheme" color="gray" :icon="nextModeIcon"> </UButton>
+    <UButton @click="toggleTheme" color="gray" square :icon="nextModeIcon">
+      <span class="sr-only">Theme Color Toggle</span>
+    </UButton>
   </ClientOnly>
 </template>
 

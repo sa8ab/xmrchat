@@ -1,4 +1,5 @@
 {
   "css.lint.unknownAtRules": "ignore",
-  "scss.lint.unknownAtRules": "ignore"
+  "scss.lint.unknownAtRules": "ignore",
+  "i18n-ally.localesPaths": ["locales"]
 }

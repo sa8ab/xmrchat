@@ -53,8 +53,29 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
               </div>
               <p>
                 YouTube charges 30-50% for Superchats. Rumble 20% for Rants.
-                With XMRChat, the streamer gets 100% of your tip, directly to a
-                wallet they control.
+                With XMRChat you receive 100% of your XMR tips from fans,
+                directly to your Monero wallet.
+              </p>
+            </li>
+            <li>
+              <div class="item-header">
+                <UIcon name="i-heroicons-check-16-solid" class="icon" />
+                <span>Censorship resistant</span>
+              </div>
+              <p>
+                Accepting Monero tips allows you to have an income that is not
+                directly connected to big tech and arbitrary policy violations.
+              </p>
+            </li>
+            <li>
+              <div class="item-header">
+                <UIcon name="i-heroicons-check-16-solid" class="icon" />
+                <span>Corruption Resistant</span>
+              </div>
+              <p>
+                Many regimes seize or freeze bank accounts of political enemies.
+                Monero allows you to be your own bank with complete control of
+                your finances.
               </p>
             </li>
             <li>
@@ -74,20 +95,23 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
               </div>
               <p>
                 No need for viewers to create an account, verify their email, or
-                enter credit card info. Just go to your streamer’s page, type
-                your message and enter your XMR tip.
+                enter credit card info. Fans go to your tip page, type their
+                name, message, amount, and submit their XMR tip.
               </p>
             </li>
-
             <li>
               <div class="item-header">
                 <UIcon name="i-heroicons-check-16-solid" class="icon" />
-                <span>Censorship resistant</span>
+                <span>Open Source</span>
               </div>
               <p>
-                Streamers that tell too much truth may one day face censorship
-                not only from big tech, but from banks freezing their accounts
-                as well. Better to be prepared with another payment method.
+                XMRChat is open source. You can review the code
+                <UButton
+                  to="https://github.com/sa8ab/xmrchat"
+                  v-bind="linkProps"
+                >
+                  here</UButton
+                >.
               </p>
             </li>
           </ul>
@@ -118,9 +142,13 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                 <span>Accepted</span>
               </div>
               <p>
-                Selling your crypto for fiat on a centralized exchange creates a
-                taxable event. Avoid that hassle and expense by buying goods and
-                services from merchants that accept Monero, listed at
+                Avoid the hassle of selling your crypto on a centralized
+                exchange. Buy goods and services directly from merchants that
+                accept Monero on
+                <UButton to="https://xmrbazaar.com" v-bind="linkProps">
+                  xmrbazaar.com</UButton
+                >
+                and
                 <UButton to="https://monerica.com" v-bind="linkProps">
                   monerica.com</UButton
                 >.
@@ -145,16 +173,23 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             <li>
               <p>
                 If you already have crypto, trade for Monero (XMR) at
-                <UButton to="https://trocador.app" v-bind="linkProps">
-                  trocador.app</UButton
+                <UButton to="https://stealthex.io" v-bind="linkProps">
+                  stealthex.io</UButton
+                >
+                and others at
+                <UButton
+                  to="https://kycnot.me/?t=exchange&q=&xmr=on"
+                  v-bind="linkProps"
+                >
+                  kycnot.me</UButton
                 >.
               </p>
             </li>
             <li>
               <p>
                 Buy Monero without KYC at
-                <UButton to="https://haveno.exchange" v-bind="linkProps"
-                  >haveno.exchange</UButton
+                <UButton to="https://haveno-reto.com/" v-bind="linkProps"
+                  >haveno-reto.com</UButton
                 >. Cash by mail tutorial at
                 <UButton
                   to="https://blog.nihilism.network/servers/haveno-cashbymail/index.html"
@@ -175,11 +210,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
               <p>
                 Sell items or services for Monero at
                 <UButton to="https://xmrbazaar.com" v-bind="linkProps">
-                  xmrbazaar.com
-                </UButton>
-                and
-                <UButton to="https://moneromarket.io" v-bind="linkProps">
-                  moneromarket.io </UButton
+                  xmrbazaar.com </UButton
                 >.
               </p>
             </li>
@@ -205,7 +236,14 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                 <UButton to="https://monerica.com" v-bind="linkProps">
                   monerica.com
                 </UButton>
-                directory.
+                and
+                <UButton to="https://monerodirectory.com/" v-bind="linkProps">
+                  monerodirectory.com
+                </UButton>
+                pages and the business listings map on
+                <UButton to="https://xmrbazaar.com/" v-bind="linkProps">
+                  xmrbazaar.com </UButton
+                >.
               </p>
             </li>
           </ul>

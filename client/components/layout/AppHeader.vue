@@ -1,12 +1,20 @@
 <script setup lang="ts">
-const { toIndex, toContact, toLogin, toStreamerDisplay } = useRouteLocation();
+import type { DropdownItem } from "#ui/types";
+const {
+  toIndex,
+  toContact,
+  toLogin,
+  toStreamerDisplay,
+  toStreamerEdit,
+  toStreamer,
+} = useRouteLocation();
 
 const authStore = useAuthStore();
-const { logout } = authStore;
+const { logout, state } = authStore;
 const route = useRoute();
 
-const dropdownItems = computed(() => {
-  return [
+const dropdownItems = computed<DropdownItem[][]>(() => {
+  const res: DropdownItem[][] = [
     [
       {
         label: authStore.userEmail || "",
@@ -14,11 +22,32 @@ const dropdownItems = computed(() => {
         disabled: true,
       },
     ],
-    [
+    [],
+  ];
+
+  if (state.page) {
+    res[1].push(
+      ...[
+        {
+          label: "My Tip Page",
+          icon: "i-heroicons-banknotes",
+          to: toStreamer(state.page.path),
+        },
+        {
+          label: "Edit Tip Page",
+          icon: "i-heroicons-pencil-square",
+          click: () => navigateTo(toStreamerEdit()?.path),
+        },
+      ]
+    );
+  }
+
+  res[1].push(
+    ...[
       {
-        label: "My Page",
-        icon: "i-heroicons-user-circle",
-        to: toStreamerDisplay(),
+        label: "My Display Page",
+        icon: "i-heroicons-computer-desktop",
+        click: () => navigateTo(toStreamerDisplay()?.path),
       },
       {
         label: "Logout",
@@ -27,8 +56,10 @@ const dropdownItems = computed(() => {
           logout();
         },
       },
-    ],
-  ];
+    ]
+  );
+
+  return res;
 });
 </script>
 
@@ -38,6 +69,7 @@ const dropdownItems = computed(() => {
       <div class="flex items-center space-x-4">
         <NuxtLink class="w-[40px]" :to="toIndex()">
           <img src="/images/xmrchat-logo.png" />
+          <span class="sr-only">Home Page</span>
         </NuxtLink>
         <ul>
           <li class="flex space-x-1">
@@ -52,7 +84,12 @@ const dropdownItems = computed(() => {
           <UDropdown
             v-if="authStore.isLoggedIn"
             :items="dropdownItems"
-            :ui="{ item: { disabled: 'cursor-text select-text' } }"
+            :ui="{
+              width: 'w-auto',
+              item: {
+                disabled: 'cursor-text select-text',
+              },
+            }"
           >
             <template #account="{ item }">
               <div>

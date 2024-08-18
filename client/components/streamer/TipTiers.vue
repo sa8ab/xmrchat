@@ -10,7 +10,13 @@ const emit = defineEmits<{
 }>();
 
 const sortedTiers = computed(() =>
-  props.tiers?.toSorted((a, b) => parseInt(a.amount) - parseInt(b.amount))
+  props.tiers
+    // To prevent values like .4 instead of 0.4
+    ?.map((item) => ({
+      ...item,
+      amount: item.amount.startsWith(".") ? `0${item.amount}` : item.amount,
+    }))
+    .toSorted((a, b) => parseInt(a.amount) - parseInt(b.amount))
 );
 
 const handleClick = (item: TipTier) => {
