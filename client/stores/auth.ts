@@ -1,8 +1,9 @@
-import type { User } from "~/types";
+import type { StreamerPage, User } from "~/types";
 
 interface State {
   isLoggedIn: boolean;
   user?: User;
+  page?: StreamerPage;
 }
 
 export const useAuthStore = defineStore("auth", () => {
@@ -18,6 +19,7 @@ export const useAuthStore = defineStore("auth", () => {
   const state: State = reactive({
     isLoggedIn: false,
     user: undefined,
+    page: undefined,
   });
 
   const checkSession = async () => {
@@ -27,9 +29,11 @@ export const useAuthStore = defineStore("auth", () => {
       if (res.authenticated) {
         state.isLoggedIn = true;
         state.user = res.user;
+        state.page = getFirstStreamerPage(res.pages);
       } else {
         state.isLoggedIn = false;
         state.user = undefined;
+        state.page = undefined;
       }
 
       console.log(res);
@@ -79,6 +83,6 @@ export const useAuthStore = defineStore("auth", () => {
     userEmail,
     login,
     signup,
-    logout
+    logout,
   };
 });

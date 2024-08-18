@@ -7,7 +7,7 @@ const { getMyPage } = useServices();
 
 const { data, pending, refresh, error } = useLazyAsyncData(
   "streamer-profile",
-  () => getMyPage(),
+  () => getMyPage()
 );
 </script>
 
@@ -17,10 +17,9 @@ const { data, pending, refresh, error } = useLazyAsyncData(
       <div class="pt-4" v-if="!pending">
         <div v-if="data">
           <StreamerHeader
-            :slug="data.path"
-            actions
             :logoId="data.logo"
             :bannerId="data.cover_image"
+            :showTitle="false"
             class="mb-10"
           />
           <StreamerTipsList :slug="data.path" />

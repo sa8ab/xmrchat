@@ -7,6 +7,7 @@ export interface LoginResponse {
 export interface MeResponse {
   authenticated: boolean;
   user?: User;
+  pages?: StreamerPage[];
 }
 
 export interface User {
@@ -23,6 +24,7 @@ export interface CreateFormFields {
   view_key?: string;
   slug?: string;
   tiers?: TipTierField[];
+  twitch_channel?: string;
 }
 
 export interface TipFormFields {
@@ -55,6 +57,7 @@ export interface StreamerPage {
   payment_address?: string;
   view_key?: string;
   tiers?: TipTier[];
+  twitch_channel?: string;
 }
 
 export interface Tip {

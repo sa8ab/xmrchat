@@ -44,8 +44,6 @@ useStreamerIdSeoMeta(data);
       <template v-if="data">
         <StreamerHeader
           class="pt-2"
-          :slug="streamerId"
-          :actions="false"
           :bannerId="data?.cover_image"
           :logoId="data?.logo"
         />
