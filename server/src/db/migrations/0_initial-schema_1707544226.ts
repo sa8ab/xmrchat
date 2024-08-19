@@ -93,7 +93,7 @@ export async function up(db: Kysely<never>): Promise<void> {
 		.addColumn('name', 'varchar(32)', col => col.notNull())
 		.addColumn('amount', 'varchar(32)', col => col.notNull())
 		.addColumn('paid_amount', 'varchar(32)', col => col.defaultTo(0))
-		.addColumn('message', 'varchar(1024)', col => col.notNull())
+		.addColumn('message', 'varchar(1024)')
 		.addColumn('payment_address', 'varchar(128)', col => col.notNull())
 		.addColumn('payment_id', 'varchar(128)')
 		.addColumn('event_id', 'varchar(128)')

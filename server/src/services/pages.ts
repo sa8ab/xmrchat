@@ -1,20 +1,21 @@
 /* eslint-disable node/no-unsupported-features/es-builtins */
-
 import type { User } from 'lucia';
 
 import { db } from '../db/connect';
 import { createConnection } from '../utils/redis';
-import { makeIntegratedAddress, moneroLWS } from '../utils/monero';
+import { connectWalletRpc, getRpc, makeIntegratedAddress, moneroLWS } from '../utils/monero';
 import type { ReservationData } from '../types/reservationData';
 import type { Pages, Tips } from '../types/db';
 import { MoneroNetworkType, MoneroUtils } from 'monero-ts';
 import { page_description } from '../schemas/components/pages';
 import schedule from 'node-schedule';
+import { sql } from 'kysely';
+import type { ElysiaWS } from 'elysia/ws';
 /**
  * Retrieves information all pages.
  */
 const GetPages = async (user: User) => {
-	console.log(user.id);
+	console.log(user.id)
 	const pages = await db
 		.selectFrom('pages')
 		.where('user_id', '=', user.id)
@@ -34,12 +35,44 @@ const GetPages = async (user: User) => {
 				...page,
 				tiers: tiers, // If no tiers, this will be an empty array
 			};
-		}),
+		})
 	);
 
 	console.log(pagesWithTires);
 
 	return pagesWithTires;
+};
+const SearchPages = async (path: string = '', limit: number = 10, offset: number = 0) => {
+
+	let query = db.selectFrom('pages')
+		.leftJoin('tips', 'pages.id', 'tips.page_id')
+		.groupBy(['pages.id'])
+		.select([
+			'pages.id',
+			'pages.cover_image',
+			'pages.description',
+			'pages.logo',
+			'pages.name',
+			'pages.path',
+			'pages.featured_tip',
+			'pages.twitch_channel',
+			sql<number>`COALESCE(SUM(CAST(tips.paid_amount AS numeric)), 0)`.as('total_tipped')
+		])
+		.orderBy('total_tipped', 'desc')
+		.limit(limit)
+		.offset(offset);
+
+
+	if (path) {
+		query = query.where('path', 'like', `%${path}%`);
+	}
+
+	const result = await query.execute();
+	const pages = result.map(({ total_tipped, ...page }: any) => page);
+
+	return {
+		pages,
+	};
 };
 /**
  * Retrieves information about a specific page.
@@ -77,6 +110,7 @@ const GetPage = async (user: User | null, payload: { path: string }) => {
 	// 	tier.amount = MoneroUtils.atomicUnitsToXmr(tier.amount).toString();
 	// });
 
+
 	return { result };
 };
 
@@ -110,7 +144,7 @@ const UpdatePage = async (
 		//description?: string;
 		payment_address?: string;
 		featured_tip?: string;
-		twitch_channel?: string;
+		twitch_channel?: string | null;
 		view_key?: string;
 		logo?: string;
 		cover_image?: string;
@@ -121,18 +155,20 @@ const UpdatePage = async (
 			name: string;
 			price: string;
 		}>;
-	},
+	}
 ) => {
 	if (payload.payment_address) {
 		try {
 			await MoneroUtils.validateAddress(
 				payload.payment_address,
-				MoneroNetworkType.MAINNET,
+				MoneroNetworkType.MAINNET
 			);
 		} catch (e) {
 			return { error: 'Invalid payment address' };
 		}
 	}
+
+	console.log({ payload })
 
 	const page = await db
 		.selectFrom('pages')
@@ -148,21 +184,43 @@ const UpdatePage = async (
 		return { error: 'Page not owned by user', status: 401 };
 	}
 
-	if (
-		payload.payment_address &&
-		payload.payment_address != page.payment_address
-	) {
-		const view_key = payload.view_key || page.view_key;
+	if ((payload.payment_address && payload.payment_address != page.payment_address) && (payload.view_key && payload.view_key != page.view_key)) {
 
-		const lws = new moneroLWS();
+		const view_key = payload.view_key || page.view_key;
+		const monero_address = payload.payment_address || page.payment_address;
+		const lws = new moneroLWS()
+
+		try {
+			await lws.addAccount({
+				params: {
+					address: monero_address,
+					key: view_key
+				}
+			})
+
+		} catch (e) {
+			return {
+				error: 'Invalid payment address or view key',
+			};
+		}
+	} else if (payload.payment_address && payload.payment_address != page.payment_address) {
+
+
+		const view_key = payload.view_key || page.view_key;
+		// const monero = await getRpc();
+		const lws = new moneroLWS()
 
 		try {
 			await lws.addAccount({
 				params: {
 					address: payload.payment_address,
-					key: view_key,
-				},
-			});
+					key: view_key
+				}
+			})
+			// await monero.createWallet({
+			// 	primaryAddress: payload.payment_address,
+			// 	privateViewKey: view_key,
+			// });
 		} catch (e) {
 			return {
 				error: 'Invalid payment address or view key',
@@ -172,15 +230,21 @@ const UpdatePage = async (
 		// monero.close();
 	} else if (payload.view_key && payload.view_key != page.view_key) {
 		const monero_address = payload.payment_address || page.payment_address;
-		const lws = new moneroLWS();
+		// const monero = await getRpc();
+		const lws = new moneroLWS()
 
 		try {
 			await lws.addAccount({
 				params: {
 					address: monero_address,
-					key: payload.view_key,
-				},
-			});
+					key: payload.view_key
+				}
+			})
+
+			// await monero.createWallet({
+			// 	primaryAddress: monero_address,
+			// 	privateViewKey: payload.view_key,
+			// });
 		} catch (e) {
 			return {
 				error: 'Invalid payment address or view key',
@@ -190,8 +254,7 @@ const UpdatePage = async (
 		// monero.close();
 	}
 
-	payload.cover_image =
-		payload.cover_image === '' ? undefined : payload.cover_image;
+	payload.cover_image = payload.cover_image === '' ? undefined : payload.cover_image;
 	payload.logo = payload.logo === '' ? undefined : payload.logo;
 
 	const update = await db
@@ -201,7 +264,7 @@ const UpdatePage = async (
 			//description: payload.description,
 			payment_address: payload.payment_address,
 			featured_tip: payload.featured_tip,
-			twitch_channel: payload.twitch_channel,
+			twitch_channel: !!payload.twitch_channel ? payload.twitch_channel : null,
 			view_key: payload.view_key,
 			logo: payload.logo,
 			cover_image: payload.cover_image,
@@ -216,6 +279,9 @@ const UpdatePage = async (
 	}
 
 	if (payload.tiers) {
+
+
+
 		for (const tier of payload.tiers) {
 			const valid = MoneroUtils.xmrToAtomicUnits(tier.price);
 			// eslint-disable-next-line node/no-unsupported-features/es-builtins
@@ -233,10 +299,10 @@ const UpdatePage = async (
 			await db
 				.insertInto('page_tiers')
 				.values([
-					...payload.tiers.map((tier) => ({
+					...payload.tiers.map(tier => ({
 						page_id: page.id,
 						name: tier.name,
-						amount: tier.price,
+						amount: tier.price
 					})),
 				])
 				.execute();
@@ -252,17 +318,18 @@ const TipPage = async (payload: {
 	path: string;
 	amount: string;
 	name: string;
-	message: string;
+	message?: string;
 	private: boolean;
 }) => {
-	console.log(payload.amount, typeof payload.amount);
-	console.log(process.env.MIN_TIP_AMOUNT, typeof process.env.MIN_TIP_AMOUNT);
+	console.log(payload.amount, typeof payload.amount)
+	console.log(process.env.MIN_TIP_AMOUNT, typeof process.env.MIN_TIP_AMOUNT)
 
 	// eslint-disable-next-line node/no-unsupported-features/es-builtins
 	if (BigInt(payload.amount) < BigInt(process.env.MIN_TIP_AMOUNT)) {
+
 		return {
 			error: `Amount too low. In order to prevent spam, the minimum tip amount is ${MoneroUtils.atomicUnitsToXmr(
-				process.env.MIN_TIP_AMOUNT,
+				process.env.MIN_TIP_AMOUNT
 			).toString()} XMR.`,
 			status: 400,
 		};
@@ -278,42 +345,60 @@ const TipPage = async (payload: {
 		return { error: 'Page not found', status: 404 };
 	}
 
-	const address = makeIntegratedAddress(page.payment_address);
-	const lws = new moneroLWS();
-	// TODO: FIX THIS ON WEBHOOK
+	// const monero = await getRpc();
+	// let wallet;
+	const address = makeIntegratedAddress(page.payment_address)
+	const lws = new moneroLWS()
+	// TODO: FIX THIS ON WEBHOOK 
 	try {
+		// wallet = await monero.createWallet({
+		// 	primaryAddress: page.payment_address,
+		// 	privateViewKey: page.view_key,
+		// });
 		const craetedAccount = await lws.addAccount({
 			params: {
 				address: page.payment_address,
 				key: page.view_key,
-			},
-		});
-		console.log('craetedWebhook', craetedAccount);
+			}
+		})
+		console.log('craetedWebhook', craetedAccount)
 	} catch (e) {
-		console.log("error", e);
+		console.log("error", e)
 	}
-	let event_id = "";
+	// const height = await monero.getHeight()
+	let event_id = ""
 	try {
+		// wallet = await monero.createWallet({
+		// 	primaryAddress: page.payment_address,
+		// 	privateViewKey: page.view_key,
+		// });
 		const craetedWebhook = await lws.addWebhook({
 			params: {
 				type: "tx-confirmation",
 				address: page.payment_address,
 				payment_id: address.paymentId,
-			},
-		});
-		event_id = craetedWebhook.event_id;
-		console.log('craetedWebhook', craetedWebhook);
+			}
+		})
+		event_id = craetedWebhook.event_id
+		console.log('craetedWebhook', craetedWebhook)
 	} catch (e) {
+		console.log(e)
 		return {
 			error: 'This page has not set up tipping. Please try again later.',
 		};
 	}
-	console.log('sync');
+	console.log('sync')
 
-	console.log('address end1,', address);
 
-	console.log('address end2');
-	console.log('address end3');
+	// const address = await wallet.getIntegratedAddress();
+
+	console.log('address end1,', address)
+
+	// await wallet.close();
+	console.log('address end2')
+	// const height = await wallet.getHeight()
+	// await monero.close();
+	console.log('address end3')
 
 	const tip = await db
 		.insertInto('tips')
@@ -325,7 +410,7 @@ const TipPage = async (payload: {
 			private: payload.private,
 			payment_address: address.integratedAddress,
 			payment_id: address.paymentId,
-			height: 0, // start syncing from this height
+			height: process.env.WALLET_HEIGHT, // start syncing from this height
 			// height: height,
 			event_id,
 			paid: false,
@@ -336,7 +421,7 @@ const TipPage = async (payload: {
 	if (!tip) {
 		return { error: 'Something went wrong', status: 500 };
 	}
-	console.log("id: tip.id", { id: tip.id });
+	console.log("id: tip.id", { id: tip.id, })
 
 	return {
 		payment_address: address.integratedAddress,
@@ -346,11 +431,121 @@ const TipPage = async (payload: {
 };
 
 /**
+ * Checks if a tip has been paid.
+ */
+// const CheckTip = async (payload: { id: string }) => {
+
+
+// 	console.log(payload.id)
+// 	const tip = await db
+// 		.selectFrom('tips')
+// 		.select([
+// 			'paid',
+// 			'paid_at',
+// 			'payment_address',
+// 			'page_id',
+// 			'amount',
+// 			'height',
+// 		])
+// 		.where('id', '=', payload.id)
+// 		.executeTakeFirst();
+
+// 	if (!tip) {
+// 		return { error: 'Tip not found', status: 404 };
+// 	}
+
+// 	if (tip.paid) {
+// 		return {
+// 			paid: true,
+// 			paid_at: tip.paid_at,
+// 		};
+// 	}
+
+// 	const page = await db
+// 		.selectFrom('pages')
+// 		.select(['view_key', 'payment_address'])
+// 		.where('id', '=', tip.page_id)
+// 		.executeTakeFirst();
+
+// 	if (!page) {
+// 		return { error: 'Page not found', status: 404 };
+// 	}
+
+// 	const monero = await getRpc();
+// 	let wallet;
+// 	let paid;
+// 	let paid_at
+// 	try {
+
+// 		wallet = await monero.createWallet({
+// 			primaryAddress: page.payment_address,
+// 			privateViewKey: page.view_key,
+// 			restoreHeight: tip.height,
+
+// 		});
+// 		await wallet.startSyncing(0);
+
+
+// 		// Wait five seconds for the wallet to sync.
+// 		// This is not the best way to do this.
+// 		await new Promise(resolve => {
+// 			setTimeout(() => {
+// 				resolve(false);
+// 			}, 30000);
+// 		});
+
+// 		const balance1 = await wallet.getBalance();
+// 		console.log('balance1', balance1)
+// 		const height = await wallet.getHeight()
+// 		console.log('height', height)
+
+// 		const transactions = await wallet.getIncomingTransfers({
+// 			// address: tip.payment_address
+// 		})
+// 		console.log(transactions)
+// 		const balance = transactions.reduce((acc, transaction) => {
+// 			console.log(acc, transaction)
+// 			return acc + transaction.amount
+// 		}, BigInt(0))
+
+// 		paid = balance >= BigInt(tip.amount);
+// 		paid_at = paid ? new Date() : null;
+
+// 		if (paid) {
+// 			await db
+// 				.updateTable('tips')
+// 				.set({
+// 					paid,
+// 					paid_at,
+// 				})
+// 				.where('id', '=', payload.id)
+// 				.execute();
+// 		}
+
+
+// 	} catch (error) {
+// 		return {
+// 			error: 'This page has not set up tipping. Please try again later.',
+// 		};
+
+// 	} finally {
+// 		await wallet.close();
+
+// 	}
+// 	return {
+// 		paid,
+// 		paid_at,
+// 	};
+// };
+
+/**
  * Checks if a tip has been paid just from database.
  */
-const GetTipPaidStatus = async (ws, tipId) => {
+const GetTipPaidStatus = async (ws: ElysiaWS<any>, tipId: string) => {
+
 	try {
-		console.log(tipId);
+
+		console.log(tipId)
 		const tip = await db
 			.selectFrom('tips')
 			.select([
@@ -367,17 +562,17 @@ const GetTipPaidStatus = async (ws, tipId) => {
 		if (!tip) {
 			ws.send({ error: 'Tip not found', status: 404 });
 			ws.close();
-			return;
+			return
 		}
-		console.log('tip', tip, !tip);
+		console.log('tip', tip, !tip)
 
 		if (tip.paid) {
 			ws.send({
 				paid: true,
 				paid_at: tip.paid_at,
 			});
-			ws.close();
-			return;
+			ws.close()
+			return
 		}
 
 		const page = await db
@@ -386,23 +581,64 @@ const GetTipPaidStatus = async (ws, tipId) => {
 			.where('id', '=', tip.page_id)
 			.executeTakeFirst();
 
-		console.log('page', page, !page);
+		console.log('page', page, !page)
 		if (!page) {
 			ws.send({ error: 'Page not found', status: 404 });
+
 		}
 
-		const updatePaidStatus = async (
-			ws,
-			tip,
-			page,
-			startDate = new Date(),
-		) => {
+
+
+
+		const updatePaidStatus = async (ws: ElysiaWS<any>, tip, page, startDate = new Date()) => {
+
 			let response;
 			let wallet;
 			let paid;
-			let paid_at;
+			let paid_at
 
+			// const monero = await getRpc();
 			try {
+
+
+				// wallet = await monero.createWallet({
+				// 	primaryAddress: page.payment_address,
+				// 	privateViewKey: page.view_key,
+				// 	restoreHeight: tip.height,
+				// });
+				// await wallet.startSyncing(0);
+
+
+				// Wait five seconds for the wallet to sync.
+				// This is not the best way to do this.
+				// await new Promise(resolve => {
+				// 	setTimeout(() => {
+				// 		resolve(false);
+				// 	}, 10000);
+				// });
+
+				// const balance = await wallet.getBalance();
+
+				// const transactions = await wallet.getIncomingTransfers({
+				// 	address: tip.payment_address
+				// })
+				// const balance = transactions.reduce((acc, transaction) => {
+				// 	return acc + transaction.amount
+				// }, BigInt(0))
+
+				// paid = balance >= BigInt(tip.amount);
+				// paid_at = paid ? new Date() : null;
+
+				// if(paid){}
+				// await db
+				// 	.updateTable('tips')
+				// 	.set({
+				// 		paid,
+				// 		paid_at,
+				// 	})
+				// 	.where('id', '=', tipId)
+				// 	.execute();
+				// }
 				tip = await db
 					.selectFrom('tips')
 					.select([
@@ -416,49 +652,56 @@ const GetTipPaidStatus = async (ws, tipId) => {
 					.where('id', '=', tip.id)
 					.executeTakeFirst();
 
-				console.log('run cron');
+
+				console.log('run cron')
 			} catch (error) {
+				// ws.send({
+				// 	error: 'This page has not set up tipping. Please try again later.',
+				// });
 				response = {
 					error: 'This page has not set up tipping. Please try again later.',
-				};
+				}
 
 				// return {
 				// 	error: 'This page has not set up tipping. Please try again later.',
 				// };
-				console.log('error cron');
+				console.log('error cron')
+
 			} finally {
-				console.log('finally');
+				console.log('finally')
 				// await wallet.close();
 
 				// await wallet.close();
 				// await monero.close()
+
 			}
 
+
 			response = {
-				...tip,
-			};
+				...tip
+			}
 			// console.log(ws, ws.CLOSED, ws.readyState)
-			if (
-				!paid &&
-				startDate.getTime() + 6 * 100000 > new Date().getTime()
-			)
-				schedule.scheduleJob(
-					new Date(Date.now() + 60000),
-					updatePaidStatus.bind(null, ws, tip, page, startDate),
-				);
+			if (!paid && (startDate.getTime() + (6 * 100000)) > (new Date()).getTime()) schedule.scheduleJob(new Date(Date.now() + 60000), updatePaidStatus.bind(null, ws, tip, page, startDate));
 			// 434a78cf-b899-4ec2-b768-e614b4f244e1
-			//
-			console.log('cron response', response);
-			if (ws.raw.readyState == 1) ws.send(response);
-		};
+			// 
+			console.log('cron response', response)
+			if (ws.raw.readyState == 1) ws.send(response)
+
+		}
 
 		// schedule.scheduleJob(new Date(Date.now() + 3 * 60000),updatePaidStatus.bind(null, ws, tip, page, monero) );
 		await updatePaidStatus(ws, tip, page);
 		// await monero.close();
+
 	} catch (error) {
-		ws.send({ error });
-		console.log(error);
+
+
+		ws.send({ error })
+		console.log(error)
 	}
+
+
+
 };
 
 /**
@@ -490,12 +733,12 @@ const GetTips = async (user: User | null, payload: { path: string }) => {
 			return tip;
 		});
 
-		tips = tips.filter((tip) => !tip.private);
+		tips = tips.filter(tip => !tip.private);
 	}
 
 	tips.forEach(
-		(tip) =>
-			(tip.amount = MoneroUtils.atomicUnitsToXmr(tip.amount).toString()),
+		tip =>
+			(tip.amount = MoneroUtils.atomicUnitsToXmr(tip.amount).toString())
 	);
 
 	return tips;
@@ -511,6 +754,7 @@ const ReserveSlug = async (
 
 		//name: string;
 		//description: string;
+		twitch_channel?: string;
 		payment_address: string;
 		view_key: string;
 		logo?: string;
@@ -520,7 +764,7 @@ const ReserveSlug = async (
 			name: string;
 			price: string;
 		}>;
-	},
+	}
 ) => {
 	const reserved = await CheckSlug(user, payload);
 	if (!reserved.available) {
@@ -533,43 +777,51 @@ const ReserveSlug = async (
 
 	await MoneroUtils.validateAddress(
 		payload.payment_address,
-		MoneroNetworkType.MAINNET,
+		MoneroNetworkType.MAINNET
 	).catch(() => {
 		throw new Error('Invalid payment address');
 	});
 
 	const reservationTimestamp =
-		new Date(Date.now() + 60 * 60 * 1000).getTime() / 1000;
+		new Date(
+			Date.now() + 60 * 60 * 1000
+		).getTime() / 1000;
 
-	const integratedAddress = makeIntegratedAddress(
-		process.env.MONERO_ADMIN_WALLET_PRIMARY_ADDRESS,
-	);
+	// const monero = await connectWalletRpc();
+	// const paymentAddress = await monero.createSubaddress(
+	// 	process.env.WALLET_ACCOUNT,
+	// 	`slug:${payload.slug}`
+	// );
 
-	console.log('const lws = new moneroLWS()');
+	const integratedAddress = makeIntegratedAddress("466P1SSsfL3cTX4T2jN2ueDt5RWxPw34F522xSCxusKJFQEvXpvgmckWSMsuPHJ7AvDtt6V2VF4UE3MjoZs5UCMBPWqKBZp")
 
-	const lws = new moneroLWS();
-	console.log('const lws = new moneroLWS()');
+	console.log('const lws = new moneroLWS()')
+
+	const lws = new moneroLWS()
+	console.log('const lws = new moneroLWS()')
+
 
 	try {
 		await lws.addAccount({
 			params: {
-				address: process.env.MONERO_ADMIN_WALLET_PRIMARY_ADDRESS,
-				key: process.env.MONERO_ADMIN_WALLET_PRIVATE_VIEW_KEY,
-			},
-		});
+				address: '466P1SSsfL3cTX4T2jN2ueDt5RWxPw34F522xSCxusKJFQEvXpvgmckWSMsuPHJ7AvDtt6V2VF4UE3MjoZs5UCMBPWqKBZp',
+				key: 'a2f066f06f99bb5a0eee88b641683a258fd22b69a4cb075ea431f6aa2f40330c'
+			}
+		})
 	} catch (error) {
-		console.log('err acccc', error.response, error.message);
+		console.log('err acccc', error.response, error.message)
 	}
 
-	console.log('BEFORE WEBHOOK');
+	console.log('BEFORE WEBHOOK')
 	await lws.addWebhook({
 		params: {
-			address: process.env.MONERO_ADMIN_WALLET_PRIMARY_ADDRESS,
+			address: '466P1SSsfL3cTX4T2jN2ueDt5RWxPw34F522xSCxusKJFQEvXpvgmckWSMsuPHJ7AvDtt6V2VF4UE3MjoZs5UCMBPWqKBZp',
 			payment_id: integratedAddress.paymentId,
 			token: 'streamer-' + payload.slug,
 			type: "tx-confirmation",
-		},
-	});
+		}
+	})
+
 
 	const data: ReservationData = {
 		user_id: user.id,
@@ -579,14 +831,15 @@ const ReserveSlug = async (
 		tiers: payload.tiers,
 		paid_amount: 0,
 		//name: payload.name,
-
+		twitch_channel: payload.twitch_channel,
 		//description: payload.description,
-		payment_address: integratedAddress.integratedAddress,
+		payment_address: payload.payment_address,
 		view_key: payload.view_key,
 		logo: payload.logo,
 		cover_image: payload.cover_image,
 		adult: payload.adult,
 	};
+
 
 	const redis = await createConnection();
 	await redis.set(`slug:${payload.slug}`, JSON.stringify(data), {
@@ -597,7 +850,7 @@ const ReserveSlug = async (
 	return {
 		payment_address: integratedAddress.integratedAddress,
 		amount: MoneroUtils.atomicUnitsToXmr(
-			process.env.SLUG_RESERVE_AMOUNT,
+			process.env.SLUG_RESERVE_AMOUNT
 		).toString(),
 		reservation_timestamp: reservationTimestamp,
 	};
@@ -610,7 +863,7 @@ const CheckSlugReservation = async (
 	user: User,
 	payload: {
 		slug: string;
-	},
+	}
 ) => {
 	const redis = await createConnection();
 	const reservation = await redis.get(`slug:${payload.slug}`);
@@ -624,6 +877,64 @@ const CheckSlugReservation = async (
 	if (reservationData.user_id !== user.id) {
 		return { error: 'Unauthorized' };
 	}
+
+	// const monero = await connectWalletRpc();
+	// const balance = await monero.getBalance(
+	// 	process.env.WALLET_ACCOUNT,
+	// 	reservationData.index
+	// );
+
+
+	// eslint-disable-next-line node/no-unsupported-features/es-builtins
+	// const paid = balance >= BigInt(reservationData.amount);
+
+	// if (paid) {
+	// 	//TODO atomicity
+	// 	const redis = await createConnection();
+	// 	await redis.del(`slug:${payload.slug}`);
+	// 	redis.disconnect();
+
+	// 	const tiers = reservationData.tiers
+	// 	delete reservationData.tiers;
+	// 	const id = await db
+	// 		.insertInto('pages')
+	// 		.values({
+	// 			name: '',
+	// 			path: payload.slug,
+	// 			//description: reservationData.description,
+	// 			adult: reservationData.adult,
+	// 			payment_address: reservationData.payment_address,
+	// 			user_id: user.id,
+	// 			logo: reservationData.logo,
+	// 			cover_image: reservationData.cover_image,
+	// 			view_key: reservationData.view_key,
+	// 		})
+	// 		.returning('id')
+	// 		.execute();
+
+	// 	if (tiers && tiers.length != 0) {
+	// 		await db
+	// 			.insertInto('page_tiers')
+	// 			.values(tiers.map(tier => ({
+	// 				name: tier.name,
+	// 				page_id: id,
+	// 				amount: tier.price
+
+	// 			})))
+	// 			.execute();
+
+
+	// 	}
+
+	// 	return {
+	// 		paid,
+	// 		page_id: id,
+	// 	};
+	// }
+
+	// return {
+	// 	paid,
+	// };
 };
 
 /**
@@ -646,7 +957,7 @@ const GetTiers = async (payload: { path: string }) => {
 		.where('page_id', '=', page.id)
 		.execute();
 
-	tiers.forEach((tier) => {
+	tiers.forEach(tier => {
 		tier.amount = MoneroUtils.atomicUnitsToXmr(tier.amount).toString();
 	});
 
@@ -662,7 +973,7 @@ const CreateTier = async (
 		path: string;
 		name: string;
 		amount: string;
-	},
+	}
 ) => {
 	const amount = MoneroUtils.xmrToAtomicUnits(payload.amount).toString();
 
@@ -670,7 +981,7 @@ const CreateTier = async (
 	if (BigInt(amount) < BigInt(process.env.MIN_TIP_AMOUNT)) {
 		return {
 			error: `Amount too low. In order to prevent spam, the minimum tip amount is ${MoneroUtils.atomicUnitsToXmr(
-				process.env.MIN_TIP_AMOUNT,
+				process.env.MIN_TIP_AMOUNT
 			).toString()} XMR.`,
 			status: 400,
 		};
@@ -709,11 +1020,14 @@ const CreateTier = async (
 	};
 };
 
+
+
 export default {
 	GetPages,
 	GetPage,
 	UpdatePage,
 	TipPage,
+	SearchPages,
 	// CheckTip,
 	GetTips,
 	GetTipPaidStatus,

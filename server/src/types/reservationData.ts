@@ -1,11 +1,10 @@
-
 export type ReservationData = {
 	user_id: string;
 	slug: string;
 	index: number;
 	amount: string;
 	paid_amount: number;
-
+	twitch_channel?: string;
 	//name: string;
 	//description: string;
 	payment_address: string;

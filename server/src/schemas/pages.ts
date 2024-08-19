@@ -1,10 +1,7 @@
-
 import { t } from 'elysia';
 import { PageObject, TipObject } from './_objects';
 import {
 	adult,
-	page_description,
-	page_name,
 	page_path,
 	twitch_channel,
 } from './components/pages';
@@ -33,7 +30,7 @@ export const UpdatePageSchema = {
 			//description: t.Optional(page_description),
 			payment_address: t.Optional(payment_address),
 			featured_tip: t.Optional(ids.tip_id),
-			twitch_channel: t.Optional(twitch_channel),
+			twitch_channel: t.Optional(twitch_channel) || null,
 			view_key: t.Optional(view_key),
 			logo: t.Optional(t.String()),
 			cover_image: t.Optional(t.String()),
@@ -77,6 +74,7 @@ export const ReserveSlugSchema = {
 			//description: page_description,
 			payment_address,
 			view_key,
+			twitch_channel: t.Optional(t.String()),
 			logo: t.Optional(t.String()),
 			cover_image: t.Optional(t.String()),
 			adult,
@@ -115,7 +113,7 @@ export const TipPageSchema = {
 		body: t.Object({
 			name: tip_name,
 			amount,
-			message,
+			message: t.Optional(message),
 			private: tip_private,
 		}),
 		params: t.Object({

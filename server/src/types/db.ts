@@ -1,4 +1,4 @@
-import type {ColumnType} from 'kysely';
+import type { ColumnType } from 'kysely';
 
 export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
 	? ColumnType<S, I | undefined, U>
@@ -35,11 +35,14 @@ export interface Tips {
 	amount: string;
 	creation: Generated<Timestamp>;
 	id: Generated<string>;
-	message: string;
+	message: string | null;
 	page_id: string;
 	paid: Generated<boolean>;
 	paid_at: Timestamp | null;
 	payment_address: string;
+	paid_amount?: string;
+	event_id?: string;
+	payment_id: string;
 	private: Generated<boolean>;
 	name: string;
 	tier_id: string | null;
@@ -54,7 +57,6 @@ export interface Users {
 	password_salt: string;
 	username: string;
 }
-
 export interface Settings {
 	creation: Generated<Timestamp>;
 	id: Generated<string>;

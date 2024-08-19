@@ -1,4 +1,3 @@
-
 import { t } from 'elysia';
 import {
 	amount,
@@ -72,7 +71,6 @@ export const PageObject = t.Object({
 	creation,
 	tiers: t.Optional(t.Array(PageTierObject))
 });
-
 
 export const SettingObject = t.Object({
 	id: ids.page_id,

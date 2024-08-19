@@ -3,6 +3,16 @@ import { client } from 'tmi.js'
 import { type Options, Client } from 'tmi.js'
 import { db } from '../db/connect';
 import schedule from 'node-schedule';
+import {
+    TextCensor,
+    RegExpMatcher,
+    englishDataset,
+    englishRecommendedTransformers,
+} from 'obscenity';
+const badWordMatcher = new RegExpMatcher({
+    ...englishDataset.build(),
+    ...englishRecommendedTransformers,
+});
 
 interface refreshTokenResponse {
     "access_token": string;
@@ -23,6 +33,7 @@ export default class Twitch {
 
     public twitchClient: Client;
     constructor(channel: string, ops: Options) {
+        console.log({ twitchOPS: ops })
         ops.channels = [channel]
         const twitchClient = new client(ops);
 
@@ -36,6 +47,7 @@ export default class Twitch {
     }
 
     public static async getInstance(channel: string) {
+
 
         const twitchSettingsRaw = await db
             .selectFrom('settings')
@@ -52,7 +64,13 @@ export default class Twitch {
             }
         }
 
+        const configs = await Twitch.tokenUpdating()
 
+
+        console.log({ lastSetting: twitchSettings })
+
+
+        console.log('TWITCHHH', { configs, twitchSettings })
         const ops: Options = {
             options: {
                 debug: true,
@@ -60,19 +78,28 @@ export default class Twitch {
             },
             identity: {
                 username: Twitch.botName,
-                password: 'oauth:' + twitchSettings.access_token
+                password: 'oauth:' + configs?.access_token
             }
         }
 
         return new Twitch(channel, ops)
+    }
+    public static clearMessage(message: string) {
+        const censor = new TextCensor()
+        const matches = badWordMatcher.getAllMatches(message);
+        const clearedMessaged = censor.applyTo(message, matches)
+        console.log(clearedMessaged)
     }
 
 
     public async sendMessage(message: string) {
         try {
             console.log('sendMessage is called.')
+            const censor = new TextCensor()
+            const matches = badWordMatcher.getAllMatches(message);
+            const clearedMessaged = censor.applyTo(message, matches)
             await this.twitchClient.connect();
-            await this.twitchClient.say(this.channel, message);
+            await this.twitchClient.say(this.channel, clearedMessaged);
             await this.twitchClient.disconnect();
         } catch (error) {
             console.log('ERROR at twitch message sending:', error)
@@ -93,6 +120,7 @@ export default class Twitch {
                 .select(['id', 'key', 'value'])
                 .where('key', '=', 'twitch')
                 .executeTakeFirst();
+            console.log({ twitchSettingsRaw })
             let twitchSettings
             if (!!twitchSettingsRaw) {
                 twitchSettings = JSON.parse(twitchSettingsRaw?.value || '')
@@ -102,6 +130,7 @@ export default class Twitch {
                     refresh_token: Twitch.initialRefreshToken
                 }
             }
+            console.log({ twitchSettings })
             const params = new URLSearchParams();
             params.append('grant_type', 'refresh_token');
             params.append('refresh_token', twitchSettings.refresh_token);
@@ -109,21 +138,41 @@ export default class Twitch {
             params.append('client_secret', Twitch.clientSecret);
 
             const response = (await axios.post('https://id.twitch.tv/oauth2/token', params)).data
-            
+            console.log({ response }, response.access_token, response.refresh_token)
+
+            if (!!twitchSettingsRaw) {
+                const result = {
+                    refresh_token: response.refresh_token,
+                    access_token: response.access_token,
+                    expires_in: response.expires_in
+                }
+                await db
+                    .updateTable('settings')
+                    .set({
+                        key: 'twitch',
+                        value: JSON.stringify(result),
+                    })
+                    .where('key', '=', 'twitch')
+                    .execute()
+                return result
+            }
+
+            const result = {
+                refresh_token: response.refresh_token,
+                access_token: response.access_token,
+                expires_in: response.expires_in
+            }
             await db
                 .insertInto('settings')
                 .values({
                     key: 'twitch',
-                    value: JSON.stringify({
-                        refresh_token: response.refresh_token,
-                        access_token: response.access_token,
-                        expires_in: response.expires_in
-                    }),
+                    value: JSON.stringify(result),
                 })
                 .execute();
+            return result
 
         } catch (error) {
-            console.log('ERROR at twitch refresh token api', error.response)
+            console.log('ERROR at twitch refresh token api', (error as any).response)
         }
     }
 

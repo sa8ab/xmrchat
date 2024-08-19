@@ -1,4 +1,3 @@
-
 import { Elysia } from 'elysia';
 import { swagger } from '@elysiajs/swagger';
 import { autoload } from 'elysia-autoload';
@@ -57,12 +56,9 @@ const app = new Elysia()
 
 				console.log('WebSocket connection closed on: ', id);
 			},
-			error(ws, error) {
-				const id = ws.data.params.id;
+			error(error) {
 
 				console.error('WebSocket error:', error);
-				if (id.slice(0, 5) == 'user-') { notificationEmitter.removeAllListeners('user:' + id.slice(5)); }
-				if (id.slice(0, 4) == 'tip-') { notificationEmitter.removeAllListeners('tip:' + id.slice(4)); }
 
 			},
 
@@ -131,6 +127,7 @@ const app = new Elysia()
 
 			try {
 				await Twitch.tokenUpdatingSchedule()
+
 			} catch (error) {
 				console.log('ERROR at twich token updating scheduler:', error)
 			}

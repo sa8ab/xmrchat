@@ -1,7 +1,7 @@
+import moneroTs, { MoneroUtils } from 'monero-ts';
 import { base58xmr } from "@scure/base";
 import { keccak_256 } from "@noble/hashes/sha3";
 import { bytesToHex, randomBytes, hexToBytes } from "@noble/hashes/utils";
-import { MoneroUtils } from 'monero-ts';
 import axios from 'axios';
 import { db } from '../db/connect';
 import { createConnection } from '../utils/redis';
@@ -9,10 +9,39 @@ import type { ReservationData } from '../types/reservationData';
 import { notificationEmitter } from '../events/notification.event';
 import Twitch from './twitch';
 import TTLCache from '@isaacs/ttlcache';
-
-
+import { sendReportEmail } from './mailer';
 const priceCache = new TTLCache({ ttl: 60 * 1000 });
 
+
+/**
+ * Connects to the Monero wallet RPC.
+ */
+export const getRpc = async () => {
+	const monero = await moneroTs.connectToWalletRpc(
+		`${process.env.WALLET_RPC_HOST}:${process.env.WALLET_RPC_PORT}`,
+		process.env.WALLET_RPC_USER,
+		process.env.WALLET_RPC_PASSWORD
+	);
+
+	return monero;
+};
+
+/**
+ * Connects to the Monero wallet RPC and opens the server wallet.
+ */
+export const connectWalletRpc = async () => {
+	const monero = await moneroTs.connectToWalletRpc(
+		`${process.env.WALLET_RPC_HOST}:${process.env.WALLET_RPC_PORT}`,
+		process.env.WALLET_RPC_USER,
+		process.env.WALLET_RPC_PASSWORD
+	);
+	const wallet = await monero.openWallet(
+		process.env.WALLET_NAME,
+		process.env.WALLET_PASSWORD
+	);
+
+	return wallet;
+};
 
 
 export const getMoneroToUSDPrice = async () => {
@@ -45,22 +74,21 @@ export const getMoneroToUSDPrice = async () => {
 
 }
 
+
 function keccak(bytes: any) {
-	const h = keccak_256.create();
+	var h = keccak_256.create();
 	h.update(bytes);
-	const digest = h.digest();
+	var digest = h.digest();
 	return digest;
 }
 
-export const makeIntegratedAddress = (
-	primary_address_base58: string,
-	payment_id_hex = '',
-): { integratedAddress: string; paymentId: string } => {
+
+export const makeIntegratedAddress = (primary_address_base58: string, payment_id_hex = ''): { integratedAddress: string, paymentId: string } => {
 	// Get public spend key, public view key from address
-	const primary_address = base58xmr.decode(primary_address_base58);
-	const network = primary_address.slice(0, 1);
-	const public_spend_key = primary_address.slice(1, 33);
-	const public_view_key = primary_address.slice(33, 65);
+	var primary_address = base58xmr.decode(primary_address_base58);
+	var network = primary_address.slice(0, 1);
+	var public_spend_key = primary_address.slice(1, 33);
+	var public_view_key = primary_address.slice(33, 65);
 	var checksum = primary_address.slice(65, 69);
 	if (payment_id_hex) {
 		// Use provided payment ID
@@ -70,21 +98,18 @@ export const makeIntegratedAddress = (
 		var payment_id = randomBytes(8);
 	}
 	// Encode integrated address
-	const integrated_address = new Uint8Array(77);
+	var integrated_address = new Uint8Array(77);
 	integrated_address[0] = 0x13;
 	integrated_address.set(public_spend_key, 1);
 	integrated_address.set(public_view_key, 33);
 	integrated_address.set(payment_id, 65);
-	const hash = keccak(integrated_address.slice(0, 73));
+	var hash = keccak(integrated_address.slice(0, 73));
 	var checksum = hash.slice(0, 4);
 	integrated_address.set(checksum, 73);
-	const integrated_address_base58 = base58xmr.encode(integrated_address);
+	var integrated_address_base58 = base58xmr.encode(integrated_address);
 	var payment_id_hex = bytesToHex(payment_id);
-	return {
-		integratedAddress: integrated_address_base58,
-		paymentId: payment_id_hex,
-	};
-};
+	return { integratedAddress: integrated_address_base58, paymentId: payment_id_hex };
+}
 
 interface Id {
 	high: number;
@@ -115,20 +140,25 @@ interface event {
 	tx_info: Txinfo;
 }
 
+
 export class moneroLWS {
 	public client = axios.create({
-		baseURL: process.env.MONERO_LWS_URL,
+		baseURL: 'http://lws:8443/admin/',
 		headers: { "Content-Type": "application/json" },
 	});
-	public webhookUrl =
-		process.env.MONERO_LWS_WEBHOOK_URL +
-		'/' +
-		process.env.MONERO_LWS_WEBHOOK_SECURE_TOKEN;
+	public webhookUrl = 'http://backend:3000/api/v1/webhooks/hiqkOA7aqLByc82XBPIqOJUMHSyivfmUVCWKoJm5XbuAr3QXrTzYJB4HJUED'
+	// public auth = "";
+
+	// constructor(auth = '') {
+	// 	if (auth) {
+	// 		this.auth = auth;
+	// 	}
+	// }
 
 	public async addAccount(data: {
 		params: { address: string; key: string };
 	}) {
-		console.log('addAccount START');
+		console.log('addAccount START')
 		const res = await this.client.post("/add_account", data);
 		return res.data;
 	}
@@ -146,9 +176,10 @@ export class moneroLWS {
 			const res = await this.client.post("/list_accounts", {});
 			return res.data;
 		} catch (error) {
-			console.log({ error });
-			return error.data;
+			console.log({ error })
+			return (error as any).data
 		}
+
 	}
 
 	public async addWebhook(data: {
@@ -168,7 +199,7 @@ export class moneroLWS {
 	}> {
 		console.log("WLS RES ADD WEBHOOK START", data);
 
-		data.params.url = this.webhookUrl;
+		data.params.url = this.webhookUrl
 		const res = await this.client.post("/webhook_add", data);
 		console.log("WLS RES ADD WEBHOOK:", res.data);
 		return res.data;
@@ -187,83 +218,83 @@ export class moneroLWS {
 	public async eventHandler(event: event) {
 		switch (event.event) {
 			case 'tx-confirmation': {
+
 				if (!!event.token && event.token.slice(0, 9) == 'streamer-') {
-					console.log('STREAMEEEERR', { event });
+					console.log('STREAMEEEERR', { event })
 
 					const redis = await createConnection();
-					const reservation = await redis.get(
-						`slug:${event.token.slice(9)}`,
-					);
+					const reservation = await redis.get(`slug:${event.token.slice(9)}`);
 					await redis.disconnect();
 
 					if (!reservation) {
-						console.log({
-							error: 'Slug not reserved or expired. SCOPE: EVENT',
-						});
+						console.log({ error: 'Slug not reserved or expired. SCOPE: EVENT' })
 						return { error: 'Slug not reserved or expired.' };
 					}
 
-					const reservationData: ReservationData =
-						JSON.parse(reservation);
-					const paid =
-						Number(event.tx_info.amount) +
-							Number(reservationData.paid_amount) ==
-						Number(reservationData.amount);
+					const reservationData: ReservationData = JSON.parse(reservation);
+					const paid = (Number(event.tx_info.amount) + Number(reservationData.paid_amount)) >= Number(reservationData.amount)
 
 					if (paid) {
-						const createdPage = await db
+
+						const createdPage = (await db
 							.insertInto('pages')
 							.values({
 								name: '',
 								path: reservationData.slug,
 								// paid_amount: String(Number(reservationData.paid_amount) + Number(event.tx_info.amount)),
 								//description: reservationData.description,
+								twitch_channel: reservationData.twitch_channel,
 								adult: reservationData.adult,
-								payment_address:
-									reservationData.payment_address,
+								payment_address: reservationData.payment_address,
 								user_id: reservationData.user_id,
 								logo: reservationData.logo,
 								cover_image: reservationData.cover_image,
 								view_key: reservationData.view_key,
 							})
 							.returning(['id', 'path', 'user_id'])
-							.execute();
+							.execute())[0];
+						console.log({ createdPage, reservationData })
 
-						console.log('SLUG SAVED BY PAID, ID:', createdPage.id);
+
+						try {
+							const existingUser = await db
+								.selectFrom('users')
+								.where('id', '=', reservationData.user_id)
+								.selectAll()
+								.executeTakeFirst();
+							console.log({ existingUser })
+							await sendReportEmail({
+								userName: existingUser?.username || 'unknown',
+								userId: reservationData.user_id,
+								pageId: createdPage.id,
+								pagePath: reservationData.slug,
+								price: String(MoneroUtils.atomicUnitsToXmr(String(Number(event.tx_info.amount) + Number(reservationData.paid_amount))))
+							}, 'REPORT_NEW_PAGE')
+						} catch (error) {
+							console.log("ERROR REPORT EMAIL", error)
+						}
+
+
+						console.log('SLUG SAVED BY PAID, ID:', createdPage.id)
+
 
 						const redis = await createConnection();
 						await redis.del(`slug:${reservationData.slug}`);
 						await redis.disconnect();
 
-						notificationEmitter.emit(
-							'user:' + reservationData.user_id,
-							{
-								type: 'STREAMER_PAYMENT',
-								page: { ...createdPage, paid: true },
-							},
-						);
-						return;
+
+						notificationEmitter.emit('user:' + reservationData.user_id, { type: 'STREAMER_PAYMENT', page: { ...createdPage, paid: true } })
+						return
 					}
 
 					const redis2 = await createConnection();
-					reservationData.paid_amount =
-						Number(reservationData.paid_amount) +
-						Number(event.tx_info.amount);
-					await redis2.set(
-						`slug:${reservationData.slug}`,
-						JSON.stringify(reservationData),
-						{
-							KEEPTTL: true,
-						},
-					);
+					reservationData.paid_amount = Number(reservationData.paid_amount) + Number(event.tx_info.amount)
+					await redis2.set(`slug:${reservationData.slug}`, JSON.stringify(reservationData), {
+						KEEPTTL: true,
+					});
 					await redis2.disconnect();
-					notificationEmitter.emit(
-						'user:' + reservationData.user_id,
-						{
-							type: 'STREAMER_PAYMENT',
-							page: { ...reservationData, paid: false },
-						},
-					);
+					notificationEmitter.emit('user:' + reservationData.user_id, { type: 'STREAMER_PAYMENT', page: { ...reservationData, paid: false } })
+
 
 					return;
 				}
@@ -272,17 +303,16 @@ export class moneroLWS {
 					.selectAll()
 					.where('payment_id', '=', event.payment_id)
 					.executeTakeFirst();
-				console.log('existingTip', { existingTip });
+				console.log('existingTip', { existingTip })
+				if (!existingTip) throw new Error('The tip which paid is not found payment id: ' + event.payment_id,)
 
-				const paid_amount =
-					Number(existingTip?.paid_amount) +
-					Number(event.tx_info.amount);
-				console.log('paid_amount', paid_amount);
+				const paid_amount = Number(existingTip?.paid_amount) + Number(event.tx_info.amount);
+				console.log('paid_amount', paid_amount)
 				const paid = Number(existingTip?.amount) <= paid_amount;
-				console.log('paid', paid);
+				console.log('paid', paid)
 
 				const paid_at = paid ? new Date() : null;
-				console.log('paid_at', paid_at);
+				console.log('paid_at', paid_at)
 
 				await db
 					.updateTable('tips')
@@ -301,43 +331,44 @@ export class moneroLWS {
 					console.log('webhook deleted after paid', res, {
 						existingTip,
 					});
+
 				}
+
+
+
 
 				const page = await db
 					.selectFrom('pages')
-					.select(['user_id', 'id', 'path','twitch_channel'])
+					.select(['user_id', 'id', 'path', 'twitch_channel'])
 					.where('id', '=', existingTip.page_id)
 					.executeTakeFirst();
 
-				console.log('tip:' + existingTip.id);
+				console.log('tip:' + existingTip?.id)
 				console.log({
-					type: 'TIP_PAYMENT',
-					tip: {
+					type: 'TIP_PAYMENT', tip: {
 						...existingTip,
 						paid,
 						paid_at,
-						paid_amount: String(paid_amount),
-					},
-				});
+						paid_amount: String(paid_amount)
+					}
+				})
 				notificationEmitter.emit('tip:' + existingTip.id, {
-					type: 'TIP_PAYMENT',
-					tip: {
+					type: 'TIP_PAYMENT', tip: {
 						...existingTip,
 						paid,
 						paid_at,
-						paid_amount: String(paid_amount),
-					},
-				});
+						paid_amount: String(paid_amount)
+					}
+				})
 
-				notificationEmitter.emit('user:' + page.user_id, {
-					type: 'TIP_PAYMENT',
-					tip: {
+				notificationEmitter.emit('user:' + page?.user_id, {
+					type: 'TIP_PAYMENT', tip: {
 						...existingTip,
 						paid,
 						paid_at,
-						paid_amount: String(paid_amount),
-					},
-				});
+						paid_amount: String(paid_amount)
+					}
+				})
 
 
 				if (!!page?.twitch_channel) {
@@ -354,6 +385,7 @@ export class moneroLWS {
 
 				}
 
+
 				break;
 			}
 
@@ -363,3 +395,4 @@ export class moneroLWS {
 		}
 	}
 }
+

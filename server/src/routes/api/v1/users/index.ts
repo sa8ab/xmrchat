@@ -1,4 +1,3 @@
-
 import type { ElysiaApp } from '../../../../index';
 
 import { buildResponseDocumentation } from '../../../../utils/buildResponseDocumentation';
@@ -6,14 +5,25 @@ import { buildResponseDocumentation } from '../../../../utils/buildResponseDocum
 import UserService from '../../../../services/users';
 import { CreateUserSchema, LoginUserSchema } from '../../../../schemas/users';
 import { lucia } from '../../../../utils/auth';
+import PageService from '../../../../services/pages';
 
 const tags = ['users'];
 export default (app: ElysiaApp) => {
 	return app
 		.get('/auth', async ({ user }) => {
+
+			if (!user) {
+				return {
+					authenticated: !!user,
+					user,
+				}
+			}
+
+			const pages = await PageService.GetPages(user);
 			return {
 				authenticated: !!user,
-				user
+				user,
+				pages
 
 			};
 		})

@@ -59,6 +59,39 @@ const env = cleanEnv(process.env, {
 		example: '6379',
 		default: 6379,
 	}),
+
+	WALLET_RPC_HOST: host({
+		desc: 'The host of the Monero wallet RPC server.',
+		example: 'localhost',
+		devDefault: '127.0.0.1',
+	}),
+	WALLET_RPC_PORT: num({
+		desc: 'The port for the Monero wallet RPC server.',
+		example: '18082',
+		default: 18082,
+	}),
+	WALLET_RPC_USER: str({
+		desc: 'The username for the Monero wallet RPC server.',
+		example: 'root',
+	}),
+	WALLET_RPC_PASSWORD: str({
+		desc: 'The password for the Monero wallet RPC server.',
+		example: 'password',
+	}),
+	WALLET_NAME: str({
+		desc: 'The name of the Monero wallet to use.',
+		example: 'MyWallet',
+	}),
+	WALLET_PASSWORD: str({
+		desc: 'The password for the Monero wallet to use.',
+		example: 'password',
+	}),
+	WALLET_ACCOUNT: num({
+		desc: 'The account to use in the Monero wallet.',
+		example: '0',
+		default: 0,
+	}),
+
 	FEED_LIMIT: num({
 		desc: 'The maximum number of tips to return in the feed at a time.',
 		example: '50',
@@ -73,6 +106,7 @@ const env = cleanEnv(process.env, {
 		desc: 'The amount to reserve for a slug in atomic units.',
 		example: '1000000000',
 		default: '1000000000',
+
 	}),
 	FILE_UPLOAD_PATH: str({
 		desc: 'The path to upload files to.',
@@ -82,6 +116,7 @@ const env = cleanEnv(process.env, {
 		desc: 'The minimum amount for a tip.',
 		example: '1000000000',
 		default: '1000000000',
+
 	}),
 	// MAIL SERVER
 	MAIL_HOST: host({
@@ -112,35 +147,25 @@ const env = cleanEnv(process.env, {
 		desc: 'over ssl or not.',
 		example: 'false',
 	}),
-	MONERO_LWS_URL: str({
-		desc: 'The hostname of the monero lws container.',
-		example: 'http://lws:8443/admin/',
-		devDefault: 'http://lws:8443/admin/',
+	TWITCH_CLIENT_ID: str({
+		desc: 'twitch bot client Id.',
+		example: 'jfknhejkbgiu4bfjwciua',
 	}),
-	MONERO_LWS_WEBHOOK_URL: str({
-		desc: 'The url that monero lws call for webhook.',
-		example: 'http://backend:3000/api/v1/webhooks',
-		devDefault: 'http://backend:3000/api/v1/webhooks',
+	TWITCH_CLIENT_SECRET: str({
+		desc: 'twitch bot client secret.',
+		example: 'jfknhejkbgiu4bfjwciua',
 	}),
-	MONERO_LWS_WEBHOOK_SECURE_TOKEN: str({
-		desc: 'The url path that it is a secret for monero lws webhook call.',
-		example: 'secureTOKENdsifajhurebjknsd',
-		devDefault: 'secureTOKENdsifajhurebjknsd',
+	TWITCH_INITIAL_ACCESS_TOKEN: str({
+		desc: 'twitch initial access token.',
+		example: 'jfknhejkbgiu4bfjwciua',
 	}),
-	MONERO_ADMIN_WALLET_PRIMARY_ADDRESS: str({
-		desc: 'Wallet primary address to pay by your client.',
-		example: 'sampleaddress',
-		devDefault: 'sampleaddress',
+	TWITCH_INITIAL_REFRESH_TOKEN: str({
+		desc: 'twitch initial Refresh token.',
+		example: 'jfknhejkbgiu4bfjwciua',
 	}),
-	MONERO_ADMIN_WALLET_PRIVATE_VIEW_KEY: str({
-		desc: 'Wallet private view key.',
-		example: 'sample',
-		devDefault: 'sample',
-	}),
-	DOMAIN_NAME: str({
-		desc: 'pure Domain name like xmrchat.com without any https or "/"',
-		example: 'xmrchat.com',
-		devDefault: 'xmrchat.com',
+	TWITCH_BOT_NAME: str({
+		desc: 'twitch bot name.',
+		example: 'xmrchatbot',
 	}),
 });
 
@@ -165,15 +190,30 @@ declare global {
 			DB_USER: string;
 			DB_PASSWORD: string;
 			DB_PORT: number;
+			MIN_TIP_AMOUNT: string;
+
 			REDIS_HOST: string;
 			REDIS_USER: string;
 			REDIS_PASSWORD: string;
 			REDIS_PORT: number;
+
+			WALLET_RPC_HOST: string;
+			WALLET_RPC_PORT: number;
+			WALLET_RPC_USER: string;
+			WALLET_RPC_PASSWORD: string;
+			WALLET_NAME: string;
+			WALLET_PASSWORD: string;
+			WALLET_ACCOUNT: number;
+
 			WALLET_HEIGHT: number;
+
 			FEED_LIMIT: number;
+
 			SLUG_RESERVE_MINS: number;
 			SLUG_RESERVE_AMOUNT: string;
+
 			FILE_UPLOAD_PATH: string;
+
 			MAIL_HOST: string;
 			MAIL_PORT: number;
 			MAIL_USERNAME: string;
@@ -181,12 +221,13 @@ declare global {
 			MAIL_ENCRYPTION: boolean;
 			MAIL_FROM_ADDRESS: string;
 			MAIL_FROM_NAME: string;
-			MONERO_LWS_URL: string;
-			MONERO_LWS_WEBHOOK_URL: string;
-			MONERO_LWS_WEBHOOK_SECURE_TOKEN: string;
-			MONERO_ADMIN_WALLET_PRIMARY_ADDRESS: string;
-			MONERO_ADMIN_WALLET_PRIVATE_VIEW_KEY: string;
-			DOMAIN_NAME: string;
+
+			TWITCH_CLIENT_ID: string;
+			TWITCH_CLIENT_SECRET: string;
+			TWITCH_BOT_NAME: string;
+			TWITCH_INITIAL_ACCESS_TOKEN: string;
+			TWITCH_INITIAL_REFRESH_TOKEN: string;
 		}
 	}
 }
+

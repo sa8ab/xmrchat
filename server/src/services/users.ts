@@ -1,4 +1,3 @@
-
 import { db } from '../db/connect';
 import { HashPassword } from '../utils/password';
 import { lucia } from '../utils/auth';
@@ -147,7 +146,7 @@ const LoginUser = async (payload: { username: string; password: string }) => {
 	if (!user.is_email_verified) {
 		try {
 			const { otp } = await SendEmailVerification(user.id, user.email)
-			return { error: 'Please confirm your mail' + otp, status: 401 };
+			return { error: 'Please confirm your mail', status: 401 };
 		} catch (error) {
 			return { error: 'Please confirm your mail. the confirmation mail is sent to your mailbox.', status: 401 };
 		}

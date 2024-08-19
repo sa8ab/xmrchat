@@ -1,4 +1,3 @@
-
 import type { ElysiaApp } from '../../../../index';
 
 import { buildResponseDocumentation } from '../../../../utils/buildResponseDocumentation';
@@ -29,6 +28,23 @@ export default (app: ElysiaApp) => {
 				detail: {
 					tags,
 					summary: 'Get all pages for user',
+					responses: buildResponseDocumentation({
+						200: GetPagesSchema.response,
+					}),
+				},
+			}
+		)
+		.get(
+			'/search',
+			async ({ query, params }) => {
+				console.log({ query }, { params })
+				return await PageService.SearchPages(query.path, query.limit, query.offset);
+			},
+			{
+				...GetPagesSchema.payload,
+				detail: {
+					tags,
+					summary: 'Search all pages',
 					responses: buildResponseDocumentation({
 						200: GetPagesSchema.response,
 					}),

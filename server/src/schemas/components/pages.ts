@@ -1,5 +1,4 @@
-
-import {t} from 'elysia';
+import { t } from 'elysia';
 
 const page_name = t.String({
 	examples: ['my_page'],
@@ -8,12 +7,12 @@ const page_name = t.String({
 	maxLength: 64,
 });
 
-const twitch_channel = t.String({
+const twitch_channel = t.Nullable(t.String({
 	examples: ['streamerspage'],
 	description: 'The name of the twitch channel.',
-	minLength: 3,
+	minLength: 0,
 	maxLength: 64,
-});
+}));
 
 const page_path = t.String({
 	examples: ['my_page'],
@@ -36,4 +35,4 @@ const adult = t.Boolean({
 	description: 'Whether the page contains adult content or not.',
 });
 
-export {page_name, page_path, page_description, adult, twitch_channel};
+export { page_name, page_path, page_description, adult, twitch_channel };
