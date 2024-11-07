@@ -1,0 +1,79 @@
+services:
+  postgres:
+    container_name: xmrchat-postgres
+    image: postgres:14-alpine
+    ports:
+      - 5428:5432
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+    networks:
+      - custom-net
+
+  redis:
+    image: redis/redis-stack:latest
+    container_name: xmrchat-new-redis
+    restart: always
+    ports:
+      - ':6379'
+
+    volumes:
+      - ./redis/data:/data
+    networks:
+      - custom-net
+
+  minio:
+    image: quay.io/minio/minio
+    container_name: xmrchat-minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      MINIO_ROOT_USER: ${MINIO_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD}
+
+    volumes:
+      - ./minio/data:/data
+
+    command: server /data --console-address ":9001"
+
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.xmrchat-s3.entrypoints=websecure
+      - traefik.http.routers.xmrchat-s3.rule=Host(`s3.xmrchat.com`)
+      - traefik.tcp.routers.xmrchat-s3.tls=true
+      - traefik.http.routers.xmrchat-s3.tls.certresolver=myresolver
+      - traefik.http.services.xmrchat-s3.loadbalancer.server.port=9000
+
+    networks:
+      - custom-net
+      - traefik
+
+  nest:
+    container_name: xmrchat-new-nest
+    build: .
+    ports:
+      - 3083:3000
+    depends_on:
+      - postgres
+      - redis
+      - minio
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.xmrchatnest.entrypoints=websecure
+      - traefik.http.routers.xmrchatnest.rule=Host(`nest.xmrchat.com`)
+      - traefik.tcp.routers.xmrchatnest.tls=true
+      - traefik.http.routers.xmrchatnest.tls.certresolver=myresolver
+      - traefik.http.services.xmrchatnest.loadbalancer.server.port=3000
+    networks:
+      - traefik
+      - custom-net
+
+networks:
+  custom-net:
+  traefik:
+    name: traefik
+    external: true
