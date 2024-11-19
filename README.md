@@ -29,6 +29,8 @@ XMRChat is a tip-for-chat application. Users can set up a page and have others s
   - [Server](#server)
   - [Client](#client)
 
+- [Development](#development)
+
 ## <a name="tech-stack">Technology Stack 🚀</a>
 
 - **Client Side:**
@@ -36,11 +38,10 @@ XMRChat is a tip-for-chat application. Users can set up a page and have others s
   - **Language:** [TypeScript](https://www.typescriptlang.org/)
 - **Server Side:**
 
-  - **Framework:** [Elysia Js](https://elysiajs.com/)
+  - **Framework:** [Nest Js](https://nestjs.com/)
   - **Language:** [TypeScript](https://www.typescriptlang.org/)
-  - **Runtime:** [Bun](https://bun.sh)
   - **Cache:** [Redis](https://redis.io/)
-  - **ORM:** [Kysely](https://kysely.dev/)
+  - **ORM:** [TypeORM](https://typeorm.io/)
   - **Database:** [PostgreSQL](https://www.postgresql.org/)
 
 - **Infrastructure:**
@@ -60,24 +61,13 @@ The service uses a one-time payment strategy. During the deployment setup proces
 ## <a name="requirements">Requirements 📝</a>
 
 - [Docker 🐳](https://docs.docker.com/engine/install/)
-- [git](https://git-scm.com/downloads)
-- [Monero wallet](https://www.getmonero.org/downloads/#gui)
+- [Monero-lws Instance](https://github.com/vtnerd/monero-lws)
+- A Monero Wallet
 
 ## <a name="structure">Project Structure 📍</a>
 
-- [Server](./server/): Contains the backend code.
-
-  - [db](./server/src/db/): Contains the database connection and migration files.
-  - [routes](./server/src/routes/): Contains the route handlers.
-  - [schemas](./server/src/schemas/): Contains the route schemas definitions for validation.
-  - [services](./server/src/services/): Contains the service classes.
-  - [types](./server/src/types/): Contains type definitions.
-  - [utils](./server/src/utils/): Contains utility functions.
-  - [env.ts](./server/src/env.ts): Contains the environment variables and their default values.
-  - [index.ts](./server/src/index.ts): The entrypoint file for the backend.
-
-- [Client](./client/): Contains the frontend code.
-- [Monero](./monero/): Contains Monero network services (Monero Project & Monero-LWS).
+- [Server](./server/): Contains the backend code ( Nest JS ).
+- [Client](./client/): Contains the frontend code ( Nuxt JS ).
 - [Traefik](./traefik/): Contains Traefik setups
 
 ## <a name="install-and-build">Install & Build 🛠️</a>
@@ -103,26 +93,116 @@ Now change the .env with yours and run the container.
 > The **password** must be **Hashed** in the env and also if you add that in compose file the "$" characters must be doubled to not recognized as variable by docker engine.
 
 ```console
-docker compose up
+docker compose up -d
 ```
 
-### <a name="monero">2. Monero</a>
+### <a name="monero">2.1. Monero</a>
 
-You can use Make file by below command in Monero directory to get and config Monero related repositories.
-
-```console
-cp monero
-make monero-setup
-```
-
-or:
+Create and run a monero node. If you already have a synced node with zmq enabled skip to next step.
 
 ```console
-cp monero
+mkdir monero && cd monero
 git clone https://github.com/monero-project/monero.git
-git clone https://github.com/vtnerd/monero-lws/tree/release-v0.3_0.18
-cp Dockerfile.monero ./monero/Dockerfile
-cp Dockerfile.lws ./monero-lws/Dockerfile
+```
+
+In last line of Dockerfile comment out CMD Command.
+
+```
+# CMD ["--p2p-bind ...
+```
+
+### <a name="monero-lws">2.2 Monero-LWS</a>
+
+Clone Monero-lws repository on branch `release-v0.3_0.18`:
+
+```console
+git clone -b release-v0.3_0.18 https://github.com/vtnerd/monero-lws
+```
+
+From last line of Dockerfile remove ENTRYPOINT and CMD and replace it with only `ENTRYPOINT ["monero-lws-daemon"]`
+
+Final Dockerfile will be ending like this:
+
+```console
+...
+EXPOSE 8443
+
+ENTRYPOINT ["monero-lws-daemon"]
+```
+
+### <a name="monero-lws">2.3. Run Monero and Monero-LWS</a>
+
+Add following `docker-compose.yml` to /monero directory we created on step 2.1 considering monero project ( step 2.1 ) is inside `./monero/monero` folder and monero lws ( step 2.2 ) is on `./monero/monero-lws` directory
+
+```yml
+services:
+  monero:
+    container_name: monero
+    build:
+      context: ./monero
+    restart: always
+    user: root
+    ports:
+      # - :80
+      - :18080
+      - :18081
+      - :18082
+      - :18083
+      - :18084
+    command:
+      - --p2p-bind-ip=0.0.0.0
+      - --p2p-bind-port=18080
+      - --rpc-bind-ip=0.0.0.0
+      - --rpc-bind-port=18081
+      - --non-interactive
+      - --rpc-ssl=disabled
+      - --rpc-access-control-origins=monero
+      - --disable-rpc-ban
+      - --confirm-external-bind
+      - --zmq-pub=tcp://0.0.0.0:18084
+      - --zmq-rpc-bind-port=1882
+      - --zmq-rpc-bind-ip=0.0.0.0
+
+    volumes:
+      - bitmonero:/root/.bitmonero
+    networks:
+      - traefik
+
+  lws:
+    depends_on:
+      - monero
+    container_name: lws
+    user: root
+    build:
+      context: ./monero-lws
+    restart: always
+    ports:
+      # - :80
+      - :8443
+    command:
+      - --db-path=/home/monero-lws/.bitmonero/light_wallet_server
+      - --daemon=tcp://monero:1882
+      - --sub=tcp://monero:18084
+      - --log-level=4
+      - --webhook-ssl-verification=none
+      - --disable-admin-auth
+      - --admin-rest-server=http://0.0.0.0:8443/admin
+      - --rest-server=http://0.0.0.0:8443/basic
+      - --access-control-origin=lws:8443
+      - --confirm-external-bind
+    volumes:
+      - monerolws:/home/monero-lws
+    networks:
+      - traefik
+
+volumes:
+  bitmonero: {}
+  monerolws: {}
+
+networks:
+  traefik:
+    name: traefik
+    external: true
 ```
 
 Run the container :
@@ -143,7 +223,7 @@ After it is synced and ready, go next.
 
 ```console
 cd server
-cp .env.example
+cp .env.example .env
 ```
 
 Change .env file with yours.
@@ -156,18 +236,16 @@ docker compose up -d
 
 ```console
 cd client
-cp .env.example
+cp .env.example .env
 ```
 
-Change .env file with yours. and also change the env at the end of "Dockerfile" file.
+Change .env file with yours.
 
 ```console
 docker compose up -d
 ```
 
-## Notes
-
-See [NOTES.md](./NOTES.md) for additional notes and information about the technical details of the project.
+## <a name="development">Development</a>
 
 ## License
 
