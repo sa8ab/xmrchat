@@ -1,6 +1,5 @@
 services:
   posgtres:
-    container_name: xmrchat-postgres
     image: postgres:14-alpine
     ports:
       - ${DATABASE_PORT}:5432
@@ -13,17 +12,15 @@ services:
 
   redis:
     image: redis/redis-stack:latest
-    container_name: xmrchat-redis
     restart: always
     ports:
-      - '6379:6379'
+      - '6378:6379'
 
     volumes:
       - ./redis/data:/data
 
   minio:
     image: quay.io/minio/minio
-    container_name: minio
     ports:
       - '9000:9000'
       - '9001:9001'
