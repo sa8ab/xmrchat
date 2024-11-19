@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 const props = withDefaults(
   defineProps<{
-    logoId?: string;
-    bannerId?: string;
+    logoUrl?: string;
+    bannerUrl?: string;
     showTitle?: boolean;
   }>(),
   {
@@ -14,11 +14,11 @@ const props = withDefaults(
 <template>
   <div class="streamer-header">
     <div class="banner-container">
-      <GeneralImage variant="banner" :id="bannerId" class="banner" />
+      <GeneralImage variant="banner" :url="bannerUrl" class="banner" />
     </div>
     <div class="options">
       <div class="logo-and-name">
-        <GeneralImage :id="logoId" variant="logo" class="logo" />
+        <GeneralImage :url="logoUrl" variant="logo" class="logo" />
         <div class="name font-bold text-2xl p-2" v-if="showTitle">Send Tip</div>
       </div>
     </div>

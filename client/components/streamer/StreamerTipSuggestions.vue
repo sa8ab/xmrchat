@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { TipTierField } from "~/types";
+import type { Numberic, TipTierField } from "~/types";
 // @ts-ignore
 import { ValidateEach } from "@vuelidate/components";
 
@@ -7,7 +7,12 @@ const tiers = defineModel<TipTierField[]>({
   default: () => [],
 });
 
-const { getValidationAttrs, required, numberic, minLength } = useValidations();
+const props = defineProps<{
+  minUsdAmount: Numberic;
+}>();
+
+const { getValidationAttrs, required, numberic, minLength, minValue } =
+  useValidations();
 
 const handleRemove = (index: number) => {
   tiers.value = tiers.value.filter((_, i) => i !== index);
@@ -15,13 +20,18 @@ const handleRemove = (index: number) => {
 
 const newTier = () => {
   tiers.value.push({
-    price: undefined,
+    description: "",
+    amount: undefined,
   });
 };
 
 const rules = computed(() => {
   return {
-    price: { required, numberic },
+    amount: {
+      required,
+      numberic,
+      minValue: minValue(toRef(props, "minUsdAmount") as Ref<string>),
+    },
     name: { required, minLength: minLength(3) },
   };
 });
@@ -50,11 +60,11 @@ const rules = computed(() => {
               </UFormGroup>
               <UFormGroup
                 label="Amount ( USD )"
-                :error="getValidationAttrs('price', v).error"
+                :error="getValidationAttrs('amount', v).error"
               >
                 <UInput
-                  v-model="item.price"
-                  @blur="getValidationAttrs('price', v).onBlur"
+                  v-model="item.amount"
+                  @blur="getValidationAttrs('amount', v).onBlur"
                 >
                 </UInput>
               </UFormGroup>
@@ -65,6 +75,7 @@ const rules = computed(() => {
           </template>
         </ValidateEach>
       </template>
+
       <div v-else class="no-tiers text-sm text-pale">
         There are no suggested amounts added, Click the button bellow to add new
         tiers.

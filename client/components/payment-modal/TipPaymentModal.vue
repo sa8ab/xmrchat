@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-import type { TipCreationResponse } from "~/types";
+import type {
+  PaymentSocketMessage,
+  TipCreationResponse,
+  TipEventData,
+} from "~/types";
 
 const props = defineProps<{
   createdTip?: TipCreationResponse;
@@ -16,28 +20,29 @@ const paymentError = ref(false);
 
 const toast = useToast();
 
-const { init, disconnect } = usePaymentSocket({
-  onMessage: (data) => {
+const { init, disconnect } = usePaymentSocket<TipEventData>({
+  onTipEvent: (data) => {
     console.log(data);
 
-    if (!data.data.tip?.paid) return;
+    if (!data.paidAt) return;
 
     toast.add({
       title: "Tip received successfully!",
     });
+    disconnect();
     emit("paid");
   },
 
-  onError: () => {
-    cancelPayment();
-    toast.add({
-      color: "red",
-      title: "Something went wrong checking for payment",
-      description:
-        "If you have already sent the payment it will be credited as soon as received.",
-      timeout: 0,
-    });
-  },
+  // onError: () => {
+  //   cancelPayment();
+  //   toast.add({
+  //     color: "red",
+  //     title: "Something went wrong checking for payment",
+  //     description:
+  //       "If you have already sent the payment it will be credited as soon as received.",
+  //     timeout: 0,
+  //   });
+  // },
 
   onClose: () => {
     paymentError.value = true;
@@ -52,7 +57,8 @@ const cancelPayment = () => {
 const initSocket = () => {
   paymentError.value = false;
   init({
-    slug: `tip-${props.createdTip?.id as string}`,
+    path: "tips",
+    query: { tipId: props.createdTip?.id },
   });
 };
 
@@ -76,7 +82,7 @@ onBeforeUnmount(() => disconnect());
     <PaymentModalContent
       title="Send Tip"
       :qrCode="{
-        address: createdTip?.payment_address,
+        address: createdTip?.paymentAddress,
         amount: createdTip?.amount,
       }"
       :error="paymentError"

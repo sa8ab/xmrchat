@@ -1,21 +1,21 @@
-name: xmrchat-nuxt
 services:
-  front-end-nuxt:
+  nuxt:
     build: .
-    container_name: front-end-nuxt
+    container_name: xmrchat-nuxt-new
     restart: always
     ports:
-      - "3000:3000"
+      - "3001:3000"
     # command: "npm run start"
     labels:
       - "traefik.enable=true"
-      - traefik.http.routers.front-end-nuxt.rule=Host(`${DOMAIN_NAME:-xmrchat.org}`) ||  Host(`xmrchat.com`)
-      - treafik.http.routers.front-end-nuxt.entrypoints=websecure
-      - traefik.http.services.front-end-nuxt.loadbalancer.server.port=3000
-      - "traefik.http.routers.front-end-nuxt.tls=true"
-      - "traefik.http.routers.front-end-nuxt.tls.certresolver=myresolver"
+      - traefik.http.routers.xmrchatnew-nuxt.rule=Host(`xmrchat.com`)
+      - traefik.http.routers.xmrchatnew-nuxt.entrypoints=websecure
+      - traefik.http.services.xmrchatnew-nuxt.loadbalancer.server.port=3000
+      - "traefik.http.routers.xmrchatnew-nuxt.tls=true"
+      - "traefik.http.routers.xmrchatnew-nuxt.tls.certresolver=myresolver"
     networks:
       - traefik
+    env_file: .env
 networks:
   traefik:
     name: traefik

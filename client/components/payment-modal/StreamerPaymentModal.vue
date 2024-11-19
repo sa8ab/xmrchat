@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { SlugReservationResponse } from "~/types";
+import type { PaymentSocketMessage, SlugReservationResponse } from "~/types";
 
 const props = defineProps<{
   reservedData?: SlugReservationResponse;
@@ -15,7 +15,7 @@ const active = defineModel<boolean>("active");
 // const { checkReservation: checkReservationApi } = useServices();
 const { toStreamerDisplay } = useRouteLocation();
 const toast = useToast();
-const { state: authState, checkSession } = useAuthStore();
+const { state: authState, getMe } = useAuthStore();
 
 // const paymentInterval = ref<NodeJS.Timeout | undefined>(undefined);
 
@@ -26,24 +26,25 @@ const cancelPayment = () => {
 
 const runPaymentCheck = () => {
   init({
-    slug: `user-${authState.user?.id}`,
+    path: "pages",
+    query: { slug: props.reservedSlug },
   });
 };
 const stopPaymentCheck = () => {
   disconnect();
 };
 
-const { init, disconnect } = usePaymentSocket({
-  onMessage: (data) => {
-    console.log(data.data.page?.paid);
+const { init, disconnect } = usePaymentSocket<PaymentSocketMessage>({
+  onPaymentEvent: (data) => {
+    console.log(data);
 
-    if (!data.data.page?.paid) return;
+    if (!data.paidAt) return;
 
     toast.add({
-      title: "Tip received successfully!",
+      title: "Page is created successfully!",
     });
-    // to update header to show view and edit of page.
-    checkSession();
+    disconnect();
+    getMe();
     return navigateTo(toStreamerDisplay()?.path);
   },
 
@@ -57,32 +58,6 @@ const { init, disconnect } = usePaymentSocket({
     });
   },
 });
-
-// const checkPayment = async () => {
-//   console.log("checking payment");
-
-//   try {
-//     if (!props.reservedData || !props.reservedSlug) return;
-
-//     const now = Math.floor(Date.now() / 1000);
-//     const timestamp = props.reservedData.reservation_timestamp;
-
-//     if (timestamp < now) {
-//       cancelPayment();
-//       return;
-//     }
-
-//     const res = await checkReservationApi({
-//       slug: props.reservedSlug,
-//     });
-
-//     if (res.paid) {
-//       return navigateTo(toStreamerDisplay()?.path);
-//     }
-//   } catch (error) {
-//     console.log("error checking reservation");
-//   }
-// };
 
 watch(active, (currentActive) => {
   if (currentActive) {
@@ -100,7 +75,7 @@ onBeforeUnmount(() => stopPaymentCheck());
     <PaymentModalContent
       title="Page Creation Fee"
       :qrCode="{
-        address: reservedData?.payment_address,
+        address: reservedData?.paymentAddress,
         amount: reservedData?.amount,
       }"
       @cancel="cancelPayment"
@@ -108,11 +83,7 @@ onBeforeUnmount(() => stopPaymentCheck());
       <template v-if="reservedData">
         <p class="pb-1.5 mb-2.5 text-gray-700 border-b border-border">
           Your slug is reserved until
-          {{
-            new Date(
-              reservedData?.reservation_timestamp * 1000
-            ).toLocaleString()
-          }}
+          {{ new Date(reservedData?.reservedUntil * 1000).toLocaleString() }}
         </p>
         <UAlert color="emerald" variant="subtle" title="Note" class="text-xl">
           <template #title>

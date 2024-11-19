@@ -1,0 +1,32 @@
+import { Logger } from '@nestjs/common';
+import {
+  OnGatewayConnection,
+  OnGatewayDisconnect,
+  WebSocketGateway,
+  WebSocketServer,
+} from '@nestjs/websockets';
+import { Server, Namespace, Socket } from 'socket.io';
+import { Payment } from 'src/payments/payment.entity';
+
+@WebSocketGateway({ namespace: '/tips' })
+export class TipsGateway implements OnGatewayConnection, OnGatewayDisconnect {
+  private logger = new Logger(TipsGateway.name);
+
+  @WebSocketServer()
+  server: Namespace;
+
+  async handleConnection(client: Socket, ...args: any[]) {
+    const tipId = client.handshake.auth.tipId;
+    this.logger.log(`Client ${client.id} connected - TipId: ${tipId}`);
+
+    await client.join(`tip-${tipId}`);
+  }
+
+  handleDisconnect(client: any) {
+    this.logger.log(`Client ${client.id} disconnected`);
+  }
+
+  notifyTipPayment(tipId: number, payment: Payment) {
+    return this.server.to(`tip-${tipId}`).emit('tip', payment);
+  }
+}

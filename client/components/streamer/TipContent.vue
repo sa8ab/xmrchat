@@ -14,9 +14,9 @@ const props = defineProps<{
 }>();
 
 const { required, minLength, maxLength, minValue } = useValidations();
-const { sendTipToStreamer: sendTipToStreamerApi, getPrice: getPriceApi } =
-  useServices();
-const { minXMRPayAmount } = useAppConfig();
+const { sendTipToStreamer: sendTipToStreamerApi } = useServices();
+
+const { minUsdAmount, getPrice, price } = useXmrPrice();
 
 const emit = defineEmits<{
   done: [TipCreationResponse];
@@ -27,7 +27,6 @@ interface State {
   buttonsAmount: any;
   loading: boolean;
   errorMessage?: string;
-  price?: number;
 }
 
 const state = reactive<State>({
@@ -42,20 +41,11 @@ const state = reactive<State>({
   errorMessage: undefined,
 });
 
-onMounted(async () => {
-  state.price = await getPriceApi();
-});
-
-const minUSDAmount = computed(() => {
-  if (!state.price) return 0;
-  return (Math.ceil(minXMRPayAmount * state.price * 100) / 100).toFixed(2);
-});
-
 const v = useVuelidate<State["form"]>(
   computed(() => {
     return {
       name: { required, minLength: minLength(2), maxLength: maxLength(40) },
-      amount: { required, minValue: minValue(minUSDAmount.value) },
+      amount: { required, minValue: minValue(minUsdAmount.value) },
       message: { minLength: minLength(3), maxLength: maxLength(255) },
     };
   }),
@@ -72,13 +62,11 @@ const handleSubmit = async () => {
   try {
     state.loading = true;
 
-    if (!state.price) {
-      state.price = await getPriceApi();
+    if (!price.value) {
+      price.value = await getPrice();
     }
 
-    const xmrAmount = Math.round(
-      (state.form.amount / (state.price as number)) * 1e12
-    ).toString();
+    const xmrAmount = (state.form.amount / (price.value as number)).toFixed(8);
 
     const response = await sendTipToStreamerApi(props.streamerId, {
       ...state.form,
@@ -110,8 +98,8 @@ const messageLength = computed(() => state.form.message?.length || 0);
 </script>
 
 <template>
-  <div class="payment pt-5 md:pt-10">
-    <div class="w-full content-side">
+  <div class="payment pt-5 md:pt-10 gap-10">
+    <div class="content-side">
       <UForm
         class="flex flex-col gap-5"
         :state="state.form"
@@ -164,13 +152,18 @@ const messageLength = computed(() => state.form.message?.length || 0);
           </UFormGroup>
         </div>
 
-        <!-- <div class="single">
-          <UCheckbox
-            color="primary"
-            label="Is Private Tip"
-            v-model="state.form.private"
-          />
-        </div> -->
+        <div class="single">
+          <UTooltip :popper="{ placement: 'top' }">
+            <template #text>
+              <p>Name and message will be only visible to the streamer.</p>
+            </template>
+            <UCheckbox
+              color="primary"
+              label="Tip Privately"
+              v-model="state.form.private"
+            />
+          </UTooltip>
+        </div>
 
         <div class="single">
           <UAlert
@@ -194,7 +187,7 @@ const messageLength = computed(() => state.form.message?.length || 0);
         </div>
       </UForm>
     </div>
-    <div class="tip-side min-w-[300px]">
+    <div class="tip-side">
       <RecentTipsSidebar :slug="streamerId" />
     </div>
   </div>
@@ -202,15 +195,21 @@ const messageLength = computed(() => state.form.message?.length || 0);
 
 <style scoped lang="scss">
 .payment {
-  @apply w-full flex gap-10;
+  @apply grid;
+  grid-template-columns: 1fr 380px;
 }
 .buttons {
   @apply inline-flex gap-1 pt-2;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 860px) {
   .payment {
-    @apply flex-col;
+    // 1fr 1fr instead of one 1fr allows 100% width on tip-side
+    grid-template-columns: 1fr 1fr;
+  }
+  .content-side,
+  .tip-side {
+    grid-column: 1 / 3;
   }
 }
 </style>

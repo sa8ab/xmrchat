@@ -13,16 +13,16 @@ const { data, pending, refresh, error } = useLazyAsyncData(
 
 <template>
   <div class="inner pt-4">
-    <PendingView :error="error" :pending="pending">
+    <PendingView :pending="pending">
       <div class="pt-4" v-if="!pending">
-        <div v-if="data">
+        <div v-if="data?.page">
           <StreamerHeader
-            :logoId="data.logo"
-            :bannerId="data.cover_image"
+            :logoUrl="data.page.logo.url"
+            :bannerUrl="data.page.coverImage.url"
             :showTitle="false"
             class="mb-10"
           />
-          <StreamerTipsList :slug="data.path" />
+          <StreamerTipsList :slug="data.page.path" />
         </div>
         <NoPageYet v-else />
       </div>

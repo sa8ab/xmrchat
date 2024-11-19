@@ -1,66 +1,77 @@
 services:
-    backend:
-        container_name: xmrchat-back-end
-        build:
-            dockerfile: Dockerfile
-            target: backend
-        ports:
-            - ":${APP_PORT:-3000}"
-        labels:
-            - "traefik.enable=true"
-            - "traefik.http.routers.backend.entrypoints=websecure"
-            # - "traefik.http.routers.backend.rule=Host(`${DOMAIN_NAME:-xmrchat.com}`) && PathPrefix(`/api`)"
-            - "traefik.http.routers.backend.rule=Host(`api.${DOMAIN_NAME:-xmrchat.com}`) || Host(`api.xmrchat.com`) "
-            - "traefik.tcp.routers.backend.tls=true"
-            - "traefik.http.routers.backend.tls.certresolver=myresolver"
-            - "traefik.http.services.backend.loadbalancer.server.port=${APP_PORT:-3000}"
-        volumes:
-            - ./src/uploads:/usr/src/app/uploads
-        networks:
-            - xmrchat
-            - traefik
-    postgres:
-        image: postgres
-        container_name: xmrchat-db
-        restart: always
-        ports:
-            # - "${DB_PORT:-5432}:5432"
-            - "5432:5432"
-        environment:
-            POSTGRES_USER: ${DB_USER}
-            POSTGRES_PASSWORD: ${DB_PASSWORD}
-            POSTGRES_DB: ${DB_NAME}
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5428:5432
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
 
-        volumes:
-            - ./data:/var/lib/postgresql/data
-        networks:
-            - xmrchat
+    networks:
+      - custom-net
 
-    redis:
-        image: redis/redis-stack:latest
-        container_name: xmrchat-redis
-        restart: always
-        ports:
-            - "${REDIS_PORT:-6379}:${REDIS_PORT:-6379}"
-        # command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+  redis:
+    image: redis/redis-stack:latest
+    restart: always
+    ports:
+      - ':6379'
 
-        environment:
-            - REDIS_ARGS=--requirepass ${REDIS_PASSWORD}
+    volumes:
+      - ./redis/data:/data
 
-            # - REDIS_USER=${REDIS_USER}
-            # - REDIS_PASSWORD=${REDIS_PASSWORD}
-            # - REDIS_PORT=${REDIS_PORT:-6379}
-            # - REDIS_DATABASES=16
-            # - REDIS_DISABLE_DEFAULT_USER=true
-        volumes:
-            - ./redis/data:/data
-            # - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
-        networks:
-            - xmrchat
+    networks:
+      - custom-net
+
+  minio:
+    image: quay.io/minio/minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      MINIO_ROOT_USER: ${MINIO_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD}
+
+    volumes:
+      - ./minio/data:/data
+
+    command: server /data --console-address ":9001"
+
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.xmrchat-s3.entrypoints=websecure
+      - traefik.http.routers.xmrchat-s3.rule=Host(`s3.xmrchat.com`)
+      - traefik.tcp.routers.xmrchat-s3.tls=true
+      - traefik.http.routers.xmrchat-s3.tls.certresolver=myresolver
+      - traefik.http.services.xmrchat-s3.loadbalancer.server.port=9000
+
+    networks:
+      - traefik
+      - custom-net
+
+  nest:
+    build: .
+    ports:
+      - 3083:3000
+    depends_on:
+      - postgres
+      - redis
+      - minio
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.xmrchatnest.entrypoints=websecure
+      - traefik.http.routers.xmrchatnest.rule=Host(`nest.xmrchat.com`)
+      - traefik.tcp.routers.xmrchatnest.tls=true
+      - traefik.http.routers.xmrchatnest.tls.certresolver=myresolver
+      - traefik.http.services.xmrchatnest.loadbalancer.server.port=3000
+    networks:
+      - traefik
+      - custom-net
 
 networks:
-    xmrchat:
-        driver: bridge
-    traefik:
-        name: traefik
-        external: true
+  custom-net:
+  traefik:
+    name: traefik
+    external: true

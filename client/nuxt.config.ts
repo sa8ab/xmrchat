@@ -1,11 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: process.env.NUXT_PUBLIC_DEVTOOLS_ENABLED === "true" },
+  devServer: {
+    port: 3002,
+  },
 
   runtimeConfig: {
     public: {
       apiBaseUrl: "https://api.xmrchat.com/api",
       apiServerSideBaseUrl: "http://backend:3000/api",
+      imageBaseUrl: "http://localhost:9000",
     },
   },
 
@@ -13,7 +17,19 @@ export default defineNuxtConfig({
 
   components: [{ path: "./components", pathPrefix: false }],
 
-  modules: ["@nuxt/ui", "@nuxt/fonts", "@nuxtjs/i18n", "@pinia/nuxt"],
+  modules: [
+    "@nuxt/ui",
+    "@nuxt/fonts",
+    "@nuxtjs/i18n",
+    "@pinia/nuxt",
+    "pinia-plugin-persistedstate/nuxt",
+  ],
+
+  piniaPluginPersistedstate: {
+    cookieOptions: {
+      maxAge: 3600 * 24 * 30,
+    },
+  },
 
   // tailwindcss: {
   //   configPath: "./tailwind.config.ts",

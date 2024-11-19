@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import type { Numberic } from "~/types";
+
 const props = withDefaults(
   defineProps<{
-    id?: string;
+    url?: string;
     variant?: "logo" | "banner";
   }>(),
   {
@@ -14,8 +16,8 @@ const config = useRuntimeConfig();
 
 <template>
   <img
-    v-if="id"
-    :src="`${config.public.apiBaseUrl}/v1/images/${id}`"
+    v-if="url"
+    :src="`${config.public.imageBaseUrl}${url}`"
     :class="['general-image', `general-image-${variant}`]"
   />
 </template>

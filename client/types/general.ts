@@ -1,13 +1,12 @@
 export type Numberic = string | number;
 
 export interface LoginResponse {
-  user_id: string;
+  access_token: string;
 }
 
 export interface MeResponse {
-  authenticated: boolean;
   user?: User;
-  pages?: StreamerPage[];
+  page?: StreamerPage;
 }
 
 export interface User {
@@ -17,14 +16,14 @@ export interface User {
 }
 
 export interface CreateFormFields {
-  adult?: boolean;
-  logo?: string;
-  cover_image?: string;
-  payment_address?: string;
-  view_key?: string;
-  slug?: string;
+  logo?: Numberic;
+  coverImage?: Numberic;
+  primaryAddress?: string;
+  secretViewKey?: string;
+  path?: string;
   tiers?: TipTierField[];
-  twitch_channel?: string;
+  twitchChannel?: string;
+  isPublic?: boolean;
 }
 
 export interface TipFormFields {
@@ -35,59 +34,91 @@ export interface TipFormFields {
 }
 
 export interface SlugReservationResponse {
-  payment_address: string;
+  paymentAddress: string;
   amount: number;
-  reservation_timestamp: number;
+  reservedUntil: number;
 }
 
 export interface TipCreationResponse {
   amount: string;
-  id: string;
-  payment_address: string;
+  id: number;
+  paymentAddress: string;
 }
 
 export interface StreamerPage {
-  user_id: string;
+  userId: string;
   id: string;
   name: string;
   path: string;
-  logo: string;
-  cover_image: string;
+  logo: UploadedFile;
+  coverImage: UploadedFile;
   adult: boolean;
-  payment_address?: string;
-  view_key?: string;
+  primaryAddress?: string;
+  secretViewKey?: string;
   tiers?: TipTier[];
-  twitch_channel?: string;
+  twitchChannel?: string;
+  isPublic: boolean;
+}
+
+interface TipPayment {
+  amount: string;
+  id: number;
+  paidAmount: string;
 }
 
 export interface Tip {
   id: string;
-  page_id: string;
-  tier_id?: string;
+  pageId: string;
   name: string;
-  amount: string;
   message: string;
   private?: boolean;
-  paid?: boolean;
-  paid_at?: string;
+  paidAt?: string;
+  payment?: TipPayment;
 }
 
 export interface TipTier {
   amount: string;
   name?: string;
+  description?: string;
   id: string;
 }
 
 export interface TipTierField {
   name?: string;
-  price?: string;
+  description?: string;
+  amount?: string;
 }
 
 export interface PaymentSocketMessage {
-  data: {
-    type: string;
-    tip?: { paid?: boolean };
-    page?: { paid?: boolean };
-  };
-  error?: any;
+  paidAt: Date;
+  amount: string;
+  paidAmount: string;
+}
+
+export interface TipEventData {
+  paidAt: Date;
+  amount: string;
+  paidAmount: string;
+}
+
+export interface ObsTip {
+  amount: string;
+  message: string;
+  name: string;
+  id?: string;
+}
+
+export interface ObsTipSocketMessage {
+  amount: string;
+  paidAmount: string;
+  name: string;
+  message: string;
+}
+
+export interface UploadedFile {
+  filename: string;
+  originalName: string;
+  type: UploadedFile;
+  url: string;
+  id: number;
 }

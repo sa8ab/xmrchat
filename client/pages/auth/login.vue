@@ -9,6 +9,7 @@ interface State {
   password?: string;
   loading: boolean;
   errorMessage?: string;
+  passwordVisible: boolean;
 }
 
 useHead({ title: "Login" });
@@ -16,6 +17,7 @@ useHead({ title: "Login" });
 const state: State = reactive({
   email: "",
   password: "",
+  passwordVisible: false,
   loading: false,
   errorMessage: undefined,
 });
@@ -30,7 +32,7 @@ const handleSubmit = async () => {
   try {
     state.loading = true;
     const res = await login({
-      username: state.email,
+      email: state.email,
       password: state.password,
     });
   } catch (error) {
@@ -57,7 +59,28 @@ const handleSubmit = async () => {
       </UFormGroup>
 
       <UFormGroup label="Password" name="password">
-        <UInput type="password" v-model="state.password" />
+        <div class="flex gap-1">
+          <UInput
+            class="flex-grow"
+            :type="state.passwordVisible ? 'text' : 'password'"
+            v-model="state.password"
+          >
+          </UInput>
+          <UButton
+            v-if="state.passwordVisible"
+            @click="state.passwordVisible = false"
+            icon="i-heroicons-eye-slash"
+            square
+            color="gray"
+          ></UButton>
+          <UButton
+            v-else
+            @click="state.passwordVisible = true"
+            icon="i-heroicons-eye"
+            square
+            color="gray"
+          ></UButton>
+        </div>
       </UFormGroup>
 
       <UAlert

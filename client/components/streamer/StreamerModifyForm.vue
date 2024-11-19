@@ -2,7 +2,11 @@
 // @ts-ignore
 import debounce from "lodash.debounce";
 import useVuelidate from "@vuelidate/core";
-import type { CreateFormFields, SlugReservationResponse } from "~/types";
+import type {
+  CreateFormFields,
+  SlugReservationResponse,
+  UploadedFile,
+} from "~/types";
 
 const { toStreamerDisplay, toGuides } = useRouteLocation();
 
@@ -13,18 +17,9 @@ interface State {
   loading: boolean;
   errorMessage?: string;
 
-  stagedLogo?: string;
-  stagedBanner?: string;
+  stagedLogoUrl?: string;
+  stagedBannerUrl?: string;
 }
-const toast = useToast();
-const { required, minLength, maxLength, streamerSlug, streamerSlugInternal } =
-  useValidations();
-const {
-  checkSlug: checkSlugApi,
-  reserveSlug,
-  getMyPage,
-  updateStreamer,
-} = useServices();
 
 const emit = defineEmits<{
   done: [
@@ -39,28 +34,40 @@ const props = defineProps<{
   editable: boolean;
 }>();
 
+const toast = useToast();
+const { required, minLength, maxLength, streamerSlug, streamerSlugInternal } =
+  useValidations();
+const {
+  checkSlug: checkSlugApi,
+  reserveSlug,
+  getMyPage,
+  updateStreamer,
+} = useServices();
+
+const { minUsdAmount } = useXmrPrice();
+
 const state = reactive<State>({
   form: {
-    adult: false,
     logo: undefined,
-    cover_image: undefined,
-    payment_address: undefined,
-    view_key: undefined,
-    slug: undefined,
+    coverImage: undefined,
+    primaryAddress: undefined,
+    secretViewKey: undefined,
+    path: undefined,
     tiers: [],
-    twitch_channel: undefined,
+    twitchChannel: undefined,
+    isPublic: true,
   },
   slugAvailable: false,
   loadingSlug: false,
   loading: false,
   errorMessage: undefined,
 
-  stagedBanner: undefined,
-  stagedLogo: undefined,
+  stagedBannerUrl: undefined,
+  stagedLogoUrl: undefined,
 });
 
 const renderSlugStatus = computed(() => {
-  if (v.value.slug.$invalid || props.editable) return undefined;
+  if (v.value.path.$invalid || props.editable) return undefined;
   if (state.loadingSlug)
     return {
       text: "Loading",
@@ -80,14 +87,14 @@ const renderSlugStatus = computed(() => {
 const isSlugValid = computed(() => state.slugAvailable && !state.loadingSlug);
 
 const renderResultURL = computed(() => {
-  const showUrl = !v.value.slug.$invalid;
+  const showUrl = !v.value.path.$invalid;
   if (showUrl)
-    return `Your page will be available at xmrchat.com/${state.form.slug}`;
+    return `Your page will be available at xmrchat.com/${state.form.path}`;
   return undefined;
 });
 
 const chechSlugDebounced = debounce(async (value: string | undefined) => {
-  if (v.value.slug.$invalid || props.editable) return;
+  if (v.value.path.$invalid || props.editable) return;
   state.loadingSlug = true;
   try {
     const res = await checkSlugApi({
@@ -102,7 +109,7 @@ const chechSlugDebounced = debounce(async (value: string | undefined) => {
 }, 500);
 
 watch(
-  () => state.form.slug,
+  () => state.form.path,
   (v) => chechSlugDebounced(v)
 );
 
@@ -120,18 +127,18 @@ const handleSubmit = async () => {
       const res = await reserveSlug(state.form);
       emit("done", {
         data: res,
-        slug: state.form.slug,
+        slug: state.form.path,
       });
     } else {
-      if (!state.form.slug) return;
-      const res = await updateStreamer(state.form.slug, {
-        adult: state.form.adult,
+      if (!state.form.path) return;
+      const res = await updateStreamer(state.form.path, {
         logo: state.form.logo,
-        cover_image: state.form.cover_image,
-        payment_address: state.form.payment_address,
-        view_key: state.form.view_key,
+        coverImage: state.form.coverImage,
+        primaryAddress: state.form.primaryAddress,
+        secretViewKey: state.form.secretViewKey,
         tiers: state.form.tiers,
-        twitch_channel: state.form.twitch_channel,
+        twitchChannel: state.form.twitchChannel?.toLowerCase(),
+        isPublic: state.form.isPublic,
       });
       toast.add({ title: "Page updated!" });
       navigateTo(toStreamerDisplay()?.path);
@@ -147,14 +154,18 @@ const handleSubmit = async () => {
 const v = useVuelidate<State["form"]>(
   {
     logo: { required },
-    cover_image: { required },
-    payment_address: {
+    coverImage: { required },
+    primaryAddress: {
       required,
       minLength: minLength(95),
       maxLength: maxLength(106),
     },
-    view_key: { required, minLength: minLength(64), maxLength: maxLength(64) },
-    slug: {
+    secretViewKey: {
+      required,
+      minLength: minLength(64),
+      maxLength: maxLength(64),
+    },
+    path: {
       required,
       streamerSlug,
       streamerSlugInternal,
@@ -166,23 +177,25 @@ const v = useVuelidate<State["form"]>(
 );
 
 const getPage = async () => {
-  if (props.editable) {
-    const response = await getMyPage();
-    state.form = {
-      adult: response.adult,
-      logo: response.logo,
-      cover_image: response.cover_image,
-      payment_address: response.payment_address,
-      view_key: response.view_key,
-      slug: response.path,
-      twitch_channel: response.twitch_channel,
-      tiers:
-        response.tiers?.map((tier) => ({
-          name: tier.name,
-          price: tier.amount,
-        })) || [],
-    };
-  }
+  if (!props.editable) return;
+
+  const response = await getMyPage();
+  const page = response.page;
+  if (!page) return;
+
+  state.form = {
+    logo: page.logo.id,
+    coverImage: page.coverImage.id,
+    primaryAddress: page.primaryAddress,
+    secretViewKey: page.secretViewKey,
+    path: page.path,
+    twitchChannel: page.twitchChannel?.toLowerCase(),
+    isPublic: page.isPublic,
+    tiers: page.tiers || [],
+  };
+
+  state.stagedLogoUrl = page.logo.url;
+  state.stagedBannerUrl = page.coverImage.url;
 };
 
 onMounted(async () => {
@@ -190,6 +203,14 @@ onMounted(async () => {
 });
 
 const { getValidationAttrs } = useValidations(v);
+const handleLogoUpload = (file: UploadedFile) => {
+  state.stagedLogoUrl = file.url;
+  state.form.logo = file.id;
+};
+const handleBannerUpload = (file: UploadedFile) => {
+  state.stagedBannerUrl = file.url;
+  state.form.coverImage = file.id;
+};
 </script>
 
 <template>
@@ -210,14 +231,14 @@ const { getValidationAttrs } = useValidations(v);
           <div class="flex flex-col gap-2">
             <div class="flex justify-center">
               <GeneralImage
-                v-if="state.form.logo"
-                :id="state.form.logo"
+                v-if="state.stagedLogoUrl"
+                :url="state.stagedLogoUrl"
                 variant="logo"
                 class="w-[200px] h-[200px]"
               />
             </div>
             <ImageUploader
-              @upload="state.form.logo = $event"
+              @upload="handleLogoUpload"
               @blur="getValidationAttrs('logo').onBlur"
             />
           </div>
@@ -228,20 +249,20 @@ const { getValidationAttrs } = useValidations(v);
           label="Banner Image"
           description="Best to be uploaded in 3:1"
           name="cover_image"
-          :error="getValidationAttrs('cover_image').error"
+          :error="getValidationAttrs('coverImage').error"
         >
           <div class="flex flex-col gap-2">
             <div class="flex justify-center">
               <GeneralImage
-                v-if="state.form.cover_image"
-                :id="state.form.cover_image"
+                v-if="state.stagedBannerUrl"
+                :url="state.stagedBannerUrl"
                 variant="banner"
                 class="w-full h-[200px]"
               />
             </div>
             <ImageUploader
-              @upload="state.form.cover_image = $event"
-              @blur="getValidationAttrs('cover_image').onBlur"
+              @upload="handleBannerUpload"
+              @blur="getValidationAttrs('coverImage').onBlur"
             />
           </div>
         </UFormGroup>
@@ -252,14 +273,14 @@ const { getValidationAttrs } = useValidations(v);
           size="lg"
           label="Your Id"
           name="slug"
-          :error="getValidationAttrs('slug').error"
+          :error="getValidationAttrs('path').error"
           :description="renderResultURL"
         >
           <UInput
             :disabled="editable"
             placeholder="Page Slug"
-            v-model="state.form.slug"
-            @blur="getValidationAttrs('slug').onBlur"
+            v-model="state.form.path"
+            @blur="getValidationAttrs('path').onBlur"
           />
         </UFormGroup>
         <span
@@ -275,12 +296,13 @@ const { getValidationAttrs } = useValidations(v);
           size="lg"
           label="Monero primary receive address"
           name="payment_address"
-          :error="getValidationAttrs('payment_address').error"
+          :error="getValidationAttrs('primaryAddress').error"
+          help="Primary Monero receive addresses begin with the number 4."
         >
           <UInput
             type="text"
-            v-model="state.form.payment_address"
-            @blur="getValidationAttrs('payment_address').onBlur"
+            v-model="state.form.primaryAddress"
+            @blur="getValidationAttrs('primaryAddress').onBlur"
           />
         </UFormGroup>
 
@@ -288,11 +310,11 @@ const { getValidationAttrs } = useValidations(v);
           size="lg"
           label="Monero secret view key"
           name="view_key"
-          :error="getValidationAttrs('view_key').error"
+          :error="getValidationAttrs('secretViewKey').error"
         >
           <UInput
-            v-model="state.form.view_key"
-            @blur="getValidationAttrs('view_key').onBlur"
+            v-model="state.form.secretViewKey"
+            @blur="getValidationAttrs('secretViewKey').onBlur"
           />
           <template #help>
             <span>
@@ -318,28 +340,36 @@ const { getValidationAttrs } = useValidations(v);
           label="Twitch channel name"
           name="twitch_channel"
           hint="Optional"
-          help="Lowercase name of your twitch channel. Used to inform tips via xmr_chat twitch bot."
+          help="Name of your twitch channel. Used to display tips on Stream via xmr_chat Twitch bot."
         >
-          <UInput v-model="state.form.twitch_channel" />
+          <UInput v-model="state.form.twitchChannel" />
         </UFormGroup>
       </div>
 
-      <div class="single">
+      <div class="single" v-if="editable">
         <UFormGroup label="Tip Amount Suggestions">
-          <StreamerTipSuggestions v-model="state.form.tiers" />
+          <StreamerTipSuggestions
+            v-model="state.form.tiers"
+            :minUsdAmount="minUsdAmount"
+          />
         </UFormGroup>
         <!-- <UFormGroup size="lg" label="Set minimum XMR tip amount">
           <UInput type="number" />
         </UFormGroup> -->
       </div>
 
-      <div class="mt-8">
+      <!-- <div class="mt-8">
         <UCheckbox
           color="primary"
           label="Check if adult content"
           v-model="state.form.adult"
         />
-      </div>
+      </div> -->
+      <UCheckbox
+        color="primary"
+        label="Public Page ( Shown on creator search page )."
+        v-model="state.form.isPublic"
+      />
 
       <div class="single">
         <UAlert

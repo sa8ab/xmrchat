@@ -1,0 +1,34 @@
+services:
+  posgtres:
+    image: postgres:14-alpine
+    ports:
+      - ${DATABASE_PORT}:5432
+    volumes:
+      - ./database-test:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+
+  redis:
+    image: redis/redis-stack:latest
+    restart: always
+    ports:
+      - '6378:6379'
+
+    volumes:
+      - ./redis/data:/data
+
+  minio:
+    image: quay.io/minio/minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: password
+
+    volumes:
+      - ./minio/data:/data
+
+    command: server /data --console-address ":9001"

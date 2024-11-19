@@ -1,88 +1,99 @@
 import type { StreamerPage, User } from "~/types";
+import { parse, stringify } from "zipson";
 
 interface State {
-  isLoggedIn: boolean;
   user?: User;
   page?: StreamerPage;
+  token?: string;
 }
 
-export const useAuthStore = defineStore("auth", () => {
-  const { toStreamerDisplay, toIndex } = useRouteLocation();
+export const useAuthStore = defineStore(
+  "auth",
+  () => {
+    const { toStreamerDisplay, toIndex } = useRouteLocation();
 
-  const {
-    checkSession: checkSessionApi,
-    login: loginApi,
-    signup: signupApi,
-    logout: logoutApi,
-  } = useServices();
+    const {
+      me: getMeApi,
+      login: loginApi,
+      signup: signupApi,
+      logout: logoutApi,
+    } = useServices();
 
-  const state: State = reactive({
-    isLoggedIn: false,
-    user: undefined,
-    page: undefined,
-  });
+    const state: State = reactive({
+      token: undefined,
+      user: undefined,
+      page: undefined,
+    });
 
-  const checkSession = async () => {
-    try {
-      const res = await checkSessionApi();
-
-      if (res.authenticated) {
-        state.isLoggedIn = true;
+    const getMe = async () => {
+      if (!state.token) return;
+      try {
+        const res = await getMeApi();
         state.user = res.user;
-        state.page = getFirstStreamerPage(res.pages);
-      } else {
-        state.isLoggedIn = false;
-        state.user = undefined;
-        state.page = undefined;
+        state.page = res.page;
+
+        return res;
+      } catch (error) {
+        // @ts-ignore
+        console.log("getMe error: ", error?.response?.data);
       }
+    };
 
-      console.log(res);
-      return res;
-    } catch (error) {
-      // @ts-ignore
-      console.log("error checking session", error?.response);
-    }
-  };
+    const afterAuth = async () => {
+      try {
+        const res = await getMeApi();
+        state.user = res.user;
+        state.page = res.page;
 
-  const afterAuth = async () => {
-    await checkSession();
-    return navigateTo(toStreamerDisplay()?.path);
-  };
+        return navigateTo(toStreamerDisplay()?.path);
+      } catch (error) {
+        // @ts-ignore
+        console.log("Error on after auth", error?.response?.data);
+      }
+    };
 
-  const login = async (params: { username?: string; password?: string }) => {
-    await loginApi(params);
-    await afterAuth();
-  };
+    const login = async (params: { email?: string; password?: string }) => {
+      const { access_token } = await loginApi(params);
+      state.token = access_token;
+      await afterAuth();
+    };
 
-  const signup = async (params: {
-    username?: string;
-    password?: string;
-    email?: string;
-  }) => {
-    await signupApi(params);
-    await afterAuth();
-  };
+    const signup = async (params: { password?: string; email?: string }) => {
+      await signupApi(params);
+      // await afterAuth();
+    };
 
-  const logout = async () => {
-    try {
-      await logoutApi();
-    } catch (error) {
-    } finally {
-      await checkSession();
-      return navigateTo(toIndex()?.path);
-    }
-  };
+    const logout = async () => {
+      try {
+        await logoutApi();
+      } catch (error) {
+      } finally {
+        state.token = undefined;
+        state.page = undefined;
+        state.user = undefined;
+        return navigateTo(toIndex()?.path);
+      }
+    };
 
-  const isLoggedIn = computed(() => state.isLoggedIn);
-  const userEmail = computed(() => state.user?.email);
+    const isLoggedIn = computed(() => state.token);
+    const userEmail = computed(() => state.user?.email);
 
-  return {
-    state,
-    checkSession,
-    isLoggedIn,
-    userEmail,
-    login,
-    signup,
-    logout,
-  };
-});
+    return {
+      state,
+      isLoggedIn,
+      userEmail,
+      getMe,
+      login,
+      signup,
+      logout,
+    };
+  },
+  {
+    persist: {
+      serializer: {
+        deserialize: parse,
+        serialize: stringify,
+      },
+    },
+  }
+);

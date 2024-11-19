@@ -1,7 +1,8 @@
 <script setup lang="ts">
 useHead(() => {
   return {
-    titleTemplate: (title) => (title ? `${title} | XMRChat` : "XMRChat"),
+    titleTemplate: (title) =>
+      title ? `${title} | XMRChat` : "Monero Superchats : XMRChat",
   };
 });
 
@@ -19,6 +20,6 @@ useAppSeoMeta();
 
 <style>
 .app {
-  @apply text-text bg-background;
+  @apply text-text;
 }
 </style>

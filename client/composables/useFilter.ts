@@ -13,7 +13,7 @@ export default ({
   const route = useRoute();
   const page = ref<number>(initialPage);
 
-  const limit = 2;
+  const limit = 8;
 
   const offset = computed(() => {
     if (typeof page.value === "undefined") return undefined;

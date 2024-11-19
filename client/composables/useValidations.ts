@@ -56,9 +56,17 @@ export const useValidations = (generalV?: Ref<Validation>) => {
   );
 
   const streamerSlugInternalBase = (v: string) =>
-    !["auth", "guides", "streamer", "contact", "creator", "creators"].includes(
-      v
-    );
+    ![
+      "auth",
+      "guides",
+      "streamer",
+      "contact",
+      "creator",
+      "creators",
+      "subscribe",
+      "subscription",
+      "subscriptions",
+    ].includes(v);
 
   const streamerSlugInternal = helpers.withMessage(
     "This slug is not usable.",

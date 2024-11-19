@@ -1,0 +1,76 @@
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  Query,
+  Put,
+  Param,
+  NotFoundException,
+} from '@nestjs/common';
+import { PagesService } from './pages.service';
+import { ReserveSlugDto } from './dtos/reserve-slug.dto';
+import { User } from 'src/users/user.entity';
+import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
+import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
+import { SearchPageDto } from './dtos/search-page.dto';
+import { UpdatePageDto } from './dtos/update-page.dto';
+import { PageDto } from './dtos/page.dto';
+import { StreamerPageDto, StreamerPageRO } from './dtos/streamer-page.dto';
+import { IsPublic } from 'src/shared/decorators/is-public.decorator';
+import { CheckSlugDto } from './dtos/check-slug.dto';
+
+@Controller('pages')
+export class PagesController {
+  constructor(private pagesService: PagesService) {}
+
+  @Post('/check-slug')
+  checkSlug(@Body() body: CheckSlugDto) {
+    return this.pagesService.checkSlug(body.slug);
+  }
+
+  @Post('/reserve-slug')
+  reserveSlug(@Body() body: ReserveSlugDto, @CurrentUser() user: User) {
+    return this.pagesService.reserveSlug(body, user);
+  }
+
+  @Get('/search')
+  @IsPublic()
+  @Serialize(SearchPageDto)
+  searchPages(@Query() query: any) {
+    const slug = query.search;
+    const offset = query.offset;
+    const limit = query.limit;
+
+    return this.pagesService.searchPages(slug, offset, limit);
+  }
+
+  @Get('/:slug')
+  @IsPublic()
+  @Serialize(PageDto)
+  async getPage(@Param('slug') slug: string) {
+    const page = await this.pagesService.findByPath(slug);
+
+    if (!page) throw new NotFoundException('Page not found');
+
+    return page;
+  }
+
+  @Get('')
+  @Serialize(StreamerPageRO)
+  async getMyPage(@CurrentUser() user: User) {
+    const page = await this.pagesService.findMyPage(user);
+
+    return { page };
+  }
+
+  @Put('/:slug')
+  @Serialize(StreamerPageDto)
+  updatePage(
+    @Param('slug') slug: string,
+    @Body() body: UpdatePageDto,
+    @CurrentUser() user: User,
+  ) {
+    return this.pagesService.update(slug, body, user);
+  }
+}

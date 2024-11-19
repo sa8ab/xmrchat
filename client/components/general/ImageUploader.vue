@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import type { AxiosProgressEvent } from "axios";
+import type { Numberic, UploadedFile } from "~/types";
+import { UploadSlug } from "~/types/enums";
 
 const { uploadImage: uploadApi } = useServices();
 
@@ -10,7 +12,7 @@ defineOptions({
 const staged = ref<string>();
 
 const emit = defineEmits<{
-  upload: [string];
+  upload: [UploadedFile];
 }>();
 
 const isUploading = ref<boolean>(false);
@@ -26,16 +28,14 @@ const handleChange = async (e: Event) => {
   const formData = new FormData();
 
   const file = files[0];
-  formData.append("file", file);
+  formData.append("image", file);
 
   staged.value = URL.createObjectURL(file);
-
-  formData.append("logo", file);
 
   isUploading.value = true;
   try {
     controller.value = new AbortController();
-    const res = await uploadApi(formData, {
+    const res = await uploadApi(formData, UploadSlug.PAGE_LOGO, {
       signal: controller.value?.signal,
       onUploadProgress: (e: AxiosProgressEvent) => {
         const percentCompleted = Math.floor((e.loaded * 100) / (e.total || 0));
@@ -44,7 +44,7 @@ const handleChange = async (e: Event) => {
     });
     console.log(res);
 
-    emit("upload", res.id);
+    emit("upload", res.file);
   } catch (e) {
     console.log(e);
   } finally {

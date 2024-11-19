@@ -24,7 +24,7 @@ const links = [
       <div class="flex flex-col mt-5 md:mt-10">
         <UBreadcrumb :links="links" />
 
-        <TitlePage title="Edit Page" desciption="Customize your tip page." />
+        <PageTitle title="Edit Page" desciption="Customize your tip page." />
       </div>
       <StreamerModifyForm :editable="true" />
     </div>

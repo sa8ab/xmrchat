@@ -29,7 +29,7 @@ onBeforeUnmount(() => stopTipsInterval());
 </script>
 
 <template>
-  <div class="w-full sidebar scrollbar scrollbar-thumb-rose-500">
+  <div class="sidebar scrollbar">
     <h3 class="font-medium text-xl pb-4">Recent Tips</h3>
     <!-- <UProgress
       v-if="pending && !data"
@@ -46,12 +46,17 @@ onBeforeUnmount(() => stopTipsInterval());
       <template v-else>
         <div class="messages">
           <div class="item" v-for="item in data">
-            <p class="pb-1 text-base font-medium">{{ item.name }}</p>
+            <p
+              class="pb-1 text-base font-medium"
+              :class="{ 'text-pale': item.private }"
+            >
+              {{ item.private ? "Private" : item.name }}
+            </p>
             <span class="flex pb-1 font-medium text-primary">
-              {{ item.amount }} XMR
+              {{ unitsToXmr(item.payment?.amount) }} XMR
             </span>
-            <p>
-              {{ item.message }}
+            <p :class="{ 'text-pale': item.private }">
+              {{ item.private ? "Private" : item.message }}
             </p>
           </div>
         </div>
@@ -72,9 +77,11 @@ onBeforeUnmount(() => stopTipsInterval());
     }
   }
   .messages {
-    @apply border-border border rounded-md flex flex-col gap-2 max-h-[400px] overflow-auto;
+    @apply py-3 border-border border rounded-md flex flex-col gap-4 max-h-[400px] overflow-auto;
     .item {
-      @apply p-3;
+      @apply px-3;
+
+      overflow-wrap: break-word;
     }
   }
 }

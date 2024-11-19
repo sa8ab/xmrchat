@@ -14,6 +14,7 @@ const state = reactive({
   email: "",
   password: "",
   confirmPassword: "",
+  passwordVisible: false,
   loading: false,
   errorMessage: undefined,
 });
@@ -33,7 +34,6 @@ const handleSubmit = async () => {
     state.loading = true;
     await signup({
       email: state.email,
-      username: state.email,
       password: state.password,
     });
     toast.add({
@@ -63,7 +63,28 @@ const handleSubmit = async () => {
       </UFormGroup>
 
       <UFormGroup label="Password" name="password">
-        <UInput type="password" v-model="state.password" />
+        <div class="flex gap-2">
+          <UInput
+            class="flex-grow"
+            :type="state.passwordVisible ? 'text' : 'password'"
+            v-model="state.password"
+          />
+
+          <UButton
+            v-if="state.passwordVisible"
+            @click="state.passwordVisible = false"
+            icon="i-heroicons-eye-slash"
+            square
+            color="gray"
+          ></UButton>
+          <UButton
+            v-else
+            @click="state.passwordVisible = true"
+            icon="i-heroicons-eye"
+            square
+            color="gray"
+          ></UButton>
+        </div>
       </UFormGroup>
 
       <UFormGroup label="Confirm Password" name="confirmPassword">

@@ -17,21 +17,27 @@
     "@nuxt/ui": "^2.15.2",
     "@nuxtjs/i18n": "^8.3.0",
     "@pinia/nuxt": "^0.5.1",
+    "@tsparticles/confetti": "^3.5.0",
     "@vuelidate/components": "^1.2.6",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
     "axios": "^1.6.8",
     "dayjs": "^1.11.11",
+    "gsap": "^3.12.5",
     "lodash.debounce": "^4.0.8",
     "nuxt": "^3.11.2",
     "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^4.1.1",
     "qrcode.vue": "^3.4.1",
-    "socket.io-client": "^4.7.5",
+    "socket.io-client": "^4.8.0",
+    "tsparticles": "^3.5.0",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "zipson": "^0.2.12"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.9",
+    "form-data": "^4.0.1",
     "sass": "^1.75.0"
   }
 }

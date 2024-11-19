@@ -44,7 +44,7 @@ const cancelPayment = () => {
   <div class="inner">
     <div class="flex flex-col mt-5 md:mt-10">
       <UBreadcrumb :links="links" />
-      <TitlePage
+      <PageTitle
         title="Create Page"
         desciption="Get started by creating your streamer page"
       />

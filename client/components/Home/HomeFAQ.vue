@@ -172,7 +172,15 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
           <ul class="list">
             <li>
               <p>
-                If you already have crypto, trade for Monero (XMR) at
+                Buy or trade other crypto for Monero in
+                <UButton to="https://cakewallet.com" v-bind="linkProps">
+                  Cake Wallet</UButton
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Trade other crypto for Monero (XMR) at
                 <UButton to="https://stealthex.io" v-bind="linkProps">
                   stealthex.io</UButton
                 >
@@ -224,9 +232,9 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             </li>
             <li>
               <p>
-                Buy Monero with fiat, without KYC as an Executor at
-                <UButton to="https://monezon.com" v-bind="linkProps">
-                  monezon.com </UButton
+                Create a Monero Fundraiser at
+                <UButton to="https://kuno.anne.media/" v-bind="linkProps">
+                  kuno.anne.media </UButton
                 >.
               </p>
             </li>

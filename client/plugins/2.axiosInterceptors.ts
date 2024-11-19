@@ -1,9 +1,9 @@
 export default defineNuxtPlugin(() => {
-  // const authStore = useAuthStore();
+  const authStore = useAuthStore();
   const nuxtApp = useNuxtApp();
   const runtimeConfig = useRuntimeConfig();
-  const headers = useRequestHeaders();
-  const devLoggedIn = useCookie("xmrchat-dev-logged-in");
+
+  // const devLoggedIn = useCookie("xmrchat-dev-logged-in");
 
   nuxtApp.$axios.interceptors.request.use((config) => {
     // set base url to 'backend:3000' when on production and server side
@@ -11,17 +11,7 @@ export default defineNuxtPlugin(() => {
       config.baseURL = runtimeConfig.public.apiServerSideBaseUrl;
     }
 
-    // set token on header for development ( reads from Authorization header )
-    // on production read from cookie
-
-    if (process.env.NODE_ENV === "development") {
-      config.headers.Authorization = devLoggedIn.value
-        ? "Bearer 81w3b5wgftli23qhl3bqw5ik8djmbwza6sgvjrs3"
-        : "";
-    } else {
-      // @ts-ignore
-      if (headers) config.headers = headers;
-    }
+    config.headers.Authorization = `Bearer ${authStore.state.token}`;
 
     return config;
   });
@@ -38,6 +28,8 @@ export default defineNuxtPlugin(() => {
       return res;
     },
     (error) => {
+      if (error?.response?.status === 403 && authStore.isLoggedIn)
+        authStore.logout();
       return Promise.reject(error);
     }
   );

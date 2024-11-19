@@ -1,9 +1,16 @@
 <script lang="ts" setup>
+import type { Numberic } from "~/types";
+
 const props = defineProps<{
   slug: string;
 }>();
 
-const { getTips: getTipsApi } = useServices();
+const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
+  useServices();
+
+const { errorHandler } = useErrorHandler();
+
+const toast = useToast();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
   `recent-tips-${props.slug}`,
@@ -41,10 +48,32 @@ const columns = [
     key: "paidAt",
     label: "Date",
   },
+  {
+    key: "private",
+    label: "Private",
+  },
   // {
   //   key: "actions",
   // },
 ];
+
+const updateTipPrivate = async (id: Numberic, isPrivate: boolean) => {
+  try {
+    await updatePrivateApi(id, {
+      private: isPrivate,
+    });
+
+    toast.add({
+      title: "Tip updated!",
+    });
+
+    refresh();
+  } catch (error) {
+    errorHandler(error);
+  }
+};
+
+const handlePrivateChange = (id: Numberic, p: boolean) => {};
 </script>
 
 <template>
@@ -55,17 +84,25 @@ const columns = [
       :columns="columns"
       class="border border-border rounded-md"
       :ui="{
-        td: { base: 'whitespace-normal' },
+        td: { base: 'whitespace-normal text-text dark:text-text' },
       }"
     >
+      <template #amount-data="{ row }">
+        {{ unitsToXmr(row.payment.amount) }}
+      </template>
       <template #paidAt-data="{ row }">
         <div class="paid-at">
-          {{ new Date(row.paid_at).toLocaleString() }}
+          {{ new Date(row.payment.paidAt).toLocaleString() }}
         </div>
       </template>
-      <!-- <template #actions-data="{ row }">
-        <UButton>Feature</UButton>
-      </template> -->
+      <template #private-data="{ row }">
+        <div class="private">
+          <UCheckbox
+            :modelValue="row.private"
+            @change="updateTipPrivate(row.id, $event)"
+          ></UCheckbox>
+        </div>
+      </template>
       <template #empty-state>
         <NoItems />
       </template>

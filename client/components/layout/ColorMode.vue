@@ -26,12 +26,18 @@ const nextMode = computed(() => {
 const nextModeIcon = computed(() => modesIcon[colorMode.preference]);
 
 const toggleTheme = () => (colorMode.preference = nextMode.value);
+
+const renderText = computed(() => {
+  if (nextMode.value === "light") return "switch to light mode";
+  if (nextMode.value === "dark") return "switch to dark mode";
+  if (nextMode.value === "system") return "switch to system default theme";
+});
 </script>
 
 <template>
   <ClientOnly>
     <UButton @click="toggleTheme" color="gray" square :icon="nextModeIcon">
-      <span class="sr-only">Theme Color Toggle</span>
+      <span class="sr-only">{{ renderText }}</span>
     </UButton>
   </ClientOnly>
 </template>

@@ -6,8 +6,8 @@ const { toStreamerDisplay } = useRouteLocation();
   <div class="home-hero">
     <div class="image-side">
       <img
-        class="w-full rounded-md overflow-hidden"
-        src="/images/home-hero-2.jpg"
+        class="w-full rounded-md overflow-hidden border-border border-2"
+        src="/images/home-hero-3.png"
         alt=""
       />
     </div>

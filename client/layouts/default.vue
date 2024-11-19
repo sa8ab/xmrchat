@@ -24,7 +24,7 @@ const devLoggedIn = useCookie("xmrchat-dev-logged-in", {
 
 <style scoped lang="scss">
 .default-layout {
-  @apply flex flex-col min-h-screen;
+  @apply flex flex-col min-h-screen bg-background;
   .content {
     @apply flex-1;
   }

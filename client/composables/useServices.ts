@@ -7,92 +7,104 @@ import type {
   StreamerPage,
   Tip,
   TipCreationResponse,
+  UploadedFile,
 } from "~/types";
+import { UploadSlug } from "~/types/enums";
 
 export const useServices = () => {
   const { axios } = useApp();
 
-  const checkSession = async () => {
-    const res = await axios.get<MeResponse>("/v1/users/auth");
+  const me = async () => {
+    const res = await axios.get<MeResponse>("/auth/me");
     return res.data;
   };
 
   const login = async (params: any) => {
-    const res = await axios.post<LoginResponse>("/v1/users/login", params);
-    return res;
+    const res = await axios.post<LoginResponse>("/auth/login", params);
+    return res.data;
   };
 
   const signup = async (params: any) => {
-    const res = await axios.post<LoginResponse>("/v1/users", params);
-    return res;
+    const res = await axios.post<{ message: string }>("/auth/signup", params);
+    return res.data;
   };
 
   const checkSlug = async (params: any) => {
-    const res = await axios.get<{ available: boolean }>("/v1/pages/checkslug", {
-      params,
-    });
+    const res = await axios.post<{ available: boolean }>(
+      "/pages/check-slug",
+      params
+    );
     return res.data;
   };
 
   const reserveSlug = async (params: any) => {
     const res = await axios.post<SlugReservationResponse>(
-      "/v1/pages/reserveslug",
+      "/pages/reserve-slug",
       params
     );
     return res.data;
   };
 
-  const checkReservation = async (params: any) => {
-    const res = await axios.get<{ paid: boolean }>(
-      "/v1/pages/checkreservation",
-      { params }
-    );
-    return res.data;
-  };
+  // const checkReservation = async (params: any) => {
+  //   const res = await axios.get<{ paid: boolean }>(
+  //     "/v1/pages/checkreservation",
+  //     { params }
+  //   );
+  //   return res.data;
+  // };
 
-  const checkSendTip = async (slug: string, id: string) => {
-    const res = await axios.get<{ paid: boolean }>(
-      `v1/pages/${slug}/tips/${id}`
-    );
-    return res.data;
-  };
+  // const checkSendTip = async (slug: string, id: string) => {
+  //   const res = await axios.get<{ paid: boolean }>(
+  //     `v1/pages/${slug}/tips/${id}`
+  //   );
+  //   return res.data;
+  // };
 
-  const uploadImage = async (params: any, config?: AxiosRequestConfig) => {
-    const res = await axios.post<{ id: string }>("/v1/images", params, config);
+  const uploadImage = async (
+    params: any,
+    slug: UploadSlug = UploadSlug.PAGE_LOGO,
+    config?: AxiosRequestConfig
+  ) => {
+    const res = await axios.post<{ file: UploadedFile }>(
+      `/upload/image/${slug}`,
+      params,
+      config
+    );
     return res.data;
   };
 
   const sendTipToStreamer = async (slug: string, params: any) => {
-    const res = await axios.post<TipCreationResponse>(
-      `/v1/pages/${slug}/tips`,
-      params
-    );
+    const res = await axios.post<TipCreationResponse>(`/tips`, {
+      ...params,
+      path: slug,
+    });
     return res.data;
   };
 
   const getPrice = async () => {
-    const res = await axios.get("v1/price");
-    return res.data.price;
+    const { data } = await axios.get("/prices/xmr");
+    return data;
+    // return res.data.price;
   };
 
   const getStreamerPage = async (slug: string) => {
-    const res = await axios.get<{ result: StreamerPage }>(`/v1/pages/${slug}`);
-    return res.data.result;
+    const res = await axios.get<StreamerPage>(`/pages/${slug}`);
+    return res.data;
   };
 
   const getTips = async (slug: string) => {
-    const res = await axios.get<Tip[]>(`/v1/pages/${slug}/tips`);
+    const res = await axios.get<Tip[]>(`/tips/page/${slug}`);
     return res.data;
   };
 
   const getMyPage = async () => {
-    const res = await axios.get<StreamerPage[]>("/v1/pages");
-    return getFirstStreamerPage(res.data);
+    const res = await axios.get<{ page: StreamerPage }>("/pages");
+    return res.data;
   };
 
   const updateStreamer = async (slug: string, params: any) => {
-    const res = await axios.patch(`/v1/pages/${slug}`, params);
-    return res.data[0];
+    const res = await axios.put(`/pages/${slug}`, params);
+    return res.data;
   };
 
   const logout = async () => {
@@ -101,39 +113,42 @@ export const useServices = () => {
   };
 
   const forgotPassword = async (params: any) => {
-    const res = await axios.post("/v1/users/reset_password", params);
+    const res = await axios.post("/auth/forgot-password", params);
     return res;
   };
 
   const resetPassword = async (params: any, token: string) => {
-    const res = await axios.post(
-      `/v1/users/auth/reset_password/${token}`,
-      params
-    );
+    const res = await axios.post(`/auth/reset-password/${token}`, params);
     return res;
   };
 
   const confirmEmail = async (token: Numberic) => {
-    const res = await axios.post(`/v1/users/auth/email_verification/${token}`);
+    const res = await axios.post(`/auth/email-verification/${token}`);
     return res;
   };
 
   const getCreators = async (params?: any) => {
-    const res = await axios.get<{ pages: StreamerPage }>(`/v1/pages/search`, {
-      params,
-    });
+    const res = await axios.get<{ pages: StreamerPage[]; total: number }>(
+      `/pages/search`,
+      {
+        params,
+      }
+    );
+    return res.data;
+  };
+
+  const updateTipPrivate = async (id: Numberic, params: any) => {
+    const res = await axios.put(`/tips/${id}`, params);
     return res.data;
   };
 
   return {
-    checkSession,
+    me,
     login,
     signup,
     logout,
     checkSlug,
     reserveSlug,
-    checkReservation,
-    checkSendTip,
     uploadImage,
     sendTipToStreamer,
     getPrice,
@@ -145,5 +160,6 @@ export const useServices = () => {
     resetPassword,
     confirmEmail,
     getCreators,
+    updateTipPrivate,
   };
 };
