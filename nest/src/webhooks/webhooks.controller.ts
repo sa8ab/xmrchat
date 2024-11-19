@@ -39,6 +39,10 @@ export class WebhooksController {
     const eventType = body.event;
     const amount = body.tx_info.amount;
 
+    this.logger.log(
+      `Webhook call - Confirmations: ${body.confirmations} - Event Id: ${body.event_id} - TX Hash: ${body.tx_info.tx_hash}`,
+    );
+
     // ? lws sends webhook twice, on 0 and 1 confirmations. ignore others.
     if (body.confirmations !== 0) return;
 

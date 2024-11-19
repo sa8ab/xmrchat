@@ -41,8 +41,7 @@ export class NotificationsService {
     const options = this.templatesService.getPageReport(data);
 
     return this.emailService.sendEmail(
-      // ['support@xmrchat.com', 'bwsaeed8@gmail.com'],
-      ['fiatDemise@pm.me', 'bwsaeed8@gmail.com'],
+      ['support@xmrchat.com', 'bwsaeed8@gmail.com'],
       options,
     );
   }

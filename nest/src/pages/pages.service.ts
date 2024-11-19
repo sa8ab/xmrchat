@@ -60,7 +60,7 @@ export class PagesService {
       .orderBy('total_paid', 'DESC', 'NULLS LAST');
 
     if (slug) {
-      query = query.where('page.path LIKE :path', { path: `%${slug}%` });
+      query = query.andWhere('page.path LIKE :path', { path: `%${slug}%` });
     }
 
     query = query.offset(offset).limit(limit);
@@ -217,12 +217,12 @@ export class PagesService {
       twitchChannel: reserevdPage.twitchChannel,
     });
 
-    this.logger.log(`Sending page event. Page Slug: ${page.path}`);
+    this.logger.log(`Sending page created event. Page Slug: ${page.path}`);
     this.pagesGateway.notifyPagePayment(page.path, savedPayment);
 
     this.notificationsService.sendNewPageReportEmail({
       pageId: page.id,
-      price: payment.amount,
+      price: MoneroUtils.atomicUnitsToXmr(payment.amount).toString(),
       slug: page.path,
       userId: reserevdPage.userId,
       // TODO: get full user
@@ -232,6 +232,11 @@ export class PagesService {
     // remove reserved from cache
     await this.cacheManager.del(`slug:${pageSlug}`);
 
+    await this.addLwsAccount({
+      address: page.primaryAddress,
+      key: page.secretViewKey,
+    });
+
     // clear webhook
     try {
       await this.lwsService.deleteWebhook(payment.eventId);
@@ -239,7 +244,6 @@ export class PagesService {
   }
 
   async update(slug: string, attrs: UpdatePageDto, user: User) {
-    this.logger.log(attrs);
     const page = await this.findByPath(slug);
 
     if (!page) {
@@ -250,15 +254,31 @@ export class PagesService {
       throw new UnauthorizedException();
     }
 
-    // TODO: Adding the account to lws for validation?
-
     attrs.tiers = attrs.tiers || [];
+
+    if (
+      page.primaryAddress != attrs.primaryAddress ||
+      page.secretViewKey != attrs.secretViewKey
+    ) {
+      await this.addLwsAccount({
+        address: attrs.primaryAddress,
+        key: attrs.secretViewKey,
+      });
+    }
 
     const savedPage = Object.assign(page, attrs);
 
     const result = await this.repo.save(savedPage);
-    console.log(result);
 
     return result;
+  }
+
+  async addLwsAccount(data: { address: string; key: string }) {
+    try {
+      this.logger.log(`Adding lws account: ${data.address} - ${data.key}`);
+      await this.lwsService.addAccount(data);
+    } catch (error) {
+      this.logger.warn('Adding Lws account after create or update failed.');
+    }
   }
 }

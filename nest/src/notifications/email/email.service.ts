@@ -35,8 +35,8 @@ export class EmailService {
 
     const auth = isDev
       ? {
-          user: 'julien40@ethereal.email',
-          pass: 'bNWJgqrpngGyqwqnHF',
+          user: 'furman.kuhic19@ethereal.email',
+          pass: 'hR8UAt2GxKa1W97tAf',
         }
       : {
           user: this.configService.get('MAIL_USERNAME'),

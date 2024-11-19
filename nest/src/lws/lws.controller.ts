@@ -6,36 +6,62 @@ import {
   Post,
   Body,
   UnauthorizedException,
+  Delete,
 } from '@nestjs/common';
 import { LwsService } from './lws.service';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 import { ConfigService } from '@nestjs/config';
-import { LwsWebhookEvent } from 'src/shared/types';
 
 @Controller('lws')
 export class LwsController {
+  private isDev: boolean;
   constructor(
     private lwsService: LwsService,
     private configService: ConfigService,
-  ) {}
+  ) {
+    this.isDev = configService.get('NODE_ENV') == 'development';
+  }
   @Get('/get-accounts')
   @IsPublic()
   listAccounts() {
+    if (!this.isDev)
+      throw new UnauthorizedException(
+        'This request is only available on development mode.',
+      );
     return this.lwsService.getAccounts();
   }
 
   @Get('/list-wehhooks')
   @IsPublic()
   listWebhooks() {
+    if (!this.isDev)
+      throw new UnauthorizedException(
+        'This request is only available on development mode.',
+      );
     return this.lwsService.listWebhooks();
   }
 
-  // @Post('/webhooks/:token')
-  // @IsPublic()
-  // handleWebhook(@Param('token') token: string, @Body() body: LwsWebhookEvent) {
-  //   if (token !== this.configService.get('LWS_WEBHOOK_TOKEN'))
-  //     throw new UnauthorizedException();
+  @Delete('/webhooks/:address')
+  @IsPublic()
+  deleteWebhooks(@Param('address') address) {
+    if (!this.isDev)
+      throw new UnauthorizedException(
+        'This request is only available on development mode.',
+      );
 
-  //   return this.lwsService.handleEvent(body);
-  // }
+    if (!address) return {};
+
+    return this.lwsService.deleteAddressWebhooks(address);
+  }
+
+  @Get('/requests')
+  @IsPublic()
+  getRequests() {
+    if (!this.isDev)
+      throw new UnauthorizedException(
+        'This request is only available on development mode.',
+      );
+
+    return this.lwsService.listRequests();
+  }
 }

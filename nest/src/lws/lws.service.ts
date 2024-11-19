@@ -1,6 +1,11 @@
 import { HttpService } from '@nestjs/axios';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  Logger,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Cache } from 'cache-manager';
 import { PaymentsService } from 'src/payments/payments.service';
@@ -82,5 +87,29 @@ export class LwsService {
     );
 
     return data;
+  }
+
+  async deleteAddressWebhooks(address: string) {
+    try {
+      const { data } = await this.httpService.axiosRef.post('/webhook_delete', {
+        params: { addresses: [address] },
+      });
+      return data;
+    } catch (error) {
+      console.log(error.response);
+      throw new BadRequestException('Webhook deletion failed');
+    }
+  }
+
+  async listRequests() {
+    try {
+      const { data } = await this.httpService.axiosRef.post(
+        '/list_requests',
+        {},
+      );
+      return data;
+    } catch (error) {
+      console.log(error.response);
+    }
   }
 }
