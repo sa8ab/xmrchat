@@ -247,6 +247,34 @@ docker compose up -d
 
 ## <a name="development">Development</a>
 
+For development you might not need monero or monero-lws if you don't make tips or create new pages ( any payments related to monero ). If you need lws instance access or can't run yours please contact us.
+
+### Server
+
+Add your .env file based on .env.example.
+
+Run backend locally with docker-compose.dev.yml file
+
+```console
+docker compose -f docker-compose.dev.yml up -d
+```
+
+Then run the Nest project itself use node version more than 20.x.x
+
+```
+npm i
+npm run start:dev
+```
+
+### Client
+
+Add your .env based on .env.example, then run the project:
+
+```
+npm i
+npm run dev
+```
+
 ## License
 
 This project is licensed under the Apache License 2.0.
