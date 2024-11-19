@@ -8,7 +8,7 @@ services:
     # command: "npm run start"
     labels:
       - "traefik.enable=true"
-      - traefik.http.routers.xmrchatnew-nuxt.rule=Host(`new.xmrchat.com`)
+      - traefik.http.routers.xmrchatnew-nuxt.rule=Host(`xmrchat.com`)
       - traefik.http.routers.xmrchatnew-nuxt.entrypoints=websecure
       - traefik.http.services.xmrchatnew-nuxt.loadbalancer.server.port=3000
       - "traefik.http.routers.xmrchatnew-nuxt.tls=true"

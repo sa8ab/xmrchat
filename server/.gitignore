@@ -7,7 +7,7 @@ uploads
 source-uploads
 redis
 minio
-database
+/database
 database-test
 docker-compose.build.yml
 migrations/data/*.json
