@@ -10,7 +10,6 @@ services:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=${DATABASE_NAME}
     networks:
-      - custom-net
 
   redis:
     image: redis/redis-stack:latest
@@ -21,7 +20,6 @@ services:
     volumes:
       - ./redis/data:/data
     networks:
-      - custom-net
 
   minio:
     image: quay.io/minio/minio
@@ -46,7 +44,6 @@ services:
       - traefik.http.services.xmrchat-s3.loadbalancer.server.port=9000
 
     networks:
-      - custom-net
       - traefik
 
   nest:
@@ -66,10 +63,8 @@ services:
       - traefik.http.services.xmrchatnest.loadbalancer.server.port=3000
     networks:
       - traefik
-      - custom-net
 
 networks:
-  custom-net:
   traefik:
     name: traefik
     external: true
