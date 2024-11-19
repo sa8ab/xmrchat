@@ -50,7 +50,7 @@ XMRChat is a tip-for-chat application. Users can set up a page and have others s
 
 - **Payment Providers:**
   - **Monero:**
-    - [Monero Project](https://www.docker.com/)
+    - [Monero Project](https://www.getmonero.com/)
     - wallet Server : [monero-lws](https://github.com/vtnerd/monero-lws)
 
 ## Business Strategy: <a name="payment-strategy">Payment</a>
