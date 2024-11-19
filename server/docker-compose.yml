@@ -1,6 +1,5 @@
 services:
   postgres:
-    container_name: xmrchat-postgres
     image: postgres:14-alpine
     ports:
       - 5428:5432
@@ -15,7 +14,6 @@ services:
 
   redis:
     image: redis/redis-stack:latest
-    container_name: xmrchat-new-redis
     restart: always
     ports:
       - ':6379'
@@ -27,7 +25,6 @@ services:
 
   minio:
     image: quay.io/minio/minio
-    container_name: xmrchat-minio
     ports:
       - '9000:9000'
       - '9001:9001'
@@ -53,7 +50,6 @@ services:
       - traefik
 
   nest:
-    container_name: xmrchat-new-nest
     build: .
     ports:
       - 3083:3000
