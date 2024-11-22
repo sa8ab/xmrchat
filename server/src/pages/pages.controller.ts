@@ -19,10 +19,14 @@ import { PageDto } from './dtos/page.dto';
 import { StreamerPageDto, StreamerPageRO } from './dtos/streamer-page.dto';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 import { CheckSlugDto } from './dtos/check-slug.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('pages')
 export class PagesController {
-  constructor(private pagesService: PagesService) {}
+  constructor(
+    private pagesService: PagesService,
+    private configService: ConfigService,
+  ) {}
 
   @Post('/check-slug')
   checkSlug(@Body() body: CheckSlugDto) {
@@ -52,6 +56,9 @@ export class PagesController {
     const page = await this.pagesService.findByPath(slug);
 
     if (!page) throw new NotFoundException('Page not found');
+
+    page.minTipAmount =
+      page.minTipAmount || this.configService.get('MIN_TIP_AMOUNT');
 
     return page;
   }
