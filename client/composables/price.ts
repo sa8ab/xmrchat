@@ -1,4 +1,8 @@
-export const useXmrPrice = () => {
+interface Options {
+  pageMinXmr?: Ref<string | undefined>;
+}
+
+export const useXmrPrice = ({ pageMinXmr }: Options = {}) => {
   const { getPrice: getPriceApi } = useServices();
   const { minXMRPayAmount } = useAppConfig();
 
@@ -9,9 +13,13 @@ export const useXmrPrice = () => {
     return price.value;
   };
 
+  const minXmr = computed(() => {
+    return pageMinXmr?.value ? parseFloat(pageMinXmr.value) : minXMRPayAmount;
+  });
+
   const minUsdAmount = computed(() => {
     if (!price.value) return 0;
-    return (Math.ceil(minXMRPayAmount * price.value * 100) / 100).toFixed(2);
+    return (Math.ceil(minXmr.value * price.value * 100) / 100).toFixed(2);
   });
 
   onMounted(() => {

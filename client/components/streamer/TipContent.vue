@@ -16,7 +16,9 @@ const props = defineProps<{
 const { required, minLength, maxLength, minValue } = useValidations();
 const { sendTipToStreamer: sendTipToStreamerApi } = useServices();
 
-const { minUsdAmount, getPrice, price } = useXmrPrice();
+const { minUsdAmount, getPrice, price } = useXmrPrice({
+  pageMinXmr: computed(() => props.streamerPage?.minTipAmount),
+});
 
 const emit = defineEmits<{
   done: [TipCreationResponse];
