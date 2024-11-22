@@ -183,7 +183,7 @@ const v = useVuelidate<State["form"]>(
       minLength: minLength(3),
       maxLength: maxLength(16),
     },
-    minTipAmount: { numberic },
+    minTipAmount: { numberic, minValue: minValue(minXMRPayAmount) },
   },
   toRef(state, "form")
 );
