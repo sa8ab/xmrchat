@@ -359,8 +359,8 @@ const handleBannerUpload = (file: UploadedFile) => {
         </UFormGroup>
         <UFormGroup
           size="lg"
-          label="Min. Tip Amount"
-          hint="Default: 0.0001 XMR"
+          label="Min. Tip Amount ( XMR )"
+          :hint="`Default: ${minXMRPayAmount} XMR`"
           help=""
           :error="getValidationAttrs('minTipAmount').error"
         >
