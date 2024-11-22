@@ -39,6 +39,9 @@ export class Page {
   @Column({ nullable: true })
   twitchChannel: string;
 
+  @Column({ type: 'bigint', nullable: true })
+  minTipAmount: number;
+
   @Column('boolean', { default: true })
   isPublic: boolean;
 

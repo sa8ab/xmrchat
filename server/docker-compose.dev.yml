@@ -4,7 +4,7 @@ services:
     ports:
       - ${DATABASE_PORT}:5432
     volumes:
-      - ./database-test:/var/lib/postgresql/data
+      - ./postgres:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=${DATABASE_USERNAME}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
@@ -32,3 +32,9 @@ services:
       - ./minio/data:/data
 
     command: server /data --console-address ":9001"
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - '1025:1025'
+      - '8025:8025'

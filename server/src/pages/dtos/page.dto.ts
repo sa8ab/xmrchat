@@ -1,6 +1,7 @@
-import { Expose, Type } from 'class-transformer';
+import { Expose, Transform, Type } from 'class-transformer';
 import { FileDto } from 'src/files/dtos/file.dto';
 import { TierDto } from './tier/tier.dto';
+import { MoneroUtils } from 'monero-ts';
 
 export class PageDto {
   @Expose()
@@ -29,4 +30,10 @@ export class PageDto {
 
   @Expose()
   twitchChannel: string;
+
+  @Expose()
+  @Transform(
+    ({ value }) => value && MoneroUtils.atomicUnitsToXmr(value).toString(),
+  )
+  minTipAmount: string;
 }

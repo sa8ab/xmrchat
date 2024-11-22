@@ -35,8 +35,18 @@ const props = defineProps<{
 }>();
 
 const toast = useToast();
-const { required, minLength, maxLength, streamerSlug, streamerSlugInternal } =
-  useValidations();
+const {
+  required,
+  minLength,
+  maxLength,
+  streamerSlug,
+  streamerSlugInternal,
+  numberic,
+  minValue,
+} = useValidations();
+
+const { minXMRPayAmount } = useAppConfig();
+
 const {
   checkSlug: checkSlugApi,
   reserveSlug,
@@ -139,6 +149,7 @@ const handleSubmit = async () => {
         tiers: state.form.tiers,
         twitchChannel: state.form.twitchChannel?.toLowerCase(),
         isPublic: state.form.isPublic,
+        minTipAmount: state.form.minTipAmount?.toString() || null,
       });
       toast.add({ title: "Page updated!" });
       navigateTo(toStreamerDisplay()?.path);
@@ -172,6 +183,7 @@ const v = useVuelidate<State["form"]>(
       minLength: minLength(3),
       maxLength: maxLength(16),
     },
+    minTipAmount: { numberic, minValue: minValue(minXMRPayAmount) },
   },
   toRef(state, "form")
 );
@@ -191,6 +203,7 @@ const getPage = async () => {
     path: page.path,
     twitchChannel: page.twitchChannel?.toLowerCase(),
     isPublic: page.isPublic,
+    minTipAmount: page.minTipAmount,
     tiers: page.tiers || [],
   };
 
@@ -343,6 +356,18 @@ const handleBannerUpload = (file: UploadedFile) => {
           help="Name of your twitch channel. Used to display tips on Stream via xmr_chat Twitch bot."
         >
           <UInput v-model="state.form.twitchChannel" />
+        </UFormGroup>
+        <UFormGroup
+          size="lg"
+          label="Min. Tip Amount ( XMR )"
+          :hint="`Default: ${minXMRPayAmount} XMR`"
+          help=""
+          :error="getValidationAttrs('minTipAmount').error"
+        >
+          <UInput
+            v-model="state.form.minTipAmount"
+            @blur="getValidationAttrs('minTipAmount').onBlur"
+          />
         </UFormGroup>
       </div>
 

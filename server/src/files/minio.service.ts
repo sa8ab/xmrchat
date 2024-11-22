@@ -26,6 +26,8 @@ export class MinioService {
   ) {
     const fileStream = createReadStream(file.path);
 
+    await this.createBucket(bucketName);
+
     return this.minioClient.putObject(bucketName, name, fileStream);
   }
 
@@ -34,6 +36,20 @@ export class MinioService {
 
     if (!exists) {
       await this.minioClient.makeBucket(bucketName);
+      await this.minioClient.setBucketPolicy(
+        bucketName,
+        JSON.stringify({
+          Version: '2012-10-17',
+          Statement: [
+            {
+              Effect: 'Allow',
+              Principal: '*',
+              Action: ['s3:GetObject'],
+              Resource: [`arn:aws:s3:::${bucketName}/*`],
+            },
+          ],
+        }),
+      );
       this.logger.log(`Minio bucket ${bucketName} created.`);
     }
   }
