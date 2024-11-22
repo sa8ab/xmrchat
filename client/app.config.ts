@@ -4,5 +4,5 @@ export default defineAppConfig({
     twitter: "xmr_chat",
     email: "support@xmrchat.com",
   },
-  minXMRPayAmount: 0.001,
+  minXMRPayAmount: 0.0001,
 });

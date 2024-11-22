@@ -23,6 +23,7 @@ export interface CreateFormFields {
   path?: string;
   tiers?: TipTierField[];
   twitchChannel?: string;
+  minTipAmount?: string;
   isPublic?: boolean;
 }
 
@@ -57,6 +58,7 @@ export interface StreamerPage {
   secretViewKey?: string;
   tiers?: TipTier[];
   twitchChannel?: string;
+  minTipAmount?: string;
   isPublic: boolean;
 }
 

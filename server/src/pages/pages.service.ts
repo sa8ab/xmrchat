@@ -250,11 +250,28 @@ export class PagesService {
       throw new NotFoundException('Page not found');
     }
 
+    const configMinAmount = this.configService.get('MIN_TIP_AMOUNT');
+
+    const globalMinTipAmount = BigInt(configMinAmount);
+
+    const minTipAmount = MoneroUtils.xmrToAtomicUnits(
+      attrs.minTipAmount || configMinAmount,
+    );
+
+    if (minTipAmount < globalMinTipAmount) {
+      throw new BadRequestException(
+        `Minimum tip amount must be more than global minimum of ${MoneroUtils.atomicUnitsToXmr(configMinAmount)} XMR.`,
+      );
+    }
+
     if (page.userId !== user.id) {
       throw new UnauthorizedException();
     }
 
     attrs.tiers = attrs.tiers || [];
+    attrs.minTipAmount = attrs.minTipAmount
+      ? MoneroUtils.xmrToAtomicUnits(attrs.minTipAmount).toString()
+      : null;
 
     if (
       page.primaryAddress != attrs.primaryAddress ||
