@@ -29,20 +29,15 @@ export class EmailService {
   getConfig() {
     const isDev = process.env.NODE_ENV === 'development';
 
-    const host = isDev
-      ? 'smtp.ethereal.email'
-      : this.configService.get('MAIL_HOST');
+    const host = isDev ? '0.0.0.0' : this.configService.get('MAIL_HOST');
 
     const auth = isDev
-      ? {
-          user: 'furman.kuhic19@ethereal.email',
-          pass: 'hR8UAt2GxKa1W97tAf',
-        }
+      ? {}
       : {
           user: this.configService.get('MAIL_USERNAME'),
           pass: this.configService.get('MAIL_PASSWORD'),
         };
-    const port = isDev ? 587 : undefined;
+    const port = isDev ? 1025 : undefined;
 
     const ignoreTLS = isDev ? false : true;
 
