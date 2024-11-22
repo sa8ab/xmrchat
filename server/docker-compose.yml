@@ -41,11 +41,12 @@ services:
 
     labels:
       - traefik.enable=true
-      - traefik.http.routers.xmrchat-s3.entrypoints=websecure
-      - traefik.http.routers.xmrchat-s3.rule=Host(`s3.xmrchat.com`)
-      - traefik.tcp.routers.xmrchat-s3.tls=true
-      - traefik.http.routers.xmrchat-s3.tls.certresolver=myresolver
-      - traefik.http.services.xmrchat-s3.loadbalancer.server.port=9000
+      - traefik.docker.network=traefik
+      - traefik.http.routers.xmrchats3.entrypoints=websecure
+      - traefik.http.routers.xmrchats3.rule=Host(`s3.xmrchat.com`)
+      - traefik.http.routers.xmrchats3.tls=true
+      - traefik.http.routers.xmrchats3.tls.certresolver=myresolver
+      - traefik.http.services.xmrchats3.loadbalancer.server.port=9000
 
     networks:
       - traefik
@@ -61,9 +62,10 @@ services:
       - minio
     labels:
       - traefik.enable=true
+      - traefik.docker.network=traefik
       - traefik.http.routers.xmrchatnest.entrypoints=websecure
       - traefik.http.routers.xmrchatnest.rule=Host(`nest.xmrchat.com`)
-      - traefik.tcp.routers.xmrchatnest.tls=true
+      - traefik.http.routers.xmrchatnest.tls=true
       - traefik.http.routers.xmrchatnest.tls.certresolver=myresolver
       - traefik.http.services.xmrchatnest.loadbalancer.server.port=3000
     networks:
