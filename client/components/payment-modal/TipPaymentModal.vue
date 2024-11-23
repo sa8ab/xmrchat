@@ -18,6 +18,12 @@ const emit = defineEmits<{
 const active = defineModel<boolean>("active");
 const paymentError = ref(false);
 
+const authStore = useAuthStore();
+
+const showWalletWarning = computed(
+  () => authStore.state.page?.path === props.slug
+);
+
 const toast = useToast();
 
 const { init, disconnect, reconnect, connectionStatus } =
@@ -75,10 +81,30 @@ onBeforeUnmount(() => disconnect());
       @cancel="cancelPayment"
       @retry="handleRetry"
     >
+      <UAlert
+        v-if="showWalletWarning"
+        color="orange"
+        variant="subtle"
+        class="mb-2"
+      >
+        <template #title>
+          <span>Do not tip with streamer wallet.</span>
+        </template>
+        <template #description>
+          Please avoid sending tips with wallet registered on the page. The
+          change returned inflates the amount we see received.
+        </template>
+        <template #icon>
+          <UIcon
+            name="i-heroicons-exclamation-triangle"
+            class="w-[24px] h-[24px]"
+          />
+        </template>
+      </UAlert>
       <template v-if="createdTip">
         <UAlert color="emerald" variant="subtle" class="text-xl">
           <template #title>
-            <h6 class="font-bold text-base">NOTE</h6>
+            <span>NOTE</span>
           </template>
           <template #description>
             <p class="text-[15px] leading-6">
