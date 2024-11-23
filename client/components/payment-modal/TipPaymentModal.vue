@@ -18,36 +18,32 @@ const emit = defineEmits<{
 const active = defineModel<boolean>("active");
 const paymentError = ref(false);
 
+const authStore = useAuthStore();
+
+const showWalletWarning = computed(
+  () => authStore.state.page?.path === props.slug
+);
+
 const toast = useToast();
 
-const { init, disconnect } = usePaymentSocket<TipEventData>({
-  onTipEvent: (data) => {
-    console.log(data);
+const { init, disconnect, reconnect, connectionStatus } =
+  usePaymentSocket<TipEventData>({
+    onTipEvent: (data) => {
+      console.log(data);
 
-    if (!data.paidAt) return;
+      if (!data.paidAt) return;
 
-    toast.add({
-      title: "Tip received successfully!",
-    });
-    disconnect();
-    emit("paid");
-  },
+      toast.add({
+        title: "Tip received successfully!",
+      });
+      disconnect();
+      emit("paid");
+    },
+  });
 
-  // onError: () => {
-  //   cancelPayment();
-  //   toast.add({
-  //     color: "red",
-  //     title: "Something went wrong checking for payment",
-  //     description:
-  //       "If you have already sent the payment it will be credited as soon as received.",
-  //     timeout: 0,
-  //   });
-  // },
-
-  onClose: () => {
-    paymentError.value = true;
-  },
-});
+const handleRetry = () => {
+  reconnect();
+};
 
 const cancelPayment = () => {
   disconnect();
@@ -60,10 +56,6 @@ const initSocket = () => {
     path: "tips",
     query: { tipId: props.createdTip?.id },
   });
-};
-
-const retry = () => {
-  initSocket();
 };
 
 watch(active, (currentActive) => {
@@ -85,14 +77,34 @@ onBeforeUnmount(() => disconnect());
         address: createdTip?.paymentAddress,
         amount: createdTip?.amount,
       }"
-      :error="paymentError"
+      :connectionStatus="connectionStatus"
       @cancel="cancelPayment"
-      @retry="retry"
+      @retry="handleRetry"
     >
+      <UAlert
+        v-if="showWalletWarning"
+        color="orange"
+        variant="subtle"
+        class="mb-2"
+      >
+        <template #title>
+          <span>Do not tip with streamer wallet.</span>
+        </template>
+        <template #description>
+          Please avoid sending tips with wallet registered on the page. The
+          change returned inflates the amount we see received.
+        </template>
+        <template #icon>
+          <UIcon
+            name="i-heroicons-exclamation-triangle"
+            class="w-[24px] h-[24px]"
+          />
+        </template>
+      </UAlert>
       <template v-if="createdTip">
         <UAlert color="emerald" variant="subtle" class="text-xl">
           <template #title>
-            <h6 class="font-bold text-base">NOTE</h6>
+            <span>NOTE</span>
           </template>
           <template #description>
             <p class="text-[15px] leading-6">

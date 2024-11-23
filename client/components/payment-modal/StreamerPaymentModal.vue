@@ -34,30 +34,25 @@ const stopPaymentCheck = () => {
   disconnect();
 };
 
-const { init, disconnect } = usePaymentSocket<PaymentSocketMessage>({
-  onPaymentEvent: (data) => {
-    console.log(data);
+const { init, disconnect, connectionStatus, reconnect } =
+  usePaymentSocket<PaymentSocketMessage>({
+    onPaymentEvent: (data) => {
+      console.log(data);
 
-    if (!data.paidAt) return;
+      if (!data.paidAt) return;
 
-    toast.add({
-      title: "Page is created successfully!",
-    });
-    disconnect();
-    getMe();
-    return navigateTo(toStreamerDisplay()?.path);
-  },
+      toast.add({
+        title: "Page is created successfully!",
+      });
+      disconnect();
+      getMe();
+      return navigateTo(toStreamerDisplay()?.path);
+    },
+  });
 
-  onError: () => {
-    cancelPayment();
-    toast.add({
-      color: "red",
-      title: "Error checking reservation",
-      description:
-        "If you have already sent the payment, your page will be created.",
-    });
-  },
-});
+const handleRetry = () => {
+  reconnect();
+};
 
 watch(active, (currentActive) => {
   if (currentActive) {
@@ -78,7 +73,9 @@ onBeforeUnmount(() => stopPaymentCheck());
         address: reservedData?.paymentAddress,
         amount: reservedData?.amount,
       }"
+      :connectionStatus="connectionStatus"
       @cancel="cancelPayment"
+      @retry="handleRetry"
     >
       <template v-if="reservedData">
         <p class="pb-1.5 mb-2.5 text-gray-700 border-b border-border">

@@ -136,6 +136,9 @@ const messageLength = computed(() => state.form.message?.length || 0);
               :tiers="streamerPage?.tiers"
               @select="state.form.amount = $event"
             />
+            <template #hint>
+              <span class="text-xs">Minimum ${{ minUsdAmount }}</span>
+            </template>
           </UFormGroup>
         </div>
 

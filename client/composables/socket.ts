@@ -5,8 +5,6 @@ interface PaymentSocketOptions<T> {
   onTipEvent?: (...args: [T]) => any;
   onPaymentEvent?: (...args: [T]) => any;
   onPageTipEvent?: (...args: [T]) => any;
-  onError?: () => any;
-  onClose?: () => any;
 }
 
 interface TipPaymentInitParams {
@@ -17,6 +15,9 @@ interface TipPaymentInitParams {
 export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
   const socket = shallowRef<Socket | undefined>();
   const config = useRuntimeConfig();
+  const connectionStatus = ref<
+    "CONNECTED" | "DISCONNECTED" | "RECONNECTING" | undefined
+  >(undefined);
 
   const init = (params?: TipPaymentInitParams) => {
     // const url = `${config.public.apiBaseUrl}/v1/pages/${params.slug}/ws/tips/${params.tipId}`;
@@ -59,12 +60,12 @@ export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
   };
 
   const handleConnect = () => {
-    console.log("Socket Is Active");
+    console.log("Socket Connected");
+    connectionStatus.value = "CONNECTED";
   };
   const handleDisconnect = () => {
-    console.log("Socket Closed");
-    socket.value = undefined;
-    options?.onClose?.();
+    console.log("Socket Disconnected");
+    connectionStatus.value = "DISCONNECTED";
   };
 
   const handlePaymentEvent = (v: any) => {
@@ -82,11 +83,16 @@ export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
   const disconnect = () => {
     socket.value?.close();
     socket.value = undefined;
-    // socket.value?.disconnect();
+  };
+
+  const reconnect = () => {
+    socket.value?.connect();
   };
 
   return {
     init,
     disconnect,
+    connectionStatus,
+    reconnect,
   };
 };
