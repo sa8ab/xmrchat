@@ -358,6 +358,7 @@ const handleBannerUpload = (file: UploadedFile) => {
           <UInput v-model="state.form.twitchChannel" />
         </UFormGroup>
         <UFormGroup
+          v-if="editable"
           size="lg"
           label="Min. Tip Amount ( XMR )"
           :hint="`Default: ${minXMRPayAmount} XMR`"

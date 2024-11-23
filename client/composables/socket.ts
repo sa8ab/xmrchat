@@ -5,8 +5,6 @@ interface PaymentSocketOptions<T> {
   onTipEvent?: (...args: [T]) => any;
   onPaymentEvent?: (...args: [T]) => any;
   onPageTipEvent?: (...args: [T]) => any;
-  onError?: () => any;
-  onClose?: () => any;
 }
 
 interface TipPaymentInitParams {
@@ -68,7 +66,6 @@ export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
   const handleDisconnect = () => {
     console.log("Socket Disconnected");
     connectionStatus.value = "DISCONNECTED";
-    options?.onClose?.();
   };
 
   const handlePaymentEvent = (v: any) => {
