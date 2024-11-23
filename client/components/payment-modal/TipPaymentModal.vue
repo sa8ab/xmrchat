@@ -20,34 +20,24 @@ const paymentError = ref(false);
 
 const toast = useToast();
 
-const { init, disconnect } = usePaymentSocket<TipEventData>({
-  onTipEvent: (data) => {
-    console.log(data);
+const { init, disconnect, reconnect, connectionStatus } =
+  usePaymentSocket<TipEventData>({
+    onTipEvent: (data) => {
+      console.log(data);
 
-    if (!data.paidAt) return;
+      if (!data.paidAt) return;
 
-    toast.add({
-      title: "Tip received successfully!",
-    });
-    disconnect();
-    emit("paid");
-  },
+      toast.add({
+        title: "Tip received successfully!",
+      });
+      disconnect();
+      emit("paid");
+    },
+  });
 
-  // onError: () => {
-  //   cancelPayment();
-  //   toast.add({
-  //     color: "red",
-  //     title: "Something went wrong checking for payment",
-  //     description:
-  //       "If you have already sent the payment it will be credited as soon as received.",
-  //     timeout: 0,
-  //   });
-  // },
-
-  onClose: () => {
-    paymentError.value = true;
-  },
-});
+const handleRetry = () => {
+  reconnect();
+};
 
 const cancelPayment = () => {
   disconnect();
@@ -60,10 +50,6 @@ const initSocket = () => {
     path: "tips",
     query: { tipId: props.createdTip?.id },
   });
-};
-
-const retry = () => {
-  initSocket();
 };
 
 watch(active, (currentActive) => {
@@ -85,9 +71,9 @@ onBeforeUnmount(() => disconnect());
         address: createdTip?.paymentAddress,
         amount: createdTip?.amount,
       }"
-      :error="paymentError"
+      :connectionStatus="connectionStatus"
       @cancel="cancelPayment"
-      @retry="retry"
+      @retry="handleRetry"
     >
       <template v-if="createdTip">
         <UAlert color="emerald" variant="subtle" class="text-xl">

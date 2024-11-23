@@ -4,7 +4,7 @@ import type { PaymentQRCodeProps } from "./PaymentQRCode.vue";
 interface Props {
   title?: string;
   qrCode?: PaymentQRCodeProps;
-  error?: boolean;
+  connectionStatus?: string;
 }
 
 const props = defineProps<Props>();
@@ -24,7 +24,10 @@ const emit = defineEmits<{
     <div class="w-full flex flex-col items-center gap-4 pt-4">
       <PaymentAddressDisplay :address="qrCode?.address" />
       <PaymentQRCode v-bind="qrCode" />
-      <PaymentError v-if="error" @retry="emit('retry')" />
+      <PaymentError
+        v-if="connectionStatus === 'DISCONNECTED'"
+        @retry="emit('retry')"
+      />
       <PaymentLoading v-else />
     </div>
     <div class="flex justify-end pt-3">
