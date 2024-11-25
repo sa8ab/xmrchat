@@ -14,8 +14,16 @@ import {
 export class PageSettingsService {
   constructor(
     @InjectRepository(PageSetting) private repo: Repository<PageSetting>,
-    private pagesService: PagesService,
   ) {}
+
+  async getByPageId(pageId: number, category?: PageSettingCategory) {
+    if (!pageId) return null;
+
+    return this.repo.findBy({
+      page: { id: pageId },
+      category,
+    });
+  }
 
   async upsert(pageId: number, settings: UpdatePageSettingBaseDto[]) {
     const fullSettings = settings.map((setting) => {
