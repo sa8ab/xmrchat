@@ -1,4 +1,6 @@
 import { Controller } from '@nestjs/common';
 
 @Controller('page-settings')
-export class PageSettingsController {}
+export class PageSettingsController {
+  constructor() {}
+}

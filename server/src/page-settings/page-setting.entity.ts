@@ -11,11 +11,13 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   RelationId,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 import { Page } from '../pages/page.entity';
 
 @Entity({ name: 'page-settings' })
+@Unique('unique-page-and-key', ['page.id', 'key'])
 export class PageSetting {
   @PrimaryGeneratedColumn()
   id: number;

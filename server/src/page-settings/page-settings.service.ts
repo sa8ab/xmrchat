@@ -12,6 +12,7 @@ export class PageSettingsService {
   ) {}
 
   update(pageId: number) {
-    if (!pageId) throw new BadRequestException('Page');
+    // get current list of settings
+    // upsert them?
   }
 }
