@@ -31,6 +31,6 @@ export class PageSetting {
   @Column({ type: 'enum', enum: PageSettingValueType })
   type: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   value: string;
 }
