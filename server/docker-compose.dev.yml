@@ -14,7 +14,7 @@ services:
     image: redis/redis-stack:latest
     restart: always
     ports:
-      - '6378:6379'
+      - ${REDIS_PORT}:6379
 
     volumes:
       - ./redis/data:/data
@@ -22,11 +22,11 @@ services:
   minio:
     image: quay.io/minio/minio
     ports:
-      - '9000:9000'
-      - '9001:9001'
+      - ${MINIO_PORT}:9000
+      - 9001:9001
     environment:
-      MINIO_ROOT_USER: admin
-      MINIO_ROOT_PASSWORD: password
+      MINIO_ROOT_USER: ${MINIO_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD}
 
     volumes:
       - ./minio/data:/data
