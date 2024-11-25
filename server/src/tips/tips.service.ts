@@ -96,8 +96,6 @@ export class TipsService {
 
     const xmrUnits = MoneroUtils.xmrToAtomicUnits(payload.amount);
 
-    this.logger.log({ xmrUnits });
-
     const minTipAmountXmr = MoneroUtils.atomicUnitsToXmr(
       this.configService.get('MIN_TIP_AMOUNT'),
     );
