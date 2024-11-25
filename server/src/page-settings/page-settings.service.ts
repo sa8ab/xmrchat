@@ -25,7 +25,7 @@ export class PageSettingsService {
       },
       {
         key: PageSettingKey.OBS_KEEP_MESSAGES,
-        value: 'gfgrge',
+        value: 'false',
         page: { id: pageId },
         type: 'boolean',
         category: PageSettingCategory.OBS,
