@@ -28,8 +28,6 @@ export class PageSettingsService {
       };
     });
 
-    console.log(fullSettings);
-
     // upsert settings
     await this.repo.upsert(fullSettings, ['key', 'page.id']);
 

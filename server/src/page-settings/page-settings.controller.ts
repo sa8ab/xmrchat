@@ -35,8 +35,6 @@ export class PageSettingsController {
     if (page.userId != user.id)
       throw new UnauthorizedException('Unauthorized.');
 
-    console.log(body);
-
     return this.pageSettings.upsert(pageId, body.settings);
   }
 }
