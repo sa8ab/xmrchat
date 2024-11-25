@@ -7,9 +7,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
+  RelationId,
   UpdateDateColumn,
 } from 'typeorm';
+import { Page } from '../page.entity';
 
 @Entity({ name: 'page-settings' })
 export class PageSetting {
@@ -33,4 +37,11 @@ export class PageSetting {
 
   @Column({ type: 'text', nullable: true })
   value: string;
+
+  @ManyToOne(() => Page, (p: Page) => p.settings, { onDelete: 'CASCADE' })
+  @JoinColumn({ foreignKeyConstraintName: 'page-settings_page_id_fkey' })
+  page: Page;
+
+  @RelationId((s: PageSetting) => s.page)
+  pageId: number;
 }
