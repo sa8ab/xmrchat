@@ -4,6 +4,11 @@ import { PageSetting } from './page-setting.entity';
 import { Repository } from 'typeorm';
 import { PagesService } from '../pages/pages.service';
 import { PageSettingCategory, PageSettingKey } from 'src/shared/constants/enum';
+import { UpdatePageSettingBaseDto } from './dto/update-page-setting.dto';
+import {
+  getPageSettingCategory,
+  getPageSettingType,
+} from 'src/shared/utils/settings';
 
 @Injectable()
 export class PageSettingsService {
@@ -12,30 +17,21 @@ export class PageSettingsService {
     private pagesService: PagesService,
   ) {}
 
-  async upsert(pageId: number) {
-    // get current list of current settings
-    const settings = await this.repo.findBy({ page: { id: pageId } });
-
-    const data = [
-      {
-        key: PageSettingKey.OBS_PLAY_SOUND,
-        type: 'boolean',
-        category: PageSettingCategory.OBS,
+  async upsert(pageId: number, settings: UpdatePageSettingBaseDto[]) {
+    const fullSettings = settings.map((setting) => {
+      return {
+        key: setting.key,
+        value: setting.value,
+        category: getPageSettingCategory(setting.key),
+        type: getPageSettingType(setting.key),
         page: { id: pageId },
-      },
-      {
-        key: PageSettingKey.OBS_KEEP_MESSAGES,
-        value: 'false',
-        page: { id: pageId },
-        type: 'boolean',
-        category: PageSettingCategory.OBS,
-      },
-    ];
+      };
+    });
 
-    // console.log(settings);
+    console.log(fullSettings);
 
     // upsert settings
-    await this.repo.upsert(data, ['key', 'page.id']);
+    await this.repo.upsert(fullSettings, ['key', 'page.id']);
 
     return 'Settings updated.';
   }

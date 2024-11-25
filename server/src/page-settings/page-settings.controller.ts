@@ -37,6 +37,6 @@ export class PageSettingsController {
 
     console.log(body);
 
-    return this.pageSettings.upsert(pageId);
+    return this.pageSettings.upsert(pageId, body.settings);
   }
 }
