@@ -21,5 +21,5 @@ export enum PageSettingKey {
 export enum PageSettingValueType {
   STRING = 'string',
   NUMBER = 'number',
-  boolean = 'boolean',
+  BOOLEAN = 'boolean',
 }
