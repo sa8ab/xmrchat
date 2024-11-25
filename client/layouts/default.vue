@@ -1,7 +1,7 @@
 <template>
   <div class="default-layout">
     <AppHeader />
-    <main class="content">
+    <main class="content flex flex-col">
       <slot />
     </main>
     <DevOnly>
@@ -26,7 +26,7 @@ const devLoggedIn = useCookie("xmrchat-dev-logged-in", {
 .default-layout {
   @apply flex flex-col min-h-screen bg-background;
   .content {
-    @apply flex-1;
+    @apply flex-grow;
   }
 }
 </style>

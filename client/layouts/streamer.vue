@@ -1,10 +1,10 @@
 <template>
   <NuxtLayout name="default">
-    <div class="grid grid-cols-12 inner">
+    <div class="flex-1 grid grid-cols-12 gap-4 inner">
       <div class="col-span-3">
         <StreamerMenu />
       </div>
-      <div class="col-span-9">
+      <div class="col-span-9 py-4">
         <slot />
       </div>
     </div>
