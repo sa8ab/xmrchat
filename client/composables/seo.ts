@@ -20,7 +20,7 @@ export const useStreamerIdSeoMeta = (
   page: Ref<StreamerPage | undefined | null>
 ) => {
   const {
-    public: { apiBaseUrl },
+    public: { imageBaseUrl },
   } = useRuntimeConfig();
   useSeoMeta({
     title: () => `Tip ${page.value?.path || ""}`,
@@ -30,7 +30,7 @@ export const useStreamerIdSeoMeta = (
     ogTitle: `XMRChat - Tip ${page.value?.path} with Monero`,
     twitterTitle: `XMRChat - Tip ${page.value?.path} with Monero`,
     twitterCard: "summary",
-    twitterImage: `${apiBaseUrl}/v1/images/${page.value?.logo}`,
-    ogImage: `${apiBaseUrl}/v1/images/${page.value?.logo}`,
+    twitterImage: `${imageBaseUrl}${page.value?.logo.url}`,
+    ogImage: `${imageBaseUrl}${page.value?.logo.url}`,
   });
 };
