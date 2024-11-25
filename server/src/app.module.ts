@@ -15,6 +15,7 @@ import { PaymentsModule } from './payments/payments.module';
 import { TipsModule } from './tips/tips.module';
 import { WebhooksModule } from './webhooks/webhooks.module';
 import { PricesModule } from './prices/prices.module';
+import { PageSettingsModule } from './page-settings/page-settings.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { PricesModule } from './prices/prices.module';
     TipsModule,
     WebhooksModule,
     PricesModule,
+    PageSettingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

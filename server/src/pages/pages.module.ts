@@ -7,7 +7,6 @@ import { LwsModule } from 'src/lws/lws.module';
 import { PaymentsModule } from 'src/payments/payments.module';
 import { PagesGateway } from './pages.gateway';
 import { NotificationsModule } from 'src/notifications/notifications.module';
-import { PageSettingsModule } from './page-settings/page-settings.module';
 
 @Module({
   imports: [
@@ -15,7 +14,6 @@ import { PageSettingsModule } from './page-settings/page-settings.module';
     LwsModule,
     PaymentsModule,
     NotificationsModule,
-    PageSettingsModule,
   ],
   controllers: [PagesController],
   providers: [PagesService, PagesGateway],

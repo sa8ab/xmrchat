@@ -2,7 +2,7 @@ import {
   PageSettingCategory,
   PageSettingKey,
   PageSettingValueType,
-} from '../../shared/constants/enum';
+} from '../shared/constants/enum';
 import {
   Column,
   CreateDateColumn,
@@ -13,7 +13,7 @@ import {
   RelationId,
   UpdateDateColumn,
 } from 'typeorm';
-import { Page } from '../page.entity';
+import { Page } from '../pages/page.entity';
 
 @Entity({ name: 'page-settings' })
 export class PageSetting {
