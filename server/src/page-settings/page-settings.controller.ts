@@ -17,6 +17,7 @@ import { PagesService } from 'src/pages/pages.service';
 import { PageSettingCategory } from 'src/shared/constants';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
 import { PageSettingDto, PageSettingRO } from './dto/page-setting.dto';
+import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 
 @Controller('page-settings')
 export class PageSettingsController {
@@ -25,6 +26,7 @@ export class PageSettingsController {
     private pagesService: PagesService,
   ) {}
 
+  // Get my page settings
   @Get('/me')
   @Serialize(PageSettingRO)
   async getMySettings(
@@ -36,6 +38,22 @@ export class PageSettingsController {
     if (!page) throw new NotFoundException('Page not found.');
 
     const settings = await this.pageSettings.getByPageId(page.id, category);
+
+    return { settings };
+  }
+
+  // Gets obs settings for a page
+  @Get('/:slug/obs')
+  @Serialize(PageSettingRO)
+  @IsPublic()
+  async getPageSettingsBySlug(@Param('slug') slug: string) {
+    const page = await this.pagesService.findByPath(slug);
+    if (!page) throw new NotFoundException('Page not found.');
+
+    const settings = await this.pageSettings.getByPageSlug(
+      page.path,
+      PageSettingCategory.OBS,
+    );
 
     return { settings };
   }

@@ -8,6 +8,8 @@ definePageMeta({
 
 const route = useRoute();
 
+const { getPageSettings } = useServices();
+
 const { init, disconnect } = usePaymentSocket<ObsTipSocketMessage>({
   onPageTipEvent: (e) => {
     const id = Math.random().toString();

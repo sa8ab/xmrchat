@@ -14,6 +14,7 @@ import {
 export class PageSettingsService {
   constructor(
     @InjectRepository(PageSetting) private repo: Repository<PageSetting>,
+    private pagesService: PagesService,
   ) {}
 
   async getByPageId(pageId: number, category?: PageSettingCategory) {
@@ -21,6 +22,15 @@ export class PageSettingsService {
 
     return this.repo.findBy({
       page: { id: pageId },
+      category,
+    });
+  }
+
+  async getByPageSlug(slug: string, category?: PageSettingCategory) {
+    if (!slug) return null;
+    const page = await this.pagesService.findByPath(slug);
+    return this.repo.findBy({
+      page: { id: page.id },
       category,
     });
   }
