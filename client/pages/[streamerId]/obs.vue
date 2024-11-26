@@ -46,10 +46,7 @@ const { init, disconnect } = usePaymentSocket<ObsTipSocketMessage>({
       id,
     });
 
-    // Hide tip after 30 seconds
-    setTimeout(() => {
-      removeTip(id);
-    }, 30 * 1000);
+    handleAfterTip(id);
   },
 });
 
@@ -81,11 +78,15 @@ const simulateTip = () => {
     name: "Continental",
     id,
   });
-  playSound();
 
+  handleAfterTip(id);
+};
+
+const handleAfterTip = (id: string) => {
+  playSound();
   setTimeout(() => {
     removeTip(id);
-  }, 4 * 1000);
+  }, 30 * 1000);
 };
 
 const removeTip = (id: string) => {
