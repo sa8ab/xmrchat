@@ -1,4 +1,14 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const url = useRequestURL();
+const { state } = useAuthStore();
+
+const { copy } = useCopy();
+
+const copyLink = () => {
+  if (!state.page) return;
+  copy(`${url.origin}/${state.page?.path}/obs`);
+};
+</script>
 
 <template>
   <div>
@@ -9,7 +19,7 @@
         To use XMRChat on OBS, copy the link to OBS page and add it on "Browser"
         of OBS Sources.
       </span>
-      <UButton icon="i-heroicons-document-duplicate">
+      <UButton icon="i-heroicons-document-duplicate" @click="copyLink">
         Copy OBS Page Link
       </UButton>
     </div>
@@ -37,6 +47,9 @@
           Plays a sound on the OBS page when new tip appears.
         </span>
       </div>
+    </div>
+    <div class="mt-6">
+      <UButton>Save Changes</UButton>
     </div>
   </div>
 </template>

@@ -142,6 +142,10 @@ export const useServices = () => {
     return res.data;
   };
 
+  const updatePageSettings = async (id: Numberic, params: any) => {
+    await axios.put(`/page-settings/${id}`, params);
+  };
+
   return {
     me,
     login,
@@ -161,5 +165,6 @@ export const useServices = () => {
     confirmEmail,
     getCreators,
     updateTipPrivate,
+    updatePageSettings,
   };
 };
