@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout name="default">
-    <div class="flex-1 grid lg:grid-cols-12 gap-4 inner">
+    <div class="flex-1 lg:grid lg:grid-cols-12 lg:gap-6 inner">
       <div class="lg:col-span-3">
         <StreamerMenu />
       </div>

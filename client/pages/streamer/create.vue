@@ -42,7 +42,7 @@ const cancelPayment = () => {
 
 <template>
   <div class="inner">
-    <div class="flex flex-col mt-5 md:mt-10">
+    <div class="flex flex-col">
       <UBreadcrumb :links="links" />
       <PageTitle
         title="Create Page"

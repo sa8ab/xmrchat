@@ -93,7 +93,7 @@ const dropdownItems = computed<DropdownItem[][]>(() => {
       </div>
       <div class="flex items-center gap-1">
         <template v-if="!route.meta.hideHeaderLogin">
-          <UDropdown
+          <!-- <UDropdown
             v-if="authStore.isLoggedIn"
             :items="dropdownItems"
             :ui="{
@@ -121,7 +121,14 @@ const dropdownItems = computed<DropdownItem[][]>(() => {
               label="Account"
               trailing-icon="i-heroicons-chevron-down-20-solid"
             />
-          </UDropdown>
+          </UDropdown> -->
+          <UButton
+            v-if="authStore.isLoggedIn"
+            icon="i-heroicons-user"
+            :to="toStreamerDisplay()"
+          >
+            Account
+          </UButton>
           <UButton v-else :to="toLogin()">Streamer Login</UButton>
         </template>
 

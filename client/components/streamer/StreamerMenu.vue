@@ -12,14 +12,16 @@ watch(
 </script>
 
 <template>
-  <div>
+  <div class="mt-4">
     <div
-      class="border rounded-lg border-border mt-3 p-4 pt-8 sticky top-0 hidden lg:flex"
+      class="border rounded-lg border-border p-4 pt-8 sticky top-0 hidden lg:block"
     >
       <StreamerMenuContent />
     </div>
     <div class="lg:hidden">
-      <UButton @click="active = true" icon="i-heroicons-bars-2">Menu</UButton>
+      <UButton @click="active = true" trailingIcon="i-heroicons-chevron-right"
+        >Menu</UButton
+      >
       <USlideover
         v-model="active"
         side="left"

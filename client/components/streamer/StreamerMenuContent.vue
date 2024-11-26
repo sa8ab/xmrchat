@@ -22,14 +22,14 @@ const items = computed(() => {
     res.push(
       ...[
         {
-          label: "My Tip Page",
-          icon: "i-heroicons-banknotes",
-          to: toStreamer(page.value.path),
-        },
-        {
           label: "Edit Page",
           icon: "i-heroicons-pencil-square",
           to: toStreamerEdit(),
+        },
+        {
+          label: "My Tip Page",
+          icon: "i-heroicons-banknotes",
+          to: toStreamer(page.value.path),
         },
         {
           label: "Settings",
@@ -57,7 +57,7 @@ const items = computed(() => {
         :exact="item.exact"
         variant="soft"
         class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:text-primary transition-all"
-        activeClass="bg-primary text-black pointer-events-none"
+        activeClass="bg-primary text-gray-900 pointer-events-none"
       >
         <UIcon v-if="item.icon" :name="item.icon" class="w-5 h-5" />
         <span>
