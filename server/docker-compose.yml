@@ -44,11 +44,11 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik
-      - traefik.http.routers.xmrchats3.entrypoints=websecure
-      - traefik.http.routers.xmrchats3.rule=Host(`${S3_DOMAIN_NAME:-s3.xmrchat.com}`)
-      - traefik.http.routers.xmrchats3.tls=true
-      - traefik.http.routers.xmrchats3.tls.certresolver=myresolver
-      - traefik.http.services.xmrchats3.loadbalancer.server.port=9000
+      - traefik.http.routers.${TRAEFIK_MINIO_ROUTER_NAME:-xmrchats3}.entrypoints=websecure
+      - traefik.http.routers.${TRAEFIK_MINIO_ROUTER_NAME:-xmrchats3}.rule=Host(`${S3_DOMAIN_NAME:-s3.xmrchat.com}`)
+      - traefik.http.routers.${TRAEFIK_MINIO_ROUTER_NAME:-xmrchats3}.tls=true
+      - traefik.http.routers.${TRAEFIK_MINIO_ROUTER_NAME:-xmrchats3}.tls.certresolver=myresolver
+      - traefik.http.services.${TRAEFIK_MINIO_ROUTER_NAME:-xmrchats3}.loadbalancer.server.port=9000
 
     networks:
       - traefik
@@ -65,11 +65,11 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik
-      - traefik.http.routers.xmrchatnest.entrypoints=websecure
-      - traefik.http.routers.xmrchatnest.rule=Host(`${DOMAIN_NAME:-nest.xmrchat.com}`)
-      - traefik.http.routers.xmrchatnest.tls=true
-      - traefik.http.routers.xmrchatnest.tls.certresolver=myresolver
-      - traefik.http.services.xmrchatnest.loadbalancer.server.port=3000
+      - traefik.http.routers.${TRAEFIK_NEST_ROUTER_NAME:-xmrchatnest}.entrypoints=websecure
+      - traefik.http.routers.${TRAEFIK_NEST_ROUTER_NAME:-xmrchatnest}.rule=Host(`${DOMAIN_NAME:-nest.xmrchat.com}`)
+      - traefik.http.routers.${TRAEFIK_NEST_ROUTER_NAME:-xmrchatnest}.tls=true
+      - traefik.http.routers.${TRAEFIK_NEST_ROUTER_NAME:-xmrchatnest}.tls.certresolver=myresolver
+      - traefik.http.services.${TRAEFIK_NEST_ROUTER_NAME:-xmrchatnest}.loadbalancer.server.port=3000
     networks:
       traefik:
         aliases:
