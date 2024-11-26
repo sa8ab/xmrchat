@@ -22,7 +22,7 @@ const links = [
   <div>
     <div class="inner">
       <div class="flex flex-col">
-        <UBreadcrumb :links="links" />
+        <!-- <UBreadcrumb :links="links" /> -->
 
         <PageTitle title="Edit Page" desciption="Customize your tip page." />
       </div>
