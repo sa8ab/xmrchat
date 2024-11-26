@@ -2,7 +2,8 @@
 const { state } = useAuthStore();
 
 const page = computed(() => state.page);
-const { toStreamer, toStreamerDisplay, toStreamerEdit } = useRouteLocation();
+const { toStreamer, toStreamerDisplay, toStreamerEdit, toStreamerOBS } =
+  useRouteLocation();
 
 const items = computed(() => {
   const res: Record<string, any>[] = [];
@@ -32,9 +33,9 @@ const items = computed(() => {
           to: toStreamer(page.value.path),
         },
         {
-          label: "Settings",
-          icon: "i-heroicons-cog-6-tooth",
-          to: "/",
+          label: "OBS",
+          icon: "i-heroicons-video-camera",
+          to: toStreamerOBS(),
         },
       ]
     );
@@ -57,7 +58,7 @@ const items = computed(() => {
         :exact="item.exact"
         variant="soft"
         class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:text-primary transition-all"
-        activeClass="bg-primary text-gray-900 pointer-events-none"
+        activeClass="bg-primary text-white dark:text-gray-900 pointer-events-none"
       >
         <UIcon v-if="item.icon" :name="item.icon" class="w-5 h-5" />
         <span>
