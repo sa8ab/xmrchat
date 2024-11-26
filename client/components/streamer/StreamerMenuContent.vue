@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const { state } = useAuthStore();
+const { state, logout } = useAuthStore();
 
 const page = computed(() => state.page);
 const { toStreamer, toStreamerDisplay, toStreamerEdit, toStreamerOBS } =
@@ -66,7 +66,7 @@ const items = computed(() => {
         </span>
       </ULink>
       <UDivider class="my-2" />
-      <UButton color="red" variant="ghost">
+      <UButton color="red" variant="ghost" @click="logout">
         <UIcon
           name="i-heroicons-arrow-left-end-on-rectangle-solid"
           class="w-5 h-5"
