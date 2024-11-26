@@ -1,36 +1,72 @@
 <script lang="ts" setup>
+import type { PageSettingField } from "~/types";
 import { PageSettingKey } from "~/types/enums";
 
 const url = useRequestURL();
-const { state } = useAuthStore();
+const { state: authState } = useAuthStore();
 
 const { copy } = useCopy();
 const {
   getPageSettings: getPageSettingsApi,
   updatePageSettings: updatePageSettingsApi,
 } = useServices();
+const toast = useToast();
 
 const copyLink = () => {
-  if (!state.page) return;
-  copy(`${url.origin}/${state.page?.path}/obs`);
+  if (!authState.page) return;
+  copy(`${url.origin}/${authState.page?.path}/obs`);
 };
 
 const { data, pending } = useLazyAsyncData(() => getPageSettingsApi(), {
   transform: (res) => {
-    console.log(res);
     const settings = res.settings;
 
+    const keepMessages =
+      settings.find(({ key }) => key === PageSettingKey.OBS_KEEP_MESSAGES)
+        ?.value || false;
+    const playSound =
+      settings.find(({ key }) => key === PageSettingKey.OBS_PLAY_SOUND)
+        ?.value || false;
+
+    console.log({ keepMessages, playSound, settings });
+
     return {
-      keepMessages:
-        settings.find(({ key }) => key === PageSettingKey.OBS_KEEP_MESSAGES)
-          ?.value || false,
-      playSound:
-        settings.find(({ key }) => key === PageSettingKey.OBS_PLAY_SOUND)
-          ?.value || false,
+      keepMessages,
+      playSound,
     };
   },
   server: false,
 });
+
+const state: { saving: boolean; saveError: string | undefined } = reactive({
+  saving: false,
+  saveError: undefined,
+});
+
+const saveSettings = async () => {
+  try {
+    if (!authState.page?.id) return;
+    state.saveError = undefined;
+    state.saving = true;
+    await updatePageSettingsApi(authState.page?.id, {
+      settings: [
+        {
+          key: PageSettingKey.OBS_KEEP_MESSAGES,
+          value: data.value?.keepMessages,
+        },
+        { key: PageSettingKey.OBS_PLAY_SOUND, value: data.value?.playSound },
+      ] as PageSettingField[],
+    });
+
+    toast.add({
+      title: "Settings are updated.",
+    });
+  } catch (error) {
+    state.saveError = getErrorMessage(error);
+  } finally {
+    state.saving = false;
+  }
+};
 </script>
 
 <template>
@@ -78,7 +114,7 @@ const { data, pending } = useLazyAsyncData(() => getPageSettingsApi(), {
       </div>
       <div class="grid grid-cols-[auto_1fr] gap-x-2">
         <div>
-          <UToggle></UToggle>
+          <UToggle v-model="data.playSound"></UToggle>
         </div>
         <span class="font-bold cols">Play Sound</span>
         <span></span>
@@ -88,7 +124,18 @@ const { data, pending } = useLazyAsyncData(() => getPageSettingsApi(), {
       </div>
     </div>
     <div class="mt-6">
-      <UButton>Save Changes</UButton>
+      <UAlert
+        v-if="state.saveError"
+        color="red"
+        :description="state.saveError"
+        title="Error updating settings"
+      >
+      </UAlert>
+    </div>
+    <div class="mt-6">
+      <UButton :loading="state.saving" @click="saveSettings"
+        >Save Changes</UButton
+      >
     </div>
   </div>
 </template>
