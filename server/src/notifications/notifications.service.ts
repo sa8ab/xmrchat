@@ -11,6 +11,7 @@ import {
 import { Payment } from 'src/payments/payment.entity';
 import { TwitchService } from './twitch/twitch.service';
 import { clearMessage } from 'src/shared/utils';
+import { ConfigService } from '@nestjs/config';
 
 const badWordMatcher = new RegExpMatcher({
   ...englishDataset.build(),
@@ -23,6 +24,7 @@ export class NotificationsService {
     private emailService: EmailService,
     private templatesService: TemplatesService,
     private twitchService: TwitchService,
+    private config: ConfigService,
   ) {}
 
   sendVerificationEmail(to: string, otp: string) {
@@ -40,10 +42,9 @@ export class NotificationsService {
   sendNewPageReportEmail(data: PageReportEmailOptions) {
     const options = this.templatesService.getPageReport(data);
 
-    return this.emailService.sendEmail(
-      ['support@xmrchat.com', 'bwsaeed8@gmail.com'],
-      options,
-    );
+    const recepients = this.config.get('PAGE_REPORT_RECEPIENTS').split(' ');
+
+    return this.emailService.sendEmail(recepients, options);
   }
 
   getTipMessage(params: {
