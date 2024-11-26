@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:14-alpine
     ports:
-      - 5428:5432
+      - ${DATABASE_EXTERNAL_PORT:-5428}:5432
     volumes:
       - ./database:/var/lib/postgresql/data
     environment:
