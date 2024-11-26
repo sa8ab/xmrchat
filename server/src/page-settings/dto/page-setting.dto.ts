@@ -1,6 +1,7 @@
 import { Expose, Transform, Type } from 'class-transformer';
 import {
   PageSettingCategory,
+  PageSettingKey,
   PageSettingValueType,
 } from 'src/shared/constants';
 
@@ -13,6 +14,9 @@ export class PageSettingDto {
 
   @Expose()
   type: PageSettingValueType;
+
+  @Expose()
+  key: PageSettingKey;
 
   @Expose()
   category: PageSettingCategory;

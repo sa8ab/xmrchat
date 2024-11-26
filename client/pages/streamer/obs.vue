@@ -28,8 +28,6 @@ const { data, pending } = useLazyAsyncData(() => getPageSettingsApi(), {
       settings.find(({ key }) => key === PageSettingKey.OBS_PLAY_SOUND)
         ?.value || false;
 
-    console.log({ keepMessages, playSound, settings });
-
     return {
       keepMessages,
       playSound,
