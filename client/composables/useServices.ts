@@ -149,6 +149,14 @@ export const useServices = () => {
     );
     return data;
   };
+
+  const getPageOBSSettings = async (slug: string) => {
+    const { data } = await axios.get<{ settings: PageSetting[] }>(
+      `/page-settings/${slug}/obs`
+    );
+    return data;
+  };
+
   const updatePageSettings = async (id: Numberic, params: any) => {
     await axios.put(`/page-settings/${id}`, params);
   };
@@ -174,5 +182,6 @@ export const useServices = () => {
     updateTipPrivate,
     getPageSettings,
     updatePageSettings,
+    getPageOBSSettings,
   };
 };

@@ -1,14 +1,39 @@
 <script lang="ts" setup>
 import type { ObsTip, ObsTipSocketMessage } from "~/types";
 import gsap from "gsap";
+import { PageSettingKey } from "~/types/enums";
 
 definePageMeta({
   layout: "blank",
 });
 
 const route = useRoute();
+const slug = computed(() => route.params.streamerId as string);
 
-const { getPageSettings } = useServices();
+const { getPageOBSSettings: getSettings } = useServices();
+
+const { data, pending } = useLazyAsyncData(
+  `obs-settings-${slug.value}`,
+  () => getSettings(slug.value),
+  {
+    transform: (data) => {
+      const settings = data.settings;
+
+      const keepMessages =
+        settings.find(({ key }) => key === PageSettingKey.OBS_KEEP_MESSAGES)
+          ?.value ?? false;
+      const playSound =
+        settings.find(({ key }) => key === PageSettingKey.OBS_PLAY_SOUND)
+          ?.value ?? false;
+
+      return {
+        keepMessages,
+        playSound,
+      };
+    },
+    server: false,
+  }
+);
 
 const { init, disconnect } = usePaymentSocket<ObsTipSocketMessage>({
   onPageTipEvent: (e) => {
@@ -55,9 +80,14 @@ const simulateTip = () => {
     name: "Continental",
     id,
   });
+
+  setTimeout(() => {
+    removeTip(id);
+  }, 4 * 1000);
 };
 
 const removeTip = (id: string) => {
+  if (data.value?.keepMessages) return;
   tips.value = tips.value.filter((t) => t.id !== id);
 };
 
