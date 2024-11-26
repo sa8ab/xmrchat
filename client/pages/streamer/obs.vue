@@ -1,13 +1,36 @@
 <script lang="ts" setup>
+import { PageSettingKey } from "~/types/enums";
+
 const url = useRequestURL();
 const { state } = useAuthStore();
 
 const { copy } = useCopy();
+const {
+  getPageSettings: getPageSettingsApi,
+  updatePageSettings: updatePageSettingsApi,
+} = useServices();
 
 const copyLink = () => {
   if (!state.page) return;
   copy(`${url.origin}/${state.page?.path}/obs`);
 };
+
+const { data, pending } = useLazyAsyncData(() => getPageSettingsApi(), {
+  transform: (res) => {
+    console.log(res);
+    const settings = res.settings;
+
+    return {
+      keepMessages:
+        settings.find(({ key }) => key === PageSettingKey.OBS_KEEP_MESSAGES)
+          ?.value || false,
+      playSound:
+        settings.find(({ key }) => key === PageSettingKey.OBS_PLAY_SOUND)
+          ?.value || false,
+    };
+  },
+  server: false,
+});
 </script>
 
 <template>
@@ -25,10 +48,26 @@ const copyLink = () => {
     </div>
     <UDivider class="my-6" />
     <div class="font-bold text-lg mb-4">OBS Page Settings</div>
-    <div class="flex flex-col gap-4">
+
+    <div v-if="pending" class="flex flex-col gap-4">
+      <div class="grid grid-cols-[auto_1fr] gap-x-2" v-for="x in 2">
+        <div>
+          <USkeleton class="h-4 w-[38px]" />
+        </div>
+        <span>
+          <USkeleton class="h-4 max-w-[120px]" />
+        </span>
+        <span></span>
+        <div class="mt-2">
+          <USkeleton class="h-4 w-full max-w-[320px]" />
+        </div>
+      </div>
+    </div>
+
+    <div v-else-if="data" class="flex flex-col gap-4">
       <div class="grid grid-cols-[auto_1fr] gap-x-2">
         <div>
-          <UToggle></UToggle>
+          <UToggle v-model="data.keepMessages"></UToggle>
         </div>
         <span class="font-bold cols">Keep Messages</span>
         <span></span>

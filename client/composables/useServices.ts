@@ -3,6 +3,7 @@ import type {
   LoginResponse,
   MeResponse,
   Numberic,
+  PageSetting,
   SlugReservationResponse,
   StreamerPage,
   Tip,
@@ -142,6 +143,12 @@ export const useServices = () => {
     return res.data;
   };
 
+  const getPageSettings = async () => {
+    const { data } = await axios.get<{ settings: PageSetting[] }>(
+      `/page-settings/me`
+    );
+    return data;
+  };
   const updatePageSettings = async (id: Numberic, params: any) => {
     await axios.put(`/page-settings/${id}`, params);
   };
@@ -165,6 +172,7 @@ export const useServices = () => {
     confirmEmail,
     getCreators,
     updateTipPrivate,
+    getPageSettings,
     updatePageSettings,
   };
 };
