@@ -1,3 +1,5 @@
+name: ${DOCKER_COMPOSE_PROJECT_NAME}
+
 services:
   nuxt:
     build: .
