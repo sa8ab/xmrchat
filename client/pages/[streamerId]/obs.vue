@@ -72,6 +72,7 @@ const simulateTip = () => {
   //   },
   //   count: 100,
   // });
+
   const id = Math.random().toString();
   tips.value.unshift({
     amount: "",
@@ -80,6 +81,7 @@ const simulateTip = () => {
     name: "Continental",
     id,
   });
+  playSound();
 
   setTimeout(() => {
     removeTip(id);
@@ -89,6 +91,14 @@ const simulateTip = () => {
 const removeTip = (id: string) => {
   if (data.value?.keepMessages) return;
   tips.value = tips.value.filter((t) => t.id !== id);
+};
+
+const playSound = () => {
+  if (!data.value?.playSound) return;
+
+  const audio = new Audio("/sounds/obs-notification-2.mp3");
+
+  audio.play();
 };
 
 const onBeforeEnter = (el: Element) => {
