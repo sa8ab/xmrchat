@@ -7,7 +7,7 @@ services:
     # command: "npm run start"
     labels:
       - traefik.enable=true
-      - traefik.http.routers.xmrchatnuxt.rule=Host(`xmrchat.com`)
+      - traefik.http.routers.xmrchatnuxt.rule=Host(`${DOMAIN_NAME:-xmrchat.com}`)
       - traefik.http.routers.xmrchatnuxt.entrypoints=websecure
       - traefik.http.routers.xmrchatnuxt.tls=true
       - traefik.http.routers.xmrchatnuxt.tls.certresolver=myresolver
