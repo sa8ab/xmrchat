@@ -9,11 +9,11 @@ services:
     # command: "npm run start"
     labels:
       - traefik.enable=true
-      - traefik.http.routers.xmrchatnuxt.rule=Host(`${DOMAIN_NAME:-xmrchat.com}`)
-      - traefik.http.routers.xmrchatnuxt.entrypoints=websecure
-      - traefik.http.routers.xmrchatnuxt.tls=true
-      - traefik.http.routers.xmrchatnuxt.tls.certresolver=myresolver
-      - traefik.http.services.xmrchatnuxt.loadbalancer.server.port=3000
+      - traefik.http.routers.${TRAEFIK_ROUTER_NAME:-xmrchatnuxt}.rule=Host(`${DOMAIN_NAME:-xmrchat.com}`)
+      - traefik.http.routers.${TRAEFIK_ROUTER_NAME:-xmrchatnuxt}.entrypoints=websecure
+      - traefik.http.routers.${TRAEFIK_ROUTER_NAME:-xmrchatnuxt}.tls=true
+      - traefik.http.routers.${TRAEFIK_ROUTER_NAME:-xmrchatnuxt}.tls.certresolver=myresolver
+      - traefik.http.services.${TRAEFIK_ROUTER_NAME:-xmrchatnuxt}.loadbalancer.server.port=3000
     networks:
       - traefik
     env_file: .env
