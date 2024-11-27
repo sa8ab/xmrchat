@@ -97,7 +97,7 @@ const removeTip = (id: string) => {
 const playSound = () => {
   if (!data.value?.playSound) return;
 
-  const audio = new Audio("/sounds/obs-notification-2.mp3");
+  const audio = new Audio("/sounds/obs-sound-1.mp3");
 
   audio.play();
 };
