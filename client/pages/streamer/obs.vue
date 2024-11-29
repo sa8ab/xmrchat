@@ -121,14 +121,16 @@ const saveSettings = async () => {
         <span class="text-pale text-sm">
           Plays a sound on the OBS page when new tip appears.
         </span>
-        <span></span>
-        <UAlert
-          :ui="{ description: 'text-xs' }"
-          color="primary"
-          variant="soft"
-          description="If you are testing this functionality locally in your browser, after opening the obs tab make sure to click somewhere on the page. Otherwhise browser won't play sound due to not having interactions with the opened tab."
-          class="mt-2"
-        />
+        <template v-if="data.playSound">
+          <span></span>
+          <UAlert
+            :ui="{ description: 'text-xs' }"
+            color="primary"
+            variant="soft"
+            description="If you are testing this functionality locally in your browser, after opening the obs tab make sure to click somewhere on the page. Otherwhise browser won't play sound due to not having interactions with the opened tab."
+            class="mt-2"
+          />
+        </template>
       </div>
     </div>
     <div class="mt-6">
