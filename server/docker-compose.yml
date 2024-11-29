@@ -72,7 +72,7 @@ services:
       traefik:
         aliases:
           - ${NEST_ALIAS:-nest}
-        custom-net:
+      custom-net:
 
 networks:
   custom-net:
