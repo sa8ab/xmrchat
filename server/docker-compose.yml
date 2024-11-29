@@ -69,8 +69,10 @@ services:
       - traefik.http.routers.xmrchatnest.tls.certresolver=myresolver
       - traefik.http.services.xmrchatnest.loadbalancer.server.port=3000
     networks:
-      - traefik
-      - custom-net
+      traefik:
+        aliases:
+          - ${NEST_ALIAS:-nest}
+      custom-net:
 
 networks:
   custom-net:
