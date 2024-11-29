@@ -103,11 +103,13 @@ const saveSettings = async () => {
         <div>
           <UToggle v-model="data.keepMessages"></UToggle>
         </div>
-        <span class="font-bold cols">Keep Messages</span>
+        <span class="font-bold cols"
+          >Prevent messages from fading away after 30 seconds.</span
+        >
         <span></span>
         <span class="text-pale text-sm">
           When active, keeps the latest tips on the screen, otherwhise each
-          message is displayed for a period of time.
+          message is displayed for 30 seconds.
         </span>
       </div>
       <div class="grid grid-cols-[auto_1fr] gap-x-2">
