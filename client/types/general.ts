@@ -1,3 +1,5 @@
+import type { PageSettingKey } from "./enums";
+
 export type Numberic = string | number;
 
 export interface LoginResponse {
@@ -123,4 +125,15 @@ export interface UploadedFile {
   type: UploadedFile;
   url: string;
   id: number;
+}
+
+export interface PageSetting {
+  key: PageSettingKey;
+  value?: any;
+  category: string;
+}
+
+export interface PageSettingField {
+  key: PageSettingKey;
+  value?: any;
 }

@@ -18,16 +18,12 @@ export class PricesService {
 
     const priceLocalmonero = await this.getFromLocalmonero();
 
-    this.logger.log({ priceLocalmonero });
-
     if (priceLocalmonero) {
       await this.cachePrice(priceLocalmonero);
       return priceLocalmonero;
     }
 
     const priceCryptoCompare = await this.getFromCryptocompare();
-
-    this.logger.log({ priceCryptoCompare });
 
     if (priceCryptoCompare) {
       await this.cachePrice(priceCryptoCompare);

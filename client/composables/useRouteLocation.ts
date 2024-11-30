@@ -17,6 +17,7 @@ export const useRouteLocation = () => {
     toStreamerDisplay: () => localeRoute("/streamer"),
     toStreamerEdit: () => localeRoute("/streamer/edit"),
     toStreamerCreate: () => localeRoute("/streamer/create"),
+    toStreamerOBS: () => localeRoute("/streamer/obs"),
     toContact: () => localeRoute("/contact"),
     toStreamer: (id: Numberic) => localeRoute(`/${id}`),
     toCreators: () => localeRoute(`/creator`),

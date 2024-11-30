@@ -110,18 +110,6 @@ export class TipsService {
         `Tip amount must be more than or equal to ${minTipAmountXmr} XMR.`,
       );
 
-    // Add streamer address on lws
-    // try {
-    //   await this.lwsService.addAccount({
-    //     address: page.primaryAddress,
-    //     key: page.secretViewKey,
-    //   });
-    // } catch (error) {
-    //   this.logger.warn(
-    //     'Could not add streamer address on lws, probably already added',
-    //   );
-    // }
-
     const { integratedAddress, paymentId } = makeIntegratedAddress(
       page.primaryAddress,
     );

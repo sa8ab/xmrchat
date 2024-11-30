@@ -12,9 +12,9 @@ const { data, pending, refresh, error } = useLazyAsyncData(
 </script>
 
 <template>
-  <div class="inner pt-4">
+  <div>
     <PendingView :pending="pending">
-      <div class="pt-4" v-if="!pending">
+      <div v-if="!pending">
         <div v-if="data?.page">
           <StreamerHeader
             :logoUrl="data.page.logo.url"

@@ -230,7 +230,7 @@ const handleBannerUpload = (file: UploadedFile) => {
   <div>
     <UForm
       :state="state.form"
-      class="create-modify-form inner"
+      class="create-modify-form"
       @submit="handleSubmit"
     >
       <div class="both">

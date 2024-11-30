@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserToken } from 'src/auth/user-tokens/user-token.entity';
 import { File as FileEntity } from 'src/files/file.entity';
+import { PageSetting } from 'src/page-settings/page-setting.entity';
 import { Page } from 'src/pages/page.entity';
 import { Tier } from 'src/pages/tier.entity';
 import { Payment } from 'src/payments/payment.entity';
@@ -20,7 +21,16 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
         port: configService.get('DATABASE_PORT'),
         username: configService.get('DATABASE_USERNAME'),
         password: configService.get('DATABASE_PASSWORD'),
-        entities: [User, UserToken, FileEntity, Page, Payment, Tip, Tier],
+        entities: [
+          User,
+          UserToken,
+          FileEntity,
+          Page,
+          Payment,
+          Tip,
+          Tier,
+          PageSetting,
+        ],
         namingStrategy: new SnakeNamingStrategy(),
       }),
       inject: [ConfigService],

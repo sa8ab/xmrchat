@@ -14,6 +14,7 @@ import {
   Unique,
 } from 'typeorm';
 import { Tier } from './tier.entity';
+import { PageSetting } from '../page-settings/page-setting.entity';
 
 @Entity({ name: 'pages' })
 @Unique(['path'])
@@ -70,4 +71,7 @@ export class Page {
     cascade: true,
   })
   tiers: Tier[];
+
+  @OneToMany(() => PageSetting, (p: PageSetting) => p.page)
+  settings: PageSetting[];
 }
