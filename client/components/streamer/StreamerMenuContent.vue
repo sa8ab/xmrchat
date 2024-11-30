@@ -48,6 +48,7 @@ const items = computed(() => {
   <div class="flex flex-col">
     <div class="flex flex-col items-center gap-2">
       <GeneralImage
+        v-if="page"
         :url="page?.logo.url"
         variant="logo"
         class="w-[80px] h-[80px]"
