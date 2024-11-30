@@ -108,7 +108,7 @@ const saveSettings = async () => {
         >
         <span></span>
         <span class="text-pale text-sm">
-          When active, keeps the latest tips on the screen, otherwhise each
+          When active, keeps the latest tips on the screen, otherwise each
           message is displayed for 30 seconds.
         </span>
       </div>
