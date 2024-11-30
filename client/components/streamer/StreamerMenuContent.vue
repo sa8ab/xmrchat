@@ -47,7 +47,11 @@ const items = computed(() => {
 <template>
   <div class="flex flex-col">
     <div class="flex flex-col items-center gap-2">
-      <GeneralImage :url="page?.logo.url" variant="logo" class="w-[80px]" />
+      <GeneralImage
+        :url="page?.logo.url"
+        variant="logo"
+        class="w-[80px] h-[80px]"
+      />
       <span class="font-medium text-lg">{{ page?.path || "-" }}</span>
       <span class="text-pale text-sm">{{ state.user?.email }}</span>
     </div>
