@@ -96,13 +96,18 @@ export class TipsService {
 
     const xmrUnits = MoneroUtils.xmrToAtomicUnits(payload.amount);
 
+    const configMin = this.configService.get('MIN_TIP_AMOUNT');
+
     const minTipAmountXmr = MoneroUtils.atomicUnitsToXmr(
-      this.configService.get('MIN_TIP_AMOUNT'),
+      page.minTipAmount || configMin,
     );
 
-    if (BigInt(xmrUnits) < BigInt(this.configService.get('MIN_TIP_AMOUNT')))
+    if (
+      BigInt(xmrUnits) <
+      BigInt(page.minTipAmount || this.configService.get('MIN_TIP_AMOUNT'))
+    )
       throw new BadRequestException(
-        `Tip amount must be more than or equal to ${minTipAmountXmr}.`,
+        `Tip amount must be more than or equal to ${minTipAmountXmr} XMR.`,
       );
 
     const { integratedAddress, paymentId } = makeIntegratedAddress(
