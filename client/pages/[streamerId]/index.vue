@@ -60,6 +60,7 @@ useStreamerIdSeoMeta(data);
           @cancel="cancelPayment"
           @paid="handlePaid"
         />
+        <StreamerLinks class="mt-6" />
       </template>
     </PendingView>
   </div>

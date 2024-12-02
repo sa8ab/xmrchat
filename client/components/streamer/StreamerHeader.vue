@@ -24,6 +24,7 @@ const props = withDefaults(
           <span class="text-pale">Streamer name</span>
         </div>
       </div>
+      <StreamerLinks class="mt-2" />
     </div>
   </div>
 </template>
