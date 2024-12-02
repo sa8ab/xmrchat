@@ -3,8 +3,8 @@ const { socials } = useAppConfig();
 </script>
 
 <template>
-  <footer class="my-10">
-    <div class="inner flex justify-center flex-col items-center">
+  <footer class="relative mt-10 border-t border-border">
+    <div class="inner flex justify-center flex-col items-center py-8">
       <span class="text-sm text-pale">2024 @ XMRChat</span>
       <div class="social flex gap-2 mt-3">
         <UButton
@@ -29,5 +29,14 @@ const { socials } = useAppConfig();
         </UButton>
       </div>
     </div>
+    <!-- <div
+      class="gradient-bar w-full h-1 absolute bg-gradient-to-r from-primary-400 to-primary-600 bottom-0"
+    ></div> -->
   </footer>
 </template>
+
+<style scoped lang="scss">
+.gradient-bar {
+  background: linear-gradient(to left);
+}
+</style>
