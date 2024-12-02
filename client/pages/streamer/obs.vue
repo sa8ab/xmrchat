@@ -108,7 +108,7 @@ const saveSettings = async () => {
         >
         <span></span>
         <span class="text-pale text-sm">
-          When active, keeps the latest tips on the screen, otherwhise each
+          When active, keeps the latest tips on the screen, otherwise each
           message is displayed for 30 seconds.
         </span>
       </div>
@@ -127,7 +127,7 @@ const saveSettings = async () => {
             :ui="{ description: 'text-xs' }"
             color="primary"
             variant="soft"
-            description="If you are testing this functionality locally in your browser, after opening the obs tab make sure to click somewhere on the page. Otherwhise browser won't play sound due to not having interactions with the opened tab."
+            description="If you are testing this functionality locally in your browser, after opening the obs tab make sure to click somewhere on the page. Otherwise browser won't play sound due to not having interactions with the opened tab."
             class="mt-2"
           />
         </template>
