@@ -20,10 +20,10 @@ const links = [
 </script>
 
 <template>
-  <div class="flex justify-center gap-3">
+  <div class="flex gap-4">
     <div v-for="item in links" class="flex flex-col items-center gap-1">
       <UIcon :name="item.icon" :class="['w-6 h-6', item.classnames]" />
-      <span class="text-xs text-pale">{{ item.name }}</span>
+      <span class="text-xs text-pale hidden lg:block">{{ item.name }}</span>
     </div>
   </div>
 </template>
