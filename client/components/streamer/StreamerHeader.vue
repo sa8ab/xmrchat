@@ -19,7 +19,10 @@ const props = withDefaults(
     <div class="options">
       <div class="logo-and-name">
         <GeneralImage :url="logoUrl" variant="logo" class="logo" />
-        <div class="name font-bold text-2xl p-2" v-if="showTitle">Send Tip</div>
+        <div class="name p-2 flex flex-col" v-if="showTitle">
+          <span class="text-2xl font-bold">Send Tip</span>
+          <span class="text-pale">Streamer name</span>
+        </div>
       </div>
     </div>
   </div>
