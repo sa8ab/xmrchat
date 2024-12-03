@@ -79,7 +79,7 @@ const save = async () => {
       description="Name, Search Terms and Content Links"
     />
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid md:grid-cols-2 gap-4">
       <UFormGroup
         label="Page Name"
         help="Name of the page. It can be different from slug."
@@ -96,11 +96,11 @@ const save = async () => {
 
     <h3 class="font-bold mt-8">Content Links</h3>
     <p class="text-sm text-pale pt-1 mb-4">
-      Links to your social pages or websites. To reset a value leave field
+      Links to your social pages or websites. To reset a value leave the field
       empty.
     </p>
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid md:grid-cols-2 gap-4">
       <UFormGroup label="Website" v-for="platform in PageLinkPLatform">
         <template #label>
           <span class="flex items-center gap-1.5">
