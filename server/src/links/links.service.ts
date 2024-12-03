@@ -3,6 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Link } from './link.entity';
 import { Repository } from 'typeorm';
 import { PagesService } from 'src/pages/pages.service';
+import { UpdateLinksDto } from './dto/update-links.dto';
+import { Page } from 'src/pages/page.entity';
+import { contentLinksWithDefaults } from 'src/shared/utils';
 
 @Injectable()
 export class LinksService {
@@ -14,8 +17,27 @@ export class LinksService {
   async findByPageId(id: number) {
     if (!id) return null;
 
-    return this.repo.findBy({ page: { id } });
+    const res = await this.repo.findBy({ page: { id } });
+
+    return contentLinksWithDefaults(res);
   }
 
-  async updateContentLinks() {}
+  async updateContentLinks(data: UpdateLinksDto, page: Page) {
+    // update name and search term from pages
+    await this.pagesService.updateNameAndSearchTerms(page.id, {
+      name: data.name,
+      searchTerms: data.searchTerms,
+    });
+
+    // upsert
+    const links = data.links.map((l) => {
+      return {
+        page: { id: page.id },
+        platform: l.platform,
+        value: l.value,
+      };
+    });
+
+    return this.repo.upsert(links, ['page.id', 'platform']);
+  }
 }

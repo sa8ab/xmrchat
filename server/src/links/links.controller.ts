@@ -34,5 +34,15 @@ export class LinksController {
   async updateMyContentLinks(
     @CurrentUser() user: User,
     @Body() body: UpdateLinksDto,
-  ) {}
+  ) {
+    const page = await this.pagesService.findMyPage(user);
+
+    if (!page) throw new NotFoundException('Page is not found.');
+
+    if (page.userId !== user.id) throw new UnauthorizedException();
+
+    await this.linksService.updateContentLinks(body, page);
+
+    return { message: 'Content Links updated.' };
+  }
 }

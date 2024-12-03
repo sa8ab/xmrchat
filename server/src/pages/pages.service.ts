@@ -290,6 +290,20 @@ export class PagesService {
     return result;
   }
 
+  async updateNameAndSearchTerms(
+    id: number,
+    attrs: { name: string; searchTerms: string },
+  ) {
+    const page = await this.findById(id);
+    if (!page) {
+      throw new NotFoundException('Page not found');
+    }
+
+    const savedPage = Object.assign(page, attrs);
+
+    return this.repo.save(savedPage);
+  }
+
   async addLwsAccount(data: { address: string; key: string }) {
     try {
       this.logger.log(`Adding lws account: ${data.address} - ${data.key}`);
