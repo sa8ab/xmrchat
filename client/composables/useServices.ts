@@ -3,6 +3,7 @@ import type {
   LoginResponse,
   MeResponse,
   Numberic,
+  PageLink,
   PageSetting,
   SlugReservationResponse,
   StreamerPage,
@@ -161,6 +162,20 @@ export const useServices = () => {
     await axios.put(`/page-settings/${id}`, params);
   };
 
+  const getMyLinks = async () => {
+    const { data } = await axios.get<{
+      name: string;
+      searchTerms: string;
+      links: PageLink[];
+    }>(`/links/me`);
+    return data;
+  };
+
+  const updateLinks = async (params: any) => {
+    const { data } = await axios.put(`/links/me`, params);
+    return data;
+  };
+
   return {
     me,
     login,
@@ -183,5 +198,7 @@ export const useServices = () => {
     getPageSettings,
     updatePageSettings,
     getPageOBSSettings,
+    getMyLinks,
+    updateLinks,
   };
 };

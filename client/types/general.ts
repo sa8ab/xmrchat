@@ -137,3 +137,10 @@ export interface PageSettingField {
   key: PageSettingKey;
   value?: any;
 }
+
+export interface PageLinkPLatform {}
+
+export interface PageLink {
+  platform: PageLinkPLatform;
+  value: string;
+}

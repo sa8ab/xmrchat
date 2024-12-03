@@ -27,3 +27,16 @@ export const unitsToXmr = (v?: string) => {
   if (!v) return "";
   return parseInt(v) / 1e12;
 };
+
+export const arrayToObject = <T extends Record<K, any>, K extends keyof T>(
+  array: T[],
+  key: K
+): Record<string, T> => {
+  return array.reduce((result, item) => {
+    const keyValue = item[key];
+    if (typeof keyValue === "string" || typeof keyValue === "number") {
+      result[keyValue] = item;
+    }
+    return result;
+  }, {} as Record<string, T>);
+};
