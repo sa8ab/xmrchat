@@ -34,7 +34,7 @@ export const PAGE_LINKS = {
   [PageLinkPLatform.SUBSTACK]: {
     name: "Substack",
     colorClassname: "text-[#FF6719]",
-    icon: "i-simple-icons-adobedreamweaver",
+    icon: "i-simple-icons-substack",
     inputLabel: "Substack link",
   },
 };
