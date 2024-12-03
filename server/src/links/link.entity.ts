@@ -7,10 +7,12 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   RelationId,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity({ name: 'links' })
+@Unique('unique-page-and-platform', ['page.id', 'platform'])
 export class Link {
   @PrimaryGeneratedColumn()
   id: number;
