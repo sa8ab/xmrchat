@@ -53,7 +53,8 @@ const { page, offset, limit } = useFilter({
               :url="item?.logo.url"
               class="w-[90px] h-[90px]"
             />
-            <span class="mt-5">{{ item?.path }}</span>
+            <div class="pt-3 font-medium">{{ item.name || item.path }}</div>
+            <div class="pt-1 text-sm text-pale">{{ item.path }}</div>
           </NuxtLink>
         </template>
       </div>
