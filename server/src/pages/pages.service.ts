@@ -60,7 +60,14 @@ export class PagesService {
       .orderBy('total_paid', 'DESC', 'NULLS LAST');
 
     if (slug) {
-      query = query.andWhere('page.path LIKE :path', { path: `%${slug}%` });
+      query = query.andWhere(
+        'LOWER(page.path) LIKE :path OR LOWER(page.name) LIKE :name OR LOWER(page.searchTerms) LIKE :searchTerms',
+        {
+          path: `%${slug.toLowerCase()}%`,
+          name: `%${slug.toLowerCase()}%`,
+          searchTerms: `%${slug.toLowerCase()}%`,
+        },
+      );
     }
 
     query = query.offset(offset).limit(limit);
