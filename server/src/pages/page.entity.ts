@@ -31,6 +31,9 @@ export class Page {
   @Column({ nullable: true })
   description: string;
 
+  @Column({ nullable: true })
+  searchTerms: string;
+
   @Column()
   primaryAddress: string;
 
