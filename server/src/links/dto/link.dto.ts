@@ -10,6 +10,12 @@ export class LinkDto {
 
 export class LinkDtoRO {
   @Expose()
+  name: string;
+
+  @Expose()
+  searchTerms: string;
+
+  @Expose()
   @Type(() => LinkDto)
   links: LinkDto[];
 }

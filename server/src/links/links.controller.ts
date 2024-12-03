@@ -32,7 +32,7 @@ export class LinksController {
 
     const links = await this.linksService.findByPageId(page.id);
 
-    return { links };
+    return { links, name: page.name, searchTerms: page.searchTerms };
   }
 
   @Put('/me')
