@@ -23,3 +23,12 @@ export enum PageSettingValueType {
   NUMBER = 'number',
   BOOLEAN = 'boolean',
 }
+
+export enum LinkPlatformEnum {
+  X = 'x',
+  WEBSITE = 'website',
+  YOUTUBE = 'youtube',
+  TWITCH = 'twitch',
+  RUMBLE = 'rumble',
+  SUBSTACK = 'substack',
+}
