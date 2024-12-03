@@ -2,8 +2,10 @@
 
 <template>
   <div>
-    <PageTitle title="Content Links" />
-    Page: /streamer/content-links
+    <PageTitle
+      title="Content Links"
+      description="Name, Search Terms and Content Links"
+    />
   </div>
 </template>
 
