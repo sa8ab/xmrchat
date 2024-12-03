@@ -2,8 +2,13 @@
 const { state, logout } = useAuthStore();
 
 const page = computed(() => state.page);
-const { toStreamer, toStreamerDisplay, toStreamerEdit, toStreamerOBS } =
-  useRouteLocation();
+const {
+  toStreamer,
+  toStreamerDisplay,
+  toStreamerEdit,
+  toStreamerOBS,
+  toStreamerContentLinks,
+} = useRouteLocation();
 
 const items = computed(() => {
   const res: Record<string, any>[] = [];
@@ -31,6 +36,11 @@ const items = computed(() => {
           label: "My Tip Page",
           icon: "i-heroicons-banknotes",
           to: toStreamer(page.value.path),
+        },
+        {
+          label: "Content Links",
+          icon: "i-heroicons-link-20-solid",
+          to: toStreamerContentLinks(),
         },
         {
           label: "OBS",
