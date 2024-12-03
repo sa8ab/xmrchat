@@ -26,7 +26,7 @@ export class Link {
   @Column()
   platform: string;
 
-  @Column()
+  @Column({ nullable: true })
   value: string;
 
   @ManyToOne(() => Page, { onDelete: 'CASCADE' })
