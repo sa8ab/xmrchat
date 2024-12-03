@@ -81,14 +81,14 @@ const save = async () => {
 
     <div class="grid md:grid-cols-2 gap-4">
       <UFormGroup
-        label="Page Name"
-        help="Name of the page. It can be different from slug."
+        label="Brand Name"
+        help="Name of the brand/content. It can be different from slug."
       >
         <UInput v-model="state.form.name" />
       </UFormGroup>
       <UFormGroup
         label="Search Terms"
-        help="Keywords or description that help easier search on creator search ( For public pages )."
+        help="Creator search will return results based on page slug, name, and keywords in this list."
       >
         <UInput v-model="state.form.searchTerms" />
       </UFormGroup>

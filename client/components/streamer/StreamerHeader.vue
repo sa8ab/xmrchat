@@ -1,9 +1,13 @@
 <script lang="ts" setup>
+import type { PageLink } from "~/types";
+import { PageLinkPLatform } from "~/types/enums";
+
 const props = withDefaults(
   defineProps<{
     logoUrl?: string;
     bannerUrl?: string;
     showTitle?: boolean;
+    links?: PageLink[];
   }>(),
   {
     showTitle: true,
@@ -22,7 +26,7 @@ const props = withDefaults(
         <div class="name p-2 flex flex-col" v-if="showTitle">
           <span class="text-lg lg:text-2xl font-bold">Streamer name</span>
           <!-- <span class="text-pale">Streamer name</span> -->
-          <StreamerLinks class="mt-3" />
+          <StreamerLinks class="mt-3" :links="links" />
         </div>
       </div>
     </div>

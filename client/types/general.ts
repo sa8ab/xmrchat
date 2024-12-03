@@ -62,6 +62,7 @@ export interface StreamerPage {
   twitchChannel?: string;
   minTipAmount?: string;
   isPublic: boolean;
+  links?: PageLink[];
 }
 
 interface TipPayment {
