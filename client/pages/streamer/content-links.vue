@@ -13,19 +13,22 @@ interface State {
 }
 
 const { getMyLinks: getMyLinksReq } = useServices();
-const { data } = useLazyAsyncData(async () => {
-  const res = await getMyLinksReq();
+const { data } = useLazyAsyncData(
+  async () => {
+    const res = await getMyLinksReq();
 
-  const { links, ...rest } = res;
+    const { links, ...rest } = res;
 
-  state.form = {
-    // @ts-ignore
-    links: arrayToObject(links, "platform"),
-    ...rest,
-  };
+    state.form = {
+      // @ts-ignore
+      links: arrayToObject(links, "platform"),
+      ...rest,
+    };
 
-  return {};
-});
+    return {};
+  },
+  { server: false }
+);
 
 const state = reactive<State>({
   form: {
@@ -33,7 +36,7 @@ const state = reactive<State>({
       rumble: {},
       substack: {},
       twitch: {},
-      twitter: {},
+      x: {},
       website: {},
       youtube: {},
     },
@@ -50,7 +53,6 @@ const state = reactive<State>({
       description="Name, Search Terms and Content Links"
     />
 
-    <pre>{{ state.form }}</pre>
     <div class="grid grid-cols-2 gap-4">
       <UFormGroup
         label="Page Name"

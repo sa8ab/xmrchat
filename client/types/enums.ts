@@ -9,7 +9,7 @@ export enum PageSettingKey {
 }
 
 export enum PageLinkPLatform {
-  X = "twitter",
+  X = "x",
   WEBSITE = "website",
   YOUTUBE = "youtube",
   TWITCH = "twitch",
