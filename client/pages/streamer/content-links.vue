@@ -103,7 +103,7 @@ const save = async () => {
     <div class="grid grid-cols-2 gap-4">
       <UFormGroup label="Website" v-for="platform in PageLinkPLatform">
         <template #label>
-          <span class="flex items-center gap-1">
+          <span class="flex items-center gap-1.5">
             <UIcon
               :name="PAGE_LINKS[platform].icon"
               :class="[
