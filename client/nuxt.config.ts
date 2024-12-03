@@ -46,7 +46,7 @@ export default defineNuxtConfig({
   },
 
   ui: {
-    icons: ["heroicons", "mdi", "tabler"],
+    icons: ["heroicons", "mdi", "tabler", "simple-icons"],
   },
 
   colorMode: {
