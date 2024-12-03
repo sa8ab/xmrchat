@@ -10,9 +10,13 @@ interface State {
       { platform?: PageLinkPLatform; value?: string }
     >;
   };
+  saving: boolean;
+  saveError?: string;
 }
 
-const { getMyLinks: getMyLinksReq } = useServices();
+const { getMyLinks: getMyLinksReq, updateLinks } = useServices();
+const toast = useToast();
+
 const { data } = useLazyAsyncData(
   async () => {
     const res = await getMyLinksReq();
@@ -43,7 +47,29 @@ const state = reactive<State>({
     name: undefined,
     searchTerms: undefined,
   },
+  saving: false,
+  saveError: undefined,
 });
+
+const save = async () => {
+  try {
+    state.saveError = undefined;
+    state.saving = true;
+    await updateLinks({
+      name: state.form.name,
+      searchTerms: state.form.searchTerms,
+      links: Object.values(state.form.links),
+    });
+
+    toast.add({
+      title: "Changes are saved.",
+    });
+  } catch (error) {
+    state.saveError = getErrorMessage(error);
+  } finally {
+    state.saving = false;
+  }
+};
 </script>
 
 <template>
@@ -90,6 +116,19 @@ const state = reactive<State>({
         </template>
         <UInput v-model="state.form.links[platform].value" />
       </UFormGroup>
+    </div>
+
+    <UAlert
+      v-if="state.saveError"
+      class="mt-4"
+      title="Error saving changes."
+      color="red"
+      variant="subtle"
+      :description="state.saveError"
+    ></UAlert>
+
+    <div class="mt-4">
+      <UButton :loading="state.saving" @click="save">Save Changes</UButton>
     </div>
   </div>
 </template>
