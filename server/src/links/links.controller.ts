@@ -11,6 +11,8 @@ import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import { User } from 'src/users/user.entity';
 import { LinksService } from './links.service';
 import { UpdateLinksDto } from './dto/update-links.dto';
+import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
+import { LinkDtoRO } from './dto/link.dto';
 
 @Controller('links')
 export class LinksController {
@@ -20,6 +22,7 @@ export class LinksController {
   ) {}
 
   @Get('/me')
+  @Serialize(LinkDtoRO)
   async getMyLinks(@CurrentUser() user: User) {
     const page = await this.pagesService.findMyPage(user);
 
@@ -27,7 +30,9 @@ export class LinksController {
 
     if (page.userId !== user.id) throw new UnauthorizedException();
 
-    return this.linksService.findByPageId(page.id);
+    const links = await this.linksService.findByPageId(page.id);
+
+    return { links };
   }
 
   @Put('/me')
