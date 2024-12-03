@@ -139,7 +139,7 @@ export class PagesService {
     if (!path) return null;
     return this.repo.findOne({
       where: { path },
-      relations: { tiers: true },
+      relations: { tiers: true, links: true },
     });
   }
 
