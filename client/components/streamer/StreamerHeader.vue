@@ -7,6 +7,7 @@ const props = withDefaults(
     logoUrl?: string;
     bannerUrl?: string;
     showTitle?: boolean;
+    name?: string;
     links?: PageLink[];
   }>(),
   {
@@ -24,7 +25,7 @@ const props = withDefaults(
       <div class="logo-and-name">
         <GeneralImage :url="logoUrl" variant="logo" class="logo" />
         <div class="name p-2 flex flex-col" v-if="showTitle">
-          <span class="text-lg lg:text-2xl font-bold">Streamer name</span>
+          <span class="text-lg lg:text-2xl font-bold">{{ name }}</span>
           <!-- <span class="text-pale">Streamer name</span> -->
           <StreamerLinks class="mt-3" :links="links" />
         </div>
