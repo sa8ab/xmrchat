@@ -108,7 +108,7 @@ const save = async () => {
               :name="PAGE_LINKS[platform].icon"
               :class="[
                 'w-[16px] h-[16px]',
-                PAGE_LINKS[platform].iconClassNames,
+                PAGE_LINKS[platform].colorClassName,
               ]"
             />
             <span>{{ PAGE_LINKS[platform].inputLabel }}</span>
