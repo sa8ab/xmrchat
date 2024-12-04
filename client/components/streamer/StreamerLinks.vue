@@ -25,7 +25,7 @@ const linksComputed = computed(() =>
         :href="item.linkCreator(item.value)"
         target="_blank"
       >
-        <UIcon :name="item.icon" :class="['w-6 h-6', item.colorClassname]" />
+        <UIcon :name="item.icon" :class="['w-6 h-6', item.iconClassNames]" />
       </a>
     </UTooltip>
   </div>
