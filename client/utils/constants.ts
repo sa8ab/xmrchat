@@ -40,7 +40,7 @@ export const PAGE_LINKS = {
     name: "Substack",
     colorClassname: "text-[#FF6719]",
     icon: "i-simple-icons-substack",
-    inputLabel: "Substack link",
-    linkCreator: (v?: string) => v,
+    inputLabel: "Substack username",
+    linkCreator: (v?: string) => `https://substack.com/@${v}`,
   },
 };
