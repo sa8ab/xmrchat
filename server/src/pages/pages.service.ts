@@ -74,7 +74,6 @@ export class PagesService {
 
     const pages = await query.getMany();
     const total = await query.getCount();
-    console.log({ total });
 
     return {
       pages,
