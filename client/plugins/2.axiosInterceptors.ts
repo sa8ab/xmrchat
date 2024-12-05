@@ -6,7 +6,7 @@ export default defineNuxtPlugin(() => {
   // const devLoggedIn = useCookie("xmrchat-dev-logged-in");
 
   nuxtApp.$axios.interceptors.request.use((config) => {
-    // set base url to 'backend:3000' when on production and server side
+    // different base url when on production and server side
     if (process.server && process.env.NODE_ENV === "production") {
       config.baseURL = runtimeConfig.public.apiServerSideBaseUrl;
     }

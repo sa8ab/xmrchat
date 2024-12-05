@@ -3,6 +3,11 @@ const { getCreators } = useServices();
 
 const route = useRoute();
 
+const { page, offset, limit } = useFilter({
+  initialPage: parseInt(route.query.page as string) || 1,
+  getAll: () => refresh(),
+});
+
 const { status, refresh, error, data } = useLazyAsyncData("creators", () =>
   getCreators({
     limit,
@@ -10,15 +15,11 @@ const { status, refresh, error, data } = useLazyAsyncData("creators", () =>
     search: route.query.search,
   })
 );
-
-const { page, offset, limit } = useFilter({
-  initialPage: parseInt(route.query.page as string) || 1,
-  getAll: () => refresh(),
-});
 </script>
 
 <template>
   <div>
+    <pre>{{ error }}</pre>
     <div class="inner">
       <div class="heading pt-12">
         <h1 class="font-bold text-3xl text-center">Search Creators</h1>

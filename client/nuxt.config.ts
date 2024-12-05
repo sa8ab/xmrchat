@@ -7,8 +7,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBaseUrl: "https://api.xmrchat.com/api",
-      apiServerSideBaseUrl: "http://backend:3000/api",
+      apiBaseUrl: "",
+      apiServerSideBaseUrl: "",
       imageBaseUrl: "http://localhost:9000",
     },
   },
