@@ -19,7 +19,6 @@ const { status, refresh, error, data } = useLazyAsyncData("creators", () =>
 
 <template>
   <div>
-    <pre>{{ error }}</pre>
     <div class="inner">
       <div class="heading pt-12">
         <h1 class="font-bold text-3xl text-center">Search Creators</h1>
