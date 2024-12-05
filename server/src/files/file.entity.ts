@@ -26,6 +26,9 @@ export class File {
   @Column({ nullable: true })
   url: string;
 
+  @Column({ nullable: true })
+  thumbnail: string;
+
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 }

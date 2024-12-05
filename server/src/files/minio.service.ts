@@ -19,16 +19,10 @@ export class MinioService {
     });
   }
 
-  async uploadFile(
-    file: Express.Multer.File,
-    bucketName: string,
-    name: string,
-  ) {
-    const fileStream = createReadStream(file.path);
-
+  async uploadFile(file: Buffer, bucketName: string, name: string) {
     await this.createBucket(bucketName);
 
-    return this.minioClient.putObject(bucketName, name, fileStream);
+    return this.minioClient.putObject(bucketName, name, file);
   }
 
   async createBucket(bucketName: string) {

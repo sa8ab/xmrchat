@@ -17,14 +17,14 @@ export class FilesService {
     originalName: string;
     type: FileType;
     url?: string;
+    thumbnail?: string;
   }) {
-    const entity = await this.repo.create(payload);
+    const entity = this.repo.create(payload);
 
     return this.repo.save(entity);
   }
 
-  getImageUrl(name) {
-    // const base = `${this.configService.get('MINIO_URL')}:${this.configService.get('MINIO_PORT')}`;
-    return `/images/${name}`;
+  getImageUrl(name: string, { isThumbnail } = { isThumbnail: false }) {
+    return isThumbnail ? `/thumbnails/${name}` : `/images/${name}`;
   }
 }
