@@ -61,4 +61,10 @@ export class FilesController {
       file: savedFile,
     };
   }
+
+  @Post('/create-thumbnails')
+  @IsPublic()
+  createThumbnails() {
+    return this.filesService.generateThumbnailsForCurrentLogos();
+  }
 }
