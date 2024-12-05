@@ -28,6 +28,8 @@ const { status, refresh, error, data } = useLazyAsyncData("creators", () =>
         <CreatorSearch />
       </div>
 
+      <pre>{{ data }}</pre>
+
       <div v-if="status === 'pending' || status === 'idle'" class="links mt-12">
         <template v-for="n in 8">
           <div class="streamer-link">
@@ -47,7 +49,7 @@ const { status, refresh, error, data } = useLazyAsyncData("creators", () =>
           >
             <GeneralImage
               variant="logo"
-              :url="item?.logo.url"
+              :url="item?.logo.thumbnail || item.logo.url"
               class="w-[90px] h-[90px]"
             />
             <div class="pt-3 font-medium">{{ item.name || item.path }}</div>

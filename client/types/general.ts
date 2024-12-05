@@ -125,6 +125,7 @@ export interface UploadedFile {
   originalName: string;
   type: UploadedFile;
   url: string;
+  thumbnail?: string;
   id: number;
 }
 

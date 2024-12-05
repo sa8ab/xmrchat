@@ -14,5 +14,8 @@ export class FileDto {
   url: string;
 
   @Expose()
+  thumbnail: string;
+
+  @Expose()
   createdAt: Date;
 }
