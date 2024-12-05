@@ -28,8 +28,6 @@ const { status, refresh, error, data } = useLazyAsyncData("creators", () =>
         <CreatorSearch />
       </div>
 
-      <pre>{{ data }}</pre>
-
       <div v-if="status === 'pending' || status === 'idle'" class="links mt-12">
         <template v-for="n in 8">
           <div class="streamer-link">
