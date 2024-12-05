@@ -53,7 +53,7 @@ export class FilesService {
         thumbnailFileName,
       );
 
-      f.thumbnail = this.getImageUrl(f.filename, { isThumbnail: true });
+      f.thumbnail = this.getImageUrl(thumbnailFileName, { isThumbnail: true });
 
       await this.repo.save(f);
 
