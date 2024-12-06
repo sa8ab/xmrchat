@@ -16,6 +16,7 @@ import { TipsModule } from './tips/tips.module';
 import { WebhooksModule } from './webhooks/webhooks.module';
 import { PricesModule } from './prices/prices.module';
 import { PageSettingsModule } from './page-settings/page-settings.module';
+import { LinksModule } from './links/links.module';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { PageSettingsModule } from './page-settings/page-settings.module';
     WebhooksModule,
     PricesModule,
     PageSettingsModule,
+    LinksModule,
   ],
   controllers: [AppController],
   providers: [AppService],

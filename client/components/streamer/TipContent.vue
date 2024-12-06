@@ -187,7 +187,7 @@ const messageLength = computed(() => state.form.message?.length || 0);
             :loading="state.loading"
             trailingIcon="i-heroicons-arrow-small-right"
           >
-            Continue
+            Send Tip
           </UButton>
         </div>
       </UForm>

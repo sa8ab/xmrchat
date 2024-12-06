@@ -19,16 +19,10 @@ export class MinioService {
     });
   }
 
-  async uploadFile(
-    file: Express.Multer.File,
-    bucketName: string,
-    name: string,
-  ) {
-    const fileStream = createReadStream(file.path);
-
+  async uploadFile(file: Buffer, bucketName: string, name: string) {
     await this.createBucket(bucketName);
 
-    return this.minioClient.putObject(bucketName, name, fileStream);
+    return this.minioClient.putObject(bucketName, name, file);
   }
 
   async createBucket(bucketName: string) {
@@ -52,5 +46,23 @@ export class MinioService {
       );
       this.logger.log(`Minio bucket ${bucketName} created.`);
     }
+  }
+
+  async getFile(bucket: string, name: string) {
+    let dataChunks = [];
+    const dataStream = await this.minioClient.getObject(bucket, name);
+
+    return new Promise((resolve, reject) => {
+      dataStream.on('error', (error) => {
+        reject(error);
+      });
+      dataStream.on('data', function (chunk) {
+        dataChunks.push(chunk);
+      });
+      dataStream.on('end', function () {
+        const buffer = Buffer.concat(dataChunks);
+        resolve(buffer);
+      });
+    });
   }
 }

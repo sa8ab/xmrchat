@@ -2,7 +2,7 @@ import { Client, ClientConfig } from 'pg';
 import * as fs from 'fs';
 import { randomUUID } from 'crypto';
 import axios from 'axios';
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 
 import * as dotenv from 'dotenv';
 
@@ -25,7 +25,6 @@ const targetConfig: ClientConfig = {
   password: process.env.TARGET_DATABASE_PASSWORD,
   database: process.env.TARGET_DATABASE_NAME,
 };
-
 
 const sourceClient = new Client(sourceConfig);
 const targetClient = new Client(targetConfig);

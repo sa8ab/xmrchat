@@ -46,7 +46,7 @@ const cancelPayment = () => {
       <UBreadcrumb :links="links" />
       <PageTitle
         title="Create Page"
-        desciption="Get started by creating your streamer page"
+        description="Get started by creating your streamer page"
       />
     </div>
 

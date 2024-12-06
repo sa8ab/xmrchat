@@ -12,6 +12,8 @@ import { FilesService } from './files.service';
 import { FileType } from 'src/shared/constants/enum';
 import { MinioService } from './minio.service';
 import { Express } from 'express';
+import sharp from 'sharp';
+import { promises as fs } from 'fs';
 
 @Controller('upload')
 export class FilesController {
@@ -29,19 +31,40 @@ export class FilesController {
   ) {
     if (!file) throw new BadRequestException('No file is uploaded.');
 
-    await this.minioService.uploadFile(file, 'images', file.filename);
+    const fileBuffer = await fs.readFile(file.path);
+
+    await this.minioService.uploadFile(fileBuffer, 'images', file.filename);
+
+    const thumbnailBuffer = await sharp(fileBuffer)
+      .resize(120, 120, { fit: 'cover' })
+      .toBuffer();
+
+    const thumbnailFileName = `thumbnail-${file.filename}`;
+
+    await this.minioService.uploadFile(
+      thumbnailBuffer,
+      'thumbnails',
+      thumbnailFileName,
+    );
 
     const savedFile = await this.filesService.createFile({
       filename: file.filename,
       type: slug,
       originalName: file.originalname,
       url: this.filesService.getImageUrl(file.filename),
+      thumbnail: this.filesService.getImageUrl(thumbnailFileName, {
+        isThumbnail: true,
+      }),
     });
-
-    // TODO: add thumbnail
 
     return {
       file: savedFile,
     };
+  }
+
+  @Post('/create-thumbnails')
+  @IsPublic()
+  createThumbnails() {
+    return this.filesService.generateThumbnailsForCurrentLogos();
   }
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   title: String;
-  desciption?: String;
+  description?: String;
   icon?: string;
 }>();
 </script>
@@ -12,7 +12,7 @@ const props = defineProps<{
       <UIcon v-if="icon" :name="icon" class="w-[24px] h-[24px]" />
       <h2 class="font-medium text-2xl">{{ title }}</h2>
     </div>
-    <p class="text-pale">{{ desciption }}</p>
+    <p class="text-pale">{{ description }}</p>
   </div>
 </template>
 

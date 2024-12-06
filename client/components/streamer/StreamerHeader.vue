@@ -1,9 +1,14 @@
 <script lang="ts" setup>
+import type { PageLink } from "~/types";
+import { PageLinkPLatform } from "~/types/enums";
+
 const props = withDefaults(
   defineProps<{
     logoUrl?: string;
     bannerUrl?: string;
     showTitle?: boolean;
+    name?: string;
+    links?: PageLink[];
   }>(),
   {
     showTitle: true,
@@ -19,7 +24,11 @@ const props = withDefaults(
     <div class="options">
       <div class="logo-and-name">
         <GeneralImage :url="logoUrl" variant="logo" class="logo" />
-        <div class="name font-bold text-2xl p-2" v-if="showTitle">Send Tip</div>
+        <div class="name p-2 flex flex-col" v-if="showTitle">
+          <span class="text-lg lg:text-2xl font-bold">{{ name }}</span>
+          <!-- <span class="text-pale">Streamer name</span> -->
+          <StreamerLinks class="mt-3" :links="links" />
+        </div>
       </div>
     </div>
   </div>
@@ -43,15 +52,15 @@ const props = withDefaults(
   }
 
   @media only screen and (max-width: 760px) {
-    --logo-size: 120px;
+    --logo-size: 108px;
     .options {
-      @apply flex-col items-center;
+      // @apply flex-col items-center;
     }
     .logo-and-name {
-      @apply flex-col items-center;
+      // @apply flex-col items-center;
     }
     .logo {
-      @apply ml-0;
+      // @apply ml-0;
     }
   }
 }

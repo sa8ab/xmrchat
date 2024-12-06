@@ -62,6 +62,7 @@ export interface StreamerPage {
   twitchChannel?: string;
   minTipAmount?: string;
   isPublic: boolean;
+  links?: PageLink[];
 }
 
 interface TipPayment {
@@ -124,6 +125,7 @@ export interface UploadedFile {
   originalName: string;
   type: UploadedFile;
   url: string;
+  thumbnail?: string;
   id: number;
 }
 
@@ -136,4 +138,11 @@ export interface PageSetting {
 export interface PageSettingField {
   key: PageSettingKey;
   value?: any;
+}
+
+export interface PageLinkPLatform {}
+
+export interface PageLink {
+  platform: PageLinkPLatform;
+  value: string;
 }

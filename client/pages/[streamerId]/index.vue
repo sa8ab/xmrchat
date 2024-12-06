@@ -46,6 +46,8 @@ useStreamerIdSeoMeta(data);
           class="pt-2"
           :bannerUrl="data.coverImage.url"
           :logoUrl="data?.logo.url"
+          :name="data.name"
+          :links="data.links"
         />
         <TipContent
           ref="contentRef"

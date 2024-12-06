@@ -2,6 +2,8 @@ import { Expose, Transform, Type } from 'class-transformer';
 import { FileDto } from 'src/files/dtos/file.dto';
 import { TierDto } from './tier/tier.dto';
 import { MoneroUtils } from 'monero-ts';
+import { Link } from 'src/links/link.entity';
+import { LinkDto } from 'src/links/dto/link.dto';
 
 export class PageDto {
   @Expose()
@@ -36,4 +38,8 @@ export class PageDto {
     ({ value }) => value && MoneroUtils.atomicUnitsToXmr(value).toString(),
   )
   minTipAmount: string;
+
+  @Expose()
+  @Type(() => LinkDto)
+  links: LinkDto[];
 }

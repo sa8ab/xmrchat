@@ -69,7 +69,7 @@ const saveSettings = async () => {
 
 <template>
   <div>
-    <PageTitle title="OBS" desciption="OBS widget and settings." />
+    <PageTitle title="OBS" description="OBS widget and settings." />
     <div class="flex flex-col items-start gap-2">
       <!-- <span class="font-bold text-lg">Get page</span> -->
       <span>

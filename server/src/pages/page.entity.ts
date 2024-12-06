@@ -15,6 +15,7 @@ import {
 } from 'typeorm';
 import { Tier } from './tier.entity';
 import { PageSetting } from '../page-settings/page-setting.entity';
+import { Link } from '../links/link.entity';
 
 @Entity({ name: 'pages' })
 @Unique(['path'])
@@ -30,6 +31,9 @@ export class Page {
 
   @Column({ nullable: true })
   description: string;
+
+  @Column({ nullable: true })
+  searchTerms: string;
 
   @Column()
   primaryAddress: string;
@@ -74,4 +78,7 @@ export class Page {
 
   @OneToMany(() => PageSetting, (p: PageSetting) => p.page)
   settings: PageSetting[];
+
+  @OneToMany(() => Link, (l) => l.page)
+  links: Link[];
 }

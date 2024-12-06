@@ -3,21 +3,18 @@ const { getCreators } = useServices();
 
 const route = useRoute();
 
-const { status, refresh, error, data } = useLazyAsyncData(
-  "creators",
-  () =>
-    getCreators({
-      limit,
-      offset: offset.value,
-      search: route.query.search,
-    }),
-  { server: false }
-);
-
 const { page, offset, limit } = useFilter({
   initialPage: parseInt(route.query.page as string) || 1,
   getAll: () => refresh(),
 });
+
+const { status, refresh, error, data } = useLazyAsyncData("creators", () =>
+  getCreators({
+    limit,
+    offset: offset.value,
+    search: route.query.search,
+  })
+);
 </script>
 
 <template>
@@ -50,10 +47,11 @@ const { page, offset, limit } = useFilter({
           >
             <GeneralImage
               variant="logo"
-              :url="item?.logo.url"
+              :url="item?.logo.thumbnail || item.logo.url"
               class="w-[90px] h-[90px]"
             />
-            <span class="mt-5">{{ item?.path }}</span>
+            <div class="pt-3 font-medium">{{ item.name || item.path }}</div>
+            <div class="pt-1 text-sm text-pale">{{ item.path }}</div>
           </NuxtLink>
         </template>
       </div>

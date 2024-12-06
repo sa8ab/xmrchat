@@ -60,13 +60,21 @@ export class PagesService {
       .orderBy('total_paid', 'DESC', 'NULLS LAST');
 
     if (slug) {
-      query = query.andWhere('page.path LIKE :path', { path: `%${slug}%` });
+      query = query.andWhere(
+        'LOWER(page.path) LIKE :path OR LOWER(page.name) LIKE :name OR LOWER(page.searchTerms) LIKE :searchTerms',
+        {
+          path: `%${slug.toLowerCase()}%`,
+          name: `%${slug.toLowerCase()}%`,
+          searchTerms: `%${slug.toLowerCase()}%`,
+        },
+      );
     }
 
     query = query.offset(offset).limit(limit);
 
     const pages = await query.getMany();
     const total = await query.getCount();
+
     return {
       pages,
       total,
@@ -139,7 +147,7 @@ export class PagesService {
     if (!path) return null;
     return this.repo.findOne({
       where: { path },
-      relations: { tiers: true },
+      relations: { tiers: true, links: true },
     });
   }
 
@@ -288,6 +296,20 @@ export class PagesService {
     const result = await this.repo.save(savedPage);
 
     return result;
+  }
+
+  async updateNameAndSearchTerms(
+    id: number,
+    attrs: { name: string; searchTerms: string },
+  ) {
+    const page = await this.findById(id);
+    if (!page) {
+      throw new NotFoundException('Page not found');
+    }
+
+    const savedPage = Object.assign(page, attrs);
+
+    return this.repo.save(savedPage);
   }
 
   async addLwsAccount(data: { address: string; key: string }) {

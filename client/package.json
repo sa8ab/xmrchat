@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@iconify-json/mdi": "^1.1.66",
+    "@iconify-json/simple-icons": "^1.2.14",
+    "@iconify-json/tabler": "^1.2.9",
     "@nuxt/fonts": "^0.6.1",
     "@nuxt/ui": "^2.15.2",
     "@nuxtjs/i18n": "^8.3.0",
