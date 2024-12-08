@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import useVuelidate from "@vuelidate/core";
-const { required, maxLength, sameAs } = useValidations();
+const { required, maxLength, minLength, sameAs } = useValidations();
 const { resetPassword } = useServices();
 
 const { toLogin } = useRouteLocation();
@@ -27,7 +27,7 @@ const state: State = reactive({
 
 const v = useVuelidate<State>(
   computed(() => ({
-    password: { required, maxLength: maxLength(72) },
+    password: { required, maxLength: maxLength(72), minLength: minLength(6) },
     confirmPassword: { sameAs: sameAs(state.password, "password") },
   })),
   state
