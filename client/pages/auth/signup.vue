@@ -5,7 +5,7 @@ useHead({
   title: "Sign up",
 });
 
-const { required, email, sameAs, validate } = useValidations();
+const { required, email, maxLength, minLength, sameAs, validate } = useValidations();
 const { signup } = useAuthStore();
 const { toLogin } = useRouteLocation();
 const toast = useToast();
@@ -22,7 +22,7 @@ const state = reactive({
 const v = useVuelidate(
   computed(() => ({
     email: { required, email },
-    password: { required },
+    password: { required, maxLength: maxLength(72), minLength: minLength(6) },
     confirmPassword: { sameAs: sameAs(state.password, "password") },
   })),
   state
