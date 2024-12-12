@@ -99,6 +99,16 @@ export class PagesService {
     if (!available)
       throw new BadRequestException('Slug/Path is unavailable/owned.');
 
+    if (payload.twitchChannel) {
+      const twitchExists = await this.twitchService.channelExists(
+        payload.twitchChannel,
+      );
+      if (!twitchExists)
+        throw new BadRequestException(
+          'Twtich channel does not exist. Only provide the name of the channel.',
+        );
+    }
+
     const reservedUntil = Date.now() + 60 * 15 * 1000;
 
     const cache = { ...payload, userId: user.id };
