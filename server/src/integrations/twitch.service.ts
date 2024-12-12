@@ -25,8 +25,7 @@ export class TwitchService {
           },
         },
       );
-      console.log(res.data);
-      if (res.data.length > 1) return true;
+      if (res.data.data.length >= 1) return true;
       return false;
     } catch (error) {
       console.log('Twitch api error on getting channel name', error.response);
