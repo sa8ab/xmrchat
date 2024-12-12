@@ -17,6 +17,7 @@ import { WebhooksModule } from './webhooks/webhooks.module';
 import { PricesModule } from './prices/prices.module';
 import { PageSettingsModule } from './page-settings/page-settings.module';
 import { LinksModule } from './links/links.module';
+import { TwitchModule } from './integrations/twitch.module';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { LinksModule } from './links/links.module';
     PricesModule,
     PageSettingsModule,
     LinksModule,
+    TwitchModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -7,6 +7,7 @@ import { LwsModule } from 'src/lws/lws.module';
 import { PaymentsModule } from 'src/payments/payments.module';
 import { PagesGateway } from './pages.gateway';
 import { NotificationsModule } from 'src/notifications/notifications.module';
+import { TwitchModule } from 'src/integrations/twitch.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { NotificationsModule } from 'src/notifications/notifications.module';
     LwsModule,
     PaymentsModule,
     NotificationsModule,
+    TwitchModule,
   ],
   controllers: [PagesController],
   providers: [PagesService, PagesGateway],
