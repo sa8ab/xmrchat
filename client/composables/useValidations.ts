@@ -55,6 +55,14 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     streamerSlugBase
   );
 
+  const moneroPrimaryAddressBase = (v: any) =>
+    typeof v === "string" && v.startsWith("4");
+
+  const moneroPrimaryAddress = helpers.withMessage(
+    "Primary address is invalid. It should start with 4.",
+    moneroPrimaryAddressBase
+  );
+
   const streamerSlugInternalBase = (v: string) =>
     ![
       "auth",
@@ -105,6 +113,7 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     sameAs,
     streamerSlug,
     streamerSlugInternal,
+    moneroPrimaryAddress,
     getValidationAttrs,
     validate,
   };

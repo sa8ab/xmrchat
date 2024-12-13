@@ -43,6 +43,7 @@ const {
   streamerSlugInternal,
   numberic,
   minValue,
+  moneroPrimaryAddress,
 } = useValidations();
 
 const { minXMRPayAmount } = useAppConfig();
@@ -170,6 +171,7 @@ const v = useVuelidate<State["form"]>(
       required,
       minLength: minLength(95),
       maxLength: maxLength(106),
+      moneroPrimary: moneroPrimaryAddress,
     },
     secretViewKey: {
       required,

@@ -23,6 +23,7 @@ import { PagesGateway } from './pages.gateway';
 import { Tip } from 'src/tips/tip.entity';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { UpdatePageDto } from './dtos/update-page.dto';
+import { TwitchService } from 'src/integrations/twitch.service';
 
 @Injectable()
 export class PagesService {
@@ -36,6 +37,7 @@ export class PagesService {
     private paymentsService: PaymentsService,
     private pagesGateway: PagesGateway,
     private notificationsService: NotificationsService,
+    private twitchService: TwitchService,
   ) {}
 
   async searchPages(slug: string = '', offset: number = 0, limit: number = 8) {
@@ -96,6 +98,16 @@ export class PagesService {
 
     if (!available)
       throw new BadRequestException('Slug/Path is unavailable/owned.');
+
+    if (payload.twitchChannel) {
+      const twitchExists = await this.twitchService.channelExists(
+        payload.twitchChannel,
+      );
+      if (!twitchExists)
+        throw new BadRequestException(
+          'Twtich channel does not exist. Only provide the name of the channel.',
+        );
+    }
 
     const reservedUntil = Date.now() + 60 * 15 * 1000;
 
@@ -274,6 +286,16 @@ export class PagesService {
 
     if (page.userId !== user.id) {
       throw new UnauthorizedException();
+    }
+
+    if (attrs.twitchChannel) {
+      const twitchExists = await this.twitchService.channelExists(
+        attrs.twitchChannel,
+      );
+      if (!twitchExists)
+        throw new BadRequestException(
+          'Twtich channel does not exist. Only provide the name of the channel.',
+        );
     }
 
     attrs.tiers = attrs.tiers || [];
