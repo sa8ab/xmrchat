@@ -157,6 +157,7 @@ export class PagesService {
 
   async findByPath(path: string) {
     if (!path) return null;
+    path = path.toLowerCase();
     return this.repo.findOne({
       where: { path },
       relations: { tiers: true, links: true },
