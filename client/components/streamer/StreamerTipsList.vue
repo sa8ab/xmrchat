@@ -1,9 +1,14 @@
 <script lang="ts" setup>
 import type { Numberic } from "~/types";
+import { SupportedDisplayCurrency } from "~/types/enums";
 
 const props = defineProps<{
   slug: string;
 }>();
+
+const tipValueModel = defineModel<SupportedDisplayCurrency | undefined>(
+  "tipValue"
+);
 
 const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
   useServices();
@@ -73,7 +78,15 @@ const updateTipPrivate = async (id: Numberic, isPrivate: boolean) => {
   }
 };
 
-const handlePrivateChange = (id: Numberic, p: boolean) => {};
+const { price } = useXmrPrice();
+
+const getComputedPrice = (amount?: string) => {
+  const xmr = unitsToXmr(amount);
+  const usd = (xmr || 0) * (price.value || 0);
+  return tipValueModel.value === SupportedDisplayCurrency.XMR
+    ? `${xmr} XMR`
+    : `$${usd.toFixed(2)}`;
+};
 </script>
 
 <template>
@@ -87,8 +100,15 @@ const handlePrivateChange = (id: Numberic, p: boolean) => {};
         td: { base: 'whitespace-normal text-text dark:text-text' },
       }"
     >
+      <template #amount-header>
+        <div class="flex gap-4 items-center">
+          <span>Amount</span>
+
+          <TipValueToggle class="font-normal" v-model="tipValueModel" />
+        </div>
+      </template>
       <template #amount-data="{ row }">
-        {{ unitsToXmr(row.payment.amount) }}
+        {{ getComputedPrice(row.payment.amount) }}
       </template>
       <template #paidAt-data="{ row }">
         <div class="paid-at">
