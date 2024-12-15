@@ -17,6 +17,10 @@ export const PAGE_SETTINGS = {
     category: PageSettingCategory.STREAMING,
     type: PageSettingValueType.STRING,
   },
+  [PageSettingKey.DEFAULT_TIP_AMOUNT_DISPLAY]: {
+    category: PageSettingCategory.TIPPING,
+    type: PageSettingValueType.STRING,
+  },
 };
 
 export const getPageSettingCategory = (key: PageSettingKey) =>
