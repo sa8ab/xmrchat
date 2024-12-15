@@ -401,7 +401,7 @@ const tipValueDisplayModelValue = computed({
               <span class="text-xs">USD</span>
               <UToggle
                 v-model="tipValueDisplayModelValue"
-                :ui="{ inactive: 'bg-green-500', active: 'bg-primary' }"
+                :ui="{ inactive: 'bg-primary', active: 'bg-primary' }"
               />
               <span class="text-xs">XMR</span>
             </div>

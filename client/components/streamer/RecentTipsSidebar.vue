@@ -62,7 +62,7 @@ const getComputedPrice = (amount?: string) => {
           <span class="text-xs">USD</span>
           <UToggle
             v-model="modelValue"
-            :ui="{ inactive: 'bg-green-500', active: 'bg-primary' }"
+            :ui="{ inactive: 'bg-primary', active: 'bg-primary' }"
           />
           <span class="text-xs">XMR</span>
         </div>
