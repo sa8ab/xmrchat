@@ -384,7 +384,6 @@ const handleBannerUpload = (file: UploadedFile) => {
           size="lg"
           label="Default Tip Amount Value"
           help="This is only for displaying the tip values. Viewers can change this for themselves on tip page."
-          :error="getValidationAttrs('minTipAmount').error"
         >
           <TipValueToggle
             v-model="state.form.defaultTipAmountDisplay"
