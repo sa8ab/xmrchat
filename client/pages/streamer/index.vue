@@ -32,10 +32,17 @@ const tipValue = ref<SupportedDisplayCurrency | undefined>();
             :showTitle="false"
             class="mb-10"
           />
-          <StreamerTipsList
-            :slug="data.page.path"
-            v-model:tipValue="tipValue"
-          />
+
+          <div class="flex justify-end mb-2">
+            <UTooltip
+              text="Show tip values in XMR or USD"
+              :popper="{ placement: 'top' }"
+            >
+              <TipValueToggle class="font-normal" v-model="tipValue" />
+            </UTooltip>
+          </div>
+
+          <StreamerTipsList :slug="data.page.path" :tipValue="tipValue" />
         </div>
         <NoPageYet v-else />
       </div>

@@ -4,11 +4,8 @@ import { SupportedDisplayCurrency } from "~/types/enums";
 
 const props = defineProps<{
   slug: string;
+  tipValue?: SupportedDisplayCurrency;
 }>();
-
-const tipValueModel = defineModel<SupportedDisplayCurrency | undefined>(
-  "tipValue"
-);
 
 const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
   useServices();
@@ -83,7 +80,7 @@ const { price } = useXmrPrice();
 const getComputedPrice = (amount?: string) => {
   const xmr = unitsToXmr(amount);
   const usd = (xmr || 0) * (price.value || 0);
-  return tipValueModel.value === SupportedDisplayCurrency.XMR
+  return props.tipValue === SupportedDisplayCurrency.XMR
     ? `${xmr} XMR`
     : `$${usd.toFixed(2)}`;
 };
@@ -100,13 +97,6 @@ const getComputedPrice = (amount?: string) => {
         td: { base: 'whitespace-normal text-text dark:text-text' },
       }"
     >
-      <template #amount-header>
-        <div class="flex gap-4 items-center">
-          <span>Amount</span>
-
-          <TipValueToggle class="font-normal" v-model="tipValueModel" />
-        </div>
-      </template>
       <template #amount-data="{ row }">
         {{ getComputedPrice(row.payment.amount) }}
       </template>
