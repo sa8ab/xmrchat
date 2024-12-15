@@ -27,7 +27,7 @@ export interface CreateFormFields {
   twitchChannel?: string;
   minTipAmount?: string;
   isPublic?: boolean;
-  defaultTipAmountDisplay?: string;
+  defaultTipAmountDisplay?: SupportedDisplayCurrency;
 }
 
 export interface TipFormFields {

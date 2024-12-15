@@ -32,15 +32,6 @@ const stopTipsInterval = () => {
   clearInterval(interval.value);
 };
 
-const modelValue = computed({
-  set: (v) => {
-    generalState.tipDisplayValue = v
-      ? SupportedDisplayCurrency.XMR
-      : SupportedDisplayCurrency.USD;
-  },
-  get: () => generalState.tipDisplayValue === SupportedDisplayCurrency.XMR,
-});
-
 const getComputedPrice = (amount?: string) => {
   const xmr = unitsToXmr(amount);
   const usd = (xmr || 0) * (price.value || 0);
@@ -58,23 +49,9 @@ const getComputedPrice = (amount?: string) => {
         text="Show tip values in XMR or USD"
         :popper="{ placement: 'top' }"
       >
-        <div class="toggle flex items-center gap-1">
-          <span class="text-xs">USD</span>
-          <UToggle
-            v-model="modelValue"
-            :ui="{ inactive: 'bg-primary', active: 'bg-primary' }"
-          />
-          <span class="text-xs">XMR</span>
-        </div>
+        <TipValueToggle v-model="generalState.tipDisplayValue" />
       </UTooltip>
     </div>
-    <!-- <UProgress
-      v-if="pending && !data"
-      animation="carousel"
-      class="max-w-[280px] m-auto"
-    />
-    <div v-if="error">Something went wrong</div>
-    <slot v-else /> -->
     <PendingView :error="error">
       <div v-if="pending && !data" class="">
         <div class="flex flex-col gap-3 border-border border rounded-md p-3">

@@ -230,16 +230,6 @@ const handleBannerUpload = (file: UploadedFile) => {
   state.stagedBannerUrl = file.url;
   state.form.coverImage = file.id;
 };
-
-const tipValueDisplayModelValue = computed({
-  set: (v) => {
-    state.form.defaultTipAmountDisplay = v
-      ? SupportedDisplayCurrency.XMR
-      : SupportedDisplayCurrency.USD;
-  },
-  get: () =>
-    state.form.defaultTipAmountDisplay === SupportedDisplayCurrency.XMR,
-});
 </script>
 
 <template>
@@ -396,16 +386,10 @@ const tipValueDisplayModelValue = computed({
           help="This is only for displaying the tip values. Viewers can change this for themselves on tip page."
           :error="getValidationAttrs('minTipAmount').error"
         >
-          <div class="flex gap-6 flex-wrap mt-2">
-            <div class="toggle flex items-center gap-1">
-              <span class="text-xs">USD</span>
-              <UToggle
-                v-model="tipValueDisplayModelValue"
-                :ui="{ inactive: 'bg-primary', active: 'bg-primary' }"
-              />
-              <span class="text-xs">XMR</span>
-            </div>
-          </div>
+          <TipValueToggle
+            v-model="state.form.defaultTipAmountDisplay"
+            class="mt-2"
+          />
         </UFormGroup>
       </div>
 
@@ -416,9 +400,6 @@ const tipValueDisplayModelValue = computed({
             :minUsdAmount="minUsdAmount"
           />
         </UFormGroup>
-        <!-- <UFormGroup size="lg" label="Set minimum XMR tip amount">
-          <UInput type="number" />
-        </UFormGroup> -->
       </div>
 
       <!-- <div class="mt-8">
