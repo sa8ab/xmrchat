@@ -34,6 +34,9 @@ export class PageDto {
   twitchChannel: string;
 
   @Expose()
+  defaultTipAmountDisplay: string;
+
+  @Expose()
   @Transform(
     ({ value }) => value && MoneroUtils.atomicUnitsToXmr(value).toString(),
   )

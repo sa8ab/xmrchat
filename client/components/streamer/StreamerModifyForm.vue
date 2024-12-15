@@ -208,6 +208,7 @@ const getPage = async () => {
     twitchChannel: page.twitchChannel?.toLowerCase(),
     isPublic: page.isPublic,
     minTipAmount: page.minTipAmount,
+    defaultTipAmountDisplay: page.defaultTipAmountDisplay,
     tiers: page.tiers || [],
   };
 
