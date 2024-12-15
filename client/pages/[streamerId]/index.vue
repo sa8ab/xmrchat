@@ -19,7 +19,7 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
   {
     transform: (v) => {
       generalState.tipDisplayValue =
-        v.defaultTipAmountDisplay || SupportedDisplayCurrency.XMR;
+        v.defaultTipAmountDisplay || SupportedDisplayCurrency.USD;
       return v;
     },
   }
