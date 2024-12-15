@@ -7,6 +7,7 @@ import type {
   SlugReservationResponse,
   UploadedFile,
 } from "~/types";
+import { SupportedDisplayCurrency } from "~/types/enums";
 
 const { toStreamerDisplay, toGuides } = useRouteLocation();
 
@@ -229,6 +230,16 @@ const handleBannerUpload = (file: UploadedFile) => {
   state.stagedBannerUrl = file.url;
   state.form.coverImage = file.id;
 };
+
+const tipValueDisplayModelValue = computed({
+  set: (v) => {
+    state.form.defaultTipAmountDisplay = v
+      ? SupportedDisplayCurrency.XMR
+      : SupportedDisplayCurrency.USD;
+  },
+  get: () =>
+    state.form.defaultTipAmountDisplay === SupportedDisplayCurrency.XMR,
+});
 </script>
 
 <template>
@@ -386,12 +397,14 @@ const handleBannerUpload = (file: UploadedFile) => {
           :error="getValidationAttrs('minTipAmount').error"
         >
           <div class="flex gap-6 flex-wrap mt-2">
-            <URadio
-              v-for="item in SUPPORTED_TIP_VALUES"
-              v-model="state.form.defaultTipAmountDisplay"
-              :label="item.label"
-              :value="item.value"
-            />
+            <div class="toggle flex items-center gap-1">
+              <span class="text-xs">USD</span>
+              <UToggle
+                v-model="tipValueDisplayModelValue"
+                :ui="{ inactive: 'bg-green-500', active: 'bg-primary' }"
+              />
+              <span class="text-xs">XMR</span>
+            </div>
           </div>
         </UFormGroup>
       </div>

@@ -35,18 +35,18 @@ const stopTipsInterval = () => {
 const modelValue = computed({
   set: (v) => {
     generalState.tipDisplayValue = v
-      ? SupportedDisplayCurrency.USD
-      : SupportedDisplayCurrency.XMR;
+      ? SupportedDisplayCurrency.XMR
+      : SupportedDisplayCurrency.USD;
   },
-  get: () => generalState.tipDisplayValue === SupportedDisplayCurrency.USD,
+  get: () => generalState.tipDisplayValue === SupportedDisplayCurrency.XMR,
 });
 
 const getComputedPrice = (amount?: string) => {
   const xmr = unitsToXmr(amount);
   const usd = (xmr || 0) * (price.value || 0);
-  return generalState.tipDisplayValue === SupportedDisplayCurrency.USD
-    ? `$${usd.toFixed(2)}`
-    : `${xmr} XMR`;
+  return generalState.tipDisplayValue === SupportedDisplayCurrency.XMR
+    ? `${xmr} XMR`
+    : `$${usd.toFixed(2)}`;
 };
 </script>
 
@@ -59,12 +59,12 @@ const getComputedPrice = (amount?: string) => {
         :popper="{ placement: 'top' }"
       >
         <div class="toggle flex items-center gap-1">
-          <span class="text-xs">XMR</span>
+          <span class="text-xs">USD</span>
           <UToggle
             v-model="modelValue"
-            :ui="{ inactive: 'bg-primary', active: 'bg-green-500' }"
+            :ui="{ inactive: 'bg-green-500', active: 'bg-primary' }"
           />
-          <span class="text-xs">USD</span>
+          <span class="text-xs">XMR</span>
         </div>
       </UTooltip>
     </div>
