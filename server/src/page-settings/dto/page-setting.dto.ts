@@ -31,5 +31,5 @@ export class PageSettingDto {
 export class PageSettingRO {
   @Expose()
   @Type(() => PageSettingDto)
-  settings: PageSettingDto;
+  settings: PageSettingDto[];
 }

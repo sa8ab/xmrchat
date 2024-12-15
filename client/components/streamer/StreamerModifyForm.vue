@@ -67,6 +67,7 @@ const state = reactive<State>({
     tiers: [],
     twitchChannel: undefined,
     isPublic: true,
+    defaultTipAmountDisplay: undefined,
   },
   slugAvailable: false,
   loadingSlug: false,
@@ -150,6 +151,7 @@ const handleSubmit = async () => {
         tiers: state.form.tiers,
         twitchChannel: state.form.twitchChannel?.toLowerCase(),
         isPublic: state.form.isPublic,
+        defaultTipAmountDisplay: state.form.defaultTipAmountDisplay,
         minTipAmount: state.form.minTipAmount?.toString() || null,
       });
       toast.add({ title: "Page updated!" });
@@ -371,6 +373,25 @@ const handleBannerUpload = (file: UploadedFile) => {
             v-model="state.form.minTipAmount"
             @blur="getValidationAttrs('minTipAmount').onBlur"
           />
+        </UFormGroup>
+      </div>
+
+      <div class="both">
+        <UFormGroup
+          v-if="editable"
+          size="lg"
+          label="Default Tip Amount Value"
+          help="This is only for displaying the tip values. Viewers can change this for themselves on tip page."
+          :error="getValidationAttrs('minTipAmount').error"
+        >
+          <div class="flex gap-6 flex-wrap mt-2">
+            <URadio
+              v-for="item in SUPPORTED_TIP_VALUES"
+              v-model="state.form.defaultTipAmountDisplay"
+              :label="item.label"
+              :value="item.value"
+            />
+          </div>
         </UFormGroup>
       </div>
 

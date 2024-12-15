@@ -47,6 +47,9 @@ export class Page {
   @Column({ type: 'bigint', nullable: true })
   minTipAmount: number;
 
+  @Column({ nullable: true })
+  defaultTipAmountDisplay: string;
+
   @Column('boolean', { default: true })
   isPublic: boolean;
 

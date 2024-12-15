@@ -3,15 +3,9 @@ interface Options {
 }
 
 export const useXmrPrice = ({ pageMinXmr }: Options = {}) => {
-  const { getPrice: getPriceApi } = useServices();
   const { minXMRPayAmount } = useAppConfig();
 
-  const price = ref<number | undefined>(undefined);
-
-  const getPrice = async () => {
-    price.value = await getPriceApi();
-    return price.value;
-  };
+  const price = useState<number | undefined>("xmrPrice");
 
   const minXmr = computed(() => {
     return pageMinXmr?.value ? parseFloat(pageMinXmr.value) : minXMRPayAmount;
@@ -22,13 +16,8 @@ export const useXmrPrice = ({ pageMinXmr }: Options = {}) => {
     return (Math.ceil(minXmr.value * price.value * 100) / 100).toFixed(2);
   });
 
-  onMounted(() => {
-    getPrice();
-  });
-
   return {
     price,
     minUsdAmount,
-    getPrice,
   };
 };

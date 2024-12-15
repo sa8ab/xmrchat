@@ -14,9 +14,9 @@ const props = defineProps<{
 }>();
 
 const { required, minLength, maxLength, minValue } = useValidations();
-const { sendTipToStreamer: sendTipToStreamerApi } = useServices();
+const { sendTipToStreamer: sendTipToStreamerApi, getPrice } = useServices();
 
-const { minUsdAmount, getPrice, price } = useXmrPrice({
+const { minUsdAmount, price } = useXmrPrice({
   pageMinXmr: computed(() => props.streamerPage?.minTipAmount),
 });
 
@@ -101,6 +101,7 @@ const messageLength = computed(() => state.form.message?.length || 0);
 
 <template>
   <div class="payment pt-5 md:pt-10 gap-10">
+    <pre>{{ useState("xmrPrice") }}</pre>
     <div class="content-side">
       <UForm
         class="flex flex-col gap-5"

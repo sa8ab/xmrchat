@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:run": "typeorm-ts-node-commonjs migration:run -d typeorm.config",
+    "migration:revert": "typeorm-ts-node-commonjs migration:revert -d typeorm.config",
     "migration:show": "typeorm-ts-node-commonjs migration:show -d typeorm.config",
     "migration:generate": "typeorm-ts-node-commonjs migration:generate -d typeorm.config"
   },

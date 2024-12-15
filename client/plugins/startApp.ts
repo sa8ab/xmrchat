@@ -1,6 +1,8 @@
 export default defineNuxtPlugin(async () => {
-  // const authStore = useAuthStore();
-  // await useAsyncData(async () => {
-  //   return authStore.getMe();
-  // });
+  const price = useState("xmrPrice");
+
+  await useAsyncData(async () => {
+    price.value = await $fetch("/get-price");
+    return {};
+  });
 });
