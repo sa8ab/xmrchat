@@ -24,7 +24,7 @@ export const getFirstStreamerPage = (pages?: StreamerPage[]) => {
 };
 
 export const unitsToXmr = (v?: string) => {
-  if (!v) return "";
+  if (!v) return undefined;
   return parseInt(v) / 1e12;
 };
 
