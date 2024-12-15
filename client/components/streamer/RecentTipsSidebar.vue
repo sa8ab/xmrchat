@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import type { Tip } from "~/types";
+import { SupportedDisplayCurrency } from "~/types/enums";
 
 const props = defineProps<{
   slug: string;
 }>();
 
 const { getTips: getTipsApi } = useServices();
+const { state: generalState } = useGeneralStore();
+
+const { price } = useXmrPrice();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
   `recent-tips-${props.slug}`,
@@ -26,11 +29,35 @@ const stopTipsInterval = () => {
 };
 
 onBeforeUnmount(() => stopTipsInterval());
+
+const modelValue = computed({
+  set: (v) => {
+    generalState.tipDisplayValue = v
+      ? SupportedDisplayCurrency.USD
+      : SupportedDisplayCurrency.XMR;
+  },
+  get: () => generalState.tipDisplayValue !== SupportedDisplayCurrency.XMR,
+});
 </script>
 
 <template>
   <div class="sidebar scrollbar">
-    <h3 class="font-medium text-xl pb-4">Recent Tips</h3>
+    <div class="flex justify-between gap-2 items-center pb-2">
+      <h3 class="font-medium text-lg">Recent Tips</h3>
+      <UTooltip
+        text="Show tip values in XMR or USD"
+        :popper="{ placement: 'top' }"
+      >
+        <div class="toggle flex items-center gap-1">
+          <span class="text-xs">XMR</span>
+          <UToggle
+            v-model="modelValue"
+            :ui="{ inactive: 'bg-primary', active: 'bg-green-500' }"
+          />
+          <span class="text-xs">USD</span>
+        </div>
+      </UTooltip>
+    </div>
     <!-- <UProgress
       v-if="pending && !data"
       animation="carousel"
