@@ -28,8 +28,12 @@ export class TwitchService {
       if (res.data.data.length >= 1) return true;
       return false;
     } catch (error) {
-      console.log('Twitch api error on getting channel name', error.response);
-      return true;
+      console.log(
+        'Twitch api error on getting channel name',
+        error.response?.data,
+      );
+      if (error?.response?.data?.status === 403) return true;
+      return false;
     }
   }
 }

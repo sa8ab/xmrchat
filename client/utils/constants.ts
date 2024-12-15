@@ -1,4 +1,4 @@
-import { PageLinkPLatform } from "~/types/enums";
+import { PageLinkPLatform, SupportedDisplayCurrency } from "~/types/enums";
 
 export const PAGE_LINKS = {
   [PageLinkPLatform.X]: {
@@ -50,3 +50,8 @@ export const PAGE_LINKS = {
     linkCreator: (v?: string) => `https://substack.com/@${v}`,
   },
 };
+
+export const SUPPORTED_TIP_VALUES = [
+  { value: SupportedDisplayCurrency.XMR, label: "XMR" },
+  { value: SupportedDisplayCurrency.USD, label: "USD" },
+];

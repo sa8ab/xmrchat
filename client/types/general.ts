@@ -1,4 +1,4 @@
-import type { PageSettingKey } from "./enums";
+import type { PageSettingKey, SupportedDisplayCurrency } from "./enums";
 
 export type Numberic = string | number;
 
@@ -27,6 +27,7 @@ export interface CreateFormFields {
   twitchChannel?: string;
   minTipAmount?: string;
   isPublic?: boolean;
+  defaultTipAmountDisplay?: SupportedDisplayCurrency;
 }
 
 export interface TipFormFields {
@@ -62,6 +63,7 @@ export interface StreamerPage {
   twitchChannel?: string;
   minTipAmount?: string;
   isPublic: boolean;
+  defaultTipAmountDisplay?: SupportedDisplayCurrency;
   links?: PageLink[];
 }
 

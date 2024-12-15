@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import type { Numberic } from "~/types";
+import { SupportedDisplayCurrency } from "~/types/enums";
 
 const props = defineProps<{
   slug: string;
+  tipValue?: SupportedDisplayCurrency;
 }>();
 
 const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
@@ -73,7 +75,15 @@ const updateTipPrivate = async (id: Numberic, isPrivate: boolean) => {
   }
 };
 
-const handlePrivateChange = (id: Numberic, p: boolean) => {};
+const { price } = useXmrPrice();
+
+const getComputedPrice = (amount?: string) => {
+  const xmr = unitsToXmr(amount);
+  const usd = (xmr || 0) * (price.value || 0);
+  return props.tipValue === SupportedDisplayCurrency.XMR
+    ? `${xmr} XMR`
+    : `$${usd.toFixed(2)}`;
+};
 </script>
 
 <template>
@@ -88,7 +98,7 @@ const handlePrivateChange = (id: Numberic, p: boolean) => {};
       }"
     >
       <template #amount-data="{ row }">
-        {{ unitsToXmr(row.payment.amount) }}
+        {{ getComputedPrice(row.payment.amount) }}
       </template>
       <template #paidAt-data="{ row }">
         <div class="paid-at">

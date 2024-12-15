@@ -16,3 +16,8 @@ export enum PageLinkPLatform {
   RUMBLE = "rumble",
   SUBSTACK = "substack",
 }
+
+export enum SupportedDisplayCurrency {
+  XMR = "xmr",
+  USD = "usd",
+}

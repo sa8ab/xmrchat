@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { TipContent } from "#components";
 import type { TipCreationResponse } from "~/types";
+import { SupportedDisplayCurrency } from "~/types/enums";
 
 definePageMeta({
   hideHeaderLogin: true,
@@ -9,11 +10,19 @@ definePageMeta({
 const route = useRoute();
 const streamerId = computed(() => route.params.streamerId as string);
 const { getStreamerPage } = useServices();
+const { state: generalState } = useGeneralStore();
 const contentRef = ref<InstanceType<typeof TipContent> | undefined>();
 
 const { data, pending, refresh, error } = await useLazyAsyncData(
   `streamer-${streamerId.value}`,
-  () => getStreamerPage(streamerId.value)
+  () => getStreamerPage(streamerId.value),
+  {
+    transform: (v) => {
+      generalState.tipDisplayValue =
+        v.defaultTipAmountDisplay || SupportedDisplayCurrency.USD;
+      return v;
+    },
+  }
 );
 
 const createdTip = ref<TipCreationResponse | undefined>(undefined);

@@ -42,21 +42,6 @@ export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
     socket.value.on("tip", handleTipEvent);
 
     socket.value.on("newTip", handlePageTipEvent);
-
-    // socket.value.onerror = (e) => {
-    //   console.log("on error", e);
-    //   options?.onError?.();
-    // };
-    // socket.value.onmessage = (e: MessageEvent<string>) => {
-    //   const data = JSON.parse(e.data) as T;
-
-    //   if ((data as any).error) {
-    //     options?.onError?.();
-    //     return;
-    //   }
-
-    //   options?.onMessage(data);
-    // };
   };
 
   const handleConnect = () => {

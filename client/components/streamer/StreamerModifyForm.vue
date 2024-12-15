@@ -7,6 +7,7 @@ import type {
   SlugReservationResponse,
   UploadedFile,
 } from "~/types";
+import { SupportedDisplayCurrency } from "~/types/enums";
 
 const { toStreamerDisplay, toGuides } = useRouteLocation();
 
@@ -67,6 +68,7 @@ const state = reactive<State>({
     tiers: [],
     twitchChannel: undefined,
     isPublic: true,
+    defaultTipAmountDisplay: undefined,
   },
   slugAvailable: false,
   loadingSlug: false,
@@ -150,6 +152,7 @@ const handleSubmit = async () => {
         tiers: state.form.tiers,
         twitchChannel: state.form.twitchChannel?.toLowerCase(),
         isPublic: state.form.isPublic,
+        defaultTipAmountDisplay: state.form.defaultTipAmountDisplay,
         minTipAmount: state.form.minTipAmount?.toString() || null,
       });
       toast.add({ title: "Page updated!" });
@@ -206,6 +209,7 @@ const getPage = async () => {
     twitchChannel: page.twitchChannel?.toLowerCase(),
     isPublic: page.isPublic,
     minTipAmount: page.minTipAmount,
+    defaultTipAmountDisplay: page.defaultTipAmountDisplay,
     tiers: page.tiers || [],
   };
 
@@ -374,6 +378,20 @@ const handleBannerUpload = (file: UploadedFile) => {
         </UFormGroup>
       </div>
 
+      <div class="both">
+        <UFormGroup
+          v-if="editable"
+          size="lg"
+          label="Default Tip Amount Value"
+          help="This is only for displaying the tip values. Viewers can change this for themselves on tip page."
+        >
+          <TipValueToggle
+            v-model="state.form.defaultTipAmountDisplay"
+            class="mt-2"
+          />
+        </UFormGroup>
+      </div>
+
       <div class="single" v-if="editable">
         <UFormGroup label="Tip Amount Suggestions">
           <StreamerTipSuggestions
@@ -381,9 +399,6 @@ const handleBannerUpload = (file: UploadedFile) => {
             :minUsdAmount="minUsdAmount"
           />
         </UFormGroup>
-        <!-- <UFormGroup size="lg" label="Set minimum XMR tip amount">
-          <UInput type="number" />
-        </UFormGroup> -->
       </div>
 
       <!-- <div class="mt-8">

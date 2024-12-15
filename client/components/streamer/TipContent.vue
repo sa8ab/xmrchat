@@ -14,9 +14,9 @@ const props = defineProps<{
 }>();
 
 const { required, minLength, maxLength, minValue } = useValidations();
-const { sendTipToStreamer: sendTipToStreamerApi } = useServices();
+const { sendTipToStreamer: sendTipToStreamerApi, getPrice } = useServices();
 
-const { minUsdAmount, getPrice, price } = useXmrPrice({
+const { minUsdAmount, price } = useXmrPrice({
   pageMinXmr: computed(() => props.streamerPage?.minTipAmount),
 });
 
@@ -193,7 +193,7 @@ const messageLength = computed(() => state.form.message?.length || 0);
       </UForm>
     </div>
     <div class="tip-side">
-      <RecentTipsSidebar :slug="streamerId" />
+      <RecentTipsSidebar :slug="streamerId" :page="streamerPage" />
     </div>
   </div>
 </template>

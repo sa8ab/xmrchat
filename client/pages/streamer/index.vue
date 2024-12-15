@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { SupportedDisplayCurrency } from "~/types/enums";
+
 useHead({
   title: "Profile",
 });
@@ -7,8 +9,16 @@ const { getMyPage } = useServices();
 
 const { data, pending, refresh, error } = useLazyAsyncData(
   "streamer-profile",
-  () => getMyPage()
+  () => getMyPage(),
+  {
+    transform: (v) => {
+      tipValue.value = v.page.defaultTipAmountDisplay;
+      return v;
+    },
+  }
 );
+
+const tipValue = ref<SupportedDisplayCurrency | undefined>();
 </script>
 
 <template>
@@ -22,7 +32,17 @@ const { data, pending, refresh, error } = useLazyAsyncData(
             :showTitle="false"
             class="mb-10"
           />
-          <StreamerTipsList :slug="data.page.path" />
+
+          <div class="flex justify-end mb-2">
+            <UTooltip
+              text="Show tip values in XMR or USD"
+              :popper="{ placement: 'top' }"
+            >
+              <TipValueToggle class="font-normal" v-model="tipValue" />
+            </UTooltip>
+          </div>
+
+          <StreamerTipsList :slug="data.page.path" :tipValue="tipValue" />
         </div>
         <NoPageYet v-else />
       </div>

@@ -18,6 +18,11 @@ export enum PageSettingKey {
   OBS_PLAY_SOUND = 'obs-play-sound',
 }
 
+export enum SupportedDisplayCurrency {
+  XMR = 'xmr',
+  USD = 'usd',
+}
+
 export enum PageSettingValueType {
   STRING = 'string',
   NUMBER = 'number',

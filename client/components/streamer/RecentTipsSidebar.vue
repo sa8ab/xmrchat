@@ -1,20 +1,27 @@
 <script setup lang="ts">
-import type { Tip } from "~/types";
+import type { StreamerPage } from "~/types";
+import { SupportedDisplayCurrency } from "~/types/enums";
 
 const props = defineProps<{
   slug: string;
+  page?: StreamerPage | null;
 }>();
 
 const { getTips: getTipsApi } = useServices();
+const { state: generalState } = useGeneralStore();
+
+const { price } = useXmrPrice();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
   `recent-tips-${props.slug}`,
-  () => getTipsApi(props.slug)
+  () => getTipsApi(props.slug),
+  { server: false }
 );
 
 const interval = ref<NodeJS.Timeout | undefined>(undefined);
 
 onMounted(() => startTipsInterval());
+onBeforeUnmount(() => stopTipsInterval());
 
 const startTipsInterval = () => {
   stopTipsInterval();
@@ -25,21 +32,38 @@ const stopTipsInterval = () => {
   clearInterval(interval.value);
 };
 
-onBeforeUnmount(() => stopTipsInterval());
+const getComputedPrice = (amount?: string) => {
+  const xmr = unitsToXmr(amount);
+  const usd = (xmr || 0) * (price.value || 0);
+  return generalState.tipDisplayValue === SupportedDisplayCurrency.XMR
+    ? `${xmr} XMR`
+    : `$${usd.toFixed(2)}`;
+};
 </script>
 
 <template>
   <div class="sidebar scrollbar">
-    <h3 class="font-medium text-xl pb-4">Recent Tips</h3>
-    <!-- <UProgress
-      v-if="pending && !data"
-      animation="carousel"
-      class="max-w-[280px] m-auto"
-    />
-    <div v-if="error">Something went wrong</div>
-    <slot v-else /> -->
+    <div class="flex justify-between gap-2 items-center pb-2">
+      <h3 class="font-medium text-lg">Recent Tips</h3>
+      <UTooltip
+        text="Show tip values in XMR or USD"
+        :popper="{ placement: 'top' }"
+      >
+        <TipValueToggle v-model="generalState.tipDisplayValue" />
+      </UTooltip>
+    </div>
     <PendingView :error="error">
-      <div class="empty text-pale" v-if="!data?.length">
+      <div v-if="pending && !data" class="">
+        <div class="flex flex-col gap-3 border-border border rounded-md p-3">
+          <div v-for="x in 2" class="flex flex-col gap-2">
+            <USkeleton class="h-4 w-[100px]" />
+            <USkeleton class="h-4 w-[60px]" />
+            <USkeleton class="h-4 w-full" />
+            <USkeleton class="h-4 w-[100px]" />
+          </div>
+        </div>
+      </div>
+      <div class="empty text-pale" v-else-if="!data?.length">
         <UIcon name="i-heroicons-moon" class="empty-icon"></UIcon>
         <span class="empty-text">No recent tips!</span>
       </div>
@@ -53,7 +77,7 @@ onBeforeUnmount(() => stopTipsInterval());
               {{ item.private ? "Private" : item.name }}
             </p>
             <span class="flex pb-1 font-medium text-primary">
-              {{ unitsToXmr(item.payment?.amount) }} XMR
+              {{ getComputedPrice(item.payment?.amount) }}
             </span>
             <p :class="{ 'text-pale': item.private }">
               {{ item.private ? "Private" : item.message }}

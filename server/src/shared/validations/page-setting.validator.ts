@@ -5,8 +5,9 @@ import {
   isBoolean,
   isString,
   isNumber,
+  isEnum,
 } from 'class-validator';
-import { PageSettingValueType } from '../constants/enum';
+import { PageSettingKey, PageSettingValueType } from '../constants/enum';
 import { getPageSettingType } from '../utils/settings';
 
 export const IsValidSetting = (
