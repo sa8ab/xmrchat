@@ -193,7 +193,7 @@ const messageLength = computed(() => state.form.message?.length || 0);
       </UForm>
     </div>
     <div class="tip-side">
-      <RecentTipsSidebar :slug="streamerId" />
+      <RecentTipsSidebar :slug="streamerId" :page="streamerPage" />
     </div>
   </div>
 </template>

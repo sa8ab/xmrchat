@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { StreamerPage } from "~/types";
 import { SupportedDisplayCurrency } from "~/types/enums";
 
 const props = defineProps<{
   slug: string;
+  page?: StreamerPage | null;
 }>();
 
 const { getTips: getTipsApi } = useServices();
@@ -19,6 +21,7 @@ const { data, refresh, pending, error } = useLazyAsyncData(
 const interval = ref<NodeJS.Timeout | undefined>(undefined);
 
 onMounted(() => startTipsInterval());
+onBeforeUnmount(() => stopTipsInterval());
 
 const startTipsInterval = () => {
   stopTipsInterval();
@@ -29,8 +32,6 @@ const stopTipsInterval = () => {
   clearInterval(interval.value);
 };
 
-onBeforeUnmount(() => stopTipsInterval());
-
 const modelValue = computed({
   set: (v) => {
     generalState.tipDisplayValue = v
@@ -39,6 +40,14 @@ const modelValue = computed({
   },
   get: () => generalState.tipDisplayValue !== SupportedDisplayCurrency.XMR,
 });
+
+const getComputedPrice = (amount?: string) => {
+  const xmr = unitsToXmr(amount);
+  const usd = (xmr || 0) * (price.value || 0);
+  return generalState.tipDisplayValue === SupportedDisplayCurrency.XMR
+    ? `${xmr} XMR`
+    : `$${usd.toFixed(2)}`;
+};
 </script>
 
 <template>
@@ -91,7 +100,7 @@ const modelValue = computed({
               {{ item.private ? "Private" : item.name }}
             </p>
             <span class="flex pb-1 font-medium text-primary">
-              {{ unitsToXmr(item.payment?.amount) }} XMR
+              {{ getComputedPrice(item.payment?.amount) }}
             </span>
             <p :class="{ 'text-pale': item.private }">
               {{ item.private ? "Private" : item.message }}
