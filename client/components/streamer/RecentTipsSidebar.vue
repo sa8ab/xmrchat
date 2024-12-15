@@ -12,7 +12,8 @@ const { price } = useXmrPrice();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
   `recent-tips-${props.slug}`,
-  () => getTipsApi(props.slug)
+  () => getTipsApi(props.slug),
+  { server: false }
 );
 
 const interval = ref<NodeJS.Timeout | undefined>(undefined);
@@ -66,7 +67,17 @@ const modelValue = computed({
     <div v-if="error">Something went wrong</div>
     <slot v-else /> -->
     <PendingView :error="error">
-      <div class="empty text-pale" v-if="!data?.length">
+      <div v-if="pending && !data" class="">
+        <div class="flex flex-col gap-3 border-border border rounded-md p-3">
+          <div v-for="x in 2" class="flex flex-col gap-2">
+            <USkeleton class="h-4 w-[100px]" />
+            <USkeleton class="h-4 w-[60px]" />
+            <USkeleton class="h-4 w-full" />
+            <USkeleton class="h-4 w-[100px]" />
+          </div>
+        </div>
+      </div>
+      <div class="empty text-pale" v-else-if="!data?.length">
         <UIcon name="i-heroicons-moon" class="empty-icon"></UIcon>
         <span class="empty-text">No recent tips!</span>
       </div>
