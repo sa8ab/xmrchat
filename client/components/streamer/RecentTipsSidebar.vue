@@ -38,15 +38,15 @@ const modelValue = computed({
       ? SupportedDisplayCurrency.USD
       : SupportedDisplayCurrency.XMR;
   },
-  get: () => generalState.tipDisplayValue !== SupportedDisplayCurrency.XMR,
+  get: () => generalState.tipDisplayValue === SupportedDisplayCurrency.USD,
 });
 
 const getComputedPrice = (amount?: string) => {
   const xmr = unitsToXmr(amount);
   const usd = (xmr || 0) * (price.value || 0);
-  return generalState.tipDisplayValue === SupportedDisplayCurrency.XMR
-    ? `${xmr} XMR`
-    : `$${usd.toFixed(2)}`;
+  return generalState.tipDisplayValue === SupportedDisplayCurrency.USD
+    ? `$${usd.toFixed(2)}`
+    : `${xmr} XMR`;
 };
 </script>
 

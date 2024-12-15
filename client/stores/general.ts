@@ -2,14 +2,14 @@ import { parse, stringify } from "zipson";
 import { SupportedDisplayCurrency } from "~/types/enums";
 
 interface State {
-  tipDisplayValue: SupportedDisplayCurrency;
+  tipDisplayValue?: SupportedDisplayCurrency;
 }
 
 export const useGeneralStore = defineStore(
   "general",
   () => {
     const state: State = reactive({
-      tipDisplayValue: SupportedDisplayCurrency.XMR,
+      tipDisplayValue: undefined,
     });
 
     return {
@@ -17,11 +17,11 @@ export const useGeneralStore = defineStore(
     };
   },
   {
-    persist: {
-      serializer: {
-        deserialize: parse,
-        serialize: stringify,
-      },
-    },
+    // persist: {
+    //   serializer: {
+    //     deserialize: parse,
+    //     serialize: stringify,
+    //   },
+    // },
   }
 );
