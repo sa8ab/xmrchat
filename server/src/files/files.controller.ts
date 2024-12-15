@@ -65,6 +65,7 @@ export class FilesController {
   @Post('/create-thumbnails')
   @IsPublic()
   createThumbnails() {
+    throw new BadRequestException('This request should no longer be used.');
     return this.filesService.generateThumbnailsForCurrentLogos();
   }
 }
