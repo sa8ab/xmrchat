@@ -18,6 +18,7 @@ import { PricesModule } from './prices/prices.module';
 import { PageSettingsModule } from './page-settings/page-settings.module';
 import { LinksModule } from './links/links.module';
 import { TwitchModule } from './integrations/twitch.module';
+import { SwapsModule } from './swaps/swaps.module';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { TwitchModule } from './integrations/twitch.module';
     PageSettingsModule,
     LinksModule,
     TwitchModule,
+    SwapsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
