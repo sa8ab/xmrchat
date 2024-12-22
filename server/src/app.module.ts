@@ -19,6 +19,7 @@ import { PageSettingsModule } from './page-settings/page-settings.module';
 import { LinksModule } from './links/links.module';
 import { TwitchModule } from './integrations/twitch.module';
 import { SwapsModule } from './swaps/swaps.module';
+import { TrocadorModule } from './integrations/trocador/trocador.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { SwapsModule } from './swaps/swaps.module';
     LinksModule,
     TwitchModule,
     SwapsModule,
+    TrocadorModule,
   ],
   controllers: [AppController],
   providers: [AppService],
