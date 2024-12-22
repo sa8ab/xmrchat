@@ -11,14 +11,8 @@ export class SwapsService {
     throw new BadRequestException('Swap platform is not valid');
   }
 
-  async validateCoinAmount(coinId: number, amount: number) {
-    const coin = await this.coinRepo.findOneBy({ id: coinId });
-    if (!coin)
-      return {
-        coin: null,
-        valid: false,
-      };
-
+  async validateXmrAmount(amount: number) {
+    const coin = await this.coinRepo.findOneBy({ ticker: 'xmr' });
     return {
       coin,
       valid: coin.minimum <= amount && amount >= coin.maximum,

@@ -96,19 +96,15 @@ export class TipsService {
 
     if (!page) throw new NotFoundException('Page is not found.');
 
-    // TODO: validate based on coin
+    const xmrUnits = MoneroUtils.xmrToAtomicUnits(payload.amount);
 
     if (payload.coinId) {
-      const { coin, valid } = await this.swapsService.validateCoinAmount(
-        payload.coinId,
+      const { coin, valid } = await this.swapsService.validateXmrAmount(
         parseFloat(payload.amount),
       );
-
-      if (coin === null)
-        throw new NotFoundException('The requested coin is not found.');
       if (!valid)
         throw new BadRequestException(
-          `The amount should be more than ${coin.minimum} and less than ${coin.maximum}`,
+          `The amount for tipping this coin should be more than ${coin.minimum} XMR and less than ${coin.maximum} XMR.`,
         );
     } else {
       const xmrUnits = MoneroUtils.xmrToAtomicUnits(payload.amount);
