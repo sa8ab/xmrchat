@@ -23,6 +23,7 @@ import { PagesGateway } from 'src/pages/pages.gateway';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { clearMessage } from 'src/shared/utils';
 import { PricesService } from 'src/prices/prices.service';
+import { SwapsService } from 'src/swaps/swaps.service';
 
 @Injectable()
 export class TipsService {
@@ -36,6 +37,7 @@ export class TipsService {
     private tipsGateway: TipsGateway,
     private notificationsService: NotificationsService,
     private pricesService: PricesService,
+    private swapsService: SwapsService,
     @InjectRepository(Tip) private repo: Repository<Tip>,
   ) {}
 
@@ -94,27 +96,45 @@ export class TipsService {
 
     if (!page) throw new NotFoundException('Page is not found.');
 
-    const xmrUnits = MoneroUtils.xmrToAtomicUnits(payload.amount);
+    // TODO: validate based on coin
 
-    const configMin = this.configService.get('MIN_TIP_AMOUNT');
-
-    const minTipAmountXmr = MoneroUtils.atomicUnitsToXmr(
-      page.minTipAmount || configMin,
-    );
-
-    if (
-      BigInt(xmrUnits) <
-      BigInt(page.minTipAmount || this.configService.get('MIN_TIP_AMOUNT'))
-    )
-      throw new BadRequestException(
-        `Tip amount must be more than or equal to ${minTipAmountXmr} XMR.`,
+    if (payload.coinId) {
+      const { coin, valid } = await this.swapsService.validateCoinAmount(
+        payload.coinId,
+        parseFloat(payload.amount),
       );
+
+      if (coin === null)
+        throw new NotFoundException('The requested coin is not found.');
+      if (!valid)
+        throw new BadRequestException(
+          `The amount should be more than ${coin.minimum} and less than ${coin.maximum}`,
+        );
+    } else {
+      const xmrUnits = MoneroUtils.xmrToAtomicUnits(payload.amount);
+
+      const configMin = this.configService.get('MIN_TIP_AMOUNT');
+
+      const minTipAmountXmr = MoneroUtils.atomicUnitsToXmr(
+        page.minTipAmount || configMin,
+      );
+
+      if (
+        BigInt(xmrUnits) <
+        BigInt(page.minTipAmount || this.configService.get('MIN_TIP_AMOUNT'))
+      )
+        throw new BadRequestException(
+          `Tip amount must be more than or equal to ${minTipAmountXmr} XMR.`,
+        );
+    }
 
     const { integratedAddress, paymentId } = makeIntegratedAddress(
       page.primaryAddress,
     );
 
-    this.logger.log({ integratedAddress, paymentId });
+    this.logger.log(
+      `Tip address ${integratedAddress} - payment id: ${paymentId}`,
+    );
 
     // Add listener webhook on lws
     let eventId = '';
@@ -147,6 +167,8 @@ export class TipsService {
       tip: { id: tip.id },
     });
 
+    // TODO: If coin, initiate a swap
+
     return {
       amount: payload.amount,
       paymentAddress: integratedAddress,
@@ -154,6 +176,8 @@ export class TipsService {
       id: tip.id,
     };
   }
+
+  // async
 
   async handleTipPayment(payment: Payment, amount: number | string) {
     const tip = payment.tip;

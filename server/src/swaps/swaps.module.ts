@@ -1,7 +1,11 @@
 import { Module } from '@nestjs/common';
 import { SwapsService } from './swaps.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Swap } from './swap.entity';
+import { Coin } from 'src/integrations/trocador/coin.entity';
 
 @Module({
-  providers: [SwapsService]
+  imports: [TypeOrmModule.forFeature([Swap, Coin])],
+  providers: [SwapsService],
 })
 export class SwapsModule {}

@@ -9,6 +9,7 @@ import { PaymentsModule } from 'src/payments/payments.module';
 import { TipsGateway } from './tips.gateway';
 import { NotificationsModule } from 'src/notifications/notifications.module';
 import { PricesModule } from 'src/prices/prices.module';
+import { SwapsModule } from 'src/swaps/swaps.module';
 
 @Module({
   controllers: [TipsController],
@@ -19,6 +20,7 @@ import { PricesModule } from 'src/prices/prices.module';
     LwsModule,
     NotificationsModule,
     PricesModule,
+    SwapsModule,
     TypeOrmModule.forFeature([Tip]),
   ],
   exports: [TipsService, TipsGateway],
