@@ -7,5 +7,6 @@ import { Coin } from 'src/integrations/trocador/coin.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Swap, Coin])],
   providers: [SwapsService],
+  exports: [SwapsService],
 })
 export class SwapsModule {}

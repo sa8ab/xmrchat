@@ -104,7 +104,7 @@ export class TipsService {
       );
       if (!valid)
         throw new BadRequestException(
-          `The amount for tipping this coin should be more than ${coin.minimum} XMR and less than ${coin.maximum} XMR.`,
+          `The amount for tipping this coin should be more than ${coin.minimum} XMR.`,
         );
     } else {
       const xmrUnits = MoneroUtils.xmrToAtomicUnits(payload.amount);
