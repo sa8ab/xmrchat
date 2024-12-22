@@ -3,6 +3,8 @@ import { TrocadorService } from './trocador.service';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { TrocadorController } from './trocador.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Coin } from './coin.entity';
 
 @Module({
   providers: [TrocadorService],
@@ -16,6 +18,7 @@ import { TrocadorController } from './trocador.controller';
       }),
       inject: [ConfigService],
     }),
+    TypeOrmModule.forFeature([Coin]),
   ],
   controllers: [TrocadorController],
 })

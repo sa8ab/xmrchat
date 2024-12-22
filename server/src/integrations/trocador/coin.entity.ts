@@ -18,9 +18,9 @@ export class Coin {
   @Column()
   image: string;
 
-  @Column('bigint')
+  @Column({ type: 'numeric' })
   minimum: number;
 
-  @Column('bigint')
+  @Column({ type: 'numeric' })
   maximum: number;
 }

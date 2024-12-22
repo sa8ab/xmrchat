@@ -7,6 +7,6 @@ export class TrocadorController {
 
   @Get('/get-coins')
   getCoins() {
-    return this.trocadorService.getCoins();
+    return this.trocadorService.getAndSaveCoins();
   }
 }
