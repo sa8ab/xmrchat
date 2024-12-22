@@ -1,5 +1,6 @@
 import { Payment } from '../payments/payment.entity';
 import { Page } from '../pages/page.entity';
+import { Swap } from '../swaps/swap.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -41,4 +42,7 @@ export class Tip {
 
   @OneToOne(() => Payment, (p: Payment) => p.tip)
   payment: Payment;
+
+  @OneToOne(() => Swap, (s: Swap) => s.tip, { eager: true })
+  swap: Swap;
 }

@@ -1,7 +1,11 @@
+import { Tip } from '../tips/tip.entity';
+import { Coin } from '../integrations/trocador/coin.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -11,24 +15,28 @@ export class Swap {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('varchar', { default: 'trocador' })
+  @Column({ default: 'trocador' })
   platform: string;
 
-  @Column('numeric')
+  @Column()
   swapId: string;
 
   @Column({ type: 'varchar', length: 32 })
   inputAmount: string;
 
-  @Column('varchar')
+  @Column()
   swapAddress: string;
 
-  @Column('varchar')
+  @Column()
   status: string;
 
-  // coin: Relation to coins
+  @OneToOne(() => Coin, { eager: true, onDelete: 'CASCADE' })
+  @JoinColumn({ foreignKeyConstraintName: 'swap_coin_id_fkey' })
+  coin: Coin;
 
-  // tip: Relation to tips
+  @OneToOne(() => Tip, (t: Tip) => t.swap, { onDelete: 'CASCADE' })
+  @JoinColumn({ foreignKeyConstraintName: 'swap_tip_id_fkey' })
+  tip: Tip;
 
   @Column({ type: 'jsonb' })
   context: Object;

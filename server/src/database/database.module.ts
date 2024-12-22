@@ -9,6 +9,7 @@ import { PageSetting } from 'src/page-settings/page-setting.entity';
 import { Page } from 'src/pages/page.entity';
 import { Tier } from 'src/pages/tier.entity';
 import { Payment } from 'src/payments/payment.entity';
+import { Swap } from 'src/swaps/swap.entity';
 import { Tip } from 'src/tips/tip.entity';
 import { User } from 'src/users/user.entity';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
@@ -34,6 +35,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
           PageSetting,
           Link,
           Coin,
+          Swap,
         ],
         namingStrategy: new SnakeNamingStrategy(),
       }),
