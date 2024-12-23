@@ -35,11 +35,6 @@ export class TrocadorService {
 
   async newTrade(coin: Coin, amount: number, address: string, webhook: string) {
     try {
-      await new Promise((r) => {
-        setTimeout(() => {
-          r('');
-        }, 200);
-      });
       const { data } = await this.httpService.axiosRef.get<TrocadorTrade>(
         '/new_trade',
         {
