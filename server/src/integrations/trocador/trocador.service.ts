@@ -53,7 +53,7 @@ export class TrocadorService {
 
       return data;
     } catch (error) {
-      console.log(error);
+      console.log('New Trade Error:', error.message);
 
       throw new Error(error.response?.data.error);
     }
