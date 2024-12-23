@@ -180,8 +180,6 @@ export class TipsService {
     };
   }
 
-  // async
-
   async handleTipPayment(payment: Payment, amount: number | string) {
     const tip = payment.tip;
 

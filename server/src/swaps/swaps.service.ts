@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Coin } from 'src/integrations/trocador/coin.entity';
@@ -7,6 +11,7 @@ import { Tip } from 'src/tips/tip.entity';
 import { Repository } from 'typeorm';
 import { Swap } from './swap.entity';
 import { TrocadorTrade } from 'src/shared/types';
+import { getSwapStatusFromTrocador } from 'src/shared/utils';
 
 interface InitSwapData {
   coinId: number;
@@ -27,12 +32,17 @@ export class SwapsService {
     if (!id) return null;
     return this.repo.findOneBy({ id });
   }
+  async findOneByTipId(tipId: number) {
+    if (!tipId) return null;
+    return this.repo.findOneBy({ tip: { id: tipId } });
+  }
 
   async initSwap(data: InitSwapData, platform = 'trocador') {
     const coin = await this.coinRepo.findOneBy({ id: data.coinId });
 
     if (platform === 'trocador')
       return this.initTrocadorSwap({ ...data, coin });
+
     throw new BadRequestException('Swap platform is not valid');
   }
 
@@ -61,8 +71,23 @@ export class SwapsService {
     return swap;
   }
 
-  async handleTrocadorStatusChange(body: TrocadorTrade) {
-    console.log(body);
+  async handleTrocadorStatusChange(body: TrocadorTrade, tip: Tip) {
+    const swapStatus = getSwapStatusFromTrocador(body.status);
+    console.log(body, tip, swapStatus);
+
+    const swap = await this.findOneByTipId(tip.id);
+
+    if (!swap) throw new NotFoundException('Swap is not found.');
+
+    // Update swap status and message
+    swap.status = swapStatus.status;
+    swap.statusMessage = swapStatus.message;
+
+    const saved = await this.repo.save(swap);
+
+    // TODO: Call gateway for swap status change
+
+    return saved;
   }
 
   async validateXmrAmount(amount: number) {
