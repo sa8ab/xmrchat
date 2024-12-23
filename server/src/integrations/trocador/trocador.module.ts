@@ -21,5 +21,6 @@ import { Coin } from './coin.entity';
     TypeOrmModule.forFeature([Coin]),
   ],
   controllers: [TrocadorController],
+  exports: [TrocadorService],
 })
 export class TrocadorModule {}

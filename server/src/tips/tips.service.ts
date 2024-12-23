@@ -164,12 +164,19 @@ export class TipsService {
     });
 
     // TODO: If coin, initiate a swap
+    const swap = await this.swapsService.initSwap({
+      address: integratedAddress,
+      amountTo: parseFloat(payload.amount),
+      coinId: payload.coinId,
+      tip: tip,
+    });
 
     return {
       amount: payload.amount,
       paymentAddress: integratedAddress,
       tip,
       id: tip.id,
+      swap,
     };
   }
 

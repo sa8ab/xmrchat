@@ -64,6 +64,18 @@ export class WebhooksController {
     return this.tipsService.handleTipPayment(payment, amount);
   }
 
+  @Post(`/trocator/:token/:tipId`)
+  trocador(
+    @Body() body,
+    @Param('token') token: string,
+    @Param('tipId') tipId: string,
+  ) {
+    if (token !== this.configService.get('TROCADOR_WEBHOOK_TOKEN'))
+      throw new UnauthorizedException();
+
+    console.log(body, tipId);
+  }
+
   @Get('/test')
   @IsPublic()
   test() {
