@@ -21,8 +21,8 @@ export class Swap {
   @Column()
   swapId: string;
 
-  @Column({ type: 'varchar', length: 32 })
-  inputAmount: string;
+  @Column({ type: 'numeric' })
+  inputAmount: number;
 
   @Column()
   swapAddress: string;
