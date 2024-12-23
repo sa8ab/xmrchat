@@ -41,6 +41,9 @@ export class Swap {
   @Column({ type: 'jsonb' })
   context: Object;
 
+  @Column({ nullable: true })
+  statusMessage: string;
+
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 

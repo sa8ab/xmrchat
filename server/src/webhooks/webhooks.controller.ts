@@ -6,6 +6,7 @@ import {
   UnauthorizedException,
   Logger,
   Get,
+  NotFoundException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
@@ -14,6 +15,7 @@ import { PaymentsService } from 'src/payments/payments.service';
 import { TipsGateway } from 'src/tips/tips.gateway';
 import { TipsService } from 'src/tips/tips.service';
 import { LwsWebhookEvent } from 'src/shared/types';
+import { SwapsService } from 'src/swaps/swaps.service';
 
 @Controller('webhooks')
 export class WebhooksController {
@@ -25,6 +27,7 @@ export class WebhooksController {
     private tipsService: TipsService,
     private pagesService: PagesService,
     private tipsGateway: TipsGateway,
+    private swapsService: SwapsService,
   ) {}
 
   @Post('/:token')
@@ -64,8 +67,9 @@ export class WebhooksController {
     return this.tipsService.handleTipPayment(payment, amount);
   }
 
+  @IsPublic()
   @Post(`/trocator/:token/:tipId`)
-  trocador(
+  async trocadorTransaction(
     @Body() body,
     @Param('token') token: string,
     @Param('tipId') tipId: string,
@@ -73,7 +77,13 @@ export class WebhooksController {
     if (token !== this.configService.get('TROCADOR_WEBHOOK_TOKEN'))
       throw new UnauthorizedException();
 
+    const tip = await this.tipsService.findOneById(parseInt(tipId));
+
+    if (!tip) throw new NotFoundException('Tip is not found.');
+
     console.log(body, tipId);
+
+    return this.swapsService.handleTrocadorStatusChange(body);
   }
 
   @Get('/test')

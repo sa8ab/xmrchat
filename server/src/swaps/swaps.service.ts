@@ -22,6 +22,12 @@ export class SwapsService {
     @InjectRepository(Coin) private coinRepo: Repository<Coin>,
     @InjectRepository(Swap) private repo: Repository<Swap>,
   ) {}
+
+  async findOneById(id: number) {
+    if (!id) return null;
+    return this.repo.findOneBy({ id });
+  }
+
   async initSwap(data: InitSwapData, platform = 'trocador') {
     const coin = await this.coinRepo.findOneBy({ id: data.coinId });
 
@@ -53,6 +59,10 @@ export class SwapsService {
     console.log(trade);
 
     return swap;
+  }
+
+  async handleTrocadorStatusChange(body: TrocadorTrade) {
+    console.log(body);
   }
 
   async validateXmrAmount(amount: number) {

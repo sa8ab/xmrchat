@@ -63,7 +63,7 @@ export class TrocadorService {
     const trocadorWebhookToken = this.configService.get(
       'TROCADOR_WEBHOOK_TOKEN',
     );
-    const webhookUrl = `${webhookBaseUrl}/webhooks/${trocadorWebhookToken}/${data.tip.id}`;
+    const webhookUrl = `${webhookBaseUrl}/webhooks/trocator/${trocadorWebhookToken}/${data.tip.id}`;
 
     const trade = await this.newTrade(
       data.coin,

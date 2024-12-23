@@ -1,4 +1,5 @@
 import { Tip } from 'src/tips/tip.entity';
+import { TrocadorStatusEnum } from '../constants';
 
 interface TxInfoId {
   high: number;
@@ -36,20 +37,6 @@ export interface PageReportEmailOptions {
   userName: string;
   pageId: number | string;
   price: string;
-}
-
-export enum TrocadorStatusEnum {
-  NEW = 'new',
-  WAITING = 'waiting',
-  CONFIRMING = 'confirming',
-  SENDING = 'sending',
-  PAID_PARTIALLY = 'paid partially',
-  FINISHED = 'finished',
-
-  FAILED = 'failed',
-  EXPIRED = 'expired',
-  HALTED = 'halted',
-  REFUNDED = 'refunded',
 }
 
 export interface TrocadorTrade {
