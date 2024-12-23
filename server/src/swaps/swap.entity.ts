@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -30,8 +31,7 @@ export class Swap {
   @Column()
   status: string;
 
-  @OneToOne(() => Coin, { eager: true, onDelete: 'CASCADE' })
-  @JoinColumn({ foreignKeyConstraintName: 'swap_coin_id_fkey' })
+  @ManyToOne(() => Coin, { eager: true, onDelete: 'CASCADE' })
   coin: Coin;
 
   @OneToOne(() => Tip, (t: Tip) => t.swap, { onDelete: 'CASCADE' })

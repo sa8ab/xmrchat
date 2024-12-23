@@ -3,13 +3,14 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Coin } from './coin.entity';
 import { Repository } from 'typeorm';
-import { TrocadorTrade } from 'src/shared/types';
+import { InitSwapData, TrocadorTrade } from 'src/shared/types';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class TrocadorService {
   constructor(
     private httpService: HttpService,
+    private configService: ConfigService,
     @InjectRepository(Coin) private repo: Repository<Coin>,
   ) {}
   async getCoinsApi() {
@@ -55,5 +56,21 @@ export class TrocadorService {
       console.log(error.response.data.error);
       throw new Error(error.response.data.error);
     }
+  }
+
+  async initSwap(data: InitSwapData & { coin: Coin }) {
+    const webhookBaseUrl = this.configService.get('WEBHOOK_BASE_URL');
+    const trocadorWebhookToken = this.configService.get(
+      'TROCADOR_WEBHOOK_TOKEN',
+    );
+    const webhookUrl = `${webhookBaseUrl}/webhooks/${trocadorWebhookToken}/${data.tip.id}`;
+
+    const trade = await this.newTrade(
+      data.coin,
+      data.amountTo,
+      data.address,
+      webhookUrl,
+    );
+    return trade;
   }
 }

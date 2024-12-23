@@ -19,7 +19,6 @@ interface InitSwapData {
 export class SwapsService {
   constructor(
     private trocadorService: TrocadorService,
-    private configService: ConfigService,
     @InjectRepository(Coin) private coinRepo: Repository<Coin>,
     @InjectRepository(Swap) private repo: Repository<Swap>,
   ) {}
@@ -32,22 +31,11 @@ export class SwapsService {
   }
 
   async initTrocadorSwap(data: InitSwapData & { coin: Coin }) {
-    const webhookBaseUrl = this.configService.get('WEBHOOK_BASE_URL');
-    const trocadorWebhookToken = this.configService.get(
-      'TROCADOR_WEBHOOK_TOKEN',
-    );
-    const webhookUrl = `${webhookBaseUrl}/webhooks/${trocadorWebhookToken}/${data.tip.id}`;
-
     let trade: TrocadorTrade;
     try {
-      trade = await this.trocadorService.newTrade(
-        data.coin,
-        data.amountTo,
-        data.address,
-        webhookUrl,
-      );
+      trade = await this.trocadorService.initSwap(data);
     } catch (error) {
-      throw new BadRequestException('Could not create new trade.');
+      throw new BadRequestException('Could not create new trade on Trocador.');
     }
 
     const created = this.repo.create({

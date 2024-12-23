@@ -1,3 +1,5 @@
+import { Tip } from 'src/tips/tip.entity';
+
 interface TxInfoId {
   high: number;
   low: number;
@@ -73,4 +75,11 @@ export interface TrocadorTrade {
   // refund_address_memo: '';
   password: string;
   id_provider: string;
+}
+
+export interface InitSwapData {
+  coinId: number;
+  amountTo: number;
+  address: string;
+  tip: Tip;
 }
