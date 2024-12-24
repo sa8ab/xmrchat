@@ -3,7 +3,6 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Coin } from 'src/integrations/trocador/coin.entity';
 import { TrocadorService } from 'src/integrations/trocador/trocador.service';

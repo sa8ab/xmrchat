@@ -74,7 +74,7 @@ export class WebhooksController {
     @Param('token') token: string,
     @Param('tipId') tipId: string,
   ) {
-    console.log('Trocador webhook call');
+    this.logger.log('Trocador webhook call');
 
     if (token !== this.configService.get('TROCADOR_WEBHOOK_TOKEN'))
       throw new UnauthorizedException();
@@ -83,7 +83,15 @@ export class WebhooksController {
 
     if (!tip) throw new NotFoundException('Tip is not found.');
 
-    return this.swapsService.handleTrocadorStatusChange(body, tip);
+    const swap = await this.swapsService.handleTrocadorStatusChange(body, tip);
+
+    this.logger.log(
+      `Sending swap status change event - tip ${tip.id} - status ${swap.status}`,
+    );
+
+    this.tipsGateway.notifySwapStatusChange(tip.id, swap);
+
+    return swap;
   }
 
   @Get('/test')
