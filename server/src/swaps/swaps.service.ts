@@ -36,6 +36,10 @@ export class SwapsService {
     return this.repo.findOneBy({ tip: { id: tipId } });
   }
 
+  async findAllCoins() {
+    return this.coinRepo.find();
+  }
+
   async initSwap(data: InitSwapData, platform = 'trocador') {
     const coin = await this.coinRepo.findOneBy({ id: data.coinId });
 

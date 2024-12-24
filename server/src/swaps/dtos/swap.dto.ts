@@ -38,3 +38,9 @@ export class SwapDto {
   @Expose()
   updatedAt: Date;
 }
+
+export class CoinDtoRO {
+  @Expose()
+  @Type(() => CoinDto)
+  coins: CoinDto[];
+}
