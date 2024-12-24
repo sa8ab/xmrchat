@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import useVuelidate from "@vuelidate/core";
 import type {
-  CreateFormFields,
   TipCreationResponse,
   TipFormFields,
-  Tip,
   StreamerPage,
   Coin,
 } from "~/types";

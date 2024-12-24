@@ -38,6 +38,10 @@ const { init, disconnect, reconnect, connectionStatus } =
 
     onSwapStatusChangeEvent: (swap) => {
       console.log(swap);
+      if (props.createdTip?.swap) {
+        props.createdTip.swap.status = swap.status;
+        props.createdTip.swap.statusMessage = swap.statusMessage;
+      }
     },
   });
 
@@ -85,6 +89,7 @@ onBeforeUnmount(() => disconnect());
       :qrCode="{
         address: createdTip?.paymentAddress,
         amount: createdTip?.amount,
+        ticker: 'xmr',
       }"
       :connectionStatus="connectionStatus"
       @cancel="cancelPayment"

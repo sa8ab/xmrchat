@@ -6,15 +6,18 @@ export interface PaymentQRCodeProps {
   address?: string;
   amount?: Numberic;
   description?: string;
+  ticker: string;
 }
 
 const props = defineProps<PaymentQRCodeProps>();
 
 const renderValue = computed(() => {
-  if (!props.address || !props.amount) return undefined;
-  return `monero:${props.address}?tx_amount=${props.amount}&tx_description=${
-    props.description || ""
-  }`;
+  return generateWalletLink({
+    ticker: props.ticker,
+    address: props.address,
+    amount: props.amount,
+    description: props.description,
+  });
 });
 </script>
 

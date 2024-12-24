@@ -28,6 +28,7 @@ const renderStatusClassName = computed(() => {
     :qrCode="{
       address: createdTip?.swap?.swapAddress,
       amount: createdTip?.swap?.inputAmount,
+      ticker: createdTip?.swap?.coin.ticker!
     }"
   >
     <UAlert color="orange" variant="subtle">
