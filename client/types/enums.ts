@@ -21,3 +21,13 @@ export enum SupportedDisplayCurrency {
   XMR = "xmr",
   USD = "usd",
 }
+
+export enum SwapStatusEnum {
+  WAITING = "waiting",
+  CONFIRMING = "confirming",
+  SENDING = "sending",
+  FINISHED = "finished",
+
+  FAILED = "failed",
+  EXPIRED = "expired",
+}

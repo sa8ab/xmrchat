@@ -186,36 +186,39 @@ const coinSelectOptions = computed(() => {
           </UTooltip>
         </div>
 
-        <div class="single">
+        <div class="singe">
+          <div class="flex">
+            <UFormGroup label="Tip coin">
+              <USelectMenu
+                :options="coinSelectOptions"
+                v-model="state.selectedCoin"
+                trailingIcon="i-heroicons-chevron-up-down-16-solid"
+                placeholder="XMR"
+                value-attribute="id"
+                :uiMenu="{ width: 'w-full' }"
+                :ui="{ wrapper: 'min-w-[120px]' }"
+              >
+                <template #option="{ option }">
+                  <div class="flex items-center gap-2 truncate">
+                    <img :src="option.image" class="w-4 h-4" />
+                    <span>{{ option.label }}</span>
+                  </div>
+                </template>
+              </USelectMenu>
+            </UFormGroup>
+          </div>
+        </div>
+
+        <div class="single" v-if="state.errorMessage">
           <UAlert
             color="red"
             :description="state.errorMessage"
             title="Tip Creation Failed"
-            v-if="state.errorMessage"
           >
           </UAlert>
         </div>
 
-        <div class="flex flex-col gap-2 items-start">
-          <UFormGroup label="Tip coin">
-            <USelectMenu
-              :options="coinSelectOptions"
-              v-model="state.selectedCoin"
-              trailingIcon="i-heroicons-chevron-up-down-16-solid"
-              placeholder="XMR"
-              value-attribute="id"
-              :uiMenu="{ width: 'w-full' }"
-              :ui="{ wrapper: 'min-w-[120px]' }"
-            >
-              <template #option="{ option }">
-                <div class="flex items-center gap-2 truncate">
-                  <img :src="option.image" class="w-4 h-4" />
-                  <span>{{ option.label }}</span>
-                </div>
-              </template>
-            </USelectMenu>
-          </UFormGroup>
-
+        <div class="">
           <UButton
             size="lg"
             type="submit"

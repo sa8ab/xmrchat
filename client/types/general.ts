@@ -158,3 +158,16 @@ export interface Coin {
   minimum: number;
   maximum: number;
 }
+
+export interface Swap {
+  id: number;
+  platform: string;
+  swapId: string;
+  inputAmount: string;
+  swapAddress: string;
+  status: string;
+  coin: Coin;
+  statusMessage: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
