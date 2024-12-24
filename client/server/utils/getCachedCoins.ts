@@ -1,16 +1,17 @@
 import { H3Event } from "h3";
+import { Coin } from "~/types";
 
 export const getCachedCoins = defineCachedFunction(
   async (event: H3Event) => {
     const config = useRuntimeConfig(event);
 
-    const coins = await $fetch(
+    const res = await $fetch<{ coins: Coin[] }>(
       `${
         config.public.apiServerSideBaseUrl || config.public.apiBaseUrl
       }/swaps/coins`
     );
 
-    return coins;
+    return res.coins;
   },
   {
     maxAge: 60 * 60,

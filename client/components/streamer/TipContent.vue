@@ -6,6 +6,7 @@ import type {
   TipFormFields,
   Tip,
   StreamerPage,
+  Coin,
 } from "~/types";
 
 const props = defineProps<{
@@ -15,6 +16,7 @@ const props = defineProps<{
 
 const { required, minLength, maxLength, minValue } = useValidations();
 const { sendTipToStreamer: sendTipToStreamerApi, getPrice } = useServices();
+const coins = useState<Coin[]>("coins");
 
 const { minUsdAmount, price } = useXmrPrice({
   pageMinXmr: computed(() => props.streamerPage?.minTipAmount),
@@ -29,6 +31,7 @@ interface State {
   buttonsAmount: any;
   loading: boolean;
   errorMessage?: string;
+  selectedCoin?: number;
 }
 
 const state = reactive<State>({
@@ -41,6 +44,7 @@ const state = reactive<State>({
   buttonsAmount: [3, 5, 10, 12],
   loading: false,
   errorMessage: undefined,
+  selectedCoin: undefined,
 });
 
 const v = useVuelidate<State["form"]>(
@@ -97,6 +101,17 @@ defineExpose({
 });
 
 const messageLength = computed(() => state.form.message?.length || 0);
+
+const coinSelectOptions = computed(() => {
+  return [
+    {
+      label: "XMR",
+      id: null,
+      image: "https://trocador.app/static/img/icons/xmr.svg",
+    },
+    ...coins.value?.map((c) => ({ label: c.name, id: c.id, image: c.image })),
+  ];
+});
 </script>
 
 <template>
@@ -180,7 +195,25 @@ const messageLength = computed(() => state.form.message?.length || 0);
           </UAlert>
         </div>
 
-        <div class="flex">
+        <div class="flex flex-col gap-2 items-start">
+          <UFormGroup label="Tip coin">
+            <USelectMenu
+              :options="coinSelectOptions"
+              v-model="state.selectedCoin"
+              trailingIcon="i-heroicons-chevron-up-down-16-solid"
+              placeholder="XMR"
+              :uiMenu="{ width: 'w-full' }"
+              :ui="{ wrapper: 'min-w-[120px]' }"
+            >
+              <template #option="{ option }">
+                <div class="flex items-center gap-2 truncate">
+                  <img :src="option.image" class="w-4 h-4" />
+                  <span>{{ option.label }}</span>
+                </div>
+              </template>
+            </USelectMenu>
+          </UFormGroup>
+
           <UButton
             size="lg"
             type="submit"

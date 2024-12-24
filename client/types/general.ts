@@ -148,3 +148,13 @@ export interface PageLink {
   platform: PageLinkPLatform;
   value: string;
 }
+
+export interface Coin {
+  id: number;
+  name: string;
+  ticker: string;
+  network: string;
+  image: string;
+  minimum: number;
+  maximum: number;
+}
