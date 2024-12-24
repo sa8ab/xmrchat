@@ -78,6 +78,7 @@ const handleSubmit = async () => {
       ...state.form,
       message: state.form.message || undefined,
       amount: xmrAmount,
+      coinId: state.selectedCoin,
     });
 
     emit("done", response);
