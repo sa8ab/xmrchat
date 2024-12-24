@@ -57,6 +57,7 @@ export class TipsService {
       .createQueryBuilder('tip')
       .leftJoinAndSelect('tip.payment', 'payment')
       .leftJoinAndSelect('tip.swap', 'swap')
+      .leftJoinAndSelect('swap.coin', 'coin')
       .where('tip.page_id = :pageId', { pageId: page.id })
       .andWhere('payment.paid_at IS NOT NULL')
       .orderBy('tip.created_at', 'DESC')
@@ -70,6 +71,9 @@ export class TipsService {
         message: hidePrivate ? '' : message,
       };
     });
+
+    console.log(privateFiltered);
+
     return privateFiltered;
   }
 

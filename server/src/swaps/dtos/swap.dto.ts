@@ -1,5 +1,5 @@
 import { Expose, Type } from 'class-transformer';
-import { Coin } from 'src/integrations/trocador/coin.entity';
+import { CoinDto } from 'src/integrations/trocador/dtos/coin.dto';
 import { TipDto } from 'src/tips/dtos/tip.dto';
 
 export class SwapDto {
@@ -22,7 +22,8 @@ export class SwapDto {
   status: string;
 
   @Expose()
-  coin: Coin;
+  @Type(() => CoinDto)
+  coin: CoinDto;
 
   @Expose()
   @Type(() => TipDto)

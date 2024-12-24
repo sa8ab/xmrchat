@@ -73,7 +73,7 @@ export class SwapsService {
 
   async handleTrocadorStatusChange(body: TrocadorTrade, tip: Tip) {
     const swapStatus = getSwapStatusFromTrocador(body.status);
-    console.log(body, tip, swapStatus);
+    console.log(swapStatus);
 
     const swap = await this.findOneByTipId(tip.id);
 
