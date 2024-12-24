@@ -30,6 +30,8 @@ const emit = defineEmits<{
       />
       <PaymentLoading v-else />
     </div>
+
+    <slot name="after" />
     <div class="flex justify-end pt-3">
       <UButton variant="outline" @click="emit('cancel')">Cancel</UButton>
     </div>

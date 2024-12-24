@@ -11,6 +11,7 @@ import { Repository } from 'typeorm';
 import { Swap } from './swap.entity';
 import { TrocadorTrade } from 'src/shared/types';
 import { getSwapStatusFromTrocador } from 'src/shared/utils';
+import { SwapStatusEnum } from 'src/shared/constants';
 
 interface InitSwapData {
   coinId: number;
@@ -64,10 +65,11 @@ export class SwapsService {
       swapAddress: trade.address_provider,
       swapId: trade.trade_id,
       tip: { id: data.tip.id },
-      status: '',
+      status: SwapStatusEnum.WAITING,
     });
 
     const swap = await this.repo.save(created);
+    swap.coin = data.coin;
 
     console.log(trade);
 

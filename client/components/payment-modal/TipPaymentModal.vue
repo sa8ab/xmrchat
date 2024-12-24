@@ -1,9 +1,5 @@
 <script lang="ts" setup>
-import type {
-  PaymentSocketMessage,
-  TipCreationResponse,
-  TipEventData,
-} from "~/types";
+import type { TipCreationResponse, TipEventData } from "~/types";
 
 const props = defineProps<{
   createdTip?: TipCreationResponse;
@@ -39,6 +35,10 @@ const { init, disconnect, reconnect, connectionStatus } =
       disconnect();
       emit("paid");
     },
+
+    onSwapStatusChangeEvent: (swap) => {
+      console.log(swap);
+    },
   });
 
 const handleRetry = () => {
@@ -71,7 +71,16 @@ onBeforeUnmount(() => disconnect());
 
 <template>
   <UModal v-model="active" preventClose>
+    <TipSwapPaymentContent
+      v-if="createdTip?.swap"
+      @retry="handleRetry"
+      @cancel="cancelPayment"
+      :createdTip="createdTip"
+      :connectionStatus="connectionStatus"
+    >
+    </TipSwapPaymentContent>
     <PaymentModalContent
+      v-else
       title="Send Tip"
       :qrCode="{
         address: createdTip?.paymentAddress,

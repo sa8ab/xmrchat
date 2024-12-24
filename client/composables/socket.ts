@@ -1,11 +1,11 @@
 import { type Socket, io } from "socket.io-client";
-import type { PaymentSocketMessage } from "~/types";
+import type { Swap } from "~/types";
 
 interface PaymentSocketOptions<T> {
   onTipEvent?: (...args: [T]) => any;
   onPaymentEvent?: (...args: [T]) => any;
   onPageTipEvent?: (...args: [T]) => any;
-  onSwapStatusChangeEvent?: (...args: [T]) => any;
+  onSwapStatusChangeEvent?: (...args: [Swap]) => any;
 }
 
 interface TipPaymentInitParams {

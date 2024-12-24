@@ -47,6 +47,8 @@ export interface TipCreationResponse {
   amount: string;
   id: number;
   paymentAddress: string;
+  tip: Tip;
+  swap?: Swap;
 }
 
 export interface StreamerPage {
@@ -81,6 +83,7 @@ export interface Tip {
   private?: boolean;
   paidAt?: string;
   payment?: TipPayment;
+  swap?: Swap;
 }
 
 export interface TipTier {
