@@ -1,5 +1,6 @@
 import { Expose, Type } from 'class-transformer';
 import { PaymentDto } from 'src/payments/dtos/payment.dto';
+import { SwapDto } from 'src/swaps/dtos/swap.dto';
 
 export class TipDto {
   @Expose()
@@ -20,4 +21,27 @@ export class TipDto {
   @Expose()
   @Type(() => PaymentDto)
   payment: PaymentDto;
+
+  @Expose()
+  @Type(() => SwapDto)
+  swap: SwapDto;
+}
+
+export class TipDtoRO {
+  @Expose()
+  amount: string;
+
+  @Expose()
+  paymentAddress: string;
+
+  @Expose()
+  @Type(() => TipDto)
+  tip: TipDto;
+
+  @Expose()
+  id: number;
+
+  @Expose()
+  @Type(() => SwapDto)
+  swap: SwapDto;
 }

@@ -3,7 +3,7 @@ import { CreateTipDto } from './dtos/create-tip.dto';
 import { TipsService } from './tips.service';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
-import { TipDto } from './dtos/tip.dto';
+import { TipDto, TipDtoRO } from './dtos/tip.dto';
 import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import { User } from 'src/users/user.entity';
 import { UpdateTipDto } from './dtos/update-tip.dto';
@@ -12,8 +12,9 @@ import { UpdateTipDto } from './dtos/update-tip.dto';
 export class TipsController {
   constructor(private tipsService: TipsService) {}
 
-  @Post('')
   @IsPublic()
+  @Serialize(TipDtoRO)
+  @Post('')
   createTip(@Body() body: CreateTipDto) {
     return this.tipsService.createTip(body);
   }
