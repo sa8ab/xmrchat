@@ -37,7 +37,7 @@ const renderStatusClassName = computed(() => {
       </template>
       <template #description>
         <p class="text-[15px] leading-6">
-          Send exactly
+          Please send exactly
           <span class="font-bold"
             >{{ createdTip?.swap?.inputAmount }}
             {{ createdTip?.swap?.coin?.name }}</span
@@ -48,15 +48,15 @@ const renderStatusClassName = computed(() => {
     </UAlert>
 
     <template #after>
-      <UDivider class="my-3" />
-      <div v-if="createdTip?.swap" class="text-center">
+      <UDivider class="my-4" />
+      <div v-if="createdTip?.swap" class="text-center text-sm">
         <span>Swap Status: </span>
         <span :class="[renderStatusClassName]">{{
           SWAP_STATUSES[createdTip.swap.status as SwapStatusEnum]?.label
         }}</span>
       </div>
-      <div class="text-pale text-sm text-center mt-2">
-        You can track your swap status directly from
+      <div class="text-pale text-xs text-center my-2">
+        You can track your swap directly from
         <ULink
           target="_blank"
           class="text-primary"
