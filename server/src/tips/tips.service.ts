@@ -56,6 +56,7 @@ export class TipsService {
     const result = await this.repo
       .createQueryBuilder('tip')
       .leftJoinAndSelect('tip.payment', 'payment')
+      .leftJoinAndSelect('tip.swap', 'swap')
       .where('tip.page_id = :pageId', { pageId: page.id })
       .andWhere('payment.paid_at IS NOT NULL')
       .orderBy('tip.created_at', 'DESC')
