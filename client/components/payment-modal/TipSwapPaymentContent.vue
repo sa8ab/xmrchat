@@ -48,22 +48,23 @@ const renderStatusClassName = computed(() => {
     </UAlert>
 
     <template #after>
-      <UDivider class="my-4" />
-      <div v-if="createdTip?.swap" class="text-center text-sm">
-        <span>Swap Status: </span>
-        <span :class="[renderStatusClassName]">{{
-          SWAP_STATUSES[createdTip.swap.status as SwapStatusEnum]?.label
-        }}</span>
-      </div>
-      <div class="text-pale text-xs text-center my-2">
-        You can track your swap directly from
-        <ULink
-          target="_blank"
-          class="text-primary"
-          :to="`https://trocador.app/en/checkout/${createdTip?.swap?.swapId}`"
-        >
-          Trocador</ULink
-        >.
+      <div class="p-2 rounded-lg border border-border mt-2">
+        <div v-if="createdTip?.swap" class="text-center text-sm">
+          <span>Swap Status: </span>
+          <span :class="[renderStatusClassName]">{{
+            SWAP_STATUSES[createdTip.swap.status as SwapStatusEnum]?.label
+          }}</span>
+        </div>
+        <div class="text-pale text-xs text-center mt-2">
+          You can track your swap directly from
+          <ULink
+            target="_blank"
+            class="text-primary"
+            :to="`https://trocador.app/en/checkout/${createdTip?.swap?.swapId}`"
+          >
+            Trocador</ULink
+          >.
+        </div>
       </div>
     </template>
   </PaymentModalContent>
