@@ -72,8 +72,6 @@ export class TipsService {
       };
     });
 
-    console.log(privateFiltered);
-
     return privateFiltered;
   }
 
