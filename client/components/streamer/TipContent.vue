@@ -16,7 +16,7 @@ const { required, minLength, maxLength, minValue } = useValidations();
 const { sendTipToStreamer: sendTipToStreamerApi, getPrice } = useServices();
 const coins = useState<Coin[]>("coins");
 
-const { minUsdAmount, price } = useXmrPrice({
+const { minUsdAmount, price, minSwapUSD } = useXmrPrice({
   pageMinXmr: computed(() => props.streamerPage?.minTipAmount),
 });
 
@@ -49,7 +49,12 @@ const v = useVuelidate<State["form"]>(
   computed(() => {
     return {
       name: { required, minLength: minLength(2), maxLength: maxLength(40) },
-      amount: { required, minValue: minValue(minUsdAmount.value) },
+      amount: {
+        required,
+        minValue: minValue(
+          state.selectedCoin ? minSwapUSD.value : minUsdAmount.value
+        ),
+      },
       message: { minLength: minLength(3), maxLength: maxLength(255) },
     };
   }),
@@ -149,9 +154,13 @@ const coinSelectOptions = computed(() => {
             <TipTiers
               :tiers="streamerPage?.tiers"
               @select="state.form.amount = $event"
+              v-if="streamerPage?.tiers?.length"
             />
             <template #hint>
-              <span class="text-xs">Minimum ${{ minUsdAmount }}</span>
+              <span class="text-xs" v-if="state.selectedCoin"
+                >Swap Minimum ${{ minSwapUSD }}</span
+              >
+              <span class="text-xs" v-else>Minimum ${{ minUsdAmount }}</span>
             </template>
           </UFormGroup>
         </div>
