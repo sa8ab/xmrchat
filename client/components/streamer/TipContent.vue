@@ -15,6 +15,7 @@ const props = defineProps<{
 const { required, minLength, maxLength, minValue } = useValidations();
 const { sendTipToStreamer: sendTipToStreamerApi, getPrice } = useServices();
 const coins = useState<Coin[]>("coins");
+const swapActive = useState<boolean>("swapActive");
 
 const { minUsdAmount, price, minSwapUSD } = useXmrPrice({
   pageMinXmr: computed(() => props.streamerPage?.minTipAmount),
@@ -193,7 +194,7 @@ const coinSelectOptions = computed(() => {
           </UTooltip>
         </div>
 
-        <div class="singe">
+        <div class="singe" v-if="swapActive">
           <div class="flex">
             <UFormGroup label="Tip coin">
               <USelectMenu
