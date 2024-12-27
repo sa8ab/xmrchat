@@ -99,8 +99,6 @@ export class SwapsService {
 
     const saved = await this.repo.save(swap);
 
-    // TODO: Call gateway for swap status change
-
     return saved;
   }
 
