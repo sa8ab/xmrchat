@@ -11,28 +11,19 @@ export const getCachedCoins = defineCachedFunction(
       }/swaps/coins`
     );
 
-    return res.coins;
-  },
-  {
-    maxAge: 60 * 60 * 4, // 4 Hours
-    swr: true,
-  }
-);
-
-export const getCachedSwapMin = defineCachedFunction(
-  async (event: H3Event) => {
-    const config = useRuntimeConfig(event);
-
-    const res = await $fetch<{ minimum: number; maximum: number }>(
+    const swapRes = await $fetch<{ minimum: number; maximum: number }>(
       `${
         config.public.apiServerSideBaseUrl || config.public.apiBaseUrl
       }/swaps/min-swap`
     );
 
-    return res;
+    return {
+      coins: res.coins,
+      swapMinMax: swapRes,
+    };
   },
   {
-    maxAge: 60 * 60, // 1 Hour
+    maxAge: 60 * 60 * 4, // 4 Hours
     swr: true,
   }
 );

@@ -1,8 +1,7 @@
-import { getCachedCoins, getCachedSwapMin } from "../utils/getCachedCoins";
+import { getCachedCoins } from "../utils/getCachedCoins";
 
 export default defineEventHandler(async (event) => {
-  const coins = await getCachedCoins(event);
-  const minSwap = await getCachedSwapMin(event);
+  const { coins, swapMinMax } = await getCachedCoins(event);
 
-  return { coins, minSwap };
+  return { coins, swapMinMax };
 });

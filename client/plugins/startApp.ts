@@ -6,9 +6,9 @@ export default defineNuxtPlugin(async () => {
   await useAsyncData(async () => {
     price.value = await $fetch("/get-price");
 
-    const { coins: coinsRes, minSwap: minSwapRes } = await $fetch("/coins");
-    coins.value = coinsRes;
-    minSwap.value = minSwapRes.minimum;
+    const res = await $fetch("/coins");
+    coins.value = res.coins;
+    minSwap.value = res.swapMinMax.minimum;
 
     return {};
   });
