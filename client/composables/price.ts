@@ -17,13 +17,16 @@ export const useXmrPrice = ({ pageMinXmr }: Options = {}) => {
   );
 
   const minUsdAmount = computed(() => {
-    if (!price.value) return 0;
+    if (!price.value) return "0";
     return (Math.ceil(minXmr.value * price.value * 100) / 100).toFixed(2);
   });
 
   const minSwapUSD = computed(() => {
     if (!price.value) return 0;
-    return (Math.ceil(minSwapXMR.value * price.value * 100) / 100).toFixed(2);
+    const swapMin = (
+      Math.ceil(minSwapXMR.value * price.value * 100) / 100
+    ).toFixed(2);
+    return Math.max(parseFloat(swapMin), parseFloat(minUsdAmount.value));
   });
 
   return {
