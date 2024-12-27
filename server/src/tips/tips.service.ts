@@ -100,7 +100,22 @@ export class TipsService {
     if (!page) throw new NotFoundException('Page is not found.');
 
     const xmrUnits = MoneroUtils.xmrToAtomicUnits(payload.amount);
+    const configMin = this.configService.get('MIN_TIP_AMOUNT');
 
+    const minTipAmountXmr = MoneroUtils.atomicUnitsToXmr(
+      page.minTipAmount || configMin,
+    );
+
+    // Validate page minimum
+    if (
+      BigInt(xmrUnits) <
+      BigInt(page.minTipAmount || this.configService.get('MIN_TIP_AMOUNT'))
+    )
+      throw new BadRequestException(
+        `Tip amount must be more than or equal to ${minTipAmountXmr} XMR.`,
+      );
+
+    // Validate coin minimum
     if (payload.coinId) {
       const { coin, valid } = await this.swapsService.validateXmrAmount(
         parseFloat(payload.amount),
@@ -108,22 +123,6 @@ export class TipsService {
       if (!valid)
         throw new BadRequestException(
           `The amount for tipping this coin should be more than ${coin.minimum} XMR.`,
-        );
-    } else {
-      const xmrUnits = MoneroUtils.xmrToAtomicUnits(payload.amount);
-
-      const configMin = this.configService.get('MIN_TIP_AMOUNT');
-
-      const minTipAmountXmr = MoneroUtils.atomicUnitsToXmr(
-        page.minTipAmount || configMin,
-      );
-
-      if (
-        BigInt(xmrUnits) <
-        BigInt(page.minTipAmount || this.configService.get('MIN_TIP_AMOUNT'))
-      )
-        throw new BadRequestException(
-          `Tip amount must be more than or equal to ${minTipAmountXmr} XMR.`,
         );
     }
 
