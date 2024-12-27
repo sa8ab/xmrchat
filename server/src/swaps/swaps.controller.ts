@@ -32,4 +32,14 @@ export class SwapsController {
       maximum: xmr.maximum,
     };
   }
+
+  @IsPublic()
+  @Get('/status')
+  async swaps() {
+    const active = await this.swapsService.getIsSwapActive();
+
+    return {
+      active,
+    };
+  }
 }

@@ -25,5 +25,6 @@ export const getCachedCoins = defineCachedFunction(
   {
     maxAge: 60 * 60 * 4, // 4 Hours
     swr: true,
+    getKey: () => `swap-coins-and-swap-min-max`,
   }
 );

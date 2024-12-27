@@ -132,4 +132,8 @@ export class SwapsService {
 
     return isActive;
   }
+
+  async getIsSwapActive() {
+    return this.cahceManager.get('swap-active');
+  }
 }

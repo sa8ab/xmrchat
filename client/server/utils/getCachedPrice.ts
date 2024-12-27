@@ -15,5 +15,6 @@ export const getCachedPrice = defineCachedFunction(
   {
     maxAge: 60 * 4,
     swr: true,
+    getKey: () => `xmr-price`,
   }
 );
