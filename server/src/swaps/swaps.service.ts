@@ -1,6 +1,8 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,6 +14,10 @@ import { Swap } from './swap.entity';
 import { TrocadorTrade } from 'src/shared/types';
 import { getSwapStatusFromTrocador } from 'src/shared/utils';
 import { SwapStatusEnum } from 'src/shared/constants';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { NotificationsService } from 'src/notifications/notifications.service';
 
 interface InitSwapData {
   coinId: number;
@@ -22,10 +28,13 @@ interface InitSwapData {
 
 @Injectable()
 export class SwapsService {
+  private logger = new Logger(SwapsService.name);
   constructor(
     private trocadorService: TrocadorService,
+    private notificationsService: NotificationsService,
     @InjectRepository(Coin) private coinRepo: Repository<Coin>,
     @InjectRepository(Swap) private repo: Repository<Swap>,
+    @Inject(CACHE_MANAGER) private cahceManager: Cache,
   ) {}
 
   async findOneById(id: number) {
@@ -102,5 +111,27 @@ export class SwapsService {
       coin,
       valid: coin.minimum <= amount && amount <= coin.maximum,
     };
+  }
+
+  @Cron(CronExpression.EVERY_5_MINUTES)
+  async isSwapActive() {
+    const savedActive = await this.cahceManager.get('swap-active');
+    const isActive = await this.trocadorService.isActive();
+
+    await this.cahceManager.set('swap-active', isActive);
+
+    if (savedActive && !isActive) {
+      // Send trocador down email
+      this.notificationsService.sendSwapStatusEmail(false);
+      this.logger.log('Trocador is down');
+    }
+
+    if (isActive && !savedActive) {
+      // send trocador up email
+      this.notificationsService.sendSwapStatusEmail(true);
+      this.logger.log('Trocador is up');
+    }
+
+    return isActive;
   }
 }

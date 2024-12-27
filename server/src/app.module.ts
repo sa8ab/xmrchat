@@ -20,6 +20,7 @@ import { LinksModule } from './links/links.module';
 import { TwitchModule } from './integrations/twitch.module';
 import { SwapsModule } from './swaps/swaps.module';
 import { TrocadorModule } from './integrations/trocador/trocador.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { TrocadorModule } from './integrations/trocador/trocador.module';
       inject: [ConfigService],
       isGlobal: true,
     }),
+    ScheduleModule.forRoot(),
     UsersModule,
     DatabaseModule,
     NotificationsModule,

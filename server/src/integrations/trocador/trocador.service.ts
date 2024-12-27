@@ -74,4 +74,13 @@ export class TrocadorService {
     );
     return trade;
   }
+
+  async isActive() {
+    try {
+      await this.httpService.axiosRef.get('/exchanges');
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }

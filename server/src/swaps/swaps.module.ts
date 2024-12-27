@@ -5,9 +5,14 @@ import { Swap } from './swap.entity';
 import { Coin } from 'src/integrations/trocador/coin.entity';
 import { TrocadorModule } from 'src/integrations/trocador/trocador.module';
 import { SwapsController } from './swaps.controller';
+import { NotificationsModule } from 'src/notifications/notifications.module';
 
 @Module({
-  imports: [TrocadorModule, TypeOrmModule.forFeature([Swap, Coin])],
+  imports: [
+    TrocadorModule,
+    NotificationsModule,
+    TypeOrmModule.forFeature([Swap, Coin]),
+  ],
   providers: [SwapsService],
   exports: [SwapsService],
   controllers: [SwapsController],
