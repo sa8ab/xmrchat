@@ -15,7 +15,21 @@ export class SwapsController {
     const coins = await this.swapsService.findAllCoins();
 
     return {
-      coins: coins.filter((c) => c.network === 'Mainnet' && c.ticker === 'ltc'),
+      coins: coins.filter(
+        (c) => c.network === 'Mainnet' && c.ticker === 'ltc', // Litecoin
+      ),
+    };
+  }
+
+  @IsPublic()
+  @Get('/min-swap')
+  async minSwapAmount() {
+    const coins = await this.swapsService.findAllCoins();
+    const xmr = coins.find((c) => c.ticker === 'xmr');
+
+    return {
+      minimum: xmr.minimum,
+      maximum: xmr.maximum,
     };
   }
 }
