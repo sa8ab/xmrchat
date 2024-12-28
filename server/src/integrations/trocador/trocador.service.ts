@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Coin } from './coin.entity';
 import { Repository } from 'typeorm';
@@ -8,6 +8,7 @@ import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class TrocadorService {
+  private logger = new Logger(TrocadorService.name);
   constructor(
     private httpService: HttpService,
     private configService: ConfigService,
@@ -80,6 +81,7 @@ export class TrocadorService {
       await this.httpService.axiosRef.get('/exchanges');
       return true;
     } catch (error) {
+      this.logger.log(error.response);
       return false;
     }
   }
