@@ -194,7 +194,7 @@ const coinSelectOptions = computed(() => {
           </UTooltip>
         </div>
 
-        <div class="singe" v-if="swapActive">
+        <div class="singe">
           <div class="flex">
             <UFormGroup label="Tip coin">
               <USelectMenu
@@ -205,6 +205,7 @@ const coinSelectOptions = computed(() => {
                 value-attribute="id"
                 :uiMenu="{ width: 'w-full' }"
                 :ui="{ wrapper: 'min-w-[120px]' }"
+                :disabled="!swapActive"
               >
                 <template #option="{ option }">
                   <div class="flex items-center gap-2 truncate">
@@ -213,8 +214,12 @@ const coinSelectOptions = computed(() => {
                   </div>
                 </template>
               </USelectMenu>
+              <template #help v-if="!swapActive">
+                <p class="text-xs">Swap is currently unavailable.</p>
+              </template>
             </UFormGroup>
           </div>
+          <!-- <p v-if="!false" class="text-pale text-sm mt-1"></p> -->
         </div>
 
         <div class="single" v-if="state.errorMessage">
