@@ -68,28 +68,27 @@ export class WebhooksController {
   }
 
   @IsPublic()
-  @Post(`/trocator/:token/:tipId`)
-  async trocadorTransaction(
-    @Body() body,
-    @Param('token') token: string,
-    @Param('tipId') tipId: string,
-  ) {
+  @Post(`/trocator/:token`)
+  async trocadorTransaction(@Body() body, @Param('token') token: string) {
     this.logger.log('Trocador webhook call');
 
     if (token !== this.configService.get('TROCADOR_WEBHOOK_TOKEN'))
       throw new UnauthorizedException();
 
-    const tip = await this.tipsService.findOneById(parseInt(tipId));
+    const swap = await this.swapsService.findOneBySwapId(body.trade_id);
 
-    if (!tip) throw new NotFoundException('Tip is not found.');
+    if (!swap) throw new NotFoundException('Swap is not found.');
 
-    const swap = await this.swapsService.handleTrocadorStatusChange(body, tip);
-
-    this.logger.log(
-      `Sending swap status change event - tip ${tip.id} - status ${swap.status}`,
+    const newSwap = await this.swapsService.handleTrocadorStatusChange(
+      body,
+      swap.id,
     );
 
-    this.tipsGateway.notifySwapStatusChange(tip.id, swap);
+    this.logger.log(
+      `Sending swap status change event - tip ${swap.tipId} - status ${newSwap.status}`,
+    );
+
+    this.tipsGateway.notifySwapStatusChange(swap.tipId, newSwap);
 
     return swap;
   }

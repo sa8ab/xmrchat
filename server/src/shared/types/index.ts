@@ -1,4 +1,3 @@
-import { Tip } from 'src/tips/tip.entity';
 import { TrocadorStatusEnum } from '../constants';
 
 interface TxInfoId {
@@ -62,11 +61,13 @@ export interface TrocadorTrade {
   // refund_address_memo: '';
   password: string;
   id_provider: string;
+  details: {
+    expiresAt: string;
+  };
 }
 
 export interface InitSwapData {
   coinId: number;
   amountTo: number;
   address: string;
-  tip: Tip;
 }

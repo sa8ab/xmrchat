@@ -24,6 +24,8 @@ import { NotificationsService } from 'src/notifications/notifications.service';
 import { clearMessage } from 'src/shared/utils';
 import { PricesService } from 'src/prices/prices.service';
 import { SwapsService } from 'src/swaps/swaps.service';
+import { Swap } from 'src/swaps/swap.entity';
+import { Coin } from 'src/integrations/trocador/coin.entity';
 
 @Injectable()
 export class TipsService {
@@ -148,6 +150,20 @@ export class TipsService {
       throw new BadRequestException('The page has not setup tipping yet.');
     }
 
+    // TODO: If coin, initiate a swap
+
+    let baseSwap: any;
+    let inputCoin: Coin | undefined;
+    if (payload.coinId) {
+      const res = await this.swapsService.initSwap({
+        address: integratedAddress,
+        amountTo: parseFloat(payload.amount),
+        coinId: payload.coinId,
+      });
+      baseSwap = res.baseSwap;
+      inputCoin = res.coin;
+    }
+
     // Create and save tip record
     const createdTip = this.repo.create({
       message: payload.message,
@@ -165,14 +181,13 @@ export class TipsService {
       tip: { id: tip.id },
     });
 
-    // TODO: If coin, initiate a swap
-    let swap: any;
-    if (payload.coinId) {
-      swap = await this.swapsService.initSwap({
-        address: integratedAddress,
-        amountTo: parseFloat(payload.amount),
-        coinId: payload.coinId,
-        tip: tip,
+    // Save swap
+    let swap: Swap | undefined;
+    if (baseSwap) {
+      swap = await this.swapsService.saveSwap({
+        baseSwap,
+        coin: inputCoin,
+        tip,
       });
     }
 

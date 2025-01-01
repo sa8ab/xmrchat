@@ -52,7 +52,9 @@ export class TrocadorService {
         },
       );
 
-      return data;
+      const trade = await this.getTrade(data.trade_id);
+
+      return trade;
     } catch (error) {
       console.log('New Trade Error:', error.message);
 
@@ -60,12 +62,23 @@ export class TrocadorService {
     }
   }
 
+  async getTrade(tradeId: string) {
+    const { data } = await this.httpService.axiosRef.get<TrocadorTrade[]>(
+      `/trade`,
+      {
+        params: { id: tradeId },
+      },
+    );
+
+    return data[0];
+  }
+
   async initSwap(data: InitSwapData & { coin: Coin }) {
     const webhookBaseUrl = this.configService.get('WEBHOOK_BASE_URL');
     const trocadorWebhookToken = this.configService.get(
       'TROCADOR_WEBHOOK_TOKEN',
     );
-    const webhookUrl = `${webhookBaseUrl}/webhooks/trocator/${trocadorWebhookToken}/${data.tip.id}`;
+    const webhookUrl = `${webhookBaseUrl}/webhooks/trocator/${trocadorWebhookToken}`;
 
     const trade = await this.newTrade(
       data.coin,

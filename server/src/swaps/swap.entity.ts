@@ -8,6 +8,7 @@ import {
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
+  RelationId,
   UpdateDateColumn,
 } from 'typeorm';
 
@@ -37,6 +38,9 @@ export class Swap {
   @OneToOne(() => Tip, (t: Tip) => t.swap, { onDelete: 'CASCADE' })
   @JoinColumn({ foreignKeyConstraintName: 'swap_tip_id_fkey' })
   tip: Tip;
+
+  @RelationId((s: Swap) => s.tip)
+  tipId: number;
 
   @Column({ type: 'jsonb' })
   context: Object;

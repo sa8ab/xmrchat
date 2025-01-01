@@ -11,20 +11,13 @@ import { TrocadorService } from 'src/integrations/trocador/trocador.service';
 import { Tip } from 'src/tips/tip.entity';
 import { Repository } from 'typeorm';
 import { Swap } from './swap.entity';
-import { TrocadorTrade } from 'src/shared/types';
+import { InitSwapData, TrocadorTrade } from 'src/shared/types';
 import { getSwapStatusFromTrocador } from 'src/shared/utils';
 import { SwapStatusEnum } from 'src/shared/constants';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { NotificationsService } from 'src/notifications/notifications.service';
-
-interface InitSwapData {
-  coinId: number;
-  amountTo: number;
-  address: string;
-  tip: Tip;
-}
 
 @Injectable()
 export class SwapsService {
@@ -46,17 +39,51 @@ export class SwapsService {
     return this.repo.findOneBy({ tip: { id: tipId } });
   }
 
+  async findOneBySwapId(swapId: string) {
+    if (!swapId) return null;
+    return this.repo.findOne({ where: { swapId }, relations: ['tip'] });
+  }
+
   async findAllCoins() {
     return this.coinRepo.find();
   }
 
+  // Creates a swap on exchange
   async initSwap(data: InitSwapData, platform = 'trocador') {
     const coin = await this.coinRepo.findOneBy({ id: data.coinId });
 
-    if (platform === 'trocador')
-      return this.initTrocadorSwap({ ...data, coin });
+    if (platform === 'trocador') {
+      const swap = await this.initTrocadorSwap({ ...data, coin });
+      return { baseSwap: swap, coin };
+    }
 
     throw new BadRequestException('Swap platform is not valid');
+  }
+
+  // Saves a swap on database
+  async saveSwap({
+    baseSwap,
+    coin,
+    tip,
+  }: {
+    baseSwap: TrocadorTrade; // TODO: Abstract trade type
+    coin: Coin;
+    tip: Tip;
+  }) {
+    const created = this.repo.create({
+      context: baseSwap,
+      coin: { id: coin.id },
+      inputAmount: baseSwap.amount_from,
+      swapAddress: baseSwap.address_provider,
+      swapId: baseSwap.trade_id,
+      tip: { id: tip.id },
+      status: SwapStatusEnum.WAITING,
+    });
+
+    const swap = await this.repo.save(created);
+    swap.coin = coin;
+
+    return swap;
   }
 
   async initTrocadorSwap(data: InitSwapData & { coin: Coin }) {
@@ -67,29 +94,14 @@ export class SwapsService {
       throw new BadRequestException('Could not create new trade on Trocador.');
     }
 
-    const created = this.repo.create({
-      context: trade,
-      coin: { id: data.coin.id },
-      inputAmount: trade.amount_from,
-      swapAddress: trade.address_provider,
-      swapId: trade.trade_id,
-      tip: { id: data.tip.id },
-      status: SwapStatusEnum.WAITING,
-    });
-
-    const swap = await this.repo.save(created);
-    swap.coin = data.coin;
-
-    console.log(trade);
-
-    return swap;
+    return trade;
   }
 
-  async handleTrocadorStatusChange(body: TrocadorTrade, tip: Tip) {
+  async handleTrocadorStatusChange(body: TrocadorTrade, id: number) {
     const swapStatus = getSwapStatusFromTrocador(body.status);
     console.log(swapStatus);
 
-    const swap = await this.findOneByTipId(tip.id);
+    const swap = await this.findOneById(id);
 
     if (!swap) throw new NotFoundException('Swap is not found.');
 
