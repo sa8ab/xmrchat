@@ -165,7 +165,7 @@ export class TipsService {
       inputCoin = res.coin;
     }
 
-    console.log(baseSwap);
+    console.log(baseSwap || 'Not swap.');
 
     // Create and save tip record
     const createdTip = this.repo.create({

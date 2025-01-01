@@ -1,10 +1,13 @@
 <script lang="ts" setup>
+import dayjs from "dayjs";
 import type { PaymentQRCodeProps } from "./PaymentQRCode.vue";
+import VueCountdown from "@chenfengyuan/vue-countdown";
 
 interface Props {
   title?: string;
   qrCode?: PaymentQRCodeProps;
   connectionStatus?: string;
+  expiresAt?: string;
 }
 
 const props = defineProps<Props>();
@@ -13,6 +16,30 @@ const emit = defineEmits<{
   cancel: [];
   retry: [];
 }>();
+
+// const countdown = ref<InstanceType<typeof VueCountdown>>();
+const remaining = ref<number | undefined>();
+
+const { formatTime } = useDate();
+
+const getRemainingTime = () => {
+  console.log("getting remaining time");
+
+  const now = dayjs();
+  const expiresAt = dayjs(props.expiresAt);
+
+  remaining.value = expiresAt.diff(now);
+
+  // countdown.value?.start();
+};
+
+watch(
+  () => props.expiresAt,
+  (v) => {
+    if (v) getRemainingTime();
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
@@ -21,7 +48,7 @@ const emit = defineEmits<{
       <h2 class="font-bold text-base">{{ title }}</h2>
     </template>
     <slot />
-    <div class="w-full flex flex-col items-center gap-2 pt-4">
+    <div class="w-full flex flex-col gap-2 pt-4">
       <PaymentQRCode v-if="qrCode" v-bind="qrCode" />
       <UDivider label="OR" class="mb-3" />
       <PaymentAddressDisplay :address="qrCode?.address" class="mb-4" />
@@ -30,7 +57,20 @@ const emit = defineEmits<{
         @retry="emit('retry')"
       />
       <PaymentLoading v-else />
-      <span class="text-sm">Your XMRChat s valid until ----</span>
+      <VueCountdown v-if="remaining" :time="remaining">
+        <template #default="{ minutes, seconds }">
+          <p class="text-center">
+            {{ minutes.toString().padStart(2, "0") }}:{{
+              seconds.toString().padStart(2, "0")
+            }}
+          </p>
+        </template>
+      </VueCountdown>
+      <!-- <span class="text-sm text-pale" v-if="expiresAt">
+        Your XMRChat is valid until
+        <span class="text-text">{{ formatTime(expiresAt) }}</span
+        >.
+      </span> -->
     </div>
 
     <slot name="after" />

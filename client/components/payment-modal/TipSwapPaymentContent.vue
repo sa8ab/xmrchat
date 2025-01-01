@@ -23,6 +23,7 @@ const renderStatusClassName = computed(() => {
   <PaymentModalContent
     title="Send Tip"
     :connectionStatus="connectionStatus"
+    :expiresAt="createdTip?.tip.expiresAt"
     @cancel="emit('cancel')"
     @retry="emit('retry')"
     :qrCode="{

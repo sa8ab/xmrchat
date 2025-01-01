@@ -92,6 +92,7 @@ onBeforeUnmount(() => disconnect());
         ticker: 'xmr',
       }"
       :connectionStatus="connectionStatus"
+      :expiresAt="createdTip?.tip.expiresAt"
       @cancel="cancelPayment"
       @retry="handleRetry"
     >

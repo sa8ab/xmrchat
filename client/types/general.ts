@@ -83,6 +83,7 @@ export interface Tip {
   private?: boolean;
   paidAt?: string;
   payment?: TipPayment;
+  expiresAt?: string;
   swap?: Swap;
 }
 
