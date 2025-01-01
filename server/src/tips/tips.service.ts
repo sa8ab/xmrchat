@@ -153,7 +153,7 @@ export class TipsService {
 
     // TODO: If coin, initiate a swap
 
-    let baseSwap: TrocadorTrade;
+    let baseSwap: TrocadorTrade | undefined;
     let inputCoin: Coin | undefined;
     if (payload.coinId) {
       const res = await this.swapsService.initSwap({
@@ -165,11 +165,14 @@ export class TipsService {
       inputCoin = res.coin;
     }
 
+    console.log(baseSwap);
+
     // Create and save tip record
     const createdTip = this.repo.create({
       message: payload.message,
       name: payload.name,
       private: payload.private,
+      expiresAt: baseSwap.details.expiresAt || null,
       page: { id: page.id },
     });
 
