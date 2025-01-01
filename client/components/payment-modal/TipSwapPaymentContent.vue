@@ -31,15 +31,16 @@ const renderStatusClassName = computed(() => {
       ticker: createdTip?.swap?.coin.ticker!
     }"
   >
-    <UAlert color="orange" variant="subtle">
+    <UAlert color="emerald" variant="subtle">
       <template #description>
         <p class="text-base">
-          Please send exactly
+          Please send
+          <span class="font-bold">exactly </span>
           <span class="font-bold"
             >{{ createdTip?.swap?.inputAmount }}
             {{ createdTip?.swap?.coin?.name }}</span
           >
-          to the following address.
+          to this address for your xmrchat to be displayed.
         </p>
       </template>
     </UAlert>
