@@ -32,11 +32,8 @@ const renderStatusClassName = computed(() => {
     }"
   >
     <UAlert color="orange" variant="subtle">
-      <template #title>
-        <span>NOTE</span>
-      </template>
       <template #description>
-        <p class="text-[15px] leading-6">
+        <p class="text-base">
           Please send exactly
           <span class="font-bold"
             >{{ createdTip?.swap?.inputAmount }}

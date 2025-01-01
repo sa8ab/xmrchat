@@ -116,12 +116,9 @@ onBeforeUnmount(() => disconnect());
         </template>
       </UAlert>
       <template v-if="createdTip">
-        <UAlert color="emerald" variant="subtle" class="text-xl">
-          <template #title>
-            <span>NOTE</span>
-          </template>
+        <UAlert color="emerald" variant="subtle">
           <template #description>
-            <p class="text-[15px] leading-6">
+            <p class="text-base">
               Please send minimum
               <span class="font-bold">{{ createdTip.amount }} XMR</span>
               to the following address

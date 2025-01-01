@@ -21,9 +21,10 @@ const emit = defineEmits<{
       <h2 class="font-bold text-base">{{ title }}</h2>
     </template>
     <slot />
-    <div class="w-full flex flex-col items-center gap-4 pt-4">
-      <PaymentAddressDisplay :address="qrCode?.address" />
+    <div class="w-full flex flex-col items-center gap-2 pt-4">
       <PaymentQRCode v-if="qrCode" v-bind="qrCode" />
+      <UDivider label="OR" class="mb-3" />
+      <PaymentAddressDisplay :address="qrCode?.address" class="mb-4" />
       <PaymentError
         v-if="connectionStatus === 'DISCONNECTED'"
         @retry="emit('retry')"

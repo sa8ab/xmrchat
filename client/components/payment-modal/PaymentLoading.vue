@@ -1,14 +1,14 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="flex flex-col items-center gap-2">
+  <div class="flex flex-col items-center">
     <div class="icon">
       <UIcon
-        class="animate-spin w-[32px] h-[32px]"
+        class="animate-spin w-[24px] h-[24px]"
         name="i-heroicons-arrow-path-20-solid"
       />
     </div>
-    <span>Waiting For Payment</span>
+    <span class="text-sm">Waiting For Payment</span>
   </div>
 </template>
 

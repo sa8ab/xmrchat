@@ -3,13 +3,20 @@ const props = defineProps<{
   address?: string;
 }>();
 
+const toast = useToast();
+
 const copy = () => {
-  const textarea: any = document.createElement("textarea");
-  textarea.value = props.address;
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand("copy");
-  document.body.removeChild(textarea);
+  try {
+    navigator.clipboard.writeText(props.address || "");
+    toast.add({
+      description: "Copied to your clipboard.",
+      color: "green",
+    });
+  } catch (error) {
+    toast.add({
+      description: "Could not copy.",
+    });
+  }
 };
 </script>
 
