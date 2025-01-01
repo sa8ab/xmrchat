@@ -17,8 +17,8 @@ const emit = defineEmits<{
   retry: [];
 }>();
 
-// const countdown = ref<InstanceType<typeof VueCountdown>>();
 const remaining = ref<number | undefined>();
+const expired = ref<boolean>(false);
 
 const { formatTime } = useDate();
 
@@ -29,6 +29,8 @@ const getRemainingTime = () => {
   const expiresAt = dayjs(props.expiresAt);
 
   remaining.value = expiresAt.diff(now);
+
+  if (remaining.value < 0) expired.value = true;
 
   // countdown.value?.start();
 };
@@ -49,23 +51,30 @@ watch(
     </template>
     <slot />
     <div class="w-full flex flex-col gap-2 pt-4">
-      <PaymentQRCode v-if="qrCode" v-bind="qrCode" />
-      <UDivider label="OR" class="mb-3" />
-      <PaymentAddressDisplay :address="qrCode?.address" class="mb-4" />
-      <PaymentError
-        v-if="connectionStatus === 'DISCONNECTED'"
-        @retry="emit('retry')"
-      />
-      <PaymentLoading v-else />
-      <VueCountdown v-if="remaining" :time="remaining">
-        <template #default="{ minutes, seconds }">
-          <p class="text-center">
-            {{ minutes.toString().padStart(2, "0") }}:{{
-              seconds.toString().padStart(2, "0")
-            }}
-          </p>
-        </template>
-      </VueCountdown>
+      <p class="text-red-500 text-center" v-if="expired">
+        Payment is expired. If you have already sent your payment please contact
+        support.
+      </p>
+      <template v-else>
+        <PaymentQRCode v-if="qrCode" v-bind="qrCode" />
+        <UDivider label="OR" class="mb-3" />
+        <PaymentAddressDisplay :address="qrCode?.address" class="mb-4" />
+        <PaymentError
+          v-if="connectionStatus === 'DISCONNECTED'"
+          @retry="emit('retry')"
+        />
+        <PaymentLoading v-else />
+        <VueCountdown v-if="remaining" :time="remaining" @end="expired = true">
+          <template #default="{ minutes, seconds }">
+            <p class="text-center">
+              {{ minutes.toString().padStart(2, "0") }}:{{
+                seconds.toString().padStart(2, "0")
+              }}
+            </p>
+          </template>
+        </VueCountdown>
+      </template>
+
       <!-- <span class="text-sm text-pale" v-if="expiresAt">
         Your XMRChat is valid until
         <span class="text-text">{{ formatTime(expiresAt) }}</span
