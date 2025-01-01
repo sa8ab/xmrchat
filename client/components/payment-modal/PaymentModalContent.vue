@@ -30,6 +30,7 @@ const emit = defineEmits<{
         @retry="emit('retry')"
       />
       <PaymentLoading v-else />
+      <span class="text-sm">Your XMRChat s valid until ----</span>
     </div>
 
     <slot name="after" />

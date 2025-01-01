@@ -172,7 +172,7 @@ export class TipsService {
       message: payload.message,
       name: payload.name,
       private: payload.private,
-      expiresAt: baseSwap.details.expiresAt || null,
+      expiresAt: baseSwap?.details?.expiresAt || null,
       page: { id: page.id },
     });
 

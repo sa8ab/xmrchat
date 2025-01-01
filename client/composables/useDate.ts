@@ -1,3 +1,11 @@
 export const useDate = () => {
-  return ref();
+  const dayjs = useDayjs();
+
+  const formatTime = (v: string) => {
+    return dayjs(v).format("HH:mm:ss");
+  };
+
+  return {
+    formatTime,
+  };
 };
