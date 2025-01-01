@@ -19,6 +19,9 @@ export class TipDto {
   createdAt: Date;
 
   @Expose()
+  expiresAt: Date;
+
+  @Expose()
   @Type(() => PaymentDto)
   payment: PaymentDto;
 
