@@ -26,6 +26,7 @@ import { PricesService } from 'src/prices/prices.service';
 import { SwapsService } from 'src/swaps/swaps.service';
 import { Swap } from 'src/swaps/swap.entity';
 import { Coin } from 'src/integrations/trocador/coin.entity';
+import { TrocadorTrade } from 'src/shared/types';
 
 @Injectable()
 export class TipsService {
@@ -152,7 +153,7 @@ export class TipsService {
 
     // TODO: If coin, initiate a swap
 
-    let baseSwap: any;
+    let baseSwap: TrocadorTrade;
     let inputCoin: Coin | undefined;
     if (payload.coinId) {
       const res = await this.swapsService.initSwap({
