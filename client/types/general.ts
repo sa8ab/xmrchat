@@ -1,4 +1,8 @@
-import type { PageSettingKey, SupportedDisplayCurrency } from "./enums";
+import type {
+  PageSettingKey,
+  SupportedDisplayCurrency,
+  SwapStatusEnum,
+} from "./enums";
 
 export type Numberic = string | number;
 
@@ -169,7 +173,7 @@ export interface Swap {
   swapId: string;
   inputAmount: string;
   swapAddress: string;
-  status: string;
+  status: SwapStatusEnum;
   coin: Coin;
   statusMessage: string;
   createdAt: Date;
