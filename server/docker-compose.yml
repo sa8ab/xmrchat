@@ -36,6 +36,8 @@ services:
         sleep 86400;
       done
       "
+    networks:
+      - custom-net
 
   redis:
     image: redis/redis-stack:latest
