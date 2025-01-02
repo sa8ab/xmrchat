@@ -3,7 +3,7 @@ import { CreatePageBaseDto } from './create-page-base.dto';
 
 export class ReserveSlugDto extends CreatePageBaseDto {
   @IsString()
-  @MinLength(4)
+  @MinLength(3)
   @MaxLength(16)
   @Matches(/^[a-zA-Z0-9_-]+$/, {
     message: 'Page can only include letters, numbers, underscores and hyphens',
