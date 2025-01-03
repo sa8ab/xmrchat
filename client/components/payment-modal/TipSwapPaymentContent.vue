@@ -29,7 +29,8 @@ const renderStatusMessage = computed(() => {
   const status = props.createdTip?.swap?.status;
 
   if (status === SwapStatusEnum.WAITING) return "Waiting For Payment";
-  if (status === SwapStatusEnum.CONFIRMING) return "Waiting for blockchain confirmation";
+  if (status === SwapStatusEnum.CONFIRMING)
+    return "Waiting for blockchain confirmation";
   if (status === SwapStatusEnum.SENDING)
     return "Swap is being sent to XMRChat.";
   if (status === SwapStatusEnum.FAILED)
@@ -37,6 +38,14 @@ const renderStatusMessage = computed(() => {
 
   return undefined;
 });
+
+const showLoading = computed(() =>
+  [
+    SwapStatusEnum.WAITING,
+    SwapStatusEnum.CONFIRMING,
+    SwapStatusEnum.SENDING,
+  ].includes(props.createdTip?.swap?.status!)
+);
 
 const showAddress = computed(() => {
   const status = props.createdTip?.swap?.status!;
@@ -107,7 +116,7 @@ watch(
         <PaymentLoading
           v-else-if="renderStatusMessage"
           :text="renderStatusMessage"
-          :showLoading="createdTip?.swap?.status === SwapStatusEnum.WAITING"
+          :showLoading="showLoading"
         />
 
         <VueCountdown
