@@ -74,7 +74,7 @@ export class TrocadorService {
             payment: true,
             webhook,
             min_kycrating: 'B',
-            provider: quote.provider || undefined,
+            provider: quote.provider,
           },
         },
       );
