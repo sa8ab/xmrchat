@@ -147,7 +147,10 @@ watch(
           }}</span>
         </div>
 
-        <p class="text-pale text-xs text-center mt-1">
+        <p
+          class="text-pale text-xs text-center mt-1"
+          v-if="showETA && createdTip?.swap?.eta"
+        >
           Swap ETA is about {{ createdTip?.swap?.eta }} minutes.
         </p>
         <div class="text-pale text-xs text-center mt-1">
