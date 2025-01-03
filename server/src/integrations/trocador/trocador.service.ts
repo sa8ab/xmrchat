@@ -51,6 +51,7 @@ export class TrocadorService {
     );
 
     const quotes = [...data.quotes.quotes].sort((qa, qb) => qa.eta - qb.eta);
+    console.log(quotes);
 
     return { id: data.trade_id, quote: quotes[0] };
   }
