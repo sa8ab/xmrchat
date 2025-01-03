@@ -3,7 +3,7 @@ import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Coin } from './coin.entity';
 import { Repository } from 'typeorm';
-import { InitSwapData, TrocadorTrade } from 'src/shared/types';
+import { InitSwapData, TrocadorRate, TrocadorTrade } from 'src/shared/types';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -34,12 +34,36 @@ export class TrocadorService {
     return coins;
   }
 
+  async newRate(coin: Coin, amount: number) {
+    const { data } = await this.httpService.axiosRef.get<TrocadorRate>(
+      '/new_rate',
+      {
+        params: {
+          ticker_from: coin.ticker,
+          network_from: coin.network,
+          ticker_to: 'xmr',
+          network_to: 'Mainnet',
+          amount_to: amount,
+          payment: true,
+          min_kycrating: 'B',
+        },
+      },
+    );
+
+    const quotes = [...data.quotes.quotes].sort((qa, qb) => qa.eta - qb.eta);
+
+    return { id: data.trade_id, quote: quotes[0] };
+  }
+
   async newTrade(coin: Coin, amount: number, address: string, webhook: string) {
     try {
+      const { id: rateId, quote } = await this.newRate(coin, amount);
+
       const { data } = await this.httpService.axiosRef.get<TrocadorTrade>(
         '/new_trade',
         {
           params: {
+            id: rateId,
             ticker_from: coin.ticker,
             network_from: coin.network,
             ticker_to: 'xmr',
@@ -48,6 +72,8 @@ export class TrocadorService {
             address: address,
             payment: true,
             webhook,
+            min_kycrating: 'B',
+            provider: quote.provider || undefined,
           },
         },
       );
@@ -56,7 +82,10 @@ export class TrocadorService {
 
       return trade;
     } catch (error) {
-      console.log('New Trade Error:', error.message);
+      console.log(
+        'New Trade Error:',
+        error.response?.data?.error || error.message,
+      );
 
       throw new Error(error.response?.data.error);
     }

@@ -30,6 +30,9 @@ export class SwapDto {
   tip: TipDto;
 
   @Expose()
+  eta: number;
+
+  @Expose()
   statusMessage: string;
 
   @Expose()

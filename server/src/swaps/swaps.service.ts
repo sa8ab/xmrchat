@@ -76,6 +76,7 @@ export class SwapsService {
       inputAmount: baseSwap.amount_from,
       swapAddress: baseSwap.address_provider,
       swapId: baseSwap.trade_id,
+      eta: baseSwap.details.original_eta,
       tip: { id: tip.id },
       status: SwapStatusEnum.WAITING,
     });

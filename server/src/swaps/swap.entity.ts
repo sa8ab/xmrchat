@@ -45,6 +45,9 @@ export class Swap {
   @Column({ type: 'jsonb' })
   context: Object;
 
+  @Column({ type: 'numeric', nullable: true })
+  eta: number;
+
   @Column({ nullable: true })
   statusMessage: string;
 

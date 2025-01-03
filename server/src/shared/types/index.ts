@@ -38,7 +38,19 @@ export interface PageReportEmailOptions {
   price: string;
 }
 
-export interface TrocadorTrade {
+export interface TrocadorQuote {
+  provider: string;
+  kycrating: string;
+  logpolicy: string;
+  amount_from: number;
+  waste: number;
+  eta: number;
+  provider_logo: string;
+  amount_from_USD: string;
+  amount_to_USD: string;
+}
+
+export interface TrocadorRate {
   trade_id: string;
   date: string;
   ticker_from: string;
@@ -53,6 +65,12 @@ export interface TrocadorTrade {
   fixed: boolean;
   payment: boolean;
   status: TrocadorStatusEnum;
+  quotes: {
+    quotes: TrocadorQuote[];
+  };
+}
+
+export interface TrocadorTrade extends TrocadorRate {
   address_provider: string;
   // address_provider_memo: '';
   address_user: string;
@@ -62,6 +80,7 @@ export interface TrocadorTrade {
   password: string;
   id_provider: string;
   details: {
+    original_eta: number;
     expiresAt: string;
   };
 }
