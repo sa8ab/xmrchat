@@ -29,7 +29,7 @@ const renderStatusMessage = computed(() => {
   const status = props.createdTip?.swap?.status;
 
   if (status === SwapStatusEnum.WAITING) return "Waiting For Payment";
-  if (status === SwapStatusEnum.CONFIRMING) return "Payment is detected";
+  if (status === SwapStatusEnum.CONFIRMING) return "Waiting for blockchain confirmation";
   if (status === SwapStatusEnum.SENDING)
     return "Swap is being sent to XMRChat.";
   if (status === SwapStatusEnum.FAILED)

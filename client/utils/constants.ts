@@ -62,7 +62,7 @@ export const SUPPORTED_TIP_VALUES = [
 
 export const SWAP_STATUSES = {
   [SwapStatusEnum.CONFIRMING]: {
-    label: "Confirmed",
+    label: "Confirming",
     color: "green",
   },
   [SwapStatusEnum.WAITING]: {
