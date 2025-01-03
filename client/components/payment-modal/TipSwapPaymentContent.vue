@@ -58,6 +58,11 @@ const showAddress = computed(() => {
   ].includes(status);
 });
 
+const showETA = computed(() => {
+  const status = props.createdTip?.swap?.status!;
+  return [SwapStatusEnum.WAITING, SwapStatusEnum.CONFIRMING].includes(status);
+});
+
 // Using watch cause we are not sure if when component mounts the props are passed to it.
 watch(
   () => props.createdTip?.tip.expiresAt,
@@ -141,7 +146,11 @@ watch(
             SWAP_STATUSES[createdTip.swap.status as SwapStatusEnum]?.label
           }}</span>
         </div>
-        <div class="text-pale text-xs text-center mt-2">
+
+        <p class="text-pale text-xs text-center mt-1">
+          Swap ETA is about {{ createdTip?.swap?.eta }} minutes.
+        </p>
+        <div class="text-pale text-xs text-center mt-1">
           You can track your swap directly from
           <ULink
             target="_blank"

@@ -175,6 +175,7 @@ export interface Swap {
   swapAddress: string;
   status: SwapStatusEnum;
   coin: Coin;
+  eta: number;
   statusMessage: string;
   createdAt: Date;
   updatedAt: Date;
