@@ -65,7 +65,7 @@ export class TrocadorService {
         '/new_trade',
         {
           params: {
-            // id: rateId,
+            id: rateId,
             ticker_from: coin.ticker,
             network_from: coin.network,
             ticker_to: 'xmr',
@@ -75,7 +75,7 @@ export class TrocadorService {
             payment: true,
             webhook,
             min_kycrating: 'B',
-            // provider: quote.provider,
+            provider: quote.provider,
           },
         },
       );
