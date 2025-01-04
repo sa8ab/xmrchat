@@ -45,7 +45,7 @@ export class TrocadorService {
           network_to: 'Mainnet',
           amount_to: amount,
           payment: true,
-          min_kycrating: 'B',
+          min_kycrating: 'C',
         },
       },
     );
@@ -73,7 +73,7 @@ export class TrocadorService {
             address: address,
             payment: true,
             webhook,
-            // min_kycrating: 'B',
+            min_kycrating: 'C',
             id: rateId,
             provider: quote.provider,
           },
