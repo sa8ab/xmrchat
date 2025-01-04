@@ -10,7 +10,7 @@ import { ConfigService } from '@nestjs/config';
 export class TrocadorService {
   private logger = new Logger(TrocadorService.name);
   private EXCLUDED_EXCHANGES = ['BitcoinVN'];
-  private MIN_KYCRATING = 'B';
+  private MIN_KYCRATING = 'C';
   constructor(
     private httpService: HttpService,
     private configService: ConfigService,
