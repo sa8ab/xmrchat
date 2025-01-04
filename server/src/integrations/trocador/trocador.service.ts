@@ -9,6 +9,8 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class TrocadorService {
   private logger = new Logger(TrocadorService.name);
+  private EXCLUDED_EXCHANGES = ['BitcoinVN'];
+  private MIN_KYCRATING = 'B';
   constructor(
     private httpService: HttpService,
     private configService: ConfigService,
@@ -45,12 +47,14 @@ export class TrocadorService {
           network_to: 'Mainnet',
           amount_to: amount,
           payment: true,
-          min_kycrating: 'C',
+          min_kycrating: this.MIN_KYCRATING,
         },
       },
     );
 
-    const quotes = [...data.quotes.quotes].sort((qa, qb) => qa.eta - qb.eta);
+    const quotes = [...data.quotes.quotes]
+      .sort((qa, qb) => qa.eta - qb.eta)
+      .filter((q) => !this.EXCLUDED_EXCHANGES.includes(q.provider));
     console.log(quotes);
 
     return { id: data.trade_id, quote: quotes[0] };
@@ -73,9 +77,9 @@ export class TrocadorService {
             address: address,
             payment: true,
             webhook,
-            min_kycrating: 'C',
+            min_kycrating: this.MIN_KYCRATING,
             id: rateId,
-            provider: quote.provider,
+            provider: quote?.provider,
           },
         },
       );
