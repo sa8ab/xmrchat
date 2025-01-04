@@ -60,7 +60,6 @@ export class TrocadorService {
     try {
       const { id: rateId, quote } = await this.newRate(coin, amount);
       console.log({ rateId, provider: quote.provider });
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const { data } = await this.httpService.axiosRef.get<TrocadorTrade>(
         '/new_trade',
@@ -74,7 +73,7 @@ export class TrocadorService {
             address: address,
             payment: true,
             webhook,
-            min_kycrating: 'B',
+            // min_kycrating: 'B',
             id: rateId,
             provider: quote.provider,
           },
@@ -85,8 +84,6 @@ export class TrocadorService {
 
       return trade;
     } catch (error) {
-      console.log(error);
-
       const errorMessage = error.response?.data?.error || error.message;
       console.log('New Trade Error:', errorMessage);
 
