@@ -55,15 +55,27 @@ export class TrocadorService {
     const quotes = [...data.quotes.quotes]
       .sort((qa, qb) => qa.eta - qb.eta)
       .filter((q) => !this.EXCLUDED_EXCHANGES.includes(q.provider));
-    console.log(quotes);
 
-    return { id: data.trade_id, quote: quotes[0] };
+    const preferredQuote = quotes.find(
+      (q) => (q.kycrating === 'A' || q.kycrating === 'B') && q.eta <= 10,
+    );
+    console.log({
+      quotes: quotes.map((q) => ({
+        provider: q.provider,
+        eta: q.eta,
+        kyc: q.kycrating,
+      })),
+    });
+    console.log({ preferredQuote });
+
+    const selectedQuote = preferredQuote || quotes[0];
+
+    return { id: data.trade_id, quote: selectedQuote };
   }
 
   async newTrade(coin: Coin, amount: number, address: string, webhook: string) {
     try {
       const { id: rateId, quote } = await this.newRate(coin, amount);
-      console.log({ rateId, provider: quote.provider });
 
       const { data } = await this.httpService.axiosRef.get<TrocadorTrade>(
         '/new_trade',
