@@ -59,14 +59,14 @@ export class TrocadorService {
     const preferredQuote = quotes.find(
       (q) => (q.kycrating === 'A' || q.kycrating === 'B') && q.eta <= 10,
     );
-    console.log({
+    this.logger.log({
       quotes: quotes.map((q) => ({
         provider: q.provider,
         eta: q.eta,
         kyc: q.kycrating,
       })),
     });
-    console.log({ preferredQuote });
+    this.logger.log({ preferredQuote });
 
     const selectedQuote = preferredQuote || quotes[0];
 
