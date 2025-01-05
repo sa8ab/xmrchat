@@ -52,6 +52,8 @@ export class TrocadorService {
       },
     );
 
+    this.logger.log({ data });
+
     const quotes = [...data.quotes.quotes]
       .sort((qa, qb) => qa.eta - qb.eta)
       .filter((q) => !this.EXCLUDED_EXCHANGES.includes(q.provider));
