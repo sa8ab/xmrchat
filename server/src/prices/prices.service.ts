@@ -78,7 +78,7 @@ export class PricesService {
       const { data } = await this.httpService.axiosRef.get(
         'https://api.diadata.org/v1/assetQuotation/Litecoin/0x0000000000000000000000000000000000000000',
       );
-      return data.price;
+      return data.price as number;
     } catch (error) {
       this.logger.warn('Error getting ltc price from ');
     }

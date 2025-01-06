@@ -11,4 +11,15 @@ export class PricesController {
   xmrPrice() {
     return this.pricesService.getMoneroUsdPrice();
   }
+
+  @Get('/prices')
+  async prices() {
+    const xmr = await this.pricesService.getMoneroUsdPrice();
+    const ltc = await this.pricesService.getLitecoinUsdPrice();
+
+    return {
+      xmr,
+      ltc,
+    };
+  }
 }
