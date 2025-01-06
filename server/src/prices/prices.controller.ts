@@ -7,12 +7,7 @@ import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 export class PricesController {
   constructor(private pricesService: PricesService) {}
 
-  @Get('/xmr')
-  xmrPrice() {
-    return this.pricesService.getMoneroUsdPrice();
-  }
-
-  @Get('/prices')
+  @Get('')
   async prices() {
     const xmr = await this.pricesService.getMoneroUsdPrice();
     const ltc = await this.pricesService.getLitecoinUsdPrice();
@@ -21,5 +16,10 @@ export class PricesController {
       xmr,
       ltc,
     };
+  }
+
+  @Get('/xmr')
+  xmrPrice() {
+    return this.pricesService.getMoneroUsdPrice();
   }
 }
