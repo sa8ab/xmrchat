@@ -226,7 +226,7 @@ export class TipsService {
     const savedPayment = await this.paymentsService.updatePaidAmount(
       payment.id,
       amount,
-      tip.swap ? 0.1 : 0, // threshold - accepts payment if paid amount has 0.1 less.
+      // tip.swap ? 0.1 : 0, // threshold - accepts payment if paid amount has 0.1 less.
     );
 
     if (!savedPayment.isPaid()) {
