@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import useVuelidate from "@vuelidate/core";
 import { PageLinkPLatform } from "~/types/enums";
 
 interface State {
@@ -15,6 +16,7 @@ interface State {
 }
 
 const { getMyLinks: getMyLinksReq, updateLinks } = useServices();
+const { url, notUrl } = useValidations();
 const toast = useToast();
 
 const { data } = useLazyAsyncData(
@@ -52,6 +54,8 @@ const state = reactive<State>({
 });
 
 const save = async () => {
+  const valid = await v.value.$validate();
+  if (!valid) return;
   try {
     state.saveError = undefined;
     state.saving = true;
@@ -70,6 +74,26 @@ const save = async () => {
     state.saving = false;
   }
 };
+
+const rules = computed(() => {
+  return {
+    [PageLinkPLatform.WEBSITE]: {
+      value: { url },
+    },
+    [PageLinkPLatform.X]: { value: { notUrl } },
+    [PageLinkPLatform.YOUTUBE]: { value: { notUrl } },
+    [PageLinkPLatform.TWITCH]: { value: { notUrl } },
+    [PageLinkPLatform.SUBSTACK]: { value: { notUrl } },
+    [PageLinkPLatform.RUMBLE]: { value: { notUrl } },
+  };
+});
+
+const v = useVuelidate(
+  rules,
+  computed(() => state.form.links)
+);
+
+const { getValidationAttrs } = useValidations(v);
 </script>
 
 <template>
@@ -101,7 +125,11 @@ const save = async () => {
     </p>
 
     <div class="grid md:grid-cols-2 gap-4">
-      <UFormGroup label="Website" v-for="platform in PageLinkPLatform">
+      <UFormGroup
+        label="Website"
+        v-for="platform in PageLinkPLatform"
+        :error="getValidationAttrs(`${platform}.value`).error"
+      >
         <template #label>
           <span class="flex items-center gap-1.5">
             <UIcon
@@ -114,7 +142,10 @@ const save = async () => {
             <span>{{ PAGE_LINKS[platform].inputLabel }}</span>
           </span>
         </template>
-        <UInput v-model="state.form.links[platform].value" />
+        <UInput
+          v-model="state.form.links[platform].value"
+          @blur="getValidationAttrs(`${platform}.value`).onBlur"
+        />
       </UFormGroup>
     </div>
 

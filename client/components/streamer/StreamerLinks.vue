@@ -20,7 +20,7 @@ const linksComputed = computed(() =>
 <template>
   <div class="flex gap-4" v-if="links && links.length">
     <UTooltip v-for="item in linksComputed" :text="item.name">
-      <a
+      <NuxtLink
         class="flex flex-col items-center justify-center gap-1"
         :href="item.linkCreator(item.value)"
         target="_blank"
@@ -29,7 +29,7 @@ const linksComputed = computed(() =>
           :name="item.icon"
           :class="['w-6 h-6', item.colorClassName, item.iconClassName]"
         />
-      </a>
+      </NuxtLink>
     </UTooltip>
   </div>
 </template>
