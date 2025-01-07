@@ -9,6 +9,6 @@ export default {
     sameAs: "Should be same as {otherName}",
     someFieldsAreIncorrect: "Some of the fields are not filled correctly.",
     url: "The link is invalid.",
-    notUrl: "Do not use the full link.",
+    notUrl: "Should not be a link.",
   },
 };

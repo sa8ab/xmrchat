@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import useVuelidate from "@vuelidate/core";
+import { helpers } from "@vuelidate/validators";
 import { PageLinkPLatform } from "~/types/enums";
 
 interface State {
@@ -76,15 +77,19 @@ const save = async () => {
 };
 
 const rules = computed(() => {
+  const notUrlWithMessage = helpers.withMessage(
+    "Only enter the name, not the full link.",
+    notUrl
+  );
   return {
     [PageLinkPLatform.WEBSITE]: {
       value: { url },
     },
-    [PageLinkPLatform.X]: { value: { notUrl } },
-    [PageLinkPLatform.YOUTUBE]: { value: { notUrl } },
-    [PageLinkPLatform.TWITCH]: { value: { notUrl } },
-    [PageLinkPLatform.SUBSTACK]: { value: { notUrl } },
-    [PageLinkPLatform.RUMBLE]: { value: { notUrl } },
+    [PageLinkPLatform.X]: { value: { notUrlWithMessage } },
+    [PageLinkPLatform.YOUTUBE]: { value: { notUrlWithMessage } },
+    [PageLinkPLatform.TWITCH]: { value: { notUrlWithMessage } },
+    [PageLinkPLatform.SUBSTACK]: { value: { notUrlWithMessage } },
+    [PageLinkPLatform.RUMBLE]: { value: { notUrlWithMessage } },
   };
 });
 
