@@ -203,8 +203,8 @@ const coinSelectOptions = computed(() => {
                 trailingIcon="i-heroicons-chevron-up-down-16-solid"
                 placeholder="XMR"
                 value-attribute="id"
-                :uiMenu="{ width: 'w-full' }"
-                :ui="{ wrapper: 'min-w-[120px]' }"
+                :uiMenu="{}"
+                :ui="{ wrapper: 'min-w-[200px]' }"
                 :disabled="!swapActive"
               >
                 <template #option="{ option }">
