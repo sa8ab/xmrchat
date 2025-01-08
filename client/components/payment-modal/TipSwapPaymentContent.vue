@@ -58,6 +58,22 @@ const showAddress = computed(() => {
   ].includes(status);
 });
 
+const renderMessage = computed(() => {
+  const status = props.createdTip?.swap?.status!;
+
+  if (status === SwapStatusEnum.WAITING) return "DEFAULT";
+  if (
+    [
+      SwapStatusEnum.CONFIRMING,
+      SwapStatusEnum.SENDING,
+      SwapStatusEnum.FINISHED,
+    ].includes(status)
+  )
+    return "Payment received.";
+
+  return undefined;
+});
+
 const showETA = computed(() => {
   const status = props.createdTip?.swap?.status!;
   return [SwapStatusEnum.WAITING, SwapStatusEnum.CONFIRMING].includes(status);
@@ -86,9 +102,9 @@ watch(
       </p>
       <template v-else>
         <template v-if="showAddress">
-          <UAlert color="emerald" variant="subtle">
+          <UAlert color="emerald" variant="subtle" v-if="renderMessage">
             <template #description>
-              <p class="text-base">
+              <p class="text-base" v-if="renderMessage === 'DEFAULT'">
                 Please send
                 <span class="font-bold">exactly </span>
                 <span class="font-bold"
@@ -96,6 +112,9 @@ watch(
                   {{ createdTip?.swap?.coin?.name }}</span
                 >
                 to this address for your xmrchat to be displayed.
+              </p>
+              <p class="text-base" v-else>
+                {{ renderMessage }}
               </p>
             </template>
           </UAlert>
