@@ -2,9 +2,12 @@
 interface Props {
   title?: string;
   expiresAt?: string;
+  cancelText?: string;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  cancelText: "Cancel",
+});
 
 const emit = defineEmits<{
   cancel: [];
@@ -18,7 +21,9 @@ const emit = defineEmits<{
     </template>
     <slot />
     <div class="flex justify-end pt-3">
-      <UButton variant="outline" @click="emit('cancel')">Cancel</UButton>
+      <UButton variant="outline" @click="emit('cancel')">{{
+        cancelText
+      }}</UButton>
     </div>
   </UCard>
 </template>

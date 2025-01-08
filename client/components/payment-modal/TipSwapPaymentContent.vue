@@ -74,6 +74,12 @@ const renderMessage = computed(() => {
   return undefined;
 });
 
+const renderCancelText = computed(() => {
+  const status = props.createdTip?.swap?.status!;
+  if (status !== SwapStatusEnum.WAITING) return "Close";
+  return "Cancel";
+});
+
 const showETA = computed(() => {
   const status = props.createdTip?.swap?.status!;
   return [SwapStatusEnum.WAITING, SwapStatusEnum.CONFIRMING].includes(status);
@@ -93,6 +99,7 @@ watch(
   <TipPaymentViewContainer
     title="Send Tip"
     @cancel="emit('cancel')"
+    :cancelText="renderCancelText"
     :expiresAt="props.createdTip?.tip.expiresAt"
   >
     <div class="w-full flex flex-col gap-2">
