@@ -111,10 +111,16 @@ const coinSelectOptions = computed(() => {
   return [
     {
       label: "XMR",
+      name: "Monero",
       id: null,
       image: "https://trocador.app/static/img/icons/xmr.svg",
     },
-    ...coins.value?.map((c) => ({ label: c.name, id: c.id, image: c.image })),
+    ...coins.value?.map((c) => ({
+      label: c.ticker.toUpperCase(),
+      name: c.name,
+      id: c.id,
+      image: c.image,
+    })),
   ];
 });
 </script>
@@ -204,13 +210,16 @@ const coinSelectOptions = computed(() => {
                 placeholder="XMR"
                 value-attribute="id"
                 :uiMenu="{}"
-                :ui="{ wrapper: 'min-w-[200px]' }"
+                :ui="{ wrapper: 'min-w-[160px]' }"
                 :disabled="!swapActive"
               >
                 <template #option="{ option }">
-                  <div class="flex items-center gap-2 truncate">
+                  <div class="flex items-center gap-2">
                     <img :src="option.image" class="w-4 h-4" />
-                    <span>{{ option.label }}</span>
+                    <div class="flex flex-col">
+                      <span>{{ option.label }}</span>
+                      <span class="text-xs text-pale">{{ option.name }}</span>
+                    </div>
                   </div>
                 </template>
               </USelectMenu>
