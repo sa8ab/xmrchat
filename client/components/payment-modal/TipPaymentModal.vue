@@ -122,7 +122,7 @@ onBeforeUnmount(() => disconnect());
             <p class="text-base">
               Please send minimum
               <span class="font-bold">{{ createdTip.amount }} XMR</span>
-              to the following address
+              to the following address for your xmrchat to be displayed.
             </p>
           </template>
         </UAlert>
