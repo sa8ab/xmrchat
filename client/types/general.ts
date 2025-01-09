@@ -1,4 +1,8 @@
-import type { PageSettingKey, SupportedDisplayCurrency } from "./enums";
+import type {
+  PageSettingKey,
+  SupportedDisplayCurrency,
+  SwapStatusEnum,
+} from "./enums";
 
 export type Numberic = string | number;
 
@@ -47,6 +51,8 @@ export interface TipCreationResponse {
   amount: string;
   id: number;
   paymentAddress: string;
+  tip: Tip;
+  swap?: Swap;
 }
 
 export interface StreamerPage {
@@ -81,6 +87,8 @@ export interface Tip {
   private?: boolean;
   paidAt?: string;
   payment?: TipPayment;
+  expiresAt?: string;
+  swap?: Swap;
 }
 
 export interface TipTier {
@@ -147,4 +155,28 @@ export interface PageLinkPLatform {}
 export interface PageLink {
   platform: PageLinkPLatform;
   value: string;
+}
+
+export interface Coin {
+  id: number;
+  name: string;
+  ticker: string;
+  network: string;
+  image: string;
+  minimum: number;
+  maximum: number;
+}
+
+export interface Swap {
+  id: number;
+  platform: string;
+  swapId: string;
+  inputAmount: string;
+  swapAddress: string;
+  status: SwapStatusEnum;
+  coin: Coin;
+  eta: number;
+  statusMessage: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

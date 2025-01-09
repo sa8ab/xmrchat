@@ -6,21 +6,31 @@ export interface PaymentQRCodeProps {
   address?: string;
   amount?: Numberic;
   description?: string;
+  ticker: string;
 }
 
 const props = defineProps<PaymentQRCodeProps>();
 
 const renderValue = computed(() => {
-  if (!props.address || !props.amount) return undefined;
-  return `monero:${props.address}?tx_amount=${props.amount}&tx_description=${
-    props.description || ""
-  }`;
+  return generateWalletLink({
+    ticker: props.ticker,
+    address: props.address,
+    amount: props.amount,
+    description: props.description,
+  });
 });
 </script>
 
 <template>
-  <div v-if="address" class="flex flex-col gap-3 items-center pb-4">
-    <span>OR</span>
+  <div v-if="address" class="flex flex-col gap-2 items-center pt-2">
+    <UButton
+      :to="renderValue"
+      target="_blank"
+      icon="i-heroicons-arrow-top-right-on-square-20-solid"
+      trailing
+    >
+      Open In My Wallet
+    </UButton>
     <QrcodeVue
       :margin="4"
       :value="renderValue"
@@ -29,7 +39,6 @@ const renderValue = computed(() => {
       class="rounded-lg"
     >
     </QrcodeVue>
-    <UButton block :to="renderValue" target="_blank">Open In My Wallet</UButton>
   </div>
 </template>
 

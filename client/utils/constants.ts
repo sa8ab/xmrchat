@@ -1,4 +1,8 @@
-import { PageLinkPLatform, SupportedDisplayCurrency } from "~/types/enums";
+import {
+  PageLinkPLatform,
+  SupportedDisplayCurrency,
+  SwapStatusEnum,
+} from "~/types/enums";
 
 export const PAGE_LINKS = {
   [PageLinkPLatform.X]: {
@@ -55,3 +59,30 @@ export const SUPPORTED_TIP_VALUES = [
   { value: SupportedDisplayCurrency.XMR, label: "XMR" },
   { value: SupportedDisplayCurrency.USD, label: "USD" },
 ];
+
+export const SWAP_STATUSES = {
+  [SwapStatusEnum.CONFIRMING]: {
+    label: "Confirming",
+    color: "green",
+  },
+  [SwapStatusEnum.WAITING]: {
+    label: "Waiting",
+    color: "orange",
+  },
+  [SwapStatusEnum.SENDING]: {
+    label: "Sending",
+    color: "green",
+  },
+  [SwapStatusEnum.FINISHED]: {
+    label: "Finished",
+    color: "green",
+  },
+  [SwapStatusEnum.EXPIRED]: {
+    label: "Expired",
+    color: "red",
+  },
+  [SwapStatusEnum.FAILED]: {
+    label: "Failed",
+    color: "red",
+  },
+};

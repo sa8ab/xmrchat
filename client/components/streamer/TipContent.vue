@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import useVuelidate from "@vuelidate/core";
 import type {
-  CreateFormFields,
   TipCreationResponse,
   TipFormFields,
-  Tip,
   StreamerPage,
+  Coin,
 } from "~/types";
 
 const props = defineProps<{
@@ -15,8 +14,10 @@ const props = defineProps<{
 
 const { required, minLength, maxLength, minValue } = useValidations();
 const { sendTipToStreamer: sendTipToStreamerApi, getPrice } = useServices();
+const coins = useState<Coin[]>("coins");
+const swapActive = useState<boolean>("swapActive");
 
-const { minUsdAmount, price } = useXmrPrice({
+const { minUsdAmount, price, minSwapUSD } = useXmrPrice({
   pageMinXmr: computed(() => props.streamerPage?.minTipAmount),
 });
 
@@ -29,6 +30,7 @@ interface State {
   buttonsAmount: any;
   loading: boolean;
   errorMessage?: string;
+  selectedCoin?: number;
 }
 
 const state = reactive<State>({
@@ -41,13 +43,19 @@ const state = reactive<State>({
   buttonsAmount: [3, 5, 10, 12],
   loading: false,
   errorMessage: undefined,
+  selectedCoin: undefined,
 });
 
 const v = useVuelidate<State["form"]>(
   computed(() => {
     return {
       name: { required, minLength: minLength(2), maxLength: maxLength(40) },
-      amount: { required, minValue: minValue(minUsdAmount.value) },
+      amount: {
+        required,
+        minValue: minValue(
+          state.selectedCoin ? minSwapUSD.value : minUsdAmount.value
+        ),
+      },
       message: { minLength: minLength(3), maxLength: maxLength(255) },
     };
   }),
@@ -74,6 +82,7 @@ const handleSubmit = async () => {
       ...state.form,
       message: state.form.message || undefined,
       amount: xmrAmount,
+      coinId: state.selectedCoin,
     });
 
     emit("done", response);
@@ -97,6 +106,23 @@ defineExpose({
 });
 
 const messageLength = computed(() => state.form.message?.length || 0);
+
+const coinSelectOptions = computed(() => {
+  return [
+    {
+      label: "XMR",
+      name: "Monero",
+      id: null,
+      image: "https://trocador.app/static/img/icons/xmr.svg",
+    },
+    ...coins.value?.map((c) => ({
+      label: c.ticker.toUpperCase(),
+      name: c.name,
+      id: c.id,
+      image: c.image,
+    })),
+  ];
+});
 </script>
 
 <template>
@@ -135,9 +161,13 @@ const messageLength = computed(() => state.form.message?.length || 0);
             <TipTiers
               :tiers="streamerPage?.tiers"
               @select="state.form.amount = $event"
+              v-if="streamerPage?.tiers?.length"
             />
             <template #hint>
-              <span class="text-xs">Minimum ${{ minUsdAmount }}</span>
+              <span class="text-xs" v-if="state.selectedCoin"
+                >Swap Minimum ${{ minSwapUSD }}</span
+              >
+              <span class="text-xs" v-else>Minimum ${{ minUsdAmount }}</span>
             </template>
           </UFormGroup>
         </div>
@@ -170,17 +200,47 @@ const messageLength = computed(() => state.form.message?.length || 0);
           </UTooltip>
         </div>
 
-        <div class="single">
+        <div class="singe">
+          <div class="flex">
+            <UFormGroup label="Tip coin">
+              <USelectMenu
+                :options="coinSelectOptions"
+                v-model="state.selectedCoin"
+                trailingIcon="i-heroicons-chevron-up-down-16-solid"
+                placeholder="XMR"
+                value-attribute="id"
+                :uiMenu="{}"
+                :ui="{ wrapper: 'min-w-[160px]' }"
+                :disabled="!swapActive"
+              >
+                <template #option="{ option }">
+                  <div class="flex items-center gap-2">
+                    <img :src="option.image" class="w-4 h-4" />
+                    <div class="flex flex-col">
+                      <span>{{ option.label }}</span>
+                      <span class="text-xs text-pale">{{ option.name }}</span>
+                    </div>
+                  </div>
+                </template>
+              </USelectMenu>
+              <template #help v-if="!swapActive">
+                <p class="text-xs">Swap is currently unavailable.</p>
+              </template>
+            </UFormGroup>
+          </div>
+          <!-- <p v-if="!false" class="text-pale text-sm mt-1"></p> -->
+        </div>
+
+        <div class="single" v-if="state.errorMessage">
           <UAlert
             color="red"
             :description="state.errorMessage"
             title="Tip Creation Failed"
-            v-if="state.errorMessage"
           >
           </UAlert>
         </div>
 
-        <div class="flex">
+        <div class="">
           <UButton
             size="lg"
             type="submit"

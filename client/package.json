@@ -12,6 +12,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@chenfengyuan/vue-countdown": "^2.1.2",
     "@iconify-json/mdi": "^1.1.66",
     "@iconify-json/simple-icons": "^1.2.14",
     "@iconify-json/tabler": "^1.2.9",
@@ -25,6 +26,7 @@
     "@vuelidate/validators": "^2.0.4",
     "axios": "^1.6.8",
     "dayjs": "^1.11.11",
+    "dayjs-nuxt": "^2.1.11",
     "gsap": "^3.12.5",
     "lodash.debounce": "^4.0.8",
     "nuxt": "^3.11.2",

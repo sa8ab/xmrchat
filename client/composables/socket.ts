@@ -1,10 +1,11 @@
 import { type Socket, io } from "socket.io-client";
-import type { PaymentSocketMessage } from "~/types";
+import type { Swap } from "~/types";
 
 interface PaymentSocketOptions<T> {
   onTipEvent?: (...args: [T]) => any;
   onPaymentEvent?: (...args: [T]) => any;
   onPageTipEvent?: (...args: [T]) => any;
+  onSwapStatusChangeEvent?: (...args: [Swap]) => any;
 }
 
 interface TipPaymentInitParams {
@@ -42,6 +43,8 @@ export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
     socket.value.on("tip", handleTipEvent);
 
     socket.value.on("newTip", handlePageTipEvent);
+
+    socket.value.on("swap-status-change", handleSwapStatusChange);
   };
 
   const handleConnect = () => {
@@ -63,6 +66,10 @@ export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
 
   const handlePageTipEvent = (v: any) => {
     options?.onPageTipEvent?.(v);
+  };
+
+  const handleSwapStatusChange = (v: any) => {
+    options?.onSwapStatusChangeEvent?.(v);
   };
 
   const disconnect = () => {

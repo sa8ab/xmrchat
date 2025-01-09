@@ -7,6 +7,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Namespace, Socket } from 'socket.io';
 import { Payment } from 'src/payments/payment.entity';
+import { Swap } from 'src/swaps/swap.entity';
 
 @WebSocketGateway({ namespace: '/tips' })
 export class TipsGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -28,5 +29,9 @@ export class TipsGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   notifyTipPayment(tipId: number, payment: Payment) {
     return this.server.to(`tip-${tipId}`).emit('tip', payment);
+  }
+
+  notifySwapStatusChange(tipId: number, swap: Swap) {
+    return this.server.to(`tip-${tipId}`).emit('swap-status-change', swap);
   }
 }

@@ -1,5 +1,6 @@
 import {
   IsBoolean,
+  IsNumber,
   IsOptional,
   IsString,
   MaxLength,
@@ -25,4 +26,8 @@ export class CreateTipDto {
 
   @IsBoolean()
   private: boolean;
+
+  @IsOptional()
+  @IsNumber()
+  coinId?: number;
 }

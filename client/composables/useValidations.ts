@@ -7,6 +7,7 @@ import {
   minLength as baseMinLength,
   maxLength as baseMaxLength,
   sameAs as baseSameAs,
+  url as baseUrl,
   helpers,
 } from "@vuelidate/validators";
 // import { getProperty } from "~/utils";
@@ -21,6 +22,12 @@ export const useValidations = (generalV?: Ref<Validation>) => {
   const numberic = helpers.withMessage(
     () => t("validations.numberic"),
     baseNumberic
+  );
+
+  const url = helpers.withMessage(() => t("validations.url"), baseUrl);
+  const notUrl = helpers.withMessage(
+    () => t("validations.notUrl"),
+    (...params) => (params[0] ? !baseUrl.$validator(...params) : true)
   );
 
   const minLength = (...v: Parameters<typeof baseMinLength>) =>
@@ -111,6 +118,8 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     maxLength,
     minValue,
     sameAs,
+    url,
+    notUrl,
     streamerSlug,
     streamerSlugInternal,
     moneroPrimaryAddress,

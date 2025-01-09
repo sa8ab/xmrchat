@@ -23,6 +23,10 @@ import { PagesGateway } from 'src/pages/pages.gateway';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { clearMessage } from 'src/shared/utils';
 import { PricesService } from 'src/prices/prices.service';
+import { SwapsService } from 'src/swaps/swaps.service';
+import { Swap } from 'src/swaps/swap.entity';
+import { Coin } from 'src/integrations/trocador/coin.entity';
+import { TrocadorTrade } from 'src/shared/types';
 
 @Injectable()
 export class TipsService {
@@ -36,6 +40,7 @@ export class TipsService {
     private tipsGateway: TipsGateway,
     private notificationsService: NotificationsService,
     private pricesService: PricesService,
+    private swapsService: SwapsService,
     @InjectRepository(Tip) private repo: Repository<Tip>,
   ) {}
 
@@ -54,6 +59,8 @@ export class TipsService {
     const result = await this.repo
       .createQueryBuilder('tip')
       .leftJoinAndSelect('tip.payment', 'payment')
+      .leftJoinAndSelect('tip.swap', 'swap')
+      .leftJoinAndSelect('swap.coin', 'coin')
       .where('tip.page_id = :pageId', { pageId: page.id })
       .andWhere('payment.paid_at IS NOT NULL')
       .orderBy('tip.created_at', 'DESC')
@@ -67,6 +74,7 @@ export class TipsService {
         message: hidePrivate ? '' : message,
       };
     });
+
     return privateFiltered;
   }
 
@@ -95,13 +103,13 @@ export class TipsService {
     if (!page) throw new NotFoundException('Page is not found.');
 
     const xmrUnits = MoneroUtils.xmrToAtomicUnits(payload.amount);
-
     const configMin = this.configService.get('MIN_TIP_AMOUNT');
 
     const minTipAmountXmr = MoneroUtils.atomicUnitsToXmr(
       page.minTipAmount || configMin,
     );
 
+    // Validate page minimum
     if (
       BigInt(xmrUnits) <
       BigInt(page.minTipAmount || this.configService.get('MIN_TIP_AMOUNT'))
@@ -110,11 +118,24 @@ export class TipsService {
         `Tip amount must be more than or equal to ${minTipAmountXmr} XMR.`,
       );
 
+    // Validate coin minimum
+    if (payload.coinId) {
+      const { coin, valid } = await this.swapsService.validateXmrAmount(
+        parseFloat(payload.amount),
+      );
+      if (!valid)
+        throw new BadRequestException(
+          `The amount for tipping this coin should be more than ${coin.minimum} XMR.`,
+        );
+    }
+
     const { integratedAddress, paymentId } = makeIntegratedAddress(
       page.primaryAddress,
     );
 
-    this.logger.log({ integratedAddress, paymentId });
+    this.logger.log(
+      `Tip address ${integratedAddress} - payment id: ${paymentId}`,
+    );
 
     // Add listener webhook on lws
     let eventId = '';
@@ -130,11 +151,28 @@ export class TipsService {
       throw new BadRequestException('The page has not setup tipping yet.');
     }
 
+    // TODO: If coin, initiate a swap
+
+    let baseSwap: TrocadorTrade | undefined;
+    let inputCoin: Coin | undefined;
+    if (payload.coinId) {
+      const res = await this.swapsService.initSwap({
+        address: integratedAddress,
+        amountTo: parseFloat(payload.amount),
+        coinId: payload.coinId,
+      });
+      baseSwap = res.baseSwap;
+      inputCoin = res.coin;
+    }
+
+    console.log(baseSwap || 'Not swap.');
+
     // Create and save tip record
     const createdTip = this.repo.create({
       message: payload.message,
       name: payload.name,
       private: payload.private,
+      expiresAt: baseSwap?.details?.expiresAt || null,
       page: { id: page.id },
     });
 
@@ -147,11 +185,22 @@ export class TipsService {
       tip: { id: tip.id },
     });
 
+    // Save swap
+    let swap: Swap | undefined;
+    if (baseSwap) {
+      swap = await this.swapsService.saveSwap({
+        baseSwap,
+        coin: inputCoin,
+        tip,
+      });
+    }
+
     return {
       amount: payload.amount,
       paymentAddress: integratedAddress,
       tip,
       id: tip.id,
+      swap,
     };
   }
 
@@ -172,9 +221,12 @@ export class TipsService {
       return;
     }
 
+    this.logger.log(`Tip ${tip.swap ? 'Has Swap' : 'Does not have swap'}.`);
+
     const savedPayment = await this.paymentsService.updatePaidAmount(
       payment.id,
       amount,
+      // tip.swap ? 0.1 : 0, // threshold - accepts payment if paid amount has 0.1 less.
     );
 
     if (!savedPayment.isPaid()) {

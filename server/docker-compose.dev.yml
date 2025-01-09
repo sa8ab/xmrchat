@@ -1,5 +1,5 @@
 services:
-  posgtres:
+  postgres:
     image: postgres:14-alpine
     ports:
       - ${DATABASE_PORT}:5432
@@ -10,9 +10,31 @@ services:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=${DATABASE_NAME}
 
+  postgres-backup:
+    image: postgres:14-alpine
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+    volumes:
+      - ./backups:/backups
+    entrypoint: >
+      sh -c "
+      mkdir -p /backups &&
+      while true; do
+        sleep 10
+        PGPASSWORD=$$POSTGRES_PASSWORD pg_dump -U $$POSTGRES_USER -h postgres $$POSTGRES_DB > /backups/backup-$$(date +%Y%m%d%H%M%S).sql &&
+        echo Backup created at $(date) &&
+        ls -1 /backups/*.sql | head -n -4 | xargs rm -f
+        sleep 300;
+      done
+      "
+
   redis:
     image: redis/redis-stack:latest
-    restart: always
+    restart: unless-stopped
     ports:
       - ${REDIS_PORT}:6379
 

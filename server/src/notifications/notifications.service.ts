@@ -47,6 +47,20 @@ export class NotificationsService {
     return this.emailService.sendEmail(recepients, options);
   }
 
+  sendSwapStatusEmail(active: boolean) {
+    const text = active
+      ? 'Swap functionality is live.'
+      : 'Swap functionality is disabled due to error on exchange.';
+
+    const recepients = this.config.get('PAGE_REPORT_RECEPIENTS').split(' ');
+
+    return this.emailService.sendEmail(recepients, {
+      subject: `Swap status change - ${active ? 'Enabled' : 'Disabled'}`,
+      text,
+      html: text,
+    });
+  }
+
   getTipMessage(params: {
     usdAmount: string;
     message: string;

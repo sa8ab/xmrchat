@@ -18,6 +18,9 @@ import { PricesModule } from './prices/prices.module';
 import { PageSettingsModule } from './page-settings/page-settings.module';
 import { LinksModule } from './links/links.module';
 import { TwitchModule } from './integrations/twitch.module';
+import { SwapsModule } from './swaps/swaps.module';
+import { TrocadorModule } from './integrations/trocador/trocador.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -42,6 +45,7 @@ import { TwitchModule } from './integrations/twitch.module';
       inject: [ConfigService],
       isGlobal: true,
     }),
+    ScheduleModule.forRoot(),
     UsersModule,
     DatabaseModule,
     NotificationsModule,
@@ -55,6 +59,8 @@ import { TwitchModule } from './integrations/twitch.module';
     PageSettingsModule,
     LinksModule,
     TwitchModule,
+    SwapsModule,
+    TrocadorModule,
   ],
   controllers: [AppController],
   providers: [AppService],

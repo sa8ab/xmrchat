@@ -5,7 +5,9 @@ export const getCachedPrice = defineCachedFunction(
     const config = useRuntimeConfig(event);
 
     const price = await $fetch(
-      `${config.public.apiServerSideBaseUrl}/prices/xmr`
+      `${
+        config.public.apiServerSideBaseUrl || config.public.apiBaseUrl
+      }/prices/xmr`
     );
 
     return price;
@@ -13,5 +15,6 @@ export const getCachedPrice = defineCachedFunction(
   {
     maxAge: 60 * 4,
     swr: true,
+    getKey: () => `xmr-price`,
   }
 );

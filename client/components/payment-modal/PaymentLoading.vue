@@ -1,14 +1,24 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const props = withDefaults(
+  defineProps<{
+    showLoading?: boolean;
+    text?: string;
+  }>(),
+  {
+    showLoading: true,
+    text: "Waiting For Payment",
+  }
+);
+</script>
 
 <template>
-  <div class="flex flex-col items-center gap-2">
-    <div class="icon">
-      <UIcon
-        class="animate-spin w-[32px] h-[32px]"
-        name="i-heroicons-arrow-path-20-solid"
-      />
-    </div>
-    <span>Waiting For Payment</span>
+  <div class="flex justify-center items-center gap-2">
+    <UIcon
+      class="animate-spin w-[18px] h-[18px]"
+      name="i-heroicons-arrow-path-20-solid"
+      v-if="showLoading"
+    />
+    <span class="text-sm">{{ text }}</span>
   </div>
 </template>
 

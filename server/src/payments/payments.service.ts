@@ -30,16 +30,22 @@ export class PaymentsService {
     return this.repo.findOneBy({ id });
   }
 
-  async updatePaidAmount(id: number, newAmount: number | string) {
+  async updatePaidAmount(
+    id: number,
+    newAmount: number | string,
+    allowThreshold: number = 0,
+  ) {
     const payment = await this.findOneById(id);
     if (!payment) throw new BadRequestException('Payment is not found');
 
     const amount = Number(payment.amount);
     const newPaidAmount = Number(payment.paidAmount) + Number(newAmount);
 
+    const minimumAmountAsPaid = amount - allowThreshold * amount;
+
     const newPayment = Object.assign(payment, {
       paidAmount: `${newPaidAmount}`,
-      paidAt: newPaidAmount >= amount ? new Date() : null,
+      paidAt: newPaidAmount >= minimumAmountAsPaid ? new Date() : null,
     });
 
     return this.repo.save(newPayment);

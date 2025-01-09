@@ -1,9 +1,5 @@
 <script lang="ts" setup>
-import type {
-  PaymentSocketMessage,
-  TipCreationResponse,
-  TipEventData,
-} from "~/types";
+import type { TipCreationResponse, TipEventData } from "~/types";
 
 const props = defineProps<{
   createdTip?: TipCreationResponse;
@@ -39,6 +35,14 @@ const { init, disconnect, reconnect, connectionStatus } =
       disconnect();
       emit("paid");
     },
+
+    onSwapStatusChangeEvent: (swap) => {
+      console.log(swap);
+      if (props.createdTip?.swap) {
+        props.createdTip.swap.status = swap.status;
+        props.createdTip.swap.statusMessage = swap.statusMessage;
+      }
+    },
   });
 
 const handleRetry = () => {
@@ -71,13 +75,24 @@ onBeforeUnmount(() => disconnect());
 
 <template>
   <UModal v-model="active" preventClose>
+    <TipSwapPaymentContent
+      v-if="createdTip?.swap"
+      @retry="handleRetry"
+      @cancel="cancelPayment"
+      :createdTip="createdTip"
+      :connectionStatus="connectionStatus"
+    >
+    </TipSwapPaymentContent>
     <PaymentModalContent
+      v-else
       title="Send Tip"
       :qrCode="{
         address: createdTip?.paymentAddress,
         amount: createdTip?.amount,
+        ticker: 'xmr',
       }"
       :connectionStatus="connectionStatus"
+      :expiresAt="createdTip?.tip.expiresAt"
       @cancel="cancelPayment"
       @retry="handleRetry"
     >
@@ -102,12 +117,9 @@ onBeforeUnmount(() => disconnect());
         </template>
       </UAlert>
       <template v-if="createdTip">
-        <UAlert color="emerald" variant="subtle" class="text-xl">
-          <template #title>
-            <span>NOTE</span>
-          </template>
+        <UAlert color="emerald" variant="subtle">
           <template #description>
-            <p class="text-[15px] leading-6">
+            <p class="text-base">
               Please send minimum
               <span class="font-bold">{{ createdTip.amount }} XMR</span>
               to the following address

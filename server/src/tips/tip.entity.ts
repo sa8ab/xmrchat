@@ -1,5 +1,6 @@
 import { Payment } from '../payments/payment.entity';
 import { Page } from '../pages/page.entity';
+import { Swap } from '../swaps/swap.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -32,6 +33,9 @@ export class Tip {
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 
+  @Column({ type: 'timestamptz', nullable: true })
+  expiresAt: Date;
+
   @ManyToOne(() => Page, { onDelete: 'CASCADE' })
   @JoinColumn({ foreignKeyConstraintName: 'tips_page_id_fkey' })
   page: Page;
@@ -41,4 +45,7 @@ export class Tip {
 
   @OneToOne(() => Payment, (p: Payment) => p.tip)
   payment: Payment;
+
+  @OneToOne(() => Swap, (s: Swap) => s.tip, { eager: true })
+  swap: Swap;
 }

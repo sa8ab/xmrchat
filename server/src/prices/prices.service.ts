@@ -11,6 +11,7 @@ export class PricesService {
     private httpService: HttpService,
   ) {}
 
+  // Monero
   async getMoneroUsdPrice() {
     const cachedPrice = await this.cacheManager.get('xmr-usd-price');
 
@@ -40,7 +41,7 @@ export class PricesService {
       );
       return data.USD?.avg_6h;
     } catch (error) {
-      this.logger.log('Error getting price from localmonero');
+      this.logger.warn('Error getting price from localmonero');
     }
   }
 
@@ -52,12 +53,39 @@ export class PricesService {
 
       return data.USD;
     } catch (error) {
-      this.logger.log('Error getting price from cryptocompare');
+      this.logger.warn('Error getting price from cryptocompare');
     }
   }
 
-  async cachePrice(price: any) {
-    await this.cacheManager.set('xmr-usd-price', price, {
+  // Litecoin
+  async getLitecoinUsdPrice() {
+    const cachedPrice = await this.cacheManager.get('ltc-usd-price');
+
+    if (cachedPrice) return cachedPrice;
+
+    const priceDiadata = await this.getFromLocalmonero();
+
+    if (priceDiadata) {
+      await this.cachePrice(priceDiadata, 'ltc-usd-price');
+      return priceDiadata;
+    }
+
+    return 100;
+  }
+
+  async getLtcFromDiadata() {
+    try {
+      const { data } = await this.httpService.axiosRef.get(
+        'https://api.diadata.org/v1/assetQuotation/Litecoin/0x0000000000000000000000000000000000000000',
+      );
+      return data.price as number;
+    } catch (error) {
+      this.logger.warn('Error getting ltc price from ');
+    }
+  }
+
+  async cachePrice(price: any, key: string = 'xmr-usd-price') {
+    await this.cacheManager.set(key, price, {
       ttl: 60 * 60,
     } as any);
     return price;

@@ -37,3 +37,25 @@ export enum LinkPlatformEnum {
   RUMBLE = 'rumble',
   SUBSTACK = 'substack',
 }
+
+export enum TrocadorStatusEnum {
+  WAITING = 'waiting',
+  CONFIRMING = 'confirming',
+  SENDING = 'sending',
+  FINISHED = 'finished',
+
+  FAILED = 'failed',
+  EXPIRED = 'expired',
+  HALTED = 'halted',
+  REFUNDED = 'refunded',
+}
+
+export enum SwapStatusEnum {
+  WAITING = 'waiting', // Waiting for payment
+  CONFIRMING = 'confirming', // Paid and confirming the payment
+  SENDING = 'sending',
+  FINISHED = 'finished',
+
+  FAILED = 'failed',
+  EXPIRED = 'expired', // swap duration expired
+}

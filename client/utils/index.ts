@@ -1,4 +1,4 @@
-import type { StreamerPage } from "~/types";
+import type { Numberic, StreamerPage } from "~/types";
 
 const getFirstErrorMessage = (message: any) => {
   if (Array.isArray(message)) return message[0];
@@ -39,4 +39,22 @@ export const arrayToObject = <T extends Record<K, any>, K extends keyof T>(
     }
     return result;
   }, {} as Record<string, T>);
+};
+
+export const generateWalletLink = (data: {
+  ticker: string;
+  address?: string;
+  amount?: Numberic;
+  description?: string;
+}) => {
+  if (!data.address || !data.amount) return undefined;
+  if (data.ticker === "xmr")
+    return `monero:${data.address}?tx_amount=${data.amount}&tx_description=${
+      data.description || ""
+    }`;
+
+  if (data.ticker === "ltc")
+    return `litecoin:${data.address}?amount=${data.amount}`;
+
+  return undefined;
 };
