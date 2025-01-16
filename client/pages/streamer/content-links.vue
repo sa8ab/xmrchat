@@ -47,6 +47,11 @@ const state = reactive<State>({
       x: {},
       website: {},
       youtube: {},
+      tiktok: {},
+      odysee: {},
+      "podcast-rss": {},
+      instagram: {},
+      telegram: {},
     },
     name: undefined,
     searchTerms: undefined,
@@ -82,15 +87,17 @@ const rules = computed(() => {
     "Only enter the name, not the full link.",
     notUrl
   );
+  const { WEBSITE, PODCAST_RSS, ...rest } = ContentLinkPlatformEnum;
+
+  const notUrls: Record<string, any> = {};
+  Object.values(rest).forEach((nUrl) => {
+    notUrls[nUrl] = { value: { notUrlWithMessage } };
+  });
+
   return {
-    [ContentLinkPlatformEnum.WEBSITE]: {
-      value: { url },
-    },
-    [ContentLinkPlatformEnum.X]: { value: { notUrlWithMessage } },
-    [ContentLinkPlatformEnum.YOUTUBE]: { value: { notUrlWithMessage } },
-    [ContentLinkPlatformEnum.TWITCH]: { value: { notUrlWithMessage } },
-    [ContentLinkPlatformEnum.SUBSTACK]: { value: { notUrlWithMessage } },
-    [ContentLinkPlatformEnum.RUMBLE]: { value: { notUrlWithMessage } },
+    [WEBSITE]: { value: { url } },
+    [PODCAST_RSS]: { value: { url } },
+    ...notUrls,
   };
 });
 
@@ -133,21 +140,21 @@ const { getValidationAttrs } = useValidations(v);
     <div class="grid md:grid-cols-2 gap-4">
       <UFormGroup
         label="Website"
-        v-for="contentLink in CONTENT_LINKS"
-        :error="getValidationAttrs(`${contentLink.platform}.value`).error"
+        v-for="p in ContentLinkPlatformEnum"
+        :error="getValidationAttrs(`${p}.value`).error"
       >
         <template #label>
           <span class="flex items-center gap-1.5">
             <UIcon
-              :name="contentLink.icon"
-              :class="['w-[16px] h-[16px]', contentLink.colorClassName]"
+              :name="getContentLink(p).icon"
+              :class="['w-[16px] h-[16px]', getContentLink(p).colorClassName]"
             />
-            <span>{{ contentLink.inputLabel }}</span>
+            <span>{{ getContentLink(p).inputLabel }}</span>
           </span>
         </template>
         <UInput
-          v-model="state.form.links[contentLink.platform].value"
-          @blur="getValidationAttrs(`${contentLink.platform}.value`).onBlur"
+          v-model="state.form.links[p].value"
+          @blur="getValidationAttrs(`${p}.value`).onBlur"
         />
       </UFormGroup>
     </div>

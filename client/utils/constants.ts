@@ -4,9 +4,8 @@ import {
   SwapStatusEnum,
 } from "~/types/enums";
 
-export const CONTENT_LINKS = [
-  {
-    platform: ContentLinkPlatformEnum.X,
+export const CONTENT_LINKS = {
+  [ContentLinkPlatformEnum.X]: {
     name: "X",
     colorClassName: "",
     iconClassName: "",
@@ -14,8 +13,7 @@ export const CONTENT_LINKS = [
     inputLabel: "Twitter Username",
     linkCreator: (v?: string) => `https://x.com/${v}`,
   },
-  {
-    platform: ContentLinkPlatformEnum.WEBSITE,
+  [ContentLinkPlatformEnum.WEBSITE]: {
     name: "Website",
     colorClassName: "",
     iconClassName: "",
@@ -23,8 +21,7 @@ export const CONTENT_LINKS = [
     inputLabel: "Website link",
     linkCreator: (v?: string) => v,
   },
-  {
-    platform: ContentLinkPlatformEnum.YOUTUBE,
+  [ContentLinkPlatformEnum.YOUTUBE]: {
     name: "Youtube",
     colorClassName: "text-[#FF0000]",
     iconClassName: "",
@@ -32,8 +29,7 @@ export const CONTENT_LINKS = [
     inputLabel: "Youtube channel",
     linkCreator: (v?: string) => `https://www.youtube.com/@${v}`,
   },
-  {
-    platform: ContentLinkPlatformEnum.RUMBLE,
+  [ContentLinkPlatformEnum.RUMBLE]: {
     name: "Rumble",
     colorClassName: "text-[#85c742]",
     iconClassName: "",
@@ -41,8 +37,7 @@ export const CONTENT_LINKS = [
     inputLabel: "Rumble username",
     linkCreator: (v?: string) => `https://rumble.com/c/${v}`,
   },
-  {
-    platform: ContentLinkPlatformEnum.TWITCH,
+  [ContentLinkPlatformEnum.TWITCH]: {
     name: "Twitch",
     colorClassName: "text-[#6441a5]",
     iconClassName: "",
@@ -50,8 +45,7 @@ export const CONTENT_LINKS = [
     inputLabel: "Twitch username",
     linkCreator: (v?: string) => `https://www.twitch.tv/${v}`,
   },
-  {
-    platform: ContentLinkPlatformEnum.SUBSTACK,
+  [ContentLinkPlatformEnum.SUBSTACK]: {
     name: "Substack",
     colorClassName: "text-[#FF6719]",
     iconClassName: "max-w-5 max-h-5",
@@ -59,7 +53,48 @@ export const CONTENT_LINKS = [
     inputLabel: "Substack username",
     linkCreator: (v?: string) => `https://substack.com/@${v}`,
   },
-];
+  [ContentLinkPlatformEnum.ODYSEE]: {
+    name: "Odysee",
+    colorClassName: "text-[#de0050]",
+    iconClassName: "",
+    icon: "i-simple-icons-odysee",
+    inputLabel: "Odysee username",
+    linkCreator: (v?: string) => `https://odysee.com/@${v}`,
+  },
+  [ContentLinkPlatformEnum.INSTAGRAM]: {
+    name: "Instagram",
+    colorClassName: "text-[#E1306C]",
+    iconClassName: "",
+    icon: "i-tabler-brand-instagram",
+    inputLabel: "Instagram username",
+    linkCreator: (v?: string) => `https://instagram.com/${v}`,
+  },
+  [ContentLinkPlatformEnum.TELEGRAM]: {
+    name: "Telegram",
+    colorClassName: "text-[#24A1DE]",
+    iconClassName: "",
+    icon: "i-tabler-brand-telegram",
+    inputLabel: "Telegram username",
+    linkCreator: (v?: string) => `https://t.me/${v}`,
+  },
+  [ContentLinkPlatformEnum.TIKTOK]: {
+    name: "Tiktok",
+    colorClassName: "text-[#FE2C55]",
+    iconClassName: "",
+    icon: "i-tabler-brand-tiktok",
+    inputLabel: "Tiktok username",
+    linkCreator: (v?: string) => `https://tiktok.com/@${v}`,
+  },
+  [ContentLinkPlatformEnum.PODCAST_RSS]: {
+    platform: ContentLinkPlatformEnum.ODYSEE,
+    name: "Podcast RSS",
+    colorClassName: "text-[#ee802f]",
+    iconClassName: "",
+    icon: "i-tabler-rss",
+    inputLabel: "Podcast RSS Link",
+    linkCreator: (v?: string) => `${v}`,
+  },
+};
 
 export const SUPPORTED_TIP_VALUES = [
   { value: SupportedDisplayCurrency.XMR, label: "XMR" },
