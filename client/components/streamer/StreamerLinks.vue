@@ -20,7 +20,7 @@ const linksComputed = computed(() =>
 </script>
 
 <template>
-  <div class="flex gap-4" v-if="links && links.length">
+  <div class="flex gap-4 flex-wrap" v-if="links && links.length">
     <UTooltip v-for="item in linksComputed" :text="item.name">
       <NuxtLink
         class="flex flex-col items-center justify-center gap-1"

@@ -36,6 +36,11 @@ export enum LinkPlatformEnum {
   TWITCH = 'twitch',
   RUMBLE = 'rumble',
   SUBSTACK = 'substack',
+  ODYSEE = 'odysee',
+  TIKTOK = 'tiktok',
+  INSTAGRAM = 'instagram',
+  TELEGRAM = 'telegram',
+  PODCAST_RSS = 'podcast-rss',
 }
 
 export enum TrocadorStatusEnum {
