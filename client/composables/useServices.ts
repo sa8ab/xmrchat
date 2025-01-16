@@ -1,9 +1,9 @@
 import type { AxiosRequestConfig } from "axios";
 import type {
+  ContentLink,
   LoginResponse,
   MeResponse,
   Numberic,
-  PageLink,
   PageSetting,
   SlugReservationResponse,
   StreamerPage,
@@ -166,7 +166,7 @@ export const useServices = () => {
     const { data } = await axios.get<{
       name: string;
       searchTerms: string;
-      links: PageLink[];
+      links: ContentLink[];
     }>(`/links/me`);
     return data;
   };

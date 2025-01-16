@@ -1,11 +1,11 @@
 import {
-  PageLinkPLatform,
+  ContentLinkPlatformEnum,
   SupportedDisplayCurrency,
   SwapStatusEnum,
 } from "~/types/enums";
 
 export const PAGE_LINKS = {
-  [PageLinkPLatform.X]: {
+  [ContentLinkPlatformEnum.X]: {
     name: "X",
     colorClassName: "",
     iconClassName: "",
@@ -13,7 +13,7 @@ export const PAGE_LINKS = {
     inputLabel: "Twitter Username",
     linkCreator: (v?: string) => `https://x.com/${v}`,
   },
-  [PageLinkPLatform.WEBSITE]: {
+  [ContentLinkPlatformEnum.WEBSITE]: {
     name: "Website",
     colorClassName: "",
     iconClassName: "",
@@ -21,7 +21,7 @@ export const PAGE_LINKS = {
     inputLabel: "Website link",
     linkCreator: (v?: string) => v,
   },
-  [PageLinkPLatform.YOUTUBE]: {
+  [ContentLinkPlatformEnum.YOUTUBE]: {
     name: "Youtube",
     colorClassName: "text-[#FF0000]",
     iconClassName: "",
@@ -29,7 +29,7 @@ export const PAGE_LINKS = {
     inputLabel: "Youtube channel",
     linkCreator: (v?: string) => `https://www.youtube.com/@${v}`,
   },
-  [PageLinkPLatform.RUMBLE]: {
+  [ContentLinkPlatformEnum.RUMBLE]: {
     name: "Rumble",
     colorClassName: "text-[#85c742]",
     iconClassName: "",
@@ -37,7 +37,7 @@ export const PAGE_LINKS = {
     inputLabel: "Rumble username",
     linkCreator: (v?: string) => `https://rumble.com/c/${v}`,
   },
-  [PageLinkPLatform.TWITCH]: {
+  [ContentLinkPlatformEnum.TWITCH]: {
     name: "Twitch",
     colorClassName: "text-[#6441a5]",
     iconClassName: "",
@@ -45,7 +45,7 @@ export const PAGE_LINKS = {
     inputLabel: "Twitch username",
     linkCreator: (v?: string) => `https://www.twitch.tv/${v}`,
   },
-  [PageLinkPLatform.SUBSTACK]: {
+  [ContentLinkPlatformEnum.SUBSTACK]: {
     name: "Substack",
     colorClassName: "text-[#FF6719]",
     iconClassName: "max-w-5 max-h-5",

@@ -8,7 +8,7 @@ export enum PageSettingKey {
   OBS_PLAY_SOUND = "obs-play-sound",
 }
 
-export enum PageLinkPLatform {
+export enum ContentLinkPlatformEnum {
   X = "x",
   WEBSITE = "website",
   YOUTUBE = "youtube",

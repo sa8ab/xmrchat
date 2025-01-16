@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type { PageLink } from "~/types";
+import type { ContentLink } from "~/types";
 
 const props = defineProps<{
-  links?: PageLink[];
+  links?: ContentLink[];
 }>();
 
 const linksComputed = computed(() =>

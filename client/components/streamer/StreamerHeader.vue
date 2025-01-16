@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import type { PageLink } from "~/types";
-import { PageLinkPLatform } from "~/types/enums";
+import type { ContentLink } from "~/types";
 
 const props = withDefaults(
   defineProps<{
@@ -8,7 +7,7 @@ const props = withDefaults(
     bannerUrl?: string;
     showTitle?: boolean;
     name?: string;
-    links?: PageLink[];
+    links?: ContentLink[];
   }>(),
   {
     showTitle: true,

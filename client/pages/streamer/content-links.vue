@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 import useVuelidate from "@vuelidate/core";
 import { helpers } from "@vuelidate/validators";
-import { PageLinkPLatform } from "~/types/enums";
+import { ContentLinkPlatformEnum } from "~/types/enums";
 
 interface State {
   form: {
     name?: string;
     searchTerms?: string;
     links: Record<
-      PageLinkPLatform,
-      { platform?: PageLinkPLatform; value?: string }
+      ContentLinkPlatformEnum,
+      { platform?: ContentLinkPlatformEnum; value?: string }
     >;
   };
   saving: boolean;
@@ -82,14 +82,14 @@ const rules = computed(() => {
     notUrl
   );
   return {
-    [PageLinkPLatform.WEBSITE]: {
+    [ContentLinkPlatformEnum.WEBSITE]: {
       value: { url },
     },
-    [PageLinkPLatform.X]: { value: { notUrlWithMessage } },
-    [PageLinkPLatform.YOUTUBE]: { value: { notUrlWithMessage } },
-    [PageLinkPLatform.TWITCH]: { value: { notUrlWithMessage } },
-    [PageLinkPLatform.SUBSTACK]: { value: { notUrlWithMessage } },
-    [PageLinkPLatform.RUMBLE]: { value: { notUrlWithMessage } },
+    [ContentLinkPlatformEnum.X]: { value: { notUrlWithMessage } },
+    [ContentLinkPlatformEnum.YOUTUBE]: { value: { notUrlWithMessage } },
+    [ContentLinkPlatformEnum.TWITCH]: { value: { notUrlWithMessage } },
+    [ContentLinkPlatformEnum.SUBSTACK]: { value: { notUrlWithMessage } },
+    [ContentLinkPlatformEnum.RUMBLE]: { value: { notUrlWithMessage } },
   };
 });
 
@@ -132,7 +132,7 @@ const { getValidationAttrs } = useValidations(v);
     <div class="grid md:grid-cols-2 gap-4">
       <UFormGroup
         label="Website"
-        v-for="platform in PageLinkPLatform"
+        v-for="platform in ContentLinkPlatformEnum"
         :error="getValidationAttrs(`${platform}.value`).error"
       >
         <template #label>
