@@ -19,6 +19,7 @@ interface State {
 const { getMyLinks: getMyLinksReq, updateLinks } = useServices();
 const { url, notUrl } = useValidations();
 const toast = useToast();
+const { getContentLink } = useConstants();
 
 const { data } = useLazyAsyncData(
   async () => {
@@ -132,24 +133,21 @@ const { getValidationAttrs } = useValidations(v);
     <div class="grid md:grid-cols-2 gap-4">
       <UFormGroup
         label="Website"
-        v-for="platform in ContentLinkPlatformEnum"
-        :error="getValidationAttrs(`${platform}.value`).error"
+        v-for="contentLink in CONTENT_LINKS"
+        :error="getValidationAttrs(`${contentLink.platform}.value`).error"
       >
         <template #label>
           <span class="flex items-center gap-1.5">
             <UIcon
-              :name="PAGE_LINKS[platform].icon"
-              :class="[
-                'w-[16px] h-[16px]',
-                PAGE_LINKS[platform].colorClassName,
-              ]"
+              :name="contentLink.icon"
+              :class="['w-[16px] h-[16px]', contentLink.colorClassName]"
             />
-            <span>{{ PAGE_LINKS[platform].inputLabel }}</span>
+            <span>{{ contentLink.inputLabel }}</span>
           </span>
         </template>
         <UInput
-          v-model="state.form.links[platform].value"
-          @blur="getValidationAttrs(`${platform}.value`).onBlur"
+          v-model="state.form.links[contentLink.platform].value"
+          @blur="getValidationAttrs(`${contentLink.platform}.value`).onBlur"
         />
       </UFormGroup>
     </div>

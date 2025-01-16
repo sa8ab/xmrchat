@@ -4,8 +4,9 @@ import {
   SwapStatusEnum,
 } from "~/types/enums";
 
-export const PAGE_LINKS = {
-  [ContentLinkPlatformEnum.X]: {
+export const CONTENT_LINKS = [
+  {
+    platform: ContentLinkPlatformEnum.X,
     name: "X",
     colorClassName: "",
     iconClassName: "",
@@ -13,7 +14,8 @@ export const PAGE_LINKS = {
     inputLabel: "Twitter Username",
     linkCreator: (v?: string) => `https://x.com/${v}`,
   },
-  [ContentLinkPlatformEnum.WEBSITE]: {
+  {
+    platform: ContentLinkPlatformEnum.WEBSITE,
     name: "Website",
     colorClassName: "",
     iconClassName: "",
@@ -21,7 +23,8 @@ export const PAGE_LINKS = {
     inputLabel: "Website link",
     linkCreator: (v?: string) => v,
   },
-  [ContentLinkPlatformEnum.YOUTUBE]: {
+  {
+    platform: ContentLinkPlatformEnum.YOUTUBE,
     name: "Youtube",
     colorClassName: "text-[#FF0000]",
     iconClassName: "",
@@ -29,7 +32,8 @@ export const PAGE_LINKS = {
     inputLabel: "Youtube channel",
     linkCreator: (v?: string) => `https://www.youtube.com/@${v}`,
   },
-  [ContentLinkPlatformEnum.RUMBLE]: {
+  {
+    platform: ContentLinkPlatformEnum.RUMBLE,
     name: "Rumble",
     colorClassName: "text-[#85c742]",
     iconClassName: "",
@@ -37,7 +41,8 @@ export const PAGE_LINKS = {
     inputLabel: "Rumble username",
     linkCreator: (v?: string) => `https://rumble.com/c/${v}`,
   },
-  [ContentLinkPlatformEnum.TWITCH]: {
+  {
+    platform: ContentLinkPlatformEnum.TWITCH,
     name: "Twitch",
     colorClassName: "text-[#6441a5]",
     iconClassName: "",
@@ -45,7 +50,8 @@ export const PAGE_LINKS = {
     inputLabel: "Twitch username",
     linkCreator: (v?: string) => `https://www.twitch.tv/${v}`,
   },
-  [ContentLinkPlatformEnum.SUBSTACK]: {
+  {
+    platform: ContentLinkPlatformEnum.SUBSTACK,
     name: "Substack",
     colorClassName: "text-[#FF6719]",
     iconClassName: "max-w-5 max-h-5",
@@ -53,7 +59,7 @@ export const PAGE_LINKS = {
     inputLabel: "Substack username",
     linkCreator: (v?: string) => `https://substack.com/@${v}`,
   },
-};
+];
 
 export const SUPPORTED_TIP_VALUES = [
   { value: SupportedDisplayCurrency.XMR, label: "XMR" },

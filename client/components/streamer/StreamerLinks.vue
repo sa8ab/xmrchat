@@ -5,12 +5,14 @@ const props = defineProps<{
   links?: ContentLink[];
 }>();
 
+const { getContentLink } = useConstants();
+
 const linksComputed = computed(() =>
   props.links
     ?.filter((l) => !!l.value)
     .map((l) => {
       return {
-        ...PAGE_LINKS[l.platform as keyof typeof PAGE_LINKS],
+        ...getContentLink(l.platform),
         value: l.value,
       };
     })
