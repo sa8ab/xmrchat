@@ -129,7 +129,7 @@ const dropdownItems = computed<DropdownItem[][]>(() => {
           >
             Account
           </UButton>
-          <UButton v-else :to="toLogin()">Streamer Login</UButton>
+          <UButton v-else :to="toLogin()">Creator Login</UButton>
         </template>
 
         <UButton
