@@ -54,25 +54,23 @@ export class AuthService {
       throw new BadRequestException('Username/Password is incorrect.');
 
     if (!user.isEmailVerified) {
-      const currentToken = await this.userTokensService.findValidForUser(
-        user.id,
-        UserTokenType.EMAIL_VERIFICATION,
-      );
-      if (currentToken) {
+      let token: string;
+      try {
+        const { token: result } = await this.userTokensService.createToken({
+          userId: user.id,
+          type: UserTokenType.EMAIL_VERIFICATION,
+        });
+        token = result;
+      } catch (error) {
         throw new BadRequestException(
-          `Please verify your account using the email we sent to ${user.email}.`,
+          'We have already sent you a verification email. Please follow the link in the email to login. You can request new verification email after few minutes.',
         );
       }
-
-      const { token } = await this.userTokensService.createToken({
-        userId: user.id,
-        type: UserTokenType.EMAIL_VERIFICATION,
-      });
 
       this.notificationsService.sendVerificationEmail(user.email, token);
 
       throw new BadRequestException(
-        `We sent you a verification email on ${user.email}. Please confirm it to login.`,
+        `We have just sent you another verification email on ${user.email}. Please click the link in the verification email to login.`,
       );
     }
 
@@ -107,10 +105,19 @@ export class AuthService {
           'Email is sent to your mailbox if you were already registered.',
       };
 
-    const { token } = await this.userTokensService.createToken({
-      userId: user.id,
-      type: UserTokenType.RESET_PASSWORD,
-    });
+    let token: string;
+    try {
+      const { token: result } = await this.userTokensService.createToken({
+        userId: user.id,
+        type: UserTokenType.RESET_PASSWORD,
+      });
+
+      token = result;
+    } catch (error) {
+      throw new BadRequestException(
+        'We have already sent you a verification email. Follow the link in the email or try again after few minutes.',
+      );
+    }
 
     this.logger.log(`Token: ${token}`);
 
