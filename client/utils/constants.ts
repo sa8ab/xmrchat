@@ -10,7 +10,7 @@ export const CONTENT_LINKS = {
     colorClassName: "",
     iconClassName: "",
     icon: "i-tabler-brand-x",
-    inputLabel: "Twitter Username",
+    inputLabel: "Twitter username",
     linkCreator: (v?: string) => `https://x.com/${v}`,
   },
   [ContentLinkPlatformEnum.WEBSITE]: {
