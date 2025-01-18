@@ -1,4 +1,5 @@
 import type {
+  ContentLinkPlatformEnum,
   PageSettingKey,
   SupportedDisplayCurrency,
   SwapStatusEnum,
@@ -70,7 +71,7 @@ export interface StreamerPage {
   minTipAmount?: string;
   isPublic: boolean;
   defaultTipAmountDisplay?: SupportedDisplayCurrency;
-  links?: PageLink[];
+  links?: ContentLink[];
 }
 
 interface TipPayment {
@@ -150,10 +151,8 @@ export interface PageSettingField {
   value?: any;
 }
 
-export interface PageLinkPLatform {}
-
-export interface PageLink {
-  platform: PageLinkPLatform;
+export interface ContentLink {
+  platform: ContentLinkPlatformEnum;
   value: string;
 }
 

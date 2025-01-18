@@ -8,13 +8,18 @@ export enum PageSettingKey {
   OBS_PLAY_SOUND = "obs-play-sound",
 }
 
-export enum PageLinkPLatform {
+export enum ContentLinkPlatformEnum {
   X = "x",
   WEBSITE = "website",
   YOUTUBE = "youtube",
   TWITCH = "twitch",
   RUMBLE = "rumble",
   SUBSTACK = "substack",
+  ODYSEE = "odysee",
+  TIKTOK = "tiktok",
+  INSTAGRAM = "instagram",
+  TELEGRAM = "telegram",
+  PODCAST_RSS = "podcast-rss",
 }
 
 export enum SupportedDisplayCurrency {

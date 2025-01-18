@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 import useVuelidate from "@vuelidate/core";
 import { helpers } from "@vuelidate/validators";
-import { PageLinkPLatform } from "~/types/enums";
+import { ContentLinkPlatformEnum } from "~/types/enums";
 
 interface State {
   form: {
     name?: string;
     searchTerms?: string;
     links: Record<
-      PageLinkPLatform,
-      { platform?: PageLinkPLatform; value?: string }
+      ContentLinkPlatformEnum,
+      { platform?: ContentLinkPlatformEnum; value?: string }
     >;
   };
   saving: boolean;
@@ -19,6 +19,7 @@ interface State {
 const { getMyLinks: getMyLinksReq, updateLinks } = useServices();
 const { url, notUrl } = useValidations();
 const toast = useToast();
+const { getContentLink } = useConstants();
 
 const { data } = useLazyAsyncData(
   async () => {
@@ -46,6 +47,11 @@ const state = reactive<State>({
       x: {},
       website: {},
       youtube: {},
+      tiktok: {},
+      odysee: {},
+      "podcast-rss": {},
+      instagram: {},
+      telegram: {},
     },
     name: undefined,
     searchTerms: undefined,
@@ -81,15 +87,17 @@ const rules = computed(() => {
     "Only enter the name, not the full link.",
     notUrl
   );
+  const { WEBSITE, PODCAST_RSS, ...rest } = ContentLinkPlatformEnum;
+
+  const notUrls: Record<string, any> = {};
+  Object.values(rest).forEach((nUrl) => {
+    notUrls[nUrl] = { value: { notUrlWithMessage } };
+  });
+
   return {
-    [PageLinkPLatform.WEBSITE]: {
-      value: { url },
-    },
-    [PageLinkPLatform.X]: { value: { notUrlWithMessage } },
-    [PageLinkPLatform.YOUTUBE]: { value: { notUrlWithMessage } },
-    [PageLinkPLatform.TWITCH]: { value: { notUrlWithMessage } },
-    [PageLinkPLatform.SUBSTACK]: { value: { notUrlWithMessage } },
-    [PageLinkPLatform.RUMBLE]: { value: { notUrlWithMessage } },
+    [WEBSITE]: { value: { url } },
+    [PODCAST_RSS]: { value: { url } },
+    ...notUrls,
   };
 });
 
@@ -132,24 +140,21 @@ const { getValidationAttrs } = useValidations(v);
     <div class="grid md:grid-cols-2 gap-4">
       <UFormGroup
         label="Website"
-        v-for="platform in PageLinkPLatform"
-        :error="getValidationAttrs(`${platform}.value`).error"
+        v-for="p in ContentLinkPlatformEnum"
+        :error="getValidationAttrs(`${p}.value`).error"
       >
         <template #label>
           <span class="flex items-center gap-1.5">
             <UIcon
-              :name="PAGE_LINKS[platform].icon"
-              :class="[
-                'w-[16px] h-[16px]',
-                PAGE_LINKS[platform].colorClassName,
-              ]"
+              :name="getContentLink(p).icon"
+              :class="['w-[16px] h-[16px]', getContentLink(p).colorClassName]"
             />
-            <span>{{ PAGE_LINKS[platform].inputLabel }}</span>
+            <span>{{ getContentLink(p).inputLabel }}</span>
           </span>
         </template>
         <UInput
-          v-model="state.form.links[platform].value"
-          @blur="getValidationAttrs(`${platform}.value`).onBlur"
+          v-model="state.form.links[p].value"
+          @blur="getValidationAttrs(`${p}.value`).onBlur"
         />
       </UFormGroup>
     </div>

@@ -1,16 +1,18 @@
 <script lang="ts" setup>
-import type { PageLink } from "~/types";
+import type { ContentLink } from "~/types";
 
 const props = defineProps<{
-  links?: PageLink[];
+  links?: ContentLink[];
 }>();
+
+const { getContentLink } = useConstants();
 
 const linksComputed = computed(() =>
   props.links
     ?.filter((l) => !!l.value)
     .map((l) => {
       return {
-        ...PAGE_LINKS[l.platform as keyof typeof PAGE_LINKS],
+        ...getContentLink(l.platform),
         value: l.value,
       };
     })
@@ -18,7 +20,7 @@ const linksComputed = computed(() =>
 </script>
 
 <template>
-  <div class="flex gap-4" v-if="links && links.length">
+  <div class="flex gap-4 flex-wrap" v-if="links && links.length">
     <UTooltip v-for="item in linksComputed" :text="item.name">
       <NuxtLink
         class="flex flex-col items-center justify-center gap-1"

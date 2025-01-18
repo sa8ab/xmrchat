@@ -19,10 +19,26 @@ export class UserTokensService {
   ) {}
 
   async createToken(payload: { type: UserTokenType; userId: number }) {
+    const prevValidToken = await this.findValidForUser(
+      payload.userId,
+      payload.type,
+    );
+
+    // Don't create the token if created less than two minutes ago
+    if (
+      prevValidToken &&
+      prevValidToken.createdAt >= new Date(Date.now() - 2 * 60 * 1000)
+    ) {
+      throw new BadRequestException('Please try again after few minutes.');
+    }
+
+    // remove previous tokens
+    await this.removeAllWithUserId(payload.userId, payload.type);
+
     const token = generateOtp();
     const currentDate = new Date();
     const expiresAt = new Date(
-      currentDate.setMinutes(currentDate.getMinutes() + 10),
+      currentDate.setMinutes(currentDate.getMinutes() + 60),
     ).toISOString();
 
     const created = this.repo.create({
@@ -43,7 +59,11 @@ export class UserTokensService {
   async findValidForUser(userId: number, type: UserTokenType) {
     if (!userId) return null;
     const validToken = await this.repo.findOne({
-      where: { user: { id: userId }, expiresAt: MoreThanOrEqual(new Date()) },
+      where: {
+        user: { id: userId },
+        type,
+        expiresAt: MoreThanOrEqual(new Date()),
+      },
     });
 
     if (!validToken) return null;
@@ -59,6 +79,13 @@ export class UserTokensService {
     if (!userToken) throw new NotFoundException('Token is not found.');
 
     return this.repo.remove(userToken);
+  }
+
+  async removeAllWithUserId(userId: number, type: UserTokenType) {
+    if (!userId) return;
+    const userTokens = await this.repo.findBy({ user: { id: userId }, type });
+
+    return this.repo.remove(userTokens);
   }
 
   async validateToken(token: string, type: UserTokenType) {

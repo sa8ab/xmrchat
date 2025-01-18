@@ -74,7 +74,6 @@ const handleSubmit = async () => {
       <UAlert
         color="red"
         :description="state.errorMessage"
-        title="Login Failed"
         v-if="state.errorMessage"
       >
       </UAlert>
