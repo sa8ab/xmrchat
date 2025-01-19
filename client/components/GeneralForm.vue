@@ -1,4 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+defineOptions({
+  inheritAttrs: false,
+});
+</script>
 
 <template>
   <form @submit.prevent="$emit('submit')">

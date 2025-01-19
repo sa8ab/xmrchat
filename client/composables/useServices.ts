@@ -31,6 +31,14 @@ export const useServices = () => {
     return res.data;
   };
 
+  const updatePassword = async (params: any) => {
+    const res = await axios.post<{ message: string }>(
+      "/auth/update-password",
+      params
+    );
+    return res.data;
+  };
+
   const checkSlug = async (params: any) => {
     const res = await axios.post<{ available: boolean }>(
       "/pages/check-slug",
@@ -180,6 +188,7 @@ export const useServices = () => {
     me,
     login,
     signup,
+    updatePassword,
     logout,
     checkSlug,
     reserveSlug,

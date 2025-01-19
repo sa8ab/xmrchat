@@ -2,12 +2,42 @@
 import useVuelidate from "@vuelidate/core";
 
 const { required, minLength, maxLength, sameAs } = useValidations();
+const { updatePassword } = useServices();
+const toast = useToast();
 
 const state = reactive({
   oldPassword: "",
   password: "",
   repeatPassword: "",
 });
+
+const loadingSubmit = ref(false);
+const error = ref<string | undefined>(undefined);
+
+const handleSubmit = async () => {
+  const valid = await v.value.$validate();
+
+  if (!valid) return;
+
+  try {
+    loadingSubmit.value = true;
+    await updatePassword({
+      currentPassword: state.oldPassword,
+      password: state.password,
+    });
+
+    toast.add({ description: "Password is updated." });
+
+    v.value.$reset();
+    state.oldPassword = "";
+    state.password = "";
+    state.repeatPassword = "";
+  } catch (e) {
+    error.value = getErrorMessage(e);
+  } finally {
+    loadingSubmit.value = false;
+  }
+};
 
 const v = useVuelidate(
   computed(() => ({
@@ -27,8 +57,8 @@ const { getValidationAttrs } = useValidations(v);
       title="Change Password"
       description="Update your login password"
     ></PageTitle>
-    <GeneralForm class="w-full max-w-[400px] m-auto">
-      <div class="flex flex-col gap-2">
+    <GeneralForm @submit="handleSubmit">
+      <div class="flex flex-col gap-2 w-full max-w-[400px] m-auto">
         <UFormGroup
           label="Current password"
           :error="getValidationAttrs('oldPassword').error"
@@ -58,7 +88,11 @@ const { getValidationAttrs } = useValidations(v);
           />
         </UFormGroup>
 
-        <UButton type="submit" class="mt-2" block>Change password</UButton>
+        <UAlert color="red" v-if="error" :description="error"></UAlert>
+
+        <UButton type="submit" class="mt-2" block :loading="loadingSubmit">
+          Change password
+        </UButton>
       </div>
     </GeneralForm>
   </div>
