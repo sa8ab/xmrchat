@@ -56,5 +56,8 @@ export const generateWalletLink = (data: {
   if (data.ticker === "ltc")
     return `litecoin:${data.address}?amount=${data.amount}`;
 
+  if (data.ticker === "btc")
+    return `bitcoin:${data.address}?amount=${data.amount}`;
+
   return undefined;
 };

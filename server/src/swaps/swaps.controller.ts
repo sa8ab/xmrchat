@@ -16,7 +16,9 @@ export class SwapsController {
 
     return {
       coins: coins.filter(
-        (c) => c.network === 'Mainnet' && c.ticker === 'ltc', // Litecoin
+        (c) =>
+          (c.network === 'Mainnet' && c.ticker === 'ltc') || // Litecoin
+          (c.network === 'Mainnet' && c.ticker === 'btc'), // Bitcoin
       ),
     };
   }
