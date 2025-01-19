@@ -5,6 +5,7 @@ const page = computed(() => state.page);
 const {
   toStreamer,
   toStreamerDisplay,
+  toStreamerAccount,
   toStreamerEdit,
   toStreamerOBS,
   toStreamerContentLinks,
@@ -20,6 +21,11 @@ const items = computed(() => {
         icon: "i-heroicons-computer-desktop",
         to: toStreamerDisplay(),
         exact: true,
+      },
+      {
+        label: "Account",
+        icon: "i-heroicons-user",
+        to: toStreamerAccount(),
       },
     ]
   );
