@@ -18,6 +18,7 @@ import { ForgotPasswordDto } from './dtos/forgot-password.dto';
 import { ResetPasswordDto } from './dtos/reset-password.dto';
 import { PagesService } from 'src/pages/pages.service';
 import { MeRO } from './dtos/me.dto';
+import { UpdatePasswordDto } from './dtos/update-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -73,5 +74,10 @@ export class AuthController {
   @Post('/reset-password/:token')
   resetPassword(@Body() body: ResetPasswordDto, @Param('token') token: string) {
     return this.authService.resetPassword(token, body.password);
+  }
+
+  @Post('/update-password')
+  updatePassword(@Body() body: UpdatePasswordDto, @CurrentUser() user: User) {
+    return this.authService.updatePassword(user, body);
   }
 }

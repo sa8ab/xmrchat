@@ -6,6 +6,8 @@ import { createFinalPassword, hashPassword } from 'src/shared/utils';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { UserTokenType } from 'src/shared/constants/enum';
 import { UserTokensService } from './user-tokens/user-tokens.service';
+import { User } from 'src/users/user.entity';
+import { UpdatePasswordDto } from './dtos/update-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -145,6 +147,24 @@ export class AuthService {
 
     return {
       message: 'Password is changed successfully.',
+    };
+  }
+
+  async updatePassword(user: User, data: UpdatePasswordDto) {
+    const [salt, storedHash] = user.password.split('.');
+
+    const hash = hashPassword(data.currentPassword, salt);
+
+    if (hash !== storedHash) {
+      throw new BadRequestException('Invalid credentials.');
+    }
+
+    await this.usersService.update(user.id, {
+      password: createFinalPassword(data.password),
+    });
+
+    return {
+      message: 'Account password updated.',
     };
   }
 

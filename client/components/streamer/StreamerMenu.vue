@@ -19,9 +19,9 @@ watch(
       <StreamerMenuContent />
     </div>
     <div class="lg:hidden">
-      <UButton @click="active = true" trailingIcon="i-heroicons-chevron-right"
-        >Menu</UButton
-      >
+      <UButton @click="active = true" trailingIcon="i-heroicons-chevron-right">
+        Menu
+      </UButton>
       <USlideover
         v-model="active"
         side="left"
