@@ -82,7 +82,7 @@ const { getValidationAttrs } = useValidations(v);
           label="Repeat new password"
           :error="getValidationAttrs('repeatPassword').error"
         >
-          <UInput
+          <PasswordInput
             v-model="state.repeatPassword"
             @blur="getValidationAttrs('repeatPassword').onBlur"
           />
