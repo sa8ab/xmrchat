@@ -169,7 +169,7 @@ Go to `/xmrchat/server` directory and create your `.env` file from `.env.example
 cp .env.example .env
 ```
 
-Open the .env file and change the values file with yours. the variables have descriptions on how to set them.
+Open the .env file and change the values with yours. the variables have descriptions on how to set them.
 
 Then run the containers:
 
