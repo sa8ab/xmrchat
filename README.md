@@ -179,16 +179,21 @@ docker compose up -d
 
 ### <a name="client">4. Client</a>
 
+Go to `/xmrchat/client` directory and create your `.env` file from `.env.example`.
+
 ```console
-cd client
 cp .env.example .env
 ```
 
 Change .env file with yours.
 
+Run the container
+
 ```console
 docker compose up -d
 ```
+
+The website should be up on the value set on `/client/.env -> DOMAIN_NAME`.
 
 ## <a name="development">Development</a>
 
