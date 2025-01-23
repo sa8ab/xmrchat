@@ -177,6 +177,12 @@ Then run the containers:
 docker compose up -d
 ```
 
+Then we need to run the migrations:
+
+```
+docker compose exec -it nest npm run migration:run
+```
+
 ### <a name="client">4. Client</a>
 
 Go to `/xmrchat/client` directory and create your `.env` file from `.env.example`.
