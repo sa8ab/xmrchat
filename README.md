@@ -171,6 +171,8 @@ cp .env.example .env
 
 Open the .env file and change the values file with yours. the variables have descriptions on how to set them.
 
+Then run the containers:
+
 ```console
 docker compose up -d
 ```
