@@ -100,12 +100,14 @@ docker compose up -d
 
 Create and run a monero node. If you already have a synced node with zmq enabled skip to next step.
 
+In `monero` directory clone the monero github repo to a folder called `monero-node`:
+
 ```console
-mkdir monero && cd monero
-git clone https://github.com/monero-project/monero.git
+cd monero
+git clone https://github.com/monero-project/monero.git monero-node
 ```
 
-In last line of Dockerfile comment out CMD Command.
+The cloned repo has a Dockerfile in the root directory. In last line of Dockerfile comment out CMD command.
 
 ```
 # CMD ["--p2p-bind ...
@@ -113,7 +115,7 @@ In last line of Dockerfile comment out CMD Command.
 
 ### <a name="monero-lws">2.2 Monero-LWS</a>
 
-Clone Monero-lws repository on branch `release-v0.3_0.18`:
+In `monero` directory clone monero-lws repository on branch `release-v0.3_0.18`:
 
 ```console
 git clone -b release-v0.3_0.18 https://github.com/vtnerd/monero-lws
@@ -132,80 +134,20 @@ ENTRYPOINT ["monero-lws-daemon"]
 
 ### <a name="monero-lws">2.3. Run Monero and Monero-LWS</a>
 
-Add following `docker-compose.yml` to /monero directory we created on step 2.1 considering monero project ( step 2.1 ) is inside `./monero/monero` folder and monero lws ( step 2.2 ) is on `./monero/monero-lws` directory
+The directories after following the steps would look like this.
 
-```yml
-services:
-  monero:
-    container_name: monero
-    build:
-      context: ./monero
-    restart: always
-    user: root
-    ports:
-      # - :80
-      - :18080
-      - :18081
-      - :18082
-      - :18083
-      - :18084
-    command:
-      - --p2p-bind-ip=0.0.0.0
-      - --p2p-bind-port=18080
-      - --rpc-bind-ip=0.0.0.0
-      - --rpc-bind-port=18081
-      - --non-interactive
-      - --rpc-ssl=disabled
-      - --rpc-access-control-origins=monero
-      - --disable-rpc-ban
-      - --confirm-external-bind
-      - --zmq-pub=tcp://0.0.0.0:18084
-      - --zmq-rpc-bind-port=1882
-      - --zmq-rpc-bind-ip=0.0.0.0
-
-    volumes:
-      - bitmonero:/root/.bitmonero
-    networks:
-      - traefik
-
-  lws:
-    depends_on:
-      - monero
-    container_name: lws
-    user: root
-    build:
-      context: ./monero-lws
-    restart: always
-    ports:
-      # - :80
-      - :8443
-    command:
-      - --db-path=/home/monero-lws/.bitmonero/light_wallet_server
-      - --daemon=tcp://monero:1882
-      - --sub=tcp://monero:18084
-      - --log-level=4
-      - --webhook-ssl-verification=none
-      - --disable-admin-auth
-      - --admin-rest-server=http://0.0.0.0:8443/admin
-      - --rest-server=http://0.0.0.0:8443/basic
-      - --access-control-origin=lws:8443
-      - --confirm-external-bind
-    volumes:
-      - monerolws:/home/monero-lws
-    networks:
-      - traefik
-
-volumes:
-  bitmonero: {}
-  monerolws: {}
-
-networks:
-  traefik:
-    name: traefik
-    external: true
+```
+└── xmrchat/
+    ├── client
+    ├── monero/
+    │   ├── monero-node/
+    │   ├── monero-lws/
+    │   └── docker-compose.yml
+    ├── server
+    └── traefik
 ```
 
-Run the container :
+In `/xmrchat/monero` directory run the containers:
 
 ```console
 docker compose up -d
@@ -217,33 +159,47 @@ Because the Monero daemon must sync with the network, it may take a long time. Y
 docker compose logs -f
 ```
 
-After it is synced and ready, go next.
+You should make sure it is synced and ready, in the meantime you can go to next steps.
 
 ### <a name="server">3. Server</a>
 
+Go to `/xmrchat/server` directory and create your `.env` file from `.env.example`.
+
 ```console
-cd server
 cp .env.example .env
 ```
 
-Change .env file with yours.
+Open the .env file and change the values with yours. the variables have descriptions on how to set them.
+
+Then run the containers:
 
 ```console
 docker compose up -d
+```
+
+Then we need to run the migrations:
+
+```
+docker compose exec -it nest npm run migration:run
 ```
 
 ### <a name="client">4. Client</a>
 
+Go to `/xmrchat/client` directory and create your `.env` file from `.env.example`.
+
 ```console
-cd client
 cp .env.example .env
 ```
 
 Change .env file with yours.
 
+Run the container
+
 ```console
 docker compose up -d
 ```
+
+The website should be up on the value set on `/client/.env -> DOMAIN_NAME`.
 
 ## <a name="development">Development</a>
 

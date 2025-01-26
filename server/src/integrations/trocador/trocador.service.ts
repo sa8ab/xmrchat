@@ -135,6 +135,7 @@ export class TrocadorService {
   }
 
   async isActive() {
+    if (!this.configService.get('TROCADOR_API_KEY')) return false;
     try {
       await this.httpService.axiosRef.get('/exchanges');
       return true;
