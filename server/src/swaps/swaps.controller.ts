@@ -30,8 +30,8 @@ export class SwapsController {
     const xmr = coins.find((c) => c.ticker === 'xmr');
 
     return {
-      minimum: xmr.minimum,
-      maximum: xmr.maximum,
+      minimum: xmr?.minimum,
+      maximum: xmr?.maximum,
     };
   }
 
