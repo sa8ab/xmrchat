@@ -72,6 +72,7 @@ onBeforeUnmount(() => stopPaymentCheck());
       :qrCode="{
         address: reservedData?.paymentAddress,
         amount: reservedData?.amount,
+        ticker: 'xmr',
       }"
       :connectionStatus="connectionStatus"
       @cancel="cancelPayment"
