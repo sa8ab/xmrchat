@@ -7,6 +7,7 @@ import {
   Logger,
   Get,
   NotFoundException,
+  Inject,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
@@ -16,6 +17,8 @@ import { TipsGateway } from 'src/tips/tips.gateway';
 import { TipsService } from 'src/tips/tips.service';
 import { LwsWebhookEvent } from 'src/shared/types';
 import { SwapsService } from 'src/swaps/swaps.service';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 @Controller('webhooks')
 export class WebhooksController {
@@ -28,6 +31,7 @@ export class WebhooksController {
     private pagesService: PagesService,
     private tipsGateway: TipsGateway,
     private swapsService: SwapsService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   @Post('/:token')
@@ -46,13 +50,31 @@ export class WebhooksController {
       `Webhook call - Confirmations: ${body.confirmations} - Event Id: ${body.event_id} - TX Hash: ${body.tx_info.tx_hash}`,
     );
 
-    // ? lws sends webhook twice, on 0 and 1 confirmations. ignore others.
-    if (body.confirmations !== 0) return;
-
     if (eventType !== 'tx-confirmation') {
       this.logger.warn('Event different from tx-confirmation');
       return;
     }
+
+    // ? For transactions with confirmations other than 0 check if it has already been used.
+    if (body.confirmations !== 0) {
+      const ignore = await this.cacheManager.get(
+        `transaction:${body.tx_info.tx_hash}`,
+      );
+      if (ignore) {
+        this.logger.log(
+          `LWS webhook call with confirmation ${body.confirmations} and is already used.`,
+        );
+        return;
+      }
+    }
+
+    await this.cacheManager.set(
+      `transaction:${body.tx_info.tx_hash}`,
+      'ignore',
+      {
+        ttl: 60 * 15,
+      } as any,
+    );
 
     const payment = await this.paymentsService.findOneByEventId(body.event_id);
 
