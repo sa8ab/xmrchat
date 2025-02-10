@@ -52,6 +52,7 @@ const state = reactive<State>({
       "podcast-rss": {},
       instagram: {},
       telegram: {},
+      nostr: {},
     },
     name: undefined,
     searchTerms: undefined,

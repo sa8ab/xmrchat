@@ -94,6 +94,15 @@ export const CONTENT_LINKS = {
     inputLabel: "Podcast RSS Link",
     linkCreator: (v?: string) => `${v}`,
   },
+  [ContentLinkPlatformEnum.NOSTR]: {
+    platform: ContentLinkPlatformEnum.NOSTR,
+    name: "Nostr",
+    colorClassName: "text-[#a915ff]",
+    iconClassName: "",
+    icon: "i-icon-nostr",
+    inputLabel: "Nostr Pub Key",
+    linkCreator: (v?: string) => `${v}`,
+  },
 };
 
 export const SUPPORTED_TIP_VALUES = [

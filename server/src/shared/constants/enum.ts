@@ -41,6 +41,7 @@ export enum LinkPlatformEnum {
   INSTAGRAM = 'instagram',
   TELEGRAM = 'telegram',
   PODCAST_RSS = 'podcast-rss',
+  NOSTR = 'nostr',
 }
 
 export enum TrocadorStatusEnum {

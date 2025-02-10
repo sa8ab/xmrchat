@@ -11,15 +11,16 @@ export enum PageSettingKey {
 export enum ContentLinkPlatformEnum {
   X = "x",
   WEBSITE = "website",
+  NOSTR = "nostr",
   YOUTUBE = "youtube",
-  TWITCH = "twitch",
+  PODCAST_RSS = "podcast-rss",
   RUMBLE = "rumble",
   SUBSTACK = "substack",
-  ODYSEE = "odysee",
+  TWITCH = "twitch",
+  TELEGRAM = "telegram",
   TIKTOK = "tiktok",
   INSTAGRAM = "instagram",
-  TELEGRAM = "telegram",
-  PODCAST_RSS = "podcast-rss",
+  ODYSEE = "odysee",
 }
 
 export enum SupportedDisplayCurrency {
