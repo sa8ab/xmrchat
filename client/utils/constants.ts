@@ -7,7 +7,7 @@ import {
 
 export const CONTENT_LINKS: Record<ContentLinkPlatformEnum, ContentLinkFull> = {
   [ContentLinkPlatformEnum.X]: {
-    name: "X",
+    name: "X (formerly Twitter)",
     colorClassName: "",
     iconClassName: "",
     icon: "i-tabler-brand-x",
