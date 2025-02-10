@@ -11,7 +11,7 @@ export const CONTENT_LINKS: Record<ContentLinkPlatformEnum, ContentLinkFull> = {
     colorClassName: "",
     iconClassName: "",
     icon: "i-tabler-brand-x",
-    inputLabel: "Twitter username",
+    inputLabel: "X (Twitter) username",
     linkCreator: (v?: string) => `https://x.com/${v}`,
   },
   [ContentLinkPlatformEnum.WEBSITE]: {
