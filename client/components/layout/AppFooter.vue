@@ -14,7 +14,7 @@ const { socials } = useAppConfig();
           :to="`mailto:${socials.email}`"
           target="_blank"
         >
-          <UIcon name="i-mdi-email text-xl"></UIcon>
+          <UIcon name="i-mdi-email" class="text-xl"></UIcon>
           <span class="sr-only">Contact via email</span>
         </UButton>
         <UButton
@@ -24,7 +24,7 @@ const { socials } = useAppConfig();
           :to="`https://twitter.com/${socials.twitter}`"
           target="_blank"
         >
-          <UIcon name="i-mdi-twitter text-xl"></UIcon>
+          <UIcon name="i-mdi-twitter" class="text-xl"></UIcon>
           <span class="sr-only">Follow us on X</span>
         </UButton>
       </div>

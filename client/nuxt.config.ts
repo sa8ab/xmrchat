@@ -50,6 +50,10 @@ export default defineNuxtConfig({
     icons: ["heroicons", "mdi", "tabler", "simple-icons"],
   },
 
+  icon: {
+    customCollections: [{ prefix: "icon", dir: "./assets/icons" }],
+  },
+
   colorMode: {
     preference: "light",
     fallback: "light",
