@@ -20,6 +20,16 @@ const linksComputed = computed(() =>
         platform: l.platform,
       };
     })
+    .toSorted((a, b) => {
+      const indexOfA = Object.values(ContentLinkPlatformEnum).indexOf(
+        a.platform
+      );
+      const indexOfB = Object.values(ContentLinkPlatformEnum).indexOf(
+        b.platform
+      );
+
+      return indexOfA - indexOfB;
+    })
 );
 
 const handleLinkClick = (
