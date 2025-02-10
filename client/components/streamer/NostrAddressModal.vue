@@ -13,7 +13,7 @@ const props = defineProps<{
     <UCard>
       <template #header>
         <div class="flex items-center gap-2">
-          <UIcon name="i-icon-nostr" size="28px" class="text-[#a915ff]" />
+          <UIcon name="i-icon-nostr" size="28px" class="text-[#662482]" />
           <h2 class="text-lg font-medium">Nostr Pub Key</h2>
         </div>
       </template>

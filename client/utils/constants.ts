@@ -96,7 +96,7 @@ export const CONTENT_LINKS: Record<ContentLinkPlatformEnum, ContentLinkFull> = {
   },
   [ContentLinkPlatformEnum.NOSTR]: {
     name: "Nostr",
-    colorClassName: "text-[#a915ff]",
+    colorClassName: "text-[#662482]",
     iconClassName: "",
     icon: "i-icon-nostr",
     inputLabel: "Nostr Pub Key",
