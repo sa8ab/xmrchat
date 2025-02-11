@@ -63,7 +63,7 @@ export class PagesService {
 
     if (slug) {
       query = query.andWhere(
-        'LOWER(page.path) LIKE :path OR LOWER(page.name) LIKE :name OR LOWER(page.searchTerms) LIKE :searchTerms',
+        '(LOWER(page.path) LIKE :path OR LOWER(page.name) LIKE :name OR LOWER(page.searchTerms) LIKE :searchTerms)',
         {
           path: `%${slug.toLowerCase()}%`,
           name: `%${slug.toLowerCase()}%`,
