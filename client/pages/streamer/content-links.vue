@@ -138,10 +138,20 @@ const { getValidationAttrs } = useValidations(v);
       empty.
     </p>
 
-    <div class="grid md:grid-cols-2 gap-4">
+    <div
+      class="grid md:grid-cols-2 md:grid-flow-col gap-4"
+      :style="`grid-template-rows: repeat(${
+        CONTENT_LINKS_LIST.length / 2
+      }, 1fr)`"
+    >
+      <!-- <template
+        v-for="p in CONTENT_LINKS_LIST.slice(0, CONTENT_LINKS_LIST.length / 2)"
+      >
+        <pre>{{ p }}</pre>
+      </template> -->
       <UFormGroup
         label="Website"
-        v-for="p in ContentLinkPlatformEnum"
+        v-for="p in CONTENT_LINKS_LIST"
         :error="getValidationAttrs(`${p}.value`).error"
       >
         <template #label>

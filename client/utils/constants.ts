@@ -103,6 +103,21 @@ export const CONTENT_LINKS: Record<ContentLinkPlatformEnum, ContentLinkFull> = {
   },
 };
 
+export const CONTENT_LINKS_LIST = [
+  ContentLinkPlatformEnum.X,
+  ContentLinkPlatformEnum.NOSTR,
+  ContentLinkPlatformEnum.PODCAST_RSS,
+  ContentLinkPlatformEnum.SUBSTACK,
+  ContentLinkPlatformEnum.TELEGRAM,
+  ContentLinkPlatformEnum.INSTAGRAM,
+  ContentLinkPlatformEnum.WEBSITE,
+  ContentLinkPlatformEnum.YOUTUBE,
+  ContentLinkPlatformEnum.RUMBLE,
+  ContentLinkPlatformEnum.TWITCH,
+  ContentLinkPlatformEnum.TIKTOK,
+  ContentLinkPlatformEnum.ODYSEE,
+];
+
 export const SUPPORTED_TIP_VALUES = [
   { value: SupportedDisplayCurrency.XMR, label: "XMR" },
   { value: SupportedDisplayCurrency.USD, label: "USD" },
