@@ -21,12 +21,8 @@ const linksComputed = computed(() =>
       };
     })
     .toSorted((a, b) => {
-      const indexOfA = Object.values(ContentLinkPlatformEnum).indexOf(
-        a.platform
-      );
-      const indexOfB = Object.values(ContentLinkPlatformEnum).indexOf(
-        b.platform
-      );
+      const indexOfA = CONTENT_LINKS_LIST.indexOf(a.platform);
+      const indexOfB = CONTENT_LINKS_LIST.indexOf(b.platform);
 
       return indexOfA - indexOfB;
     })
