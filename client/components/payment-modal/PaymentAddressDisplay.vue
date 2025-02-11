@@ -22,7 +22,12 @@ const copy = () => {
 
 <template>
   <div class="payment-address-input w-full">
-    <UInput disabled :value="address" class="w-full cursor-none" size="lg" />
+    <UInput
+      disabled
+      :modelValue="address"
+      class="w-full cursor-none"
+      size="lg"
+    />
     <UButton class="button" size="sm" @click="copy">Copy Address</UButton>
   </div>
 </template>

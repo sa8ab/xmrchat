@@ -1,16 +1,17 @@
+import type { ContentLinkFull } from "~/types";
 import {
   ContentLinkPlatformEnum,
   SupportedDisplayCurrency,
   SwapStatusEnum,
 } from "~/types/enums";
 
-export const CONTENT_LINKS = {
+export const CONTENT_LINKS: Record<ContentLinkPlatformEnum, ContentLinkFull> = {
   [ContentLinkPlatformEnum.X]: {
-    name: "X",
+    name: "X (formerly Twitter)",
     colorClassName: "",
     iconClassName: "",
     icon: "i-tabler-brand-x",
-    inputLabel: "Twitter username",
+    inputLabel: "X (Twitter) username",
     linkCreator: (v?: string) => `https://x.com/${v}`,
   },
   [ContentLinkPlatformEnum.WEBSITE]: {
@@ -86,13 +87,19 @@ export const CONTENT_LINKS = {
     linkCreator: (v?: string) => `https://tiktok.com/@${v}`,
   },
   [ContentLinkPlatformEnum.PODCAST_RSS]: {
-    platform: ContentLinkPlatformEnum.ODYSEE,
     name: "Podcast RSS",
     colorClassName: "text-[#ee802f]",
     iconClassName: "",
     icon: "i-tabler-rss",
     inputLabel: "Podcast RSS Link",
     linkCreator: (v?: string) => `${v}`,
+  },
+  [ContentLinkPlatformEnum.NOSTR]: {
+    name: "Nostr",
+    colorClassName: "text-[#662482]",
+    iconClassName: "",
+    icon: "i-icon-nostr",
+    inputLabel: "Nostr Pub Key",
   },
 };
 

@@ -156,6 +156,15 @@ export interface ContentLink {
   value: string;
 }
 
+export interface ContentLinkFull {
+  name: string;
+  colorClassName?: string;
+  iconClassName?: string;
+  icon: string;
+  inputLabel: string;
+  linkCreator?: (v?: string) => string | undefined;
+}
+
 export interface Coin {
   id: number;
   name: string;

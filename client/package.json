@@ -17,7 +17,7 @@
     "@iconify-json/simple-icons": "^1.2.14",
     "@iconify-json/tabler": "^1.2.9",
     "@nuxt/fonts": "^0.10.3",
-    "@nuxt/ui": "^2.15.2",
+    "@nuxt/ui": "^2.21.0",
     "@nuxtjs/i18n": "^8.3.0",
     "@pinia/nuxt": "^0.5.1",
     "@tsparticles/confetti": "^3.5.0",
