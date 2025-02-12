@@ -1,4 +1,4 @@
-import { ExecutionContext, Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
@@ -7,14 +7,13 @@ export class JwtGuard extends AuthGuard('jwt') {
     super();
   }
 
-  async canActivate(context: ExecutionContext) {
-    // ? Allow request to continue even if authentication fails
-    // ? Will be handled on auth.guard
-    // ? This is being used to set the user on Request object
-    try {
-      await super.canActivate(context);
-    } catch (error) {}
+  // Only throw errors if there is any. Don't throw unauthorized exception if user is not found.
+  // Authentication will be handled on auth.guard
+  handleRequest<TUser = any>(err: any, user: any): TUser {
+    if (err) {
+      throw err || new UnauthorizedException();
+    }
 
-    return true;
+    return user;
   }
 }
