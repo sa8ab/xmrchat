@@ -22,19 +22,12 @@ const badWordMatcher = new RegExpMatcher({
 export class NotificationsService {
   constructor(
     private emailService: EmailService,
-    private templatesService: TemplatesService,
     private twitchService: TwitchService,
     private config: ConfigService,
   ) {}
 
   sendTestEmail() {
-    // return this.emailService.sendEmail('bwsaeed8@gmail.com', {
-    //   subject: 'Test email',
-    //   template: 'reset-password.hbs',
-    //   context: {
-    //     link: 'https://google.com',
-    //   },
-    // });
+    return '';
     return this.emailService.sendEmail(['one@mail.com', 'two@mail.com'], {
       subject: 'XMRChat new page report',
       text: 'The text',
