@@ -15,9 +15,9 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @IsPublic()
-  @Get('/send-email')
-  sendEmail() {
-    return this.notificationsService.sendTestEmail();
-  }
+  // @IsPublic()
+  // @Get('/send-email')
+  // sendEmail() {
+  //   return this.notificationsService.sendTestEmail();
+  // }
 }
