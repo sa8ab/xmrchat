@@ -27,6 +27,18 @@ export class NotificationsService {
     private config: ConfigService,
   ) {}
 
+  sendTestEmail() {
+    return this.emailService.sendEmail('bwsaeed8@gmail.com', {
+      subject: 'Test email',
+      text: 'Hello',
+      template: 'verify-email.hbs',
+      context: {
+        link: 'https://google.com',
+        title: 'Please activate your account',
+      },
+    });
+  }
+
   sendVerificationEmail(to: string, otp: string) {
     const options = this.templatesService.getEmailVerification(otp);
 
