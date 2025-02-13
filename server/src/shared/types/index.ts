@@ -36,6 +36,7 @@ export interface PageReportEmailOptions {
   userName: string;
   pageId: number | string;
   price: string;
+  time: string;
 }
 
 export interface TrocadorQuote {

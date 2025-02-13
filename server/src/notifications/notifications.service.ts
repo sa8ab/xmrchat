@@ -28,11 +28,24 @@ export class NotificationsService {
   ) {}
 
   sendTestEmail() {
-    return this.emailService.sendEmail('bwsaeed8@gmail.com', {
-      subject: 'Test email',
-      template: 'reset-password.hbs',
+    // return this.emailService.sendEmail('bwsaeed8@gmail.com', {
+    //   subject: 'Test email',
+    //   template: 'reset-password.hbs',
+    //   context: {
+    //     link: 'https://google.com',
+    //   },
+    // });
+    return this.emailService.sendEmail(['one@mail.com', 'two@mail.com'], {
+      subject: 'XMRChat new page report',
+      text: 'The text',
+      template: 'page-report.hbs',
       context: {
-        link: 'https://google.com',
+        pageId: 10,
+        price: '0.001',
+        slug: 'slug-of-page',
+        userId: '10',
+        userName: '',
+        time: 'date here',
       },
     });
   }
@@ -64,11 +77,16 @@ export class NotificationsService {
   }
 
   sendNewPageReportEmail(data: PageReportEmailOptions) {
-    const options = this.templatesService.getPageReport(data);
+    const text = `Page "${data.slug}" is registered by ${data.userName}. userId: ${data.userId} and pageId: ${data.pageId}. price: ${data.price} xmr.`;
 
     const recepients = this.config.get('PAGE_REPORT_RECEPIENTS').split(' ');
 
-    return this.emailService.sendEmail(recepients, options);
+    return this.emailService.sendEmail(recepients, {
+      subject: 'XMRChat new page report',
+      text,
+      template: 'page-report.hbs',
+      context: data,
+    });
   }
 
   sendSwapStatusEmail(active: boolean) {

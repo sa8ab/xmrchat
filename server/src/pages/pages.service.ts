@@ -248,6 +248,7 @@ export class PagesService {
       userId: reserevdPage.userId,
       // TODO: get full user
       userName: '',
+      time: page.createdAt.toLocaleDateString(),
     });
 
     // remove reserved from cache
