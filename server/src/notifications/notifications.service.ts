@@ -30,25 +30,37 @@ export class NotificationsService {
   sendTestEmail() {
     return this.emailService.sendEmail('bwsaeed8@gmail.com', {
       subject: 'Test email',
-      text: 'Hello',
-      template: 'verify-email.hbs',
+      template: 'reset-password.hbs',
       context: {
         link: 'https://google.com',
-        title: 'Please activate your account',
       },
     });
   }
 
   sendVerificationEmail(to: string, otp: string) {
-    const options = this.templatesService.getEmailVerification(otp);
+    const link = `${this.config.get('CLIENT_BASE_URL')}/auth/email_verification?token=${otp}`;
 
-    return this.emailService.sendEmail(to, options);
+    return this.emailService.sendEmail(to, {
+      subject: 'XMRChat Email Verification Request',
+      text: link,
+      template: 'verify-email.hbs',
+      context: {
+        link,
+      },
+    });
   }
 
   sendResetPasswordEmail(to: string, otp: string) {
-    const options = this.templatesService.getResetPassword(otp);
+    const link = `${this.config.get('CLIENT_BASE_URL')}/auth/reset_password?token=${otp}`;
 
-    return this.emailService.sendEmail(to, options);
+    return this.emailService.sendEmail(to, {
+      subject: 'XMRChat Reset Password Request',
+      text: link,
+      template: 'reset-password.hbs',
+      context: {
+        link,
+      },
+    });
   }
 
   sendNewPageReportEmail(data: PageReportEmailOptions) {

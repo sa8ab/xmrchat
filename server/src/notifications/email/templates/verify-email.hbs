@@ -1,4 +1,4 @@
-{{#> layout title=title }}
+{{#> layout title="Please activate your account" }}
   <h1 style="padding-bottom: 12px">Email Verification</h1>
   <p style="padding-bottom: 16px">Follow this link to verify your email address.</p>
   <a href="{{link}}" target="_blank"
@@ -7,6 +7,5 @@
   </a>
 
   <p style="padding-bottom: 16px">If you didn’t ask to verify this address, you can ignore this email.</p>
-  <p>Thanks,</p>
-  <p>The XMRChat team</p>
+  {{>ending}}
 {{/layout}}
