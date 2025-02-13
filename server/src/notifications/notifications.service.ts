@@ -27,8 +27,7 @@ export class NotificationsService {
   ) {}
 
   sendTestEmail() {
-    return '';
-    return this.emailService.sendEmail(['one@mail.com', 'two@mail.com'], {
+    return this.emailService.sendEmail(['bwsaeed8@gmail.com'], {
       subject: 'XMRChat new page report',
       text: 'The text',
       template: 'page-report.hbs',
