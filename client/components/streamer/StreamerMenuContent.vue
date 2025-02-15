@@ -17,7 +17,7 @@ const items = computed(() => {
   res.push(
     ...[
       {
-        label: "My Display Page",
+        label: "My xmrchats",
         icon: "i-heroicons-computer-desktop",
         to: toStreamerDisplay(),
         exact: true,
@@ -34,12 +34,12 @@ const items = computed(() => {
     res.push(
       ...[
         {
-          label: "Edit Page",
+          label: "Edit Tip Page",
           icon: "i-heroicons-pencil-square",
           to: toStreamerEdit(),
         },
         {
-          label: "My Tip Page",
+          label: "Tip Page",
           icon: "i-heroicons-banknotes",
           to: toStreamer(page.value.path),
         },
