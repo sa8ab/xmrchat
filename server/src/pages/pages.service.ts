@@ -24,6 +24,8 @@ import { Tip } from 'src/tips/tip.entity';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { UpdatePageDto } from './dtos/update-page.dto';
 import { TwitchService } from 'src/integrations/twitch.service';
+import { AuditsService } from 'src/audits/audits.service';
+import { AuditTypeEnum } from 'src/shared/constants';
 
 @Injectable()
 export class PagesService {
@@ -38,6 +40,7 @@ export class PagesService {
     private pagesGateway: PagesGateway,
     private notificationsService: NotificationsService,
     private twitchService: TwitchService,
+    private auditsService: AuditsService,
   ) {}
 
   async searchPages(slug: string = '', offset: number = 0, limit: number = 8) {
@@ -315,10 +318,17 @@ export class PagesService {
       });
     }
 
+    const temp = { ...page };
+
     const savedPage = Object.assign(page, attrs);
 
     const result = await this.repo.save(savedPage);
 
+    this.auditsService.add(
+      AuditTypeEnum.PAGE_UPDATED,
+      temp,
+      await this.findByPath(result.path),
+    );
     return result;
   }
 

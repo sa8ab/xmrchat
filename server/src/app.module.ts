@@ -21,6 +21,11 @@ import { TwitchModule } from './integrations/twitch.module';
 import { SwapsModule } from './swaps/swaps.module';
 import { TrocadorModule } from './integrations/trocador/trocador.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { AuditsModule } from './audits/audits.module';
+import { WinstonModule } from 'nest-winston';
+import winston from 'winston';
+import { join } from 'path';
+import { ClsModule } from 'nestjs-cls';
 
 @Module({
   imports: [
@@ -46,6 +51,21 @@ import { ScheduleModule } from '@nestjs/schedule';
       isGlobal: true,
     }),
     ScheduleModule.forRoot(),
+    WinstonModule.forRoot({
+      transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: 'logs.log' }),
+      ],
+      format: winston.format.combine(
+        winston.format.timestamp({}),
+        winston.format.json(),
+        winston.format.simple(),
+      ),
+    }),
+    ClsModule.forRoot({
+      middleware: { mount: true },
+      global: true,
+    }),
     UsersModule,
     DatabaseModule,
     NotificationsModule,
@@ -61,6 +81,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     TwitchModule,
     SwapsModule,
     TrocadorModule,
+    AuditsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

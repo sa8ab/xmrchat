@@ -65,3 +65,7 @@ export enum SwapStatusEnum {
   FAILED = 'failed',
   EXPIRED = 'expired', // swap duration expired
 }
+
+export enum AuditTypeEnum {
+  PAGE_UPDATED = 'page-updated',
+}

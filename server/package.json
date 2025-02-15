@@ -48,8 +48,11 @@
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "handlebars": "^4.7.8",
+    "microdiff": "^1.5.0",
     "minio": "^8.0.1",
     "monero-ts": "^0.11.1",
+    "nest-winston": "^1.10.2",
+    "nestjs-cls": "^5.2.0",
     "nodemailer": "^6.9.15",
     "obscenity": "^0.4.0",
     "passport": "^0.7.0",
@@ -63,7 +66,8 @@
     "tmi.js": "^1.8.5",
     "typeorm": "^0.3.20",
     "typeorm-naming-strategies": "^4.1.0",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
