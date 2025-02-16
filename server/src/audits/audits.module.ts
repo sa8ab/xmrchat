@@ -5,6 +5,6 @@ import { PageSubscriber } from './page.subscriber';
 @Global()
 @Module({
   providers: [AuditsService, PageSubscriber],
-  exports: [AuditsService],
+  exports: [AuditsService, PageSubscriber],
 })
 export class AuditsModule {}

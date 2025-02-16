@@ -83,17 +83,17 @@ export class AuditsService {
     type: AuditTypeEnum,
     params: {
       path: string | number;
-      mode: string;
       oldValue: object;
       value: object;
     }[],
   ) {
     const user = this.clsService.get('user');
+    this.logger.info(`---------------------------------`);
+
     this.logger.info(`${type} by ${user?.email}`);
 
     params.forEach((l) => {
-      this.logger.info(`${l.path} - ${l.mode}. ${l.oldValue} --> ${l.value}.`);
+      this.logger.info(`${l.path}. ${l.oldValue} --> ${l.value}.`);
     });
-    this.logger.info(`---------------------------------`);
   }
 }

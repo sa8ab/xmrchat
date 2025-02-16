@@ -25,7 +25,6 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
         port: configService.get('DATABASE_PORT'),
         username: configService.get('DATABASE_USERNAME'),
         password: configService.get('DATABASE_PASSWORD'),
-        subscribers: [PageSubscriber],
         entities: [
           User,
           UserToken,
