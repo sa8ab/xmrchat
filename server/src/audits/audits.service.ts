@@ -89,7 +89,7 @@ export class AuditsService {
     }[],
   ) {
     const user = this.clsService.get('user');
-    this.logger.info(`${type} by ${user.email}`);
+    this.logger.info(`${type} by ${user?.email}`);
 
     params.forEach((l) => {
       this.logger.info(`${l.path} - ${l.mode}. ${l.oldValue} --> ${l.value}.`);
