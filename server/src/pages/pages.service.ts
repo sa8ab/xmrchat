@@ -318,17 +318,17 @@ export class PagesService {
       });
     }
 
-    const temp = { ...page };
+    // const temp = { ...page };
 
     const savedPage = Object.assign(page, attrs);
 
     const result = await this.repo.save(savedPage);
 
-    this.auditsService.add(
-      AuditTypeEnum.PAGE_UPDATED,
-      temp,
-      await this.findByPath(result.path),
-    );
+    // this.auditsService.add(
+    //   AuditTypeEnum.PAGE_UPDATED,
+    //   temp,
+    //   await this.findByPath(result.path),
+    // );
     return result;
   }
 

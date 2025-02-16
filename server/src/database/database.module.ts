@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PageSubscriber } from 'src/audits/page.subscriber';
 import { UserToken } from 'src/auth/user-tokens/user-token.entity';
 import { File as FileEntity } from 'src/files/file.entity';
 import { Coin } from 'src/integrations/trocador/coin.entity';
@@ -24,6 +25,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
         port: configService.get('DATABASE_PORT'),
         username: configService.get('DATABASE_USERNAME'),
         password: configService.get('DATABASE_PASSWORD'),
+        subscribers: [PageSubscriber],
         entities: [
           User,
           UserToken,
