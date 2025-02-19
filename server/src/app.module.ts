@@ -26,6 +26,7 @@ import { WinstonModule } from 'nest-winston';
 import winston from 'winston';
 import { join } from 'path';
 import { ClsModule } from 'nestjs-cls';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -68,6 +69,12 @@ import { ClsModule } from 'nestjs-cls';
       middleware: { mount: true },
       global: true,
     }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 240,
+      },
+    ]),
     UsersModule,
     DatabaseModule,
     NotificationsModule,
