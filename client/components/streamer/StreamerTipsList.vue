@@ -105,6 +105,11 @@ const getComputedPrice = (amount?: string) => {
           {{ new Date(row.payment.paidAt).toLocaleString() }}
         </div>
       </template>
+      <template #message-data="{ row }">
+        <div class="break-words max-w-[20rem] min-w-[8rem]">
+          {{ row.message }}
+        </div>
+      </template>
       <template #private-data="{ row }">
         <div class="private">
           <UCheckbox
