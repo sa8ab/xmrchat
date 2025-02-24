@@ -69,3 +69,9 @@ export enum SwapStatusEnum {
 export enum AuditTypeEnum {
   PAGE_UPDATED = 'page-updated',
 }
+
+export enum RolesEnum {
+  ADMIN = 'admin',
+  STREAMER = 'streamer',
+  COHOST = 'cohost',
+}
