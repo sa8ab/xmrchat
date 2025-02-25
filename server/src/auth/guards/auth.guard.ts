@@ -35,6 +35,6 @@ export class AuthGuard implements CanActivate {
     if (!requiredRoles) return true;
 
     // user exists and some roles exist too.
-    return requiredRoles.some((rr: string) => rr === user.role);
+    return requiredRoles.some((rr: string) => user.roles?.inclues(rr));
   }
 }

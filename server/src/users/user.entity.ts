@@ -21,8 +21,13 @@ export class User {
   @Column()
   email: string;
 
-  @Column({ type: 'enum', enum: RolesEnum, default: RolesEnum.STREAMER })
-  role: RolesEnum;
+  @Column({
+    type: 'enum',
+    enum: RolesEnum,
+    array: true,
+    default: [RolesEnum.STREAMER],
+  })
+  roles: RolesEnum[];
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
