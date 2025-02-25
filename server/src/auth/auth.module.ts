@@ -49,5 +49,6 @@ import { ThrottlerGuard } from '@nestjs/throttler';
     },
   ],
   controllers: [AuthController],
+  exports: [AuthService],
 })
 export class AuthModule {}

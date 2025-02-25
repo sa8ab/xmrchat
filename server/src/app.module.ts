@@ -27,6 +27,7 @@ import winston from 'winston';
 import { join } from 'path';
 import { ClsModule } from 'nestjs-cls';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { CommanderModule } from './commander/commander.module';
 
 @Module({
   imports: [
@@ -91,6 +92,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
     SwapsModule,
     TrocadorModule,
     AuditsModule,
+    CommanderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

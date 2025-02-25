@@ -22,7 +22,9 @@
     "migration:run": "typeorm-ts-node-commonjs migration:run -d typeorm.config",
     "migration:revert": "typeorm-ts-node-commonjs migration:revert -d typeorm.config",
     "migration:show": "typeorm-ts-node-commonjs migration:show -d typeorm.config",
-    "migration:generate": "typeorm-ts-node-commonjs migration:generate -d typeorm.config"
+    "migration:generate": "typeorm-ts-node-commonjs migration:generate -d typeorm.config",
+    "commander": "ts-node -r tsconfig-paths/register src/commander.ts",
+    "commander:role": "ts-node -r tsconfig-paths/register src/commander.ts role"
   },
   "dependencies": {
     "@nestjs-modules/mailer": "^2.0.2",
@@ -52,6 +54,7 @@
     "microdiff": "^1.5.0",
     "minio": "^8.0.1",
     "monero-ts": "^0.11.1",
+    "nest-commander": "^3.16.0",
     "nest-winston": "^1.10.2",
     "nestjs-cls": "^5.2.0",
     "nodemailer": "^6.9.15",
