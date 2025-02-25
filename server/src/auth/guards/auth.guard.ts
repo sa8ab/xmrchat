@@ -21,12 +21,20 @@ export class AuthGuard implements CanActivate {
       context.getClass(),
     ]);
 
-    if (isPublic) return true;
+    const requiredRoles = this.reflector.getAllAndOverride(ROLES_METADATA, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
 
     const user = request.user;
 
+    if (isPublic) return true;
+
     if (!user) return false;
 
-    return true;
+    if (!requiredRoles) return true;
+
+    // user exists and some roles exist too.
+    return requiredRoles.some((rr: string) => rr === user.role);
   }
 }
