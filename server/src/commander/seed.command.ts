@@ -18,8 +18,8 @@ export class SeedCommand extends CommandRunner {
 
     const dataSource = await datasource.initialize();
 
-    this.logger.log('After initialize');
-
     await runSeeders(dataSource);
+
+    this.logger.log('Command end');
   }
 }
