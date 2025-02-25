@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AdminCommandService } from './admin-command.service';
+import { ChangeRoleCommand } from './change-role.command';
 import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  providers: [AdminCommandService],
+  providers: [ChangeRoleCommand],
   imports: [AuthModule],
 })
 export class CommanderModule {}
