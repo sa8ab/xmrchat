@@ -7,18 +7,14 @@ useHead({
 
 const { getMyPage } = useServices();
 
-const { data, pending, refresh, error } = useLazyAsyncData(
+const { data, pending, refresh, error } = await useLazyAsyncData(
   "streamer-profile",
-  () => getMyPage(),
-  {
-    transform: (v) => {
-      tipValue.value = v.page.defaultTipAmountDisplay;
-      return v;
-    },
-  }
+  () => getMyPage()
 );
 
-const tipValue = ref<SupportedDisplayCurrency | undefined>();
+const tipValue = ref<SupportedDisplayCurrency | undefined>(
+  data.value?.page.defaultTipAmountDisplay
+);
 </script>
 
 <template>
