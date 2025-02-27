@@ -133,9 +133,12 @@ export class PagesService {
     const { entities, raw } = await query.getRawAndEntities();
 
     const result = entities.map((entity, index) => {
-      entity.totalTips = raw[index].total_tips;
+      const totalTips = MoneroUtils.atomicUnitsToXmr(
+        raw[index].total_tips || '',
+      );
+      entity.totalTips = totalTips;
       entity.tipsCount = raw[index].tips_count;
-      return entities;
+      return entity;
     });
 
     const total = await query.getCount();

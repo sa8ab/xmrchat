@@ -74,6 +74,9 @@ export interface StreamerPage {
   isPublic: boolean;
   defaultTipAmountDisplay?: SupportedDisplayCurrency;
   links?: ContentLink[];
+  user?: User;
+  totalTips?: number;
+  tipsCount?: number;
 }
 
 interface TipPayment {
