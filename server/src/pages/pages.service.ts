@@ -98,7 +98,23 @@ export class PagesService {
       .leftJoin('page.tips', 'tip')
       .leftJoin('tip.payment', 'payment', 'payment.paid_at IS NOT NULL')
       .addSelect('SUM(payment.paid_amount::NUMERIC)', 'total_tips')
-      .addSelect('SUM(payment.paid_amount::NUMERIC)', 'tips_count')
+      .addSelect(
+        (qb) =>
+          qb
+            .select('COUNT(*)')
+            .from(Tip, 'tip')
+            .leftJoin('tip.payment', 'payment')
+            .where('payment.paid_at IS NOT NULL')
+            .andWhere('tip.page_id = page.id'),
+        'tips_count',
+      )
+
+      // This is a different way of loading count of tips.
+      // .loadRelationCountAndMap('page.tipsCount', 'page.tips', 'tip', (qb) =>
+      //   qb
+      //     .leftJoin('tip.payment', 'payment')
+      //     .where('payment.paid_at IS NOT NULL'),
+      // )
       .groupBy('page.id, logo.id, user.id');
 
     if (slug) {
@@ -118,6 +134,7 @@ export class PagesService {
 
     const result = entities.map((entity, index) => {
       entity.totalTips = raw[index].total_tips;
+      entity.tipsCount = raw[index].tips_count;
       return entities;
     });
 

@@ -7,6 +7,9 @@ export class PageAdminDto extends StreamerPageDto {
   totalTips: number;
 
   @Expose()
+  tipsCount: number;
+
+  @Expose()
   @Type(() => UserDto)
   user: UserDto;
 }
