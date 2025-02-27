@@ -1,6 +1,7 @@
 import type {
   ContentLinkPlatformEnum,
   PageSettingKey,
+  RolesEnum,
   SupportedDisplayCurrency,
   SwapStatusEnum,
 } from "./enums";
@@ -20,6 +21,7 @@ export interface User {
   username: string;
   email: string;
   id: string;
+  roles: RolesEnum[];
 }
 
 export interface CreateFormFields {
