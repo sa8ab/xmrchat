@@ -86,7 +86,11 @@ export class PagesService {
     };
   }
 
-  async adminPages(slug: string = '', offset: number = 0, limit: number = 20) {
+  async adminSearchPages(
+    slug: string = '',
+    offset: number = 0,
+    limit: number = 20,
+  ) {
     let query = this.repo
       .createQueryBuilder('page')
       .leftJoinAndSelect('page.logo', 'logo')
@@ -94,6 +98,7 @@ export class PagesService {
       .leftJoin('page.tips', 'tip')
       .leftJoin('tip.payment', 'payment', 'payment.paid_at IS NOT NULL')
       .addSelect('SUM(payment.paid_amount::NUMERIC)', 'total_tips')
+      .addSelect('SUM(payment.paid_amount::NUMERIC)', 'tips_count')
       .groupBy('page.id, logo.id, user.id');
 
     if (slug) {
@@ -115,8 +120,6 @@ export class PagesService {
       entity.totalTips = raw[index].total_tips;
       return entities;
     });
-
-    this.logger.log({ result });
 
     const total = await query.getCount();
 

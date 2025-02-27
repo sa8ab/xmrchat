@@ -90,4 +90,5 @@ export class Page {
   links: Link[];
 
   totalTips: number | null;
+  tipsCount: number | null;
 }
