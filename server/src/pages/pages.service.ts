@@ -96,6 +96,19 @@ export class PagesService {
       .addSelect('SUM(payment.paid_amount::NUMERIC)', 'total_tips')
       .groupBy('page.id, logo.id, user.id');
 
+    if (slug) {
+      query = query.andWhere(
+        '(LOWER(page.path) LIKE :path OR LOWER(page.name) LIKE :name OR LOWER(page.searchTerms) LIKE :searchTerms)',
+        {
+          path: `%${slug.toLowerCase()}%`,
+          name: `%${slug.toLowerCase()}%`,
+          searchTerms: `%${slug.toLowerCase()}%`,
+        },
+      );
+    }
+
+    query = query.offset(offset).limit(limit);
+
     const { entities, raw } = await query.getRawAndEntities();
 
     const result = entities.map((entity, index) => {
@@ -104,6 +117,13 @@ export class PagesService {
     });
 
     this.logger.log({ result });
+
+    const total = await query.getCount();
+
+    return {
+      pages: result,
+      total,
+    };
   }
 
   async checkSlug(slug: string) {
