@@ -28,6 +28,7 @@ import { join } from 'path';
 import { ClsModule } from 'nestjs-cls';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { CommanderModule } from './commander/commander.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -93,6 +94,7 @@ import { CommanderModule } from './commander/commander.module';
     TrocadorModule,
     AuditsModule,
     CommanderModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],

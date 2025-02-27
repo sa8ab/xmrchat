@@ -86,6 +86,26 @@ export class PagesService {
     };
   }
 
+  async adminPages(slug: string = '', offset: number = 0, limit: number = 20) {
+    let query = this.repo
+      .createQueryBuilder('page')
+      .leftJoinAndSelect('page.logo', 'logo')
+      .leftJoinAndSelect('page.user', 'user')
+      .leftJoin('page.tips', 'tip')
+      .leftJoin('tip.payment', 'payment', 'payment.paid_at IS NOT NULL')
+      .addSelect('SUM(payment.paid_amount::NUMERIC)', 'total_tips')
+      .groupBy('page.id, logo.id, user.id');
+
+    const { entities, raw } = await query.getRawAndEntities();
+
+    const result = entities.map((entity, index) => {
+      entity.totalTips = raw[index].total_tips;
+      return entities;
+    });
+
+    this.logger.log({ result });
+  }
+
   async checkSlug(slug: string) {
     const onRedis = await this.cacheManager.get(`slug:${slug}`);
 

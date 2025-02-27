@@ -16,6 +16,7 @@ import {
 import { Tier } from './tier.entity';
 import { PageSetting } from '../page-settings/page-setting.entity';
 import { Link } from '../links/link.entity';
+import { Tip } from 'src/tips/tip.entity';
 
 @Entity({ name: 'pages' })
 @Unique(['path'])
@@ -82,6 +83,11 @@ export class Page {
   @OneToMany(() => PageSetting, (p: PageSetting) => p.page)
   settings: PageSetting[];
 
+  @OneToMany(() => Tip, (t: Tip) => t.page)
+  tips: Tip[];
+
   @OneToMany(() => Link, (l) => l.page)
   links: Link[];
+
+  totalTips: number | null;
 }
