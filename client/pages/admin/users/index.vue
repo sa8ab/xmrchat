@@ -7,12 +7,11 @@ const { $axios } = useNuxtApp();
 const { page, offset, limit } = useFilter({
   initialPage: parseInt(route.query.page as string) || 1,
   getAll: () => refresh(),
-  limit: 2,
 });
 
 const { data, error, pending, refresh } = useLazyAsyncData(
   async () => {
-    const { data } = await $axios.get<{ users: User[]; total: number }>(
+    const { data } = await $axios.get<{ users: User[]; count: number }>(
       "/admin/users",
       {
         params: {
@@ -35,14 +34,46 @@ const columns = [
     label: "Email",
   },
   {
-    key: "createdAt",
+    key: "created-at",
     label: "Created At",
   },
 ];
 </script>
 
 <template>
-  <pre>{{ data }}</pre>
+  <PageTitle title="Users"></PageTitle>
+
+  <PendingView :error="error" :pending="pending && !data">
+    <UTable
+      v-if="data"
+      :rows="data.users"
+      :columns="columns"
+      class="border border-border rounded-md"
+      :ui="{
+        td: { base: 'whitespace-normal text-text dark:text-text' },
+      }"
+    >
+      <template #created-at-data="{ row }">
+        <span>{{ new Date(row.createdAt).toLocaleString() }}</span>
+      </template>
+      <template #action-data="{ row }">
+        <UButton trailingIcon="i-heroicons-arrow-long-right" variant="ghost">
+          View
+        </UButton>
+      </template>
+      <template #empty-state>
+        <NoItems />
+      </template>
+    </UTable>
+
+    <UPagination
+      v-if="data?.count"
+      v-model="page"
+      :total="data.count"
+      :pageCount="limit"
+      class="mt-12 justify-center"
+    />
+  </PendingView>
 </template>
 
 <style scoped></style>

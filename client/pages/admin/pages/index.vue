@@ -54,7 +54,7 @@ const columns = [
 </script>
 
 <template>
-  <PageTitle title="All Pages"></PageTitle>
+  <PageTitle title="Pages"></PageTitle>
   <PendingView :error="error" :pending="pending && !data">
     <UTable
       v-if="data"
