@@ -41,4 +41,13 @@ export class UsersService {
 
     return this.repo.save(entity);
   }
+
+  async search() {
+    const [users, count] = await this.repo.findAndCount({
+      skip: 0,
+      take: 4,
+    });
+
+    return { users, count };
+  }
 }

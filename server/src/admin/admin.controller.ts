@@ -1,21 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
-import { PagesService } from 'src/pages/pages.service';
-import { RolesEnum } from 'src/shared/constants';
-import { Roles } from 'src/shared/decorators/roles.decorator';
-import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
-import { PageSearchAdminRO } from './dtos/page.admin.dto';
+import { Controller } from '@nestjs/common';
 
 @Controller('admin')
-export class AdminController {
-  constructor(private readonly pagesServices: PagesService) {}
-
-  @Get('/pages')
-  @Roles(RolesEnum.ADMIN)
-  @Serialize(PageSearchAdminRO)
-  getPages(@Query() query: any) {
-    const slug = query.search;
-    const offset = query.offset;
-    const limit = query.limit;
-    return this.pagesServices.adminSearchPages(slug, offset, limit);
-  }
-}
+export class AdminController {}
