@@ -1,12 +1,26 @@
 <script lang="ts" setup>
 import type { StreamerPage } from "~/types";
 
+const route = useRoute();
+
 const { $axios } = useNuxtApp();
 
-const { data, error, pending } = useLazyAsyncData(
+const { page, offset, limit } = useFilter({
+  initialPage: parseInt(route.query.page as string) || 1,
+  getAll: () => refresh(),
+});
+
+const { data, error, pending, refresh } = useLazyAsyncData(
   async () => {
     const { data } = await $axios.get<{ pages: StreamerPage[]; total: number }>(
-      "/admin/pages"
+      "/admin/pages",
+      {
+        params: {
+          limit,
+          offset: offset.value,
+          search: route.query.search,
+        },
+      }
     );
     return data;
   },
@@ -76,6 +90,14 @@ const columns = [
         <NoItems />
       </template>
     </UTable>
+
+    <UPagination
+      v-if="data?.total"
+      v-model="page"
+      :total="data.total"
+      :pageCount="limit"
+      class="mt-12 justify-center"
+    />
   </PendingView>
 </template>
 

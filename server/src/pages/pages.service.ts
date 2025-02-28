@@ -115,7 +115,8 @@ export class PagesService {
       //     .leftJoin('tip.payment', 'payment')
       //     .where('payment.paid_at IS NOT NULL'),
       // )
-      .groupBy('page.id, logo.id, user.id');
+      .groupBy('page.id, logo.id, user.id')
+      .orderBy('tips_count', 'DESC', 'NULLS LAST');
 
     if (slug) {
       query = query.andWhere(

@@ -1,5 +1,6 @@
 export interface UseFilterParams {
   initialPage?: number;
+  limit?: number;
   queryToData?: () => any;
   getAll?: () => any;
   onQueryChange?: () => any;
@@ -9,11 +10,12 @@ export default ({
   queryToData,
   getAll,
   onQueryChange,
+  limit: initialLimit,
 }: UseFilterParams = {}) => {
   const route = useRoute();
   const page = ref<number>(initialPage);
 
-  const limit = 8;
+  const limit = initialLimit || 8;
 
   const offset = computed(() => {
     if (typeof page.value === "undefined") return undefined;
