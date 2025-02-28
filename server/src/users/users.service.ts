@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { randomBytes } from 'crypto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { createFinalPassword, hashPassword } from 'src/shared/utils';
+import { AdminSearchUserDto } from 'src/admin/dtos/admin-search-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -42,10 +43,12 @@ export class UsersService {
     return this.repo.save(entity);
   }
 
-  async search() {
+  async searchUsers(query: AdminSearchUserDto) {
     const [users, count] = await this.repo.findAndCount({
-      skip: 0,
-      take: 4,
+      skip: query.offset || 0,
+      take: query.limit || 20,
+      order: { createdAt: 'DESC' },
+      where: { isEmailVerified: true },
     });
 
     return { users, count };

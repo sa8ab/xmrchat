@@ -2,7 +2,7 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { RolesEnum } from 'src/shared/constants';
 import { Roles } from 'src/shared/decorators/roles.decorator';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
-import { PageSearchAdminRO } from './dtos/page.admin.dto';
+import { PageSearchAdminRO } from './dtos/admin-page.dto';
 import { PagesService } from 'src/pages/pages.service';
 
 @Controller('/admin')
