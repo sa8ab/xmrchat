@@ -66,7 +66,10 @@ const columns = [
       }"
     >
       <template #path-data="{ row }">
-        {{ row.path }}
+        <div class="flex flex-col">
+          <span> {{ row.path }} </span>
+          <span v-if="!row.isPublic" class="text-xs text-pale">Private</span>
+        </div>
       </template>
       <template #user-data="{ row }">
         <div class="flex flex-col">
@@ -85,6 +88,11 @@ const columns = [
         <div class="flex flex-col">
           <span>{{ row.tipsCount }} Tips</span>
         </div>
+      </template>
+      <template #action-data="{ row }">
+        <UButton trailingIcon="i-heroicons-arrow-long-right" variant="ghost">
+          View
+        </UButton>
       </template>
       <template #empty-state>
         <NoItems />
