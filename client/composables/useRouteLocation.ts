@@ -27,5 +27,6 @@ export const useRouteLocation = () => {
 
     toUsers: () => localeRoute("/admin/users"),
     toPages: () => localeRoute("/admin/pages"),
+    toPage: (slug: string) => localeRoute(`/admin/pages/${slug}`),
   };
 };

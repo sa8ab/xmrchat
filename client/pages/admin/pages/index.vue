@@ -2,6 +2,7 @@
 import type { StreamerPage } from "~/types";
 
 const route = useRoute();
+const { toPage } = useRouteLocation();
 
 const { $axios } = useNuxtApp();
 
@@ -90,7 +91,11 @@ const columns = [
         </div>
       </template>
       <template #action-data="{ row }">
-        <UButton trailingIcon="i-heroicons-arrow-long-right" variant="ghost">
+        <UButton
+          trailingIcon="i-heroicons-arrow-long-right"
+          variant="ghost"
+          :to="toPage(row.path)"
+        >
           View
         </UButton>
       </template>
