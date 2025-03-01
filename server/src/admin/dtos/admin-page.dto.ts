@@ -22,3 +22,9 @@ export class PageSearchAdminRO {
   @Expose()
   total: number;
 }
+
+export class AdminPageRO {
+  @Expose()
+  @Type(() => AdminPageDto)
+  page: AdminPageDto;
+}

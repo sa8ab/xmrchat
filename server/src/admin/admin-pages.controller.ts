@@ -8,7 +8,7 @@ import {
 import { RolesEnum } from 'src/shared/constants';
 import { Roles } from 'src/shared/decorators/roles.decorator';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
-import { PageSearchAdminRO } from './dtos/admin-page.dto';
+import { AdminPageRO, PageSearchAdminRO } from './dtos/admin-page.dto';
 import { PagesService } from 'src/pages/pages.service';
 
 @Roles(RolesEnum.ADMIN)
@@ -26,8 +26,10 @@ export class AdminPagesController {
   }
 
   @Get('/:path')
-  getPage(@Param('path') path: string) {
+  @Serialize(AdminPageRO)
+  async getPage(@Param('path') path: string) {
     if (!path) throw new NotFoundException();
-    return this.pagesServices.findAdminPageByPath(path);
+    const page = await this.pagesServices.findAdminPageByPath(path);
+    return { page };
   }
 }
