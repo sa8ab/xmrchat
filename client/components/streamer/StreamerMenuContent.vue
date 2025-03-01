@@ -37,7 +37,7 @@ const items = computed(() => {
   res.push(
     ...[
       {
-        label: "My XMRChats",
+        label: "My xmrchats",
         icon: "i-heroicons-computer-desktop",
         to: toStreamerDisplay(),
         exact: true,
