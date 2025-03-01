@@ -418,4 +418,25 @@ export class PagesService {
       this.logger.warn('Adding Lws account after create or update failed.');
     }
   }
+
+  async findAdminPageByPath(path: string) {
+    if (!path) return null;
+
+    let query = this.repo
+      .createQueryBuilder('page')
+      .leftJoinAndSelect('page.user', 'user')
+      .where('page.path = :path', { path })
+      .leftJoin('Tip', 'tip', 'tip.page_id = page.id')
+      .leftJoin('tip.payment', 'payment', 'payment.paid_at IS NOT NULL')
+      .addSelect('SUM(COALESCE(payment.paid_amount::NUMERIC, 0))', 'total_tips')
+      .addSelect('COUNT(payment.id)', 'tips_count')
+      .groupBy('page.id, user.id');
+
+    const raw = await query.getRawOne();
+    const entity = await query.getOne();
+    entity.totalTips = MoneroUtils.atomicUnitsToXmr(raw.total_tips || '');
+    entity.tipsCount = parseInt(raw.tips_count);
+
+    return entity;
+  }
 }
