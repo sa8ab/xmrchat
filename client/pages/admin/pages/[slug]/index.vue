@@ -3,6 +3,7 @@ import type { StreamerPage } from "~/types";
 
 const { $axios } = useNuxtApp();
 const route = useRoute();
+const { toStreamer } = useRouteLocation();
 const { data, error, pending, refresh } = useLazyAsyncData(
   `admin-page-${route.params.slug}`,
   async () => {
@@ -25,7 +26,15 @@ const { data, error, pending, refresh } = useLazyAsyncData(
         :description="data.user?.email"
       ></PageTitle>
 
-      <div></div>
+      <div class="flex gap-1 justify-end mb-4">
+        <UButton :to="toStreamer(route.params.slug as string)">
+          Visit Page
+        </UButton>
+        <UButton color="red" icon="i-heroicons-trash"> Delete </UButton>
+        <UButton color="red" icon="i-heroicons-no-symbol" variant="outline">
+          Deactivate
+        </UButton>
+      </div>
       <div class="grid md:grid-cols-2 gap-8">
         <UCard :ui="{ background: 'dark:bg-background-2' }">
           <template #header>
