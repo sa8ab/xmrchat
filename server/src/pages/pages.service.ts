@@ -60,6 +60,7 @@ export class PagesService {
         'paid_tip.page_id = page.id',
       )
       .where('page.isPublic = true')
+      .andWhere('page.status != :status', { status: PageStatusEnum.DEACTIVE })
       .addSelect('SUM(paid_tip.paid_amount::NUMERIC) AS total_paid')
       .groupBy('page.id, logo.id, cover_image.id')
       .orderBy('total_paid', 'DESC', 'NULLS LAST');
