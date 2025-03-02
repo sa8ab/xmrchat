@@ -95,7 +95,7 @@ const executeChangeStatus = async (status: PageStatusEnum) => {
             <div>{{ data.totalTips }} XMR</div>
             <template v-if="data.status">
               <div class="text-pale">Status</div>
-              <div>{{ PAGE_STATUS[data.status]?.title }}</div>
+              <div>{{ PAGE_STATUS[data.status]?.subjectTitle }}</div>
             </template>
             <div class="text-pale">Public page</div>
             <div>{{ data.isPublic ? "Yes" : "No" }}</div>
