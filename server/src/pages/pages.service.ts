@@ -25,7 +25,7 @@ import { NotificationsService } from 'src/notifications/notifications.service';
 import { UpdatePageDto } from './dtos/update-page.dto';
 import { TwitchService } from 'src/integrations/twitch.service';
 import { AuditsService } from 'src/audits/audits.service';
-import { AuditTypeEnum } from 'src/shared/constants';
+import { AuditTypeEnum, PageStatusEnum } from 'src/shared/constants';
 
 @Injectable()
 export class PagesService {
@@ -438,5 +438,15 @@ export class PagesService {
     entity.tipsCount = parseInt(raw.tips_count);
 
     return entity;
+  }
+
+  async changeStatus(path: string, status: PageStatusEnum) {
+    const page = await this.findByPath(path);
+
+    if (!page) throw new NotFoundException('Page not found');
+
+    page.status = status;
+
+    return this.repo.save(page);
   }
 }
