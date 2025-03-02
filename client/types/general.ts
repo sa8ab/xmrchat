@@ -1,6 +1,7 @@
 import type {
   ContentLinkPlatformEnum,
   PageSettingKey,
+  PageStatusEnum,
   RolesEnum,
   SupportedDisplayCurrency,
   SwapStatusEnum,
@@ -77,6 +78,7 @@ export interface StreamerPage {
   user?: User;
   totalTips?: number;
   tipsCount?: number;
+  status?: PageStatusEnum;
 }
 
 interface TipPayment {
