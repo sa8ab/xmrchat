@@ -26,7 +26,7 @@ const changeStatus = (status: PageStatusEnum) => {
 
   confirmModal.show({
     title: "Warning",
-    text: `Are you sure you want change status of page ${data.value?.name} to ${PAGE_STATUS[status].title}?`,
+    text: `Are you sure you want change status of page ${data.value?.name} to ${PAGE_STATUS[status].subjectTitle}?`,
     onConfirm: () => executeChangeStatus(status),
   });
 };

@@ -152,6 +152,6 @@ export const SWAP_STATUSES = {
 };
 
 export const PAGE_STATUS = {
-  [PageStatusEnum.ACTIVE]: { title: "Active" },
-  [PageStatusEnum.DEACTIVE]: { title: "Deactive" },
+  [PageStatusEnum.ACTIVE]: { title: "Active", subjectTitle: "Activated" },
+  [PageStatusEnum.DEACTIVE]: { title: "Deactive", subjectTitle: "Deactivated" },
 };
