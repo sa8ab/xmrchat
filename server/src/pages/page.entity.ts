@@ -17,6 +17,7 @@ import { Tier } from './tier.entity';
 import { PageSetting } from '../page-settings/page-setting.entity';
 import { Link } from '../links/link.entity';
 import { Tip } from 'src/tips/tip.entity';
+import { PageStatusEnum } from '../shared/constants';
 
 @Entity({ name: 'pages' })
 @Unique(['path'])
@@ -26,6 +27,13 @@ export class Page {
 
   @Column()
   path: string;
+
+  @Column({
+    type: 'enum',
+    enum: PageStatusEnum,
+    default: PageStatusEnum.ACTIVE,
+  })
+  status: PageStatusEnum;
 
   @Column()
   name: string;

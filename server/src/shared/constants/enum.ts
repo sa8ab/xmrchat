@@ -75,3 +75,8 @@ export enum RolesEnum {
   STREAMER = 'streamer',
   COHOST = 'cohost',
 }
+
+export enum PageStatusEnum {
+  ACTIVE = 'active',
+  DEACTIVE = 'deactive',
+}
