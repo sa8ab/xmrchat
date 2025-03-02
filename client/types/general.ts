@@ -195,3 +195,12 @@ export interface Swap {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface ConfirmModalState {
+  title?: string;
+  text?: string;
+  color?: string;
+  onConfirm?: () => unknown;
+  onDismiss?: () => unknown;
+  active?: boolean;
+}

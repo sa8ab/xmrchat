@@ -1,6 +1,7 @@
 import type { ContentLinkFull } from "~/types";
 import {
   ContentLinkPlatformEnum,
+  PageStatusEnum,
   SupportedDisplayCurrency,
   SwapStatusEnum,
 } from "~/types/enums";
@@ -148,4 +149,9 @@ export const SWAP_STATUSES = {
     label: "Failed",
     color: "red",
   },
+};
+
+export const PAGE_STATUS = {
+  [PageStatusEnum.ACTIVE]: { title: "Active" },
+  [PageStatusEnum.DEACTIVE]: { title: "Deactive" },
 };
