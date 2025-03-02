@@ -30,7 +30,6 @@ const { data, error, pending, refresh } = useLazyAsyncData(
         <UButton :to="toStreamer(route.params.slug as string)">
           Visit Page
         </UButton>
-        <UButton color="red" icon="i-heroicons-trash"> Delete </UButton>
         <UButton color="red" icon="i-heroicons-no-symbol" variant="outline">
           Deactivate
         </UButton>
