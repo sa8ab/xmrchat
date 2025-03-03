@@ -1,5 +1,6 @@
 import { Expose, Type } from 'class-transformer';
 import { PageDto } from './page.dto';
+import { PageStatusEnum } from 'src/shared/constants';
 
 export class StreamerPageDto extends PageDto {
   @Expose()
@@ -10,6 +11,9 @@ export class StreamerPageDto extends PageDto {
 
   @Expose()
   isPublic: string;
+
+  @Expose()
+  status: PageStatusEnum;
 }
 
 export class StreamerPageRO {

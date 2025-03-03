@@ -1,3 +1,4 @@
+import { RolesEnum } from '../shared/constants';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -19,6 +20,14 @@ export class User {
 
   @Column()
   email: string;
+
+  @Column({
+    type: 'enum',
+    enum: RolesEnum,
+    array: true,
+    default: [RolesEnum.STREAMER],
+  })
+  roles: RolesEnum[];
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;

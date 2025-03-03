@@ -94,6 +94,9 @@ services:
       - traefik.http.routers.${TRAEFIK_NEST_ROUTER_NAME:-xmrchatnest}.tls=true
       - traefik.http.routers.${TRAEFIK_NEST_ROUTER_NAME:-xmrchatnest}.tls.certresolver=myresolver
       - traefik.http.services.${TRAEFIK_NEST_ROUTER_NAME:-xmrchatnest}.loadbalancer.server.port=3000
+    volumes:
+      - ./logs:/home/node/app/logs
+
     networks:
       traefik:
         aliases:

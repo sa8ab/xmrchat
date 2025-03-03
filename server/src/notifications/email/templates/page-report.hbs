@@ -1,0 +1,91 @@
+{{#>layout title="New Page Report" }}
+  <h1 style="margin: 0; text-align: center; padding-bottom: 24px;">New Page Report</h1>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="width: 100%;">
+    <!-- Icon & Info Row -->
+    <tr>
+      <td align="center" style="padding-bottom: 40px;">
+        <table style=" width: 100%;" border="0" cellspacing="0" cellpadding="0" style="text-align: center;">
+          <tr>
+            <!-- Path Column -->
+            <td align="center" style="padding: 12px;">
+              <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td align="center">
+                    <div style="margin: auto;">
+                      <img width="32" height="32" src="https://api.iconify.design/material-symbols:attach-file.svg"
+                        alt="icon" title="icon">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 10px; color: #8f8f8f;" align="center">Path</td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 10px; font-weight: bold; font-size: 20px;">{{ slug }}</td>
+                </tr>
+              </table>
+            </td>
+            <!-- Date Column -->
+            <td align="center" style="padding: 12px;" width="33%">
+              <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td align="center">
+                    <img width="32" height="32" src="https://api.iconify.design/material-symbols:calendar-month.svg"
+                      alt="icon" title="icon">
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 10px; color: #8f8f8f;" align="center">Date</td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 10px; font-weight: bold; font-size: 20px;">{{ time }}</td>
+                </tr>
+              </table>
+            </td>
+            <!-- Amount Column -->
+            <td align="center" style="padding: 12px;" width="33%">
+              <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td align="center">
+                    <img width="32" height="32"
+                      src="https://api.iconify.design/material-symbols:monetization-on-rounded.svg" alt="icon"
+                      title="icon">
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 10px; color: #8f8f8f;" align="center">Amount</td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 10px; font-weight: bold; font-size: 20px;">{{ price }} XMR</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <!-- Details Section -->
+    <tr>
+      <td align="center">
+        <table border="0" cellspacing="0" cellpadding="5" style="font-size: 1.1rem;">
+          <tr>
+            <td align="right" style="color: #8f8f8f; padding-right: 10px;">Username:</td>
+            <td style="font-weight: 500;">{{ userName }}</td>
+          </tr>
+          <tr>
+            <td align="right" style="color: #8f8f8f; padding-right: 10px;">User Id:</td>
+            <td style="font-weight: 500;">{{ userId }}</td>
+          </tr>
+          <tr>
+            <td align="right" style="color: #8f8f8f; padding-right: 10px;">Page:</td>
+            <td style="font-weight: 500;">{{ slug }}</td>
+          </tr>
+          <tr>
+            <td align="right" style="color: #8f8f8f; padding-right: 10px;">Page Id:</td>
+            <td style="font-weight: 500;">{{ pageId }}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+{{/layout}}

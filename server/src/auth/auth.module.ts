@@ -12,6 +12,7 @@ import { UsersModule } from 'src/users/users.module';
 import { NotificationsModule } from 'src/notifications/notifications.module';
 import { UserTokensModule } from './user-tokens/user-tokens.module';
 import { PagesModule } from 'src/pages/pages.module';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -42,7 +43,12 @@ import { PagesModule } from 'src/pages/pages.module';
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
   controllers: [AuthController],
+  exports: [AuthService],
 })
 export class AuthModule {}

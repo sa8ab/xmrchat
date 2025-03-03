@@ -24,6 +24,8 @@ import { Tip } from 'src/tips/tip.entity';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { UpdatePageDto } from './dtos/update-page.dto';
 import { TwitchService } from 'src/integrations/twitch.service';
+import { AuditsService } from 'src/audits/audits.service';
+import { AuditTypeEnum, PageStatusEnum } from 'src/shared/constants';
 
 @Injectable()
 export class PagesService {
@@ -38,6 +40,7 @@ export class PagesService {
     private pagesGateway: PagesGateway,
     private notificationsService: NotificationsService,
     private twitchService: TwitchService,
+    private auditsService: AuditsService,
   ) {}
 
   async searchPages(slug: string = '', offset: number = 0, limit: number = 8) {
@@ -57,6 +60,7 @@ export class PagesService {
         'paid_tip.page_id = page.id',
       )
       .where('page.isPublic = true')
+      .andWhere('page.status != :status', { status: PageStatusEnum.DEACTIVE })
       .addSelect('SUM(paid_tip.paid_amount::NUMERIC) AS total_paid')
       .groupBy('page.id, logo.id, cover_image.id')
       .orderBy('total_paid', 'DESC', 'NULLS LAST');
@@ -79,6 +83,70 @@ export class PagesService {
 
     return {
       pages,
+      total,
+    };
+  }
+
+  async adminSearchPages(
+    slug: string = '',
+    offset: number = 0,
+    limit: number = 20,
+  ) {
+    let query = this.repo
+      .createQueryBuilder('page')
+      .leftJoinAndSelect('page.logo', 'logo')
+      .leftJoinAndSelect('page.user', 'user')
+      .leftJoin('page.tips', 'tip')
+      .leftJoin('tip.payment', 'payment', 'payment.paid_at IS NOT NULL')
+      .addSelect('SUM(payment.paid_amount::NUMERIC)', 'total_tips')
+      .addSelect(
+        (qb) =>
+          qb
+            .select('COUNT(*)')
+            .from(Tip, 'tip')
+            .leftJoin('tip.payment', 'payment')
+            .where('payment.paid_at IS NOT NULL')
+            .andWhere('tip.page_id = page.id'),
+        'tips_count',
+      )
+
+      // This is a different way of loading count of tips.
+      // .loadRelationCountAndMap('page.tipsCount', 'page.tips', 'tip', (qb) =>
+      //   qb
+      //     .leftJoin('tip.payment', 'payment')
+      //     .where('payment.paid_at IS NOT NULL'),
+      // )
+      .groupBy('page.id, logo.id, user.id')
+      .orderBy('tips_count', 'DESC', 'NULLS LAST');
+
+    if (slug) {
+      query = query.andWhere(
+        '(LOWER(page.path) LIKE :path OR LOWER(page.name) LIKE :name OR LOWER(page.searchTerms) LIKE :searchTerms)',
+        {
+          path: `%${slug.toLowerCase()}%`,
+          name: `%${slug.toLowerCase()}%`,
+          searchTerms: `%${slug.toLowerCase()}%`,
+        },
+      );
+    }
+
+    query = query.offset(offset).limit(limit);
+
+    const { entities, raw } = await query.getRawAndEntities();
+
+    const result = entities.map((entity, index) => {
+      const totalTips = MoneroUtils.atomicUnitsToXmr(
+        raw[index].total_tips || '',
+      );
+      entity.totalTips = totalTips;
+      entity.tipsCount = raw[index].tips_count;
+      return entity;
+    });
+
+    const total = await query.getCount();
+
+    return {
+      pages: result,
       total,
     };
   }
@@ -248,6 +316,7 @@ export class PagesService {
       userId: reserevdPage.userId,
       // TODO: get full user
       userName: '',
+      time: page.createdAt.toLocaleDateString(),
     });
 
     // remove reserved from cache
@@ -314,10 +383,17 @@ export class PagesService {
       });
     }
 
+    // const temp = { ...page };
+
     const savedPage = Object.assign(page, attrs);
 
     const result = await this.repo.save(savedPage);
 
+    // this.auditsService.add(
+    //   AuditTypeEnum.PAGE_UPDATED,
+    //   temp,
+    //   await this.findByPath(result.path),
+    // );
     return result;
   }
 
@@ -342,5 +418,36 @@ export class PagesService {
     } catch (error) {
       this.logger.warn('Adding Lws account after create or update failed.');
     }
+  }
+
+  async findAdminPageByPath(path: string) {
+    if (!path) return null;
+
+    let query = this.repo
+      .createQueryBuilder('page')
+      .leftJoinAndSelect('page.user', 'user')
+      .where('page.path = :path', { path })
+      .leftJoin('Tip', 'tip', 'tip.page_id = page.id')
+      .leftJoin('tip.payment', 'payment', 'payment.paid_at IS NOT NULL')
+      .addSelect('SUM(COALESCE(payment.paid_amount::NUMERIC, 0))', 'total_tips')
+      .addSelect('COUNT(payment.id)', 'tips_count')
+      .groupBy('page.id, user.id');
+
+    const raw = await query.getRawOne();
+    const entity = await query.getOne();
+    entity.totalTips = MoneroUtils.atomicUnitsToXmr(raw.total_tips || '');
+    entity.tipsCount = parseInt(raw.tips_count);
+
+    return entity;
+  }
+
+  async changeStatus(path: string, status: PageStatusEnum) {
+    const page = await this.findByPath(path);
+
+    if (!page) throw new NotFoundException('Page not found');
+
+    page.status = status;
+
+    return this.repo.save(page);
   }
 }
