@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { SupportedDisplayCurrency } from "~/types/enums";
+import { PageStatusEnum, type SupportedDisplayCurrency } from "~/types/enums";
 
 useHead({
   title: "Profile",
@@ -27,6 +27,14 @@ const tipValue = ref<SupportedDisplayCurrency | undefined>(
             :bannerUrl="data.page.coverImage.url"
             :showTitle="false"
             class="mb-10"
+          />
+
+          <UAlert
+            v-if="data.page.status === PageStatusEnum.DEACTIVE"
+            color="red"
+            variant="soft"
+            description="Your page has been deactivated and it is not visible to public. Please contact support for more info."
+            class="my-4"
           />
 
           <div class="flex justify-end mb-2">
