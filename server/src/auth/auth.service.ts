@@ -168,6 +168,8 @@ export class AuthService {
       password: createFinalPassword(data.password),
     });
 
+    this.notificationsService.sendPasswordChangeEmail(user.email);
+
     return {
       message: 'Account password updated.',
     };
