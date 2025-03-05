@@ -141,6 +141,8 @@ export class AuthService {
       UserTokenType.RESET_PASSWORD,
     );
 
+    const user = await this.usersService.findById(userToken.userId);
+
     const passwordResult = createFinalPassword(password);
 
     await this.usersService.update(userToken.userId, {
@@ -149,6 +151,8 @@ export class AuthService {
     });
 
     await this.userTokensService.remove(userToken.id);
+
+    this.notificationsService.sendPasswordChangeEmail(user.email);
 
     return {
       message: 'Password is changed successfully.',

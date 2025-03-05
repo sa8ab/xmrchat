@@ -112,8 +112,8 @@ export class NotificationsService {
 
   async sendPasswordChangeEmail(to: string) {
     return this.emailService.sendEmail(to, {
-      subject: 'XMRChat account password updated.',
-      text: 'XMRChat account password updated.',
+      subject: 'Your XMRChat password updated.',
+      text: 'Your XMRChat password updated.',
       template: 'update-password.hbs',
     });
   }
