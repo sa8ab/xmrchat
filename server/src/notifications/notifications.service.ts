@@ -109,4 +109,12 @@ export class NotificationsService {
   async sendTwitchMessage(channel: string, message: string) {
     await this.twitchService.sendMessage(channel, message);
   }
+
+  async sendPasswordChangeEmail(to: string) {
+    return this.emailService.sendEmail(to, {
+      subject: 'Your XMRChat password updated.',
+      text: 'Your XMRChat password updated.',
+      template: 'update-password.hbs',
+    });
+  }
 }
