@@ -24,7 +24,8 @@
     "migration:show": "typeorm-ts-node-commonjs migration:show -d typeorm.config",
     "migration:generate": "typeorm-ts-node-commonjs migration:generate -d typeorm.config",
     "commander": "ts-node -r tsconfig-paths/register src/commander.ts",
-    "commander:role": "ts-node -r tsconfig-paths/register src/commander.ts role"
+    "commander:role": "ts-node -r tsconfig-paths/register src/commander.ts role",
+    "commander:change-email": "ts-node -r tsconfig-paths/register src/commander.ts change-email"
   },
   "dependencies": {
     "@nestjs-modules/mailer": "^2.0.2",
