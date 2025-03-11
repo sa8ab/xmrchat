@@ -32,10 +32,6 @@ export default defineNuxtConfig({
     },
   },
 
-  // tailwindcss: {
-  //   configPath: "./tailwind.config.ts",
-  // },
-
   i18n: {
     detectBrowserLanguage: {
       useCookie: true,
