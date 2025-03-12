@@ -132,6 +132,8 @@ const dropdownItems = computed<DropdownItem[][]>(() => {
           <UButton v-else :to="toLogin()">Creator Login</UButton>
         </template>
 
+        <LanguageSelect />
+
         <UButton
           square
           icon="i-heroicons-magnifying-glass"
