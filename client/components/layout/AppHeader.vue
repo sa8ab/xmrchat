@@ -14,6 +14,7 @@ const authStore = useAuthStore();
 const { logout, state } = authStore;
 const route = useRoute();
 const { copy } = useCopy();
+const { t } = useI18n();
 
 const dropdownItems = computed<DropdownItem[][]>(() => {
   const url = useRequestURL();
@@ -86,7 +87,7 @@ const dropdownItems = computed<DropdownItem[][]>(() => {
         <ul>
           <li class="flex space-x-1">
             <UButton variant="ghost" color="white" :to="toContact()">
-              Contact Us
+              {{ t("contactUs") }}
             </UButton>
           </li>
         </ul>
@@ -127,9 +128,9 @@ const dropdownItems = computed<DropdownItem[][]>(() => {
             icon="i-heroicons-user"
             :to="toStreamerDisplay()"
           >
-            Account
+            {{ t("account") }}
           </UButton>
-          <UButton v-else :to="toLogin()">Creator Login</UButton>
+          <UButton v-else :to="toLogin()">{{ t("creatorLogin") }}</UButton>
         </template>
 
         <UButton
@@ -138,7 +139,7 @@ const dropdownItems = computed<DropdownItem[][]>(() => {
           color="gray"
           :to="toCreators()"
         >
-          <span class="sr-only">Search Creators</span>
+          <span class="sr-only">{{ t("searchCreators.title") }}</span>
         </UButton>
         <ColorMode />
       </div>
