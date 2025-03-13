@@ -1,6 +1,8 @@
 import type {
   ContentLinkPlatformEnum,
   PageSettingKey,
+  PageStatusEnum,
+  RolesEnum,
   SupportedDisplayCurrency,
   SwapStatusEnum,
 } from "./enums";
@@ -20,6 +22,7 @@ export interface User {
   username: string;
   email: string;
   id: string;
+  roles: RolesEnum[];
 }
 
 export interface CreateFormFields {
@@ -72,6 +75,10 @@ export interface StreamerPage {
   isPublic: boolean;
   defaultTipAmountDisplay?: SupportedDisplayCurrency;
   links?: ContentLink[];
+  user?: User;
+  totalTips?: number;
+  tipsCount?: number;
+  status?: PageStatusEnum;
 }
 
 interface TipPayment {
@@ -187,4 +194,13 @@ export interface Swap {
   statusMessage: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface ConfirmModalState {
+  title?: string;
+  text?: string;
+  color?: string;
+  onConfirm?: () => unknown;
+  onDismiss?: () => unknown;
+  active?: boolean;
 }

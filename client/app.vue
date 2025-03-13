@@ -15,6 +15,7 @@ useAppSeoMeta();
       <NuxtPage />
     </NuxtLayout>
     <UNotifications />
+    <ConfirmModal />
   </div>
 </template>
 

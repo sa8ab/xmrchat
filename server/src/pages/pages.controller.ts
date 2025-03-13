@@ -20,6 +20,7 @@ import { StreamerPageDto, StreamerPageRO } from './dtos/streamer-page.dto';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 import { CheckSlugDto } from './dtos/check-slug.dto';
 import { ConfigService } from '@nestjs/config';
+import { PageStatusEnum } from 'src/shared/constants';
 
 @Controller('pages')
 export class PagesController {
@@ -56,6 +57,9 @@ export class PagesController {
     const page = await this.pagesService.findByPath(slug);
 
     if (!page) throw new NotFoundException('Page not found');
+
+    if (page.status === PageStatusEnum.DEACTIVE)
+      throw new NotFoundException('Page not found');
 
     page.minTipAmount =
       page.minTipAmount || this.configService.get('MIN_TIP_AMOUNT');

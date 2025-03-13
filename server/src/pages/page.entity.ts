@@ -16,6 +16,8 @@ import {
 import { Tier } from './tier.entity';
 import { PageSetting } from '../page-settings/page-setting.entity';
 import { Link } from '../links/link.entity';
+import { Tip } from 'src/tips/tip.entity';
+import { PageStatusEnum } from '../shared/constants';
 
 @Entity({ name: 'pages' })
 @Unique(['path'])
@@ -25,6 +27,13 @@ export class Page {
 
   @Column()
   path: string;
+
+  @Column({
+    type: 'enum',
+    enum: PageStatusEnum,
+    default: PageStatusEnum.ACTIVE,
+  })
+  status: PageStatusEnum;
 
   @Column()
   name: string;
@@ -82,6 +91,12 @@ export class Page {
   @OneToMany(() => PageSetting, (p: PageSetting) => p.page)
   settings: PageSetting[];
 
+  @OneToMany(() => Tip, (t: Tip) => t.page)
+  tips: Tip[];
+
   @OneToMany(() => Link, (l) => l.page)
   links: Link[];
+
+  totalTips: number | null;
+  tipsCount: number | null;
 }

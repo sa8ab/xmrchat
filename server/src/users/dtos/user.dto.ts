@@ -1,4 +1,5 @@
-import { Expose } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
+import { RolesEnum } from 'src/shared/constants';
 
 export class UserDto {
   @Expose()
@@ -15,4 +16,7 @@ export class UserDto {
 
   @Expose()
   isEmailVerified: boolean;
+
+  @Expose()
+  roles: RolesEnum[];
 }

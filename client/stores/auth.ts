@@ -1,5 +1,6 @@
 import type { StreamerPage, User } from "~/types";
 import { parse, stringify } from "zipson";
+import { RolesEnum } from "~/types/enums";
 
 interface State {
   user?: User;
@@ -76,12 +77,14 @@ export const useAuthStore = defineStore(
     };
 
     const isLoggedIn = computed(() => state.token);
+    const isAdmin = computed(() => state.user?.roles.includes(RolesEnum.ADMIN));
     const userEmail = computed(() => state.user?.email);
 
     return {
       state,
       isLoggedIn,
       userEmail,
+      isAdmin,
       getMe,
       login,
       signup,

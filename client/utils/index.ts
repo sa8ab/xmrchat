@@ -59,5 +59,8 @@ export const generateWalletLink = (data: {
   if (data.ticker === "btc")
     return `bitcoin:${data.address}?amount=${data.amount}`;
 
+  if (data.ticker === "bch")
+    return `bitcoincash:${data.address}?amount=${data.amount}`;
+
   return undefined;
 };

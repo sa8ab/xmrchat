@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-const { state, logout } = useAuthStore();
+const authStore = useAuthStore();
+const { state, logout } = authStore;
+const { isAdmin } = storeToRefs(authStore);
 
 const page = computed(() => state.page);
 const {
@@ -9,15 +11,33 @@ const {
   toStreamerEdit,
   toStreamerOBS,
   toStreamerContentLinks,
+  toUsers,
+  toPages,
 } = useRouteLocation();
 
 const items = computed(() => {
   const res: Record<string, any>[] = [];
 
+  if (isAdmin.value) {
+    res.push(
+      ...[
+        { label: "Users", icon: "i-heroicons-users", to: toUsers() },
+        {
+          label: "Pages",
+          icon: "i-heroicons-square-3-stack-3d",
+          to: toPages(),
+        },
+        {
+          divider: true,
+        },
+      ]
+    );
+  }
+
   res.push(
     ...[
       {
-        label: "My Display Page",
+        label: "My xmrchats",
         icon: "i-heroicons-computer-desktop",
         to: toStreamerDisplay(),
         exact: true,
@@ -34,12 +54,12 @@ const items = computed(() => {
     res.push(
       ...[
         {
-          label: "Edit Page",
+          label: "Edit Tip Page",
           icon: "i-heroicons-pencil-square",
           to: toStreamerEdit(),
         },
         {
-          label: "My Tip Page",
+          label: "Tip Page",
           icon: "i-heroicons-banknotes",
           to: toStreamer(page.value.path),
         },
@@ -56,6 +76,7 @@ const items = computed(() => {
       ]
     );
   }
+
   return res;
 });
 </script>
@@ -73,19 +94,23 @@ const items = computed(() => {
       <span class="text-pale text-sm">{{ state.user?.email }}</span>
     </div>
     <div class="flex flex-col gap-1 mt-6">
-      <ULink
-        v-for="item in items"
-        :to="item.to"
-        :exact="item.exact"
-        variant="soft"
-        class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:text-primary transition-all"
-        activeClass="bg-primary text-white dark:text-gray-900 pointer-events-none"
-      >
-        <UIcon v-if="item.icon" :name="item.icon" class="w-5 h-5" />
-        <span>
-          {{ item.label }}
-        </span>
-      </ULink>
+      <template v-for="item in items">
+        <UDivider v-if="item.divider" class="my-2" />
+        <ULink
+          v-else
+          :to="item.to"
+          :exact="item.exact"
+          variant="soft"
+          class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:text-primary transition-all"
+          activeClass="bg-primary text-white dark:text-gray-900 pointer-events-none"
+        >
+          <UIcon v-if="item.icon" :name="item.icon" class="w-5 h-5" />
+          <span>
+            {{ item.label }}
+          </span>
+        </ULink>
+      </template>
+
       <UDivider class="my-2" />
       <UButton color="red" variant="ghost" @click="logout">
         <UIcon

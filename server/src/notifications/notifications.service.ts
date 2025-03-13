@@ -22,29 +22,63 @@ const badWordMatcher = new RegExpMatcher({
 export class NotificationsService {
   constructor(
     private emailService: EmailService,
-    private templatesService: TemplatesService,
     private twitchService: TwitchService,
     private config: ConfigService,
   ) {}
 
-  sendVerificationEmail(to: string, otp: string) {
-    const options = this.templatesService.getEmailVerification(otp);
+  sendTestEmail() {
+    return this.emailService.sendEmail(['bwsaeed8@gmail.com'], {
+      subject: 'XMRChat new page report',
+      text: 'The text',
+      template: 'page-report.hbs',
+      context: {
+        pageId: 10,
+        price: '0.001',
+        slug: 'slug-of-page',
+        userId: '10',
+        userName: '',
+        time: 'date here',
+      },
+    });
+  }
 
-    return this.emailService.sendEmail(to, options);
+  sendVerificationEmail(to: string, otp: string) {
+    const link = `${this.config.get('CLIENT_BASE_URL')}/auth/email_verification?token=${otp}`;
+
+    return this.emailService.sendEmail(to, {
+      subject: 'XMRChat Email Verification Request',
+      text: link,
+      template: 'verify-email.hbs',
+      context: {
+        link,
+      },
+    });
   }
 
   sendResetPasswordEmail(to: string, otp: string) {
-    const options = this.templatesService.getResetPassword(otp);
+    const link = `${this.config.get('CLIENT_BASE_URL')}/auth/reset_password?token=${otp}`;
 
-    return this.emailService.sendEmail(to, options);
+    return this.emailService.sendEmail(to, {
+      subject: 'XMRChat Reset Password Request',
+      text: link,
+      template: 'reset-password.hbs',
+      context: {
+        link,
+      },
+    });
   }
 
   sendNewPageReportEmail(data: PageReportEmailOptions) {
-    const options = this.templatesService.getPageReport(data);
+    const text = `Page "${data.slug}" is registered by ${data.userName}. userId: ${data.userId} and pageId: ${data.pageId}. price: ${data.price} xmr.`;
 
     const recepients = this.config.get('PAGE_REPORT_RECEPIENTS').split(' ');
 
-    return this.emailService.sendEmail(recepients, options);
+    return this.emailService.sendEmail(recepients, {
+      subject: 'XMRChat new page report',
+      text,
+      template: 'page-report.hbs',
+      context: data,
+    });
   }
 
   sendSwapStatusEmail(active: boolean) {
@@ -74,5 +108,13 @@ export class NotificationsService {
 
   async sendTwitchMessage(channel: string, message: string) {
     await this.twitchService.sendMessage(channel, message);
+  }
+
+  async sendPasswordChangeEmail(to: string) {
+    return this.emailService.sendEmail(to, {
+      subject: 'Your XMRChat password updated.',
+      text: 'Your XMRChat password updated.',
+      template: 'update-password.hbs',
+    });
   }
 }

@@ -1,10 +1,15 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthDto } from './dtos/auth.dto';
 import { UsersService } from 'src/users/users.service';
 import { createFinalPassword, hashPassword } from 'src/shared/utils';
 import { NotificationsService } from 'src/notifications/notifications.service';
-import { UserTokenType } from 'src/shared/constants/enum';
+import { RolesEnum, UserTokenType } from 'src/shared/constants/enum';
 import { UserTokensService } from './user-tokens/user-tokens.service';
 import { User } from 'src/users/user.entity';
 import { UpdatePasswordDto } from './dtos/update-password.dto';
@@ -136,6 +141,8 @@ export class AuthService {
       UserTokenType.RESET_PASSWORD,
     );
 
+    const user = await this.usersService.findById(userToken.userId);
+
     const passwordResult = createFinalPassword(password);
 
     await this.usersService.update(userToken.userId, {
@@ -144,6 +151,8 @@ export class AuthService {
     });
 
     await this.userTokensService.remove(userToken.id);
+
+    this.notificationsService.sendPasswordChangeEmail(user.email);
 
     return {
       message: 'Password is changed successfully.',
@@ -163,6 +172,8 @@ export class AuthService {
       password: createFinalPassword(data.password),
     });
 
+    this.notificationsService.sendPasswordChangeEmail(user.email);
+
     return {
       message: 'Account password updated.',
     };
@@ -170,6 +181,26 @@ export class AuthService {
 
   async getUser(id: number) {
     return this.usersService.findById(id);
+  }
+
+  async changeRoleOfEmail(
+    email: string,
+    change: 'add' | 'remove' = 'add',
+    role: RolesEnum,
+  ) {
+    const user = await this.usersService.findByEmail(email);
+
+    if (!user) throw new NotFoundException('User not found');
+
+    const roles = user.roles;
+
+    if (change === 'add') {
+      user.roles.push(role);
+    } else {
+      user.roles = user.roles.filter((r) => r !== role);
+    }
+
+    return this.usersService.update(user.id, user);
   }
 
   generateJwt(userId: number, email: string) {

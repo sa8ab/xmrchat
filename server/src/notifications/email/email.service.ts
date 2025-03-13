@@ -1,30 +1,37 @@
+import { ISendMailOptions, MailerService } from '@nestjs-modules/mailer';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Transporter, SendMailOptions, createTransport } from 'nodemailer';
 
 @Injectable()
 export class EmailService {
-  private transporter: Transporter;
   private logger = new Logger(EmailService.name);
 
-  constructor(private configService: ConfigService) {
-    this.transporter = createTransport(this.getConfig());
-  }
+  constructor(
+    private configService: ConfigService,
+    private mailer: MailerService,
+  ) {}
 
-  sendEmail(to: string | string[], options: SendMailOptions) {
+  sendEmail(to: string | string[], options: ISendMailOptions) {
     const from = `${this.configService.get('MAIL_FROM_NAME')} <${this.configService.get('MAIL_FROM_ADDRESS')}>`;
 
-    return this.transporter.sendMail(
-      {
-        from,
-        to,
+    this.mailer
+      .sendMail({
+        from: from,
+        to: to,
         ...options,
-      },
-      (error) => {
-        this.logger.error(`Email sending failled: ${error.message}`);
-      },
-    );
+      })
+      .catch((e) => {
+        this.logger.error(`Email sending failled`, e);
+      });
   }
+
+  //   from,
+  //   to,
+  //   ...options,
+  // }
+  // (error) => {
+  //   this.logger.error(`Email sending failled: ${error.message}`)
+  // })
 
   getConfig() {
     const isDev = process.env.NODE_ENV === 'development';

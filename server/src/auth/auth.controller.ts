@@ -19,6 +19,7 @@ import { ResetPasswordDto } from './dtos/reset-password.dto';
 import { PagesService } from 'src/pages/pages.service';
 import { MeRO } from './dtos/me.dto';
 import { UpdatePasswordDto } from './dtos/update-password.dto';
+import { seconds, Throttle } from '@nestjs/throttler';
 
 @Controller('auth')
 export class AuthController {
@@ -35,12 +36,14 @@ export class AuthController {
     return {};
   }
 
+  @Throttle({ default: { ttl: seconds(1), limit: 2 } })
   @IsPublic()
   @Post('/signup')
   signup(@Body() body: AuthDto) {
     return this.authService.signup(body);
   }
 
+  @Throttle({ default: { ttl: seconds(1), limit: 2 } })
   @IsPublic()
   @Post('/login')
   login(@Body() body: AuthDto) {

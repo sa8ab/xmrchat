@@ -65,3 +65,18 @@ export enum SwapStatusEnum {
   FAILED = 'failed',
   EXPIRED = 'expired', // swap duration expired
 }
+
+export enum AuditTypeEnum {
+  PAGE_UPDATED = 'page-updated',
+}
+
+export enum RolesEnum {
+  ADMIN = 'admin',
+  STREAMER = 'streamer',
+  COHOST = 'cohost',
+}
+
+export enum PageStatusEnum {
+  ACTIVE = 'active',
+  DEACTIVE = 'deactive',
+}

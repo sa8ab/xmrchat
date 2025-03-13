@@ -37,3 +37,14 @@ export enum SwapStatusEnum {
   FAILED = "failed",
   EXPIRED = "expired",
 }
+
+export enum RolesEnum {
+  ADMIN = "admin",
+  STREAMER = "streamer",
+  COHOST = "cohost",
+}
+
+export enum PageStatusEnum {
+  ACTIVE = "active",
+  DEACTIVE = "deactive",
+}
