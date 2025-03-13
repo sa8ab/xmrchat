@@ -122,11 +122,11 @@ onBeforeUnmount(() => disconnect());
         <UAlert color="emerald" variant="subtle">
           <template #description>
             <p class="text-base">
-              <i18n-t keypath="tipWalletMinimum">
+              <I18nT keypath="tipWalletMinimum">
                 <template #minimumAmount>
                   <span class="font-bold">{{ createdTip.amount }}</span>
                 </template>
-              </i18n-t>
+              </I18nT>
             </p>
           </template>
         </UAlert>
