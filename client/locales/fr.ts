@@ -45,7 +45,7 @@ export default {
   },
 
   earnMore: {
-    title: "Earn more",
+    title: "Earn More",
     description:
       "YouTube charges 30-50% for Superchats. Rumble 20% for Rants. With XMRChat you receive 100% of your XMR tips from fans, directly to your Monero wallet.",
   },
