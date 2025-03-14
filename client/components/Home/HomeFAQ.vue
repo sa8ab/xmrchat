@@ -1,16 +1,18 @@
 <script lang="ts" setup>
+const { t } = useI18n();
+
 const items = computed(() => [
   {
-    label: "Why tip with XMRChat?",
+    label: t("FAQ.whyTipWithXMRChat"),
     defaultOpen: true,
     slot: "one",
   },
   {
-    label: "Why does XMRChat use Monero?",
+    label: t("FAQ.whyUseMonero"),
     slot: "two",
   },
   {
-    label: "Where to get Monero?",
+    label: t("FAQ.whereToGetMonero"),
     slot: "three",
   },
 ]);
@@ -20,7 +22,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
 
 <template>
   <div class="mt-7">
-    <h3 class="w-full text-center text-4xl font-bold">FAQ</h3>
+    <h3 class="w-full text-center text-4xl font-bold">{{ t("FAQ.title") }}</h3>
     <div class="mt-10 flex justify-center">
       <UAccordion
         class="max-w-[1024px]"
@@ -49,63 +51,55 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             <li>
               <div class="item-header">
                 <UIcon name="i-heroicons-check-16-solid" class="icon" />
-                <span>Earn More </span>
+                <span>{{ t("earnMore.title") }}</span>
               </div>
               <p>
-                YouTube charges 30-50% for Superchats. Rumble 20% for Rants.
-                With XMRChat you receive 100% of your XMR tips from fans,
-                directly to your Monero wallet.
+                {{ t("earnMore.description") }}
               </p>
             </li>
             <li>
               <div class="item-header">
                 <UIcon name="i-heroicons-check-16-solid" class="icon" />
-                <span>Censorship resistant</span>
+                <span>{{ t("censorshipResistant.title") }}</span>
               </div>
               <p>
-                Accepting Monero tips allows you to have an income that is not
-                directly connected to big tech and arbitrary policy violations.
+                {{ t("censorshipResistant.description") }}
               </p>
             </li>
             <li>
               <div class="item-header">
                 <UIcon name="i-heroicons-check-16-solid" class="icon" />
-                <span>Corruption Resistant</span>
+                <span>{{ t("corruptionResistant.title") }}</span>
               </div>
               <p>
-                Many regimes seize or freeze bank accounts of political enemies.
-                Monero allows you to be your own bank with complete control of
-                your finances.
+                {{ t("corruptionResistant.description") }}
               </p>
             </li>
             <li>
               <div class="item-header">
                 <UIcon name="i-heroicons-check-16-solid" class="icon" />
-                <span>Private </span>
+                <span>{{ t("private.title") }}</span>
               </div>
               <p>
-                Viewers can tip anonymously, no worries from employers or others
-                knowing your donations.
+                {{ t("private.description") }}
               </p>
             </li>
             <li>
               <div class="item-header">
                 <UIcon name="i-heroicons-check-16-solid" class="icon" />
-                <span>Quick and easy</span>
+                <span>{{ t("quickAndEasy.title") }}</span>
               </div>
               <p>
-                No need for viewers to create an account, verify their email, or
-                enter credit card info. Fans go to your tip page, type their
-                name, message, amount, and submit their XMR tip.
+                {{ t("quickAndEasy.description") }}
               </p>
             </li>
             <li>
               <div class="item-header">
                 <UIcon name="i-heroicons-check-16-solid" class="icon" />
-                <span>Open Source</span>
+                <span>{{ t("openSource.title") }}</span>
               </div>
               <p>
-                XMRChat is open source. You can review the code
+                {{ t("openSource.description") }}
                 <UButton
                   to="https://github.com/sa8ab/xmrchat"
                   v-bind="linkProps"
@@ -121,30 +115,26 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             <li>
               <div class="item-header">
                 <UIcon name="i-heroicons-check-16-solid" class="icon" />
-                <span>Low fees</span>
+                <span>{{ t("lowFees.title") }}</span>
               </div>
-              <p>Monero transaction fees are a few pennies at most.</p>
+              <p>{{ t("lowFees.description") }}</p>
             </li>
             <li>
               <div class="item-header">
                 <UIcon name="i-heroicons-check-16-solid" class="icon" />
-                <span>Private</span>
+                <span>{{ t("privateMonero.title") }}</span>
               </div>
               <p>
-                While most crypto uses open ledgers, Monero hides transaction
-                data. Sender, receiver, and transaction amounts are not revealed
-                by looking at the blockchain.
+                {{ t("privateMonero.description") }}
               </p>
             </li>
             <li>
               <div class="item-header">
                 <UIcon name="i-heroicons-check-16-solid" class="icon" />
-                <span>Accepted</span>
+                <span>{{ t("accepted.title") }}</span>
               </div>
               <p>
-                Avoid the hassle of selling your crypto on a centralized
-                exchange. Buy goods and services directly from merchants that
-                accept Monero on
+                {{ t("accepted.description") }}
                 <UButton to="https://xmrbazaar.com" v-bind="linkProps">
                   xmrbazaar.com</UButton
                 >
@@ -157,10 +147,10 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             <li>
               <div class="item-header">
                 <UIcon name="i-heroicons-check-16-solid" class="icon" />
-                <span>And more</span>
+                <span>{{ t("andMore.title") }}</span>
               </div>
               <p>
-                Learn more about Monero at
+                {{ t("andMore.description") }}
                 <UButton to="https://getmonero.org" v-bind="linkProps">
                   getmonero.org</UButton
                 >.

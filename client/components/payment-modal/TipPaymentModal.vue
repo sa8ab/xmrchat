@@ -21,6 +21,7 @@ const showWalletWarning = computed(
 );
 
 const toast = useToast();
+const { t } = useI18n();
 
 const { init, disconnect, reconnect, connectionStatus } =
   usePaymentSocket<TipEventData>({
@@ -85,7 +86,7 @@ onBeforeUnmount(() => disconnect());
     </TipSwapPaymentContent>
     <PaymentModalContent
       v-else
-      title="Send Tip"
+      :title="t('sendTip')"
       :qrCode="{
         address: createdTip?.paymentAddress,
         amount: createdTip?.amount,
@@ -103,11 +104,12 @@ onBeforeUnmount(() => disconnect());
         class="mb-2"
       >
         <template #title>
-          <span>Do not tip with streamer wallet.</span>
+          <span>
+            {{ t("tipWalletWarningTitle") }}
+          </span>
         </template>
         <template #description>
-          Please avoid sending tips with wallet registered on the page. The
-          change returned inflates the amount we see received.
+          {{ t("tipWalletWarningDescription") }}
         </template>
         <template #icon>
           <UIcon
@@ -120,9 +122,11 @@ onBeforeUnmount(() => disconnect());
         <UAlert color="emerald" variant="subtle">
           <template #description>
             <p class="text-base">
-              Please send minimum
-              <span class="font-bold">{{ createdTip.amount }} XMR</span>
-              to the following address for your xmrchat to be displayed.
+              <I18nT keypath="tipWalletMinimum">
+                <template #minimumAmount>
+                  <span class="font-bold">{{ createdTip.amount }}</span>
+                </template>
+              </I18nT>
             </p>
           </template>
         </UAlert>

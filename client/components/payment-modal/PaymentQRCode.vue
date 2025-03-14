@@ -10,6 +10,7 @@ export interface PaymentQRCodeProps {
 }
 
 const props = defineProps<PaymentQRCodeProps>();
+const { t } = useI18n();
 
 const renderValue = computed(() => {
   return generateWalletLink({
@@ -29,7 +30,7 @@ const renderValue = computed(() => {
       icon="i-heroicons-arrow-top-right-on-square-20-solid"
       trailing
     >
-      Open In My Wallet
+      {{ t("openInMyWallet") }}
     </UButton>
     <QrcodeVue
       :margin="4"

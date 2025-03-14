@@ -3,6 +3,7 @@ import useVuelidate from "@vuelidate/core";
 const { required, email, validate } = useValidations();
 const { login } = useAuthStore();
 const { toSignup, toForgotPassword } = useRouteLocation();
+const { t } = useI18n();
 
 interface State {
   email?: string;
@@ -44,21 +45,18 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <AuthContainer
-    title="Login"
-    description="Login to your account in order to access your display page."
-  >
+  <AuthContainer :title="t('login')" :description="t('loginDescription')">
     <UForm
       :state="state"
       :validate="() => validate(v)"
       class="form"
       @submit="handleSubmit"
     >
-      <UFormGroup label="Email" name="email">
+      <UFormGroup :label="t('email')" name="email">
         <UInput v-model="state.email" />
       </UFormGroup>
 
-      <UFormGroup label="Password" name="password">
+      <UFormGroup :label="t('password')" name="password">
         <div class="flex gap-1">
           <UInput
             class="flex-grow"
@@ -91,12 +89,14 @@ const handleSubmit = async () => {
       >
       </UAlert>
 
-      <UButton block type="submit" :loading="state.loading"> Login </UButton>
+      <UButton block type="submit" :loading="state.loading">
+        {{ t("login") }}
+      </UButton>
       <UButton variant="outline" block type="button" :to="toSignup()">
-        Signup Instead
+        {{ t("signupInstead") }}
       </UButton>
       <UButton :to="toForgotPassword()" variant="link" :padded="false">
-        Forgot password ?
+        {{ t("forgetPassword") }}
       </UButton>
     </UForm>
   </AuthContainer>

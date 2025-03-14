@@ -11,6 +11,7 @@ const { getTips: getTipsApi } = useServices();
 const { state: generalState } = useGeneralStore();
 
 const { price } = useXmrPrice();
+const { t } = useI18n();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
   `recent-tips-${props.slug}`,
@@ -44,9 +45,11 @@ const getComputedPrice = (amount?: string) => {
 <template>
   <div class="sidebar scrollbar">
     <div class="flex justify-between gap-2 items-center pb-2">
-      <h3 class="font-medium text-lg">Recent Tips</h3>
+      <h3 class="font-medium text-lg">
+        {{ t("recentTips") }}
+      </h3>
       <UTooltip
-        text="Show tip values in XMR or USD"
+        :text="t('tipDisplayValueTooltip')"
         :popper="{ placement: 'top' }"
       >
         <TipValueToggle v-model="generalState.tipDisplayValue" />
@@ -65,7 +68,7 @@ const getComputedPrice = (amount?: string) => {
       </div>
       <div class="empty text-pale" v-else-if="!data?.length">
         <UIcon name="i-heroicons-moon" class="empty-icon"></UIcon>
-        <span class="empty-text">No recent tips!</span>
+        <span class="empty-text">{{ t("noRecentTips") }}</span>
       </div>
       <template v-else>
         <div class="messages">
@@ -74,13 +77,13 @@ const getComputedPrice = (amount?: string) => {
               class="pb-1 text-base font-medium"
               :class="{ 'text-pale': item.private }"
             >
-              {{ item.private ? "Private" : item.name }}
+              {{ item.private ? t("private") : item.name }}
             </p>
             <span class="flex pb-1 font-medium text-primary">
               {{ getComputedPrice(item.payment?.amount) }}
             </span>
             <p :class="{ 'text-pale': item.private }">
-              {{ item.private ? "Private" : item.message }}
+              {{ item.private ? t("private") : item.message }}
             </p>
           </div>
         </div>

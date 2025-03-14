@@ -5,10 +5,12 @@ useHead({
   title: "Sign up",
 });
 
-const { required, email, maxLength, minLength, sameAs, validate } = useValidations();
+const { required, email, maxLength, minLength, sameAs, validate } =
+  useValidations();
 const { signup } = useAuthStore();
 const { toLogin } = useRouteLocation();
 const toast = useToast();
+const { t } = useI18n();
 
 const state = reactive({
   email: "",
@@ -87,7 +89,7 @@ const handleSubmit = async () => {
         </div>
       </UFormGroup>
 
-      <UFormGroup label="Confirm Password" name="confirmPassword">
+      <UFormGroup :label="t('confirmPassword')" name="confirmPassword">
         <UInput type="password" v-model="state.confirmPassword" />
       </UFormGroup>
 
@@ -99,10 +101,12 @@ const handleSubmit = async () => {
       >
       </UAlert>
 
-      <UButton block type="submit" :loading="state.loading">Sign up</UButton>
+      <UButton block type="submit" :loading="state.loading">{{
+        t("signup")
+      }}</UButton>
 
       <UButton :to="toLogin()" block type="button" variant="outline">
-        Login Instead
+        {{ t("loginInstead") }}
       </UButton>
     </UForm>
   </AuthContainer>
