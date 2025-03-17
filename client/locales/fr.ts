@@ -128,4 +128,14 @@ export default {
   cancel: "Annuler",
   copyAddress: "Copier l'Adresse",
   waitingForPayment: "En attente du paiement",
+
+  // CONTACT US PAGE
+  contactUsDescription: "Contactez-nous pour toute question ou commentaire.",
+  contactUsForm: "Formulaire de Contact",
+  contactUsFormDescription:
+    "Contactez-nous pour toute question ou commentaire.",
+  contactUsFormButton: "Contact",
+  emailUsDirectly: "Nous écrire directement",
+  followUsOnTwitter: "Suivez-nous sur Twitter",
+  twitter: "Twitter",
 };

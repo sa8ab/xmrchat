@@ -123,4 +123,13 @@ export default {
   cancel: "Abbrechen",
   copyAddress: "Adresse kopieren",
   waitingForPayment: "Warte auf Zahlung",
+
+  // CONTACT US PAGE
+  contactUsDescription: "Kontaktieren Sie uns bei Fragen oder Feedback.",
+  contactUsForm: "Kontaktformular",
+  contactUsFormDescription: "Kontaktieren Sie uns bei Fragen oder Feedback.",
+  contactUsFormButton: "Kontakt",
+  emailUsDirectly: "Direkt per E-Mail kontaktieren",
+  followUsOnTwitter: "Folgen Sie uns auf Twitter",
+  twitter: "Twitter",
 };

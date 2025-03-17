@@ -5,21 +5,21 @@ const { socials } = useAppConfig();
 <template>
   <div>
     <div class="title">
-      <h5>Contact Us</h5>
+      <h5>{{ $t("contactUs") }}</h5>
     </div>
     <div class="socials">
       <div class="item">
         <UIcon name="i-heroicons-envelope-16-solid" class="icon"></UIcon>
-        <div class="item-title">Email</div>
-        <p>Email us directly</p>
+        <div class="item-title">{{ $t("email") }}</div>
+        <p>{{ $t("emailUsDirectly") }}</p>
         <UButton variant="outline" class="mt-3" :to="`mailto:${socials.email}`">
           {{ socials.email }}
         </UButton>
       </div>
       <div class="item">
         <UIcon name="i-mdi-twitter" class="icon"></UIcon>
-        <div class="item-title">Twitter</div>
-        <p>Follow us on Twitter</p>
+        <div class="item-title">{{ $t("twitter") }}</div>
+        <p>{{ $t("followUsOnTwitter") }}</p>
 
         <UButton
           variant="outline"

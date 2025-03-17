@@ -125,4 +125,13 @@ export default {
   cancel: "Cancelar",
   copyAddress: "Copiar dirección",
   waitingForPayment: "Esperando el pago",
+
+  // CONTACT US PAGE
+  contactUsDescription: "Contáctanos si tienes preguntas o comentarios.",
+  contactUsForm: "Formulario de Contacto",
+  contactUsFormDescription: "Contáctanos si tienes preguntas o comentarios.",
+  contactUsFormButton: "Contactar",
+  emailUsDirectly: "Envíanos un correo directamente",
+  followUsOnTwitter: "Síguenos en Twitter",
+  twitter: "Twitter",
 };
