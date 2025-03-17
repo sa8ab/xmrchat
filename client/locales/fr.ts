@@ -73,7 +73,8 @@ export default {
   },
   openSource: {
     title: "Open Source",
-    description: "XMRChat est open source. Vous pouvez consulter le code",
+    description:
+      "XMRChat est open source. Vous pouvez consulter le code sur {github}.",
   },
 
   lowFees: {
@@ -89,11 +90,11 @@ export default {
   accepted: {
     title: "Accepté",
     description:
-      "Évitez les tracas liés à la vente de votre crypto sur un échange centralisé. Achetez des biens et des services directement auprès des marchands qui acceptent Monero sur",
+      "Évitez les tracas liés à la vente de votre crypto sur un échange centralisé. Achetez des biens et des services directement auprès des marchands qui acceptent Monero sur {xmrbazaar} et {monerica}.",
   },
   andMore: {
     title: "Et plus encore",
-    description: "En savoir plus sur Monero sur",
+    description: "En savoir plus sur Monero sur {getmonero}.",
   },
 
   // TIP PAGE
@@ -138,4 +139,20 @@ export default {
   emailUsDirectly: "Nous écrire directement",
   followUsOnTwitter: "Suivez-nous sur Twitter",
   twitter: "Twitter",
+
+  whereToGetMonero: {
+    cakeWallet:
+      "Achetez ou échangez d'autres cryptomonnaies contre du Monero sur {cakeWallet}.",
+    stealthex:
+      "Échangez d'autres cryptomonnaies contre du Monero (XMR) sur {stealthex} et d'autres sur {kycnot}.",
+    haveno:
+      "Achetez du Monero sans KYC sur {haveno}. Tutoriel pour l'envoi d'argent par courrier sur {blog}.",
+    kraken: "Achetez du Monero avec KYC sur {kraken}.",
+    xmrbazaar:
+      "Vendez des articles ou des services pour du Monero sur {xmrbazaar}.",
+    gupax: "Minez-le avec {gupax}.",
+    kunoAnneMedia: "Créez une collecte de fonds Monero sur {kunoAnneMedia}.",
+    monerica:
+      "Acceptez le Monero dans votre entreprise et soyez répertorié sur les pages {monerica} et {monerodirectory} et sur la carte des entreprises sur {xmrbazaar}.",
+  },
 };

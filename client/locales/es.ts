@@ -71,7 +71,8 @@ export default {
   },
   openSource: {
     title: "Código abierto",
-    description: "XMRChat es de código abierto. Puede revisar el código",
+    description:
+      "XMRChat es de código abierto. Puede revisar el código en {github}.",
   },
 
   lowFees: {
@@ -87,11 +88,27 @@ export default {
   accepted: {
     title: "Aceptado",
     description:
-      "Evite la molestia de vender su criptomoneda en un intercambio centralizado. Compre bienes y servicios directamente de comerciantes que aceptan Monero en",
+      "Evite la molestia de vender su criptomoneda en un intercambio centralizado. Compre bienes y servicios directamente de comerciantes que aceptan Monero en {xmrbazaar} y {monerica}.",
   },
   andMore: {
     title: "Y más",
-    description: "Obtenga más información sobre Monero en",
+    description: "Obtenga más información sobre Monero en {getmonero}.",
+  },
+
+  whereToGetMonero: {
+    cakeWallet:
+      "Compre o intercambie otras criptomonedas por Monero en {cakeWallet}.",
+    stealthex:
+      "Intercambie otras criptomonedas por Monero (XMR) en {stealthex} y otros en {kycnot}.",
+    haveno:
+      "Compre Monero sin KYC en {haveno}. Tutorial de efectivo por correo en {blog}.",
+    kraken: "Compre Monero con KYC en {kraken}.",
+    xmrbazaar: "Venda artículos o servicios por Monero en {xmrbazaar}.",
+    gupax: "Mínele con {gupax}.",
+    kunoAnneMedia:
+      "Cree una recaudación de fondos de Monero en {kunoAnneMedia}.",
+    monerica:
+      "Acepte Monero en su negocio y aparezca en las páginas {monerica} y {monerodirectory} y en el mapa de listados comerciales en {xmrbazaar}.",
   },
 
   // TIP PAGE
