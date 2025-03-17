@@ -99,13 +99,16 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                 <span>{{ t("openSource.title") }}</span>
               </div>
               <p>
-                {{ t("openSource.description") }}
-                <UButton
-                  to="https://github.com/sa8ab/xmrchat"
-                  v-bind="linkProps"
-                >
-                  here</UButton
-                >.
+                <I18nT keypath="openSource.description">
+                  <template #github>
+                    <UButton
+                      to="https://github.com/sa8ab/xmrchat"
+                      v-bind="linkProps"
+                    >
+                      here</UButton
+                    >
+                  </template>
+                </I18nT>
               </p>
             </li>
           </ul>
@@ -134,14 +137,19 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                 <span>{{ t("accepted.title") }}</span>
               </div>
               <p>
-                {{ t("accepted.description") }}
-                <UButton to="https://xmrbazaar.com" v-bind="linkProps">
-                  xmrbazaar.com</UButton
-                >
-                and
-                <UButton to="https://monerica.com" v-bind="linkProps">
-                  monerica.com</UButton
-                >.
+                <I18nT keypath="accepted.description">
+                  <template #xmrbazaar>
+                    <UButton to="https://xmrbazaar.com" v-bind="linkProps">
+                      xmrbazaar.com
+                    </UButton>
+                  </template>
+
+                  <template #monerica>
+                    <UButton to="https://monerica.com" v-bind="linkProps">
+                      monerica.com
+                    </UButton>
+                  </template>
+                </I18nT>
               </p>
             </li>
             <li>
@@ -150,10 +158,13 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                 <span>{{ t("andMore.title") }}</span>
               </div>
               <p>
-                {{ t("andMore.description") }}
-                <UButton to="https://getmonero.org" v-bind="linkProps">
-                  getmonero.org</UButton
-                >.
+                <I18nT keypath="andMore.description">
+                  <template #getmonero>
+                    <UButton to="https://getmonero.org" v-bind="linkProps">
+                      getmonero.org
+                    </UButton>
+                  </template>
+                </I18nT>
               </p>
             </li>
           </ul>
@@ -162,86 +173,120 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
           <ul class="list">
             <li>
               <p>
-                Buy or trade other crypto for Monero in
-                <UButton to="https://cakewallet.com" v-bind="linkProps">
-                  Cake Wallet</UButton
-                >.
+                <I18nT keypath="whereToGetMonero.cakeWallet">
+                  <template #cakeWallet>
+                    <UButton to="https://cakewallet.com" v-bind="linkProps">
+                      Cake Wallet
+                    </UButton>
+                  </template>
+                </I18nT>
               </p>
             </li>
             <li>
               <p>
-                Trade other crypto for Monero (XMR) at
-                <UButton to="https://stealthex.io" v-bind="linkProps">
-                  stealthex.io</UButton
-                >
-                and others at
-                <UButton
-                  to="https://kycnot.me/?t=exchange&q=&xmr=on"
-                  v-bind="linkProps"
-                >
-                  kycnot.me</UButton
-                >.
+                <I18nT keypath="whereToGetMonero.stealthex">
+                  <template #stealthex>
+                    <UButton to="https://stealthex.io" v-bind="linkProps">
+                      stealthex.io
+                    </UButton>
+                  </template>
+                  <template #kycnot>
+                    <UButton
+                      to="https://kycnot.me/?t=exchange&q=&xmr=on"
+                      v-bind="linkProps"
+                    >
+                      kycnot.me</UButton
+                    >
+                  </template>
+                </I18nT>
               </p>
             </li>
             <li>
               <p>
-                Buy Monero without KYC at
-                <UButton to="https://haveno-reto.com/" v-bind="linkProps"
-                  >haveno-reto.com</UButton
-                >. Cash by mail tutorial at
-                <UButton
-                  to="https://blog.nihilism.network/servers/haveno-cashbymail/index.html"
-                  v-bind="linkProps"
-                  >this blog post</UButton
-                >.
+                <I18nT keypath="whereToGetMonero.haveno">
+                  <template #haveno>
+                    <UButton to="https://haveno-reto.com/" v-bind="linkProps">
+                      haveno-reto.com
+                    </UButton>
+                  </template>
+                  <template #blog>
+                    <UButton
+                      to="https://blog.nihilism.network/servers/haveno-cashbymail/index.html"
+                      v-bind="linkProps"
+                      >this blog post</UButton
+                    >
+                  </template>
+                </I18nT>
               </p>
             </li>
             <li>
               <p>
-                Buy Monero with KYC at
-                <UButton to="https://kraken.com" v-bind="linkProps"
-                  >kraken.com</UButton
-                >.
+                <I18nT keypath="whereToGetMonero.kraken">
+                  <template #kraken>
+                    <UButton to="https://kraken.com" v-bind="linkProps"
+                      >kraken.com</UButton
+                    >
+                  </template>
+                </I18nT>
               </p>
             </li>
             <li>
               <p>
-                Sell items or services for Monero at
-                <UButton to="https://xmrbazaar.com" v-bind="linkProps">
-                  xmrbazaar.com </UButton
-                >.
+                <I18nT keypath="whereToGetMonero.xmrbazaar">
+                  <template #xmrbazaar>
+                    <UButton to="https://xmrbazaar.com" v-bind="linkProps">
+                      xmrbazaar.com
+                    </UButton>
+                  </template>
+                </I18nT>
               </p>
             </li>
             <li>
               <p>
-                Mine it with
-                <UButton to="https://gupax.io" v-bind="linkProps">
-                  gupax.io </UButton
-                >.
+                <I18nT keypath="whereToGetMonero.gupax">
+                  <template #gupax>
+                    <UButton to="https://gupax.io" v-bind="linkProps">
+                      gupax.io
+                    </UButton>
+                  </template>
+                </I18nT>
               </p>
             </li>
             <li>
               <p>
-                Create a Monero Fundraiser at
-                <UButton to="https://kuno.anne.media/" v-bind="linkProps">
-                  kuno.anne.media </UButton
-                >.
+                <I18nT keypath="whereToGetMonero.kunoAnneMedia">
+                  <template #kunoAnneMedia>
+                    <UButton to="https://kuno.anne.media/" v-bind="linkProps">
+                      kuno.anne.media
+                    </UButton>
+                  </template>
+                </I18nT>
               </p>
             </li>
             <li>
               <p>
-                Accept Monero at your business and get listed at the
-                <UButton to="https://monerica.com" v-bind="linkProps">
-                  monerica.com
-                </UButton>
-                and
-                <UButton to="https://monerodirectory.com/" v-bind="linkProps">
-                  monerodirectory.com
-                </UButton>
-                pages and the business listings map on
-                <UButton to="https://xmrbazaar.com/" v-bind="linkProps">
-                  xmrbazaar.com </UButton
-                >.
+                <I18nT keypath="whereToGetMonero.monerica">
+                  <template #monerica>
+                    <UButton to="https://monerica.com" v-bind="linkProps">
+                      monerica.com
+                    </UButton>
+                  </template>
+
+                  <template #monerodirectory>
+                    <UButton
+                      to="https://monerodirectory.com/"
+                      v-bind="linkProps"
+                    >
+                      monerodirectory.com
+                    </UButton>
+                  </template>
+
+                  <template #xmrbazaar>
+                    <UButton to="https://xmrbazaar.com/" v-bind="linkProps">
+                      xmrbazaar.com
+                    </UButton>
+                  </template>
+                </I18nT>
               </p>
             </li>
           </ul>
