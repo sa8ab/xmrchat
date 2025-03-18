@@ -15,6 +15,7 @@ export default {
   account: "Konto",
   logout: "Abmelden",
   login: "Anmelden",
+  loginFailed: "Anmeldung fehlgeschlagen",
   email: "E-Mail",
   search: "Suchen",
   password: "Passwort",
@@ -22,6 +23,10 @@ export default {
   signupInstead: "Stattdessen registrieren",
   loginInstead: "Stattdessen anmelden",
   signup: "Registrieren",
+  signupFailed: "Registrierung fehlgeschlagen",
+  signupSuccessfull: "Registrierung erfolgreich",
+  signupSuccessfullDescription:
+    "Bitte folgen Sie dem Link in Ihrer E-Mail, um Ihr Konto zu verifizieren.",
   forgetPassword: "Passwort vergessen?",
   loginDescription:
     "Melden Sie sich bei Ihrem Konto an, um auf Ihre Anzeigeseite zuzugreifen",

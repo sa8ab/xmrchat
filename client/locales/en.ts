@@ -20,7 +20,12 @@ export default {
   password: "Password",
   confirmPassword: "Confirm Password",
   signupInstead: "Signup Instead",
+  signupFailed: "Signup Failed",
+  signupSuccessfull: "Signup Successfull",
+  signupSuccessfullDescription:
+    "Please follow the link sent to your email to verify your account.",
   loginInstead: "Login Instead",
+  loginFailed: "Login Failed",
   signup: "Signup",
   forgetPassword: "Forget Password ?",
   loginDescription:
