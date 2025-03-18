@@ -15,6 +15,7 @@ export default {
   account: "Compte",
   logout: "Déconnexion",
   login: "Connexion",
+  loginFailed: "Échec de la connexion",
   email: "Email",
   search: "Rechercher",
   password: "Mot de passe",
@@ -22,6 +23,10 @@ export default {
   signupInstead: "S'inscrire à la place",
   loginInstead: "Se connecter à la place",
   signup: "Inscription",
+  signupFailed: "Échec de l'inscription",
+  signupSuccessfull: "Inscription réussie",
+  signupSuccessfullDescription:
+    "Veuillez suivre le lien envoyé à votre email pour vérifier votre compte.",
   forgetPassword: "Mot de passe oublié ?",
   loginDescription:
     "Connectez-vous à votre compte pour accéder à votre page d'affichage.",

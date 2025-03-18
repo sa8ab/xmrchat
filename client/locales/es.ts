@@ -15,6 +15,7 @@ export default {
   account: "Cuenta",
   logout: "Cerrar sesión",
   login: "Iniciar sesión",
+  loginFailed: "Error de inicio de sesión",
   email: "Correo electrónico",
   search: "Buscar",
   password: "Contraseña",
@@ -22,6 +23,10 @@ export default {
   signupInstead: "Registrarse en su lugar",
   loginInstead: "Iniciar sesión en su lugar",
   signup: "Registrarse",
+  signupFailed: "Error en el registro",
+  signupSuccessfull: "Registro exitoso",
+  signupSuccessfullDescription:
+    "Por favor, siga el enlace enviado a su correo electrónico para verificar su cuenta.",
   forgetPassword: "¿Olvidó su contraseña?",
   loginDescription:
     "Inicie sesión en su cuenta para acceder a su página de visualización.",
