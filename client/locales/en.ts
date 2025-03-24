@@ -20,7 +20,12 @@ export default {
   password: "Password",
   confirmPassword: "Confirm Password",
   signupInstead: "Signup Instead",
+  signupFailed: "Signup Failed",
+  signupSuccessfull: "Signup Successfull",
+  signupSuccessfullDescription:
+    "Please follow the link sent to your email to verify your account.",
   loginInstead: "Login Instead",
+  loginFailed: "Login Failed",
   signup: "Signup",
   forgetPassword: "Forget Password ?",
   loginDescription:
@@ -71,7 +76,7 @@ export default {
   },
   openSource: {
     title: "Open Source",
-    description: "XMRChat is open source. You can review the code",
+    description: "XMRChat is open source. You can review the code {github}.",
   },
 
   lowFees: {
@@ -86,11 +91,25 @@ export default {
   accepted: {
     title: "Accepted",
     description:
-      "Avoid the hassle of selling your crypto on a centralized exchange. Buy goods and services directly from merchants that accept Monero on",
+      "Avoid the hassle of selling your crypto on a centralized exchange. Buy goods and services directly from merchants that accept Monero on {xmrbazaar} and {monerica}.",
   },
   andMore: {
     title: "And more",
-    description: "Learn more about Monero at",
+    description: "Learn more about Monero at {getmonero}.",
+  },
+
+  whereToGetMonero: {
+    cakeWallet: "Buy or trade other crypto for Monero in {cakeWallet}.",
+    stealthex:
+      "Trade other crypto for Monero (XMR) at {stealthex} and others at {kycnot}.",
+    haveno:
+      "Buy Monero without KYC at {haveno}. Cash by mail tutorial at {blog}.",
+    kraken: "Buy Monero with KYC at {kraken}.",
+    xmrbazaar: "Sell items or services for Monero at {xmrbazaar}.",
+    gupax: "Mine it with {gupax}.",
+    kunoAnneMedia: "Create a Monero Fundraiser at {kunoAnneMedia}.",
+    monerica:
+      "Accept Monero at your business and get listed at the {monerica} and {monerodirectory} pages and the business listings map on {xmrbazaar}.",
   },
 
   // TIP PAGE
@@ -123,4 +142,13 @@ export default {
   cancel: "Cancel",
   copyAddress: "Copy Address",
   waitingForPayment: "Waiting for payment",
+
+  // CONTACT US PAGE
+  contactUsDescription: "Contact us for any questions or feedback.",
+  contactUsForm: "Contact Us Form",
+  contactUsFormDescription: "Contact us for any questions or feedback.",
+  contactUsFormButton: "Contact Us",
+  emailUsDirectly: "Email us directly",
+  followUsOnTwitter: "Follow us on Twitter",
+  twitter: "Twitter",
 };

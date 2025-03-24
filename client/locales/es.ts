@@ -15,6 +15,7 @@ export default {
   account: "Cuenta",
   logout: "Cerrar sesión",
   login: "Iniciar sesión",
+  loginFailed: "Error de inicio de sesión",
   email: "Correo electrónico",
   search: "Buscar",
   password: "Contraseña",
@@ -22,6 +23,10 @@ export default {
   signupInstead: "Registrarse en su lugar",
   loginInstead: "Iniciar sesión en su lugar",
   signup: "Registrarse",
+  signupFailed: "Error en el registro",
+  signupSuccessfull: "Registro exitoso",
+  signupSuccessfullDescription:
+    "Por favor, siga el enlace enviado a su correo electrónico para verificar su cuenta.",
   forgetPassword: "¿Olvidó su contraseña?",
   loginDescription:
     "Inicie sesión en su cuenta para acceder a su página de visualización.",
@@ -71,7 +76,8 @@ export default {
   },
   openSource: {
     title: "Código abierto",
-    description: "XMRChat es de código abierto. Puede revisar el código",
+    description:
+      "XMRChat es de código abierto. Puede revisar el código en {github}.",
   },
 
   lowFees: {
@@ -87,11 +93,27 @@ export default {
   accepted: {
     title: "Aceptado",
     description:
-      "Evite la molestia de vender su criptomoneda en un intercambio centralizado. Compre bienes y servicios directamente de comerciantes que aceptan Monero en",
+      "Evite la molestia de vender su criptomoneda en un intercambio centralizado. Compre bienes y servicios directamente de comerciantes que aceptan Monero en {xmrbazaar} y {monerica}.",
   },
   andMore: {
     title: "Y más",
-    description: "Obtenga más información sobre Monero en",
+    description: "Obtenga más información sobre Monero en {getmonero}.",
+  },
+
+  whereToGetMonero: {
+    cakeWallet:
+      "Compre o intercambie otras criptomonedas por Monero en {cakeWallet}.",
+    stealthex:
+      "Intercambie otras criptomonedas por Monero (XMR) en {stealthex} y otros en {kycnot}.",
+    haveno:
+      "Compre Monero sin KYC en {haveno}. Tutorial de efectivo por correo en {blog}.",
+    kraken: "Compre Monero con KYC en {kraken}.",
+    xmrbazaar: "Venda artículos o servicios por Monero en {xmrbazaar}.",
+    gupax: "Mínele con {gupax}.",
+    kunoAnneMedia:
+      "Cree una recaudación de fondos de Monero en {kunoAnneMedia}.",
+    monerica:
+      "Acepte Monero en su negocio y aparezca en las páginas {monerica} y {monerodirectory} y en el mapa de listados comerciales en {xmrbazaar}.",
   },
 
   // TIP PAGE
@@ -125,4 +147,13 @@ export default {
   cancel: "Cancelar",
   copyAddress: "Copiar dirección",
   waitingForPayment: "Esperando el pago",
+
+  // CONTACT US PAGE
+  contactUsDescription: "Contáctanos si tienes preguntas o comentarios.",
+  contactUsForm: "Formulario de Contacto",
+  contactUsFormDescription: "Contáctanos si tienes preguntas o comentarios.",
+  contactUsFormButton: "Contactar",
+  emailUsDirectly: "Envíanos un correo directamente",
+  followUsOnTwitter: "Síguenos en Twitter",
+  twitter: "Twitter",
 };

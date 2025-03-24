@@ -15,6 +15,7 @@ export default {
   account: "Compte",
   logout: "Déconnexion",
   login: "Connexion",
+  loginFailed: "Échec de la connexion",
   email: "Email",
   search: "Rechercher",
   password: "Mot de passe",
@@ -22,6 +23,10 @@ export default {
   signupInstead: "S'inscrire à la place",
   loginInstead: "Se connecter à la place",
   signup: "Inscription",
+  signupFailed: "Échec de l'inscription",
+  signupSuccessfull: "Inscription réussie",
+  signupSuccessfullDescription:
+    "Veuillez suivre le lien envoyé à votre email pour vérifier votre compte.",
   forgetPassword: "Mot de passe oublié ?",
   loginDescription:
     "Connectez-vous à votre compte pour accéder à votre page d'affichage.",
@@ -73,7 +78,8 @@ export default {
   },
   openSource: {
     title: "Open Source",
-    description: "XMRChat est open source. Vous pouvez consulter le code",
+    description:
+      "XMRChat est open source. Vous pouvez consulter le code sur {github}.",
   },
 
   lowFees: {
@@ -89,11 +95,11 @@ export default {
   accepted: {
     title: "Accepté",
     description:
-      "Évitez les tracas liés à la vente de votre crypto sur un échange centralisé. Achetez des biens et des services directement auprès des marchands qui acceptent Monero sur",
+      "Évitez les tracas liés à la vente de votre crypto sur un échange centralisé. Achetez des biens et des services directement auprès des marchands qui acceptent Monero sur {xmrbazaar} et {monerica}.",
   },
   andMore: {
     title: "Et plus encore",
-    description: "En savoir plus sur Monero sur",
+    description: "En savoir plus sur Monero sur {getmonero}.",
   },
 
   // TIP PAGE
@@ -128,4 +134,30 @@ export default {
   cancel: "Annuler",
   copyAddress: "Copier l'Adresse",
   waitingForPayment: "En attente du paiement",
+
+  // CONTACT US PAGE
+  contactUsDescription: "Contactez-nous pour toute question ou commentaire.",
+  contactUsForm: "Formulaire de Contact",
+  contactUsFormDescription:
+    "Contactez-nous pour toute question ou commentaire.",
+  contactUsFormButton: "Contact",
+  emailUsDirectly: "Nous écrire directement",
+  followUsOnTwitter: "Suivez-nous sur Twitter",
+  twitter: "Twitter",
+
+  whereToGetMonero: {
+    cakeWallet:
+      "Achetez ou échangez d'autres cryptomonnaies contre du Monero sur {cakeWallet}.",
+    stealthex:
+      "Échangez d'autres cryptomonnaies contre du Monero (XMR) sur {stealthex} et d'autres sur {kycnot}.",
+    haveno:
+      "Achetez du Monero sans KYC sur {haveno}. Tutoriel pour l'envoi d'argent par courrier sur {blog}.",
+    kraken: "Achetez du Monero avec KYC sur {kraken}.",
+    xmrbazaar:
+      "Vendez des articles ou des services pour du Monero sur {xmrbazaar}.",
+    gupax: "Minez-le avec {gupax}.",
+    kunoAnneMedia: "Créez une collecte de fonds Monero sur {kunoAnneMedia}.",
+    monerica:
+      "Acceptez le Monero dans votre entreprise et soyez répertorié sur les pages {monerica} et {monerodirectory} et sur la carte des entreprises sur {xmrbazaar}.",
+  },
 };
