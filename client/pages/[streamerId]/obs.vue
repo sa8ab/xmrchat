@@ -86,7 +86,7 @@ const handleAfterTip = (id: string) => {
   playSound();
   setTimeout(() => {
     removeTip(id);
-  }, 30 * 1000);
+  }, 60 * 1000);
 };
 
 const removeTip = (id: string) => {
