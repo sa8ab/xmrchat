@@ -127,23 +127,23 @@ export class SwapsService {
   @Cron(CronExpression.EVERY_5_MINUTES)
   async isSwapActive() {
     const savedActive = await this.cahceManager.get('swap-active');
-    const isActive = await this.trocadorService.isActive();
+    const status = await this.trocadorService.getStatus();
 
-    await this.cahceManager.set('swap-active', isActive);
+    await this.cahceManager.set('swap-active', status.active);
 
-    if (savedActive && !isActive) {
+    if (savedActive && !status.active) {
       // Send trocador down email
-      this.notificationsService.sendSwapStatusEmail(false);
+      this.notificationsService.sendSwapStatusEmail(false, status.reason);
       this.logger.log('Trocador is down');
     }
 
-    if (isActive && !savedActive) {
+    if (status.active && !savedActive) {
       // send trocador up email
       this.notificationsService.sendSwapStatusEmail(true);
       this.logger.log('Trocador is up');
     }
 
-    return isActive;
+    return status.active;
   }
 
   async getIsSwapActive() {

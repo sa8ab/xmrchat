@@ -144,4 +144,14 @@ export class TrocadorService {
       return false;
     }
   }
+  async getStatus() {
+    if (!this.configService.get('TROCADOR_API_KEY')) return {};
+    try {
+      await this.httpService.axiosRef.get('/exchanges');
+      return { active: true };
+    } catch (error) {
+      this.logger.log(error);
+      return { active: false, reason: error.message };
+    }
+  }
 }
