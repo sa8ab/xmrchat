@@ -81,10 +81,10 @@ export class NotificationsService {
     });
   }
 
-  sendSwapStatusEmail(active: boolean) {
+  sendSwapStatusEmail(active: boolean, reason?: string) {
     const text = active
       ? 'Swap functionality is live.'
-      : 'Swap functionality is disabled due to error on exchange.';
+      : `Swap functionality is disabled due to error on exchange. Reason: ${reason || ''}`;
 
     const recepients = this.config.get('PAGE_REPORT_RECEPIENTS').split(' ');
 

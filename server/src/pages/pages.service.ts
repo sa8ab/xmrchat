@@ -177,12 +177,12 @@ export class PagesService {
         );
     }
 
-    const reservedUntil = Date.now() + 60 * 15 * 1000;
+    const reservedUntil = Date.now() + 60 * 30 * 1000;
 
     const cache = { ...payload, userId: user.id };
 
     await this.cacheManager.set(`slug:${payload.path}`, JSON.stringify(cache), {
-      ttl: 60 * 15,
+      ttl: 60 * 30,
     } as any);
 
     const adminAddress = this.configService.get('ADMIN_MONERO_PRIMARY_ADDRESS');
