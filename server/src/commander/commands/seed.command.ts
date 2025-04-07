@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { Command, CommandRunner, Option } from 'nest-commander';
-import datasource from '../../typeorm.config';
+import datasource from '../../../typeorm.config';
 import { runSeeders } from 'typeorm-extension';
 
 @Command({

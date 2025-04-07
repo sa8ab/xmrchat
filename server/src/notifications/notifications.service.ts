@@ -1,22 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { EmailService } from './email/email.service';
-import { TemplatesService } from './templates/templates.service';
 import { PageReportEmailOptions } from 'src/shared/types';
-import {
-  englishDataset,
-  englishRecommendedTransformers,
-  RegExpMatcher,
-  TextCensor,
-} from 'obscenity';
-import { Payment } from 'src/payments/payment.entity';
 import { TwitchService } from './twitch/twitch.service';
-import { clearMessage } from 'src/shared/utils';
 import { ConfigService } from '@nestjs/config';
-
-const badWordMatcher = new RegExpMatcher({
-  ...englishDataset.build(),
-  ...englishRecommendedTransformers,
-});
 
 @Injectable()
 export class NotificationsService {
