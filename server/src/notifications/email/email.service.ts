@@ -25,14 +25,6 @@ export class EmailService {
       });
   }
 
-  //   from,
-  //   to,
-  //   ...options,
-  // }
-  // (error) => {
-  //   this.logger.error(`Email sending failled: ${error.message}`)
-  // })
-
   getConfig() {
     const isDev = process.env.NODE_ENV === 'development';
 

@@ -29,6 +29,12 @@ import { ClsModule } from 'nestjs-cls';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { CommanderModule } from './commander/commander.module';
 import { AdminModule } from './admin/admin.module';
+import {
+  AcceptLanguageResolver,
+  HeaderResolver,
+  I18nModule,
+  QueryResolver,
+} from 'nestjs-i18n';
 
 @Module({
   imports: [
@@ -77,6 +83,23 @@ import { AdminModule } from './admin/admin.module';
         limit: 120,
       },
     ]),
+    I18nModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        return {
+          fallbackLanguage: config.get('DEFAULT_LOCALE') || 'en',
+          loaderOptions: {
+            path: join(__dirname, '/i18n/'),
+            watch: true,
+          },
+        };
+      },
+      resolvers: [
+        { use: QueryResolver, options: ['lang'] },
+        AcceptLanguageResolver,
+        new HeaderResolver(['x-lang']),
+      ],
+    }),
     UsersModule,
     DatabaseModule,
     NotificationsModule,
