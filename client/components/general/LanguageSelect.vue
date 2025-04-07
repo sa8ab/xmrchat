@@ -4,12 +4,14 @@ const { locales, locale, setLocale } = useI18n();
 
 const items = computed<DropdownItem[][]>(() => {
   return [
-    locales.value.map((l) => ({
-      code: l.code,
-      image: `/images/flags/${l.code}.png`,
-      label: l.name || "",
-      click: () => setLocale(l.code),
-    })),
+    locales.value
+      .map((l) => ({
+        code: l.code,
+        image: `/images/flags/${l.code}.png`,
+        label: l.name || "",
+        click: () => setLocale(l.code),
+      }))
+      .toSorted((a, b) => a.label.localeCompare(b.label)),
   ];
 });
 </script>
