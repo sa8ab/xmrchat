@@ -3,6 +3,7 @@ import { EmailService } from './email/email.service';
 import { PageReportEmailOptions } from 'src/shared/types';
 import { ConfigService } from '@nestjs/config';
 import { TwitchService } from 'src/integrations/twitch/twitch.service';
+import { I18nContext, I18nService } from 'nestjs-i18n';
 
 @Injectable()
 export class NotificationsService {
@@ -10,33 +11,49 @@ export class NotificationsService {
     private emailService: EmailService,
     private twitchService: TwitchService,
     private config: ConfigService,
+    private i18n: I18nService,
   ) {}
 
   sendTestEmail() {
-    return this.emailService.sendEmail(['bwsaeed8@gmail.com'], {
-      subject: 'XMRChat new page report',
-      text: 'The text',
-      template: 'page-report.hbs',
+    const lang = I18nContext.current?.().lang;
+
+    return this.emailService.sendEmail('bwsaeed8@gmail.com', {
+      subject: this.i18n.t('email.emailVerification.subject'),
+      text: 'link',
+      template: 'verify-email.hbs',
       context: {
-        pageId: 10,
-        price: '0.001',
-        slug: 'slug-of-page',
-        userId: '10',
-        userName: '',
-        time: 'date here',
+        link: 'link',
+        lang,
       },
     });
+
+    // return this.emailService.sendEmail(['bwsaeed8@gmail.com'], {
+    //   subject: 'XMRChat new page report',
+    //   text: 'The text',
+    //   template: 'page-report.hbs',
+    //   context: {
+    //     pageId: 10,
+    //     price: '0.001',
+    //     slug: 'slug-of-page',
+    //     userId: '10',
+    //     userName: '',
+    //     time: 'date here',
+    //     lang,
+    //   },
+    // });
   }
 
   sendVerificationEmail(to: string, otp: string) {
     const link = `${this.config.get('CLIENT_BASE_URL')}/auth/email_verification?token=${otp}`;
+    const lang = I18nContext.current?.().lang;
 
     return this.emailService.sendEmail(to, {
-      subject: 'XMRChat Email Verification Request',
+      subject: this.i18n.t('email.emailVerification.subject'),
       text: link,
       template: 'verify-email.hbs',
       context: {
         link,
+        lang,
       },
     });
   }

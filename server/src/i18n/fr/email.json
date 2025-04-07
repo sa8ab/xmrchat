@@ -1,0 +1,12 @@
+{
+  "emailVerification": {
+    "subject": "XMRChat Demande de vérification d'email",
+    "emailTitle": "Veuillez activer votre compte",
+    "title": "Vérification de l'email",
+    "followThisLink": "Suivez ce lien pour vérifier votre adresse email.",
+    "confirmNow": "Confirmer maintenant",
+    "ifYouDidNotAskToVerifyThisAddress": "Si vous n'avez pas demandé à vérifier cette adresse, vous pouvez ignorer cet email.",
+    "thanks": "Merci",
+    "XMRChatTeam": "L'équipe XMRChat"
+  }
+}
