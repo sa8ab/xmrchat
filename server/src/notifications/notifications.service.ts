@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { EmailService } from './email/email.service';
 import { PageReportEmailOptions } from 'src/shared/types';
-import { TwitchService } from './twitch/twitch.service';
 import { ConfigService } from '@nestjs/config';
+import { TwitchService } from 'src/integrations/twitch/twitch.service';
 
 @Injectable()
 export class NotificationsService {

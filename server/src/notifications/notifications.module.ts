@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
 import { EmailModule } from './email/email.module';
-import { TwitchModule } from './twitch/twitch.module';
+import { TwitchModule } from 'src/integrations/twitch/twitch.module';
 
 @Module({
   providers: [NotificationsService],

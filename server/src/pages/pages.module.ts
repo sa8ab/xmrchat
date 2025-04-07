@@ -7,7 +7,7 @@ import { LwsModule } from 'src/lws/lws.module';
 import { PaymentsModule } from 'src/payments/payments.module';
 import { PagesGateway } from './pages.gateway';
 import { NotificationsModule } from 'src/notifications/notifications.module';
-import { TwitchModule } from 'src/integrations/twitch.module';
+import { TwitchModule } from 'src/integrations/twitch/twitch.module';
 
 @Module({
   imports: [
