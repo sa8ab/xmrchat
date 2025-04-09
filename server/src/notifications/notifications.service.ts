@@ -60,13 +60,15 @@ export class NotificationsService {
 
   sendResetPasswordEmail(to: string, otp: string) {
     const link = `${this.config.get('CLIENT_BASE_URL')}/auth/reset_password?token=${otp}`;
+    const lang = I18nContext.current?.().lang;
 
     return this.emailService.sendEmail(to, {
-      subject: 'XMRChat Reset Password Request',
+      subject: this.i18n.t('email.resetPassword.subject'),
       text: link,
       template: 'reset-password.hbs',
       context: {
         link,
+        lang,
       },
     });
   }
@@ -114,10 +116,15 @@ export class NotificationsService {
   }
 
   async sendPasswordChangeEmail(to: string) {
+    const lang = I18nContext.current?.().lang;
+
     return this.emailService.sendEmail(to, {
-      subject: 'Your XMRChat password updated.',
-      text: 'Your XMRChat password updated.',
+      subject: this.i18n.t('email.passwordChange.subject'),
+      text: this.i18n.t('email.passwordChange.text'),
       template: 'update-password.hbs',
+      context: {
+        lang,
+      },
     });
   }
 }

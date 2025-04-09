@@ -8,5 +8,21 @@
     "ifYouDidNotAskToVerifyThisAddress": "Wenn Sie diese Adresse nicht angefragt haben, können Sie diese E-Mail ignorieren.",
     "thanks": "Vielen Dank",
     "XMRChatTeam": "Das XMRChat-Team"
+  },
+  "resetPassword": {
+    "subject": "XMRChat Passwort-Zurücksetzen-Anfrage",
+    "emailTitle": "Passwort-Zurücksetzen-Anfrage",
+    "title": "Passwort zurücksetzen",
+    "followThisLink": "Wir haben eine Anfrage zum Zurücksetzen des Passworts für dieses Benutzerkonto erhalten.",
+    "resetNow": "Passwort zurücksetzen",
+    "ifYouDidNotAskToResetPassword": "Wenn Sie das Zurücksetzen des Passworts nicht angefordert haben, können Sie diese E-Mail ignorieren."
+  },
+  "passwordChange": {
+    "subject": "Ihr XMRChat-Passwort wurde aktualisiert",
+    "text": "Ihr XMRChat-Passwort wurde aktualisiert",
+    "title": "Kontopasswort aktualisiert",
+    "emailTitle": "Passwort aktualisiert",
+    "passwordUpdated": "Das Passwort Ihres Kontos wurde aktualisiert.",
+    "ifItWasNotYou": "Wenn Sie es nicht waren, melden Sie sich bitte an und setzen Sie Ihr Passwort zurück."
   }
 }
