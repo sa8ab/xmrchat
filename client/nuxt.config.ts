@@ -42,6 +42,8 @@ export default defineNuxtConfig({
       { code: "fr", iso: "fr", name: "French", dir: "auto" },
       { code: "es", iso: "es", name: "Spanish", dir: "auto" },
       { code: "de", iso: "de", name: "German", dir: "auto" },
+      { code: "ru", iso: "ru", name: "Russian", dir: "auto" },
+      { code: "fi", iso: "fi", name: "Finnish", dir: "auto" },
     ],
     defaultLocale: "en",
     vueI18n: "./i18n.config.ts",
