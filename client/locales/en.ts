@@ -129,7 +129,7 @@ export default {
   tipSwapUnavailable: "Swap is currently unavailable.",
   tipSwapMinimum: "Minimum {minSwapUSD}$ to swap",
   minUsdAmount: "Minimum {minUsdAmount}",
-  recentTips: "Recent Tipsss",
+  recentTips: "Recent Tips",
   tipDisplayValueTooltip: "Show tip values in XMR or USD",
   noRecentTips: "No recent tips!",
 
