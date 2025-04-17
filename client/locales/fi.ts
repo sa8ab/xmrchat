@@ -37,7 +37,7 @@ export default {
   contactUs: "Ota yhteyttä",
 
   xmrchat: "XMRChat",
-  heroDescription: "Tue suosikkistriimaajaasi kryptovaluutalla.",
+  heroDescription: "Tue suosikkistriimaajaasi Monerolla.",
   findCreators: "Etsi sisällöntuottajia",
   creatorsStartHere: "Sisällöntuottajille: Aloita tästä",
 
@@ -91,7 +91,7 @@ export default {
   accepted: {
     title: "Hyväksytty",
     description:
-      "Ei tarvitse myydä kryptoa pörsseissä. Osta suoraan {xmrbazaar}:sta ja {monerica}:sta.",
+      "Sinun ei tarvitse myydä Moneroa vaihtopalvelussa. Voit ostaa Monerolla myös suoraan {xmrbazaar}:sta ja {monerica}:sta.",
   },
   andMore: {
     title: "Ja paljon muuta",
@@ -101,7 +101,7 @@ export default {
   whereToGetMonero: {
     cakeWallet: "Osta tai vaihda Moneroa {cakeWallet}:ssa.",
     stealthex:
-      "Vaihda kryptoa Moneroon (XMR) sivustoilla kuten {stealthex} ja {kycnot}.",
+      "Voit vaihtaa muut kryptosi Moneroon (XMR) sivustoilla kuten {stealthex} ja {kycnot}.",
     haveno:
       "Osta Moneroa ilman KYC:tä {haveno}:sta. Katso käteismaksuohje osoitteessa {blog}.",
     kraken: "Osta Moneroa KYC:llä {kraken}:sta.",
