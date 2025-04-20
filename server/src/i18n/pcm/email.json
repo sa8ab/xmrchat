@@ -1,0 +1,28 @@
+{
+  "emailVerification": {
+    "subject": "XMRChat Email Verification Request",
+    "emailTitle": "Abeg activate your account",
+    "title": "Email Verification",
+    "followThisLink": "Click dis link to verify your email address.",
+    "confirmNow": "Confirm am now",
+    "ifYouDidNotAskToVerifyThisAddress": "If na no be you request to verify dis email, you fit just ignore dis message.",
+    "thanks": "Tainks",
+    "XMRChatTeam": "Di XMRChat Team"
+  },
+  "resetPassword": {
+    "subject": "XMRChat Reset Password Request",
+    "emailTitle": "Request to Change Password",
+    "title": "Change Your Password",
+    "followThisLink": "We don receive request say make we change di password for dis account.",
+    "resetNow": "Change your password now",
+    "ifYouDidNotAskToResetPassword": "If na no be you talk say make we reset password, just ignore dis email."
+  },
+  "passwordChange": {
+    "subject": "Dem don change your XMRChat password",
+    "text": "Your XMRChat password don change",
+    "title": "Account Password Don Change",
+    "emailTitle": "Password Don Change",
+    "passwordUpdated": "Di password wey dey your account don change.",
+    "ifItWasNotYou": "If na no be you do am, abeg login and reset your password sharp sharp."
+  }
+}
