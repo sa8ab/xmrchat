@@ -121,6 +121,8 @@ export default {
   tipAmount: "Monto",
   tipMessage: "Mensaje",
   tipPrivate: "Privado",
+  tipDate: "Fecha",
+  tipUpdated: "¡Consejo actualizado!",
   tipPrivateTooltip:
     "El nombre y el mensaje solo serán visibles para el streamer.",
   tipCoin: "Moneda",
@@ -137,6 +139,8 @@ export default {
   recentTips: "Propinas recientes",
   tipDisplayValueTooltip: "Mostrar valores de propina en XMR o USD",
   noRecentTips: "¡No hay propinas recientes!",
+  pageDeactivatedAlert:
+    "Tu página ha sido desactivada y no es visible al público. Por favor, contacta con el soporte para más información.",
 
   tipWalletWarningTitle: "No dé propina con la billetera del streamer.",
   tipWalletWarningDescription:
@@ -156,4 +160,36 @@ export default {
   emailUsDirectly: "Envíanos un correo directamente",
   followUsOnTwitter: "Síguenos en Twitter",
   twitter: "Twitter",
+
+  // CREATE PAGE
+  createPage: "Crear página",
+  getStartedCreatingPage: "Empieza creando tu página de streamer",
+  home: "Inicio",
+  logo: "Logo",
+  logoRatio: "Proporción 1:1",
+  bannerImage: "Imagen de banner",
+  bannerImageBestRatio: "Lo mejor es subirlo en proporción 3:1",
+  yourId: "Tu ID",
+  pageSlug: "Slug de la página",
+  moneroPrmReciveAddress: "Dirección principal para recibir Monero",
+  prmMoneroReciveAdressBegin:
+    "Las direcciones principales de Monero comienzan con el número 4.",
+  moneroSecretViewKey: "Clave de vista secreta de Monero",
+  weNeedSecretViewKey:
+    "Necesitamos la clave de vista secreta para ver las transacciones entrantes de los espectadores. {whereToFind}",
+  whereToFindViewKey: "¿Dónde encontrar la clave de vista?",
+  twitchChannelName: "Nombre del canal de Twitch",
+  nameOfYourTwitchChannel:
+    "Nombre de tu canal de Twitch. Se usa para mostrar propinas en Stream con el bot de Twitch xmr_chat.",
+  optional: "Opcional",
+  minTipAmount: "Monto mínimo de propina (XMR)",
+  defaultTipAmount: "Valor por defecto de la propina",
+  thisIsOnlyForDisplaying:
+    "Esto es solo para mostrar el valor de la propina. Los espectadores pueden cambiarlo en la página de propinas.",
+  publicPage: "Página pública (se muestra en la búsqueda de creadores).",
+  continue: "Continuar",
+  clickToUpload: "Haz clic para subir",
+  pageCreatedSuccessfully: "¡Página creada con éxito!",
+  slugReservedUntil: "Tu slug está reservado hasta ",
+  note: "Nota",
 };

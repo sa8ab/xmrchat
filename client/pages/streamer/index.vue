@@ -6,6 +6,7 @@ useHead({
 });
 
 const { getMyPage } = useServices();
+const { t } = useI18n();
 
 const { data, pending, refresh, error } = await useLazyAsyncData(
   "streamer-profile",
@@ -33,13 +34,13 @@ const tipValue = ref<SupportedDisplayCurrency | undefined>(
             v-if="data.page.status === PageStatusEnum.DEACTIVE"
             color="red"
             variant="soft"
-            description="Your page has been deactivated and it is not visible to public. Please contact support for more info."
+            :description="t('pageDeactivatedAlert')"
             class="my-4"
           />
 
           <div class="flex justify-end mb-2">
             <UTooltip
-              text="Show tip values in XMR or USD"
+              :text="t('tipDisplayValueTooltip')"
               :popper="{ placement: 'top' }"
             >
               <TipValueToggle class="font-normal" v-model="tipValue" />

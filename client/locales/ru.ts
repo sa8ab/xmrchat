@@ -117,6 +117,8 @@ export default {
   tipAmount: "Сумма",
   tipMessage: "Сообщение",
   tipPrivate: "Приватно",
+  tipDate: "Дата",
+  tipUpdated: "Совет обновлён!",
   tipPrivateTooltip: "Имя и сообщение будут видны только стримеру.",
   tipCoin: "Монета",
   tipCoinPlaceholder: "XMR",
@@ -132,6 +134,8 @@ export default {
   recentTips: "Последние чаевые",
   tipDisplayValueTooltip: "Показывать чаевые в XMR или USD",
   noRecentTips: "Нет недавних чаевых!",
+  pageDeactivatedAlert:
+    "Ваша страница была деактивирована и не отображается для публичного просмотра. Пожалуйста, свяжитесь с поддержкой для получения дополнительной информации.",
 
   tipWalletWarningTitle: "Не отправляйте чаевые с кошелька стримера.",
   tipWalletWarningDescription:
@@ -150,4 +154,35 @@ export default {
   emailUsDirectly: "Напишите нам напрямую",
   followUsOnTwitter: "Подписывайтесь на нас в Twitter",
   twitter: "Twitter",
+
+  // CREATE PAGE
+  createPage: "Создать страницу",
+  getStartedCreatingPage: "Начните с создания страницы стримера",
+  home: "Главная",
+  logo: "Логотип",
+  logoRatio: "Соотношение 1:1",
+  bannerImage: "Баннер",
+  bannerImageBestRatio: "Лучшее соотношение — 3:1",
+  yourId: "Ваш ID",
+  pageSlug: "Slug страницы",
+  moneroPrmReciveAddress: "Основной адрес для получения Monero",
+  prmMoneroReciveAdressBegin: "Основные адреса Monero начинаются с цифры 4.",
+  moneroSecretViewKey: "Секретный ключ просмотра Monero",
+  weNeedSecretViewKey:
+    "Нам нужен секретный ключ просмотра, чтобы видеть входящие транзакции от зрителей. {whereToFind}",
+  whereToFindViewKey: "Где найти ключ просмотра?",
+  twitchChannelName: "Имя Twitch-канала",
+  nameOfYourTwitchChannel:
+    "Имя вашего Twitch-канала. Используется для отображения чаевых через xmr_chat Twitch-бота.",
+  optional: "Необязательно",
+  minTipAmount: "Мин. сумма чаевых (XMR)",
+  defaultTipAmount: "Значение чаевых по умолчанию",
+  thisIsOnlyForDisplaying:
+    "Это только для отображения значений чаевых. Зрители могут изменить их на странице чаевых.",
+  publicPage: "Публичная страница (отображается в поиске создателей).",
+  continue: "Продолжить",
+  clickToUpload: "Кликните, чтобы загрузить",
+  pageCreatedSuccessfully: "Страница успешно создана!",
+  slugReservedUntil: "Ваш slug зарезервирован до ",
+  note: "Примечание",
 };
