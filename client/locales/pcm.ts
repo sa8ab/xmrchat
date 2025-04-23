@@ -116,6 +116,8 @@ export default {
   tipAmount: "Amount",
   tipMessage: "Message",
   tipPrivate: "Private",
+  tipDate: "Date",
+  tipUpdated: "Tip don update!",
   tipPrivateTooltip: "Only the streamer go fit see your name and message.",
   tipCoin: "Coin",
   tipCoinPlaceholder: "XMR",
@@ -131,6 +133,8 @@ export default {
   recentTips: "Recent Tips",
   tipDisplayValueTooltip: "Show tip as XMR or USD",
   noRecentTips: "No recent tips!",
+  pageDeactivatedAlert:
+    "Your page don deactivate and e no dey show to di public. Abeg talk to support if you wan know more.",
 
   tipWalletWarningTitle: "No use streamer wallet tip.",
   tipWalletWarningDescription:
@@ -150,4 +154,36 @@ export default {
   emailUsDirectly: "Send email to us directly",
   followUsOnTwitter: "Follow us for Twitter",
   twitter: "Twitter",
+
+  // CREATE PAGE
+  createPage: "Create Page",
+  getStartedCreatingPage: "Make you start by creating your streamer page",
+  home: "Home",
+  logo: "Logo",
+  logoRatio: "1:1 ratio",
+  bannerImage: "Banner Image",
+  bannerImageBestRatio: "Best make you upload am in 3:1",
+  yourId: "Your ID",
+  pageSlug: "Page Slug",
+  moneroPrmReciveAddress: "Monero main address wey go receive money",
+  prmMoneroReciveAdressBegin:
+    "Monero address wey dey collect money dey start with number 4.",
+  moneroSecretViewKey: "Monero secret view key",
+  weNeedSecretViewKey:
+    "We need dis secret view key to fit see money wey people dey send. {whereToFind}",
+  whereToFindViewKey: "Where you fit find di view key?",
+  twitchChannelName: "Twitch channel name",
+  nameOfYourTwitchChannel:
+    "Di name wey your Twitch channel get. We go use am show tips with xmr_chat Twitch bot.",
+  optional: "Optional",
+  minTipAmount: "Smallest tip amount (XMR)",
+  defaultTipAmount: "Default tip value",
+  thisIsOnlyForDisplaying:
+    "Na just for display sake. People wey wan tip fit change am for dia page.",
+  publicPage: "Public Page (e go show for creator search page).",
+  continue: "Continue",
+  clickToUpload: "Click make you upload",
+  pageCreatedSuccessfully: "Page don create well well!",
+  slugReservedUntil: "Your slug go dey reserved until ",
+  note: "Note",
 };

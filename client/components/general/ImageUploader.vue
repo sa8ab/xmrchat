@@ -4,6 +4,7 @@ import type { Numberic, UploadedFile } from "~/types";
 import { UploadSlug } from "~/types/enums";
 
 const { uploadImage: uploadApi } = useServices();
+const { t } = useI18n();
 
 defineOptions({
   inheritAttrs: false,
@@ -65,7 +66,7 @@ const handleChange = async (e: Event) => {
             accept="image/*"
             v-bind="$attrs"
           />
-          <span>Click to upload</span>
+          <span>{{ t("clickToUpload") }}</span>
         </UButton>
       </label>
       <UProgress v-if="isUploading" :value="progress" />

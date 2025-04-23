@@ -11,6 +11,7 @@ const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
   useServices();
 
 const { errorHandler } = useErrorHandler();
+const { t } = useI18n();
 
 const toast = useToast();
 
@@ -36,23 +37,23 @@ onBeforeUnmount(() => stopTipsInterval());
 const columns = [
   {
     key: "name",
-    label: "Name",
+    label: t("tipName"),
   },
   {
     key: "amount",
-    label: "Amount",
+    label: t("tipAmount"),
   },
   {
     key: "message",
-    label: "Message",
+    label: t("tipMessage"),
   },
   {
     key: "paidAt",
-    label: "Date",
+    label: t("tipDate"),
   },
   {
     key: "private",
-    label: "Private",
+    label: t("tipPrivate"),
   },
   // {
   //   key: "actions",
@@ -66,7 +67,7 @@ const updateTipPrivate = async (id: Numberic, isPrivate: boolean) => {
     });
 
     toast.add({
-      title: "Tip updated!",
+      title: t("tipUpdated"),
     });
 
     refresh();

@@ -2,6 +2,7 @@
 import type { SlugReservationResponse } from "~/types";
 
 const { toIndex } = useRouteLocation();
+const { t } = useI18n();
 
 useHead({
   title: "Create Page",
@@ -9,12 +10,12 @@ useHead({
 
 const links = computed(() => [
   {
-    label: "Home",
+    label: t("home"),
     icon: "i-heroicons-home",
     to: toIndex(),
   },
   {
-    label: "Create Page",
+    label: t("createPage"),
     icon: "i-heroicons-folder-plus-solid",
   },
 ]);
@@ -45,8 +46,8 @@ const cancelPayment = () => {
     <div class="flex flex-col">
       <UBreadcrumb :links="links" />
       <PageTitle
-        title="Create Page"
-        description="Get started by creating your streamer page"
+        :title="t('createPage')"
+        :description="t('getStartedCreatingPage')"
       />
     </div>
 
