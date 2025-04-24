@@ -1,0 +1,28 @@
+{
+  "emailVerification": {
+    "subject": "XMRChat 이메일 인증 요청",
+    "emailTitle": "계정을 활성화해주세요",
+    "title": "이메일 인증",
+    "followThisLink": "이메일 주소를 인증하려면 이 링크를 따라주세요.",
+    "confirmNow": "지금 인증하기",
+    "ifYouDidNotAskToVerifyThisAddress": "이 주소 인증을 요청하지 않았다면 이 이메일은 무시하셔도 됩니다.",
+    "thanks": "감사합니다",
+    "XMRChatTeam": "XMRChat 팀"
+  },
+  "resetPassword": {
+    "subject": "XMRChat 비밀번호 재설정 요청",
+    "emailTitle": "비밀번호 재설정 요청",
+    "title": "비밀번호 재설정",
+    "followThisLink": "이 사용자 계정의 비밀번호를 재설정하라는 요청을 받았습니다.",
+    "resetNow": "비밀번호 재설정하기",
+    "ifYouDidNotAskToResetPassword": "비밀번호 재설정을 요청하지 않으셨다면 이 이메일은 무시하셔도 됩니다."
+  },
+  "passwordChange": {
+    "subject": "XMRChat 비밀번호가 변경되었습니다",
+    "text": "XMRChat 비밀번호가 변경되었습니다",
+    "title": "계정 비밀번호 변경됨",
+    "emailTitle": "비밀번호 변경됨",
+    "passwordUpdated": "계정의 비밀번호가 변경되었습니다.",
+    "ifItWasNotYou": "본인이 아니라면 로그인 후 비밀번호를 재설정해주세요."
+  }
+}
