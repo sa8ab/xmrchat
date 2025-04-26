@@ -4,6 +4,8 @@ import fr from "./locales/fr";
 import de from "./locales/de";
 import ru from "./locales/ru";
 import fi from "./locales/fi";
+import pcm from "./locales/pcm";
+import ko from "./locales/ko";
 
 export default defineI18nConfig(() => ({
   legacy: false,
@@ -14,5 +16,7 @@ export default defineI18nConfig(() => ({
     de,
     ru,
     fi,
+    pcm,
+    ko,
   },
 }));

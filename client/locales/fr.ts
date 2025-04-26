@@ -107,6 +107,8 @@ export default {
   tipAmount: "Montant",
   tipMessage: "Message",
   tipPrivate: "Privé",
+  tipDate: "Date",
+  tipUpdated: "Astuce mise à jour !",
   tipPrivateTooltip:
     "Le nom et le message ne seront visibles que par le streamer.",
   tipCoin: "Pièce",
@@ -123,6 +125,8 @@ export default {
   recentTips: "Pourboires Récents",
   tipDisplayValueTooltip: "Afficher les valeurs des pourboires en XMR ou USD",
   noRecentTips: "Aucun pourboire récent !",
+  pageDeactivatedAlert:
+    "Votre page a été désactivée et n'est pas visible publiquement. Veuillez contacter le support pour plus d'informations.",
 
   tipWalletWarningTitle:
     "Ne donnez pas de pourboire avec le portefeuille du streamer.",
@@ -160,4 +164,36 @@ export default {
     monerica:
       "Acceptez le Monero dans votre entreprise et soyez répertorié sur les pages {monerica} et {monerodirectory} et sur la carte des entreprises sur {xmrbazaar}.",
   },
+
+  // CREATE PAGE
+  createPage: "Créer une page",
+  getStartedCreatingPage: "Commencez par créer votre page de streamer",
+  home: "Accueil",
+  logo: "Logo",
+  logoRatio: "Ratio 1:1",
+  bannerImage: "Image de bannière",
+  bannerImageBestRatio: "Idéalement, télécharger au ratio 3:1",
+  yourId: "Votre ID",
+  pageSlug: "Identifiant de la page",
+  moneroPrmReciveAddress: "Adresse principale de réception Monero",
+  prmMoneroReciveAdressBegin:
+    "Les adresses Monero commencent par le chiffre 4.",
+  moneroSecretViewKey: "Clé de vue secrète Monero",
+  weNeedSecretViewKey:
+    "Nous avons besoin de la clé de vue secrète pour voir les transactions entrantes des spectateurs. {whereToFind}",
+  whereToFindViewKey: "Où trouver la clé de vue ?",
+  twitchChannelName: "Nom de la chaîne Twitch",
+  nameOfYourTwitchChannel:
+    "Nom de votre chaîne Twitch. Utilisé pour afficher les pourboires via le bot xmr_chat Twitch.",
+  optional: "Optionnel",
+  minTipAmount: "Montant minimum du pourboire (XMR)",
+  defaultTipAmount: "Montant par défaut du pourboire",
+  thisIsOnlyForDisplaying:
+    "Ceci est seulement pour afficher les valeurs des pourboires. Les spectateurs peuvent le modifier sur la page de pourboire.",
+  publicPage: "Page publique (affichée dans la recherche de créateurs).",
+  continue: "Continuer",
+  clickToUpload: "Cliquez pour télécharger",
+  pageCreatedSuccessfully: "Page créée avec succès !",
+  slugReservedUntil: "Votre identifiant est réservé jusqu'au ",
+  note: "Remarque",
 };

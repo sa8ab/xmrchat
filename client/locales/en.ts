@@ -117,6 +117,8 @@ export default {
   tipAmount: "Amount",
   tipMessage: "Message",
   tipPrivate: "Private",
+  tipDate: "Date",
+  tipUpdated: "Tip updated!",
   tipPrivateTooltip: "Name and message will be only visible to the streamer.",
   tipCoin: "Coin",
   tipCoinPlaceholder: "XMR",
@@ -132,6 +134,8 @@ export default {
   recentTips: "Recent Tips",
   tipDisplayValueTooltip: "Show tip values in XMR or USD",
   noRecentTips: "No recent tips!",
+  pageDeactivatedAlert:
+    "Your page has been deactivated and it is not visible to public. Please contact support for more info.",
 
   tipWalletWarningTitle: "Do not tip with streamer wallet.",
   tipWalletWarningDescription:
@@ -151,4 +155,36 @@ export default {
   emailUsDirectly: "Email us directly",
   followUsOnTwitter: "Follow us on Twitter",
   twitter: "Twitter",
+
+  // CREATE PAGE
+  createPage: "Create Page",
+  getStartedCreatingPage: "Get started by creating your streamer page",
+  home: "Home",
+  logo: "Logo",
+  logoRatio: "1:1 ratio",
+  bannerImage: "Banner Image",
+  bannerImageBestRatio: "Best to be uploaded in 3:1",
+  yourId: "Your Id",
+  pageSlug: "Page Slug",
+  moneroPrmReciveAddress: "Monero primary receive address",
+  prmMoneroReciveAdressBegin:
+    "Primary Monero receive addresses begin with the number 4.",
+  moneroSecretViewKey: "Monero secret view key",
+  weNeedSecretViewKey:
+    "We need secret view key to be able to view incoming transactions from viewers. {whereToFind}",
+  whereToFindViewKey: "Where to find view key?",
+  twitchChannelName: "Twitch channel name",
+  nameOfYourTwitchChannel:
+    "Name of your twitch channel. Used to display tips on Stream via xmr_chat Twitch bot.",
+  optional: "Optional",
+  minTipAmount: "Min. Tip Amount ( XMR )",
+  defaultTipAmount: "Default Tip Amount Value",
+  thisIsOnlyForDisplaying:
+    "This is only for displaying the tip values. Viewers can change this for themselves on tip page.",
+  publicPage: "Public Page ( Shown on creator search page ).",
+  continue: "Continue",
+  clickToUpload: "Click to upload",
+  pageCreatedSuccessfully: "Page is created successfully!",
+  slugReservedUntil: "Your slug is reserved until ",
+  note: "Note",
 };

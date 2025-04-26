@@ -121,6 +121,8 @@ export default {
   tipAmount: "Betrag",
   tipMessage: "Nachricht",
   tipPrivate: "Privat",
+  tipDate: "Datum",
+  tipUpdated: "Tipp aktualisiert!",
   tipPrivateTooltip: "Name und Nachricht sind nur für den Streamer sichtbar",
   tipCoin: "Coin",
   tipCoinPlaceholder: "XMR",
@@ -136,6 +138,8 @@ export default {
   recentTips: "Letzte Trinkgelder",
   tipDisplayValueTooltip: "Trinkgeldwerte in XMR oder USD anzeigen",
   noRecentTips: "Keine aktuellen Trinkgelder!",
+  pageDeactivatedAlert:
+    "Ihre Seite wurde deaktiviert und ist nicht öffentlich sichtbar. Bitte kontaktieren Sie den Support für weitere Informationen.",
 
   tipWalletWarningTitle: "Nicht mit Streamer-Wallet Trinkgeld geben",
   tipWalletWarningDescription:
@@ -155,4 +159,37 @@ export default {
   emailUsDirectly: "Direkt per E-Mail kontaktieren",
   followUsOnTwitter: "Folgen Sie uns auf Twitter",
   twitter: "Twitter",
+
+  // CREATE PAGE
+  createPage: "Seite erstellen",
+  getStartedCreatingPage:
+    "Beginnen Sie mit der Erstellung Ihrer Streamer-Seite",
+  home: "Startseite",
+  logo: "Logo",
+  logoRatio: "1:1 Verhältnis",
+  bannerImage: "Bannerbild",
+  bannerImageBestRatio: "Am besten im Verhältnis 3:1 hochladen",
+  yourId: "Ihre ID",
+  pageSlug: "Seiten-Slug",
+  moneroPrmReciveAddress: "Primäre Monero-Empfangsadresse",
+  prmMoneroReciveAdressBegin:
+    "Primäre Monero-Adressen beginnen mit der Zahl 4.",
+  moneroSecretViewKey: "Geheimer View Key von Monero",
+  weNeedSecretViewKey:
+    "Wir benötigen den geheimen View Key, um eingehende Transaktionen von Zuschauern sehen zu können. {whereToFind}",
+  whereToFindViewKey: "Wo finde ich den View Key?",
+  twitchChannelName: "Twitch-Kanalname",
+  nameOfYourTwitchChannel:
+    "Name Ihres Twitch-Kanals. Wird verwendet, um Tipps über den xmr_chat Twitch-Bot anzuzeigen.",
+  optional: "Optional",
+  minTipAmount: "Min. Tippbetrag (XMR)",
+  defaultTipAmount: "Standard-Tippbetrag",
+  thisIsOnlyForDisplaying:
+    "Dies dient nur zur Anzeige des Tippbetrags. Zuschauer können dies auf der Tippseite selbst ändern.",
+  publicPage: "Öffentliche Seite (wird auf der Ersteller-Suchseite angezeigt).",
+  continue: "Weiter",
+  clickToUpload: "Zum Hochladen klicken",
+  pageCreatedSuccessfully: "Seite wurde erfolgreich erstellt!",
+  slugReservedUntil: "Ihr Slug ist reserviert bis ",
+  note: "Hinweis",
 };

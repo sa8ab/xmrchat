@@ -37,7 +37,7 @@ export default {
   contactUs: "Ota yhteyttä",
 
   xmrchat: "XMRChat",
-  heroDescription: "Tue suosikkistriimaajaasi kryptovaluutalla.",
+  heroDescription: "Tue suosikkistriimaajaasi Monerolla.",
   findCreators: "Etsi sisällöntuottajia",
   creatorsStartHere: "Sisällöntuottajille: Aloita tästä",
 
@@ -91,7 +91,7 @@ export default {
   accepted: {
     title: "Hyväksytty",
     description:
-      "Ei tarvitse myydä kryptoa pörsseissä. Osta suoraan {xmrbazaar}:sta ja {monerica}:sta.",
+      "Sinun ei tarvitse myydä Moneroa vaihtopalvelussa. Voit ostaa Monerolla myös suoraan {xmrbazaar}:sta ja {monerica}:sta.",
   },
   andMore: {
     title: "Ja paljon muuta",
@@ -101,7 +101,7 @@ export default {
   whereToGetMonero: {
     cakeWallet: "Osta tai vaihda Moneroa {cakeWallet}:ssa.",
     stealthex:
-      "Vaihda kryptoa Moneroon (XMR) sivustoilla kuten {stealthex} ja {kycnot}.",
+      "Voit vaihtaa muut kryptosi Moneroon (XMR) sivustoilla kuten {stealthex} ja {kycnot}.",
     haveno:
       "Osta Moneroa ilman KYC:tä {haveno}:sta. Katso käteismaksuohje osoitteessa {blog}.",
     kraken: "Osta Moneroa KYC:llä {kraken}:sta.",
@@ -117,6 +117,8 @@ export default {
   tipAmount: "Summa",
   tipMessage: "Viesti",
   tipPrivate: "Yksityinen",
+  tipDate: "Päivämäärä",
+  tipUpdated: "Vinkki päivitetty!",
   tipPrivateTooltip: "Nimi ja viesti näkyvät vain striimaajalle.",
   tipCoin: "Kryptovaluutta",
   tipCoinPlaceholder: "XMR",
@@ -132,6 +134,8 @@ export default {
   recentTips: "Viimeisimmät tipit",
   tipDisplayValueTooltip: "Näytä tippi XMR tai USD muotoisena",
   noRecentTips: "Ei uusia tippejä!",
+  pageDeactivatedAlert:
+    "Sivusi on poistettu käytöstä eikä se ole julkisesti näkyvissä. Ota yhteyttä tukeen saadaksesi lisätietoja.",
 
   tipWalletWarningTitle: "Älä lähetä tippejä striimaajan lompakosta.",
   tipWalletWarningDescription:
@@ -151,4 +155,36 @@ export default {
   emailUsDirectly: "Lähetä meille suoraan sähköpostia",
   followUsOnTwitter: "Seuraa meitä Twitterissä",
   twitter: "Twitter",
+
+  // CREATE PAGE
+  createPage: "Luo sivu",
+  getStartedCreatingPage: "Aloita luomalla striimaajasivu",
+  home: "Etusivu",
+  logo: "Logo",
+  logoRatio: "1:1 suhde",
+  bannerImage: "Bannerikuva",
+  bannerImageBestRatio: "Paras koko on 3:1",
+  yourId: "Sinun ID",
+  pageSlug: "Sivun osoite (slug)",
+  moneroPrmReciveAddress: "Monero ensisijainen vastaanotto-osoite",
+  prmMoneroReciveAdressBegin:
+    "Ensisijaiset Monero-osoitteet alkavat numerolla 4.",
+  moneroSecretViewKey: "Monero salainen katseluavain",
+  weNeedSecretViewKey:
+    "Tarvitsemme salaisen katseluavaimen, jotta voimme nähdä katsojien maksut. {whereToFind}",
+  whereToFindViewKey: "Mistä löydän katseluavaimen?",
+  twitchChannelName: "Twitch-kanavan nimi",
+  nameOfYourTwitchChannel:
+    "Twitch-kanavasi nimi. Käytetään tippien näyttämiseen streamissä xmr_chat Twitch-botin kautta.",
+  optional: "Valinnainen",
+  minTipAmount: "Minimi tippi (XMR)",
+  defaultTipAmount: "Oletustippimäärä",
+  thisIsOnlyForDisplaying:
+    "Tämä on vain esitystarkoituksiin. Katsojat voivat muuttaa tätä itse tippejä antaessaan.",
+  publicPage: "Julkinen sivu (näkyy tekijähakusivulla).",
+  continue: "Jatka",
+  clickToUpload: "Klikkaa ladataksesi",
+  pageCreatedSuccessfully: "Sivu luotiin onnistuneesti!",
+  slugReservedUntil: "Slug on varattu asti ",
+  note: "Huom",
 };
