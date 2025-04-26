@@ -1,4 +1,4 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TipsController } from './tips.controller';
 import { TipsService } from './tips.service';
 import { PagesModule } from 'src/pages/pages.module';

@@ -1,6 +1,7 @@
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
   BadRequestException,
+  forwardRef,
   Inject,
   Injectable,
   Logger,
@@ -37,6 +38,7 @@ export class PagesService {
     private lwsService: LwsService,
     private configService: ConfigService,
     private paymentsService: PaymentsService,
+    @Inject(forwardRef(() => PagesGateway))
     private pagesGateway: PagesGateway,
     private notificationsService: NotificationsService,
     private twitchService: TwitchService,

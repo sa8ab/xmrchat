@@ -254,6 +254,10 @@ export class TipsService {
       username: tip.name,
     });
 
+    // if page has setting of automatically add tip to obs, then send it to pages gateway addTipToObs
+    // with auto removal true.
+    // if not then don't send. it will be sent manually and will be removed manually.
+
     this.pagesGateway.notifyNewTip(page.path, {
       amount: savedPayment.amount,
       name: tip.name,

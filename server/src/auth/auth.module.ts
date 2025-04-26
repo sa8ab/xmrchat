@@ -13,6 +13,7 @@ import { NotificationsModule } from 'src/notifications/notifications.module';
 import { UserTokensModule } from './user-tokens/user-tokens.module';
 import { PagesModule } from 'src/pages/pages.module';
 import { ThrottlerGuard } from '@nestjs/throttler';
+import { WsAuthGuard } from './guards/ws-auth.guard';
 
 @Module({
   imports: [
@@ -46,6 +47,10 @@ import { ThrottlerGuard } from '@nestjs/throttler';
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: WsAuthGuard,
     },
   ],
   controllers: [AuthController],
