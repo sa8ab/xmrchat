@@ -16,6 +16,9 @@ import { Tip } from 'src/tips/tip.entity';
 import { PagesService } from './pages.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { clearMessage } from 'src/shared/utils';
+import { PricesService } from 'src/prices/prices.service';
+import { MoneroUtils } from 'monero-ts';
 
 @WebSocketGateway({ namespace: '/pages', cors: { origin: true } })
 export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -24,6 +27,7 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   constructor(
     @Inject(forwardRef(() => PagesService)) private pagesService: PagesService,
     @InjectRepository(Tip) private tipsRepo: Repository<Tip>,
+    private pricesService: PricesService,
   ) {}
 
   @WebSocketServer()
@@ -79,14 +83,18 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     const tip = await this.tipsRepo.findOne({
       where: { id: tipId },
-      relations: { page: true },
+      relations: { page: true, payment: true },
     });
 
     if (!tip) return { error: 'Tip not found' };
 
     if (tip.page.id !== page.id) return { error: 'Tip not found' };
 
-    this.server.to(`page-${slug}`).emit('obsTip', { tip, autoRemove: false });
+    const message = await this.getTipMessage(tip);
+
+    this.server
+      .to(`page-${slug}`)
+      .emit('obsTip', { tip, message, autoRemove: false });
 
     this.logger.log(`Send tip ${tipId} on OBS ${slug}`);
 
@@ -121,5 +129,33 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   ) {
     // name, amount, message
     return this.server.to(`page-${slug}`).emit('newTip', payload);
+  }
+
+  async getTipMessage(tip: Tip) {
+    const clearedMessage = clearMessage(tip.message);
+
+    const xmrUsdPrice = await this.pricesService.getMoneroUsdPrice();
+
+    const xmrValue = MoneroUtils.atomicUnitsToXmr(tip.payment.amount);
+
+    const usdValue = (xmrValue * xmrUsdPrice).toFixed(2);
+
+    return this.getTipMessageText({
+      isPrivate: tip.private,
+      message: clearedMessage,
+      usdAmount: usdValue,
+      username: tip.name,
+    });
+  }
+
+  getTipMessageText(params: {
+    usdAmount: string;
+    message: string;
+    isPrivate: boolean;
+    username: string;
+  }) {
+    return params.isPrivate
+      ? `Private Tip: $${params.usdAmount}`
+      : `${params.username} tipped $${params.usdAmount} ${params.message ? ': ' : ''} ${params.message || ''}`;
   }
 }

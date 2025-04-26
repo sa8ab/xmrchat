@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ObsTip, ObsTipSocketMessage } from "~/types";
+import type { ObsTip, ObsTipSocketMessage, Tip } from "~/types";
 import gsap from "gsap";
 import { PageSettingKey } from "~/types/enums";
 
@@ -35,26 +35,30 @@ const { data, pending } = useLazyAsyncData(
   }
 );
 
-const { init, disconnect } = usePaymentSocket<ObsTipSocketMessage>({
-  onPageTipEvent: (e) => {
-    const id = Math.random().toString();
-
-    tips.value.unshift({
-      amount: e.amount, // amount is string units, update before using
-      name: e.name,
-      message: e.message,
-      id,
-    });
-
-    handleAfterTip(id);
+const { init, disconnect } = usePageSocket({
+  handleObsTipEvent: (data) => {
+    console.log(data);
   },
+  handleObsTipRemovalEvent: () => {},
 });
 
+// const { init, disconnect } = usePaymentSocket<ObsTipSocketMessage>({
+//   onPageTipEvent: (e) => {
+//     const id = Math.random().toString();
+
+//     tips.value.unshift({
+//       amount: e.amount, // amount is string units, update before using
+//       name: e.name,
+//       message: e.message,
+//       id,
+//     });
+
+//     handleAfterTip(id);
+//   },
+// });
+
 onMounted(() => {
-  init({
-    path: "pages",
-    query: { slug: route.params.streamerId },
-  });
+  init(slug.value);
 });
 
 onBeforeUnmount(() => disconnect());

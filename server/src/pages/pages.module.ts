@@ -8,9 +8,9 @@ import { PaymentsModule } from 'src/payments/payments.module';
 import { PagesGateway } from './pages.gateway';
 import { NotificationsModule } from 'src/notifications/notifications.module';
 import { TwitchModule } from 'src/integrations/twitch/twitch.module';
-import { TipsModule } from 'src/tips/tips.module';
 import { Tip } from 'src/tips/tip.entity';
 import { UsersModule } from 'src/users/users.module';
+import { PricesModule } from 'src/prices/prices.module';
 
 @Module({
   imports: [
@@ -20,6 +20,7 @@ import { UsersModule } from 'src/users/users.module';
     NotificationsModule,
     TwitchModule,
     UsersModule, // used on WsAuthGuard
+    PricesModule,
   ],
   controllers: [PagesController],
   providers: [PagesService, PagesGateway],
