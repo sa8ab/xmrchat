@@ -103,7 +103,9 @@ const isSlugValid = computed(() => state.slugAvailable && !state.loadingSlug);
 const renderResultURL = computed(() => {
   const showUrl = !v.value.path.$invalid;
   if (showUrl)
-    return `Your page will be available at xmrchat.com/${state.form.path}`;
+    return t("pageWillBeAvailableAt", {
+      url: `xmrchat.com/${state.form.path}`,
+    });
   return undefined;
 });
 
@@ -394,7 +396,7 @@ const handleBannerUpload = (file: UploadedFile) => {
       </div>
 
       <div class="single" v-if="editable">
-        <UFormGroup label="Tip Amount Suggestions">
+        <UFormGroup :label="t('tipAmountSuggestions')">
           <StreamerTipSuggestions
             v-model="state.form.tiers"
             :minUsdAmount="minUsdAmount"
@@ -419,7 +421,7 @@ const handleBannerUpload = (file: UploadedFile) => {
         <UAlert
           color="red"
           :description="state.errorMessage"
-          title="Error creating/updating page"
+          :title="t('errorCreatingUpdatingPage')"
           v-if="state.errorMessage"
         >
         </UAlert>

@@ -4,6 +4,7 @@ import { PageSettingKey } from "~/types/enums";
 
 const url = useRequestURL();
 const { state: authState } = useAuthStore();
+const { t } = useI18n();
 
 const { copy } = useCopy();
 const {
@@ -57,7 +58,7 @@ const saveSettings = async () => {
     });
 
     toast.add({
-      title: "Settings are updated.",
+      title: t("settingsAreUpdated"),
     });
   } catch (error) {
     state.saveError = getErrorMessage(error);
@@ -69,19 +70,18 @@ const saveSettings = async () => {
 
 <template>
   <div>
-    <PageTitle title="OBS" description="OBS widget and settings." />
+    <PageTitle :title="t('obs')" :description="t('obsDescription')" />
     <div class="flex flex-col items-start gap-2">
       <!-- <span class="font-bold text-lg">Get page</span> -->
       <span>
-        To use XMRChat on OBS, copy the link to OBS page and add it on "Browser"
-        of OBS Sources.
+        {{ t("toUseXMRchatsOnOBS") }}
       </span>
       <UButton icon="i-heroicons-document-duplicate" @click="copyLink">
-        Copy OBS Page Link
+        {{ t("copyOBSLink") }}
       </UButton>
     </div>
     <UDivider class="my-6" />
-    <div class="font-bold text-lg mb-4">OBS Page Settings</div>
+    <div class="font-bold text-lg mb-4">{{ t("obsPageSettings") }}</div>
 
     <div v-if="pending" class="flex flex-col gap-4">
       <div class="grid grid-cols-[auto_1fr] gap-x-2" v-for="x in 2">
@@ -103,23 +103,22 @@ const saveSettings = async () => {
         <div>
           <UToggle v-model="data.keepMessages"></UToggle>
         </div>
-        <span class="font-bold cols"
-          >Prevent messages from fading away after 60 seconds.</span
+        <span class="font-bold cols">
+          {{ t("preventMessagesFromFading") }}</span
         >
         <span></span>
         <span class="text-pale text-sm">
-          When active, keeps the latest tips on the screen, otherwise each
-          message is displayed for 60 seconds.
+          {{ t("preventMessagesFromFadingDescription") }}
         </span>
       </div>
       <div class="grid grid-cols-[auto_1fr] gap-x-2">
         <div>
           <UToggle v-model="data.playSound"></UToggle>
         </div>
-        <span class="font-bold cols">Play Sound</span>
+        <span class="font-bold cols">{{ t("playSound") }}</span>
         <span></span>
         <span class="text-pale text-sm">
-          Plays a sound on the OBS page when new tip appears.
+          {{ t("playSoundDescription") }}
         </span>
         <template v-if="data.playSound">
           <span></span>
@@ -127,7 +126,7 @@ const saveSettings = async () => {
             :ui="{ description: 'text-xs' }"
             color="primary"
             variant="soft"
-            description="If you are testing this functionality locally in your browser, after opening the obs tab make sure to click somewhere on the page. Otherwise browser won't play sound due to not having interactions with the opened tab."
+            :description="t('playSoundDescriptionLocal')"
             class="mt-2"
           />
         </template>
@@ -138,14 +137,14 @@ const saveSettings = async () => {
         v-if="state.saveError"
         color="red"
         :description="state.saveError"
-        title="Error updating settings"
+        :title="t('errorUpdatingSettings')"
       >
       </UAlert>
     </div>
     <div class="mt-6">
-      <UButton :loading="state.saving" @click="saveSettings"
-        >Save Changes</UButton
-      >
+      <UButton :loading="state.saving" @click="saveSettings">{{
+        t("saveChanges")
+      }}</UButton>
     </div>
   </div>
 </template>

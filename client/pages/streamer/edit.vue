@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const { toIndex } = useRouteLocation();
+const { t } = useI18n();
 
 useHead({
   title: "Edit Page",
@@ -24,7 +25,10 @@ const links = [
       <div class="flex flex-col">
         <!-- <UBreadcrumb :links="links" /> -->
 
-        <PageTitle title="Edit Page" description="Customize your tip page." />
+        <PageTitle
+          :title="t('editPage')"
+          :description="t('customizeYourTipPage')"
+        />
       </div>
       <StreamerModifyForm :editable="true" />
     </div>

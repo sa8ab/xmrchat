@@ -32,10 +32,11 @@ export default {
     "Войдите в аккаунт, чтобы получить доступ к вашей странице.",
   creatorLogin: "Вход для авторов",
   searchCreators: {
-    title: "Поиск авторов",
-    description: "Найдите авторов с публичными страницами на xmrchat.",
+    title: "Поиск Создателей",
+    description: "Ищите создателей с публичными страницами на xmrchat.",
   },
-  contactUs: "Связаться с нами",
+  typePageName: "Введите название страницы...",
+  contactUs: "Свяжитесь с нами",
 
   xmrchat: "XMRChat",
   heroDescription: "Поддержите любимого стримера криптовалютой.",
@@ -185,4 +186,62 @@ export default {
   pageCreatedSuccessfully: "Страница успешно создана!",
   slugReservedUntil: "Ваш slug зарезервирован до ",
   note: "Примечание",
+
+  // STREAMER MENU
+  myXmrchats: "Мои XMRchats",
+  editTipPage: "Редактировать Страницу Чаевых",
+  tipPage: "Страница Чаевых",
+  contentLinks: "Ссылки на Контент",
+  obs: "OBS",
+
+  // ACCOUNT PAGE
+  changePassword: "Изменить Пароль",
+  updateYourLoginPassword: "Обновить пароль для входа",
+  currentPassword: "Текущий пароль",
+  newPassword: "Новый пароль",
+  repeatNewPassword: "Повторите новый пароль",
+
+  // EDIT PAGE
+  editPage: "Редактировать Страницу",
+  customizeYourTipPage: "Настройте свою страницу чаевых.",
+  errorCreatingUpdatingPage: "Ошибка при создании/обновлении страницы",
+  tipAmountSuggestions: "Предлагаемые Суммы Чаевых",
+  pageWillBeAvailableAt: "Ваша страница будет доступна по адресу {url}",
+  noSuggestedAmountsAdded:
+    "Нет предложенных сумм, нажмите кнопку ниже, чтобы добавить новые уровни.",
+  addTier: "Добавить Уровень",
+  remove: "Удалить",
+  name: "Имя",
+  amountUSD: "Сумма (USD)",
+
+  // CONTENT LINKS
+  brandName: "Название Бренда",
+  brandNameHelp: "Название бренда/контента. Может отличаться от slug.",
+  searchTerms: "Поисковые Термины",
+  searchTermsHelp:
+    "Поиск создателей будет возвращать результаты на основе slug страницы, имени и ключевых слов в этом списке.",
+  contentLinksDescription: "Имя, Поисковые Термины и Ссылки на Контент",
+  contentLinksSecondDescription:
+    "Ссылки на ваши страницы в соцсетях или веб-сайты. Чтобы сбросить значение, оставьте поле пустым.",
+  saveChanges: "Сохранить Изменения",
+  notUrlWithMessage: "Введите только название, не полную ссылку.",
+  changesAreSaved: "Изменения сохранены.",
+  errorSavingChanges: "Ошибка при сохранении изменений.",
+
+  // OBS
+  obsDescription: "Виджет и настройки OBS.",
+  settingsAreUpdated: "Настройки обновлены.",
+  errorUpdatingSettings: "Ошибка при обновлении настроек",
+  toUseXMRchatsOnOBS:
+    "Чтобы использовать XMRChat в OBS, скопируйте ссылку на страницу OBS и добавьте её в 'Браузер' Источников OBS.",
+  copyOBSLink: "Копировать Ссылку на Страницу OBS",
+  obsPageSettings: "Настройки Страницы OBS",
+  preventMessagesFromFading: "Предотвратить исчезновение сообщений",
+  preventMessagesFromFadingDescription:
+    "Когда активно, последние чаевые остаются на экране, в противном случае каждое сообщение отображается в течение 60 секунд.",
+  playSound: "Воспроизвести Звук",
+  playSoundDescription:
+    "Воспроизводит звук на странице OBS при появлении нового чаевого.",
+  playSoundDescriptionLocal:
+    "Если вы тестируете эту функцию локально в браузере, после открытия вкладки obs обязательно кликните где-нибудь на странице. В противном случае браузер не будет воспроизводить звук из-за отсутствия взаимодействия с открытой вкладкой.",
 };
