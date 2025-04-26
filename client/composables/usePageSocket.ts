@@ -30,8 +30,8 @@ export const usePageSocket = (options?: PageSocketOptions) => {
   const runEvents = () => {
     if (!socket.value) return;
     runConnectEvents();
-    socket.value.on("obs-tip", (tip: Tip) => options?.handleObsTipEvent?.(tip));
-    socket.value.on("obs-tip-removal", (tip: Tip) =>
+    socket.value.on("obsTip", (tip: Tip) => options?.handleObsTipEvent?.(tip));
+    socket.value.on("obsTipRemove", (tip: Tip) =>
       options?.handleObsTipRemovalEvent?.(tip)
     );
   };

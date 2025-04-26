@@ -15,6 +15,9 @@ import { Payment } from 'src/payments/payment.entity';
 import { Tip } from 'src/tips/tip.entity';
 import { PagesService } from './pages.service';
 import { WsGuard } from 'src/shared/decorators/ws-guard.decorator';
+import { TipsService } from 'src/tips/tips.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @WebSocketGateway({ namespace: '/pages', cors: { origin: true } })
 export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -22,6 +25,8 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   constructor(
     @Inject(forwardRef(() => PagesService)) private pagesService: PagesService,
+    // @Inject(forwardRef(() => TipsService)) private tipsService: TipsService,
+    @InjectRepository(Tip) private tipsRepo: Repository<Tip>,
   ) {}
 
   @WebSocketServer()
@@ -64,17 +69,24 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WsGuard()
   @SubscribeMessage('addTipToObs')
   async handleAddTipToObs(
-    @MessageBody() body: { slug: string; tip: Tip },
+    @MessageBody() body: { slug: string; tipId: number },
     @ConnectedSocket() client: Socket,
   ) {
-    const { slug, tip } = body;
+    const { slug, tipId } = body;
     const user = (client as any).user;
 
     const page = await this.pagesService.findByPath(slug);
     if (!page) throw new WsException('Page not found');
 
-    if (page.userId !== user.id)
-      throw new WsException('You are not allowed to add tips to this page');
+    if (page.userId !== user.id) throw new WsException('Unauthorized');
+
+    const tip = await this.tipsRepo.findOne({
+      where: { id: tipId },
+      relations: { page: true },
+    });
+    if (!tip) throw new WsException('Tip not found');
+
+    if (tip.page.id !== page.id) throw new WsException('Tip not found');
 
     this.server.to(`page-${slug}`).emit('obsTip', { tip, autoRemove: false });
 
@@ -84,21 +96,18 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WsGuard()
   @SubscribeMessage('removeTipFromObs')
   async handleRemoveTipFromObs(
-    @MessageBody() body: { slug: string; tip: Tip },
+    @MessageBody() body: { slug: string; tipId: number },
     @ConnectedSocket() client: Socket,
   ) {
-    const { slug, tip } = body;
+    const { slug, tipId } = body;
     const user = (client as any).user;
 
     const page = await this.pagesService.findByPath(slug);
     if (!page) throw new WsException('Page not found');
 
-    if (page.userId !== user.id)
-      throw new WsException(
-        'You are not allowed to remove tips from this page',
-      );
+    if (page.userId !== user.id) throw new WsException('Unauthorized');
 
-    this.server.to(`page-${slug}`).emit('obsTipRemove', { tip });
+    this.server.to(`page-${slug}`).emit('obsTipRemove', { tipId });
 
     return { message: 'Tip is removed from the OBS page.' };
   }
