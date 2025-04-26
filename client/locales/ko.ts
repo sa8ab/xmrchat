@@ -32,8 +32,9 @@ export default {
   creatorLogin: "크리에이터 로그인",
   searchCreators: {
     title: "크리에이터 검색",
-    description: "xmrchat에서 공개 페이지를 가진 크리에이터를 검색하세요.",
+    description: "xmrchat에서 공개 페이지가 있는 크리에이터를 검색하세요.",
   },
+  typePageName: "페이지 이름 입력...",
   contactUs: "문의하기",
 
   xmrchat: "XMRChat",
@@ -185,4 +186,61 @@ export default {
   pageCreatedSuccessfully: "페이지가 성공적으로 생성되었습니다!",
   slugReservedUntil: "슬러그는 다음 시점까지 예약됨: ",
   note: "참고",
+
+  // STREAMER MENU
+  myXmrchats: "내 XMRchats",
+  editTipPage: "팁 페이지 편집",
+  tipPage: "팁 페이지",
+  contentLinks: "콘텐츠 링크",
+  obs: "OBS",
+
+  // ACCOUNT PAGE
+  changePassword: "비밀번호 변경",
+  updateYourLoginPassword: "로그인 비밀번호 업데이트",
+  currentPassword: "현재 비밀번호",
+  newPassword: "새 비밀번호",
+  repeatNewPassword: "새 비밀번호 확인",
+
+  // EDIT PAGE
+  editPage: "페이지 편집",
+  customizeYourTipPage: "팁 페이지를 맞춤 설정하세요.",
+  errorCreatingUpdatingPage: "페이지 생성/업데이트 오류",
+  tipAmountSuggestions: "팁 금액 제안",
+  pageWillBeAvailableAt: "페이지는 {url}에서 이용 가능합니다",
+  noSuggestedAmountsAdded:
+    "추가된 제안 금액이 없습니다. 아래 버튼을 클릭하여 새 단계를 추가하세요.",
+  addTier: "단계 추가",
+  remove: "제거",
+  name: "이름",
+  amountUSD: "금액 (USD)",
+
+  // CONTENT LINKS
+  brandName: "브랜드 이름",
+  brandNameHelp: "브랜드/콘텐츠 이름. 슬러그와 다를 수 있습니다.",
+  searchTerms: "검색어",
+  searchTermsHelp:
+    "크리에이터 검색은 페이지 슬러그, 이름 및 이 목록의 키워드를 기반으로 결과를 반환합니다.",
+  contentLinksDescription: "이름, 검색어 및 콘텐츠 링크",
+  contentLinksSecondDescription:
+    "소셜 페이지나 웹사이트 링크. 값을 재설정하려면 필드를 비워두세요.",
+  saveChanges: "변경사항 저장",
+  notUrlWithMessage: "전체 링크 대신 이름만 입력하세요.",
+  changesAreSaved: "변경사항이 저장되었습니다.",
+  errorSavingChanges: "변경사항 저장 오류.",
+
+  // OBS
+  obsDescription: "OBS 위젯 및 설정.",
+  settingsAreUpdated: "설정이 업데이트되었습니다.",
+  errorUpdatingSettings: "설정 업데이트 오류",
+  toUseXMRchatsOnOBS:
+    "OBS에서 XMRChat을 사용하려면 OBS 페이지 링크를 복사하여 OBS 소스의 '브라우저'에 추가하세요.",
+  copyOBSLink: "OBS 페이지 링크 복사",
+  obsPageSettings: "OBS 페이지 설정",
+  preventMessagesFromFading: "메시지 페이드 아웃 방지",
+  preventMessagesFromFadingDescription:
+    "활성화하면 최신 팁이 화면에 유지되고, 그렇지 않으면 각 메시지가 60초 동안 표시됩니다.",
+  playSound: "소리 재생",
+  playSoundDescription: "새 팁이 나타날 때 OBS 페이지에서 소리를 재생합니다.",
+  playSoundDescriptionLocal:
+    "브라우저에서 이 기능을 로컬로 테스트하는 경우, obs 탭을 열고 페이지 어딘가를 클릭하세요. 그렇지 않으면 열린 탭과의 상호작용이 없어 브라우저가 소리를 재생하지 않습니다.",
 };

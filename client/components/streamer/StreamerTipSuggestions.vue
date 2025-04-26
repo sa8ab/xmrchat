@@ -3,6 +3,8 @@ import type { Numberic, TipTierField } from "~/types";
 // @ts-ignore
 import { ValidateEach } from "@vuelidate/components";
 
+const { t } = useI18n();
+
 const tiers = defineModel<TipTierField[]>({
   default: () => [],
 });
@@ -49,7 +51,7 @@ const rules = computed(() => {
           <template #default="{ v }">
             <div class="item flex items-end gap-2">
               <UFormGroup
-                label="Name"
+                :label="t('name')"
                 :error="getValidationAttrs('name', v).error"
               >
                 <UInput
@@ -59,7 +61,7 @@ const rules = computed(() => {
                 </UInput>
               </UFormGroup>
               <UFormGroup
-                label="Amount ( USD )"
+                :label="t('amountUSD')"
                 :error="getValidationAttrs('amount', v).error"
               >
                 <UInput
@@ -69,7 +71,7 @@ const rules = computed(() => {
                 </UInput>
               </UFormGroup>
               <UButton color="red" @click="handleRemove(index)" type="button">
-                Remove
+                {{ t("remove") }}
               </UButton>
             </div>
           </template>
@@ -77,8 +79,7 @@ const rules = computed(() => {
       </template>
 
       <div v-else class="no-tiers text-sm text-pale">
-        There are no suggested amounts added, Click the button bellow to add new
-        tiers.
+        {{ t("noSuggestedAmountsAdded") }}
       </div>
     </div>
     <UButton
@@ -89,7 +90,7 @@ const rules = computed(() => {
       class="mt-2"
       type="button"
     >
-      Add Tier
+      {{ t("addTier") }}
     </UButton>
   </div>
 </template>

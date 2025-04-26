@@ -32,10 +32,11 @@ export default {
     "Inicie sesión en su cuenta para acceder a su página de visualización.",
   creatorLogin: "Inicio de sesión de creador",
   searchCreators: {
-    title: "Buscar creadores",
-    description: "Busque creadores con páginas públicas en xmrchat.",
+    title: "Buscar Creadores",
+    description: "Busca creadores con páginas públicas en xmrchat.",
   },
-  contactUs: "Contáctenos",
+  typePageName: "Escribe el nombre de la página...",
+  contactUs: "Contáctanos",
 
   xmrchat: "XMRChat",
   heroDescription: "De propinas en criptomonedas a sus streamers favoritos.",
@@ -192,4 +193,63 @@ export default {
   pageCreatedSuccessfully: "¡Página creada con éxito!",
   slugReservedUntil: "Tu slug está reservado hasta ",
   note: "Nota",
+
+  // STREAMER MENU
+  myXmrchats: "Mis XMRchats",
+  editTipPage: "Editar Página de Propinas",
+  tipPage: "Página de Propinas",
+  contentLinks: "Enlaces de Contenido",
+  obs: "OBS",
+
+  // ACCOUNT PAGE
+  changePassword: "Cambiar Contraseña",
+  updateYourLoginPassword: "Actualizar su contraseña de inicio de sesión",
+  currentPassword: "Contraseña actual",
+  newPassword: "Nueva contraseña",
+  repeatNewPassword: "Repetir nueva contraseña",
+
+  // EDIT PAGE
+  editPage: "Editar Página",
+  customizeYourTipPage: "Personalice su página de propinas.",
+  errorCreatingUpdatingPage: "Error al crear/actualizar la página",
+  tipAmountSuggestions: "Sugerencias de Monto de Propina",
+  pageWillBeAvailableAt: "Su página estará disponible en {url}",
+  noSuggestedAmountsAdded:
+    "No hay montos sugeridos agregados, haga clic en el botón de abajo para agregar nuevos niveles.",
+  addTier: "Agregar Nivel",
+  remove: "Eliminar",
+  name: "Nombre",
+  amountUSD: "Monto (USD)",
+
+  // CONTENT LINKS
+  brandName: "Nombre de la Marca",
+  brandNameHelp: "Nombre de la marca/contenido. Puede ser diferente del slug.",
+  searchTerms: "Términos de Búsqueda",
+  searchTermsHelp:
+    "La búsqueda de creadores devolverá resultados basados en el slug de la página, nombre y palabras clave en esta lista.",
+  contentLinksDescription:
+    "Nombre, Términos de Búsqueda y Enlaces de Contenido",
+  contentLinksSecondDescription:
+    "Enlaces a sus páginas sociales o sitios web. Para restablecer un valor, deje el campo vacío.",
+  saveChanges: "Guardar Cambios",
+  notUrlWithMessage: "Solo ingrese el nombre, no el enlace completo.",
+  changesAreSaved: "Los cambios se guardaron.",
+  errorSavingChanges: "Error al guardar los cambios.",
+
+  // OBS
+  obsDescription: "Widget y configuración de OBS.",
+  settingsAreUpdated: "La configuración se actualizó.",
+  errorUpdatingSettings: "Error al actualizar la configuración",
+  toUseXMRchatsOnOBS:
+    "Para usar XMRChat en OBS, copie el enlace a la página de OBS y agréguelo en 'Navegador' de Fuentes de OBS.",
+  copyOBSLink: "Copiar Enlace de Página OBS",
+  obsPageSettings: "Configuración de Página OBS",
+  preventMessagesFromFading: "Evitar que los mensajes se desvanezcan",
+  preventMessagesFromFadingDescription:
+    "Cuando está activo, mantiene los últimos consejos en la pantalla, de lo contrario, cada mensaje se muestra durante 60 segundos.",
+  playSound: "Reproducir Sonido",
+  playSoundDescription:
+    "Reproduce un sonido en la página de OBS cuando aparece un nuevo consejo.",
+  playSoundDescriptionLocal:
+    "Si está probando esta funcionalidad localmente en su navegador, después de abrir la pestaña obs, asegúrese de hacer clic en algún lugar de la página. De lo contrario, el navegador no reproducirá el sonido debido a la falta de interacciones con la pestaña abierta.",
 };

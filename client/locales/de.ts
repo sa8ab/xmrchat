@@ -32,10 +32,12 @@ export default {
     "Melden Sie sich bei Ihrem Konto an, um auf Ihre Anzeigeseite zuzugreifen",
   creatorLogin: "Creator Anmeldung",
   searchCreators: {
-    title: "Creator suchen",
-    description: "Suche nach Creatorn mit öffentlichen Seiten auf xmrchat",
+    title: "Ersteller Suchen",
+    description:
+      "Suchen Sie nach Erstellern mit öffentlichen Seiten auf xmrchat.",
   },
-  contactUs: "Kontakt",
+  typePageName: "Seitennamen eingeben...",
+  contactUs: "Kontaktieren Sie uns",
 
   xmrchat: "XMRChat",
   heroDescription: "Unterstütze deinen Lieblings-Streamer mit Kryptowährung",
@@ -192,4 +194,63 @@ export default {
   pageCreatedSuccessfully: "Seite wurde erfolgreich erstellt!",
   slugReservedUntil: "Ihr Slug ist reserviert bis ",
   note: "Hinweis",
+
+  // STREAMER MENU
+  myXmrchats: "Meine XMRchats",
+  editTipPage: "Trinkgeld-Seite bearbeiten",
+  tipPage: "Trinkgeld-Seite",
+  contentLinks: "Content-Links",
+  obs: "OBS",
+
+  // ACCOUNT PAGE
+  changePassword: "Passwort ändern",
+  updateYourLoginPassword: "Aktualisieren Sie Ihr Anmeldepasswort",
+  currentPassword: "Aktuelles Passwort",
+  newPassword: "Neues Passwort",
+  repeatNewPassword: "Neues Passwort wiederholen",
+
+  // EDIT PAGE
+  editPage: "Seite bearbeiten",
+  customizeYourTipPage: "Passen Sie Ihre Trinkgeld-Seite an.",
+  errorCreatingUpdatingPage: "Fehler beim Erstellen/Aktualisieren der Seite",
+  tipAmountSuggestions: "Trinkgeldbetrag-Vorschläge",
+  pageWillBeAvailableAt: "Ihre Seite wird unter {url} verfügbar sein",
+  noSuggestedAmountsAdded:
+    "Es wurden keine Beträge vorgeschlagen. Klicken Sie auf die Schaltfläche unten, um neue Stufen hinzuzufügen.",
+  addTier: "Stufe hinzufügen",
+  remove: "Entfernen",
+  name: "Name",
+  amountUSD: "Betrag (USD)",
+
+  // CONTENT LINKS
+  brandName: "Markenname",
+  brandNameHelp: "Name der Marke/des Inhalts. Kann vom Slug abweichen.",
+  searchTerms: "Suchbegriffe",
+  searchTermsHelp:
+    "Die Creator-Suche liefert Ergebnisse basierend auf dem Seiten-Slug, Namen und Schlüsselwörtern in dieser Liste.",
+  contentLinksDescription: "Name, Suchbegriffe und Content-Links",
+  contentLinksSecondDescription:
+    "Links zu Ihren Social-Media-Seiten oder Websites. Um einen Wert zurückzusetzen, lassen Sie das Feld leer.",
+  saveChanges: "Änderungen speichern",
+  notUrlWithMessage:
+    "Geben Sie nur den Namen ein, nicht den vollständigen Link.",
+  changesAreSaved: "Änderungen wurden gespeichert.",
+  errorSavingChanges: "Fehler beim Speichern der Änderungen.",
+
+  // OBS
+  obsDescription: "OBS-Widget und Einstellungen.",
+  settingsAreUpdated: "Einstellungen wurden aktualisiert.",
+  errorUpdatingSettings: "Fehler beim Aktualisieren der Einstellungen",
+  toUseXMRchatsOnOBS:
+    "Um XMRChat in OBS zu verwenden, kopieren Sie den Link zur OBS-Seite und fügen Sie ihn in 'Browser' der OBS-Quellen ein.",
+  copyOBSLink: "OBS-Seitenlink kopieren",
+  obsPageSettings: "OBS-Seiteneinstellungen",
+  preventMessagesFromFading: "Verhindern, dass Nachrichten verblassen",
+  preventMessagesFromFadingDescription:
+    "Wenn aktiv, bleiben die letzten Tipps auf dem Bildschirm, ansonsten wird jede Nachricht 60 Sekunden lang angezeigt.",
+  playSound: "Ton abspielen",
+  playSoundDescription:
+    "Spielt einen Ton auf der OBS-Seite ab, wenn ein neuer Tipp erscheint.",
+  playSoundDescriptionLocal:
+    "Wenn Sie diese Funktion lokal in Ihrem Browser testen, klicken Sie nach dem Öffnen des obs-Tabs irgendwo auf die Seite. Andernfalls spielt der Browser keinen Ton ab, da keine Interaktionen mit dem geöffneten Tab stattgefunden haben.",
 };

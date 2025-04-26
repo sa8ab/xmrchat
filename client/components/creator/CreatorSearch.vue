@@ -3,6 +3,7 @@ const route = useRoute();
 const state: { search?: string } = reactive({
   search: undefined,
 });
+const { t } = useI18n();
 
 useFilter({
   queryToData: () =>
@@ -30,7 +31,7 @@ const resetSearch = () => {
         <UInput
           v-model="state.search"
           size="sm"
-          placeholder="Type page name..."
+          :placeholder="t('typePageName')"
           autocomplete="off"
           :ui="{ icon: { trailing: { pointer: '' } } }"
         >
@@ -47,7 +48,9 @@ const resetSearch = () => {
         </UInput>
       </UFormGroup>
 
-      <UButton type="submit" variant="solid" size="sm"> Search </UButton>
+      <UButton type="submit" variant="solid" size="sm">
+        {{ t("search") }}
+      </UButton>
     </UForm>
   </div>
 </template>
