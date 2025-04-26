@@ -10,6 +10,7 @@ import { NotificationsModule } from 'src/notifications/notifications.module';
 import { TwitchModule } from 'src/integrations/twitch/twitch.module';
 import { TipsModule } from 'src/tips/tips.module';
 import { Tip } from 'src/tips/tip.entity';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { Tip } from 'src/tips/tip.entity';
     PaymentsModule,
     NotificationsModule,
     TwitchModule,
+    UsersModule, // used on WsAuthGuard
   ],
   controllers: [PagesController],
   providers: [PagesService, PagesGateway],

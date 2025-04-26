@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Numberic } from "~/types";
+import type { Numberic, Tip } from "~/types";
 import { SupportedDisplayCurrency } from "~/types/enums";
 
 const props = defineProps<{
@@ -9,6 +9,8 @@ const props = defineProps<{
 
 const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
   useServices();
+
+const { init, disconnect, sendTipToObs, removeTipFromObs } = usePageSocket({});
 
 const { errorHandler } = useErrorHandler();
 const { t } = useI18n();
@@ -21,7 +23,11 @@ const { data, refresh, pending, error } = useLazyAsyncData(
 );
 const interval = ref<NodeJS.Timeout | undefined>(undefined);
 
-onMounted(() => startTipsInterval());
+onMounted(() => {
+  startTipsInterval();
+  init(props.slug);
+});
+onUnmounted(() => disconnect());
 
 const startTipsInterval = () => {
   stopTipsInterval();
@@ -55,9 +61,9 @@ const columns = [
     key: "private",
     label: t("tipPrivate"),
   },
-  // {
-  //   key: "actions",
-  // },
+  {
+    key: "actions",
+  },
 ];
 
 const updateTipPrivate = async (id: Numberic, isPrivate: boolean) => {
@@ -84,6 +90,14 @@ const getComputedPrice = (amount?: string) => {
   return props.tipValue === SupportedDisplayCurrency.XMR
     ? `${xmr} XMR`
     : `$${usd.toFixed(2)}`;
+};
+
+const handleSendClick = async (row: Tip) => {
+  try {
+    await sendTipToObs(props.slug, row.id);
+  } catch (error) {
+    errorHandler(error);
+  }
 };
 </script>
 
@@ -117,6 +131,14 @@ const getComputedPrice = (amount?: string) => {
             :modelValue="row.private"
             @change="updateTipPrivate(row.id, $event)"
           ></UCheckbox>
+        </div>
+      </template>
+      <template #actions-data="{ row }">
+        <div>
+          <UButton variant="ghost" @click="handleSendClick(row)">
+            <UIcon name="i-heroicons-arrow-right-16-solid" size="18" />
+            Send On OBS
+          </UButton>
         </div>
       </template>
       <template #empty-state>

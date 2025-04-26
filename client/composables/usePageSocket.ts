@@ -36,9 +36,30 @@ export const usePageSocket = (options?: PageSocketOptions) => {
     );
   };
 
+  const sendTipToObs = (slug: string, tipId: number) => {
+    return new Promise((resolve, reject) => {
+      socket.value?.emit("addTipToObs", { slug, tipId }, (res: any) => {
+        if (res.error) reject(res.error);
+        else resolve(res);
+        console.log("Send tip to obs", res);
+      });
+    });
+  };
+
+  const removeTipFromObs = (slug: string, tipId: number) => {
+    return new Promise((resolve, reject) => {
+      socket.value?.emit("removeTipFromObs", { slug, tipId }, (res: any) => {
+        if (res.error) reject(res.error);
+        else resolve(res);
+      });
+    });
+  };
+
   return {
     init,
     disconnect,
     connectionStatus,
+    sendTipToObs,
+    removeTipFromObs,
   };
 };

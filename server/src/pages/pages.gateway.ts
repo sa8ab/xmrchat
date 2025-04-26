@@ -14,8 +14,6 @@ import { WsAuthGuard } from 'src/auth/guards/ws-auth.guard';
 import { Payment } from 'src/payments/payment.entity';
 import { Tip } from 'src/tips/tip.entity';
 import { PagesService } from './pages.service';
-import { WsGuard } from 'src/shared/decorators/ws-guard.decorator';
-import { TipsService } from 'src/tips/tips.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -25,7 +23,6 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   constructor(
     @Inject(forwardRef(() => PagesService)) private pagesService: PagesService,
-    // @Inject(forwardRef(() => TipsService)) private tipsService: TipsService,
     @InjectRepository(Tip) private tipsRepo: Repository<Tip>,
   ) {}
 
@@ -66,7 +63,7 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.logger.log(`Client ${client.id} joined room - Slug: ${slug}`);
   }
 
-  @WsGuard()
+  @UseGuards(WsAuthGuard)
   @SubscribeMessage('addTipToObs')
   async handleAddTipToObs(
     @MessageBody() body: { slug: string; tipId: number },
@@ -76,24 +73,26 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const user = (client as any).user;
 
     const page = await this.pagesService.findByPath(slug);
-    if (!page) throw new WsException('Page not found');
+    if (!page) return { error: 'Page not found' };
 
-    if (page.userId !== user.id) throw new WsException('Unauthorized');
+    if (page.userId !== user.id) return { error: 'Unauthorized' };
 
     const tip = await this.tipsRepo.findOne({
       where: { id: tipId },
       relations: { page: true },
     });
-    if (!tip) throw new WsException('Tip not found');
 
-    if (tip.page.id !== page.id) throw new WsException('Tip not found');
+    if (!tip) return { error: 'Tip not found' };
+
+    if (tip.page.id !== page.id) return { error: 'Tip not found' };
 
     this.server.to(`page-${slug}`).emit('obsTip', { tip, autoRemove: false });
+
+    this.logger.log(`Send tip ${tipId} on OBS ${slug}`);
 
     return { message: 'Tip is added on the OBS page.' };
   }
 
-  @WsGuard()
   @SubscribeMessage('removeTipFromObs')
   async handleRemoveTipFromObs(
     @MessageBody() body: { slug: string; tipId: number },

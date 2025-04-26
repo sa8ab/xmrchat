@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { PassportModule } from '@nestjs/passport';
@@ -13,8 +13,8 @@ import { NotificationsModule } from 'src/notifications/notifications.module';
 import { UserTokensModule } from './user-tokens/user-tokens.module';
 import { PagesModule } from 'src/pages/pages.module';
 import { ThrottlerGuard } from '@nestjs/throttler';
-import { WsAuthGuard } from './guards/ws-auth.guard';
 
+@Global()
 @Module({
   imports: [
     PassportModule,
@@ -48,12 +48,8 @@ import { WsAuthGuard } from './guards/ws-auth.guard';
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
     },
-    {
-      provide: APP_GUARD,
-      useClass: WsAuthGuard,
-    },
   ],
   controllers: [AuthController],
-  exports: [AuthService],
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}

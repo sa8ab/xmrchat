@@ -88,7 +88,7 @@ interface TipPayment {
 }
 
 export interface Tip {
-  id: string;
+  id: number;
   pageId: string;
   name: string;
   message: string;

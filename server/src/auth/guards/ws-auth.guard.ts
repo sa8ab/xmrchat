@@ -10,16 +10,9 @@ export class WsAuthGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
     private usersService: UsersService,
-    private reflector: Reflector,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const hasGuard = this.reflector.getAllAndOverride(WS_GUARD_METADATA, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
-    if (!hasGuard) return true;
-
     const client = context.switchToWs().getClient();
 
     const token = client.handshake?.auth?.token;
