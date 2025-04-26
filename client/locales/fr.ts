@@ -36,6 +36,7 @@ export default {
     description:
       "Recherchez des créateurs avec des pages publiques sur xmrchat.",
   },
+  typePageName: "Entrez le nom de la page...",
   contactUs: "Contactez-nous",
 
   xmrchat: "XMRChat",
@@ -196,4 +197,63 @@ export default {
   pageCreatedSuccessfully: "Page créée avec succès !",
   slugReservedUntil: "Votre identifiant est réservé jusqu'au ",
   note: "Remarque",
+
+  // STREAMER MENU
+  myXmrchats: "Mes XMRchats",
+  editTipPage: "Modifier la Page de Pourboires",
+  tipPage: "Page de Pourboires",
+  contentLinks: "Liens de Contenu",
+  obs: "OBS",
+
+  // ACCOUNT PAGE
+  changePassword: "Changer le Mot de Passe",
+  updateYourLoginPassword: "Mettre à jour votre mot de passe de connexion",
+  currentPassword: "Mot de passe actuel",
+  newPassword: "Nouveau mot de passe",
+  repeatNewPassword: "Répéter le nouveau mot de passe",
+
+  // EDIT PAGE
+  editPage: "Modifier la Page",
+  customizeYourTipPage: "Personnalisez votre page de pourboires.",
+  errorCreatingUpdatingPage:
+    "Erreur lors de la création/mise à jour de la page",
+  tipAmountSuggestions: "Suggestions de Montant de Pourboire",
+  pageWillBeAvailableAt: "Votre page sera disponible à l'adresse {url}",
+  noSuggestedAmountsAdded:
+    "Aucun montant suggéré n'a été ajouté, cliquez sur le bouton ci-dessous pour ajouter de nouveaux niveaux.",
+  addTier: "Ajouter un Niveau",
+  remove: "Supprimer",
+  name: "Nom",
+  amountUSD: "Montant (USD)",
+
+  // CONTENT LINKS
+  brandName: "Nom de la Marque",
+  brandNameHelp: "Nom de la marque/contenu. Peut être différent du slug.",
+  searchTerms: "Termes de Recherche",
+  searchTermsHelp:
+    "La recherche de créateurs renverra des résultats basés sur le slug de la page, le nom et les mots-clés de cette liste.",
+  contentLinksDescription: "Nom, Termes de Recherche et Liens de Contenu",
+  contentLinksSecondDescription:
+    "Liens vers vos pages sociales ou sites web. Pour réinitialiser une valeur, laissez le champ vide.",
+  saveChanges: "Enregistrer les Modifications",
+  notUrlWithMessage: "Entrez uniquement le nom, pas le lien complet.",
+  changesAreSaved: "Les modifications ont été enregistrées.",
+  errorSavingChanges: "Erreur lors de l'enregistrement des modifications.",
+
+  // OBS
+  obsDescription: "Widget et paramètres OBS.",
+  settingsAreUpdated: "Les paramètres ont été mis à jour.",
+  errorUpdatingSettings: "Erreur lors de la mise à jour des paramètres",
+  toUseXMRchatsOnOBS:
+    "Pour utiliser XMRChat sur OBS, copiez le lien vers la page OBS et ajoutez-le dans 'Navigateur' des Sources OBS.",
+  copyOBSLink: "Copier le Lien de la Page OBS",
+  obsPageSettings: "Paramètres de la Page OBS",
+  preventMessagesFromFading: "Empêcher le fondu des messages",
+  preventMessagesFromFadingDescription:
+    "Lorsqu'il est actif, garde les derniers pourboires à l'écran, sinon chaque message est affiché pendant 60 secondes.",
+  playSound: "Jouer un Son",
+  playSoundDescription:
+    "Joue un son sur la page OBS lorsqu'un nouveau pourboire apparaît.",
+  playSoundDescriptionLocal:
+    "Si vous testez cette fonctionnalité localement dans votre navigateur, après avoir ouvert l'onglet obs, assurez-vous de cliquer quelque part sur la page. Sinon, le navigateur ne jouera pas de son en raison de l'absence d'interactions avec l'onglet ouvert.",
 };

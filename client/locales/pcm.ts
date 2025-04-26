@@ -34,7 +34,8 @@ export default {
     title: "Search Creators",
     description: "Find creators wey get public page for xmrchat.",
   },
-  contactUs: "Make you reach us",
+  typePageName: "Type page name...",
+  contactUs: "Contact Us",
 
   xmrchat: "XMRChat",
   heroDescription: "Send tip give your best streamer with crypto.",
@@ -186,4 +187,61 @@ export default {
   pageCreatedSuccessfully: "Page don create well well!",
   slugReservedUntil: "Your slug go dey reserved until ",
   note: "Note",
+
+  // STREAMER MENU
+  myXmrchats: "My XMRchats",
+  editTipPage: "Edit Tip Page",
+  tipPage: "Tip Page",
+  contentLinks: "Content Links",
+  obs: "OBS",
+
+  // ACCOUNT PAGE
+  changePassword: "Change Password",
+  updateYourLoginPassword: "Update your login password",
+  currentPassword: "Current password",
+  newPassword: "New password",
+  repeatNewPassword: "Repeat new password",
+
+  // EDIT PAGE
+  editPage: "Edit Page",
+  customizeYourTipPage: "Customize your tip page.",
+  errorCreatingUpdatingPage: "Error when dey create/update page",
+  tipAmountSuggestions: "Tip Amount Suggestions",
+  pageWillBeAvailableAt: "Your page go dey available for {url}",
+  noSuggestedAmountsAdded:
+    "No suggested amounts don add, Click the button below make you add new tiers.",
+  addTier: "Add Tier",
+  remove: "Remove",
+  name: "Name",
+  amountUSD: "Amount (USD)",
+
+  // CONTENT LINKS
+  brandName: "Brand Name",
+  brandNameHelp: "Name of the brand/content. E fit be different from slug.",
+  searchTerms: "Search Terms",
+  searchTermsHelp:
+    "Creator search go return results based on page slug, name, and keywords for this list.",
+  contentLinksDescription: "Name, Search Terms and Content Links",
+  contentLinksSecondDescription:
+    "Links to your social pages or websites. To reset value make you leave the field empty.",
+  saveChanges: "Save Changes",
+  notUrlWithMessage: "Only enter the name, no be full link.",
+  changesAreSaved: "Changes don save.",
+  errorSavingChanges: "Error when dey save changes.",
+
+  // OBS
+  obsDescription: "OBS widget and settings.",
+  settingsAreUpdated: "Settings don update.",
+  errorUpdatingSettings: "Error when dey update settings",
+  toUseXMRchatsOnOBS:
+    "To use XMRChat for OBS, copy the link to OBS page and add am for 'Browser' of OBS Sources.",
+  copyOBSLink: "Copy OBS Page Link",
+  obsPageSettings: "OBS Page Settings",
+  preventMessagesFromFading: "Prevent messages from fading",
+  preventMessagesFromFadingDescription:
+    "When e dey active, e go keep the latest tips for screen, otherwise each message go show for 60 seconds.",
+  playSound: "Play Sound",
+  playSoundDescription: "Play sound for OBS page when new tip appear.",
+  playSoundDescriptionLocal:
+    "If you dey test this function for your browser, after you open the obs tab make sure say you click somewhere for the page. Otherwise browser no go play sound because no interaction with the open tab.",
 };

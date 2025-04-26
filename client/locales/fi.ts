@@ -31,10 +31,11 @@ export default {
   loginDescription: "Kirjaudu sisään päästäksesi omaan sivuusi.",
   creatorLogin: "Sisäänkirjautuminen sisällöntuottajille",
   searchCreators: {
-    title: "Etsi sisällöntuottajia",
+    title: "Etsi Sisällöntuottajia",
     description: "Etsi sisällöntuottajia, joilla on julkinen sivu xmrchatissa.",
   },
-  contactUs: "Ota yhteyttä",
+  typePageName: "Kirjoita sivun nimi...",
+  contactUs: "Ota Yhteyttä",
 
   xmrchat: "XMRChat",
   heroDescription: "Tue suosikkistriimaajaasi Monerolla.",
@@ -187,4 +188,61 @@ export default {
   pageCreatedSuccessfully: "Sivu luotiin onnistuneesti!",
   slugReservedUntil: "Slug on varattu asti ",
   note: "Huom",
+
+  // STREAMER MENU
+  myXmrchats: "Omat XMRchats",
+  editTipPage: "Muokkaa Tippisivua",
+  tipPage: "Tippisivu",
+  contentLinks: "Sisältölinkit",
+  obs: "OBS",
+
+  // ACCOUNT PAGE
+  changePassword: "Vaihda Salasana",
+  updateYourLoginPassword: "Päivitä kirjautumissalasana",
+  currentPassword: "Nykyinen salasana",
+  newPassword: "Uusi salasana",
+  repeatNewPassword: "Toista uusi salasana",
+
+  // EDIT PAGE
+  editPage: "Muokkaa Sivua",
+  customizeYourTipPage: "Mukauta tippisivusi.",
+  errorCreatingUpdatingPage: "Virhe sivun luonnissa/päivityksessä",
+  tipAmountSuggestions: "Tippimäärän Ehdotukset",
+  pageWillBeAvailableAt: "Sivusi on saatavilla osoitteessa {url}",
+  noSuggestedAmountsAdded:
+    "Ei lisättyjä ehdotettuja määriä. Lisää uusia tasoja napsauttamalla alla olevaa painiketta.",
+  addTier: "Lisää Taso",
+  remove: "Poista",
+  name: "Nimi",
+  amountUSD: "Määrä (USD)",
+
+  // CONTENT LINKS
+  brandName: "Brändin Nimi",
+  brandNameHelp: "Brändin/sisällön nimi. Voi olla eri kuin slug.",
+  searchTerms: "Hakusanat",
+  searchTermsHelp:
+    "Sisällöntuottajahaku palauttaa tulokset sivun slugin, nimen ja tämän listan avainsanojen perusteella.",
+  contentLinksDescription: "Nimi, Hakusanat ja Sisältölinkit",
+  contentLinksSecondDescription:
+    "Linkit sosiaalisen median sivuillesi tai verkkosivustoillesi. Nollataksesi arvon, jätä kenttä tyhjäksi.",
+  saveChanges: "Tallenna Muutokset",
+  notUrlWithMessage: "Syötä vain nimi, ei koko linkkiä.",
+  changesAreSaved: "Muutokset tallennettu.",
+  errorSavingChanges: "Virhe muutosten tallentamisessa.",
+
+  // OBS
+  obsDescription: "OBS-widget ja asetukset.",
+  settingsAreUpdated: "Asetukset päivitetty.",
+  errorUpdatingSettings: "Virhe asetusten päivityksessä",
+  toUseXMRchatsOnOBS:
+    "Käyttääksesi XMRChatia OBS:ssä, kopioi linkki OBS-sivulle ja lisää se OBS-lähteiden 'Selain'-kohtaan.",
+  copyOBSLink: "Kopioi OBS-sivun Linkki",
+  obsPageSettings: "OBS-sivun Asetukset",
+  preventMessagesFromFading: "Estä viestien häivytys",
+  preventMessagesFromFadingDescription:
+    "Kun aktiivinen, pitää viimeisimmät tippit näytöllä, muuten jokainen viesti näytetään 60 sekuntia.",
+  playSound: "Toista Ääni",
+  playSoundDescription: "Toistaa äänen OBS-sivulla, kun uusi tippi ilmestyy.",
+  playSoundDescriptionLocal:
+    "Jos testaat tätä toiminnallisuutta paikallisesti selaimessa, avattuasi obs-välilehden, varmista että napsautat jossain sivulla. Muuten selain ei toista ääntä avoimen välilehden kanssa ei ole vuorovaikutusta.",
 };

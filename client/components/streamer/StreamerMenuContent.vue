@@ -2,6 +2,7 @@
 const authStore = useAuthStore();
 const { state, logout } = authStore;
 const { isAdmin } = storeToRefs(authStore);
+const { t } = useI18n();
 
 const page = computed(() => state.page);
 const {
@@ -37,13 +38,13 @@ const items = computed(() => {
   res.push(
     ...[
       {
-        label: "My xmrchats",
+        label: t("myXmrchats"),
         icon: "i-heroicons-computer-desktop",
         to: toStreamerDisplay(),
         exact: true,
       },
       {
-        label: "Account",
+        label: t("account"),
         icon: "i-heroicons-user",
         to: toStreamerAccount(),
       },
@@ -54,22 +55,22 @@ const items = computed(() => {
     res.push(
       ...[
         {
-          label: "Edit Tip Page",
+          label: t("editTipPage"),
           icon: "i-heroicons-pencil-square",
           to: toStreamerEdit(),
         },
         {
-          label: "Tip Page",
+          label: t("tipPage"),
           icon: "i-heroicons-banknotes",
           to: toStreamer(page.value.path),
         },
         {
-          label: "Content Links",
+          label: t("contentLinks"),
           icon: "i-heroicons-link-20-solid",
           to: toStreamerContentLinks(),
         },
         {
-          label: "OBS",
+          label: t("obs"),
           icon: "i-heroicons-video-camera",
           to: toStreamerOBS(),
         },
@@ -117,7 +118,7 @@ const items = computed(() => {
           name="i-heroicons-arrow-left-end-on-rectangle-solid"
           class="w-5 h-5"
         />
-        <span>Logout</span>
+        <span>{{ t("logout") }}</span>
       </UButton>
     </div>
   </div>
