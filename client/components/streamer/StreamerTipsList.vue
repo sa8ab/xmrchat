@@ -99,6 +99,14 @@ const handleSendClick = async (row: Tip) => {
     errorHandler(error);
   }
 };
+
+const handleRemoveClick = async (row: Tip) => {
+  try {
+    await removeTipFromObs(props.slug, row.id);
+  } catch (error) {
+    errorHandler(error);
+  }
+};
 </script>
 
 <template>
@@ -134,10 +142,13 @@ const handleSendClick = async (row: Tip) => {
         </div>
       </template>
       <template #actions-data="{ row }">
-        <div>
+        <div class="flex">
           <UButton variant="ghost" @click="handleSendClick(row)">
             <UIcon name="i-heroicons-arrow-right-16-solid" size="18" />
-            Send On OBS
+            Send to OBS
+          </UButton>
+          <UButton variant="ghost" @click="handleRemoveClick(row)">
+            Remove from obs
           </UButton>
         </div>
       </template>

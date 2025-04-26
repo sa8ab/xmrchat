@@ -2,8 +2,12 @@ import { io } from "socket.io-client";
 import type { Tip } from "~/types";
 
 interface PageSocketOptions {
-  handleObsTipEvent?: (data: { tip: Tip; autoRemove: boolean }) => void;
-  handleObsTipRemovalEvent?: (tip: Tip) => void;
+  handleObsTipEvent?: (data: {
+    tip: Tip;
+    autoRemove: boolean;
+    message: string;
+  }) => void;
+  handleObsTipRemovalEvent?: (args0: { tipId: number }) => void;
 }
 
 // Usage is for
@@ -30,11 +34,13 @@ export const usePageSocket = (options?: PageSocketOptions) => {
   const runEvents = () => {
     if (!socket.value) return;
     runConnectEvents();
-    socket.value.on("obsTip", (data: { tip: Tip; autoRemove: boolean }) =>
-      options?.handleObsTipEvent?.(data)
+    socket.value.on(
+      "obsTip",
+      (data: { tip: Tip; autoRemove: boolean; message: string }) =>
+        options?.handleObsTipEvent?.(data)
     );
-    socket.value.on("obsTipRemove", (tip: Tip) =>
-      options?.handleObsTipRemovalEvent?.(tip)
+    socket.value.on("obsTipRemove", (args0: { tipId: number }) =>
+      options?.handleObsTipRemovalEvent?.(args0)
     );
   };
 

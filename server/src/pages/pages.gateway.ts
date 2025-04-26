@@ -92,6 +92,9 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     const message = await this.getTipMessage(tip);
 
+    tip.name = tip.private ? '' : tip.name;
+    tip.message = tip.private ? '' : tip.message;
+
     this.server
       .to(`page-${slug}`)
       .emit('obsTip', { tip, message, autoRemove: false });
@@ -101,6 +104,7 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     return { message: 'Tip is added on the OBS page.' };
   }
 
+  @UseGuards(WsAuthGuard)
   @SubscribeMessage('removeTipFromObs')
   async handleRemoveTipFromObs(
     @MessageBody() body: { slug: string; tipId: number },

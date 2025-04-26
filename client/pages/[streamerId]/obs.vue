@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ObsTip, ObsTipSocketMessage, Tip } from "~/types";
+import type { ObsTipSocketEvent, Tip } from "~/types";
 import gsap from "gsap";
 import { PageSettingKey } from "~/types/enums";
 
@@ -37,9 +37,14 @@ const { data, pending } = useLazyAsyncData(
 
 const { init, disconnect } = usePageSocket({
   handleObsTipEvent: (data) => {
-    console.log(data);
+    if (tips.value.some((t) => t.tip?.id === data.tip.id)) return;
+
+    tips.value.unshift(data);
+    handleAfterTip({ id: data.tip.id, autoRemove: data.autoRemove });
   },
-  handleObsTipRemovalEvent: () => {},
+  handleObsTipRemovalEvent: (data) => {
+    removeTip(data.tipId);
+  },
 });
 
 // const { init, disconnect } = usePaymentSocket<ObsTipSocketMessage>({
@@ -63,7 +68,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => disconnect());
 
-const tips = ref<ObsTip[]>([]);
+const tips = ref<ObsTipSocketEvent[]>([]);
 
 const simulateTip = () => {
   // confetti("tsparticles", {
@@ -74,28 +79,27 @@ const simulateTip = () => {
   //   count: 100,
   // });
 
-  const id = Math.random().toString();
+  const id = Math.random();
   tips.value.unshift({
-    amount: "",
+    autoRemove: true,
     message:
       "Tipperio tipped 12$: Hey let's try playing Post Rock, I don't really wanna listen to any I didn't know what to put here tbh with you.",
-    name: "Continental",
-    id,
   });
 
-  handleAfterTip(id);
+  handleAfterTip({ id, autoRemove: true });
 };
 
-const handleAfterTip = (id: string) => {
+const handleAfterTip = (params: { id: number; autoRemove?: boolean }) => {
   playSound();
+
+  if (!params.autoRemove) return;
   setTimeout(() => {
-    removeTip(id);
+    removeTip(params.id);
   }, 60 * 1000);
 };
 
-const removeTip = (id: string) => {
-  if (data.value?.keepMessages) return;
-  tips.value = tips.value.filter((t) => t.id !== id);
+const removeTip = (id: number) => {
+  tips.value = tips.value.filter((t) => t.tip?.id !== id);
 };
 
 const playSound = () => {
@@ -156,8 +160,8 @@ const onLeave = (el: Element, done: () => void) => {
         @enter="onEnter"
         @leave="onLeave"
       >
-        <div v-for="tip in tips" :key="tip.id">
-          <ObsMessage :tip="tip" />
+        <div v-for="item in tips" :key="item.tip?.id">
+          <ObsMessage :event="item" />
         </div>
       </TransitionGroup>
     </div>
