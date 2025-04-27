@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import type { Tip } from "~/types";
+import type { ObsTipSocketEvent, Tip } from "~/types";
 
 interface PageSocketOptions {
   handleObsTipEvent?: (data: {
@@ -8,6 +8,7 @@ interface PageSocketOptions {
     message: string;
   }) => void;
   handleObsTipRemovalEvent?: (args0: { tipId: number }) => void;
+  handleInitialObsTipsEvent?: (payloads: ObsTipSocketEvent[]) => void;
 }
 
 // Usage is for
@@ -28,7 +29,9 @@ export const usePageSocket = (options?: PageSocketOptions) => {
 
     runEvents();
 
-    socket.value?.emit("join", { slug });
+    socket.value?.emit("join", { slug }, (payloads: ObsTipSocketEvent[]) => {
+      options?.handleInitialObsTipsEvent?.(payloads);
+    });
   };
 
   const runEvents = () => {
