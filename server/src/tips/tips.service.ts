@@ -266,7 +266,7 @@ export class TipsService {
       PageSettingKey.OBS_AUTO_SHOW_TIPS,
     );
 
-    if (autoShowTips) {
+    if (JSON.parse(autoShowTips)) {
       await this.pagesGateway.notifyNewTip(page.path, tip.id);
     }
 
