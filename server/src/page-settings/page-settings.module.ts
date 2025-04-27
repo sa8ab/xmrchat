@@ -9,5 +9,6 @@ import { PagesModule } from '../pages/pages.module';
   imports: [TypeOrmModule.forFeature([PageSetting]), PagesModule],
   providers: [PageSettingsService],
   controllers: [PageSettingsController],
+  exports: [PageSettingsService],
 })
 export class PageSettingsModule {}
