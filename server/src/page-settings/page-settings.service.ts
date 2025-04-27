@@ -51,4 +51,13 @@ export class PageSettingsService {
 
     return 'Settings updated.';
   }
+
+  async getSettingValue<T = string>(slug: string, key: PageSettingKey) {
+    const page = await this.pagesService.findByPath(slug);
+    const setting = await this.repo.findOne({
+      where: { page: { id: page.id }, key },
+    });
+
+    return setting?.value as T;
+  }
 }

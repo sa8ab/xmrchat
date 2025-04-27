@@ -55,7 +55,11 @@ const saveSettings = async () => {
       settings: [
         {
           key: PageSettingKey.OBS_KEEP_MESSAGES,
-          value: data.value?.keepMessages,
+          value: false,
+        },
+        {
+          key: PageSettingKey.OBS_AUTO_SHOW_TIPS,
+          value: data.value?.autoShowTips,
         },
         { key: PageSettingKey.OBS_PLAY_SOUND, value: data.value?.playSound },
       ] as PageSettingField[],
