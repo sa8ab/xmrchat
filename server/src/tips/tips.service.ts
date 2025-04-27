@@ -27,6 +27,8 @@ import { SwapsService } from 'src/swaps/swaps.service';
 import { Swap } from 'src/swaps/swap.entity';
 import { Coin } from 'src/integrations/trocador/coin.entity';
 import { TrocadorTrade } from 'src/shared/types';
+import { PageSettingKey } from 'src/shared/constants';
+import { PageSettingsService } from 'src/page-settings/page-settings.service';
 
 @Injectable()
 export class TipsService {
@@ -41,6 +43,7 @@ export class TipsService {
     private notificationsService: NotificationsService,
     private pricesService: PricesService,
     private swapsService: SwapsService,
+    private pageSettingsService: PageSettingsService,
     @InjectRepository(Tip) private repo: Repository<Tip>,
   ) {}
 
@@ -258,11 +261,14 @@ export class TipsService {
     // with auto removal true.
     // if not then don't send. it will be sent manually and will be removed manually.
 
-    this.pagesGateway.notifyNewTip(page.path, {
-      amount: savedPayment.amount,
-      name: tip.name,
-      message: finalMessage,
-    });
+    const autoShowTips = await this.pageSettingsService.getSettingValue(
+      page.path,
+      PageSettingKey.OBS_AUTO_SHOW_TIPS,
+    );
+
+    if (autoShowTips) {
+      await this.pagesGateway.notifyNewTip(page.path, tip);
+    }
 
     // send twitch message
     if (page.twitchChannel) {
