@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Numberic, Tip } from "~/types";
+import type { Numberic, ObsTipSocketEvent, Tip } from "~/types";
 import { SupportedDisplayCurrency } from "~/types/enums";
 
 const props = defineProps<{
@@ -10,7 +10,13 @@ const props = defineProps<{
 const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
   useServices();
 
-const { init, disconnect, sendTipToObs, removeTipFromObs } = usePageSocket({});
+const tipEvents = ref<ObsTipSocketEvent[]>([]);
+
+const { init, disconnect, sendTipToObs, removeTipFromObs } = usePageSocket({
+  handleInitialObsTipsEvent: (payloads) => {
+    tipEvents.value = payloads;
+  },
+});
 
 const { errorHandler } = useErrorHandler();
 const { t } = useI18n();
@@ -63,6 +69,7 @@ const columns = [
   },
   {
     key: "actions",
+    label: "OBS",
   },
 ];
 
@@ -95,6 +102,7 @@ const getComputedPrice = (amount?: string) => {
 const handleSendClick = async (row: Tip) => {
   try {
     await sendTipToObs(props.slug, row.id);
+    tipEvents.value.push({ tip: row, message: "", autoRemove: false });
   } catch (error) {
     errorHandler(error);
   }
@@ -103,6 +111,7 @@ const handleSendClick = async (row: Tip) => {
 const handleRemoveClick = async (row: Tip) => {
   try {
     await removeTipFromObs(props.slug, row.id);
+    tipEvents.value = tipEvents.value.filter(({ tip }) => tip?.id !== row.id);
   } catch (error) {
     errorHandler(error);
   }
@@ -124,8 +133,11 @@ const handleRemoveClick = async (row: Tip) => {
         {{ getComputedPrice(row.payment.amount) }}
       </template>
       <template #paidAt-data="{ row }">
-        <div class="paid-at">
-          {{ new Date(row.payment.paidAt).toLocaleString() }}
+        <div class="flex flex-col text-xs">
+          <span>
+            {{ new Date(row.payment.paidAt).toLocaleDateString() }}
+          </span>
+          <span>{{ new Date(row.payment.paidAt).toLocaleTimeString() }}</span>
         </div>
       </template>
       <template #message-data="{ row }">
@@ -143,12 +155,20 @@ const handleRemoveClick = async (row: Tip) => {
       </template>
       <template #actions-data="{ row }">
         <div class="flex">
-          <UButton variant="ghost" @click="handleSendClick(row)">
-            <UIcon name="i-heroicons-arrow-right-16-solid" size="18" />
-            Send to OBS
+          <UButton
+            v-if="!tipEvents.find(({ tip }) => tip?.id === row.id)"
+            variant="ghost"
+            @click="handleSendClick(row)"
+          >
+            Show
           </UButton>
-          <UButton variant="ghost" @click="handleRemoveClick(row)">
-            Remove from obs
+          <UButton
+            v-else
+            variant="ghost"
+            color="red"
+            @click="handleRemoveClick(row)"
+          >
+            Hide
           </UButton>
         </div>
       </template>

@@ -19,9 +19,7 @@ const isPrivate = computed(() => props.event?.tip?.private);
     >
       <ObsMessageHead :text="isPrivate ? 'Private' : event?.tip?.name" />
       <div>
-        {{
-          isPrivate ? `${props.event?.tip?.payment?.amount}` : event?.message
-        }}
+        {{ event?.message }}
       </div>
     </div>
   </div>
