@@ -28,10 +28,14 @@ const { data, pending } = useLazyAsyncData(() => getPageSettingsApi(), {
     const playSound =
       settings.find(({ key }) => key === PageSettingKey.OBS_PLAY_SOUND)
         ?.value ?? false;
+    const autoShowTips =
+      settings.find(({ key }) => key === PageSettingKey.OBS_AUTO_SHOW_TIPS)
+        ?.value ?? false;
 
     return {
       keepMessages,
       playSound,
+      autoShowTips,
     };
   },
   server: false,
@@ -101,14 +105,12 @@ const saveSettings = async () => {
     <div v-else-if="data" class="flex flex-col gap-4">
       <div class="grid grid-cols-[auto_1fr] gap-x-2">
         <div>
-          <UToggle v-model="data.keepMessages"></UToggle>
+          <UToggle v-model="data.autoShowTips"></UToggle>
         </div>
-        <span class="font-bold cols">
-          {{ t("preventMessagesFromFading") }}</span
-        >
+        <span class="font-bold cols"> {{ t("autoShowTips") }}</span>
         <span></span>
         <span class="text-pale text-sm">
-          {{ t("preventMessagesFromFadingDescription") }}
+          {{ t("autoShowTipsDescription") }}
         </span>
       </div>
       <div class="grid grid-cols-[auto_1fr] gap-x-2">

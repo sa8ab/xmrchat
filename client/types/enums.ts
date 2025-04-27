@@ -6,6 +6,7 @@ export enum PageSettingKey {
   TWITCH_CHANNEL = "twitch-channel",
   OBS_KEEP_MESSAGES = "obs-keep-messages",
   OBS_PLAY_SOUND = "obs-play-sound",
+  OBS_AUTO_SHOW_TIPS = "obs-auto-show-tips",
 }
 
 export enum ContentLinkPlatformEnum {
