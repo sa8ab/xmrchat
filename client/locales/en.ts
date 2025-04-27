@@ -242,7 +242,8 @@ export default {
   preventMessagesFromFadingDescription:
     "When active, keeps the latest tips on the screen, otherwise each message is displayed for 60 seconds.",
   playSound: "Play Sound",
-  playSoundDescription: "Plays a sound on the OBS page when new tip appears.",
+  playSoundDescription:
+    "Plays a sound on the OBS page when new tip is received.",
   playSoundDescriptionLocal:
     "If you are testing this functionality locally in your browser, after opening the obs tab make sure to click somewhere on the page. Otherwise browser won't play sound due to not having interactions with the opened tab.",
   autoShowTips: "Auto Show Tips",
