@@ -157,6 +157,7 @@ export default {
       "Échangez d'autres cryptomonnaies contre du Monero (XMR) sur {stealthex} et d'autres sur {kycnot}.",
     haveno:
       "Achetez du Monero sans KYC sur {haveno}. Tutoriel pour l'envoi d'argent par courrier sur {blog}.",
+    thisBlogPost: "Cet article de blog",
     kraken: "Achetez du Monero avec KYC sur {kraken}.",
     xmrbazaar:
       "Vendez des articles ou des services pour du Monero sur {xmrbazaar}.",
@@ -199,7 +200,7 @@ export default {
   note: "Remarque",
 
   // STREAMER MENU
-  myXmrchats: "Mes XMRchats",
+  myXmrchats: "Mes xmrchats",
   editTipPage: "Modifier la Page de Pourboires",
   tipPage: "Page de Pourboires",
   contentLinks: "Liens de Contenu",

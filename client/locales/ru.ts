@@ -106,6 +106,7 @@ export default {
       "Обменяйте криптовалюту на Monero (XMR) на {stealthex} и других платформах с {kycnot}.",
     haveno:
       "Купите Monero без KYC на {haveno}. Инструкция по оплате наличными — на {blog}.",
+    thisBlogPost: "Эта запись в блоге",
     kraken: "Купите Monero с KYC на {kraken}.",
     xmrbazaar: "Продавайте товары или услуги за Monero на {xmrbazaar}.",
     gupax: "Добывайте его с помощью {gupax}.",
@@ -188,7 +189,7 @@ export default {
   note: "Примечание",
 
   // STREAMER MENU
-  myXmrchats: "Мои XMRchats",
+  myXmrchats: "Мои xmrchats",
   editTipPage: "Редактировать Страницу Чаевых",
   tipPage: "Страница Чаевых",
   contentLinks: "Ссылки на Контент",

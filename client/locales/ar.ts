@@ -104,6 +104,7 @@ export default {
       "تاجر بالعملات المشفرة الأخرى مقابل Monero (XMR) في {stealthex} وغيرها في {kycnot}",
     haveno:
       "اشترِ Monero بدون KYC في {haveno}. تعليمات الدفع النقدي بالبريد في {blog}",
+    thisBlogPost: "هذا المنشور في المدونة",
     kraken: "اشترِ Monero مع KYC في {kraken}",
     xmrbazaar: "بع البضائع أو الخدمات مقابل Monero في {xmrbazaar}",
     gupax: "استخرجه باستخدام {gupax}",
@@ -188,7 +189,7 @@ export default {
   note: "ملاحظة",
 
   // STREAMER MENU
-  myXmrchats: "XMRchats الخاصة بي",
+  myXmrchats: "xmrchats الخاصة بي",
   editTipPage: "تعديل صفحة التبرع",
   tipPage: "صفحة التبرع",
   contentLinks: "روابط المحتوى",

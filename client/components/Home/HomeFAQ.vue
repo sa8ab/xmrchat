@@ -105,7 +105,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                       to="https://github.com/sa8ab/xmrchat"
                       v-bind="linkProps"
                     >
-                      here</UButton
+                      {{ t("here") }}</UButton
                     >
                   </template>
                 </I18nT>
@@ -213,7 +213,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                     <UButton
                       to="https://blog.nihilism.network/servers/haveno-cashbymail/index.html"
                       v-bind="linkProps"
-                      >this blog post</UButton
+                      >{{ t("whereToGetMonero.thisBlogPost") }}</UButton
                     >
                   </template>
                 </I18nT>

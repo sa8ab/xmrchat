@@ -28,7 +28,7 @@ export default {
   loginFailed: "로그인 실패",
   signup: "회원가입",
   forgetPassword: "비밀번호를 잊으셨나요?",
-  loginDescription: "계정에 로그인하여 디스플레이 페이지에 접근하세요.",
+  loginDescription: "계정에 로그인하여 마이페이지에 접근하세요.",
   creatorLogin: "크리에이터 로그인",
   searchCreators: {
     title: "크리에이터 검색",
@@ -36,6 +36,7 @@ export default {
   },
   typePageName: "페이지 이름 입력...",
   contactUs: "문의하기",
+  here: "여기",
 
   xmrchat: "XMRChat",
   heroDescription: "좋아하는 스트리머에게 암호화폐로 팁을 주세요.",
@@ -44,35 +45,35 @@ export default {
 
   FAQ: {
     title: "자주 묻는 질문",
-    whyTipWithXMRChat: "왜 XMRChat으로 팁을 주나요?",
+    whyTipWithXMRChat: "왜 XMRChat으로 팁을 줘야 할까요?",
     whyUseMonero: "왜 XMRChat은 모네로를 사용하나요?",
     whereToGetMonero: "모네로를 어디서 구하나요?",
   },
 
   earnMore: {
-    title: "더 많이 벌기",
+    title: "더 많은 수익 창출",
     description:
-      "YouTube는 슈퍼챗에 30-50%를 청구하고, Rumble은 Rants에 20%를 청구합니다. XMRChat을 사용하면 팬으로부터 받은 XMR 팁의 100%를 모네로 지갑으로 직접 받을 수 있습니다.",
+      "YouTube는 Superchat에 30-50%를 떼어가고, Rumble은 Rants에 20%를 떼어갑니다. XMRChat을 사용하면 팬으로부터 받은 모네로 팁의 100%를 모네로 지갑으로 직접 받을 수 있습니다.",
   },
   censorshipResistant: {
     title: "검열 저항성",
     description:
-      "모네로 팁을 수락하면 빅테크나 임의적인 정책 위반과 무관한 수익을 얻을 수 있습니다.",
+      "모네로로 팁을 받으면, 빅테크 기업들의 자의적인 정책에 얽매이지 않고 수익을 창출할 수 있습니다.",
   },
   corruptionResistant: {
-    title: "부패 저항성",
+    title: "탄압 저항성",
     description:
-      "많은 정권은 정치적 적의 은행 계좌를 압류하거나 동결합니다. 모네로는 당신이 직접 은행이 되어 재정 통제를 가능하게 합니다.",
+      "많은 정부는 정적들의 은행 계좌를 압류하거나 동결합니다. 하지만 모네로를 사용하면 자산을 직접 관리할 수 있어 이런 위험으로부터 자유로울 수 있습니다.",
   },
   private: {
     title: "프라이버시 보호",
     description:
-      "시청자는 익명으로 팁을 보낼 수 있으므로 고용주나 다른 사람들에게 기부 사실을 알릴 걱정이 없습니다.",
+      "시청자는 익명으로 팁을 보낼 수 있으므로, 회사나 다른 사람들에게 팁을 보낸 사실이 알려질 걱정이 없습니다.",
   },
   quickAndEasy: {
     title: "빠르고 쉬움",
     description:
-      "시청자는 계정 생성, 이메일 인증, 카드 정보 입력 없이 팁 페이지에서 이름, 메시지, 금액을 입력하고 XMR 팁을 전송할 수 있습니다.",
+      "시청자는 계정 생성, 이메일 인증, 카드 정보 입력 없이 팁 페이지에서 이름, 메시지, 금액을 입력하고 모네로(Monero) 팁을 전송할 수 있습니다.",
   },
   openSource: {
     title: "오픈 소스",
@@ -82,7 +83,8 @@ export default {
 
   lowFees: {
     title: "저렴한 수수료",
-    description: "모네로 거래 수수료는 몇 페니 수준입니다.",
+    description:
+      "모네로의 송금 수수료는 매우 저렴해서 몇십 원 정도에 불과합니다.",
   },
   privateMonero: {
     title: "프라이버시 보호",
@@ -103,16 +105,17 @@ export default {
     cakeWallet:
       "{cakeWallet}에서 다른 암호화폐로 모네로를 구매하거나 교환하세요.",
     stealthex:
-      "{stealthex} 및 {kycnot}에서 다른 암호화폐로 모네로(XMR)를 교환하세요.",
+      "{stealthex} 및 {kycnot}에서 다른 암호화폐를 모네로로 교환하세요.",
     haveno:
       "{haveno}에서 KYC 없이 모네로를 구매하세요. {blog}에서 현금 우편 가이드를 확인하세요.",
-    kraken: "{kraken}에서 KYC를 통해 모네로를 구매하세요.",
+    thisBlogPost: "이 블로그 포스트",
+    kraken: "KYC가 있는 {kraken}에서 모네로를 구매하세요.",
     xmrbazaar:
       "{xmrbazaar}에서 상품이나 서비스를 판매하여 모네로를 획득하세요.",
-    gupax: "{gupax}에서 채굴하세요.",
+    gupax: "{gupax}에서 모네로를 채굴하세요.",
     kunoAnneMedia: "{kunoAnneMedia}에서 모네로 모금 캠페인을 시작하세요.",
     monerica:
-      "비즈니스에서 모네로를 수락하고 {monerica}, {monerodirectory}, {xmrbazaar}의 비즈니스 목록에 등록되세요.",
+      "당신의 사업에서 모네로 결제를 허용하고 {monerica}, {monerodirectory} 그리고 {xmrbazaar}의 모네로 사용 가능 사업 목록에 등록되세요.",
   },
 
   tipName: "이름",
@@ -123,7 +126,7 @@ export default {
   tipUpdated: "팁이 업데이트되었습니다!",
   tipPrivateTooltip: "이름과 메시지는 스트리머에게만 표시됩니다.",
   tipCoin: "코인",
-  tipCoinPlaceholder: "XMR",
+  tipCoinPlaceholder: "모네로(Monero)",
   sendTip: "팁 보내기",
   tipCreationFailed: "팁 생성 실패",
   tipNamePlaceholder: "이름 입력",
@@ -134,7 +137,7 @@ export default {
   tipSwapMinimum: "스왑 최소 금액은 {minSwapUSD}$입니다",
   minUsdAmount: "최소 {minUsdAmount}",
   recentTips: "최근 팁",
-  tipDisplayValueTooltip: "팁 값을 XMR 또는 USD로 표시",
+  tipDisplayValueTooltip: "팁 값을 모네로(Monero) 또는 USD로 표시",
   noRecentTips: "최근 팁이 없습니다!",
   pageDeactivatedAlert:
     "페이지가 비활성화되어 공개적으로 표시되지 않습니다. 자세한 내용은 지원팀에 문의하세요.",
@@ -143,7 +146,7 @@ export default {
   tipWalletWarningDescription:
     "페이지에 등록된 지갑으로 팁을 보내는 것을 피해주세요. 반환되는 잔액으로 인해 수령된 금액이 부풀려집니다.",
   tipWalletMinimum:
-    "xmrchat에 표시하려면 다음 주소로 최소 {minimumAmount} XMR을 보내주세요.",
+    "xmrchat에 표시하려면 다음 주소로 최소 {minimumAmount} 모네로(Monero)을 보내주세요.",
   openInMyWallet: "내 지갑에서 열기",
   cancel: "취소",
   copyAddress: "주소 복사",
@@ -188,7 +191,7 @@ export default {
   note: "참고",
 
   // STREAMER MENU
-  myXmrchats: "내 XMRchats",
+  myXmrchats: "내 xmrchats",
   editTipPage: "팁 페이지 편집",
   tipPage: "팁 페이지",
   contentLinks: "콘텐츠 링크",
