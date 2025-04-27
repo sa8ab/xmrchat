@@ -90,9 +90,8 @@ const simulateTip = () => {
 };
 
 const handleAfterTip = (params: { id: number; autoRemove?: boolean }) => {
-  playSound();
-
   if (!params.autoRemove) return;
+  playSound();
   setTimeout(() => {
     removeTip(params.id);
   }, 60 * 1000);
