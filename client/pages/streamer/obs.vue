@@ -109,7 +109,7 @@ const saveSettings = async () => {
     <div v-else-if="data" class="flex flex-col gap-4">
       <div class="grid grid-cols-[auto_1fr] gap-x-2">
         <div>
-          <UToggle v-model="data.autoShowTips"></UToggle>
+          <UToggle v-model="data.autoShowTips" @change="saveSettings"></UToggle>
         </div>
         <span class="font-bold cols"> {{ t("autoShowTips") }}</span>
         <span></span>
@@ -119,7 +119,7 @@ const saveSettings = async () => {
       </div>
       <div class="grid grid-cols-[auto_1fr] gap-x-2">
         <div>
-          <UToggle v-model="data.playSound"></UToggle>
+          <UToggle v-model="data.playSound" @change="saveSettings"></UToggle>
         </div>
         <span class="font-bold cols">{{ t("playSound") }}</span>
         <span></span>
