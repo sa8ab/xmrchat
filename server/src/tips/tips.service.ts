@@ -267,7 +267,7 @@ export class TipsService {
     );
 
     if (autoShowTips) {
-      await this.pagesGateway.notifyNewTip(page.path, tip);
+      await this.pagesGateway.notifyNewTip(page.path, tip.id);
     }
 
     // send twitch message

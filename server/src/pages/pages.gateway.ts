@@ -149,7 +149,14 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     return this.server.to(`page-${slug}`).emit('payment', payment);
   }
 
-  async notifyNewTip(slug: string, tip: Tip) {
+  async notifyNewTip(slug: string, tipId: number) {
+    const tip = await this.tipsRepo.findOne({
+      where: { id: tipId },
+      relations: { page: true, payment: true },
+    });
+
+    if (!tip) return;
+
     const eventPayload = await this.generateEventPayload(tip, true);
     return this.server.to(`page-${slug}`).emit('obsTip', eventPayload);
   }
