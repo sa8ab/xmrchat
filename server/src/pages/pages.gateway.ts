@@ -208,7 +208,7 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   async getActiveTipIds(slug: string) {
-    return this.cache.get<number[]>(`obs-tips:${slug}`);
+    return (await this.cache.get<number[]>(`obs-tips:${slug}`)) || [];
   }
 
   hidePrivateTipFields(tip: Tip) {
