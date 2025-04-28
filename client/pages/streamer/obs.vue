@@ -147,11 +147,11 @@ const saveSettings = async () => {
       >
       </UAlert>
     </div>
-    <div class="mt-6">
+    <!-- <div class="mt-6">
       <UButton :loading="state.saving" @click="saveSettings">{{
         t("saveChanges")
       }}</UButton>
-    </div>
+    </div> -->
   </div>
 </template>
 
