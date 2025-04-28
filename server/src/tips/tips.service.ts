@@ -257,18 +257,7 @@ export class TipsService {
       username: tip.name,
     });
 
-    // if page has setting of automatically add tip to obs, then send it to pages gateway addTipToObs
-    // with auto removal true.
-    // if not then don't send. it will be sent manually and will be removed manually.
-
-    const autoShowTips = await this.pageSettingsService.getSettingValue(
-      page.path,
-      PageSettingKey.OBS_AUTO_SHOW_TIPS,
-    );
-
-    if (JSON.parse(autoShowTips)) {
-      await this.pagesGateway.notifyNewTip(page.path, tip.id);
-    }
+    await this.pagesGateway.notifyNewTip(page.path, tip.id);
 
     // send twitch message
     if (page.twitchChannel) {

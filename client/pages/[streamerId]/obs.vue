@@ -19,15 +19,15 @@ const { data, pending } = useLazyAsyncData(
     transform: (data) => {
       const settings = data.settings;
 
-      const keepMessages =
-        settings.find(({ key }) => key === PageSettingKey.OBS_KEEP_MESSAGES)
+      const autoShowTips =
+        settings.find(({ key }) => key === PageSettingKey.OBS_AUTO_SHOW_TIPS)
           ?.value ?? false;
       const playSound =
         settings.find(({ key }) => key === PageSettingKey.OBS_PLAY_SOUND)
           ?.value ?? false;
 
       return {
-        keepMessages,
+        autoShowTips,
         playSound,
       };
     },
@@ -36,31 +36,20 @@ const { data, pending } = useLazyAsyncData(
 );
 
 const { init, disconnect } = usePageSocket({
-  handleObsTipEvent: (data) => {
-    if (tips.value.some((t) => t.tip?.id === data.tip.id)) return;
+  handleObsTipEvent: (event) => {
+    if (tips.value.some((t) => t.tip?.id === event.tip.id)) return;
 
-    tips.value.unshift(data);
-    handleAfterTip({ id: data.tip.id, autoRemove: data.autoRemove });
+    // do not add to tips if autoShowTips is false
+    if (data.value?.autoShowTips || !event.autoRemove) {
+      tips.value.unshift(event);
+    }
+
+    handleAfterTip({ id: event.tip.id, autoRemove: event.autoRemove });
   },
   handleObsTipRemovalEvent: (data) => {
     removeTip(data.tipId);
   },
 });
-
-// const { init, disconnect } = usePaymentSocket<ObsTipSocketMessage>({
-//   onPageTipEvent: (e) => {
-//     const id = Math.random().toString();
-
-//     tips.value.unshift({
-//       amount: e.amount, // amount is string units, update before using
-//       name: e.name,
-//       message: e.message,
-//       id,
-//     });
-
-//     handleAfterTip(id);
-//   },
-// });
 
 onMounted(() => {
   init(slug.value);
