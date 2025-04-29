@@ -1,13 +1,11 @@
 <script lang="ts" setup>
-import type { ObsTip } from "~/types";
+import type { ObsTipSocketEvent } from "~/types";
 
 const props = defineProps<{
-  tip?: ObsTip;
+  event?: ObsTipSocketEvent;
 }>();
 
-const isPrivate = computed(
-  () => props.tip?.name === "" && props.tip?.message === ""
-);
+const isPrivate = computed(() => props.event?.tip?.private);
 </script>
 
 <template>
@@ -16,12 +14,12 @@ const isPrivate = computed(
       <img src="/images/xmrchat-logo.png" />
     </div>
     <div
-      class="relative p-5 bg-background border border-border rounded-lg w-full text-lg"
+      class="relative p-5 bg-background border border-border rounded-lg w-full text-lg break-words"
       :class="{ 'text-pale': isPrivate }"
     >
-      <ObsMessageHead :text="isPrivate ? 'Private' : tip?.name" />
-      <div>
-        {{ isPrivate ? `${props.tip?.amount}` : tip?.message }}
+      <ObsMessageHead :text="isPrivate ? 'Private' : event?.tip?.name" />
+      <div style="word-break: break-word">
+        {{ event?.message }}
       </div>
     </div>
   </div>

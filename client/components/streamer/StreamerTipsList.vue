@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Numberic } from "~/types";
+import type { Numberic, ObsTipSocketEvent, Tip } from "~/types";
 import { SupportedDisplayCurrency } from "~/types/enums";
 
 const props = defineProps<{
@@ -10,7 +10,16 @@ const props = defineProps<{
 const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
   useServices();
 
+const tipEvents = ref<ObsTipSocketEvent[]>([]);
+
+const { init, disconnect, sendTipToObs, removeTipFromObs } = usePageSocket({
+  handleInitialObsTipsEvent: (payloads) => {
+    tipEvents.value = payloads;
+  },
+});
+
 const { errorHandler } = useErrorHandler();
+const { t } = useI18n();
 
 const toast = useToast();
 
@@ -20,7 +29,11 @@ const { data, refresh, pending, error } = useLazyAsyncData(
 );
 const interval = ref<NodeJS.Timeout | undefined>(undefined);
 
-onMounted(() => startTipsInterval());
+onMounted(() => {
+  startTipsInterval();
+  init(props.slug);
+});
+onUnmounted(() => disconnect());
 
 const startTipsInterval = () => {
   stopTipsInterval();
@@ -36,27 +49,28 @@ onBeforeUnmount(() => stopTipsInterval());
 const columns = [
   {
     key: "name",
-    label: "Name",
+    label: t("tipName"),
   },
   {
     key: "amount",
-    label: "Amount",
+    label: t("tipAmount"),
   },
   {
     key: "message",
-    label: "Message",
+    label: t("tipMessage"),
   },
   {
     key: "paidAt",
-    label: "Date",
+    label: t("tipDate"),
   },
   {
     key: "private",
-    label: "Private",
+    label: t("tipPrivate"),
   },
-  // {
-  //   key: "actions",
-  // },
+  {
+    key: "actions",
+    label: "OBS",
+  },
 ];
 
 const updateTipPrivate = async (id: Numberic, isPrivate: boolean) => {
@@ -66,7 +80,7 @@ const updateTipPrivate = async (id: Numberic, isPrivate: boolean) => {
     });
 
     toast.add({
-      title: "Tip updated!",
+      title: t("tipUpdated"),
     });
 
     refresh();
@@ -83,6 +97,24 @@ const getComputedPrice = (amount?: string) => {
   return props.tipValue === SupportedDisplayCurrency.XMR
     ? `${xmr} XMR`
     : `$${usd.toFixed(2)}`;
+};
+
+const handleSendClick = async (row: Tip) => {
+  try {
+    await sendTipToObs(props.slug, row.id);
+    tipEvents.value.push({ tip: row, message: "", autoRemove: false });
+  } catch (error) {
+    errorHandler(error);
+  }
+};
+
+const handleRemoveClick = async (row: Tip) => {
+  try {
+    await removeTipFromObs(props.slug, row.id);
+    tipEvents.value = tipEvents.value.filter(({ tip }) => tip?.id !== row.id);
+  } catch (error) {
+    errorHandler(error);
+  }
 };
 </script>
 
@@ -101,8 +133,11 @@ const getComputedPrice = (amount?: string) => {
         {{ getComputedPrice(row.payment.amount) }}
       </template>
       <template #paidAt-data="{ row }">
-        <div class="paid-at">
-          {{ new Date(row.payment.paidAt).toLocaleString() }}
+        <div class="flex flex-col text-xs">
+          <span>
+            {{ new Date(row.payment.paidAt).toLocaleDateString() }}
+          </span>
+          <span>{{ new Date(row.payment.paidAt).toLocaleTimeString() }}</span>
         </div>
       </template>
       <template #message-data="{ row }">
@@ -116,6 +151,25 @@ const getComputedPrice = (amount?: string) => {
             :modelValue="row.private"
             @change="updateTipPrivate(row.id, $event)"
           ></UCheckbox>
+        </div>
+      </template>
+      <template #actions-data="{ row }">
+        <div class="flex">
+          <UButton
+            v-if="!tipEvents.find(({ tip }) => tip?.id === row.id)"
+            variant="ghost"
+            @click="handleSendClick(row)"
+          >
+            Show
+          </UButton>
+          <UButton
+            v-else
+            variant="ghost"
+            color="red"
+            @click="handleRemoveClick(row)"
+          >
+            Hide
+          </UButton>
         </div>
       </template>
       <template #empty-state>

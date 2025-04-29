@@ -7,15 +7,20 @@ import { LwsModule } from 'src/lws/lws.module';
 import { PaymentsModule } from 'src/payments/payments.module';
 import { PagesGateway } from './pages.gateway';
 import { NotificationsModule } from 'src/notifications/notifications.module';
-import { TwitchModule } from 'src/integrations/twitch.module';
+import { TwitchModule } from 'src/integrations/twitch/twitch.module';
+import { Tip } from 'src/tips/tip.entity';
+import { UsersModule } from 'src/users/users.module';
+import { PricesModule } from 'src/prices/prices.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Page]),
+    TypeOrmModule.forFeature([Page, Tip]),
     LwsModule,
     PaymentsModule,
     NotificationsModule,
     TwitchModule,
+    UsersModule, // used on WsAuthGuard
+    PricesModule,
   ],
   controllers: [PagesController],
   providers: [PagesService, PagesGateway],

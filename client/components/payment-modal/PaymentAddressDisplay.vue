@@ -4,6 +4,7 @@ const props = defineProps<{
 }>();
 
 const toast = useToast();
+const { t } = useI18n();
 
 const copy = () => {
   try {
@@ -28,7 +29,9 @@ const copy = () => {
       class="w-full cursor-none"
       size="lg"
     />
-    <UButton class="button" size="sm" @click="copy">Copy Address</UButton>
+    <UButton class="button" size="sm" @click="copy">{{
+      t("copyAddress")
+    }}</UButton>
   </div>
 </template>
 

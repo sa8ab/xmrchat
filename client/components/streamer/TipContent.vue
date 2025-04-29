@@ -16,6 +16,7 @@ const { required, minLength, maxLength, minValue } = useValidations();
 const { sendTipToStreamer: sendTipToStreamerApi, getPrice } = useServices();
 const coins = useState<Coin[]>("coins");
 const swapActive = useState<boolean>("swapActive");
+const { t } = useI18n();
 
 const { minUsdAmount, price, minSwapUSD } = useXmrPrice({
   pageMinXmr: computed(() => props.streamerPage?.minTipAmount),
@@ -136,7 +137,7 @@ const coinSelectOptions = computed(() => {
         <div class="both pb-4">
           <UFormGroup
             size="lg"
-            label="Enter name"
+            :label="t('tipName')"
             :error="getValidationAttrs('name').error"
             name="name"
           >
@@ -149,7 +150,7 @@ const coinSelectOptions = computed(() => {
 
           <UFormGroup
             size="lg"
-            label="Enter Tip Amount"
+            :label="t('tipAmount')"
             :error="getValidationAttrs('amount').error"
             name="amount"
           >
@@ -164,10 +165,14 @@ const coinSelectOptions = computed(() => {
               v-if="streamerPage?.tiers?.length"
             />
             <template #hint>
-              <span class="text-xs" v-if="state.selectedCoin"
-                >Swap Minimum ${{ minSwapUSD }}</span
+              <span class="text-xs" v-if="state.selectedCoin">{{
+                t("tipSwapMinimum", {
+                  minSwapUSD: minSwapUSD,
+                })
+              }}</span>
+              <span class="text-xs" v-else>
+                {{ t("minUsdAmount", { minUsdAmount: minUsdAmount }) }}$</span
               >
-              <span class="text-xs" v-else>Minimum ${{ minUsdAmount }}</span>
             </template>
           </UFormGroup>
         </div>
@@ -175,14 +180,14 @@ const coinSelectOptions = computed(() => {
         <div class="single">
           <UFormGroup
             :error="getValidationAttrs('message').error"
-            label="Message"
+            :label="t('tipMessage')"
             name="message"
             :hint="`${messageLength} / 255`"
           >
             <UTextarea
               @blur="getValidationAttrs('message').onBlur"
               v-model="state.form.message"
-              placeholder="Enter message..."
+              :placeholder="t('tipMessagePlaceholder')"
             />
           </UFormGroup>
         </div>
@@ -190,11 +195,11 @@ const coinSelectOptions = computed(() => {
         <div class="single">
           <UTooltip :popper="{ placement: 'top' }">
             <template #text>
-              <p>Name and message will be only visible to the streamer.</p>
+              <p>{{ t("tipPrivateTooltip") }}</p>
             </template>
             <UCheckbox
               color="primary"
-              label="Tip Privately"
+              :label="t('tipPrivate')"
               v-model="state.form.private"
             />
           </UTooltip>
@@ -202,12 +207,12 @@ const coinSelectOptions = computed(() => {
 
         <div class="singe">
           <div class="flex">
-            <UFormGroup label="Tip coin">
+            <UFormGroup :label="t('tipCoin')">
               <USelectMenu
                 :options="coinSelectOptions"
                 v-model="state.selectedCoin"
                 trailingIcon="i-heroicons-chevron-up-down-16-solid"
-                placeholder="XMR"
+                :placeholder="t('tipCoinPlaceholder')"
                 value-attribute="id"
                 :uiMenu="{}"
                 :ui="{ wrapper: 'min-w-[160px]' }"
@@ -224,7 +229,7 @@ const coinSelectOptions = computed(() => {
                 </template>
               </USelectMenu>
               <template #help v-if="!swapActive">
-                <p class="text-xs">Swap is currently unavailable.</p>
+                <p class="text-xs">{{ t("tipSwapUnavailable") }}</p>
               </template>
             </UFormGroup>
           </div>
@@ -235,7 +240,7 @@ const coinSelectOptions = computed(() => {
           <UAlert
             color="red"
             :description="state.errorMessage"
-            title="Tip Creation Failed"
+            :title="t('tipCreationFailed')"
           >
           </UAlert>
         </div>
@@ -247,7 +252,7 @@ const coinSelectOptions = computed(() => {
             :loading="state.loading"
             trailingIcon="i-heroicons-arrow-small-right"
           >
-            Send Tip
+            {{ t("sendTip") }}
           </UButton>
         </div>
       </UForm>

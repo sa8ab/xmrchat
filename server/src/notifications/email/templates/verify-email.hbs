@@ -1,11 +1,12 @@
 {{#>layout title="Please activate your account" }}
-  <h1 style="padding-bottom: 12px">Email Verification</h1>
-  <p style="padding-bottom: 16px">Follow this link to verify your email address.</p>
+  <h1 style="padding-bottom: 12px">{{translate "email.emailVerification.emailTitle" lang=lang}}</h1>
+  <p style="padding-bottom: 16px">{{translate "email.emailVerification.followThisLink" lang=lang}}</p>
   <a href="{{link}}" target="_blank"
     style="padding: 12px 24px; margin-bottom: 16px; border-radius: 4px; color: #FFF; background: #ff7f0a; display: inline-flex;">
-    Confirm now
+    {{translate "email.emailVerification.confirmNow" lang=lang}}
   </a>
 
-  <p style="padding-bottom: 16px">If you didn’t ask to verify this address, you can ignore this email.</p>
+  <p style="padding-bottom: 16px">{{translate "email.emailVerification.ifYouDidNotAskToVerifyThisAddress" lang=lang}}
+  </p>
   {{>ending}}
 {{/layout}}

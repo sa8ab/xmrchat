@@ -1,0 +1,28 @@
+{
+  "emailVerification": {
+    "subject": "XMRChat Demande de vérification d'email",
+    "emailTitle": "Veuillez activer votre compte",
+    "title": "Vérification de l'email",
+    "followThisLink": "Suivez ce lien pour vérifier votre adresse email.",
+    "confirmNow": "Confirmer maintenant",
+    "ifYouDidNotAskToVerifyThisAddress": "Si vous n'avez pas demandé à vérifier cette adresse, vous pouvez ignorer cet email.",
+    "thanks": "Merci",
+    "XMRChatTeam": "L'équipe XMRChat"
+  },
+  "resetPassword": {
+    "subject": "XMRChat Demande de réinitialisation de mot de passe",
+    "emailTitle": "Demande de réinitialisation de mot de passe",
+    "title": "Réinitialisation de mot de passe",
+    "followThisLink": "Nous avons reçu une demande de réinitialisation du mot de passe pour ce compte utilisateur.",
+    "resetNow": "Réinitialiser votre mot de passe",
+    "ifYouDidNotAskToResetPassword": "Si vous n'avez pas demandé à réinitialiser votre mot de passe, vous pouvez ignorer cet email."
+  },
+  "passwordChange": {
+    "subject": "Votre mot de passe XMRChat a été mis à jour",
+    "text": "Votre mot de passe XMRChat a été mis à jour",
+    "title": "Mot de passe du compte mis à jour",
+    "emailTitle": "Mot de passe mis à jour",
+    "passwordUpdated": "Le mot de passe de votre compte a été mis à jour.",
+    "ifItWasNotYou": "Si ce n'était pas vous, veuillez vous connecter et réinitialiser votre mot de passe."
+  }
+}

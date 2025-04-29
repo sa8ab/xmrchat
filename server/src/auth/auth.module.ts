@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { PassportModule } from '@nestjs/passport';
@@ -14,6 +14,7 @@ import { UserTokensModule } from './user-tokens/user-tokens.module';
 import { PagesModule } from 'src/pages/pages.module';
 import { ThrottlerGuard } from '@nestjs/throttler';
 
+@Global()
 @Module({
   imports: [
     PassportModule,
@@ -49,6 +50,6 @@ import { ThrottlerGuard } from '@nestjs/throttler';
     },
   ],
   controllers: [AuthController],
-  exports: [AuthService],
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}

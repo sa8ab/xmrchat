@@ -1,0 +1,28 @@
+{
+  "emailVerification": {
+    "subject": "XMRChat-sähköpostin vahvistuspyyntö",
+    "emailTitle": "Ole hyvä ja aktivoi tilisi",
+    "title": "Sähköpostin vahvistus",
+    "followThisLink": "Vahvista sähköpostiosoitteesi seuraamalla tätä linkkiä.",
+    "confirmNow": "Vahvista nyt",
+    "ifYouDidNotAskToVerifyThisAddress": "Jos et pyytänyt sähköpostin vahvistusta, voit jättää tämän viestin huomiotta.",
+    "thanks": "Kiitos",
+    "XMRChatTeam": "XMRChat-tiimi"
+  },
+  "resetPassword": {
+    "subject": "XMRChat-salasanan palautuspyyntö",
+    "emailTitle": "Salasanan palautuspyyntö",
+    "title": "Palauta salasana",
+    "followThisLink": "Olemme vastaanottaneet pyynnön palauttaa tämän käyttäjätilin salasana.",
+    "resetNow": "Palauta salasanasi",
+    "ifYouDidNotAskToResetPassword": "Jos et pyytänyt salasanan palautusta, voit jättää tämän viestin huomiotta."
+  },
+  "passwordChange": {
+    "subject": "XMRChat-salasanasi on päivitetty",
+    "text": "XMRChat-salasanasi on päivitetty",
+    "title": "Tilin salasana päivitetty",
+    "emailTitle": "Salasana päivitetty",
+    "passwordUpdated": "Tilisi salasana on päivitetty.",
+    "ifItWasNotYou": "Jos et ollut sinä, kirjaudu sisään ja palauta salasanasi."
+  }
+}

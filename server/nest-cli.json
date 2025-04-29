@@ -8,6 +8,10 @@
       {
         "include": "notifications/email/templates/**",
         "outDir": "dist/src/"
+      },
+      {
+        "include": "i18n/**",
+        "outDir": "dist/src/"
       }
     ],
     "watchAssets": true

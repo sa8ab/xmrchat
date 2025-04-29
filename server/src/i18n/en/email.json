@@ -1,0 +1,28 @@
+{
+  "emailVerification": {
+    "subject": "XMRChat Email Verification Request",
+    "emailTitle": "Please activate your account",
+    "title": "Email Verification",
+    "followThisLink": "Follow this link to verify your email address.",
+    "confirmNow": "Confirm now",
+    "ifYouDidNotAskToVerifyThisAddress": "If you didn't ask to verify this address, you can ignore this email.",
+    "thanks": "Thanks",
+    "XMRChatTeam": "The XMRChat Team"
+  },
+  "resetPassword": {
+    "subject": "XMRChat Reset Password Request",
+    "emailTitle": "Reset Password Request",
+    "title": "Reset Password",
+    "followThisLink": "We've received a request to reset the password for this user account.",
+    "resetNow": "Reset your password",
+    "ifYouDidNotAskToResetPassword": "If you didn't ask to reset your password, you can ignore this email."
+  },
+  "passwordChange": {
+    "subject": "Your XMRChat password updated",
+    "text": "Your XMRChat password updated",
+    "title": "Account password updated",
+    "emailTitle": "Password Updated",
+    "passwordUpdated": "Password of your account has been updated.",
+    "ifItWasNotYou": "If it wasn't you please login and reset your password."
+  }
+}

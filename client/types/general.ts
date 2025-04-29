@@ -88,7 +88,7 @@ interface TipPayment {
 }
 
 export interface Tip {
-  id: string;
+  id: number;
   pageId: string;
   name: string;
   message: string;
@@ -124,18 +124,10 @@ export interface TipEventData {
   paidAmount: string;
 }
 
-export interface ObsTip {
-  amount: string;
+export interface ObsTipSocketEvent {
+  tip?: Tip;
   message: string;
-  name: string;
-  id?: string;
-}
-
-export interface ObsTipSocketMessage {
-  amount: string;
-  paidAmount: string;
-  name: string;
-  message: string;
+  autoRemove: boolean;
 }
 
 export interface UploadedFile {

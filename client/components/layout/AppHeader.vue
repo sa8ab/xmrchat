@@ -14,6 +14,7 @@ const authStore = useAuthStore();
 const { logout, state } = authStore;
 const route = useRoute();
 const { copy } = useCopy();
+const { t } = useI18n();
 
 const dropdownItems = computed<DropdownItem[][]>(() => {
   const url = useRequestURL();
@@ -78,15 +79,15 @@ const dropdownItems = computed<DropdownItem[][]>(() => {
 <template>
   <nav class="navbar py-2 border-b border-border">
     <div class="inner flex justify-between items-center">
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center">
         <NuxtLink class="w-[40px]" :to="toIndex()">
           <img src="/images/xmrchat-logo.png" />
           <span class="sr-only">Home Page</span>
         </NuxtLink>
         <ul>
-          <li class="flex space-x-1">
+          <li class="flex">
             <UButton variant="ghost" color="white" :to="toContact()">
-              Contact Us
+              {{ t("contactUs") }}
             </UButton>
           </li>
         </ul>
@@ -127,19 +128,25 @@ const dropdownItems = computed<DropdownItem[][]>(() => {
             icon="i-heroicons-user"
             :to="toStreamerDisplay()"
           >
-            Account
+            {{ t("account") }}
           </UButton>
-          <UButton v-else :to="toLogin()">Creator Login</UButton>
+          <UButton v-else :to="toLogin()">
+            <span class="truncate max-w-[100px] sm:max-w-[100%]">
+              {{ t("creatorLogin") }}
+            </span>
+          </UButton>
         </template>
 
-        <UButton
+        <LanguageSelect />
+
+        <!-- <UButton
           square
           icon="i-heroicons-magnifying-glass"
           color="gray"
           :to="toCreators()"
         >
-          <span class="sr-only">Search Creators</span>
-        </UButton>
+          <span class="sr-only">{{ t("searchCreators.title") }}</span>
+        </UButton> -->
         <ColorMode />
       </div>
     </div>

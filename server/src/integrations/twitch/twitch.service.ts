@@ -1,3 +1,4 @@
+import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
@@ -12,7 +13,6 @@ const badWordMatcher = new RegExpMatcher({
   ...englishDataset.build(),
   ...englishRecommendedTransformers,
 });
-
 @Injectable()
 export class TwitchService {
   private logger = new Logger(TwitchService.name);
@@ -23,7 +23,10 @@ export class TwitchService {
 
   private client: Client;
 
-  constructor(private configService: ConfigService) {
+  constructor(
+    private configService: ConfigService,
+    private httpService: HttpService,
+  ) {
     this.client = new tmiClient({
       channels: [],
       options: { debug: true },
@@ -36,11 +39,11 @@ export class TwitchService {
     this.connectToServer();
   }
 
-  async sendTestMessage(channel: string, message: string) {
+  async connectToServer() {
     try {
-      await this.client.say(channel, message);
+      await this.client.connect();
     } catch (error) {
-      this.logger.error('Sending message error', error);
+      console.log('Twtich connect to server error: ', error);
     }
   }
 
@@ -52,11 +55,32 @@ export class TwitchService {
     }
   }
 
-  async connectToServer() {
+  async channelExists(channel: string) {
+    const accessToken = this.configService.get(
+      'TWITCH_IMPLICIT_FLOW_ACCESS_TOKEN',
+    );
+    const clientId = this.configService.get('TWITCH_CLIENT_ID');
+
     try {
-      await this.client.connect();
+      const res = await this.httpService.axiosRef.get(
+        `https://api.twitch.tv/helix/users?login=${channel}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            Accept: 'application/vnd.twitchtv.v5+json',
+            'Client-ID': clientId,
+          },
+        },
+      );
+      if (res.data.data.length >= 1) return true;
+      return false;
     } catch (error) {
-      console.log('Twtich connect to server error: ', error);
+      console.log(
+        'Twitch api error on getting channel name',
+        error.response?.data,
+      );
+      if (error?.response?.data?.status === 403) return true;
+      return false;
     }
   }
 

@@ -17,6 +17,10 @@ export const PAGE_SETTINGS = {
     category: PageSettingCategory.STREAMING,
     type: PageSettingValueType.STRING,
   },
+  [PageSettingKey.OBS_AUTO_SHOW_TIPS]: {
+    category: PageSettingCategory.OBS,
+    type: PageSettingValueType.BOOLEAN,
+  },
 };
 
 export const getPageSettingCategory = (key: PageSettingKey) =>

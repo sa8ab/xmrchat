@@ -1,6 +1,7 @@
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
   BadRequestException,
+  forwardRef,
   Inject,
   Injectable,
   Logger,
@@ -23,7 +24,7 @@ import { PagesGateway } from './pages.gateway';
 import { Tip } from 'src/tips/tip.entity';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { UpdatePageDto } from './dtos/update-page.dto';
-import { TwitchService } from 'src/integrations/twitch.service';
+import { TwitchService } from 'src/integrations/twitch/twitch.service';
 import { AuditsService } from 'src/audits/audits.service';
 import { AuditTypeEnum, PageStatusEnum } from 'src/shared/constants';
 
@@ -37,6 +38,7 @@ export class PagesService {
     private lwsService: LwsService,
     private configService: ConfigService,
     private paymentsService: PaymentsService,
+    @Inject(forwardRef(() => PagesGateway))
     private pagesGateway: PagesGateway,
     private notificationsService: NotificationsService,
     private twitchService: TwitchService,

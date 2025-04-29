@@ -1,0 +1,28 @@
+{
+  "emailVerification": {
+    "subject": "XMRChat Solicitud de verificación de correo electrónico",
+    "emailTitle": "Por favor, active su cuenta",
+    "title": "Verificación de correo electrónico",
+    "followThisLink": "Siga este enlace para verificar su dirección de correo electrónico.",
+    "confirmNow": "Confirmar ahora",
+    "ifYouDidNotAskToVerifyThisAddress": "Si no solicitó verificar esta dirección, puede ignorar este correo electrónico.",
+    "thanks": "Gracias",
+    "XMRChatTeam": "El equipo de XMRChat"
+  },
+  "resetPassword": {
+    "subject": "XMRChat Solicitud de restablecimiento de contraseña",
+    "emailTitle": "Solicitud de restablecimiento de contraseña",
+    "title": "Restablecimiento de contraseña",
+    "followThisLink": "Hemos recibido una solicitud para restablecer la contraseña de esta cuenta de usuario.",
+    "resetNow": "Restablecer su contraseña",
+    "ifYouDidNotAskToResetPassword": "Si no solicitó restablecer su contraseña, puede ignorar este correo electrónico."
+  },
+  "passwordChange": {
+    "subject": "Su contraseña de XMRChat ha sido actualizada",
+    "text": "Su contraseña de XMRChat ha sido actualizada",
+    "title": "Contraseña de cuenta actualizada",
+    "emailTitle": "Contraseña actualizada",
+    "passwordUpdated": "La contraseña de su cuenta ha sido actualizada.",
+    "ifItWasNotYou": "Si no fue usted, por favor inicie sesión y restablezca su contraseña."
+  }
+}

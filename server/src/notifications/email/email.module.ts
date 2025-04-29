@@ -4,11 +4,13 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { ConfigService } from '@nestjs/config';
 import { join } from 'path';
+import { I18nService } from 'nestjs-i18n';
 
 @Module({
   imports: [
     MailerModule.forRootAsync({
-      useFactory: (config: ConfigService) => {
+      inject: [ConfigService, I18nService],
+      useFactory: (config: ConfigService, i18n: I18nService) => {
         const getTransport = () => {
           const isDev = process.env.NODE_ENV === 'development';
           return {
@@ -28,7 +30,13 @@ import { join } from 'path';
           transport: { ...getTransport() },
           template: {
             dir: join(__dirname, 'templates'),
-            adapter: new HandlebarsAdapter(),
+            adapter: new HandlebarsAdapter({
+              translate: (key: string, options: any): string => {
+                const lang = options.hash.lang || 'en';
+
+                return i18n.translate(key, { lang, args: options.hash.args });
+              },
+            }),
             options: {
               strict: true,
             },
@@ -43,7 +51,6 @@ import { join } from 'path';
           },
         };
       },
-      inject: [ConfigService],
     }),
   ],
   providers: [EmailService],

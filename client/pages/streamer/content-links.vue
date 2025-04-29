@@ -20,6 +20,7 @@ const { getMyLinks: getMyLinksReq, updateLinks } = useServices();
 const { url, notUrl } = useValidations();
 const toast = useToast();
 const { getContentLink } = useConstants();
+const { t } = useI18n();
 
 const { data } = useLazyAsyncData(
   async () => {
@@ -74,7 +75,7 @@ const save = async () => {
     });
 
     toast.add({
-      title: "Changes are saved.",
+      title: t("changesAreSaved"),
     });
   } catch (error) {
     state.saveError = getErrorMessage(error);
@@ -84,10 +85,7 @@ const save = async () => {
 };
 
 const rules = computed(() => {
-  const notUrlWithMessage = helpers.withMessage(
-    "Only enter the name, not the full link.",
-    notUrl
-  );
+  const notUrlWithMessage = helpers.withMessage(t("notUrlWithMessage"), notUrl);
   const { WEBSITE, PODCAST_RSS, ...rest } = ContentLinkPlatformEnum;
 
   const notUrls: Record<string, any> = {};
@@ -113,29 +111,22 @@ const { getValidationAttrs } = useValidations(v);
 <template>
   <div>
     <PageTitle
-      title="Content Links"
-      description="Name, Search Terms and Content Links"
+      :title="t('contentLinks')"
+      :description="t('contentLinksDescription')"
     />
 
     <div class="grid md:grid-cols-2 gap-4">
-      <UFormGroup
-        label="Brand Name"
-        help="Name of the brand/content. It can be different from slug."
-      >
+      <UFormGroup :label="t('brandName')" :help="t('brandNameHelp')">
         <UInput v-model="state.form.name" />
       </UFormGroup>
-      <UFormGroup
-        label="Search Terms"
-        help="Creator search will return results based on page slug, name, and keywords in this list."
-      >
+      <UFormGroup :label="t('searchTerms')" :help="t('searchTermsHelp')">
         <UInput v-model="state.form.searchTerms" />
       </UFormGroup>
     </div>
 
-    <h3 class="font-bold mt-8">Content Links</h3>
+    <h3 class="font-bold mt-8">{{ t("contentLinks") }}</h3>
     <p class="text-sm text-pale pt-1 mb-4">
-      Links to your social pages or websites. To reset a value leave the field
-      empty.
+      {{ t("contentLinksSecondDescription") }}
     </p>
 
     <div
@@ -173,14 +164,16 @@ const { getValidationAttrs } = useValidations(v);
     <UAlert
       v-if="state.saveError"
       class="mt-4"
-      title="Error saving changes."
+      :title="t('errorSavingChanges')"
       color="red"
       variant="subtle"
       :description="state.saveError"
     ></UAlert>
 
     <div class="mt-4">
-      <UButton :loading="state.saving" @click="save">Save Changes</UButton>
+      <UButton :loading="state.saving" @click="save">{{
+        t("saveChanges")
+      }}</UButton>
     </div>
   </div>
 </template>

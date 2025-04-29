@@ -10,6 +10,7 @@ import type {
 import { SupportedDisplayCurrency } from "~/types/enums";
 
 const { toStreamerDisplay, toGuides } = useRouteLocation();
+const { t } = useI18n();
 
 interface State {
   form: CreateFormFields;
@@ -102,7 +103,9 @@ const isSlugValid = computed(() => state.slugAvailable && !state.loadingSlug);
 const renderResultURL = computed(() => {
   const showUrl = !v.value.path.$invalid;
   if (showUrl)
-    return `Your page will be available at xmrchat.com/${state.form.path}`;
+    return t("pageWillBeAvailableAt", {
+      url: `xmrchat.com/${state.form.path}`,
+    });
   return undefined;
 });
 
@@ -242,8 +245,8 @@ const handleBannerUpload = (file: UploadedFile) => {
       <div class="both">
         <UFormGroup
           size="lg"
-          label="Logo"
-          description="1:1 ratio"
+          :label="t('logo')"
+          :description="t('logoRatio')"
           name="logo"
           :error="getValidationAttrs('logo').error"
         >
@@ -265,8 +268,8 @@ const handleBannerUpload = (file: UploadedFile) => {
 
         <UFormGroup
           size="lg"
-          label="Banner Image"
-          description="Best to be uploaded in 3:1"
+          :label="t('bannerImage')"
+          :description="t('bannerImageBestRatio')"
           name="cover_image"
           :error="getValidationAttrs('coverImage').error"
         >
@@ -290,14 +293,14 @@ const handleBannerUpload = (file: UploadedFile) => {
       <div class="single">
         <UFormGroup
           size="lg"
-          label="Your Id"
+          :label="t('yourId')"
           name="slug"
           :error="getValidationAttrs('path').error"
           :description="renderResultURL"
         >
           <UInput
             :disabled="editable"
-            placeholder="Page Slug"
+            :placeholder="t('pageSlug')"
             v-model="state.form.path"
             @blur="getValidationAttrs('path').onBlur"
           />
@@ -313,10 +316,10 @@ const handleBannerUpload = (file: UploadedFile) => {
       <div class="both">
         <UFormGroup
           size="lg"
-          label="Monero primary receive address"
+          :label="t('moneroPrmReciveAddress')"
           name="payment_address"
           :error="getValidationAttrs('primaryAddress').error"
-          help="Primary Monero receive addresses begin with the number 4."
+          :help="t('prmMoneroReciveAdressBegin')"
         >
           <UInput
             type="text"
@@ -327,7 +330,7 @@ const handleBannerUpload = (file: UploadedFile) => {
 
         <UFormGroup
           size="lg"
-          label="Monero secret view key"
+          :label="t('moneroSecretViewKey')"
           name="view_key"
           :error="getValidationAttrs('secretViewKey').error"
         >
@@ -336,19 +339,19 @@ const handleBannerUpload = (file: UploadedFile) => {
             @blur="getValidationAttrs('secretViewKey').onBlur"
           />
           <template #help>
-            <span>
-              We need secret view key to be able to view incoming transactions
-              from viewers.
-            </span>
-            <UButton
-              variant="link"
-              color="blue"
-              target="_blank"
-              class="p-0"
-              :to="toGuides()"
-            >
-              Where to find view key?
-            </UButton>
+            <I18nT keypath="weNeedSecretViewKey">
+              <template #whereToFind>
+                <UButton
+                  variant="link"
+                  color="blue"
+                  target="_blank"
+                  class="p-0"
+                  :to="toGuides()"
+                >
+                  {{ t("whereToFindViewKey") }}
+                </UButton>
+              </template>
+            </I18nT>
           </template>
         </UFormGroup>
       </div>
@@ -356,17 +359,17 @@ const handleBannerUpload = (file: UploadedFile) => {
       <div class="both">
         <UFormGroup
           size="lg"
-          label="Twitch channel name"
+          :label="t('twitchChannelName')"
           name="twitch_channel"
-          hint="Optional"
-          help="Name of your twitch channel. Used to display tips on Stream via xmr_chat Twitch bot."
+          :hint="t('optional')"
+          :help="t('nameOfYourTwitchChannel')"
         >
           <UInput v-model="state.form.twitchChannel" />
         </UFormGroup>
         <UFormGroup
           v-if="editable"
           size="lg"
-          label="Min. Tip Amount ( XMR )"
+          :label="t('minTipAmount')"
           :hint="`Default: ${minXMRPayAmount} XMR`"
           help=""
           :error="getValidationAttrs('minTipAmount').error"
@@ -382,8 +385,8 @@ const handleBannerUpload = (file: UploadedFile) => {
         <UFormGroup
           v-if="editable"
           size="lg"
-          label="Default Tip Amount Value"
-          help="This is only for displaying the tip values. Viewers can change this for themselves on tip page."
+          :label="t('defaultTipAmount')"
+          :help="t('thisIsOnlyForDisplaying')"
         >
           <TipValueToggle
             v-model="state.form.defaultTipAmountDisplay"
@@ -393,7 +396,7 @@ const handleBannerUpload = (file: UploadedFile) => {
       </div>
 
       <div class="single" v-if="editable">
-        <UFormGroup label="Tip Amount Suggestions">
+        <UFormGroup :label="t('tipAmountSuggestions')">
           <StreamerTipSuggestions
             v-model="state.form.tiers"
             :minUsdAmount="minUsdAmount"
@@ -410,7 +413,7 @@ const handleBannerUpload = (file: UploadedFile) => {
       </div> -->
       <UCheckbox
         color="primary"
-        label="Public Page ( Shown on creator search page )."
+        :label="t('publicPage')"
         v-model="state.form.isPublic"
       />
 
@@ -418,7 +421,7 @@ const handleBannerUpload = (file: UploadedFile) => {
         <UAlert
           color="red"
           :description="state.errorMessage"
-          title="Error creating/updating page"
+          :title="t('errorCreatingUpdatingPage')"
           v-if="state.errorMessage"
         >
         </UAlert>
@@ -431,7 +434,7 @@ const handleBannerUpload = (file: UploadedFile) => {
           :loading="state.loading"
           trailingIcon="i-heroicons-arrow-small-right"
         >
-          Continue
+          {{ t("continue") }}
         </UButton>
       </div>
     </UForm>

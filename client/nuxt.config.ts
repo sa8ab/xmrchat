@@ -32,16 +32,22 @@ export default defineNuxtConfig({
     },
   },
 
-  // tailwindcss: {
-  //   configPath: "./tailwind.config.ts",
-  // },
-
   i18n: {
     detectBrowserLanguage: {
       useCookie: true,
       redirectOn: "root",
     },
-    locales: [{ code: "en", iso: "en", name: "English", dir: "auto" }],
+    locales: [
+      { code: "en", iso: "en", name: "English", dir: "auto" },
+      { code: "fr", iso: "fr", name: "French", dir: "auto" },
+      { code: "es", iso: "es", name: "Spanish", dir: "auto" },
+      { code: "de", iso: "de", name: "German", dir: "auto" },
+      { code: "ru", iso: "ru", name: "Russian", dir: "auto" },
+      { code: "fi", iso: "fi", name: "Finnish", dir: "auto" },
+      { code: "pcm", iso: "pcm", name: "Pidgin", dir: "auto" },
+      { code: "ko", iso: "ko", name: "Korean", dir: "auto" },
+      { code: "ar", iso: "ar", name: "Arabic", dir: "auto" },
+    ],
     defaultLocale: "en",
     vueI18n: "./i18n.config.ts",
   },

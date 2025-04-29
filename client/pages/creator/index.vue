@@ -2,6 +2,7 @@
 const { getCreators } = useServices();
 
 const route = useRoute();
+const { t } = useI18n();
 
 const { page, offset, limit } = useFilter({
   initialPage: parseInt(route.query.page as string) || 1,
@@ -21,9 +22,11 @@ const { status, refresh, error, data } = useLazyAsyncData("creators", () =>
   <div>
     <div class="inner">
       <div class="heading pt-12">
-        <h1 class="font-bold text-3xl text-center">Search Creators</h1>
+        <h1 class="font-bold text-3xl text-center">
+          {{ t("searchCreators.title") }}
+        </h1>
         <p class="text-pale pt-4">
-          Find creators with public pages on xmrchat.
+          {{ t("searchCreators.description") }}
         </p>
         <CreatorSearch />
       </div>

@@ -5,10 +5,12 @@ useHead({
   title: "Sign up",
 });
 
-const { required, email, maxLength, minLength, sameAs, validate } = useValidations();
+const { required, email, maxLength, minLength, sameAs, validate } =
+  useValidations();
 const { signup } = useAuthStore();
 const { toLogin } = useRouteLocation();
 const toast = useToast();
+const { t } = useI18n();
 
 const state = reactive({
   email: "",
@@ -37,9 +39,8 @@ const handleSubmit = async () => {
       password: state.password,
     });
     toast.add({
-      title: "Signup Successfull",
-      description:
-        "Please follow the link sent to your email to verify your account.",
+      title: t("signupSuccessfull"),
+      description: t("signupSuccessfullDescription"),
       timeout: 8000,
     });
   } catch (error) {
@@ -51,18 +52,18 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <AuthContainer title="Signup">
+  <AuthContainer :title="t('signup')">
     <UForm
       :state="state"
       :validate="() => validate(v)"
       class="form"
       @submit="handleSubmit"
     >
-      <UFormGroup label="Email" name="email">
+      <UFormGroup :label="t('email')" name="email">
         <UInput v-model="state.email" />
       </UFormGroup>
 
-      <UFormGroup label="Password" name="password">
+      <UFormGroup :label="t('password')" name="password">
         <div class="flex gap-2">
           <UInput
             class="flex-grow"
@@ -87,22 +88,24 @@ const handleSubmit = async () => {
         </div>
       </UFormGroup>
 
-      <UFormGroup label="Confirm Password" name="confirmPassword">
+      <UFormGroup :label="t('confirmPassword')" name="confirmPassword">
         <UInput type="password" v-model="state.confirmPassword" />
       </UFormGroup>
 
       <UAlert
         color="red"
         :description="state.errorMessage"
-        title="Signup Failed"
+        :title="t('signupFailed')"
         v-if="state.errorMessage"
       >
       </UAlert>
 
-      <UButton block type="submit" :loading="state.loading">Sign up</UButton>
+      <UButton block type="submit" :loading="state.loading">{{
+        t("signup")
+      }}</UButton>
 
       <UButton :to="toLogin()" block type="button" variant="outline">
-        Login Instead
+        {{ t("loginInstead") }}
       </UButton>
     </UForm>
   </AuthContainer>

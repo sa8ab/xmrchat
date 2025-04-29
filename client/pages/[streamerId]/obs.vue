@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ObsTip, ObsTipSocketMessage } from "~/types";
+import type { ObsTipSocketEvent, Tip } from "~/types";
 import gsap from "gsap";
 import { PageSettingKey } from "~/types/enums";
 
@@ -19,15 +19,15 @@ const { data, pending } = useLazyAsyncData(
     transform: (data) => {
       const settings = data.settings;
 
-      const keepMessages =
-        settings.find(({ key }) => key === PageSettingKey.OBS_KEEP_MESSAGES)
+      const autoShowTips =
+        settings.find(({ key }) => key === PageSettingKey.OBS_AUTO_SHOW_TIPS)
           ?.value ?? false;
       const playSound =
         settings.find(({ key }) => key === PageSettingKey.OBS_PLAY_SOUND)
           ?.value ?? false;
 
       return {
-        keepMessages,
+        autoShowTips,
         playSound,
       };
     },
@@ -35,31 +35,29 @@ const { data, pending } = useLazyAsyncData(
   }
 );
 
-const { init, disconnect } = usePaymentSocket<ObsTipSocketMessage>({
-  onPageTipEvent: (e) => {
-    const id = Math.random().toString();
+const { init, disconnect } = usePageSocket({
+  handleObsTipEvent: (event) => {
+    if (tips.value.some((t) => t.tip?.id === event.tip.id)) return;
 
-    tips.value.unshift({
-      amount: e.amount, // amount is string units, update before using
-      name: e.name,
-      message: e.message,
-      id,
-    });
+    // do not add to tips if autoShowTips is false
+    if (data.value?.autoShowTips || !event.autoRemove) {
+      tips.value.unshift(event);
+    }
 
-    handleAfterTip(id);
+    handleAfterTip({ id: event.tip.id, autoRemove: event.autoRemove });
+  },
+  handleObsTipRemovalEvent: (data) => {
+    removeTip(data.tipId);
   },
 });
 
 onMounted(() => {
-  init({
-    path: "pages",
-    query: { slug: route.params.streamerId },
-  });
+  init(slug.value);
 });
 
 onBeforeUnmount(() => disconnect());
 
-const tips = ref<ObsTip[]>([]);
+const tips = ref<ObsTipSocketEvent[]>([]);
 
 const simulateTip = () => {
   // confetti("tsparticles", {
@@ -70,28 +68,26 @@ const simulateTip = () => {
   //   count: 100,
   // });
 
-  const id = Math.random().toString();
+  const id = Math.random();
   tips.value.unshift({
-    amount: "",
+    autoRemove: true,
     message:
       "Tipperio tipped 12$: Hey let's try playing Post Rock, I don't really wanna listen to any I didn't know what to put here tbh with you.",
-    name: "Continental",
-    id,
   });
 
-  handleAfterTip(id);
+  handleAfterTip({ id, autoRemove: true });
 };
 
-const handleAfterTip = (id: string) => {
+const handleAfterTip = (params: { id: number; autoRemove?: boolean }) => {
+  if (!params.autoRemove) return;
   playSound();
   setTimeout(() => {
-    removeTip(id);
+    removeTip(params.id);
   }, 60 * 1000);
 };
 
-const removeTip = (id: string) => {
-  if (data.value?.keepMessages) return;
-  tips.value = tips.value.filter((t) => t.id !== id);
+const removeTip = (id: number) => {
+  tips.value = tips.value.filter((t) => t.tip?.id !== id);
 };
 
 const playSound = () => {
@@ -152,8 +148,8 @@ const onLeave = (el: Element, done: () => void) => {
         @enter="onEnter"
         @leave="onLeave"
       >
-        <div v-for="tip in tips" :key="tip.id">
-          <ObsMessage :tip="tip" />
+        <div v-for="item in tips" :key="item.tip?.id">
+          <ObsMessage :event="item" />
         </div>
       </TransitionGroup>
     </div>

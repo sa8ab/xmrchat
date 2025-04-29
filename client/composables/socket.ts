@@ -13,6 +13,46 @@ interface TipPaymentInitParams {
   path: string;
 }
 
+export const useSocketBase = () => {
+  const socket = shallowRef<Socket | undefined>();
+  const config = useRuntimeConfig();
+  const connectionStatus = ref<
+    "CONNECTED" | "DISCONNECTED" | "RECONNECTING" | undefined
+  >(undefined);
+
+  const runConnectEvents = () => {
+    if (!socket.value) return;
+    socket.value.on("connect", handleConnect);
+    socket.value.on("disconnect", handleDisconnect);
+  };
+
+  const handleConnect = () => {
+    console.log("Socket Connected");
+    connectionStatus.value = "CONNECTED";
+  };
+  const handleDisconnect = () => {
+    console.log("Socket Disconnected");
+    connectionStatus.value = "DISCONNECTED";
+  };
+
+  const disconnect = () => {
+    socket.value?.close();
+    socket.value = undefined;
+  };
+
+  const reconnect = () => {
+    socket.value?.connect();
+  };
+
+  return {
+    socket,
+    connectionStatus,
+    disconnect,
+    reconnect,
+    runConnectEvents,
+  };
+};
+
 export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
   const socket = shallowRef<Socket | undefined>();
   const config = useRuntimeConfig();

@@ -16,6 +16,7 @@ const active = defineModel<boolean>("active");
 const { toStreamerDisplay } = useRouteLocation();
 const toast = useToast();
 const { state: authState, getMe } = useAuthStore();
+const { t } = useI18n();
 
 // const paymentInterval = ref<NodeJS.Timeout | undefined>(undefined);
 
@@ -42,7 +43,7 @@ const { init, disconnect, connectionStatus, reconnect } =
       if (!data.paidAt) return;
 
       toast.add({
-        title: "Page is created successfully!",
+        title: t("pageCreatedSuccessfully"),
       });
       disconnect();
       getMe();
@@ -80,12 +81,17 @@ onBeforeUnmount(() => stopPaymentCheck());
     >
       <template v-if="reservedData">
         <p class="pb-1.5 mb-2.5 text-gray-700 border-b border-border">
-          Your slug is reserved until
+          {{ t("slugReservedUntil") }}
           {{ new Date(reservedData?.reservedUntil * 1000).toLocaleString() }}
         </p>
-        <UAlert color="emerald" variant="subtle" title="Note" class="text-xl">
+        <UAlert
+          color="emerald"
+          variant="subtle"
+          :title="t('note')"
+          class="text-xl"
+        >
           <template #title>
-            <h6 class="font-bold text-base">NOTE</h6>
+            <h6 class="font-bold text-base uppercase">{{ t("note") }}</h6>
           </template>
           <template #description>
             <p class="text-[15px] leading-6">

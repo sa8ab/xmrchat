@@ -12,6 +12,7 @@ export default defineNuxtPlugin(() => {
     }
 
     config.headers.Authorization = `Bearer ${authStore.state.token}`;
+    config.headers["Accept-Language"] = nuxtApp.$i18n.locale.value;
 
     return config;
   });

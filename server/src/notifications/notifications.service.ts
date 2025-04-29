@@ -1,22 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { EmailService } from './email/email.service';
-import { TemplatesService } from './templates/templates.service';
 import { PageReportEmailOptions } from 'src/shared/types';
-import {
-  englishDataset,
-  englishRecommendedTransformers,
-  RegExpMatcher,
-  TextCensor,
-} from 'obscenity';
-import { Payment } from 'src/payments/payment.entity';
-import { TwitchService } from './twitch/twitch.service';
-import { clearMessage } from 'src/shared/utils';
 import { ConfigService } from '@nestjs/config';
-
-const badWordMatcher = new RegExpMatcher({
-  ...englishDataset.build(),
-  ...englishRecommendedTransformers,
-});
+import { TwitchService } from 'src/integrations/twitch/twitch.service';
+import { I18nContext, I18nService } from 'nestjs-i18n';
 
 @Injectable()
 export class NotificationsService {
@@ -24,46 +11,64 @@ export class NotificationsService {
     private emailService: EmailService,
     private twitchService: TwitchService,
     private config: ConfigService,
+    private i18n: I18nService,
   ) {}
 
   sendTestEmail() {
-    return this.emailService.sendEmail(['bwsaeed8@gmail.com'], {
-      subject: 'XMRChat new page report',
-      text: 'The text',
-      template: 'page-report.hbs',
+    const lang = I18nContext.current?.().lang;
+
+    return this.emailService.sendEmail('bwsaeed8@gmail.com', {
+      subject: this.i18n.t('email.emailVerification.subject'),
+      text: 'link',
+      template: 'verify-email.hbs',
       context: {
-        pageId: 10,
-        price: '0.001',
-        slug: 'slug-of-page',
-        userId: '10',
-        userName: '',
-        time: 'date here',
+        link: 'link',
+        lang,
       },
     });
+
+    // return this.emailService.sendEmail(['bwsaeed8@gmail.com'], {
+    //   subject: 'XMRChat new page report',
+    //   text: 'The text',
+    //   template: 'page-report.hbs',
+    //   context: {
+    //     pageId: 10,
+    //     price: '0.001',
+    //     slug: 'slug-of-page',
+    //     userId: '10',
+    //     userName: '',
+    //     time: 'date here',
+    //     lang,
+    //   },
+    // });
   }
 
   sendVerificationEmail(to: string, otp: string) {
     const link = `${this.config.get('CLIENT_BASE_URL')}/auth/email_verification?token=${otp}`;
+    const lang = I18nContext.current?.().lang;
 
     return this.emailService.sendEmail(to, {
-      subject: 'XMRChat Email Verification Request',
+      subject: this.i18n.t('email.emailVerification.subject'),
       text: link,
       template: 'verify-email.hbs',
       context: {
         link,
+        lang,
       },
     });
   }
 
   sendResetPasswordEmail(to: string, otp: string) {
     const link = `${this.config.get('CLIENT_BASE_URL')}/auth/reset_password?token=${otp}`;
+    const lang = I18nContext.current?.().lang;
 
     return this.emailService.sendEmail(to, {
-      subject: 'XMRChat Reset Password Request',
+      subject: this.i18n.t('email.resetPassword.subject'),
       text: link,
       template: 'reset-password.hbs',
       context: {
         link,
+        lang,
       },
     });
   }
@@ -111,10 +116,15 @@ export class NotificationsService {
   }
 
   async sendPasswordChangeEmail(to: string) {
+    const lang = I18nContext.current?.().lang;
+
     return this.emailService.sendEmail(to, {
-      subject: 'Your XMRChat password updated.',
-      text: 'Your XMRChat password updated.',
+      subject: this.i18n.t('email.passwordChange.subject'),
+      text: this.i18n.t('email.passwordChange.text'),
       template: 'update-password.hbs',
+      context: {
+        lang,
+      },
     });
   }
 }

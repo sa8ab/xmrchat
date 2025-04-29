@@ -48,4 +48,8 @@ export class Tip {
 
   @OneToOne(() => Swap, (s: Swap) => s.tip, { eager: true })
   swap: Swap;
+
+  get clearedMessage() {
+    return '';
+  }
 }

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const { toStreamerDisplay, toCreators } = useRouteLocation();
+const { t } = useI18n();
 </script>
 
 <template>
@@ -12,14 +13,14 @@ const { toStreamerDisplay, toCreators } = useRouteLocation();
       />
     </div>
     <div class="content-side">
-      <h1 class="font-bold text-6xl">XMRChat</h1>
-      <p class="description">Tip your favorite streamer in cryptocurrency.</p>
+      <h1 class="font-bold text-6xl">{{ t("xmrchat") }}</h1>
+      <p class="description">{{ t("heroDescription") }}</p>
       <div class="flex gap-2 flex-wrap">
         <UButton size="xl" :to="toStreamerDisplay()">
-          Creators Start Here
+          {{ t("creatorsStartHere") }}
         </UButton>
         <UButton size="xl" :to="toCreators()" variant="outline">
-          Find Creators
+          {{ t("findCreators") }}
         </UButton>
       </div>
     </div>
