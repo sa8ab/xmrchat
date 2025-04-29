@@ -137,7 +137,7 @@ const dropdownItems = computed<DropdownItem[][]>(() => {
           </UButton>
         </template>
 
-        <LanguageSelect />
+        <!-- <LanguageSelect /> -->
 
         <!-- <UButton
           square
