@@ -22,6 +22,7 @@ export default {
   signupInstead: "Do Signup instead",
   signupFailed: "Signup fail",
   signupSuccessfull: "Signup work well",
+  noItems: "No item dey",
   signupSuccessfullDescription:
     "Abeg check di link wey we send go your email to verify your account.",
   loginInstead: "Do Login instead",
@@ -36,6 +37,7 @@ export default {
   },
   typePageName: "Type page name...",
   contactUs: "Contact Us",
+  here: "here",
 
   xmrchat: "XMRChat",
   heroDescription: "Send tip give your best streamer with crypto.",

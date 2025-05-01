@@ -1,5 +1,12 @@
 <script lang="ts" setup>
 const { t } = useI18n();
+const { direction } = useDirection();
+
+const chevronIcon = computed(() => {
+  return direction.value === "rtl"
+    ? "i-heroicons-chevron-left-20-solid"
+    : "i-heroicons-chevron-right-20-solid";
+});
 
 const items = computed(() => [
   {
@@ -37,7 +44,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             </span>
             <template #trailing>
               <UIcon
-                name="i-heroicons-chevron-right-20-solid"
+                :name="chevronIcon"
                 :class="[
                   'w-5 h-5 transform transition-transform duration-200',
                   open && 'rotate-90',

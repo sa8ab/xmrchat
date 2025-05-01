@@ -3,6 +3,7 @@ import type { User } from "~/types";
 
 const route = useRoute();
 const { $axios } = useNuxtApp();
+const { t } = useI18n();
 
 const { page, offset, limit } = useFilter({
   initialPage: parseInt(route.query.page as string) || 1,
@@ -62,7 +63,7 @@ const columns = [
         </UButton>
       </template>
       <template #empty-state>
-        <NoItems />
+        <NoItems :text="t('noItems')" />
       </template>
     </UTable>
 

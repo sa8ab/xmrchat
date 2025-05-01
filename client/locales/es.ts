@@ -25,6 +25,7 @@ export default {
   signup: "Registrarse",
   signupFailed: "Error en el registro",
   signupSuccessfull: "Registro exitoso",
+  noItems: "Sin elementos",
   signupSuccessfullDescription:
     "Por favor, siga el enlace enviado a su correo electrónico para verificar su cuenta.",
   forgetPassword: "¿Olvidó su contraseña?",
@@ -37,6 +38,7 @@ export default {
   },
   typePageName: "Escribe el nombre de la página...",
   contactUs: "Contáctanos",
+  here: "aquí",
 
   xmrchat: "XMRChat",
   heroDescription: "De propinas en criptomonedas a sus streamers favoritos.",
