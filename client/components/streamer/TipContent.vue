@@ -245,16 +245,14 @@ const coinSelectOptions = computed(() => {
           </UAlert>
         </div>
 
-        <div class="">
-          <UButton
-            size="lg"
-            type="submit"
-            :loading="state.loading"
-            trailingIcon="i-heroicons-arrow-small-right"
-          >
-            {{ t("sendTip") }}
-          </UButton>
-        </div>
+        <DirectionalButton
+          size="lg"
+          type="submit"
+          :loading="state.loading"
+          direction="forward"
+        >
+          {{ $t("sendTip") }}
+        </DirectionalButton>
       </UForm>
     </div>
     <div class="tip-side">

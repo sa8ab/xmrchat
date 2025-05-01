@@ -22,6 +22,7 @@ export default {
   signupInstead: "Зарегистрироваться",
   signupFailed: "Ошибка регистрации",
   signupSuccessfull: "Регистрация прошла успешно",
+  noItems: "Нет элементов",
   signupSuccessfullDescription:
     "Пожалуйста, перейдите по ссылке, отправленной на вашу электронную почту, чтобы подтвердить аккаунт.",
   loginInstead: "Войти",
@@ -37,6 +38,7 @@ export default {
   },
   typePageName: "Введите название страницы...",
   contactUs: "Свяжитесь с нами",
+  here: "здесь",
 
   xmrchat: "XMRChat",
   heroDescription: "Поддержите любимого стримера криптовалютой.",

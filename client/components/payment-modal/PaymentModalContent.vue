@@ -19,7 +19,6 @@ const emit = defineEmits<{
 
 const remaining = ref<number | undefined>();
 const expired = ref<boolean>(false);
-const { t } = useI18n();
 
 const { formatTime } = useDate();
 
@@ -86,7 +85,7 @@ watch(
     <slot name="after" />
     <div class="flex justify-end pt-3">
       <UButton variant="outline" @click="emit('cancel')">
-        {{ t("cancel") }}
+        {{ $t("cancel") }}
       </UButton>
     </div>
   </UCard>
