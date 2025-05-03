@@ -173,7 +173,7 @@ const handleRemoveClick = async (row: Tip) => {
         </div>
       </template>
       <template #empty-state>
-        <NoItems />
+        <NoItems :text="t('noItems')" />
       </template>
     </UTable>
   </PendingView>

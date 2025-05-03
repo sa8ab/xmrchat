@@ -22,6 +22,7 @@ export default {
   signupInstead: "대신 회원가입",
   signupFailed: "회원가입 실패",
   signupSuccessfull: "회원가입 성공",
+  noItems: "항목이 없습니다",
   signupSuccessfullDescription:
     "이메일로 전송된 링크를 따라가 계정을 인증해 주세요.",
   loginInstead: "대신 로그인",

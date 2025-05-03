@@ -1,6 +1,6 @@
 export default {
   validations: {
-    required: "هذا الحقل مطلوب",
+    required: "الحقل مطلوب",
     email: "البريد الإلكتروني غير صالح",
     numberic: "يجب أن يكون رقماً",
     minLength: "يجب أن يكون على الأقل {length} حرفاً",
@@ -15,18 +15,19 @@ export default {
   account: "الحساب",
   logout: "تسجيل الخروج",
   login: "تسجيل الدخول",
-  loginFailed: "فشل تسجيل الدخول",
   email: "البريد الإلكتروني",
   search: "بحث",
   password: "كلمة المرور",
   confirmPassword: "تأكيد كلمة المرور",
   signupInstead: "التسجيل بدلاً من ذلك",
-  loginInstead: "تسجيل الدخول بدلاً من ذلك",
-  signup: "تسجيل",
   signupFailed: "فشل التسجيل",
   signupSuccessfull: "تم التسجيل بنجاح",
+  noItems: "لا توجد عناصر",
   signupSuccessfullDescription:
     "يرجى اتباع الرابط المرسل إلى بريدك الإلكتروني للتحقق من حسابك",
+  loginInstead: "تسجيل الدخول بدلاً من ذلك",
+  loginFailed: "فشل تسجيل الدخول",
+  signup: "تسجيل",
   forgetPassword: "نسيت كلمة المرور؟",
   loginDescription: "سجل دخولك إلى حسابك للوصول إلى صفحة العرض الخاصة بك",
   creatorLogin: "تسجيل دخول المبدع",
@@ -34,34 +35,36 @@ export default {
     title: "البحث عن المبدعين",
     description: "ابحث عن المبدعين الذين لديهم صفحات عامة على xmrchat",
   },
+  typePageName: "اكتب اسم الصفحة...",
   contactUs: "اتصل بنا",
+  here: "هنا",
 
   xmrchat: "XMRChat",
-  heroDescription: "ادعم منشئ المحتوى المفضل لديك بالعملات المشفرة",
+  heroDescription: "تبرع لمبدعك المفضل بالعملات المشفرة",
   findCreators: "البحث عن المبدعين",
   creatorsStartHere: "ابدأ هنا كمبدع",
 
   FAQ: {
     title: "الأسئلة الشائعة",
-    whyTipWithXMRChat: "لماذا تستخدم XMRChat؟",
-    whyUseMonero: "لماذا يستخدم XMRChat Monero؟",
-    whereToGetMonero: "أين يمكنني الحصول على Monero؟",
+    whyTipWithXMRChat: "لماذا التبرع باستخدام XMRChat؟",
+    whyUseMonero: "لماذا يستخدم XMRChat عملة Monero؟",
+    whereToGetMonero: "أين يمكن الحصول على Monero؟",
   },
 
   earnMore: {
     title: "اكسب المزيد",
     description:
-      "يأخذ YouTube 30-50% من Superchats. يأخذ Rumble 20% من Rants. مع XMRChat، تحصل على 100% من تبرعات XMR من معجبيك، مباشرة إلى محفظة Monero الخاصة بك",
+      "يأخذ YouTube 30-50% من Superchats. يأخذ Rumble 20% من Rants. مع XMRChat، تحصل على 100% من تبرعات XMR من المعجبين، مباشرة إلى محفظة Monero الخاصة بك",
   },
   censorshipResistant: {
     title: "مقاوم للرقابة",
     description:
-      "قبول تبرعات Monero يسمح لك بالحصول على دخل غير مرتبط مباشرة بالشركات التقنية الكبرى وانتهاكات السياسات التعسفية",
+      "يتيح لك قبول تبرعات Monero الحصول على دخل غير مرتبط مباشرة بالشركات الكبرى وانتهاكات السياسات التعسفية",
   },
   corruptionResistant: {
     title: "مقاوم للفساد",
     description:
-      "كثير من الأنظمة تصادر أو تجمد حسابات البنوك للخصوم السياسيين. Monero يسمح لك بأن تكون بنكك الخاص مع سيطرة كاملة على أموالك",
+      "كثير من الأنظمة تصادر أو تجمد حسابات البنوك للأعداء السياسيين. تتيح لك Monero أن تكون بنكك الخاص مع سيطرة كاملة على أموالك",
   },
   private: {
     title: "خاص",
@@ -71,21 +74,21 @@ export default {
   quickAndEasy: {
     title: "سريع وسهل",
     description:
-      "لا حاجة للمشاهدين لإنشاء حساب، أو التحقق من البريد الإلكتروني، أو إدخال معلومات بطاقة الائتمان. يذهب المعجبون إلى صفحة التبرع الخاصة بك، ويدخلون اسمهم، ورسالتهم، والمبلغ، ويرسلون تبرع XMR الخاص بهم",
+      "لا حاجة للمشاهدين لإنشاء حساب أو التحقق من بريدهم الإلكتروني أو إدخال معلومات بطاقة الائتمان. يذهب المعجبون إلى صفحة التبرع الخاصة بك، ويدخلون اسمهم ورسالتهم ومبلغهم، ويقدمون تبرع XMR الخاص بهم",
   },
   openSource: {
     title: "مفتوح المصدر",
-    description: "XMRChat مفتوح المصدر. يمكنك مراجعة الكود على {github}",
+    description: "XMRChat مفتوح المصدر. يمكنك مراجعة الكود {github}",
   },
 
   lowFees: {
     title: "رسوم منخفضة",
-    description: "رسوم معاملات Monero هي بضعة سنتات على الأكثر",
+    description: "رسوم معاملات Monero لا تتجاوز بضعة سنتات",
   },
   privateMonero: {
     title: "خاص",
     description:
-      "بينما تستخدم معظم العملات المشفرة سجلات مفتوحة، يخفي Monero بيانات المعاملات. لا يتم الكشف عن المرسل، والمستلم، ومبالغ المعاملات من خلال النظر إلى سلسلة الكتل",
+      "بينما تستخدم معظم العملات المشفرة سجلات مفتوحة، تخفي Monero بيانات المعاملات. المرسل والمستلم ومبالغ المعاملات لا يتم الكشف عنها من خلال النظر في سلسلة الكتل",
   },
   accepted: {
     title: "مقبول",
@@ -94,23 +97,22 @@ export default {
   },
   andMore: {
     title: "والمزيد",
-    description: "تعرف على المزيد عن Monero على {getmonero}",
+    description: "تعرف على المزيد عن Monero في {getmonero}",
   },
 
   whereToGetMonero: {
-    cakeWallet:
-      "اشترِ أو تاجر بالعملات المشفرة الأخرى مقابل Monero في {cakeWallet}",
+    cakeWallet: "اشترِ أو تاجر بعملات مشفرة أخرى مقابل Monero في {cakeWallet}",
     stealthex:
-      "تاجر بالعملات المشفرة الأخرى مقابل Monero (XMR) في {stealthex} وغيرها في {kycnot}",
+      "تاجر بعملات مشفرة أخرى مقابل Monero (XMR) في {stealthex} وغيرها في {kycnot}",
     haveno:
-      "اشترِ Monero بدون KYC في {haveno}. تعليمات الدفع النقدي بالبريد في {blog}",
+      "اشترِ Monero بدون KYC في {haveno}. تعليمات الدفع نقداً عن طريق البريد في {blog}",
     thisBlogPost: "هذا المنشور في المدونة",
     kraken: "اشترِ Monero مع KYC في {kraken}",
-    xmrbazaar: "بع البضائع أو الخدمات مقابل Monero في {xmrbazaar}",
+    xmrbazaar: "بعِ العناصر أو الخدمات مقابل Monero في {xmrbazaar}",
     gupax: "استخرجه باستخدام {gupax}",
     kunoAnneMedia: "أنشئ حملة تمويل Monero في {kunoAnneMedia}",
     monerica:
-      "اقبل Monero في عملك وكن مدرجاً في صفحات {monerica} و {monerodirectory} وخريطة قوائم الأعمال على {xmrbazaar}",
+      "اقبل Monero في عملك واحصل على قائمة في صفحات {monerica} و {monerodirectory} وخريطة قوائم الأعمال على {xmrbazaar}",
   },
 
   // TIP PAGE
@@ -123,14 +125,14 @@ export default {
   tipPrivateTooltip: "الاسم والرسالة سيكونان مرئيين فقط للمبدع",
   tipCoin: "العملة",
   tipCoinPlaceholder: "XMR",
-  sendTip: "إرسال تبرع",
+  sendTip: "إرسال التبرع",
   tipCreationFailed: "فشل إنشاء التبرع",
   tipNamePlaceholder: "أدخل الاسم",
   tipAmountPlaceholder: "أدخل المبلغ",
   tipMessagePlaceholder: "أدخل الرسالة",
   tipPrivatePlaceholder: "خاص",
-  tipSwapUnavailable: "التبادل غير متاح حالياً",
-  tipSwapMinimum: "الحد الأدنى {minSwapUSD}$ للتبادل",
+  tipSwapUnavailable: "التبادل غير متوفر حالياً",
+  tipSwapMinimum: "الحد الأدنى للتبادل {minSwapUSD}$",
   minUsdAmount: "الحد الأدنى {minUsdAmount}",
   recentTips: "التبرعات الأخيرة",
   tipDisplayValueTooltip: "عرض قيم التبرعات بـ XMR أو USD",
@@ -138,9 +140,9 @@ export default {
   pageDeactivatedAlert:
     "تم تعطيل صفحتك وهي غير مرئية للعامة. يرجى الاتصال بالدعم لمزيد من المعلومات",
 
-  tipWalletWarningTitle: "لا تبرع باستخدام محفظة المبدع",
+  tipWalletWarningTitle: "لا تبرع بمحفظة المبدع",
   tipWalletWarningDescription:
-    "يرجى تجنب إرسال التبرعات باستخدام المحفظة المسجلة على الصفحة. التغيير المرتد يزيد من المبلغ الذي نراه مستلم",
+    "يرجى تجنب إرسال التبرعات باستخدام المحفظة المسجلة على الصفحة. التغيير المعاد يزيد من المبلغ الذي نراه مستلم",
   tipWalletMinimum:
     "يرجى إرسال ما لا يقل عن {minimumAmount} XMR إلى العنوان التالي ليتم عرض xmrchat الخاص بك",
   openInMyWallet: "فتح في محفظتي",
@@ -168,24 +170,24 @@ export default {
   yourId: "معرفك",
   pageSlug: "رابط الصفحة",
   moneroPrmReciveAddress: "عنوان استلام Monero الرئيسي",
-  prmMoneroReciveAdressBegin: "تبدأ عناوين Monero الرئيسية بالرقم 4",
-  moneroSecretViewKey: "مفتاح العرض السري لـ Monero",
+  prmMoneroReciveAdressBegin: "تبدأ عناوين استلام Monero الرئيسية بالرقم 4",
+  moneroSecretViewKey: "مفتاح عرض Monero السري",
   weNeedSecretViewKey:
-    "نحتاج إلى مفتاح العرض السري لرؤية المعاملات الواردة من المشاهدين. {whereToFind}",
-  whereToFindViewKey: "أين يمكنني العثور على مفتاح العرض؟",
+    "نحتاج إلى مفتاح العرض السري لنتمكن من عرض المعاملات الواردة من المشاهدين. {whereToFind}",
+  whereToFindViewKey: "أين يمكن العثور على مفتاح العرض؟",
   twitchChannelName: "اسم قناة Twitch",
   nameOfYourTwitchChannel:
-    "اسم قناتك على Twitch. يستخدم لعرض التبرعات على البث عبر بوت Twitch xmr_chat",
+    "اسم قناة Twitch الخاصة بك. يستخدم لعرض التبرعات على البث عبر روبوت Twitch xmr_chat",
   optional: "اختياري",
   minTipAmount: "الحد الأدنى لمبلغ التبرع (XMR)",
-  defaultTipAmount: "قيمة التبرع الافتراضية",
+  defaultTipAmount: "قيمة مبلغ التبرع الافتراضي",
   thisIsOnlyForDisplaying:
-    "هذا فقط لعرض قيم التبرع. يمكن للمشاهدين تغيير هذا لأنفسهم على صفحة التبرع",
+    "هذا فقط لعرض قيم التبرعات. يمكن للمشاهدين تغيير هذا لأنفسهم على صفحة التبرع",
   publicPage: "صفحة عامة (تظهر في صفحة البحث عن المبدعين)",
   continue: "متابعة",
   clickToUpload: "انقر للرفع",
   pageCreatedSuccessfully: "تم إنشاء الصفحة بنجاح!",
-  slugReservedUntil: "تم حجز رابط صفحتك حتى ",
+  slugReservedUntil: "تم حجز الرابط الخاص بك حتى",
   note: "ملاحظة",
 
   // STREAMER MENU
@@ -207,9 +209,9 @@ export default {
   customizeYourTipPage: "تخصيص صفحة التبرع الخاصة بك",
   errorCreatingUpdatingPage: "خطأ في إنشاء/تحديث الصفحة",
   tipAmountSuggestions: "اقتراحات مبلغ التبرع",
-  pageWillBeAvailableAt: "ستكون صفحتك متاحة على {url}",
+  pageWillBeAvailableAt: "ستكون صفحتك متاحة في {url}",
   noSuggestedAmountsAdded:
-    "لم تتم إضافة أي مبالغ مقترحة، انقر على الزر أدناه لإضافة مستويات جديدة",
+    "لم تتم إضافة مبالغ مقترحة، انقر على الزر أدناه لإضافة مستويات جديدة",
   addTier: "إضافة مستوى",
   remove: "إزالة",
   name: "الاسم",
@@ -217,31 +219,31 @@ export default {
 
   // CONTENT LINKS
   brandName: "اسم العلامة التجارية",
-  brandNameHelp: "اسم العلامة التجارية/المحتوى. يمكن أن يختلف عن رابط الصفحة",
+  brandNameHelp: "اسم العلامة التجارية/المحتوى. يمكن أن يكون مختلفاً عن الرابط",
   searchTerms: "مصطلحات البحث",
   searchTermsHelp:
-    "سيقوم البحث عن المبدعين بإرجاع النتائج بناءً على رابط الصفحة، الاسم، والكلمات الرئيسية في هذه القائمة",
-  contentLinksDescription: "الاسم، مصطلحات البحث وروابط المحتوى",
+    "سيُرجع بحث المبدع نتائج بناءً على رابط الصفحة والاسم والكلمات الرئيسية في هذه القائمة",
+  contentLinksDescription: "الاسم ومصطلحات البحث وروابط المحتوى",
   contentLinksSecondDescription:
-    "روابط لصفحاتك الاجتماعية أو المواقع الإلكترونية. لإعادة تعيين قيمة، اترك الحقل فارغاً",
+    "روابط لصفحاتك الاجتماعية أو مواقع الويب. لإعادة تعيين قيمة، اترك الحقل فارغاً",
   saveChanges: "حفظ التغييرات",
   notUrlWithMessage: "أدخل الاسم فقط، وليس الرابط الكامل",
   changesAreSaved: "تم حفظ التغييرات",
   errorSavingChanges: "خطأ في حفظ التغييرات",
 
   // OBS
-  obsDescription: "أداة OBS والإعدادات",
+  obsDescription: "إعدادات وأدوات OBS",
   settingsAreUpdated: "تم تحديث الإعدادات",
   errorUpdatingSettings: "خطأ في تحديث الإعدادات",
   toUseXMRchatsOnOBS:
-    "لاستخدام XMRChat على OBS، انسخ رابط صفحة OBS وأضفه في 'المتصفح' من مصادر OBS",
+    "لاستخدام XMRChat على OBS، انسخ الرابط إلى صفحة OBS وأضفه في 'المتصفح' في مصادر OBS",
   copyOBSLink: "نسخ رابط صفحة OBS",
   obsPageSettings: "إعدادات صفحة OBS",
   preventMessagesFromFading: "منع اختفاء الرسائل",
   preventMessagesFromFadingDescription:
-    "عند التفعيل، يحتفظ بأحدث التبرعات على الشاشة، وإلا سيتم عرض كل رسالة لمدة 60 ثانية",
+    "عند التفعيل، يحتفظ بأحدث التبرعات على الشاشة، وإلا فإن كل رسالة تظهر لمدة 60 ثانية",
   playSound: "تشغيل الصوت",
-  playSoundDescription: "يشغل صوتاً على صفحة OBS عند ظهور تبرع جديد",
+  playSoundDescription: "يتم تشغيل صوت في صفحة OBS عند ظهور تبرع جديد",
   playSoundDescriptionLocal:
-    "إذا كنت تختبر هذه الوظيفة محلياً في متصفحك، بعد فتح علامة التبويب obs، تأكد من النقر في مكان ما على الصفحة. وإلا فلن يقوم المتصفح بتشغيل الصوت بسبب عدم وجود تفاعلات مع علامة التبويب المفتوحة",
+    "إذا كنت تختبر هذه الوظيفة محلياً في متصفحك، بعد فتح علامة التبويب obs تأكد من النقر في مكان ما على الصفحة. وإلا فلن يقوم المتصفح بتشغيل الصوت بسبب عدم وجود تفاعلات مع علامة التبويب المفتوحة",
 };
