@@ -96,7 +96,7 @@ export default {
   },
   andMore: {
     title: "And more",
-    description: "Learn more about Monero at {getmonero}.",
+    description: "Learn more about Monero at {getmonero} and where it's used at {moneroeco}.",
   },
 
   whereToGetMonero: {

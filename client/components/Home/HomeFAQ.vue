@@ -164,6 +164,11 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                       getmonero.org
                     </UButton>
                   </template>
+                  <template #moneroeco>
+                    <UButton to="https://monero.eco" v-bind="linkProps">
+                      monero.eco
+                    </UButton>
+                  </template>
                 </I18nT>
               </p>
             </li>
