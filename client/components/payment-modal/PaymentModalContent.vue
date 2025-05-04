@@ -8,19 +8,24 @@ interface Props {
   qrCode?: PaymentQRCodeProps;
   connectionStatus?: string;
   expiresAt?: string;
+  showRemainingTime?: boolean;
+  expiredMessage?: string;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  showRemainingTime: true,
+  expiredMessage:
+    "Payment is expired. If you have already sent your payment please contact support.",
+});
 
 const emit = defineEmits<{
   cancel: [];
   retry: [];
+  expired: [];
 }>();
 
 const remaining = ref<number | undefined>();
-const expired = ref<boolean>(false);
-
-const { formatTime } = useDate();
+const expired = defineModel<boolean>("expired", { default: false });
 
 const getRemainingTime = () => {
   console.log("getting remaining time");
@@ -52,8 +57,7 @@ watch(
     <slot />
     <div class="w-full flex flex-col gap-2 pt-4">
       <p class="text-red-500 text-center" v-if="expired">
-        Payment is expired. If you have already sent your payment please contact
-        support.
+        {{ expiredMessage }}
       </p>
       <template v-else>
         <PaymentQRCode v-if="qrCode" v-bind="qrCode" />
@@ -64,7 +68,11 @@ watch(
           @retry="emit('retry')"
         />
         <PaymentLoading v-else />
-        <VueCountdown v-if="remaining" :time="remaining" @end="expired = true">
+        <VueCountdown
+          v-if="remaining && showRemainingTime"
+          :time="remaining"
+          @end="expired = true"
+        >
           <template #default="{ minutes, seconds }">
             <p class="text-center">
               {{ minutes.toString().padStart(2, "0") }}:{{
