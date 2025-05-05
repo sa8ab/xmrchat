@@ -22,6 +22,8 @@ export enum ContentLinkPlatformEnum {
   TIKTOK = "tiktok",
   INSTAGRAM = "instagram",
   ODYSEE = "odysee",
+  XMRBAZAAR = "xmrbazaar",
+  KICK = "kick",
 }
 
 export enum SupportedDisplayCurrency {

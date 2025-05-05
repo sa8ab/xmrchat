@@ -102,6 +102,22 @@ export const CONTENT_LINKS: Record<ContentLinkPlatformEnum, ContentLinkFull> = {
     icon: "i-icon-nostr",
     inputLabel: "Nostr Pub Key",
   },
+  [ContentLinkPlatformEnum.XMRBAZAAR]: {
+    name: "xmrbazaar",
+    colorClassName: "text-[#F25C05]",
+    iconClassName: "",
+    icon: "i-tabler-building-store",
+    inputLabel: "Xmrbazaar username",
+    linkCreator: (v?: string) => `https://xmrbazaar.com/user/${v}`,
+  },
+  [ContentLinkPlatformEnum.KICK]: {
+    name: "Kick",
+    colorClassName: "text-[#53FC19]",
+    iconClassName: "",
+    icon: "i-tabler-brand-kick",
+    inputLabel: "Kick username",
+    linkCreator: (v?: string) => `https://kick.com/${v}`,
+  },
 };
 
 export const CONTENT_LINKS_LIST = [
@@ -117,6 +133,8 @@ export const CONTENT_LINKS_LIST = [
   ContentLinkPlatformEnum.TWITCH,
   ContentLinkPlatformEnum.TIKTOK,
   ContentLinkPlatformEnum.ODYSEE,
+  ContentLinkPlatformEnum.XMRBAZAAR,
+  ContentLinkPlatformEnum.KICK,
 ];
 
 export const SUPPORTED_TIP_VALUES = [
