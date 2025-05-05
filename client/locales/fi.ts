@@ -22,6 +22,7 @@ export default {
   signupInstead: "Luo tili",
   signupFailed: "Rekisteröinti epäonnistui",
   signupSuccessfull: "Rekisteröinti onnistui",
+  noItems: "Ei kohteita",
   signupSuccessfullDescription:
     "Siirry sähköpostissa lähetettyyn linkkiin vahvistaaksesi tilisi.",
   loginInstead: "Kirjaudu sisään",
@@ -36,6 +37,7 @@ export default {
   },
   typePageName: "Kirjoita sivun nimi...",
   contactUs: "Ota Yhteyttä",
+  here: "tässä",
 
   xmrchat: "XMRChat",
   heroDescription: "Tue suosikkistriimaajaasi Monerolla.",

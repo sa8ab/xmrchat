@@ -4,9 +4,9 @@ import type { SlugReservationResponse } from "~/types";
 const { toIndex } = useRouteLocation();
 const { t } = useI18n();
 
-useHead({
-  title: "Create Page",
-});
+useHead(() => ({
+  title: t("createPage"),
+}));
 
 const links = computed(() => [
   {

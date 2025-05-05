@@ -21,6 +21,7 @@ export default {
   confirmPassword: "Confirm Password",
   signupInstead: "Signup Instead",
   signupFailed: "Signup Failed",
+  noItems: "No Items",
   signupSuccessfull: "Signup Successfull",
   signupSuccessfullDescription:
     "Please follow the link sent to your email to verify your account.",
@@ -37,6 +38,7 @@ export default {
   },
   typePageName: "Type page name...",
   contactUs: "Contact Us",
+  here: "here",
 
   xmrchat: "XMRChat",
   heroDescription: "Tip your favorite streamer in cryptocurrency.",
@@ -96,7 +98,7 @@ export default {
   },
   andMore: {
     title: "And more",
-    description: "Learn more about Monero at {getmonero}.",
+    description: "Learn more about Monero at {getmonero} and where it's used at {moneroeco}.",
   },
 
   whereToGetMonero: {

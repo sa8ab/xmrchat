@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { direction } = useDirection();
+
 useHead(() => {
   return {
     titleTemplate: (title) =>
@@ -10,7 +12,7 @@ useAppSeoMeta();
 </script>
 
 <template>
-  <div class="app">
+  <div class="app" :dir="direction">
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>

@@ -25,6 +25,7 @@ export default {
   signup: "Inscription",
   signupFailed: "Échec de l'inscription",
   signupSuccessfull: "Inscription réussie",
+  noItems: "Aucun élément",
   signupSuccessfullDescription:
     "Veuillez suivre le lien envoyé à votre email pour vérifier votre compte.",
   forgetPassword: "Mot de passe oublié ?",
@@ -38,6 +39,7 @@ export default {
   },
   typePageName: "Entrez le nom de la page...",
   contactUs: "Contactez-nous",
+  here: "ici",
 
   xmrchat: "XMRChat",
   heroDescription:

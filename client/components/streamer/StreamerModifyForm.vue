@@ -427,16 +427,14 @@ const handleBannerUpload = (file: UploadedFile) => {
         </UAlert>
       </div>
 
-      <div class="flex gap-3">
-        <UButton
-          size="lg"
-          type="submit"
-          :loading="state.loading"
-          trailingIcon="i-heroicons-arrow-small-right"
-        >
-          {{ t("continue") }}
-        </UButton>
-      </div>
+      <DirectionalButton
+        size="lg"
+        :loading="state.loading"
+        type="submit"
+        direction="forward"
+      >
+        {{ $t("continue") }}
+      </DirectionalButton>
     </UForm>
   </div>
 </template>

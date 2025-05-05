@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { PaymentSocketMessage, SlugReservationResponse } from "~/types";
+import VueCountdown from "@chenfengyuan/vue-countdown";
 
 const props = defineProps<{
   reservedData?: SlugReservationResponse;
@@ -12,16 +13,15 @@ const emit = defineEmits<{
 
 const active = defineModel<boolean>("active");
 
-// const { checkReservation: checkReservationApi } = useServices();
 const { toStreamerDisplay } = useRouteLocation();
 const toast = useToast();
 const { state: authState, getMe } = useAuthStore();
 const { t } = useI18n();
-
-// const paymentInterval = ref<NodeJS.Timeout | undefined>(undefined);
+const { dayjs } = useDate();
 
 const cancelPayment = () => {
   stopPaymentCheck();
+  expired.value = false;
   emit("cancel");
 };
 
@@ -64,11 +64,24 @@ watch(active, (currentActive) => {
 });
 
 onBeforeUnmount(() => stopPaymentCheck());
+
+const expired = ref<boolean>(false);
+
+const handleExpired = () => {
+  expired.value = true;
+};
+
+const getTime = () => {
+  return (
+    dayjs(props.reservedData?.reservedUntil).diff(dayjs(), "seconds") * 1000
+  );
+};
 </script>
 
 <template>
   <UModal v-model="active" preventClose>
     <PaymentModalContent
+      v-model:expired="expired"
       title="Page Creation Fee"
       :qrCode="{
         address: reservedData?.paymentAddress,
@@ -76,14 +89,11 @@ onBeforeUnmount(() => stopPaymentCheck());
         ticker: 'xmr',
       }"
       :connectionStatus="connectionStatus"
+      expiredMessage="Page reservation expired."
       @cancel="cancelPayment"
       @retry="handleRetry"
     >
-      <template v-if="reservedData">
-        <p class="pb-1.5 mb-2.5 text-gray-700 border-b border-border">
-          {{ t("slugReservedUntil") }}
-          {{ new Date(reservedData?.reservedUntil * 1000).toLocaleString() }}
-        </p>
+      <template v-if="reservedData && !expired">
         <UAlert
           color="emerald"
           variant="subtle"
@@ -95,9 +105,23 @@ onBeforeUnmount(() => stopPaymentCheck());
           </template>
           <template #description>
             <p class="text-[15px] leading-6">
-              In order to prevent spam, please pay a small fee of
-              <span class="font-bold">{{ reservedData.amount }} XMR</span> to
-              the following address
+              Please pay a small spam prevention fee of
+              <span class="font-bold">{{ reservedData.amount }} XMR</span> in
+              the next
+              <VueCountdown
+                v-if="reservedData?.reservedUntil"
+                :time="getTime()"
+                @end="handleExpired"
+              >
+                <template #default="{ minutes, seconds, hours }">
+                  <span class="text-center">
+                    {{ minutes.toString().padStart(2, "0") }}:{{
+                      seconds.toString().padStart(2, "0")
+                    }}
+                  </span>
+                </template>
+              </VueCountdown>
+              to create your tip page.
             </p>
           </template>
         </UAlert>

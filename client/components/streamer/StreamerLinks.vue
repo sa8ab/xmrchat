@@ -50,6 +50,7 @@ const handleLinkClick = (
           :name="item.icon"
           :class="['w-6 h-6', item.colorClassName, item.iconClassName]"
         />
+        <span class="sr-only">{{ item.name }}</span>
       </NuxtLink>
       <UButton
         v-else
@@ -63,6 +64,7 @@ const handleLinkClick = (
           :name="item.icon"
           :class="['w-6 h-6', item.colorClassName, item.iconClassName]"
         />
+        <span class="sr-only">{{ item.name }}</span>
       </UButton>
     </UTooltip>
     <NostrAddressModal
