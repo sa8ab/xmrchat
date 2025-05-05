@@ -43,6 +43,8 @@ export enum LinkPlatformEnum {
   TIKTOK = 'tiktok',
   INSTAGRAM = 'instagram',
   ODYSEE = 'odysee',
+  XMRBAZAAR = 'xmrbazaar',
+  KICK = 'kick',
 }
 
 export enum TrocadorStatusEnum {

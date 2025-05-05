@@ -54,6 +54,8 @@ const state = reactive<State>({
       instagram: {},
       telegram: {},
       nostr: {},
+      xmrbazaar: {},
+      kick: {},
     },
     name: undefined,
     searchTerms: undefined,
