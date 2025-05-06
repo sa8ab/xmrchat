@@ -94,6 +94,14 @@ const { getValidationAttrs } = useValidations(v);
         <UButton type="submit" class="mt-2" block :loading="loadingSubmit">
           {{ t("changePassword") }}
         </UButton>
+
+        <UAlert
+          :ui="{ description: 'text-xs' }"
+          color="primary"
+          variant="soft"
+          :description="t('contactSupportForEmailChange')"
+          class="mt-2"
+        />
       </div>
     </GeneralForm>
   </div>
