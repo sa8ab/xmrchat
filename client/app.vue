@@ -1,18 +1,23 @@
 <script setup lang="ts">
-const { direction } = useDirection();
+const { localeProperties } = useI18n();
 
-useHead(() => {
-  return {
-    titleTemplate: (title) =>
-      title ? `${title} | XMRChat` : "Monero Superchats : XMRChat",
-  };
+const lang = computed(() => localeProperties.value?.code);
+const dir = computed(() => localeProperties.value?.dir);
+
+useHead({
+  titleTemplate: (title?: string) =>
+    title ? `${title} | XMRChat` : "Monero Superchats : XMRChat",
+  htmlAttrs: {
+    lang,
+    dir,
+  },
 });
 
 useAppSeoMeta();
 </script>
 
 <template>
-  <div class="app" :dir="direction">
+  <div class="app" :locale="localeProperties">
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
