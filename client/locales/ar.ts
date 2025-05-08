@@ -22,8 +22,8 @@ export default {
   confirmPassword: "تأكيد كلمة المرور",
   signupInstead: "التسجيل بدلاً من ذلك",
   signupFailed: "فشل التسجيل",
-  signupSuccessfull: "تم التسجيل بنجاح",
   noItems: "لا توجد عناصر",
+  signupSuccessfull: "تم التسجيل بنجاح",
   signupSuccessfullDescription:
     "يرجى اتباع الرابط المرسل إلى بريدك الإلكتروني للتحقق من حسابك",
   loginInstead: "تسجيل الدخول بدلاً من ذلك",

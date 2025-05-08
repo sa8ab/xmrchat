@@ -31,6 +31,14 @@ export default {
   signup: "Luo tili",
   forgetPassword: "Unohtuiko salasana?",
   loginDescription: "Kirjaudu sisään päästäksesi omaan sivuusi.",
+  resetPassword: "Salasanan uusiksi",
+  enterYourNewPassword: "Kirjoita uusi salasana",
+  passwordResetFailed: "Salasanan uusiksi epäonnistui",
+  passwordUpdated: "Salasana onnistuneesti päivitetty.",
+  weSentYouAnEmail:
+    "Lähetimme sinulle sähköpostin {email}, seuraa linkkiä sähköpostissa uusiksi salasanaasi.",
+  changeEmail: "Vaihda sähköposti",
+  enterEmailToResetPassword: "Kirjoita sähköposti uusiksi salasanaasi.",
   creatorLogin: "Sisäänkirjautuminen sisällöntuottajille",
   searchCreators: {
     title: "Etsi Sisällöntuottajia",

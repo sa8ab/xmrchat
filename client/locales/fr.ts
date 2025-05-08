@@ -32,6 +32,15 @@ export default {
   forgetPassword: "Mot de passe oublié ?",
   loginDescription:
     "Connectez-vous à votre compte pour accéder à votre page d'affichage.",
+  resetPassword: "Réinitialiser le mot de passe",
+  enterYourNewPassword: "Entrez votre nouveau mot de passe",
+  passwordResetFailed: "Échec de la réinitialisation du mot de passe",
+  passwordUpdated: "Votre mot de passe a été mis à jour avec succès.",
+  weSentYouAnEmail:
+    "Nous avons envoyé un email à {email}, veuillez suivre le lien dans l'email pour réinitialiser votre mot de passe.",
+  changeEmail: "Changer l'email",
+  enterEmailToResetPassword:
+    "Entrez votre email pour réinitialiser votre mot de passe.",
   creatorLogin: "Connexion Créateur",
   searchCreators: {
     title: "Rechercher des Créateurs",

@@ -32,6 +32,15 @@ export default {
   forgetPassword: "¿Olvidó su contraseña?",
   loginDescription:
     "Inicie sesión en su cuenta para acceder a su página de visualización.",
+  resetPassword: "Restablecer contraseña",
+  enterYourNewPassword: "Ingrese su nueva contraseña",
+  passwordResetFailed: "Error al restablecer la contraseña",
+  passwordUpdated: "Su contraseña se ha actualizado correctamente.",
+  weSentYouAnEmail:
+    "Hemos enviado un correo electrónico a {email}, por favor siga el enlace en el correo electrónico para restablecer su contraseña.",
+  changeEmail: "Cambiar correo electrónico",
+  enterEmailToResetPassword:
+    "Ingrese su correo electrónico para restablecer su contraseña.",
   creatorLogin: "Inicio de sesión de creador",
   searchCreators: {
     title: "Buscar Creadores",

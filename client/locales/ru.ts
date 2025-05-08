@@ -32,6 +32,15 @@ export default {
   forgetPassword: "Забыли пароль?",
   loginDescription:
     "Войдите в аккаунт, чтобы получить доступ к вашей странице.",
+  resetPassword: "Сбросить пароль",
+  enterYourNewPassword: "Введите новый пароль",
+  passwordResetFailed: "Ошибка сброса пароля",
+  passwordUpdated: "Ваш пароль был успешно обновлен.",
+  weSentYouAnEmail:
+    "Мы отправили вам электронное письмо {email}, пожалуйста, следуйте ссылке в письме, чтобы сбросить пароль.",
+  changeEmail: "Изменить электронную почту",
+  enterEmailToResetPassword:
+    "Введите вашу электронную почту для сброса пароля.",
   creatorLogin: "Вход для авторов",
   searchCreators: {
     title: "Поиск Создателей",

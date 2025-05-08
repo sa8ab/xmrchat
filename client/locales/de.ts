@@ -32,7 +32,16 @@ export default {
   forgetPassword: "Passwort vergessen?",
   loginDescription:
     "Melden Sie sich bei Ihrem Konto an, um auf Ihre Anzeigeseite zuzugreifen",
-  creatorLogin: "Creator Anmeldung",
+  resetPassword: "Passwort zurücksetzen",
+  enterYourNewPassword: "Geben Sie Ihr neues Passwort ein",
+  passwordResetFailed: "Passwort zurücksetzen fehlgeschlagen",
+  passwordUpdated: "Ihr Passwort wurde erfolgreich aktualisiert.",
+  weSentYouAnEmail:
+    "Wir haben Ihnen eine E-Mail {email} gesendet, bitte folgen Sie dem Link in der E-Mail, um Ihr Passwort zurückzusetzen.",
+  changeEmail: "E-Mail ändern",
+  enterEmailToResetPassword:
+    "Geben Sie Ihre E-Mail ein, um Ihr Passwort zurücksetzen",
+  creatorLogin: "Ersteller Anmeldung",
   searchCreators: {
     title: "Ersteller Suchen",
     description:

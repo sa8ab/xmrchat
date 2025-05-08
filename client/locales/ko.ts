@@ -31,6 +31,14 @@ export default {
   signup: "회원가입",
   forgetPassword: "비밀번호를 잊으셨나요?",
   loginDescription: "계정에 로그인하여 마이페이지에 접근하세요.",
+  resetPassword: "비밀번호 재설정",
+  enterYourNewPassword: "새 비밀번호를 입력하세요.",
+  passwordResetFailed: "비밀번호 재설정 실패",
+  passwordUpdated: "비밀번호가 성공적으로 업데이트되었습니다.",
+  weSentYouAnEmail:
+    "이메일 {email}을 보내드렸습니다. 이메일 링크를 따라가 비밀번호를 재설정하세요.",
+  changeEmail: "이메일 변경",
+  enterEmailToResetPassword: "이메일을 입력하여 비밀번호를 재설정하세요.",
   creatorLogin: "크리에이터 로그인",
   searchCreators: {
     title: "크리에이터 검색",
