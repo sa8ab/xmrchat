@@ -17,7 +17,7 @@ useAppSeoMeta();
 </script>
 
 <template>
-  <div class="app" :locale="localeProperties">
+  <div class="app">
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
