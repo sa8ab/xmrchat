@@ -209,11 +209,14 @@ export default {
   note: "Hinweis",
 
   // STREAMER MENU
+  menu: "Menü",
   myXmrchats: "Meine xmrchats",
   editTipPage: "Trinkgeld-Seite bearbeiten",
   tipPage: "Trinkgeld-Seite",
   contentLinks: "Content-Links",
   obs: "OBS",
+  show: "Anzeigen",
+  hide: "Verstecken",
 
   // ACCOUNT PAGE
   changePassword: "Passwort ändern",

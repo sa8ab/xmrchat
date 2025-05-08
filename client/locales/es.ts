@@ -208,11 +208,14 @@ export default {
   note: "Nota",
 
   // STREAMER MENU
+  menu: "Menú",
   myXmrchats: "Mis xmrchats",
   editTipPage: "Editar Página de Propinas",
   tipPage: "Página de Propinas",
   contentLinks: "Enlaces de Contenido",
   obs: "OBS",
+  show: "Mostrar",
+  hide: "Ocultar",
 
   // ACCOUNT PAGE
   changePassword: "Cambiar Contraseña",

@@ -203,11 +203,14 @@ export default {
   note: "Note",
 
   // STREAMER MENU
+  menu: "Menu",
   myXmrchats: "My xmrchats",
   editTipPage: "Edit Tip Page",
   tipPage: "Tip Page",
   contentLinks: "Content Links",
   obs: "OBS",
+  show: "Show",
+  hide: "Hide",
 
   // ACCOUNT PAGE
   changePassword: "Change Password",

@@ -202,11 +202,14 @@ export default {
   note: "Huom",
 
   // STREAMER MENU
+  menu: "Valikko",
   myXmrchats: "Omat xmrchats",
   editTipPage: "Muokkaa Tippisivua",
   tipPage: "Tippisivu",
   contentLinks: "Sisältölinkit",
   obs: "OBS",
+  show: "Näytä",
+  hide: "Piilota",
 
   // ACCOUNT PAGE
   changePassword: "Vaihda Salasana",

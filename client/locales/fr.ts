@@ -212,11 +212,14 @@ export default {
   note: "Remarque",
 
   // STREAMER MENU
+  menu: "Menu",
   myXmrchats: "Mes xmrchats",
   editTipPage: "Modifier la Page de Pourboires",
   tipPage: "Page de Pourboires",
   contentLinks: "Liens de Contenu",
   obs: "OBS",
+  show: "Afficher",
+  hide: "Masquer",
 
   // ACCOUNT PAGE
   changePassword: "Changer le Mot de Passe",

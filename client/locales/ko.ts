@@ -201,11 +201,14 @@ export default {
   note: "참고",
 
   // STREAMER MENU
+  menu: "메뉴",
   myXmrchats: "내 xmrchats",
   editTipPage: "팁 페이지 편집",
   tipPage: "팁 페이지",
   contentLinks: "콘텐츠 링크",
   obs: "OBS",
+  show: "보기",
+  hide: "숨김",
 
   // ACCOUNT PAGE
   changePassword: "비밀번호 변경",

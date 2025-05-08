@@ -201,11 +201,14 @@ export default {
   note: "Примечание",
 
   // STREAMER MENU
+  menu: "Меню",
   myXmrchats: "Мои xmrchats",
   editTipPage: "Редактировать Страницу Чаевых",
   tipPage: "Страница Чаевых",
   contentLinks: "Ссылки на Контент",
   obs: "OBS",
+  show: "Показать",
+  hide: "Скрыть",
 
   // ACCOUNT PAGE
   changePassword: "Изменить Пароль",

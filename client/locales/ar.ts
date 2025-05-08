@@ -200,11 +200,14 @@ export default {
   note: "ملاحظة",
 
   // STREAMER MENU
+  menu: "القائمة",
   myXmrchats: "xmrchats الخاصة بي",
   editTipPage: "تعديل صفحة التبرع",
   tipPage: "صفحة التبرع",
   contentLinks: "روابط المحتوى",
   obs: "OBS",
+  show: "ظهر",
+  hide: "غير مرئي",
 
   // ACCOUNT PAGE
   changePassword: "تغيير كلمة المرور",
