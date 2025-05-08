@@ -16,6 +16,8 @@ const route = useRoute();
 const { copy } = useCopy();
 const { t } = useI18n();
 
+const config = useRuntimeConfig();
+
 const dropdownItems = computed<DropdownItem[][]>(() => {
   const url = useRequestURL();
 
@@ -137,7 +139,7 @@ const dropdownItems = computed<DropdownItem[][]>(() => {
           </UButton>
         </template>
 
-        <!-- <LanguageSelect /> -->
+        <LanguageSelect v-if="config.public.showLocaleSelect" />
 
         <!-- <UButton
           square
