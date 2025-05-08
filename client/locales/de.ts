@@ -15,6 +15,7 @@ export default {
   account: "Konto",
   logout: "Abmelden",
   login: "Anmelden",
+  send: "Senden",
   loginFailed: "Anmeldung fehlgeschlagen",
   email: "E-Mail",
   search: "Suchen",

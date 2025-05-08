@@ -15,6 +15,7 @@ export default {
   account: "Tili",
   logout: "Kirjaudu ulos",
   login: "Kirjaudu sisään",
+  send: "Lähetä",
   email: "Sähköposti",
   search: "Haku",
   password: "Salasana",

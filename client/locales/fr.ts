@@ -15,6 +15,7 @@ export default {
   account: "Compte",
   logout: "Déconnexion",
   login: "Connexion",
+  send: "Envoyer",
   loginFailed: "Échec de la connexion",
   email: "Email",
   search: "Rechercher",

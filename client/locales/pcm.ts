@@ -15,6 +15,7 @@ export default {
   account: "Account",
   logout: "Log out",
   login: "Log in",
+  send: "Send",
   email: "Email",
   search: "Search",
   password: "Password",

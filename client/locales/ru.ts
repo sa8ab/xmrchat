@@ -15,6 +15,7 @@ export default {
   account: "Аккаунт",
   logout: "Выйти",
   login: "Войти",
+  send: "Отправить",
   email: "Эл. почта",
   search: "Поиск",
   password: "Пароль",

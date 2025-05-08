@@ -48,7 +48,7 @@ const handleSubmit = async () => {
       },
       token.value
     );
-    toast.add({ title: "Your password has been successfully updated" });
+    toast.add({ title: t("passwordUpdated") });
     return navigateTo(toLogin()?.path);
   } catch (error) {
     state.errorMessage = getErrorMessage(error);
@@ -59,10 +59,13 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <AuthContainer title="Reset Password" description="Enter your new password">
+  <AuthContainer
+    :title="t('resetPassword')"
+    :description="t('enterYourNewPassword')"
+  >
     <UForm :state="state" class="form" @submit="handleSubmit">
       <UFormGroup
-        label="Password"
+        :label="t('password')"
         name="password"
         :error="getValidationAttrs('password').error"
       >
@@ -74,7 +77,7 @@ const handleSubmit = async () => {
       </UFormGroup>
 
       <UFormGroup
-        label="Confirm Password"
+        :label="t('confirmPassword')"
         name="confirmPassword"
         :error="getValidationAttrs('confirmPassword').error"
       >
@@ -88,13 +91,13 @@ const handleSubmit = async () => {
       <UAlert
         color="red"
         :description="state.errorMessage"
-        title="Login Failed"
+        :title="t('passwordResetFailed')"
         v-if="state.errorMessage"
       >
       </UAlert>
 
       <UButton block type="submit" :loading="state.loading">
-        Change Password
+        {{ t("changePassword") }}
       </UButton>
     </UForm>
   </AuthContainer>

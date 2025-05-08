@@ -1,0 +1,5 @@
+{
+  "i18n-ally.localesPaths": ["client/locales", "server/src/i18n"],
+  "i18n-ally.enabledParsers": ["ts", "json"],
+  "i18n-ally.keystyle": "nested"
+}

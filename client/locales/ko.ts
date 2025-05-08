@@ -1,8 +1,8 @@
 export default {
   validations: {
-    required: "필수 항목입니다",
-    email: "이메일 형식이 올바르지 않습니다",
-    numberic: "숫자여야 합니다",
+    required: "필수 항목입니다.",
+    email: "이메일 형식이 올바르지 않습니다.",
+    numberic: "숫자여야 합니다.",
     minLength: "{length}자 이상이어야 합니다.",
     maxLength: "{length}자 이하여야 합니다.",
     minValue: "{value} 이상이어야 합니다.",
@@ -15,6 +15,7 @@ export default {
   account: "계정",
   logout: "로그아웃",
   login: "로그인",
+  send: "보내기",
   email: "이메일",
   search: "검색",
   password: "비밀번호",
@@ -223,7 +224,7 @@ export default {
   brandNameHelp: "브랜드/콘텐츠 이름. 페이지 주소와 다를 수 있습니다.",
   searchTerms: "검색어",
   searchTermsHelp:
-    "크리에이터 검색은 페이지 슬러그, 이름 및 이 목록의 키워드를 기반으로 결과를 반환합니다.",
+    "크리에이터를 검색하면 이 목록에 있는 페이지 주소, 이름, 키워드를 바탕으로 결과가 나옵니다.",
   contentLinksDescription: "이름, 검색어 및 콘텐츠 링크",
   contentLinksSecondDescription:
     "소셜 페이지나 웹사이트 링크. 값을 재설정하려면 필드를 비워두세요.",

@@ -15,6 +15,7 @@ export default {
   account: "الحساب",
   logout: "تسجيل الخروج",
   login: "تسجيل الدخول",
+  send: "إرسال",
   email: "البريد الإلكتروني",
   search: "بحث",
   password: "كلمة المرور",
@@ -30,6 +31,14 @@ export default {
   signup: "تسجيل",
   forgetPassword: "نسيت كلمة المرور؟",
   loginDescription: "سجل دخولك إلى حسابك للوصول إلى صفحة العرض الخاصة بك",
+  resetPassword: "إعادة تعيين كلمة المرور",
+  enterYourNewPassword: "أدخل كلمة المرور الجديدة",
+  passwordResetFailed: "فشل إعادة تعيين كلمة المرور",
+  passwordUpdated: "تم تحديث كلمة المرور الخاصة بك بنجاح",
+  weSentYouAnEmail:
+    "لقد أرسلنا إليك بريدًا إلكترونيًا {email}، يرجى اتباع الرابط في البريد الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك",
+  changeEmail: "تغيير البريد الإلكتروني",
+  enterEmailToResetPassword: "أدخل البريد الإلكتروني لإعادة تعيين كلمة المرور",
   creatorLogin: "تسجيل دخول المبدع",
   searchCreators: {
     title: "البحث عن المبدعين",
@@ -203,6 +212,8 @@ export default {
   currentPassword: "كلمة المرور الحالية",
   newPassword: "كلمة المرور الجديدة",
   repeatNewPassword: "تكرار كلمة المرور الجديدة",
+  contactSupportForEmailChange:
+    "اتصل بالدعم لتغيير عنوان البريد الإلكتروني الخاص بك",
 
   // EDIT PAGE
   editPage: "تعديل الصفحة",
@@ -246,4 +257,7 @@ export default {
   playSoundDescription: "يتم تشغيل صوت في صفحة OBS عند ظهور تبرع جديد",
   playSoundDescriptionLocal:
     "إذا كنت تختبر هذه الوظيفة محلياً في متصفحك، بعد فتح علامة التبويب obs تأكد من النقر في مكان ما على الصفحة. وإلا فلن يقوم المتصفح بتشغيل الصوت بسبب عدم وجود تفاعلات مع علامة التبويب المفتوحة",
+  autoShowTips: "إظهار التبرعات تلقائياً",
+  autoShowTipsDescription:
+    "إذا كان مفعلاً، سيتم عرض التبرعات تلقائياً على صفحة OBS لمدة 60 ثانية",
 };

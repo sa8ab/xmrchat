@@ -15,6 +15,7 @@ export default {
   account: "Account",
   logout: "Logout",
   login: "Login",
+  send: "Send",
   email: "Email",
   search: "Search",
   password: "Password",
@@ -31,6 +32,14 @@ export default {
   forgetPassword: "Forget Password ?",
   loginDescription:
     "Login to your account in order to access your display page.",
+  resetPassword: "Reset Password",
+  enterYourNewPassword: "Enter your new password",
+  passwordResetFailed: "Password Reset Failed",
+  passwordUpdated: "Your password has been successfully updated.",
+  weSentYouAnEmail:
+    "We have sent you an email {email}, please follow the link in the email to reset your password.",
+  changeEmail: "Change Email",
+  enterEmailToResetPassword: "Enter your email to reset your password.",
   creatorLogin: "Creator Login",
   searchCreators: {
     title: "Search Creators",
@@ -98,7 +107,8 @@ export default {
   },
   andMore: {
     title: "And more",
-    description: "Learn more about Monero at {getmonero} and where it's used at {moneroeco}.",
+    description:
+      "Learn more about Monero at {getmonero} and where it's used at {moneroeco}.",
   },
 
   whereToGetMonero: {

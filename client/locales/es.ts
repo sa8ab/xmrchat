@@ -15,6 +15,7 @@ export default {
   account: "Cuenta",
   logout: "Cerrar sesión",
   login: "Iniciar sesión",
+  send: "Enviar",
   loginFailed: "Error de inicio de sesión",
   email: "Correo electrónico",
   search: "Buscar",
