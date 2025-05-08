@@ -251,6 +251,11 @@ export default {
     "Geben Sie nur den Namen ein, nicht den vollständigen Link.",
   changesAreSaved: "Änderungen wurden gespeichert.",
   errorSavingChanges: "Fehler beim Speichern der Änderungen.",
+  xUsername: "{platform} Benutzername",
+  websiteLink: "Website-Link",
+  youtubeChannel: "Youtube-Kanal",
+  podcastRssLink: "Podcast-RSS-Link",
+  nostrPubKey: "Nostr öffentlicher Schlüssel",
 
   // OBS
   obsDescription: "OBS-Widget und Einstellungen.",

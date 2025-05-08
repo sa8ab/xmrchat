@@ -241,6 +241,11 @@ export default {
   notUrlWithMessage: "أدخل الاسم فقط، وليس الرابط الكامل",
   changesAreSaved: "تم حفظ التغييرات",
   errorSavingChanges: "خطأ في حفظ التغييرات",
+  xUsername: "{platform} اسم المستخدم",
+  websiteLink: "رابط الموقع",
+  youtubeChannel: "قناة Youtube",
+  podcastRssLink: "رابط RSS البودكاست",
+  nostrPubKey: "مفتاح Nostr",
 
   // OBS
   obsDescription: "إعدادات وأدوات OBS",

@@ -241,6 +241,11 @@ export default {
   notUrlWithMessage: "Only enter the name, no be full link.",
   changesAreSaved: "Changes don save.",
   errorSavingChanges: "Error when dey save changes.",
+  xUsername: "{platform} username",
+  websiteLink: "Website link",
+  youtubeChannel: "Youtube channel",
+  podcastRssLink: "Podcast RSS Link",
+  nostrPubKey: "Nostr Pub Key",
 
   // OBS
   obsDescription: "OBS widget and settings.",

@@ -243,6 +243,11 @@ export default {
   notUrlWithMessage: "Syötä vain nimi, ei koko linkkiä.",
   changesAreSaved: "Muutokset tallennettu.",
   errorSavingChanges: "Virhe muutosten tallentamisessa.",
+  xUsername: "{platform} käyttäjätunnus",
+  websiteLink: "Verkkosivun linkki",
+  youtubeChannel: "Youtube-kanava",
+  podcastRssLink: "Podcast-RSS-linkki",
+  nostrPubKey: "Nostr-julkinen avain",
 
   // OBS
   obsDescription: "OBS-widget ja asetukset.",

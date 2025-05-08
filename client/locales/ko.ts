@@ -241,6 +241,11 @@ export default {
   notUrlWithMessage: "전체 링크 대신 이름만 입력하세요.",
   changesAreSaved: "변경사항이 저장되었습니다.",
   errorSavingChanges: "변경사항 저장 오류.",
+  xUsername: "{platform} 사용자 이름",
+  websiteLink: "웹사이트 링크",
+  youtubeChannel: "유튜브 채널",
+  podcastRssLink: "팟캐스트 RSS 링크",
+  nostrPubKey: "Nostr 공개 키",
 
   // OBS
   obsDescription: "OBS 위젯 및 설정.",

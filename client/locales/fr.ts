@@ -254,6 +254,11 @@ export default {
   notUrlWithMessage: "Entrez uniquement le nom, pas le lien complet.",
   changesAreSaved: "Les modifications ont été enregistrées.",
   errorSavingChanges: "Erreur lors de l'enregistrement des modifications.",
+  xUsername: "{platform} nom d'utilisateur",
+  websiteLink: "Lien du site web",
+  youtubeChannel: "Chaîne Youtube",
+  podcastRssLink: "Lien RSS du Podcast",
+  nostrPubKey: "Clé Publique Nostr",
 
   // OBS
   obsDescription: "Widget et paramètres OBS.",

@@ -242,6 +242,11 @@ export default {
   notUrlWithMessage: "Введите только название, не полную ссылку.",
   changesAreSaved: "Изменения сохранены.",
   errorSavingChanges: "Ошибка при сохранении изменений.",
+  xUsername: "{platform} имя пользователя",
+  websiteLink: "Ссылка на сайт",
+  youtubeChannel: "Youtube канал",
+  podcastRssLink: "Ссылка на RSS-канал",
+  nostrPubKey: "Nostr Публичный Ключ",
 
   // OBS
   obsDescription: "Виджет и настройки OBS.",
