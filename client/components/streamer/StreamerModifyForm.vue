@@ -7,7 +7,6 @@ import type {
   SlugReservationResponse,
   UploadedFile,
 } from "~/types";
-import { SupportedDisplayCurrency } from "~/types/enums";
 
 const { toStreamerDisplay, toGuides } = useRouteLocation();
 const { t } = useI18n();
