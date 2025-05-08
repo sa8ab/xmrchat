@@ -44,7 +44,7 @@ const v = useVuelidate(
   computed(() => ({
     oldPassword: { required },
     password: { required, minLength: minLength(6), maxLength: maxLength(72) },
-    repeatPassword: { sameAs: sameAs(state.password, "password") },
+    repeatPassword: { sameAs: sameAs(state.password, t("password")) },
   })),
   state
 );

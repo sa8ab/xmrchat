@@ -25,7 +25,7 @@ const v = useVuelidate(
   computed(() => ({
     email: { required, email },
     password: { required, maxLength: maxLength(72), minLength: minLength(6) },
-    confirmPassword: { sameAs: sameAs(state.password, "password") },
+    confirmPassword: { sameAs: sameAs(state.password, t("password")) },
   })),
   state
 );

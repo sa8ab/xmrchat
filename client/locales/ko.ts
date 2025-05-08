@@ -220,7 +220,7 @@ export default {
 
   // CONTENT LINKS
   brandName: "브랜드 이름",
-  brandNameHelp: "브랜드/콘텐츠 이름. 슬러그와 다를 수 있습니다.",
+  brandNameHelp: "브랜드/콘텐츠 이름. 페이지 주소와 다를 수 있습니다.",
   searchTerms: "검색어",
   searchTermsHelp:
     "크리에이터 검색은 페이지 슬러그, 이름 및 이 목록의 키워드를 기반으로 결과를 반환합니다.",

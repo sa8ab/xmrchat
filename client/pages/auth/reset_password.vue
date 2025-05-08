@@ -8,6 +8,7 @@ const { toLogin } = useRouteLocation();
 const route = useRoute();
 const token = computed(() => route.query.token as string);
 const toast = useToast();
+const { t } = useI18n();
 
 interface State {
   password?: string;
@@ -28,7 +29,7 @@ const state: State = reactive({
 const v = useVuelidate<State>(
   computed(() => ({
     password: { required, maxLength: maxLength(72), minLength: minLength(6) },
-    confirmPassword: { sameAs: sameAs(state.password, "password") },
+    confirmPassword: { sameAs: sameAs(state.password, t("password")) },
   })),
   state
 );
