@@ -213,6 +213,8 @@ export default {
   currentPassword: "Текущий пароль",
   newPassword: "Новый пароль",
   repeatNewPassword: "Повторите новый пароль",
+  contactSupportForEmailChange:
+    "Свяжитесь с поддержкой для изменения вашего адреса электронной почты.",
 
   // EDIT PAGE
   editPage: "Редактировать Страницу",

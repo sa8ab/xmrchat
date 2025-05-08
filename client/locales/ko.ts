@@ -213,6 +213,7 @@ export default {
   currentPassword: "현재 비밀번호",
   newPassword: "새 비밀번호",
   repeatNewPassword: "새 비밀번호 확인",
+  contactSupportForEmailChange: "지원팀에 문의하여 이메일 주소를 변경하세요.",
 
   // EDIT PAGE
   editPage: "페이지 편집",

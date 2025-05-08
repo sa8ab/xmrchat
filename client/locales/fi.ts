@@ -214,6 +214,8 @@ export default {
   currentPassword: "Nykyinen salasana",
   newPassword: "Uusi salasana",
   repeatNewPassword: "Toista uusi salasana",
+  contactSupportForEmailChange:
+    "Ota yhteyttä tukeen saadaksesi sähköpostiosoitteen muuttamista varten.",
 
   // EDIT PAGE
   editPage: "Muokkaa Sivua",

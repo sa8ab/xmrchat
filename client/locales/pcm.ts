@@ -213,6 +213,7 @@ export default {
   currentPassword: "Current password",
   newPassword: "New password",
   repeatNewPassword: "Repeat new password",
+  contactSupportForEmailChange: "Contact support to change your email address.",
 
   // EDIT PAGE
   editPage: "Edit Page",

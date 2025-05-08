@@ -221,6 +221,8 @@ export default {
   currentPassword: "Aktuelles Passwort",
   newPassword: "Neues Passwort",
   repeatNewPassword: "Neues Passwort wiederholen",
+  contactSupportForEmailChange:
+    "Kontaktieren Sie den Support, um Ihre E-Mail-Adresse zu ändern.",
 
   // EDIT PAGE
   editPage: "Seite bearbeiten",
