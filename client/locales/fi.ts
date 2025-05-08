@@ -257,4 +257,7 @@ export default {
   playSoundDescription: "Toistaa äänen OBS-sivulla, kun uusi tippi ilmestyy.",
   playSoundDescriptionLocal:
     "Jos testaat tätä toiminnallisuutta paikallisesti selaimessa, avattuasi obs-välilehden, varmista että napsautat jossain sivulla. Muuten selain ei toista ääntä avoimen välilehden kanssa ei ole vuorovaikutusta.",
+  autoShowTips: "Näytä vinkit automaattisesti",
+  autoShowTipsDescription:
+    "Jos aktiivinen, vinkit näytetään automaattisesti OBS-sivulla 60 sekunnin ajan.",
 };

@@ -256,4 +256,7 @@ export default {
   playSoundDescription: "새 팁이 나타날 때 OBS 페이지에서 소리를 재생합니다.",
   playSoundDescriptionLocal:
     "브라우저에서 이 기능을 로컬로 테스트하는 경우, obs 탭을 열고 페이지 어딘가를 클릭하세요. 그렇지 않으면 열린 탭과의 상호작용이 없어 브라우저가 소리를 재생하지 않습니다.",
+  autoShowTips: "자동 팁 표시",
+  autoShowTipsDescription:
+    "활성화하면 OBS 페이지에서 60초 동안 팁이 자동으로 표시됩니다.",
 };

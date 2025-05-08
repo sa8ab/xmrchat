@@ -265,4 +265,7 @@ export default {
     "Reproduce un sonido en la página de OBS cuando aparece un nuevo consejo.",
   playSoundDescriptionLocal:
     "Si está probando esta funcionalidad localmente en su navegador, después de abrir la pestaña obs, asegúrese de hacer clic en algún lugar de la página. De lo contrario, el navegador no reproducirá el sonido debido a la falta de interacciones con la pestaña abierta.",
+  autoShowTips: "Mostrar consejos automáticamente",
+  autoShowTipsDescription:
+    "Si está activo, los consejos se mostrarán automáticamente en la página de OBS durante 60 segundos.",
 };

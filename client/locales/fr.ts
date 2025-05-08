@@ -269,4 +269,7 @@ export default {
     "Joue un son sur la page OBS lorsqu'un nouveau pourboire apparaît.",
   playSoundDescriptionLocal:
     "Si vous testez cette fonctionnalité localement dans votre navigateur, après avoir ouvert l'onglet obs, assurez-vous de cliquer quelque part sur la page. Sinon, le navigateur ne jouera pas de son en raison de l'absence d'interactions avec l'onglet ouvert.",
+  autoShowTips: "Afficher les pourboires automatiquement",
+  autoShowTipsDescription:
+    "Si activé, les pourboires seront affichés automatiquement sur la page OBS pendant 60 secondes.",
 };

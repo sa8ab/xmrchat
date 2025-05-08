@@ -31,6 +31,14 @@ export default {
   signup: "Signup",
   forgetPassword: "You forget your Password?",
   loginDescription: "Log into your account so you fit see your display page.",
+  resetPassword: "Reset Password",
+  enterYourNewPassword: "Enter your new password",
+  passwordResetFailed: "Password Reset Failed",
+  passwordUpdated: "Your password has been successfully updated.",
+  weSentYouAnEmail:
+    "We have sent you an email {email}, please follow the link in the email to reset your password.",
+  changeEmail: "Change Email",
+  enterEmailToResetPassword: "Enter your email to reset your password.",
   creatorLogin: "Creator Login",
   searchCreators: {
     title: "Search Creators",
@@ -248,4 +256,7 @@ export default {
   playSoundDescription: "Play sound for OBS page when new tip appear.",
   playSoundDescriptionLocal:
     "If you dey test this function for your browser, after you open the obs tab make sure say you click somewhere for the page. Otherwise browser no go play sound because no interaction with the open tab.",
+  autoShowTips: "Auto Show Tips",
+  autoShowTipsDescription:
+    "If active, tips will be automatically shown on the OBS page for 60 seconds.",
 };

@@ -266,4 +266,7 @@ export default {
     "Spielt einen Ton auf der OBS-Seite ab, wenn ein neuer Tipp erscheint.",
   playSoundDescriptionLocal:
     "Wenn Sie diese Funktion lokal in Ihrem Browser testen, klicken Sie nach dem Öffnen des obs-Tabs irgendwo auf die Seite. Andernfalls spielt der Browser keinen Ton ab, da keine Interaktionen mit dem geöffneten Tab stattgefunden haben.",
+  autoShowTips: "Automatisch Tipps anzeigen",
+  autoShowTipsDescription:
+    "Wenn aktiviert, werden Tipps automatisch auf der OBS-Seite für 60 Sekunden angezeigt.",
 };
