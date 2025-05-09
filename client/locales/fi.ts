@@ -202,11 +202,14 @@ export default {
   note: "Huom",
 
   // STREAMER MENU
+  menu: "Valikko",
   myXmrchats: "Omat xmrchats",
   editTipPage: "Muokkaa Tippisivua",
   tipPage: "Tippisivu",
   contentLinks: "Sisältölinkit",
   obs: "OBS",
+  show: "Näytä",
+  hide: "Piilota",
 
   // ACCOUNT PAGE
   changePassword: "Vaihda Salasana",
@@ -267,4 +270,14 @@ export default {
   autoShowTips: "Näytä vinkit automaattisesti",
   autoShowTipsDescription:
     "Jos aktiivinen, vinkit näytetään automaattisesti OBS-sivulla 60 sekunnin ajan.",
+
+  // HEAD
+  head: {
+    description:
+      "Katsojat, lähettäkää viestejä ja tippiä helposti ja yksityisesti. Striimaajat, pitäkää lähes kaikki tipit itsellänne sen sijaan, että annatte 30–50 % suurille teknologiayrityksille.",
+    title: "Lähetä viesti ja tippaa Monerolla",
+    XMRChatTip: "XMRChat – Tippaa {path} Monerolla",
+    tip: "Tippaa {path}",
+  },
+  moneroSuperchats: "Monero Superchats : XMRChat",
 };

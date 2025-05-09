@@ -208,11 +208,14 @@ export default {
   note: "Nota",
 
   // STREAMER MENU
+  menu: "Menú",
   myXmrchats: "Mis xmrchats",
   editTipPage: "Editar Página de Propinas",
   tipPage: "Página de Propinas",
   contentLinks: "Enlaces de Contenido",
   obs: "OBS",
+  show: "Mostrar",
+  hide: "Ocultar",
 
   // ACCOUNT PAGE
   changePassword: "Cambiar Contraseña",
@@ -275,4 +278,14 @@ export default {
   autoShowTips: "Mostrar consejos automáticamente",
   autoShowTipsDescription:
     "Si está activo, los consejos se mostrarán automáticamente en la página de OBS durante 60 segundos.",
+
+  // HEAD
+  head: {
+    description:
+      "Espectadores, envíen mensajes y propinas con facilidad y privacidad. Streamers, conserven casi todas sus propinas en lugar de dar el 30-50% a las grandes tecnológicas.",
+    title: "Mensajea y da propina con Monero",
+    XMRChatTip: "XMRChat - Da propina a {path} con Monero",
+    tip: "Dar propina a {path}",
+  },
+  moneroSuperchats: "Superchats Monero : XMRChat",
 };

@@ -203,11 +203,14 @@ export default {
   note: "Note",
 
   // STREAMER MENU
+  menu: "Menu",
   myXmrchats: "My xmrchats",
   editTipPage: "Edit Tip Page",
   tipPage: "Tip Page",
   contentLinks: "Content Links",
   obs: "OBS",
+  show: "Show",
+  hide: "Hide",
 
   // ACCOUNT PAGE
   changePassword: "Change Password",
@@ -268,4 +271,14 @@ export default {
   autoShowTips: "Auto Show Tips",
   autoShowTipsDescription:
     "If active, tips will be automatically shown on the OBS page for 60 seconds.",
+
+  // HEAD
+  head: {
+    description:
+      "Viewers, send messages and tips with ease and privacy. Streamers, keep nearly all of your tips instead of giving 30-50% to big tech.",
+    title: "Message and Tip with Monero",
+    XMRChatTip: "XMRChat - Tip {path} with Monero",
+    tip: "Tip {path}",
+  },
+  moneroSuperchats: "Monero Superchats : XMRChat",
 };

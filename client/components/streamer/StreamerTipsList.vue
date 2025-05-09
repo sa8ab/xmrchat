@@ -160,7 +160,7 @@ const handleRemoveClick = async (row: Tip) => {
             variant="ghost"
             @click="handleSendClick(row)"
           >
-            Show
+            {{ t("show") }}
           </UButton>
           <UButton
             v-else
@@ -168,7 +168,7 @@ const handleRemoveClick = async (row: Tip) => {
             color="red"
             @click="handleRemoveClick(row)"
           >
-            Hide
+            {{ t("hide") }}
           </UButton>
         </div>
       </template>

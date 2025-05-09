@@ -201,11 +201,14 @@ export default {
   note: "Примечание",
 
   // STREAMER MENU
+  menu: "Меню",
   myXmrchats: "Мои xmrchats",
   editTipPage: "Редактировать Страницу Чаевых",
   tipPage: "Страница Чаевых",
   contentLinks: "Ссылки на Контент",
   obs: "OBS",
+  show: "Показать",
+  hide: "Скрыть",
 
   // ACCOUNT PAGE
   changePassword: "Изменить Пароль",
@@ -267,4 +270,14 @@ export default {
   autoShowTips: "Автоматически показывать чаевые",
   autoShowTipsDescription:
     "Если активно, чаевые будут автоматически отображаться на странице OBS в течение 60 секунд.",
+
+  // HEAD
+  head: {
+    description:
+      "Зрители, отправляйте сообщения и чаевые легко и конфиденциально. Стримеры, сохраняйте почти все свои чаевые, а не отдавайте 30–50 % крупным технокомпаниям.",
+    title: "Сообщения и чаевые с Monero",
+    XMRChatTip: "XMRChat — чаевые для {path} через Monero",
+    tip: "Оставить чаевые {path}",
+  },
+  moneroSuperchats: "Monero Суперчаты : XMRChat",
 };

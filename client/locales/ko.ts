@@ -201,11 +201,14 @@ export default {
   note: "참고",
 
   // STREAMER MENU
+  menu: "메뉴",
   myXmrchats: "내 xmrchats",
   editTipPage: "팁 페이지 편집",
   tipPage: "팁 페이지",
   contentLinks: "콘텐츠 링크",
   obs: "OBS",
+  show: "보기",
+  hide: "숨김",
 
   // ACCOUNT PAGE
   changePassword: "비밀번호 변경",
@@ -265,4 +268,14 @@ export default {
   autoShowTips: "자동 팁 표시",
   autoShowTipsDescription:
     "활성화하면 OBS 페이지에서 60초 동안 팁이 자동으로 표시됩니다.",
+
+  // HEAD
+  head: {
+    description:
+      "시청자 여러분, 쉽게 그리고 프라이버시를 지키며 메시지와 팁을 보내세요. 스트리머는 빅테크에 30~50%를 넘기는 대신 거의 모든 팁을 유지할 수 있습니다.",
+    title: "Monero로 메시지 및 팁 보내기",
+    XMRChatTip: "XMRChat - {path}에게 Monero로 팁 주기",
+    tip: "{path}에게 팁 주기",
+  },
+  moneroSuperchats: "Monero 슈퍼챗 : XMRChat",
 };

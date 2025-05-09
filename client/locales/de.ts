@@ -209,11 +209,14 @@ export default {
   note: "Hinweis",
 
   // STREAMER MENU
+  menu: "Menü",
   myXmrchats: "Meine xmrchats",
   editTipPage: "Trinkgeld-Seite bearbeiten",
   tipPage: "Trinkgeld-Seite",
   contentLinks: "Content-Links",
   obs: "OBS",
+  show: "Anzeigen",
+  hide: "Verstecken",
 
   // ACCOUNT PAGE
   changePassword: "Passwort ändern",
@@ -276,4 +279,14 @@ export default {
   autoShowTips: "Automatisch Tipps anzeigen",
   autoShowTipsDescription:
     "Wenn aktiviert, werden Tipps automatisch auf der OBS-Seite für 60 Sekunden angezeigt.",
+
+  // HEAD
+  head: {
+    description:
+      "Zuschauer, sendet Nachrichten und Trinkgelder einfach und privat. Streamer, behaltet fast alle eure Trinkgelder anstatt 30–50 % an Big Tech abzugeben.",
+    title: "Nachricht und Trinkgeld mit Monero",
+    XMRChatTip: "XMRChat – Tippe {path} mit Monero",
+    tip: "Tippe {path}",
+  },
+  moneroSuperchats: "Monero Superchats : XMRChat",
 };

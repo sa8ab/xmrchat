@@ -212,11 +212,14 @@ export default {
   note: "Remarque",
 
   // STREAMER MENU
+  menu: "Menu",
   myXmrchats: "Mes xmrchats",
   editTipPage: "Modifier la Page de Pourboires",
   tipPage: "Page de Pourboires",
   contentLinks: "Liens de Contenu",
   obs: "OBS",
+  show: "Afficher",
+  hide: "Masquer",
 
   // ACCOUNT PAGE
   changePassword: "Changer le Mot de Passe",
@@ -279,4 +282,14 @@ export default {
   autoShowTips: "Afficher les pourboires automatiquement",
   autoShowTipsDescription:
     "Si activé, les pourboires seront affichés automatiquement sur la page OBS pendant 60 secondes.",
+
+  // HEAD
+  head: {
+    description:
+      "Spectateurs, envoyez des messages et des pourboires facilement et en toute confidentialité. Streamers, gardez presque tous vos pourboires au lieu d’en donner 30 à 50 % aux géants de la tech.",
+    title: "Envoyez un message et un pourboire avec Monero",
+    XMRChatTip: "XMRChat - Donnez un pourboire à {path} avec Monero",
+    tip: "Donner un pourboire à {path}",
+  },
+  moneroSuperchats: "Superchats Monero : XMRChat",
 };

@@ -20,7 +20,7 @@ export default {
   search: "بحث",
   password: "كلمة المرور",
   confirmPassword: "تأكيد كلمة المرور",
-  signupInstead: "التسجيل بدلاً من ذلك",
+  signupInstead: "انشاء حساب جديد",
   signupFailed: "فشل التسجيل",
   noItems: "لا توجد عناصر",
   signupSuccessfull: "تم التسجيل بنجاح",
@@ -41,17 +41,17 @@ export default {
   enterEmailToResetPassword: "أدخل البريد الإلكتروني لإعادة تعيين كلمة المرور",
   creatorLogin: "تسجيل دخول المبدع",
   searchCreators: {
-    title: "البحث عن المبدعين",
-    description: "ابحث عن المبدعين الذين لديهم صفحات عامة على xmrchat",
+    title: "البحث عن صنّاع المحتوى",
+    description: "البحث عن صنّاع المحتوى (الصفحات العامة) ",
   },
   typePageName: "اكتب اسم الصفحة...",
   contactUs: "اتصل بنا",
   here: "هنا",
 
   xmrchat: "XMRChat",
-  heroDescription: "تبرع لمبدعك المفضل بالعملات المشفرة",
-  findCreators: "البحث عن المبدعين",
-  creatorsStartHere: "ابدأ هنا كمبدع",
+  heroDescription: "تبرّع لصانع المحتوى المفضل لديك بالعملات المشفرة",
+  findCreators: "البحث عن صنّاع المحتوى",
+  creatorsStartHere: "اشترك الآن",
 
   FAQ: {
     title: "الأسئلة الشائعة",
@@ -61,14 +61,14 @@ export default {
   },
 
   earnMore: {
-    title: "اكسب المزيد",
+    title: "كسب المزيد",
     description:
-      "يأخذ YouTube 30-50% من Superchats. يأخذ Rumble 20% من Rants. مع XMRChat، تحصل على 100% من تبرعات XMR من المعجبين، مباشرة إلى محفظة Monero الخاصة بك",
+      "بينما YouTube و Rumble يأخذون نسبة (٢٠٪؜~٥٠٪؜) من التبرعات، يأخذ صانع المحتوى ١٠٠٪؜ من تبرعات XMR من المعجبين، مباشرة الى محفظة Monero الخاص به باستخدام XMRChat",
   },
   censorshipResistant: {
     title: "مقاوم للرقابة",
     description:
-      "يتيح لك قبول تبرعات Monero الحصول على دخل غير مرتبط مباشرة بالشركات الكبرى وانتهاكات السياسات التعسفية",
+      "تقوم العديد من الأنظمة بالاستيلاء على أو تجميد الحسابات المصرفية لأعدائها السياسيين. يتيح لك Monero أن تكون بمثابة مصرفك الخاص، مع تحكم كامل في أموالك.",
   },
   corruptionResistant: {
     title: "مقاوم للفساد",
@@ -78,12 +78,12 @@ export default {
   private: {
     title: "خاص",
     description:
-      "يمكن للمشاهدين التبرع بشكل مجهول، دون قلق من معرفة أصحاب العمل أو الآخرين بتبرعاتك",
+      "يمكن للمشاهدين التبرع بشكل مجهول، دون القلق من كشف هويتهم أو الآخرين بتبرعاتهم",
   },
   quickAndEasy: {
     title: "سريع وسهل",
     description:
-      "لا حاجة للمشاهدين لإنشاء حساب أو التحقق من بريدهم الإلكتروني أو إدخال معلومات بطاقة الائتمان. يذهب المعجبون إلى صفحة التبرع الخاصة بك، ويدخلون اسمهم ورسالتهم ومبلغهم، ويقدمون تبرع XMR الخاص بهم",
+      "لا حاجة للمشاهد بإنشاء حساب أو التحقق من البريد الإلكتروني أو إدخال معلومات بطاقة الائتمان. فقط التوجه الى صفحة التبرع الخاصة به، و ادخال الاسم و الرسالة و المبلغ و التبرع بعملة XMR",
   },
   openSource: {
     title: "مفتوح المصدر",
@@ -102,7 +102,7 @@ export default {
   accepted: {
     title: "مقبول",
     description:
-      "تجنب عناء بيع عملتك المشفرة في بورصة مركزية. اشترِ السلع والخدمات مباشرة من التجار الذين يقبلون Monero على {xmrbazaar} و {monerica}",
+      "تجنب عناء بيع عملتك المشفرة في منصة مركزية. اشترِ السلع والخدمات مباشرة من التجار الذين يقبلون Monero على {xmrbazaar} و {monerica}",
   },
   andMore: {
     title: "والمزيد",
@@ -114,14 +114,14 @@ export default {
     stealthex:
       "تاجر بعملات مشفرة أخرى مقابل Monero (XMR) في {stealthex} وغيرها في {kycnot}",
     haveno:
-      "اشترِ Monero بدون KYC في {haveno}. تعليمات الدفع نقداً عن طريق البريد في {blog}",
+      "اشترِ Monero بدون توثيق حساب في {haveno} . تعليمات الدفع نقداً عن طريق البريد في {blog}",
     thisBlogPost: "هذا المنشور في المدونة",
-    kraken: "اشترِ Monero مع KYC في {kraken}",
-    xmrbazaar: "بعِ العناصر أو الخدمات مقابل Monero في {xmrbazaar}",
-    gupax: "استخرجه باستخدام {gupax}",
+    kraken: "بإمكانك شراء Monero باستخدام حساب موثق في {kraken}",
+    xmrbazaar: "بيع و شراء منتجات و خدمات مقابل Monero في {xmrbazaar}",
+    gupax: "تعدين Monero من خلال {gupax}",
     kunoAnneMedia: "أنشئ حملة تمويل Monero في {kunoAnneMedia}",
     monerica:
-      "اقبل Monero في عملك واحصل على قائمة في صفحات {monerica} و {monerodirectory} وخريطة قوائم الأعمال على {xmrbazaar}",
+      "اضافة دفع Monero في متجرك يؤهلك لادراج متجرك على خرائط Monero و مجانا على المواقع التالية: {monerica} و {monerodirectory} و {xmrbazaar}",
   },
 
   // TIP PAGE
@@ -200,11 +200,14 @@ export default {
   note: "ملاحظة",
 
   // STREAMER MENU
+  menu: "القائمة",
   myXmrchats: "xmrchats الخاصة بي",
   editTipPage: "تعديل صفحة التبرع",
   tipPage: "صفحة التبرع",
   contentLinks: "روابط المحتوى",
   obs: "OBS",
+  show: "ظهر",
+  hide: "غير مرئي",
 
   // ACCOUNT PAGE
   changePassword: "تغيير كلمة المرور",
@@ -265,4 +268,14 @@ export default {
   autoShowTips: "إظهار التبرعات تلقائياً",
   autoShowTipsDescription:
     "إذا كان مفعلاً، سيتم عرض التبرعات تلقائياً على صفحة OBS لمدة 60 ثانية",
+
+  // HEAD
+  head: {
+    description:
+      "المشاهدون، أرسلوا الرسائل والنصائح بسهولة وخصوصية. البث المباشرون، احتفظوا بمعظم تبرعاتكم بدلاً من إعطاء 30-50% لشركات التقنية الكبرى.",
+    title: "أرسل رسالة وتبرع باستخدام مونيرو",
+    XMRChatTip: "XMRChat - تبرع لـ {path} باستخدام مونيرو",
+    tip: "تبرع لـ {path}",
+  },
+  moneroSuperchats: "سوبر شات مونيرو : XMRChat",
 };
