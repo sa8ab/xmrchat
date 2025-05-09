@@ -277,5 +277,5 @@ export default {
     XMRChatTip: "XMRChat - {path}에게 Monero로 팁 주기",
     tip: "{path}에게 팁 주기",
   },
-  moneroSuperchats: "Monero 슈퍼챗: XMRChat",
+  moneroSuperchats: "Monero 슈퍼챗 : XMRChat",
 };

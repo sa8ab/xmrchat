@@ -287,5 +287,5 @@ export default {
     XMRChatTip: "XMRChat - Da propina a {path} con Monero",
     tip: "Dar propina a {path}",
   },
-  moneroSuperchats: "Superchats Monero: XMRChat",
+  moneroSuperchats: "Superchats Monero : XMRChat",
 };

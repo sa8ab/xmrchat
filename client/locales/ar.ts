@@ -277,5 +277,5 @@ export default {
     XMRChatTip: "XMRChat - تبرع لـ {path} باستخدام مونيرو",
     tip: "تبرع لـ {path}",
   },
-  moneroSuperchats: "سوبر شات مونيرو: XMRChat",
+  moneroSuperchats: "سوبر شات مونيرو : XMRChat",
 };

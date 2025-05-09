@@ -279,5 +279,5 @@ export default {
     XMRChatTip: "XMRChat – Tippaa {path} Monerolla",
     tip: "Tippaa {path}",
   },
-  moneroSuperchats: "Monero Superchats: XMRChat",
+  moneroSuperchats: "Monero Superchats : XMRChat",
 };

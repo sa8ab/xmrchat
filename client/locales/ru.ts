@@ -279,5 +279,5 @@ export default {
     XMRChatTip: "XMRChat — чаевые для {path} через Monero",
     tip: "Оставить чаевые {path}",
   },
-  moneroSuperchats: "Monero Суперчаты: XMRChat",
+  moneroSuperchats: "Monero Суперчаты : XMRChat",
 };
