@@ -268,4 +268,14 @@ export default {
   autoShowTips: "Auto Show Tips",
   autoShowTipsDescription:
     "If active, tips will be automatically shown on the OBS page for 60 seconds.",
+
+  // HEAD
+  head: {
+    description:
+      "People wey dey watch, fit send message and tip easy and private. Streamers fit hold most of dia tips instead make dem give 30-50% to big tech companies.",
+    title: "Send Message and Tip with Monero",
+    XMRChatTip: "XMRChat - Tip {path} with Monero",
+    tip: "Tip {path}",
+  },
+  moneroSuperchats: "Monero Superchats: XMRChat",
 };
