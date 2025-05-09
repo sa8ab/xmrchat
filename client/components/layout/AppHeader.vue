@@ -89,7 +89,9 @@ const dropdownItems = computed<DropdownItem[][]>(() => {
         <ul>
           <li class="flex">
             <UButton variant="ghost" color="white" :to="toContact()">
-              {{ t("contactUs") }}
+              <span class="truncate max-w-[100px] sm:max-w-[100%]">
+                {{ t("contactUs") }}
+              </span>
             </UButton>
           </li>
         </ul>
