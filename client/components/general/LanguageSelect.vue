@@ -17,7 +17,7 @@ const items = computed<DropdownItem[][]>(() => {
 </script>
 
 <template>
-  <UDropdown :items="items">
+  <UDropdown :items="items" :ui="{ width: 'w-36' }">
     <UButton color="gray" square>
       <span class="ring-1 ring-border rounded-full">
         <img :src="`/images/flags/${locale}.png`" alt="" class="w-[20px]" />
