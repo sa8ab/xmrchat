@@ -23,11 +23,6 @@ export const CONTENT_LINKS_LIST = [
   ContentLinkPlatformEnum.KICK,
 ];
 
-export const SUPPORTED_TIP_VALUES = [
-  { value: TipDisplayMode.XMR, label: "XMR" },
-  { value: TipDisplayMode.FIAT, label: "Fiat" },
-];
-
 export const SWAP_STATUSES = {
   [SwapStatusEnum.CONFIRMING]: {
     label: "Confirming",
