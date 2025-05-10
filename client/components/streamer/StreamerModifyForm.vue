@@ -68,7 +68,8 @@ const state = reactive<State>({
     tiers: [],
     twitchChannel: undefined,
     isPublic: true,
-    defaultTipAmountDisplay: undefined,
+    tipDisplayMode: undefined,
+    fiat: undefined,
   },
   slugAvailable: false,
   loadingSlug: false,
@@ -154,7 +155,8 @@ const handleSubmit = async () => {
         tiers: state.form.tiers,
         twitchChannel: state.form.twitchChannel?.toLowerCase(),
         isPublic: state.form.isPublic,
-        defaultTipAmountDisplay: state.form.defaultTipAmountDisplay,
+        tipDisplayMode: state.form.tipDisplayMode,
+        fiat: state.form.fiat,
         minTipAmount: state.form.minTipAmount?.toString() || null,
       });
       toast.add({ title: "Page updated!" });
@@ -211,7 +213,8 @@ const getPage = async () => {
     twitchChannel: page.twitchChannel?.toLowerCase(),
     isPublic: page.isPublic,
     minTipAmount: page.minTipAmount,
-    defaultTipAmountDisplay: page.defaultTipAmountDisplay,
+    tipDisplayMode: page.tipDisplayMode,
+    fiat: page.fiat,
     tiers: page.tiers || [],
   };
 
@@ -387,10 +390,7 @@ const handleBannerUpload = (file: UploadedFile) => {
           :label="t('defaultTipAmount')"
           :help="t('thisIsOnlyForDisplaying')"
         >
-          <TipValueToggle
-            v-model="state.form.defaultTipAmountDisplay"
-            class="mt-2"
-          />
+          <TipValueToggle v-model="state.form.tipDisplayMode" class="mt-2" />
         </UFormGroup>
       </div>
 

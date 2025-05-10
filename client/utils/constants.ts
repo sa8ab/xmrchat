@@ -2,8 +2,8 @@ import type { ContentLinkFull } from "~/types";
 import {
   ContentLinkPlatformEnum,
   PageStatusEnum,
-  SupportedDisplayCurrency,
   SwapStatusEnum,
+  TipDisplayMode,
 } from "~/types/enums";
 
 export const CONTENT_LINKS_LIST = [
@@ -24,8 +24,8 @@ export const CONTENT_LINKS_LIST = [
 ];
 
 export const SUPPORTED_TIP_VALUES = [
-  { value: SupportedDisplayCurrency.XMR, label: "XMR" },
-  { value: SupportedDisplayCurrency.USD, label: "USD" },
+  { value: TipDisplayMode.XMR, label: "XMR" },
+  { value: TipDisplayMode.FIAT, label: "Fiat" },
 ];
 
 export const SWAP_STATUSES = {

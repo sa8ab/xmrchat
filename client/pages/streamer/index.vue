@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { PageStatusEnum, type SupportedDisplayCurrency } from "~/types/enums";
+import { PageStatusEnum, type TipDisplayMode } from "~/types/enums";
 
 useHead({
   title: "Profile",
@@ -13,8 +13,8 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
   () => getMyPage()
 );
 
-const tipValue = ref<SupportedDisplayCurrency | undefined>(
-  data.value?.page.defaultTipAmountDisplay
+const tipValue = ref<TipDisplayMode | undefined>(
+  data.value?.page.tipDisplayMode
 );
 </script>
 

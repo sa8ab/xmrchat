@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import type { Numberic, ObsTipSocketEvent, Tip } from "~/types";
-import { SupportedDisplayCurrency } from "~/types/enums";
+import { TipDisplayMode } from "~/types/enums";
 
 const props = defineProps<{
   slug: string;
-  tipValue?: SupportedDisplayCurrency;
+  tipValue?: TipDisplayMode;
 }>();
 
 const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
@@ -94,7 +94,7 @@ const { price } = useXmrPrice();
 const getComputedPrice = (amount?: string) => {
   const xmr = unitsToXmr(amount);
   const usd = (xmr || 0) * (price.value || 0);
-  return props.tipValue === SupportedDisplayCurrency.XMR
+  return props.tipValue === TipDisplayMode.XMR
     ? `${xmr} XMR`
     : `$${usd.toFixed(2)}`;
 };
