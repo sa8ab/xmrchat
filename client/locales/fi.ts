@@ -142,10 +142,10 @@ export default {
   tipMessagePlaceholder: "Kirjoita viesti",
   tipPrivatePlaceholder: "Yksityinen",
   tipSwapUnavailable: "Vaihdetta ei ole tällä hetkellä saatavilla.",
-  tipSwapMinimum: "Vähintään {minSwapUSD}$ vaihdettavaksi",
-  minUsdAmount: "Vähintään {minUsdAmount}",
+  tipSwapMinimum: "Vähintään {min} vaihdettavaksi",
+  tipMinimum: "Vähintään {min}",
   recentTips: "Viimeisimmät tipit",
-  tipDisplayValueTooltip: "Näytä tippi XMR tai USD muotoisena",
+  tipDisplayValueTooltip: "Näytä tippi XMR tai {fiat} muotoisena",
   noRecentTips: "Ei uusia tippejä!",
   pageDeactivatedAlert:
     "Sivusi on poistettu käytöstä eikä se ole julkisesti näkyvissä. Ota yhteyttä tukeen saadaksesi lisätietoja.",
@@ -232,6 +232,7 @@ export default {
   remove: "Poista",
   name: "Nimi",
   amountUSD: "Määrä (USD)",
+  amountFiat: "Määrä ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "Brändin Nimi",

@@ -144,10 +144,10 @@ export default {
   tipMessagePlaceholder: "메시지 입력",
   tipPrivatePlaceholder: "비공개",
   tipSwapUnavailable: "현재 스왑을 사용할 수 없습니다.",
-  tipSwapMinimum: "스왑 최소 금액은 {minSwapUSD}$입니다",
-  minUsdAmount: "최소 {minUsdAmount}",
+  tipSwapMinimum: "스왑 최소 금액은 {min}입니다",
+  tipMinimum: "최소 {min}",
   recentTips: "최근 팁",
-  tipDisplayValueTooltip: "팁 값을 모네로(Monero) 또는 USD로 표시",
+  tipDisplayValueTooltip: "팁 값을 모네로(Monero) 또는 {fiat}로 표시",
   noRecentTips: "최근 팁이 없습니다!",
   pageDeactivatedAlert:
     "페이지가 비활성화되어 공개적으로 표시되지 않습니다. 자세한 내용은 지원팀에 문의하세요.",
@@ -230,6 +230,7 @@ export default {
   remove: "제거",
   name: "이름",
   amountUSD: "금액 (USD)",
+  amountFiat: "금액 ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "브랜드 이름",

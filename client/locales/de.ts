@@ -148,10 +148,10 @@ export default {
   tipMessagePlaceholder: "Nachricht eingeben",
   tipPrivatePlaceholder: "Privat",
   tipSwapUnavailable: "Tausch ist derzeit nicht verfügbar",
-  tipSwapMinimum: "Minimum {minSwapUSD}$ zum Tauschen",
-  minUsdAmount: "Minimum {minUsdAmount}",
+  tipSwapMinimum: "Minimum {min} zum Tauschen",
+  tipMinimum: "Minimum {min}",
   recentTips: "Letzte Trinkgelder",
-  tipDisplayValueTooltip: "Trinkgeldwerte in XMR oder USD anzeigen",
+  tipDisplayValueTooltip: "Trinkgeldwerte in XMR oder {fiat} anzeigen",
   noRecentTips: "Keine aktuellen Trinkgelder!",
   pageDeactivatedAlert:
     "Ihre Seite wurde deaktiviert und ist nicht öffentlich sichtbar. Bitte kontaktieren Sie den Support für weitere Informationen.",
@@ -239,6 +239,7 @@ export default {
   remove: "Entfernen",
   name: "Name",
   amountUSD: "Betrag (USD)",
+  amountFiat: "Betrag ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "Markenname",

@@ -141,10 +141,10 @@ export default {
   tipMessagePlaceholder: "أدخل الرسالة",
   tipPrivatePlaceholder: "خاص",
   tipSwapUnavailable: "التبادل غير متوفر حالياً",
-  tipSwapMinimum: "الحد الأدنى للتبادل {minSwapUSD}$",
-  minUsdAmount: "الحد الأدنى {minUsdAmount}",
+  tipSwapMinimum: "الحد الأدنى للتبادل {min}",
+  tipMinimum: "الحد الأدنى {min}",
   recentTips: "التبرعات الأخيرة",
-  tipDisplayValueTooltip: "عرض قيم التبرعات بـ XMR أو USD",
+  tipDisplayValueTooltip: "عرض قيم التبرعات بـ XMR أو {fiat}",
   noRecentTips: "لا توجد تبرعات حديثة!",
   pageDeactivatedAlert:
     "تم تعطيل صفحتك وهي غير مرئية للعامة. يرجى الاتصال بالدعم لمزيد من المعلومات",
@@ -230,6 +230,7 @@ export default {
   remove: "إزالة",
   name: "الاسم",
   amountUSD: "المبلغ (USD)",
+  amountFiat: "المبلغ ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "اسم العلامة التجارية",
