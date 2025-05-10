@@ -8,6 +8,9 @@ import { NotificationsModule } from 'src/notifications/notifications.module';
 import { SendEmailCommand } from './commands/send-email.command';
 import { LwsCommand } from './commands/lws.command';
 import { LwsModule } from 'src/lws/lws.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Page } from 'src/pages/page.entity';
+import { DataMigrationCommand } from './commands/data-migration.command';
 
 @Module({
   providers: [
@@ -16,7 +19,14 @@ import { LwsModule } from 'src/lws/lws.module';
     ChangeEmailCommand,
     SendEmailCommand,
     LwsCommand,
+    DataMigrationCommand,
   ],
-  imports: [AuthModule, UsersModule, NotificationsModule, LwsModule],
+  imports: [
+    AuthModule,
+    UsersModule,
+    NotificationsModule,
+    LwsModule,
+    TypeOrmModule.forFeature([Page]),
+  ],
 })
 export class CommanderModule {}

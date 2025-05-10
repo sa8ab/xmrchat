@@ -1,5 +1,5 @@
 import type { ContentLinkFull } from "~/types";
-import { ContentLinkPlatformEnum } from "~/types/enums";
+import { ContentLinkPlatformEnum, FiatEnum } from "~/types/enums";
 
 export const useConstants = () => {
   const { t } = useI18n();
@@ -121,8 +121,32 @@ export const useConstants = () => {
     return CONTENT_LINKS[v];
   };
 
+  const fiats = computed(() => {
+    return {
+      [FiatEnum.USD]: {
+        code: FiatEnum.USD,
+        name: "USD",
+        symbol: "$",
+      },
+      [FiatEnum.EUR]: {
+        code: FiatEnum.EUR,
+        name: "EUR",
+        symbol: "€",
+      },
+      [FiatEnum.MXN]: {
+        code: FiatEnum.MXN,
+        name: "MXN",
+        symbol: "MXN",
+      },
+    };
+  });
+
+  const getFiat = (v: FiatEnum) => fiats.value[v];
+
   return {
     getContentLink,
     CONTENT_LINKS,
+    fiats,
+    getFiat,
   };
 };

@@ -392,6 +392,14 @@ const handleBannerUpload = (file: UploadedFile) => {
         >
           <TipValueToggle v-model="state.form.tipDisplayMode" class="mt-2" />
         </UFormGroup>
+        <UFormGroup
+          v-if="editable"
+          size="lg"
+          label="Fiat unit"
+          help="Unit to display tips when tip display mode is fiat."
+        >
+          <FiatSelect v-model="state.form.fiat" />
+        </UFormGroup>
       </div>
 
       <div class="single" v-if="editable">
