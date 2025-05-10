@@ -24,22 +24,22 @@ export const useMinTipAmount = ({ pageMinXmr, pageFiat }: Options = {}) => {
     minSwapState.value ? parseFloat(minSwapState.value) : 0.055
   );
 
-  const minUsdAmount = computed(() => {
+  const minFiatAmount = computed(() => {
     if (!price.value) return "0";
     return (Math.ceil(minXmr.value * price.value * 100) / 100).toFixed(2);
   });
 
-  const minSwapUSD = computed(() => {
+  const minSwapFiatAmount = computed(() => {
     if (!price.value) return 0;
     const swapMin = (
       Math.ceil(minSwapXMR.value * price.value * 100) / 100
     ).toFixed(2);
-    return Math.max(parseFloat(swapMin), parseFloat(minUsdAmount.value));
+    return Math.max(parseFloat(swapMin), parseFloat(minFiatAmount.value));
   });
 
   return {
     price,
-    minUsdAmount,
-    minSwapUSD,
+    minFiatAmount,
+    minSwapFiatAmount,
   };
 };

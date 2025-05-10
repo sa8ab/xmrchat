@@ -2,6 +2,7 @@
 import type { Numberic, TipTierField } from "~/types";
 // @ts-ignore
 import { ValidateEach } from "@vuelidate/components";
+import { FiatEnum } from "~/types/enums";
 
 const { t } = useI18n();
 
@@ -9,12 +10,20 @@ const tiers = defineModel<TipTierField[]>({
   default: () => [],
 });
 
-const props = defineProps<{
-  minUsdAmount: Numberic;
-}>();
+const props = withDefaults(
+  defineProps<{
+    minFiatAmount: Numberic;
+    fiat?: FiatEnum;
+  }>(),
+  {
+    fiat: FiatEnum.USD,
+  }
+);
 
 const { getValidationAttrs, required, numberic, minLength, minValue } =
   useValidations();
+
+const { getFiat } = useConstants();
 
 const handleRemove = (index: number) => {
   tiers.value = tiers.value.filter((_, i) => i !== index);
@@ -32,7 +41,7 @@ const rules = computed(() => {
     amount: {
       required,
       numberic,
-      minValue: minValue(toRef(props, "minUsdAmount") as Ref<string>),
+      minValue: minValue(toRef(props, "minFiatAmount") as Ref<string>),
     },
     name: { required, minLength: minLength(3) },
   };
@@ -61,7 +70,7 @@ const rules = computed(() => {
                 </UInput>
               </UFormGroup>
               <UFormGroup
-                :label="t('amountUSD')"
+                :label="t('amountFiat', { fiat: getFiat(fiat).name })"
                 :error="getValidationAttrs('amount', v).error"
               >
                 <UInput

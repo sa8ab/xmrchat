@@ -10,7 +10,8 @@ const props = defineProps<{
 const { getTips: getTipsApi } = useServices();
 const { state: generalState } = useGeneralStore();
 
-const { xmrToFiat, prices } = useXmrPrice();
+const { xmrToFiat } = useXmrPrice();
+const { money } = useMoney();
 const { t } = useI18n();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
@@ -38,7 +39,7 @@ const getComputedPrice = (amount?: string) => {
   const fiat = xmrToFiat(xmr, props.page?.fiat);
   return generalState.tipDisplayValue === TipDisplayMode.XMR
     ? `${xmr} XMR`
-    : `$${fiat.toFixed(2)}`;
+    : money(fiat.toFixed(2), props.page?.fiat);
 };
 
 const { getFiat } = useConstants();

@@ -143,8 +143,8 @@ export default {
   tipMessagePlaceholder: "Enter message",
   tipPrivatePlaceholder: "Private",
   tipSwapUnavailable: "Swap is currently unavailable.",
-  tipSwapMinimum: "Minimum {minSwapUSD}$ to swap",
-  minUsdAmount: "Minimum {minUsdAmount}",
+  tipSwapMinimum: "Minimum {min} to swap",
+  tipMinimum: "Minimum {min}",
   recentTips: "Recent Tips",
   tipDisplayValueTooltip: "Show tip values in XMR or {fiat}",
   noRecentTips: "No recent tips!",
@@ -232,6 +232,7 @@ export default {
   remove: "Remove",
   name: "Name",
   amountUSD: "Amount ( USD )",
+  amountFiat: "Amount ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "Brand Name",

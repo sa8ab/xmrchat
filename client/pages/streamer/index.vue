@@ -56,7 +56,11 @@ const { getFiat } = useConstants();
             </UTooltip>
           </div>
 
-          <StreamerTipsList :slug="data.page.path" :tipValue="tipValue" />
+          <StreamerTipsList
+            :slug="data.page.path"
+            :tipValue="tipValue"
+            :fiat="data.page.fiat"
+          />
         </div>
         <NoPageYet v-else />
       </div>

@@ -13,14 +13,16 @@ const props = defineProps<{
 }>();
 
 const { required, minLength, maxLength, minValue } = useValidations();
-const { sendTipToStreamer: sendTipToStreamerApi, getPrice } = useServices();
+const { sendTipToStreamer: sendTipToStreamerApi } = useServices();
 const coins = useState<Coin[]>("coins");
 const swapActive = useState<boolean>("swapActive");
 const { t } = useI18n();
 
-const { minUsdAmount, price, minSwapUSD } = useMinTipAmount({
+const { minFiatAmount, price, minSwapFiatAmount } = useMinTipAmount({
   pageMinXmr: computed(() => props.streamerPage?.minTipAmount),
+  pageFiat: computed(() => props.streamerPage?.fiat),
 });
+const { money } = useMoney();
 
 const emit = defineEmits<{
   done: [TipCreationResponse];
@@ -54,7 +56,7 @@ const v = useVuelidate<State["form"]>(
       amount: {
         required,
         minValue: minValue(
-          state.selectedCoin ? minSwapUSD.value : minUsdAmount.value
+          state.selectedCoin ? minSwapFiatAmount.value : minFiatAmount.value
         ),
       },
       message: { minLength: minLength(3), maxLength: maxLength(255) },
@@ -73,13 +75,7 @@ const handleSubmit = async () => {
   try {
     state.loading = true;
 
-    let priceValue = price.value;
-
-    if (!priceValue) {
-      priceValue = await getPrice();
-    }
-
-    const xmrAmount = (state.form.amount / (priceValue as number)).toFixed(8);
+    const xmrAmount = (state.form.amount / (price.value as number)).toFixed(8);
 
     const response = await sendTipToStreamerApi(props.streamerId, {
       ...state.form,
@@ -164,16 +160,21 @@ const coinSelectOptions = computed(() => {
             <TipTiers
               :tiers="streamerPage?.tiers"
               @select="state.form.amount = $event"
+              :fiat="streamerPage?.fiat"
               v-if="streamerPage?.tiers?.length"
             />
             <template #hint>
               <span class="text-xs" v-if="state.selectedCoin">{{
                 t("tipSwapMinimum", {
-                  minSwapUSD: minSwapUSD,
+                  min: money(minSwapFiatAmount, streamerPage?.fiat),
                 })
               }}</span>
               <span class="text-xs" v-else>
-                {{ t("minUsdAmount", { minUsdAmount: minUsdAmount }) }}$</span
+                {{
+                  t("tipMinimum", {
+                    min: money(minFiatAmount, streamerPage?.fiat),
+                  })
+                }}</span
               >
             </template>
           </UFormGroup>

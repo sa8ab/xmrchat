@@ -91,13 +91,14 @@ const updateTipPrivate = async (id: Numberic, isPrivate: boolean) => {
 };
 
 const { xmrToFiat } = useXmrPrice();
+const { money } = useMoney();
 
 const getComputedPrice = (amount?: string) => {
   const xmr = unitsToXmr(amount);
   const fiat = xmrToFiat(xmr, props.fiat);
   return props.tipValue === TipDisplayMode.XMR
     ? `${xmr} XMR`
-    : `$${fiat.toFixed(2)}`;
+    : money(fiat.toFixed(2), props.fiat);
 };
 
 const handleSendClick = async (row: Tip) => {

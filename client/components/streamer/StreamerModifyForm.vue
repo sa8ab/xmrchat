@@ -56,7 +56,9 @@ const {
   updateStreamer,
 } = useServices();
 
-const { minUsdAmount } = useMinTipAmount();
+const { minFiatAmount } = useMinTipAmount({
+  pageFiat: computed(() => state.form.fiat),
+});
 
 const state = reactive<State>({
   form: {
@@ -410,7 +412,8 @@ const handleBannerUpload = (file: UploadedFile) => {
         <UFormGroup :label="t('tipAmountSuggestions')">
           <StreamerTipSuggestions
             v-model="state.form.tiers"
-            :minUsdAmount="minUsdAmount"
+            :minFiatAmount="minFiatAmount"
+            :fiat="state.form.fiat"
           />
         </UFormGroup>
       </div>
