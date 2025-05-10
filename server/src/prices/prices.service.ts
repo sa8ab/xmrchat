@@ -18,6 +18,7 @@ export class PricesService {
 
     return {
       usd: xmrUsdPrice,
+      mxn: 6158,
     };
   }
 

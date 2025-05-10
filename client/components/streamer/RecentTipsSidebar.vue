@@ -10,7 +10,7 @@ const props = defineProps<{
 const { getTips: getTipsApi } = useServices();
 const { state: generalState } = useGeneralStore();
 
-const { xmrToFiat } = useXmrPrice();
+const { xmrToFiat, prices } = useXmrPrice();
 const { t } = useI18n();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
