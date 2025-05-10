@@ -18,7 +18,7 @@ const coins = useState<Coin[]>("coins");
 const swapActive = useState<boolean>("swapActive");
 const { t } = useI18n();
 
-const { minUsdAmount, price, minSwapUSD } = useXmrPrice({
+const { minUsdAmount, price, minSwapUSD } = useMinTipAmount({
   pageMinXmr: computed(() => props.streamerPage?.minTipAmount),
 });
 
@@ -73,11 +73,13 @@ const handleSubmit = async () => {
   try {
     state.loading = true;
 
-    if (!price.value) {
-      price.value = await getPrice();
+    let priceValue = price.value;
+
+    if (!priceValue) {
+      priceValue = await getPrice();
     }
 
-    const xmrAmount = (state.form.amount / (price.value as number)).toFixed(8);
+    const xmrAmount = (state.form.amount / (priceValue as number)).toFixed(8);
 
     const response = await sendTipToStreamerApi(props.streamerId, {
       ...state.form,

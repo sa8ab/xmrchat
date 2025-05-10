@@ -199,3 +199,9 @@ export interface ConfirmModalState {
   onDismiss?: () => unknown;
   active?: boolean;
 }
+
+export interface Prices {
+  usd?: number;
+  mxn?: number;
+  eur?: number;
+}

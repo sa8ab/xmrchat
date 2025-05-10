@@ -56,7 +56,7 @@ const {
   updateStreamer,
 } = useServices();
 
-const { minUsdAmount } = useXmrPrice();
+const { minUsdAmount } = useMinTipAmount();
 
 const state = reactive<State>({
   form: {
