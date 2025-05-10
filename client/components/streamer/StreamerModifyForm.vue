@@ -390,7 +390,11 @@ const handleBannerUpload = (file: UploadedFile) => {
           :label="t('defaultTipAmount')"
           :help="t('thisIsOnlyForDisplaying')"
         >
-          <TipValueToggle v-model="state.form.tipDisplayMode" class="mt-2" />
+          <TipValueToggle
+            v-model="state.form.tipDisplayMode"
+            class="mt-2"
+            :fiat="state.form.fiat"
+          />
         </UFormGroup>
         <UFormGroup
           v-if="editable"

@@ -12,6 +12,15 @@ export class PricesService {
   ) {}
 
   // Monero
+
+  async getMoneroPrices() {
+    const xmrUsdPrice = await this.getMoneroUsdPrice();
+
+    return {
+      usd: xmrUsdPrice,
+    };
+  }
+
   async getMoneroUsdPrice() {
     const cachedPrice = await this.cacheManager.get('xmr-usd-price');
 
