@@ -1,9 +1,8 @@
-import { Controller, Get, UseInterceptors } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { PricesService } from './prices.service';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 import { SkipThrottle } from '@nestjs/throttler';
 import { FiatEnum } from 'src/shared/constants';
-import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 
 @SkipThrottle()
 @Controller('prices')
