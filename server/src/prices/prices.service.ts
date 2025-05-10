@@ -2,102 +2,56 @@ import { HttpService } from '@nestjs/axios';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Cache } from 'cache-manager';
+import { XmrPriceService } from './xmr-price.service';
+import { FiatEnum } from 'src/shared/constants';
 
 @Injectable()
 export class PricesService {
-  private logger = new Logger(PricesService.name);
-  constructor(
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
-    private httpService: HttpService,
-  ) {}
+  constructor(private xmrPriceService: XmrPriceService) {}
 
   // Monero
-
   async getMoneroPrices() {
-    const xmrUsdPrice = await this.getMoneroUsdPrice();
+    const xmrUsdPrice = await this.xmrPriceService.getMoneroUsdPrice();
+    const xmrMxnPrice = await this.xmrPriceService.getMoneroMxnPrice();
+    const xmrEurPrice = await this.xmrPriceService.getMoneroEurPrice();
 
     return {
       usd: xmrUsdPrice,
-      mxn: 6158,
+      mxn: xmrMxnPrice,
+      eur: xmrEurPrice,
     };
   }
 
-  async getMoneroUsdPrice() {
-    const cachedPrice = await this.cacheManager.get('xmr-usd-price');
-
-    if (cachedPrice) return cachedPrice;
-
-    const priceLocalmonero = await this.getFromLocalmonero();
-
-    if (priceLocalmonero) {
-      await this.cachePrice(priceLocalmonero);
-      return priceLocalmonero;
-    }
-
-    const priceCryptoCompare = await this.getFromCryptocompare();
-
-    if (priceCryptoCompare) {
-      await this.cachePrice(priceCryptoCompare);
-      return priceCryptoCompare;
-    }
-
-    return 200;
-  }
-
-  async getFromLocalmonero() {
-    try {
-      const { data } = await this.httpService.axiosRef.get(
-        'https://localmonero.co/web/ticker?currencyCode=USD',
-      );
-      return data.USD?.avg_6h;
-    } catch (error) {
-      this.logger.warn('Error getting price from localmonero');
-    }
-  }
-
-  async getFromCryptocompare() {
-    try {
-      const { data } = await this.httpService.axiosRef.get(
-        'https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=USD',
-      );
-
-      return data.USD;
-    } catch (error) {
-      this.logger.warn('Error getting price from cryptocompare');
-    }
+  async getMoneroPrice(fiat: FiatEnum = FiatEnum.USD) {
+    const prices = await this.getMoneroPrices();
+    if (prices[fiat]) return prices[fiat];
+    return 0;
   }
 
   // Litecoin
-  async getLitecoinUsdPrice() {
-    const cachedPrice = await this.cacheManager.get('ltc-usd-price');
+  // async getLitecoinUsdPrice() {
+  //   const cachedPrice = await this.cacheManager.get('ltc-usd-price');
 
-    if (cachedPrice) return cachedPrice;
+  //   if (cachedPrice) return cachedPrice;
 
-    const priceDiadata = await this.getFromLocalmonero();
+  //   const priceDiadata = await this.getLtcFromDiadata();
 
-    if (priceDiadata) {
-      await this.cachePrice(priceDiadata, 'ltc-usd-price');
-      return priceDiadata;
-    }
+  //   if (priceDiadata) {
+  //     await this.cachePrice(priceDiadata, 'ltc-usd-price');
+  //     return priceDiadata;
+  //   }
 
-    return 100;
-  }
+  //   return 100;
+  // }
 
-  async getLtcFromDiadata() {
-    try {
-      const { data } = await this.httpService.axiosRef.get(
-        'https://api.diadata.org/v1/assetQuotation/Litecoin/0x0000000000000000000000000000000000000000',
-      );
-      return data.price as number;
-    } catch (error) {
-      this.logger.warn('Error getting ltc price from ');
-    }
-  }
-
-  async cachePrice(price: any, key: string = 'xmr-usd-price') {
-    await this.cacheManager.set(key, price, {
-      ttl: 60 * 60,
-    } as any);
-    return price;
-  }
+  // async getLtcFromDiadata() {
+  //   try {
+  //     const { data } = await this.httpService.axiosRef.get(
+  //       'https://api.diadata.org/v1/assetQuotation/Litecoin/0x0000000000000000000000000000000000000000',
+  //     );
+  //     return data.price as number;
+  //   } catch (error) {
+  //     this.logger.warn('Error getting ltc price from ');
+  //   }
+  // }
 }
