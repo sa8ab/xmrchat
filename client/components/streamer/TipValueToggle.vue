@@ -1,21 +1,24 @@
 <script lang="ts" setup>
-import { SupportedDisplayCurrency } from "~/types/enums";
+import { FiatEnum, TipDisplayMode } from "~/types/enums";
 
-const model = defineModel<SupportedDisplayCurrency | undefined>();
+const model = defineModel<TipDisplayMode | undefined>();
+const props = defineProps<{
+  fiat?: FiatEnum;
+}>();
 
 const computedModel = computed({
   set: (v) => {
-    model.value = v
-      ? SupportedDisplayCurrency.XMR
-      : SupportedDisplayCurrency.USD;
+    model.value = v ? TipDisplayMode.XMR : TipDisplayMode.FIAT;
   },
-  get: () => model.value === SupportedDisplayCurrency.XMR,
+  get: () => model.value === TipDisplayMode.XMR,
 });
+
+const { getFiat } = useConstants();
 </script>
 
 <template>
   <div class="toggle flex items-center gap-1">
-    <span class="text-xs">USD</span>
+    <span class="text-xs">{{ getFiat(props.fiat || FiatEnum.USD).name }}</span>
     <UToggle
       v-model="computedModel"
       :ui="{ inactive: 'bg-primary', active: 'bg-primary' }"

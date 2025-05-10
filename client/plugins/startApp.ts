@@ -1,11 +1,12 @@
 export default defineNuxtPlugin(async () => {
-  const price = useState("xmrPrice");
+  const prices = useState("prices");
   const coins = useState("coins");
   const minSwap = useState("minSwap");
   const swapActive = useState("swapActive");
 
   await useAsyncData(async () => {
-    price.value = await $fetch("/get-price");
+    const pricesRes = await $fetch("/prices");
+    prices.value = pricesRes.xmr;
 
     const res = await $fetch("/coins");
     coins.value = res.coins;

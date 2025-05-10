@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { TipContent } from "#components";
 import type { TipCreationResponse } from "~/types";
-import { SupportedDisplayCurrency } from "~/types/enums";
+import { TipDisplayMode } from "~/types/enums";
 
 definePageMeta({
   hideHeaderLogin: true,
@@ -18,8 +18,7 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
   () => getStreamerPage(streamerId.value),
   {
     transform: (v) => {
-      generalState.tipDisplayValue =
-        v.defaultTipAmountDisplay || SupportedDisplayCurrency.USD;
+      generalState.tipDisplayValue = v.tipDisplayMode || TipDisplayMode.FIAT;
       return v;
     },
   }

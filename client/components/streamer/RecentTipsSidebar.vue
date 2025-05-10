@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { StreamerPage } from "~/types";
-import { SupportedDisplayCurrency } from "~/types/enums";
+import { FiatEnum, TipDisplayMode } from "~/types/enums";
 
 const props = defineProps<{
   slug: string;
@@ -10,7 +10,8 @@ const props = defineProps<{
 const { getTips: getTipsApi } = useServices();
 const { state: generalState } = useGeneralStore();
 
-const { price } = useXmrPrice();
+const { xmrToFiat } = useXmrPrice();
+const { money } = useMoney();
 const { t } = useI18n();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
@@ -35,11 +36,13 @@ const stopTipsInterval = () => {
 
 const getComputedPrice = (amount?: string) => {
   const xmr = unitsToXmr(amount);
-  const usd = (xmr || 0) * (price.value || 0);
-  return generalState.tipDisplayValue === SupportedDisplayCurrency.XMR
+  const fiat = xmrToFiat(xmr, props.page?.fiat);
+  return generalState.tipDisplayValue === TipDisplayMode.XMR
     ? `${xmr} XMR`
-    : `$${usd.toFixed(2)}`;
+    : money(fiat.toFixed(2), props.page?.fiat);
 };
+
+const { getFiat } = useConstants();
 </script>
 
 <template>
@@ -49,10 +52,17 @@ const getComputedPrice = (amount?: string) => {
         {{ t("recentTips") }}
       </h3>
       <UTooltip
-        :text="t('tipDisplayValueTooltip')"
+        :text="
+          t('tipDisplayValueTooltip', {
+            fiat: getFiat(page?.fiat || FiatEnum.USD).name,
+          })
+        "
         :popper="{ placement: 'top' }"
       >
-        <TipValueToggle v-model="generalState.tipDisplayValue" />
+        <TipValueToggle
+          v-model="generalState.tipDisplayValue"
+          :fiat="page?.fiat"
+        />
       </UTooltip>
     </div>
     <PendingView :error="error">

@@ -133,10 +133,11 @@ export default {
   tipMessagePlaceholder: "Entrez le message",
   tipPrivatePlaceholder: "Privé",
   tipSwapUnavailable: "L'échange est actuellement indisponible.",
-  tipSwapMinimum: "Minimum {minSwapUSD}$ pour échanger",
-  minUsdAmount: "Minimum {minUsdAmount}",
+  tipSwapMinimum: "Minimum {min} pour échanger",
+  tipMinimum: "Minimum {min}",
   recentTips: "Pourboires Récents",
-  tipDisplayValueTooltip: "Afficher les valeurs des pourboires en XMR ou USD",
+  tipDisplayValueTooltip:
+    "Afficher les valeurs des pourboires en XMR ou {fiat}",
   noRecentTips: "Aucun pourboire récent !",
   pageDeactivatedAlert:
     "Votre page a été désactivée et n'est pas visible publiquement. Veuillez contacter le support pour plus d'informations.",
@@ -243,6 +244,7 @@ export default {
   remove: "Supprimer",
   name: "Nom",
   amountUSD: "Montant (USD)",
+  amountFiat: "Montant ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "Nom de la Marque",

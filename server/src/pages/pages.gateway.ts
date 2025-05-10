@@ -21,6 +21,7 @@ import { PricesService } from 'src/prices/prices.service';
 import { MoneroUtils } from 'monero-ts';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { FiatEnum } from 'src/shared/constants';
 
 @WebSocketGateway({ namespace: '/pages', cors: { origin: true } })
 export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -164,7 +165,7 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   async getTipMessage(tip: Tip) {
     const clearedMessage = clearMessage(tip.message);
 
-    const xmrUsdPrice = await this.pricesService.getMoneroUsdPrice();
+    const xmrUsdPrice = await this.pricesService.getMoneroPrice(FiatEnum.USD);
 
     const xmrValue = MoneroUtils.atomicUnitsToXmr(tip.payment.amount);
 

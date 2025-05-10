@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import type { Numberic, ObsTipSocketEvent, Tip } from "~/types";
-import { SupportedDisplayCurrency } from "~/types/enums";
+import { FiatEnum, TipDisplayMode } from "~/types/enums";
 
 const props = defineProps<{
   slug: string;
-  tipValue?: SupportedDisplayCurrency;
+  tipValue?: TipDisplayMode;
+  fiat?: FiatEnum;
 }>();
 
 const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
@@ -89,14 +90,15 @@ const updateTipPrivate = async (id: Numberic, isPrivate: boolean) => {
   }
 };
 
-const { price } = useXmrPrice();
+const { xmrToFiat } = useXmrPrice();
+const { money } = useMoney();
 
 const getComputedPrice = (amount?: string) => {
   const xmr = unitsToXmr(amount);
-  const usd = (xmr || 0) * (price.value || 0);
-  return props.tipValue === SupportedDisplayCurrency.XMR
+  const fiat = xmrToFiat(xmr, props.fiat);
+  return props.tipValue === TipDisplayMode.XMR
     ? `${xmr} XMR`
-    : `$${usd.toFixed(2)}`;
+    : money(fiat.toFixed(2), props.fiat);
 };
 
 const handleSendClick = async (row: Tip) => {

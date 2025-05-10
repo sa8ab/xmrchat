@@ -27,7 +27,7 @@ import { SwapsService } from 'src/swaps/swaps.service';
 import { Swap } from 'src/swaps/swap.entity';
 import { Coin } from 'src/integrations/trocador/coin.entity';
 import { TrocadorTrade } from 'src/shared/types';
-import { PageSettingKey } from 'src/shared/constants';
+import { FiatEnum, PageSettingKey } from 'src/shared/constants';
 import { PageSettingsService } from 'src/page-settings/page-settings.service';
 
 @Injectable()
@@ -244,7 +244,7 @@ export class TipsService {
 
     const clearedMessage = clearMessage(tip.message);
 
-    const xmrUsdPrice = await this.pricesService.getMoneroUsdPrice();
+    const xmrUsdPrice = await this.pricesService.getMoneroPrice(FiatEnum.USD);
 
     const xmrValue = MoneroUtils.atomicUnitsToXmr(payment.amount);
 

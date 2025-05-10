@@ -121,7 +121,7 @@ const executeChangeStatus = async (status: PageStatusEnum) => {
             <div class="text-pale">Min tip amount</div>
             <div>{{ data.minTipAmount }} XMR</div>
             <div class="text-pale">Default tip amount display</div>
-            <div>{{ data.defaultTipAmountDisplay?.toUpperCase() }}</div>
+            <div>{{ data.tipDisplayMode?.toUpperCase() }}</div>
           </div>
         </UCard>
         <!-- <UCard :ui="{ background: 'dark:bg-background-2' }">

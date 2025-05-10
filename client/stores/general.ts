@@ -1,8 +1,8 @@
 import { parse, stringify } from "zipson";
-import { SupportedDisplayCurrency } from "~/types/enums";
+import { TipDisplayMode } from "~/types/enums";
 
 interface State {
-  tipDisplayValue?: SupportedDisplayCurrency;
+  tipDisplayValue?: TipDisplayMode;
 }
 
 export const useGeneralStore = defineStore(

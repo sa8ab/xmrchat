@@ -143,10 +143,10 @@ export default {
   tipMessagePlaceholder: "Введите сообщение",
   tipPrivatePlaceholder: "Приватно",
   tipSwapUnavailable: "Обмен сейчас недоступен.",
-  tipSwapMinimum: "Минимум {minSwapUSD}$ для обмена",
-  minUsdAmount: "Минимум {minUsdAmount}",
+  tipSwapMinimum: "Минимум {min} для обмена",
+  tipMinimum: "Минимум {min}",
   recentTips: "Последние чаевые",
-  tipDisplayValueTooltip: "Показывать чаевые в XMR или USD",
+  tipDisplayValueTooltip: "Показывать чаевые в XMR или {fiat}",
   noRecentTips: "Нет недавних чаевых!",
   pageDeactivatedAlert:
     "Ваша страница была деактивирована и не отображается для публичного просмотра. Пожалуйста, свяжитесь с поддержкой для получения дополнительной информации.",
@@ -231,6 +231,7 @@ export default {
   remove: "Удалить",
   name: "Имя",
   amountUSD: "Сумма (USD)",
+  amountFiat: "Сумма ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "Название Бренда",

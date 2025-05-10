@@ -1,13 +1,17 @@
 <script lang="ts" setup>
 import type { Numberic, TipTier } from "~/types";
+import type { FiatEnum } from "~/types/enums";
 
 const props = defineProps<{
   tiers?: TipTier[];
+  fiat?: FiatEnum;
 }>();
 
 const emit = defineEmits<{
   select: [Numberic];
 }>();
+
+const { money } = useMoney();
 
 const sortedTiers = computed(() =>
   props.tiers
@@ -33,7 +37,7 @@ const handleClick = (item: TipTier) => {
       square
       variant="soft"
     >
-      ${{ item.amount }}
+      {{ money(item.amount, fiat) }}
     </UButton>
   </div>
 </template>

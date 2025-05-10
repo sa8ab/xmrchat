@@ -148,10 +148,10 @@ export default {
   tipMessagePlaceholder: "Ingrese el mensaje",
   tipPrivatePlaceholder: "Privado",
   tipSwapUnavailable: "El intercambio no está disponible actualmente.",
-  tipSwapMinimum: "Mínimo {minSwapUSD}$ para intercambiar",
-  minUsdAmount: "Mínimo {minUsdAmount}",
+  tipSwapMinimum: "Mínimo {min} para intercambiar",
+  tipMinimum: "Mínimo {min}",
   recentTips: "Propinas recientes",
-  tipDisplayValueTooltip: "Mostrar valores de propina en XMR o USD",
+  tipDisplayValueTooltip: "Mostrar valores de propina en XMR o {fiat}",
   noRecentTips: "¡No hay propinas recientes!",
   pageDeactivatedAlert:
     "Tu página ha sido desactivada y no es visible al público. Por favor, contacta con el soporte para más información.",
@@ -238,6 +238,7 @@ export default {
   remove: "Eliminar",
   name: "Nombre",
   amountUSD: "Monto (USD)",
+  amountFiat: "Monto ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "Nombre de la Marca",

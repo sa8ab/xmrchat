@@ -141,10 +141,10 @@ export default {
   tipMessagePlaceholder: "Enter message",
   tipPrivatePlaceholder: "Private",
   tipSwapUnavailable: "Swap no dey work now.",
-  tipSwapMinimum: "You must swap at least {minSwapUSD}$",
-  minUsdAmount: "Minimum {minUsdAmount}",
+  tipSwapMinimum: "You must swap at least {min}",
+  tipMinimum: "Minimum {min}",
   recentTips: "Recent Tips",
-  tipDisplayValueTooltip: "Show tip as XMR or USD",
+  tipDisplayValueTooltip: "Show tip as XMR or {fiat}",
   noRecentTips: "No recent tips!",
   pageDeactivatedAlert:
     "Your page don deactivate and e no dey show to di public. Abeg talk to support if you wan know more.",
@@ -230,6 +230,7 @@ export default {
   remove: "Remove",
   name: "Name",
   amountUSD: "Amount (USD)",
+  amountFiat: "Amount ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "Brand Name",
