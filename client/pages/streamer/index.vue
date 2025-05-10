@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { PageStatusEnum, type TipDisplayMode } from "~/types/enums";
+import { FiatEnum, PageStatusEnum, type TipDisplayMode } from "~/types/enums";
 
 useHead({
   title: "Profile",
@@ -16,6 +16,7 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
 const tipValue = ref<TipDisplayMode | undefined>(
   data.value?.page.tipDisplayMode
 );
+const { getFiat } = useConstants();
 </script>
 
 <template>
@@ -40,10 +41,18 @@ const tipValue = ref<TipDisplayMode | undefined>(
 
           <div class="flex justify-end mb-2">
             <UTooltip
-              :text="t('tipDisplayValueTooltip')"
+              :text="
+                $t('tipDisplayValueTooltip', {
+                  fiat: getFiat(data.page.fiat || FiatEnum.USD).name,
+                })
+              "
               :popper="{ placement: 'top' }"
             >
-              <TipValueToggle class="font-normal" v-model="tipValue" />
+              <TipValueToggle
+                class="font-normal"
+                v-model="tipValue"
+                :fiat="data.page.fiat"
+              />
             </UTooltip>
           </div>
 

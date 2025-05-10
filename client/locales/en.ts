@@ -146,7 +146,7 @@ export default {
   tipSwapMinimum: "Minimum {minSwapUSD}$ to swap",
   minUsdAmount: "Minimum {minUsdAmount}",
   recentTips: "Recent Tips",
-  tipDisplayValueTooltip: "Show tip values in XMR or USD",
+  tipDisplayValueTooltip: "Show tip values in XMR or {fiat}",
   noRecentTips: "No recent tips!",
   pageDeactivatedAlert:
     "Your page has been deactivated and it is not visible to public. Please contact support for more info.",

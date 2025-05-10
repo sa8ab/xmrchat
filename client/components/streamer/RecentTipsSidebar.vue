@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { StreamerPage } from "~/types";
-import { TipDisplayMode } from "~/types/enums";
+import { FiatEnum, TipDisplayMode } from "~/types/enums";
 
 const props = defineProps<{
   slug: string;
@@ -40,6 +40,8 @@ const getComputedPrice = (amount?: string) => {
     ? `${xmr} XMR`
     : `$${usd.toFixed(2)}`;
 };
+
+const { getFiat } = useConstants();
 </script>
 
 <template>
@@ -49,10 +51,17 @@ const getComputedPrice = (amount?: string) => {
         {{ t("recentTips") }}
       </h3>
       <UTooltip
-        :text="t('tipDisplayValueTooltip')"
+        :text="
+          t('tipDisplayValueTooltip', {
+            fiat: getFiat(page?.fiat || FiatEnum.USD).name,
+          })
+        "
         :popper="{ placement: 'top' }"
       >
-        <TipValueToggle v-model="generalState.tipDisplayValue" />
+        <TipValueToggle
+          v-model="generalState.tipDisplayValue"
+          :fiat="page?.fiat"
+        />
       </UTooltip>
     </div>
     <PendingView :error="error">
