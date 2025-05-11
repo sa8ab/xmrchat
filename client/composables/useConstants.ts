@@ -126,7 +126,7 @@ export const useConstants = () => {
       [FiatEnum.USD]: {
         code: FiatEnum.USD,
         name: "USD",
-        symbol: "$",
+        symbol: "US$",
       },
       [FiatEnum.EUR]: {
         code: FiatEnum.EUR,
@@ -136,7 +136,7 @@ export const useConstants = () => {
       [FiatEnum.MXN]: {
         code: FiatEnum.MXN,
         name: "MXN",
-        symbol: "MXN",
+        symbol: "MEX$",
       },
     };
   });
