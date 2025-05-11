@@ -4,7 +4,7 @@ export const FIAT_VALUES = {
   [FiatEnum.USD]: {
     code: FiatEnum.USD,
     name: 'USD',
-    symbol: '$',
+    symbol: 'US$',
   },
   [FiatEnum.EUR]: {
     code: FiatEnum.EUR,
@@ -14,6 +14,6 @@ export const FIAT_VALUES = {
   [FiatEnum.MXN]: {
     code: FiatEnum.MXN,
     name: 'MXN',
-    symbol: 'MXN',
+    symbol: 'MEX$',
   },
 };
