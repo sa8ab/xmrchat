@@ -6,6 +6,7 @@ import type {
   StreamerPage,
   Coin,
 } from "~/types";
+import type { FiatEnum } from "~/types/enums";
 
 const props = defineProps<{
   streamerId: string;
@@ -122,6 +123,8 @@ const coinSelectOptions = computed(() => {
     })),
   ];
 });
+
+const { getFiat } = useConstants();
 </script>
 
 <template>
@@ -155,8 +158,13 @@ const coinSelectOptions = computed(() => {
             <UInput
               v-model="state.form.amount"
               @blur="getValidationAttrs('amount').onBlur"
-              icon="i-mdi-currency-usd"
-            />
+            >
+              <template #leading>
+                <span class="text-[0.6rem] text-pale flex items-center">
+                  {{ getFiat(streamerPage?.fiat as FiatEnum).symbol }}
+                </span>
+              </template>
+            </UInput>
             <TipTiers
               :tiers="streamerPage?.tiers"
               @select="state.form.amount = $event"
