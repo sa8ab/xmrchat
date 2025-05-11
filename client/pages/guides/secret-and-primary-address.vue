@@ -91,6 +91,32 @@
         </div>
       </div>
     </div>
+
+    <div class="guide inner">
+      <div class="page">
+        <div class="how-to">
+          <h5>Monerujo Wallet:</h5>
+          <ul>
+            <li>
+              1. Click on Wallet <span class="text-orange-500">-></span> Click on the menu <UIcon name="mdi:dots-vertical" /> <span class="text-orange-500">-></span> Select "Show Secrets!"
+            </li>
+            <li>2. Copy "Public Address"</li>
+            <li>
+              3. Expand "Detailed information" <span class="text-orange-500">-></span> Copy "View Key"
+            </li>
+          </ul>
+        </div>
+        <div class="images">
+          <div>
+            <img
+              class="rounded-xl"
+              src="/images/view_key_monerujo.jpg"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
