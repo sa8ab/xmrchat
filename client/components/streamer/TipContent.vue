@@ -6,7 +6,7 @@ import type {
   StreamerPage,
   Coin,
 } from "~/types";
-import type { FiatEnum } from "~/types/enums";
+import { FiatEnum } from "~/types/enums";
 
 const props = defineProps<{
   streamerId: string;
@@ -161,7 +161,10 @@ const { getFiat } = useConstants();
             >
               <template #leading>
                 <span class="text-[0.6rem] text-pale flex items-center">
-                  {{ getFiat(streamerPage?.fiat as FiatEnum).symbol }}
+                  {{
+                    getFiat((streamerPage?.fiat as FiatEnum) || FiatEnum.USD)
+                      .symbol
+                  }}
                 </span>
               </template>
             </UInput>
