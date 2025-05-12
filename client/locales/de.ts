@@ -40,7 +40,7 @@ export default {
     "Wir haben dir eine E-Mail an {email} gesendet, bitte folge dem Link in der E-Mail, um dein Passwort zurückzusetzen.",
   changeEmail: "E-Mail ändern",
   enterEmailToResetPassword:
-    "Gib dein E-Mail ein, um dein Passwort zurücksetzen",
+    "Gib deine E-Mail ein, um dein Passwort zurücksetzen",
   creatorLogin: "Creator Anmeldung",
   searchCreators: {
     title: "Creator Suchen",
@@ -57,7 +57,7 @@ export default {
 
   FAQ: {
     title: "FAQ",
-    whyTipWithXMRChat: "Warum XMRChat?",
+    whyTipWithXMRChat: "Warum mit XMRChat Trinkgeld verschicken?",
     whyUseMonero: "Warum verwendet XMRChat Monero?",
     whereToGetMonero: "Wo bekomme ich Monero?",
   },
@@ -101,7 +101,7 @@ export default {
   privateMonero: {
     title: "Privat",
     description:
-      "Während die meisten Kryptowährungen transparente Blockchains verwenden, sind Monero Transaktionsdaten verschleiert. Sender, Empfänger und Transaktionsbeträge stehen nicht transparent in der Blockchain.",
+      "Während die meisten Kryptowährungen transparente Blockchains verwenden, sind Monero Transaktionsdaten verschleiert. Sender, Empfänger und Transaktionsbeträge stehen nicht transparent in der Blockchain",
   },
   accepted: {
     title: "Akzeptiert",
@@ -120,7 +120,7 @@ export default {
       "Tausche Monero gegen andere Kryptowährungen bei {stealthex} oder {kycnot}.",
     haveno:
       "Kaufe Monero ohne KYC bei {haveno}. Ein Tutorial für Bargeld per Post findest du auf {blog}.",
-    thisBlogPost: "Diesem Blogbeitrag",
+    thisBlogPost: "diesem Blogbeitrag",
     kraken: "Kaufe Monero mit KYC bei {kraken} (nur bei Kraken USA).",
     xmrbazaar:
       "Verkaufe Artikel oder Dienstleistungen für Monero bei {xmrbazaar}.",
