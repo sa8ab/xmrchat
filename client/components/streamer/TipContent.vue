@@ -125,6 +125,10 @@ const coinSelectOptions = computed(() => {
 });
 
 const { getFiat } = useConstants();
+const fiat = computed(() => getFiat(props.streamerPage?.fiat || FiatEnum.USD));
+const renderInputPadding = computed(
+  () => `${fiat.value.symbol.length * 0.6 + 2}rem`
+);
 </script>
 
 <template>
@@ -158,13 +162,13 @@ const { getFiat } = useConstants();
             <UInput
               v-model="state.form.amount"
               @blur="getValidationAttrs('amount').onBlur"
+              :style="{ paddingStart: renderInputPadding }"
             >
               <template #leading>
-                <span class="text-[0.6rem] text-pale flex items-center">
-                  {{
-                    getFiat((streamerPage?.fiat as FiatEnum) || FiatEnum.USD)
-                      .symbol
-                  }}
+                <span
+                  class="text-pale flex items-center text-center justify-center"
+                >
+                  {{ fiat.symbol }}
                 </span>
               </template>
             </UInput>
