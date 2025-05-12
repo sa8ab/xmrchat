@@ -209,6 +209,9 @@ export default {
   obs: "OBS",
   show: "보기",
   hide: "숨김",
+  youDontHavePage: "페이지가 없습니다",
+  getStartedByCreatingPage: "새 페이지를 만들어 시작하세요",
+  createNewPage: "새 페이지 만들기",
 
   // ACCOUNT PAGE
   changePassword: "비밀번호 변경",

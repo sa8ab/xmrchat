@@ -216,6 +216,9 @@ export default {
   obs: "OBS",
   show: "Mostrar",
   hide: "Ocultar",
+  youDontHavePage: "No tienes una página aún",
+  getStartedByCreatingPage: "Comienza creando una página para ti mismo",
+  createNewPage: "Crear Nueva Página",
 
   // ACCOUNT PAGE
   changePassword: "Cambiar Contraseña",

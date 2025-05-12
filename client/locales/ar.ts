@@ -41,8 +41,8 @@ export default {
   enterEmailToResetPassword: "أدخل البريد الإلكتروني لإعادة تعيين كلمة المرور",
   creatorLogin: "تسجيل دخول المبدع",
   searchCreators: {
-    title: "البحث عن صنّاع المحتوى",
-    description: "البحث عن صنّاع المحتوى (الصفحات العامة) ",
+    title: "البحث عن صانعي المحتوى",
+    description: "البحث عن صانعي المحتوى (الصفحات العامة) ",
   },
   typePageName: "اكتب اسم الصفحة...",
   contactUs: "اتصل بنا",
@@ -50,7 +50,7 @@ export default {
 
   xmrchat: "XMRChat",
   heroDescription: "تبرّع لصانع المحتوى المفضل لديك بالعملات المشفرة",
-  findCreators: "البحث عن صنّاع المحتوى",
+  findCreators: "البحث عن صانعي المحتوى",
   creatorsStartHere: "اشترك الآن",
 
   FAQ: {
@@ -208,6 +208,9 @@ export default {
   obs: "OBS",
   show: "ظهر",
   hide: "غير مرئي",
+  youDontHavePage: "ليس لديك صفحة بعد",
+  getStartedByCreatingPage: "ابدأ بإنشاء صفحة المبدع الخاصة بك",
+  createNewPage: "إنشاء صفحة جديدة",
 
   // ACCOUNT PAGE
   changePassword: "تغيير كلمة المرور",

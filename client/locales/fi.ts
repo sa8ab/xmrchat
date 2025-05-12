@@ -210,6 +210,9 @@ export default {
   obs: "OBS",
   show: "Näytä",
   hide: "Piilota",
+  youDontHavePage: "Sinulla ei ole sivua vielä",
+  getStartedByCreatingPage: "Aloita luomalla sivu sinulle",
+  createNewPage: "Luo Uusi Sivu",
 
   // ACCOUNT PAGE
   changePassword: "Vaihda Salasana",
