@@ -28,27 +28,26 @@ export default {
   signupSuccessfull: "Registrierung erfolgreich",
   noItems: "Keine Einträge",
   signupSuccessfullDescription:
-    "Bitte folgen Sie dem Link in Ihrer E-Mail, um Ihr Konto zu verifizieren.",
+    "Bitte folge dem Link in deinem Postfach, um dein Konto zu verifizieren.",
   forgetPassword: "Passwort vergessen?",
   loginDescription:
-    "Melden Sie sich bei Ihrem Konto an, um auf Ihre Anzeigeseite zuzugreifen",
+    "Melde dich bei deinem Konto an, um auf deine Anzeigeseite zuzugreifen",
   resetPassword: "Passwort zurücksetzen",
-  enterYourNewPassword: "Geben Sie Ihr neues Passwort ein",
+  enterYourNewPassword: "Gib dein neues Passwort ein",
   passwordResetFailed: "Passwort zurücksetzen fehlgeschlagen",
-  passwordUpdated: "Ihr Passwort wurde erfolgreich aktualisiert.",
+  passwordUpdated: "Dein Passwort wurde erfolgreich aktualisiert.",
   weSentYouAnEmail:
-    "Wir haben Ihnen eine E-Mail {email} gesendet, bitte folgen Sie dem Link in der E-Mail, um Ihr Passwort zurückzusetzen.",
+    "Wir haben dir eine E-Mail an {email} gesendet, bitte folge dem Link in der E-Mail, um dein Passwort zurückzusetzen.",
   changeEmail: "E-Mail ändern",
   enterEmailToResetPassword:
-    "Geben Sie Ihre E-Mail ein, um Ihr Passwort zurücksetzen",
-  creatorLogin: "Ersteller Anmeldung",
+    "Gib deine E-Mail ein, um dein Passwort zurücksetzen",
+  creatorLogin: "Creator Anmeldung",
   searchCreators: {
-    title: "Ersteller Suchen",
-    description:
-      "Suchen Sie nach Erstellern mit öffentlichen Seiten auf xmrchat.",
+    title: "Creator Suchen",
+    description: "Suche nach Creators mit öffentlichen Seiten auf xmrchat.",
   },
   typePageName: "Seitennamen eingeben...",
-  contactUs: "Kontaktieren Sie uns",
+  contactUs: "Kontaktiere uns",
   here: "hier",
 
   xmrchat: "XMRChat",
@@ -58,7 +57,7 @@ export default {
 
   FAQ: {
     title: "FAQ",
-    whyTipWithXMRChat: "Warum mit XMRChat tippen?",
+    whyTipWithXMRChat: "Warum mit XMRChat Trinkgeld verschicken?",
     whyUseMonero: "Warum verwendet XMRChat Monero?",
     whereToGetMonero: "Wo bekomme ich Monero?",
   },
@@ -66,7 +65,7 @@ export default {
   earnMore: {
     title: "Mehr verdienen",
     description:
-      "YouTube berechnet 30-50% für Superchats, Rumble 20% für Rants. Mit XMRChat erhältst du 100% deiner XMR-Trinkgelder von Fans direkt in deine Monero-Wallet",
+      "YouTube berechnet 30-50% für Superchats, Rumble 20% für Rants. Mit XMRChat erhälst du 100% deiner XMR-Trinkgelder von Fans direkt in deine Monero-Wallet",
   },
   censorshipResistant: {
     title: "Zensurresistent",
@@ -81,12 +80,12 @@ export default {
   private: {
     title: "Privat",
     description:
-      "Zuschauer können anonym Trinkgeld geben, keine Sorgen vor Arbeitgebern oder anderen, die deine Spenden kennen",
+      "Zuschauer können anonym Trinkgeld schicken. So müssen sie sich keine Sorgen vor Arbeitgebern oder anderen machen, die aufgrund ihrer Spenden diskriminieren.",
   },
   quickAndEasy: {
     title: "Schnell und einfach",
     description:
-      "Zuschauer müssen kein Konto erstellen, keine E-Mail verifizieren oder Kreditkarteninformationen eingeben. Fans gehen zu deiner Trinkgeld-Seite, geben ihren Namen, Nachricht und Betrag ein und senden ihr XMR-Trinkgeld",
+      "Zuschauer müssen kein Konto erstellen, keine E-Mail verifizieren oder Kreditkarteninformationen eingeben. Fans gehen zu deiner Trinkgeld-Seite, geben ihren Namen, Nachricht und Betrag ein und senden dir XMR-Trinkgeld",
   },
   openSource: {
     title: "Open Source",
@@ -96,17 +95,18 @@ export default {
 
   lowFees: {
     title: "Niedrige Gebühren",
-    description: "Monero-Transaktionsgebühren betragen höchstens ein paar Cent",
+    description:
+      "Monero-Transaktionsgebühren betragen höchstens ein paar Cent. Das Empfangen kostet nichts.",
   },
   privateMonero: {
     title: "Privat",
     description:
-      "Während die meisten Kryptowährungen offene Hauptbücher verwenden, verbirgt Monero Transaktionsdaten. Sender, Empfänger und Transaktionsbeträge werden beim Blick auf die Blockchain nicht offengelegt",
+      "Während die meisten Kryptowährungen transparente Blockchains verwenden, sind Monero Transaktionsdaten verschleiert. Sender, Empfänger und Transaktionsbeträge stehen nicht transparent in der Blockchain",
   },
   accepted: {
     title: "Akzeptiert",
     description:
-      "Vermeide den Aufwand, deine Kryptowährung an einer zentralisierten Börse zu verkaufen. Kaufe Waren und Dienstleistungen direkt von Händlern, die Monero akzeptieren auf {xmrbazaar} und {monerica}.",
+      "Mit Monero kannst du bereits jetzt Waren und Dienstleistungen kaufen. Händler, die Monero akzeptieren, findest du auf {xmrbazaar} und {monerica}.",
   },
   andMore: {
     title: "Und mehr",
@@ -115,20 +115,19 @@ export default {
 
   whereToGetMonero: {
     cakeWallet:
-      "Kaufen oder tauschen Sie andere Kryptowährungen gegen Monero bei {cakeWallet}.",
+      "Kaufe oder tausche Monero gegen andere Kryptowährungen bei {cakeWallet}.",
     stealthex:
-      "Tauschen Sie andere Kryptowährungen gegen Monero (XMR) bei {stealthex} und anderen bei {kycnot}.",
+      "Tausche Monero gegen andere Kryptowährungen bei {stealthex} oder {kycnot}.",
     haveno:
-      "Kaufen Sie Monero ohne KYC bei {haveno}. Tutorial für Bargeld per Post bei {blog}.",
-    thisBlogPost: "Dieser Blogbeitrag",
-    kraken: "Kaufen Sie Monero mit KYC bei {kraken}.",
+      "Kaufe Monero ohne KYC bei {haveno}. Ein Tutorial für Bargeld per Post findest du auf {blog}.",
+    thisBlogPost: "diesem Blogbeitrag",
+    kraken: "Kaufe Monero mit KYC bei {kraken} (nur bei Kraken USA).",
     xmrbazaar:
-      "Verkaufen Sie Artikel oder Dienstleistungen für Monero bei {xmrbazaar}.",
-    gupax: "Minen Sie es mit {gupax}.",
-    kunoAnneMedia:
-      "Erstellen Sie eine Monero-Spendenaktion bei {kunoAnneMedia}.",
+      "Verkaufe Artikel oder Dienstleistungen für Monero bei {xmrbazaar}.",
+    gupax: "Mine Monero mit {gupax}.",
+    kunoAnneMedia: "Erstelle eine Monero-Spendenaktion bei {kunoAnneMedia}.",
     monerica:
-      "Akzeptieren Sie Monero in Ihrem Unternehmen und werden Sie auf den Seiten {monerica} und {monerodirectory} sowie auf der Geschäftsübersichtskarte bei {xmrbazaar} gelistet.",
+      "Akzeptiere Monero in deinem Unternehmen und werde auf den Seiten {monerica} und {monerodirectory}, sowie auf der Geschäftsübersichtskarte bei {xmrbazaar} gelistet.",
   },
 
   // TIP PAGE
@@ -137,9 +136,9 @@ export default {
   tipMessage: "Nachricht",
   tipPrivate: "Privat",
   tipDate: "Datum",
-  tipUpdated: "Tipp aktualisiert!",
-  tipPrivateTooltip: "Name und Nachricht sind nur für den Streamer sichtbar",
-  tipCoin: "Coin",
+  tipUpdated: "Trinkgeld-Transaktion aktualisiert!",
+  tipPrivateTooltip: "Name und Nachricht sind nur für den Creator sichtbar",
+  tipCoin: "Kryptowährung",
   tipCoinPlaceholder: "XMR",
   sendTip: "Trinkgeld senden",
   tipCreationFailed: "Trinkgeld-Erstellung fehlgeschlagen",
@@ -150,41 +149,41 @@ export default {
   tipSwapUnavailable: "Tausch ist derzeit nicht verfügbar",
   tipSwapMinimum: "Minimum {min} zum Tauschen",
   tipMinimum: "Minimum {min}",
-  recentTips: "Letzte Trinkgelder",
-  tipDisplayValueTooltip: "Trinkgeldwerte in XMR oder {fiat} anzeigen",
-  noRecentTips: "Keine aktuellen Trinkgelder!",
+  recentTips: "Letzte Trinkgeld-Transaktionen",
+  tipDisplayValueTooltip: "Trinkgeld in XMR oder {fiat} anzeigen",
+  noRecentTips: "Keine aktuellen Trinkgeld-Transaktionen!",
   pageDeactivatedAlert:
-    "Ihre Seite wurde deaktiviert und ist nicht öffentlich sichtbar. Bitte kontaktieren Sie den Support für weitere Informationen.",
+    "Deine Seite wurde deaktiviert und ist nicht öffentlich sichtbar. Bitte kontaktiere den Support für weitere Informationen.",
 
-  tipWalletWarningTitle: "Nicht mit Streamer-Wallet Trinkgeld geben",
+  tipWalletWarningTitle:
+    "Verwende nicht deine Creator-Wallet um Trinkgeld zu verschicken",
   tipWalletWarningDescription:
-    "Bitte vermeiden Sie es, Trinkgelder mit der auf der Seite registrierten Wallet zu senden. Die zurückgegebene Änderung erhöht den Betrag, den wir als empfangen sehen",
+    "Bitte vermeide es, Trinkgelder mit der auf der Seite registrierten Wallet zu senden. Die zurückgegebene Outputs erhöhen den Betrag, den wir als empfangen sehen",
   tipWalletMinimum:
-    "Bitte senden Sie mindestens {minimumAmount} XMR an die folgende Adresse, damit Ihr xmrchat angezeigt wird",
+    "Bitte sende mindestens {minimumAmount} XMR an die folgende Adresse, damit dein xmrchat angezeigt wird",
   openInMyWallet: "In meiner Wallet öffnen",
   cancel: "Abbrechen",
   copyAddress: "Adresse kopieren",
   waitingForPayment: "Warte auf Zahlung",
 
   // CONTACT US PAGE
-  contactUsDescription: "Kontaktieren Sie uns bei Fragen oder Feedback.",
+  contactUsDescription: "Kontaktiere uns bei Fragen oder Feedback.",
   contactUsForm: "Kontaktformular",
-  contactUsFormDescription: "Kontaktieren Sie uns bei Fragen oder Feedback.",
+  contactUsFormDescription: "Kontaktiere uns bei Fragen oder Feedback.",
   contactUsFormButton: "Kontakt",
   emailUsDirectly: "Direkt per E-Mail kontaktieren",
-  followUsOnTwitter: "Folgen Sie uns auf Twitter",
+  followUsOnTwitter: "Folge uns auf Twitter",
   twitter: "Twitter",
 
   // CREATE PAGE
   createPage: "Seite erstellen",
-  getStartedCreatingPage:
-    "Beginnen Sie mit der Erstellung Ihrer Streamer-Seite",
+  getStartedCreatingPage: "Beginne mit der Erstellung diner Creator-Seite",
   home: "Startseite",
   logo: "Logo",
   logoRatio: "1:1 Verhältnis",
   bannerImage: "Bannerbild",
   bannerImageBestRatio: "Am besten im Verhältnis 3:1 hochladen",
-  yourId: "Ihre ID",
+  yourId: "Deine ID",
   pageSlug: "Seiten-Slug",
   moneroPrmReciveAddress: "Primäre Monero-Empfangsadresse",
   prmMoneroReciveAdressBegin:
@@ -195,17 +194,17 @@ export default {
   whereToFindViewKey: "Wo finde ich den View Key?",
   twitchChannelName: "Twitch-Kanalname",
   nameOfYourTwitchChannel:
-    "Name Ihres Twitch-Kanals. Wird verwendet, um Tipps über den xmr_chat Twitch-Bot anzuzeigen.",
+    "Name deines Twitch-Kanals. Wird verwendet, um Trinkgeld-Transaktionen über den xmr_chat Twitch-Bot anzuzeigen.",
   optional: "Optional",
-  minTipAmount: "Min. Tippbetrag (XMR)",
-  defaultTipAmount: "Standard-Tippbetrag",
+  minTipAmount: "Mindestbetrag (XMR)",
+  defaultTipAmount: "Standardbetrag",
   thisIsOnlyForDisplaying:
-    "Dies dient nur zur Anzeige des Tippbetrags. Zuschauer können dies auf der Tippseite selbst ändern.",
-  publicPage: "Öffentliche Seite (wird auf der Ersteller-Suchseite angezeigt).",
+    "Dies dient nur zur Anzeige des Betrags. Zuschauer können dies auf der Trinkgeldseite selbst ändern.",
+  publicPage: "Öffentliche Seite (wird auf der Creator-Suchseite angezeigt).",
   continue: "Weiter",
   clickToUpload: "Zum Hochladen klicken",
   pageCreatedSuccessfully: "Seite wurde erfolgreich erstellt!",
-  slugReservedUntil: "Ihr Slug ist reserviert bis ",
+  slugReservedUntil: "Dein Slug ist reserviert bis ",
   note: "Hinweis",
 
   // STREAMER MENU
@@ -220,21 +219,21 @@ export default {
 
   // ACCOUNT PAGE
   changePassword: "Passwort ändern",
-  updateYourLoginPassword: "Aktualisieren Sie Ihr Anmeldepasswort",
+  updateYourLoginPassword: "Aktualisiere dein Anmeldepasswort",
   currentPassword: "Aktuelles Passwort",
   newPassword: "Neues Passwort",
   repeatNewPassword: "Neues Passwort wiederholen",
   contactSupportForEmailChange:
-    "Kontaktieren Sie den Support, um Ihre E-Mail-Adresse zu ändern.",
+    "Kontaktiere den Support, um deine E-Mail-Adresse zu ändern.",
 
   // EDIT PAGE
   editPage: "Seite bearbeiten",
-  customizeYourTipPage: "Passen Sie Ihre Trinkgeld-Seite an.",
+  customizeYourTipPage: "Passe deine Trinkgeld-Seite an.",
   errorCreatingUpdatingPage: "Fehler beim Erstellen/Aktualisieren der Seite",
   tipAmountSuggestions: "Trinkgeldbetrag-Vorschläge",
-  pageWillBeAvailableAt: "Ihre Seite wird unter {url} verfügbar sein",
+  pageWillBeAvailableAt: "Deine Seite wird unter {url} verfügbar sein",
   noSuggestedAmountsAdded:
-    "Es wurden keine Beträge vorgeschlagen. Klicken Sie auf die Schaltfläche unten, um neue Stufen hinzuzufügen.",
+    "Es wurden keine Beträge vorgeschlagen. Klicke auf die Schaltfläche unten, um neue Stufen hinzuzufügen.",
   addTier: "Stufe hinzufügen",
   remove: "Entfernen",
   name: "Name",
@@ -249,45 +248,44 @@ export default {
     "Die Creator-Suche liefert Ergebnisse basierend auf dem Seiten-Slug, Namen und Schlüsselwörtern in dieser Liste.",
   contentLinksDescription: "Name, Suchbegriffe und Content-Links",
   contentLinksSecondDescription:
-    "Links zu Ihren Social-Media-Seiten oder Websites. Um einen Wert zurückzusetzen, lassen Sie das Feld leer.",
+    "Links zu Deinen Social-Media-Seiten oder Websites. Um einen Wert zurückzusetzen, lasse das Feld leer.",
   saveChanges: "Änderungen speichern",
-  notUrlWithMessage:
-    "Geben Sie nur den Namen ein, nicht den vollständigen Link.",
+  notUrlWithMessage: "Gib nur den Namen ein, nicht den vollständigen Link.",
   changesAreSaved: "Änderungen wurden gespeichert.",
   errorSavingChanges: "Fehler beim Speichern der Änderungen.",
   xUsername: "{platform} Benutzername",
   websiteLink: "Website-Link",
   youtubeChannel: "Youtube-Kanal",
   podcastRssLink: "Podcast-RSS-Link",
-  nostrPubKey: "Nostr öffentlicher Schlüssel",
+  nostrPubKey: "Nostr öffentlicher Schlüssel (npub)",
 
   // OBS
   obsDescription: "OBS-Widget und Einstellungen.",
   settingsAreUpdated: "Einstellungen wurden aktualisiert.",
   errorUpdatingSettings: "Fehler beim Aktualisieren der Einstellungen",
   toUseXMRchatsOnOBS:
-    "Um XMRChat in OBS zu verwenden, kopieren Sie den Link zur OBS-Seite und fügen Sie ihn in 'Browser' der OBS-Quellen ein.",
+    "Um XMRChat in OBS zu verwenden, kopiere den Link zur OBS-Seite und füge ihn in 'Browser' der OBS-Quellen ein.",
   copyOBSLink: "OBS-Seitenlink kopieren",
   obsPageSettings: "OBS-Seiteneinstellungen",
   preventMessagesFromFading: "Verhindern, dass Nachrichten verblassen",
   preventMessagesFromFadingDescription:
-    "Wenn aktiv, bleiben die letzten Tipps auf dem Bildschirm, ansonsten wird jede Nachricht 60 Sekunden lang angezeigt.",
+    "Wenn aktiv, bleiben die letzten Trinkgeld-Transaktionen auf dem Bildschirm, ansonsten wird jede Nachricht 60 Sekunden lang angezeigt.",
   playSound: "Ton abspielen",
   playSoundDescription:
-    "Spielt einen Ton auf der OBS-Seite ab, wenn ein neuer Tipp erscheint.",
+    "Spielt einen Ton auf der OBS-Seite ab, wenn eine neue Trinkgeld-Transaktion erscheint.",
   playSoundDescriptionLocal:
-    "Wenn Sie diese Funktion lokal in Ihrem Browser testen, klicken Sie nach dem Öffnen des obs-Tabs irgendwo auf die Seite. Andernfalls spielt der Browser keinen Ton ab, da keine Interaktionen mit dem geöffneten Tab stattgefunden haben.",
-  autoShowTips: "Automatisch Tipps anzeigen",
+    "Wenn du diese Funktion lokal in deinem Browser testest, klicke nach dem Öffnen des OBS-Tabs irgendwo auf die Seite. Andernfalls spielt der Browser keinen Ton ab, da keine Interaktionen mit dem geöffneten Tab stattgefunden haben.",
+  autoShowTips: "Automatisch Trinkgeld-Transaktionen anzeigen",
   autoShowTipsDescription:
-    "Wenn aktiviert, werden Tipps automatisch auf der OBS-Seite für 60 Sekunden angezeigt.",
+    "Wenn aktiviert, werden Trinkgeld-Transaktionen automatisch auf der OBS-Seite für 60 Sekunden angezeigt.",
 
   // HEAD
   head: {
     description:
-      "Zuschauer, sendet Nachrichten und Trinkgelder einfach und privat. Streamer, behaltet fast alle eure Trinkgelder anstatt 30–50 % an Big Tech abzugeben.",
+      "Zuschauer, sendet Nachrichten und Trinkgelder einfach und privat. Creator, behaltet fast alle eure Trinkgelder anstatt 30–50 % an Big Tech abzugeben.",
     title: "Nachricht und Trinkgeld mit Monero",
-    XMRChatTip: "XMRChat – Tippe {path} mit Monero",
-    tip: "Tippe {path}",
+    XMRChatTip: "XMRChat – unterstütze {path} mit Monero",
+    tip: "Trinkgeld an {path}",
   },
   moneroSuperchats: "Monero Superchats : XMRChat",
 };
