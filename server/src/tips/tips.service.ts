@@ -27,8 +27,8 @@ import { SwapsService } from 'src/swaps/swaps.service';
 import { Swap } from 'src/swaps/swap.entity';
 import { Coin } from 'src/integrations/trocador/coin.entity';
 import { TrocadorTrade } from 'src/shared/types';
-import { FiatEnum, PageSettingKey } from 'src/shared/constants';
-import { PageSettingsService } from 'src/page-settings/page-settings.service';
+import { FiatEnum } from 'src/shared/constants';
+import { TipMessageService } from 'src/tip-message/tip-message.service';
 
 @Injectable()
 export class TipsService {
@@ -43,7 +43,7 @@ export class TipsService {
     private notificationsService: NotificationsService,
     private pricesService: PricesService,
     private swapsService: SwapsService,
-    private pageSettingsService: PageSettingsService,
+    private tipMessageService: TipMessageService,
     @InjectRepository(Tip) private repo: Repository<Tip>,
   ) {}
 
@@ -242,20 +242,10 @@ export class TipsService {
     this.logger.log(`Sending tip socket event. Tip Id ${tip.id}`);
     this.tipsGateway.notifyTipPayment(tip.id, savedPayment);
 
-    const clearedMessage = clearMessage(tip.message);
-
-    const xmrUsdPrice = await this.pricesService.getMoneroPrice(FiatEnum.USD);
-
-    const xmrValue = MoneroUtils.atomicUnitsToXmr(payment.amount);
-
-    const usdValue = (xmrValue * xmrUsdPrice).toFixed(2);
-
-    const finalMessage = this.getTipMessageText({
-      isPrivate: tip.private,
-      message: clearedMessage,
-      usdAmount: usdValue,
-      username: tip.name,
-    });
+    const finalMessage = await this.tipMessageService.generateMessage(
+      tip,
+      page.id,
+    );
 
     await this.pagesGateway.notifyNewTip(page.path, tip.id);
 
@@ -270,16 +260,5 @@ export class TipsService {
     try {
       await this.lwsService.deleteWebhook(payment.eventId);
     } catch (error) {}
-  }
-
-  getTipMessageText(params: {
-    usdAmount: string;
-    message: string;
-    isPrivate: boolean;
-    username: string;
-  }) {
-    return params.isPrivate
-      ? `Private Tip: $${params.usdAmount}`
-      : `${params.username} tipped $${params.usdAmount} ${params.message ? ': ' : ''} ${params.message || ''}`;
   }
 }

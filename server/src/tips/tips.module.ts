@@ -11,6 +11,7 @@ import { NotificationsModule } from 'src/notifications/notifications.module';
 import { PricesModule } from 'src/prices/prices.module';
 import { SwapsModule } from 'src/swaps/swaps.module';
 import { PageSettingsModule } from 'src/page-settings/page-settings.module';
+import { TipMessageModule } from 'src/tip-message/tip-message.module';
 
 @Module({
   controllers: [TipsController],
@@ -24,6 +25,7 @@ import { PageSettingsModule } from 'src/page-settings/page-settings.module';
     SwapsModule,
     TypeOrmModule.forFeature([Tip]),
     PageSettingsModule,
+    TipMessageModule,
   ],
   exports: [TipsService, TipsGateway],
 })
