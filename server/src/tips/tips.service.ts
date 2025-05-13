@@ -41,7 +41,6 @@ export class TipsService {
     private configService: ConfigService,
     private tipsGateway: TipsGateway,
     private notificationsService: NotificationsService,
-    private pricesService: PricesService,
     private swapsService: SwapsService,
     private tipMessageService: TipMessageService,
     @InjectRepository(Tip) private repo: Repository<Tip>,
@@ -243,7 +242,7 @@ export class TipsService {
     this.tipsGateway.notifyTipPayment(tip.id, savedPayment);
 
     const finalMessage = await this.tipMessageService.generateMessage(
-      tip,
+      tip.id,
       page.id,
     );
 

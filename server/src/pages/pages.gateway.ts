@@ -197,7 +197,7 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   async generateEventPayload(tip: Tip, autoRemove: boolean = false) {
     const message = await this.tipMessageService.generateMessage(
-      tip,
+      tip.id,
       tip.page.id,
     );
     // const message = await this.getTipMessage(tip);
