@@ -7,7 +7,6 @@ const {
   toStreamerDisplay,
   toStreamerEdit,
   toStreamer,
-  toCreators,
 } = useRouteLocation();
 
 const authStore = useAuthStore();
