@@ -15,6 +15,7 @@ export default {
   account: "Tili",
   logout: "Kirjaudu ulos",
   login: "Kirjaudu sisään",
+  send: "Lähetä",
   email: "Sähköposti",
   search: "Haku",
   password: "Salasana",
@@ -30,6 +31,14 @@ export default {
   signup: "Luo tili",
   forgetPassword: "Unohtuiko salasana?",
   loginDescription: "Kirjaudu sisään päästäksesi omaan sivuusi.",
+  resetPassword: "Salasanan uusiksi",
+  enterYourNewPassword: "Kirjoita uusi salasana",
+  passwordResetFailed: "Salasanan uusiksi epäonnistui",
+  passwordUpdated: "Salasana onnistuneesti päivitetty.",
+  weSentYouAnEmail:
+    "Lähetimme sinulle sähköpostin {email}, seuraa linkkiä sähköpostissa uusiksi salasanaasi.",
+  changeEmail: "Vaihda sähköposti",
+  enterEmailToResetPassword: "Kirjoita sähköposti uusiksi salasanaasi.",
   creatorLogin: "Sisäänkirjautuminen sisällöntuottajille",
   searchCreators: {
     title: "Etsi Sisällöntuottajia",
@@ -133,10 +142,10 @@ export default {
   tipMessagePlaceholder: "Kirjoita viesti",
   tipPrivatePlaceholder: "Yksityinen",
   tipSwapUnavailable: "Vaihdetta ei ole tällä hetkellä saatavilla.",
-  tipSwapMinimum: "Vähintään {minSwapUSD}$ vaihdettavaksi",
-  minUsdAmount: "Vähintään {minUsdAmount}",
+  tipSwapMinimum: "Vähintään {min} vaihdettavaksi",
+  tipMinimum: "Vähintään {min}",
   recentTips: "Viimeisimmät tipit",
-  tipDisplayValueTooltip: "Näytä tippi XMR tai USD muotoisena",
+  tipDisplayValueTooltip: "Näytä tippi XMR tai {fiat} muotoisena",
   noRecentTips: "Ei uusia tippejä!",
   pageDeactivatedAlert:
     "Sivusi on poistettu käytöstä eikä se ole julkisesti näkyvissä. Ota yhteyttä tukeen saadaksesi lisätietoja.",
@@ -193,11 +202,17 @@ export default {
   note: "Huom",
 
   // STREAMER MENU
+  menu: "Valikko",
   myXmrchats: "Omat xmrchats",
   editTipPage: "Muokkaa Tippisivua",
   tipPage: "Tippisivu",
   contentLinks: "Sisältölinkit",
   obs: "OBS",
+  show: "Näytä",
+  hide: "Piilota",
+  youDontHavePage: "Sinulla ei ole sivua vielä",
+  getStartedByCreatingPage: "Aloita luomalla sivu sinulle",
+  createNewPage: "Luo Uusi Sivu",
 
   // ACCOUNT PAGE
   changePassword: "Vaihda Salasana",
@@ -205,6 +220,8 @@ export default {
   currentPassword: "Nykyinen salasana",
   newPassword: "Uusi salasana",
   repeatNewPassword: "Toista uusi salasana",
+  contactSupportForEmailChange:
+    "Ota yhteyttä tukeen saadaksesi sähköpostiosoitteen muuttamista varten.",
 
   // EDIT PAGE
   editPage: "Muokkaa Sivua",
@@ -218,6 +235,7 @@ export default {
   remove: "Poista",
   name: "Nimi",
   amountUSD: "Määrä (USD)",
+  amountFiat: "Määrä ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "Brändin Nimi",
@@ -232,6 +250,11 @@ export default {
   notUrlWithMessage: "Syötä vain nimi, ei koko linkkiä.",
   changesAreSaved: "Muutokset tallennettu.",
   errorSavingChanges: "Virhe muutosten tallentamisessa.",
+  xUsername: "{platform} käyttäjätunnus",
+  websiteLink: "Verkkosivun linkki",
+  youtubeChannel: "Youtube-kanava",
+  podcastRssLink: "Podcast-RSS-linkki",
+  nostrPubKey: "Nostr-julkinen avain",
 
   // OBS
   obsDescription: "OBS-widget ja asetukset.",
@@ -248,4 +271,17 @@ export default {
   playSoundDescription: "Toistaa äänen OBS-sivulla, kun uusi tippi ilmestyy.",
   playSoundDescriptionLocal:
     "Jos testaat tätä toiminnallisuutta paikallisesti selaimessa, avattuasi obs-välilehden, varmista että napsautat jossain sivulla. Muuten selain ei toista ääntä avoimen välilehden kanssa ei ole vuorovaikutusta.",
+  autoShowTips: "Näytä vinkit automaattisesti",
+  autoShowTipsDescription:
+    "Jos aktiivinen, vinkit näytetään automaattisesti OBS-sivulla 60 sekunnin ajan.",
+
+  // HEAD
+  head: {
+    description:
+      "Katsojat, lähettäkää viestejä ja tippiä helposti ja yksityisesti. Striimaajat, pitäkää lähes kaikki tipit itsellänne sen sijaan, että annatte 30–50 % suurille teknologiayrityksille.",
+    title: "Lähetä viesti ja tippaa Monerolla",
+    XMRChatTip: "XMRChat – Tippaa {path} Monerolla",
+    tip: "Tippaa {path}",
+  },
+  moneroSuperchats: "Monero Superchats : XMRChat",
 };

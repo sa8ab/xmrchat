@@ -15,6 +15,7 @@ export default {
   account: "Compte",
   logout: "Déconnexion",
   login: "Connexion",
+  send: "Envoyer",
   loginFailed: "Échec de la connexion",
   email: "Email",
   search: "Rechercher",
@@ -31,6 +32,15 @@ export default {
   forgetPassword: "Mot de passe oublié ?",
   loginDescription:
     "Connectez-vous à votre compte pour accéder à votre page d'affichage.",
+  resetPassword: "Réinitialiser le mot de passe",
+  enterYourNewPassword: "Entrez votre nouveau mot de passe",
+  passwordResetFailed: "Échec de la réinitialisation du mot de passe",
+  passwordUpdated: "Votre mot de passe a été mis à jour avec succès.",
+  weSentYouAnEmail:
+    "Nous avons envoyé un email à {email}, veuillez suivre le lien dans l'email pour réinitialiser votre mot de passe.",
+  changeEmail: "Changer l'email",
+  enterEmailToResetPassword:
+    "Entrez votre email pour réinitialiser votre mot de passe.",
   creatorLogin: "Connexion Créateur",
   searchCreators: {
     title: "Rechercher des Créateurs",
@@ -123,10 +133,11 @@ export default {
   tipMessagePlaceholder: "Entrez le message",
   tipPrivatePlaceholder: "Privé",
   tipSwapUnavailable: "L'échange est actuellement indisponible.",
-  tipSwapMinimum: "Minimum {minSwapUSD}$ pour échanger",
-  minUsdAmount: "Minimum {minUsdAmount}",
+  tipSwapMinimum: "Minimum {min} pour échanger",
+  tipMinimum: "Minimum {min}",
   recentTips: "Pourboires Récents",
-  tipDisplayValueTooltip: "Afficher les valeurs des pourboires en XMR ou USD",
+  tipDisplayValueTooltip:
+    "Afficher les valeurs des pourboires en XMR ou {fiat}",
   noRecentTips: "Aucun pourboire récent !",
   pageDeactivatedAlert:
     "Votre page a été désactivée et n'est pas visible publiquement. Veuillez contacter le support pour plus d'informations.",
@@ -202,11 +213,17 @@ export default {
   note: "Remarque",
 
   // STREAMER MENU
+  menu: "Menu",
   myXmrchats: "Mes xmrchats",
   editTipPage: "Modifier la Page de Pourboires",
   tipPage: "Page de Pourboires",
   contentLinks: "Liens de Contenu",
   obs: "OBS",
+  show: "Afficher",
+  hide: "Masquer",
+  youDontHavePage: "Vous n'avez pas de page",
+  getStartedByCreatingPage: "Commencez par créer une page pour vous-même",
+  createNewPage: "Créer une Nouvelle Page",
 
   // ACCOUNT PAGE
   changePassword: "Changer le Mot de Passe",
@@ -214,6 +231,8 @@ export default {
   currentPassword: "Mot de passe actuel",
   newPassword: "Nouveau mot de passe",
   repeatNewPassword: "Répéter le nouveau mot de passe",
+  contactSupportForEmailChange:
+    "Contactez le support pour changer votre adresse email.",
 
   // EDIT PAGE
   editPage: "Modifier la Page",
@@ -228,6 +247,7 @@ export default {
   remove: "Supprimer",
   name: "Nom",
   amountUSD: "Montant (USD)",
+  amountFiat: "Montant ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "Nom de la Marque",
@@ -242,6 +262,11 @@ export default {
   notUrlWithMessage: "Entrez uniquement le nom, pas le lien complet.",
   changesAreSaved: "Les modifications ont été enregistrées.",
   errorSavingChanges: "Erreur lors de l'enregistrement des modifications.",
+  xUsername: "{platform} nom d'utilisateur",
+  websiteLink: "Lien du site web",
+  youtubeChannel: "Chaîne Youtube",
+  podcastRssLink: "Lien RSS du Podcast",
+  nostrPubKey: "Clé Publique Nostr",
 
   // OBS
   obsDescription: "Widget et paramètres OBS.",
@@ -259,4 +284,17 @@ export default {
     "Joue un son sur la page OBS lorsqu'un nouveau pourboire apparaît.",
   playSoundDescriptionLocal:
     "Si vous testez cette fonctionnalité localement dans votre navigateur, après avoir ouvert l'onglet obs, assurez-vous de cliquer quelque part sur la page. Sinon, le navigateur ne jouera pas de son en raison de l'absence d'interactions avec l'onglet ouvert.",
+  autoShowTips: "Afficher les pourboires automatiquement",
+  autoShowTipsDescription:
+    "Si activé, les pourboires seront affichés automatiquement sur la page OBS pendant 60 secondes.",
+
+  // HEAD
+  head: {
+    description:
+      "Spectateurs, envoyez des messages et des pourboires facilement et en toute confidentialité. Streamers, gardez presque tous vos pourboires au lieu d’en donner 30 à 50 % aux géants de la tech.",
+    title: "Envoyez un message et un pourboire avec Monero",
+    XMRChatTip: "XMRChat - Donnez un pourboire à {path} avec Monero",
+    tip: "Donner un pourboire à {path}",
+  },
+  moneroSuperchats: "Superchats Monero : XMRChat",
 };

@@ -4,7 +4,7 @@ export const getCachedPrice = defineCachedFunction(
   async (event: H3Event) => {
     const config = useRuntimeConfig(event);
 
-    const price = await $fetch(
+    const price = await $fetch<string | number>(
       `${
         config.public.apiServerSideBaseUrl || config.public.apiBaseUrl
       }/prices/xmr`

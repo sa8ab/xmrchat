@@ -21,6 +21,8 @@ import { PricesService } from 'src/prices/prices.service';
 import { MoneroUtils } from 'monero-ts';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { FiatEnum } from 'src/shared/constants';
+import { TipMessageService } from 'src/tip-message/tip-message.service';
 
 @WebSocketGateway({ namespace: '/pages', cors: { origin: true } })
 export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -31,6 +33,7 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @InjectRepository(Tip) private tipsRepo: Repository<Tip>,
     private pricesService: PricesService,
     @Inject(CACHE_MANAGER) private cache: Cache,
+    private tipMessageService: TipMessageService,
   ) {}
 
   @WebSocketServer()
@@ -161,34 +164,6 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     return this.server.to(`page-${slug}`).emit('obsTip', eventPayload);
   }
 
-  async getTipMessage(tip: Tip) {
-    const clearedMessage = clearMessage(tip.message);
-
-    const xmrUsdPrice = await this.pricesService.getMoneroUsdPrice();
-
-    const xmrValue = MoneroUtils.atomicUnitsToXmr(tip.payment.amount);
-
-    const usdValue = (xmrValue * xmrUsdPrice).toFixed(2);
-
-    return this.getTipMessageText({
-      isPrivate: tip.private,
-      message: clearedMessage,
-      usdAmount: usdValue,
-      username: tip.name,
-    });
-  }
-
-  getTipMessageText(params: {
-    usdAmount: string;
-    message: string;
-    isPrivate: boolean;
-    username: string;
-  }) {
-    return params.isPrivate
-      ? `Private Tip: $${params.usdAmount}`
-      : `${params.username} tipped $${params.usdAmount} ${params.message ? ': ' : ''} ${params.message || ''}`;
-  }
-
   async addTipToObsCache(slug: string, tipId: number) {
     const activeTips =
       (await this.cache.get<number[]>(`obs-tips:${slug}`)) || [];
@@ -221,7 +196,11 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   async generateEventPayload(tip: Tip, autoRemove: boolean = false) {
-    const message = await this.getTipMessage(tip);
+    const message = await this.tipMessageService.generateMessage(
+      tip,
+      tip.page.id,
+    );
+    // const message = await this.getTipMessage(tip);
     const t = this.hidePrivateTipFields(tip);
 
     return { tip: t, message, autoRemove };

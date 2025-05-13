@@ -1,10 +1,11 @@
 import type {
   ContentLinkPlatformEnum,
+  FiatEnum,
   PageSettingKey,
   PageStatusEnum,
   RolesEnum,
-  SupportedDisplayCurrency,
   SwapStatusEnum,
+  TipDisplayMode,
 } from "./enums";
 
 export type Numberic = string | number;
@@ -35,7 +36,8 @@ export interface CreateFormFields {
   twitchChannel?: string;
   minTipAmount?: string;
   isPublic?: boolean;
-  defaultTipAmountDisplay?: SupportedDisplayCurrency;
+  tipDisplayMode?: TipDisplayMode;
+  fiat?: FiatEnum;
 }
 
 export interface TipFormFields {
@@ -73,7 +75,8 @@ export interface StreamerPage {
   twitchChannel?: string;
   minTipAmount?: string;
   isPublic: boolean;
-  defaultTipAmountDisplay?: SupportedDisplayCurrency;
+  tipDisplayMode?: TipDisplayMode;
+  fiat?: FiatEnum;
   links?: ContentLink[];
   user?: User;
   totalTips?: number;
@@ -195,4 +198,10 @@ export interface ConfirmModalState {
   onConfirm?: () => unknown;
   onDismiss?: () => unknown;
   active?: boolean;
+}
+
+export interface Prices {
+  usd?: number;
+  mxn?: number;
+  eur?: number;
 }

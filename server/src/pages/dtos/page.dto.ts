@@ -37,6 +37,12 @@ export class PageDto {
   defaultTipAmountDisplay: string;
 
   @Expose()
+  fiat: string;
+
+  @Expose()
+  tipDisplayMode: string;
+
+  @Expose()
   @Transform(
     ({ value }) => value && MoneroUtils.atomicUnitsToXmr(value).toString(),
   )

@@ -35,6 +35,7 @@ import {
   I18nModule,
   QueryResolver,
 } from 'nestjs-i18n';
+import { TipMessageModule } from './tip-message/tip-message.module';
 
 @Module({
   imports: [
@@ -118,6 +119,7 @@ import {
     AuditsModule,
     CommanderModule,
     AdminModule,
+    TipMessageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

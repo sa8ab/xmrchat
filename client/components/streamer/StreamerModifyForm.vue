@@ -7,7 +7,6 @@ import type {
   SlugReservationResponse,
   UploadedFile,
 } from "~/types";
-import { SupportedDisplayCurrency } from "~/types/enums";
 
 const { toStreamerDisplay, toGuides } = useRouteLocation();
 const { t } = useI18n();
@@ -57,7 +56,9 @@ const {
   updateStreamer,
 } = useServices();
 
-const { minUsdAmount } = useXmrPrice();
+const { minFiatAmount } = useMinTipAmount({
+  pageFiat: computed(() => state.form.fiat),
+});
 
 const state = reactive<State>({
   form: {
@@ -69,7 +70,8 @@ const state = reactive<State>({
     tiers: [],
     twitchChannel: undefined,
     isPublic: true,
-    defaultTipAmountDisplay: undefined,
+    tipDisplayMode: undefined,
+    fiat: undefined,
   },
   slugAvailable: false,
   loadingSlug: false,
@@ -155,7 +157,8 @@ const handleSubmit = async () => {
         tiers: state.form.tiers,
         twitchChannel: state.form.twitchChannel?.toLowerCase(),
         isPublic: state.form.isPublic,
-        defaultTipAmountDisplay: state.form.defaultTipAmountDisplay,
+        tipDisplayMode: state.form.tipDisplayMode,
+        fiat: state.form.fiat,
         minTipAmount: state.form.minTipAmount?.toString() || null,
       });
       toast.add({ title: "Page updated!" });
@@ -212,7 +215,8 @@ const getPage = async () => {
     twitchChannel: page.twitchChannel?.toLowerCase(),
     isPublic: page.isPublic,
     minTipAmount: page.minTipAmount,
-    defaultTipAmountDisplay: page.defaultTipAmountDisplay,
+    tipDisplayMode: page.tipDisplayMode,
+    fiat: page.fiat,
     tiers: page.tiers || [],
   };
 
@@ -389,9 +393,18 @@ const handleBannerUpload = (file: UploadedFile) => {
           :help="t('thisIsOnlyForDisplaying')"
         >
           <TipValueToggle
-            v-model="state.form.defaultTipAmountDisplay"
+            v-model="state.form.tipDisplayMode"
             class="mt-2"
+            :fiat="state.form.fiat"
           />
+        </UFormGroup>
+        <UFormGroup
+          v-if="editable"
+          size="lg"
+          label="Fiat unit"
+          help="Unit to display tips when tip display mode is fiat."
+        >
+          <FiatSelect v-model="state.form.fiat" />
         </UFormGroup>
       </div>
 
@@ -399,7 +412,8 @@ const handleBannerUpload = (file: UploadedFile) => {
         <UFormGroup :label="t('tipAmountSuggestions')">
           <StreamerTipSuggestions
             v-model="state.form.tiers"
-            :minUsdAmount="minUsdAmount"
+            :minFiatAmount="minFiatAmount"
+            :fiat="state.form.fiat"
           />
         </UFormGroup>
       </div>

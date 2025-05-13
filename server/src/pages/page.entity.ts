@@ -59,6 +59,12 @@ export class Page {
   @Column({ nullable: true })
   defaultTipAmountDisplay: string;
 
+  @Column({ nullable: true })
+  tipDisplayMode: string; // xmr or fiat
+
+  @Column({ nullable: true, default: 'usd' })
+  fiat: string;
+
   @Column('boolean', { default: true })
   isPublic: boolean;
 

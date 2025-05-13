@@ -11,6 +11,7 @@ import { TwitchModule } from 'src/integrations/twitch/twitch.module';
 import { Tip } from 'src/tips/tip.entity';
 import { UsersModule } from 'src/users/users.module';
 import { PricesModule } from 'src/prices/prices.module';
+import { TipMessageModule } from 'src/tip-message/tip-message.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { PricesModule } from 'src/prices/prices.module';
     TwitchModule,
     UsersModule, // used on WsAuthGuard
     PricesModule,
+    TipMessageModule,
   ],
   controllers: [PagesController],
   providers: [PagesService, PagesGateway],

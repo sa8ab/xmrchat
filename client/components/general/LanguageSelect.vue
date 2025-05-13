@@ -2,9 +2,13 @@
 import type { DropdownItem } from "#ui/types";
 const { locales, locale, setLocale } = useI18n();
 
+const config = useRuntimeConfig();
+
 const items = computed<DropdownItem[][]>(() => {
+  const activeLocales = config.public.activeLocales.split(",");
   return [
     locales.value
+      .filter((l) => activeLocales.includes(l.code))
       .map((l) => ({
         code: l.code,
         image: `/images/flags/${l.code}.png`,
@@ -17,7 +21,7 @@ const items = computed<DropdownItem[][]>(() => {
 </script>
 
 <template>
-  <UDropdown :items="items">
+  <UDropdown :items="items" :ui="{ width: 'w-36' }">
     <UButton color="gray" square>
       <span class="ring-1 ring-border rounded-full">
         <img :src="`/images/flags/${locale}.png`" alt="" class="w-[20px]" />

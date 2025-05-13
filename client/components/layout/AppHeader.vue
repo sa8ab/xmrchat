@@ -7,7 +7,6 @@ const {
   toStreamerDisplay,
   toStreamerEdit,
   toStreamer,
-  toCreators,
 } = useRouteLocation();
 
 const authStore = useAuthStore();
@@ -15,6 +14,8 @@ const { logout, state } = authStore;
 const route = useRoute();
 const { copy } = useCopy();
 const { t } = useI18n();
+
+const config = useRuntimeConfig();
 
 const dropdownItems = computed<DropdownItem[][]>(() => {
   const url = useRequestURL();
@@ -87,7 +88,9 @@ const dropdownItems = computed<DropdownItem[][]>(() => {
         <ul>
           <li class="flex">
             <UButton variant="ghost" color="white" :to="toContact()">
-              {{ t("contactUs") }}
+              <span class="truncate max-w-[100px] sm:max-w-[100%]">
+                {{ t("contactUs") }}
+              </span>
             </UButton>
           </li>
         </ul>
@@ -137,7 +140,7 @@ const dropdownItems = computed<DropdownItem[][]>(() => {
           </UButton>
         </template>
 
-        <!-- <LanguageSelect /> -->
+        <LanguageSelect v-if="config.public.showLocaleSelect" />
 
         <!-- <UButton
           square

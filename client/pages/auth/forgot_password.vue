@@ -49,10 +49,8 @@ const handleSubmit = async () => {
 
 <template>
   <AuthContainer
-    title="Reset Password"
-    :description="
-      state.isEmailSent ? '' : 'Enter your email to reset your password'
-    "
+    :title="$t('resetPassword')"
+    :description="state.isEmailSent ? '' : $t('enterEmailToResetPassword')"
   >
     <UForm
       :state="state"
@@ -61,7 +59,7 @@ const handleSubmit = async () => {
       v-if="!state.isEmailSent"
     >
       <UFormGroup
-        label="Email"
+        :label="$t('email')"
         name="email"
         :error="getValidationAttrs('email').error"
       >
@@ -78,16 +76,20 @@ const handleSubmit = async () => {
       >
       </UAlert>
 
-      <UButton block type="submit" :loading="state.loading"> Submit </UButton>
+      <UButton block type="submit" :loading="state.loading">
+        {{ $t("send") }}
+      </UButton>
     </UForm>
     <div v-else>
       <p class="text-base">
-        We have sent you an email
-        <span class="text-primary font-medium">{{ state.email }}</span
-        >, please follow the link in the email to reset your password.
+        <I18nT keypath="weSentYouAnEmail">
+          <template #email>
+            <span class="text-primary font-medium">{{ state.email }}</span>
+          </template>
+        </I18nT>
       </p>
       <UButton block class="mt-3" variant="soft" @click="clearForm">
-        Change Email
+        {{ $t("changeEmail") }}
       </UButton>
     </div>
   </AuthContainer>

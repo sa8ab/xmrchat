@@ -26,9 +26,15 @@ export enum ContentLinkPlatformEnum {
   KICK = "kick",
 }
 
-export enum SupportedDisplayCurrency {
+export enum TipDisplayMode {
   XMR = "xmr",
+  FIAT = "fiat",
+}
+
+export enum FiatEnum {
   USD = "usd",
+  EUR = "eur",
+  MXN = "mxn",
 }
 
 export enum SwapStatusEnum {

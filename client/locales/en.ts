@@ -15,6 +15,7 @@ export default {
   account: "Account",
   logout: "Logout",
   login: "Login",
+  send: "Send",
   email: "Email",
   search: "Search",
   password: "Password",
@@ -31,6 +32,14 @@ export default {
   forgetPassword: "Forget Password ?",
   loginDescription:
     "Login to your account in order to access your display page.",
+  resetPassword: "Reset Password",
+  enterYourNewPassword: "Enter your new password",
+  passwordResetFailed: "Password Reset Failed",
+  passwordUpdated: "Your password has been successfully updated.",
+  weSentYouAnEmail:
+    "We have sent you an email {email}, please follow the link in the email to reset your password.",
+  changeEmail: "Change Email",
+  enterEmailToResetPassword: "Enter your email to reset your password.",
   creatorLogin: "Creator Login",
   searchCreators: {
     title: "Search Creators",
@@ -98,7 +107,8 @@ export default {
   },
   andMore: {
     title: "And more",
-    description: "Learn more about Monero at {getmonero} and where it's used at {moneroeco}.",
+    description:
+      "Learn more about Monero at {getmonero} and where it's used at {moneroeco}.",
   },
 
   whereToGetMonero: {
@@ -133,10 +143,10 @@ export default {
   tipMessagePlaceholder: "Enter message",
   tipPrivatePlaceholder: "Private",
   tipSwapUnavailable: "Swap is currently unavailable.",
-  tipSwapMinimum: "Minimum {minSwapUSD}$ to swap",
-  minUsdAmount: "Minimum {minUsdAmount}",
+  tipSwapMinimum: "Minimum {min} to swap",
+  tipMinimum: "Minimum {min}",
   recentTips: "Recent Tips",
-  tipDisplayValueTooltip: "Show tip values in XMR or USD",
+  tipDisplayValueTooltip: "Show tip values in XMR or {fiat}",
   noRecentTips: "No recent tips!",
   pageDeactivatedAlert:
     "Your page has been deactivated and it is not visible to public. Please contact support for more info.",
@@ -193,11 +203,17 @@ export default {
   note: "Note",
 
   // STREAMER MENU
+  menu: "Menu",
   myXmrchats: "My xmrchats",
   editTipPage: "Edit Tip Page",
   tipPage: "Tip Page",
   contentLinks: "Content Links",
   obs: "OBS",
+  show: "Show",
+  hide: "Hide",
+  youDontHavePage: "You don't have a page yet",
+  getStartedByCreatingPage: "Get started by creating a new page for yourself",
+  createNewPage: "Create New Page",
 
   // ACCOUNT PAGE
   changePassword: "Change Password",
@@ -219,6 +235,7 @@ export default {
   remove: "Remove",
   name: "Name",
   amountUSD: "Amount ( USD )",
+  amountFiat: "Amount ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "Brand Name",
@@ -233,6 +250,11 @@ export default {
   notUrlWithMessage: "Only enter the name, not the full link.",
   changesAreSaved: "Changes are saved.",
   errorSavingChanges: "Error saving changes.",
+  xUsername: "{platform} username",
+  websiteLink: "Website link",
+  youtubeChannel: "Youtube channel",
+  podcastRssLink: "Podcast RSS Link",
+  nostrPubKey: "Nostr Pub Key",
 
   // OBS
   obsDescription: "OBS widget and settings.",
@@ -253,4 +275,14 @@ export default {
   autoShowTips: "Auto Show Tips",
   autoShowTipsDescription:
     "If active, tips will be automatically shown on the OBS page for 60 seconds.",
+
+  // HEAD
+  head: {
+    description:
+      "Viewers, send messages and tips with ease and privacy. Streamers, keep nearly all of your tips instead of giving 30-50% to big tech.",
+    title: "Message and Tip with Monero",
+    XMRChatTip: "XMRChat - Tip {path} with Monero",
+    tip: "Tip {path}",
+  },
+  moneroSuperchats: "Monero Superchats : XMRChat",
 };

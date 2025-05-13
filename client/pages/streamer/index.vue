@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { PageStatusEnum, type SupportedDisplayCurrency } from "~/types/enums";
+import { FiatEnum, PageStatusEnum, type TipDisplayMode } from "~/types/enums";
 
 useHead({
   title: "Profile",
@@ -13,9 +13,10 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
   () => getMyPage()
 );
 
-const tipValue = ref<SupportedDisplayCurrency | undefined>(
-  data.value?.page.defaultTipAmountDisplay
+const tipValue = ref<TipDisplayMode | undefined>(
+  data.value?.page.tipDisplayMode
 );
+const { getFiat } = useConstants();
 </script>
 
 <template>
@@ -40,14 +41,26 @@ const tipValue = ref<SupportedDisplayCurrency | undefined>(
 
           <div class="flex justify-end mb-2">
             <UTooltip
-              :text="t('tipDisplayValueTooltip')"
+              :text="
+                $t('tipDisplayValueTooltip', {
+                  fiat: getFiat(data.page.fiat || FiatEnum.USD).name,
+                })
+              "
               :popper="{ placement: 'top' }"
             >
-              <TipValueToggle class="font-normal" v-model="tipValue" />
+              <TipValueToggle
+                class="font-normal"
+                v-model="tipValue"
+                :fiat="data.page.fiat"
+              />
             </UTooltip>
           </div>
 
-          <StreamerTipsList :slug="data.page.path" :tipValue="tipValue" />
+          <StreamerTipsList
+            :slug="data.page.path"
+            :tipValue="tipValue"
+            :fiat="data.page.fiat"
+          />
         </div>
         <NoPageYet v-else />
       </div>

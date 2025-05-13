@@ -15,6 +15,7 @@ export default {
   account: "Cuenta",
   logout: "Cerrar sesión",
   login: "Iniciar sesión",
+  send: "Enviar",
   loginFailed: "Error de inicio de sesión",
   email: "Correo electrónico",
   search: "Buscar",
@@ -31,6 +32,15 @@ export default {
   forgetPassword: "¿Olvidó su contraseña?",
   loginDescription:
     "Inicie sesión en su cuenta para acceder a su página de visualización.",
+  resetPassword: "Restablecer contraseña",
+  enterYourNewPassword: "Ingrese su nueva contraseña",
+  passwordResetFailed: "Error al restablecer la contraseña",
+  passwordUpdated: "Su contraseña se ha actualizado correctamente.",
+  weSentYouAnEmail:
+    "Hemos enviado un correo electrónico a {email}, por favor siga el enlace en el correo electrónico para restablecer su contraseña.",
+  changeEmail: "Cambiar correo electrónico",
+  enterEmailToResetPassword:
+    "Ingrese su correo electrónico para restablecer su contraseña.",
   creatorLogin: "Inicio de sesión de creador",
   searchCreators: {
     title: "Buscar Creadores",
@@ -138,10 +148,10 @@ export default {
   tipMessagePlaceholder: "Ingrese el mensaje",
   tipPrivatePlaceholder: "Privado",
   tipSwapUnavailable: "El intercambio no está disponible actualmente.",
-  tipSwapMinimum: "Mínimo {minSwapUSD}$ para intercambiar",
-  minUsdAmount: "Mínimo {minUsdAmount}",
+  tipSwapMinimum: "Mínimo {min} para intercambiar",
+  tipMinimum: "Mínimo {min}",
   recentTips: "Propinas recientes",
-  tipDisplayValueTooltip: "Mostrar valores de propina en XMR o USD",
+  tipDisplayValueTooltip: "Mostrar valores de propina en XMR o {fiat}",
   noRecentTips: "¡No hay propinas recientes!",
   pageDeactivatedAlert:
     "Tu página ha sido desactivada y no es visible al público. Por favor, contacta con el soporte para más información.",
@@ -198,11 +208,17 @@ export default {
   note: "Nota",
 
   // STREAMER MENU
+  menu: "Menú",
   myXmrchats: "Mis xmrchats",
   editTipPage: "Editar Página de Propinas",
   tipPage: "Página de Propinas",
   contentLinks: "Enlaces de Contenido",
   obs: "OBS",
+  show: "Mostrar",
+  hide: "Ocultar",
+  youDontHavePage: "No tienes una página aún",
+  getStartedByCreatingPage: "Comienza creando una página para ti mismo",
+  createNewPage: "Crear Nueva Página",
 
   // ACCOUNT PAGE
   changePassword: "Cambiar Contraseña",
@@ -210,6 +226,8 @@ export default {
   currentPassword: "Contraseña actual",
   newPassword: "Nueva contraseña",
   repeatNewPassword: "Repetir nueva contraseña",
+  contactSupportForEmailChange:
+    "Contacta al soporte para cambiar tu dirección de correo electrónico.",
 
   // EDIT PAGE
   editPage: "Editar Página",
@@ -223,6 +241,7 @@ export default {
   remove: "Eliminar",
   name: "Nombre",
   amountUSD: "Monto (USD)",
+  amountFiat: "Monto ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "Nombre de la Marca",
@@ -238,6 +257,11 @@ export default {
   notUrlWithMessage: "Solo ingrese el nombre, no el enlace completo.",
   changesAreSaved: "Los cambios se guardaron.",
   errorSavingChanges: "Error al guardar los cambios.",
+  xUsername: "{platform} nombre de usuario",
+  websiteLink: "Enlace del sitio web",
+  youtubeChannel: "Canal de Youtube",
+  podcastRssLink: "Enlace RSS del Podcast",
+  nostrPubKey: "Clave Pública de Nostr",
 
   // OBS
   obsDescription: "Widget y configuración de OBS.",
@@ -255,4 +279,17 @@ export default {
     "Reproduce un sonido en la página de OBS cuando aparece un nuevo consejo.",
   playSoundDescriptionLocal:
     "Si está probando esta funcionalidad localmente en su navegador, después de abrir la pestaña obs, asegúrese de hacer clic en algún lugar de la página. De lo contrario, el navegador no reproducirá el sonido debido a la falta de interacciones con la pestaña abierta.",
+  autoShowTips: "Mostrar consejos automáticamente",
+  autoShowTipsDescription:
+    "Si está activo, los consejos se mostrarán automáticamente en la página de OBS durante 60 segundos.",
+
+  // HEAD
+  head: {
+    description:
+      "Espectadores, envíen mensajes y propinas con facilidad y privacidad. Streamers, conserven casi todas sus propinas en lugar de dar el 30-50% a las grandes tecnológicas.",
+    title: "Mensajea y da propina con Monero",
+    XMRChatTip: "XMRChat - Da propina a {path} con Monero",
+    tip: "Dar propina a {path}",
+  },
+  moneroSuperchats: "Superchats Monero : XMRChat",
 };

@@ -137,11 +137,6 @@ const { getValidationAttrs } = useValidations(v);
         CONTENT_LINKS_LIST.length / 2
       }, 1fr)`"
     >
-      <!-- <template
-        v-for="p in CONTENT_LINKS_LIST.slice(0, CONTENT_LINKS_LIST.length / 2)"
-      >
-        <pre>{{ p }}</pre>
-      </template> -->
       <UFormGroup
         label="Website"
         v-for="p in CONTENT_LINKS_LIST"

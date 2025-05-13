@@ -1,8 +1,8 @@
 export default {
   validations: {
-    required: "필수 항목입니다",
-    email: "이메일 형식이 올바르지 않습니다",
-    numberic: "숫자여야 합니다",
+    required: "필수 항목입니다.",
+    email: "이메일 형식이 올바르지 않습니다.",
+    numberic: "숫자여야 합니다.",
     minLength: "{length}자 이상이어야 합니다.",
     maxLength: "{length}자 이하여야 합니다.",
     minValue: "{value} 이상이어야 합니다.",
@@ -15,6 +15,7 @@ export default {
   account: "계정",
   logout: "로그아웃",
   login: "로그인",
+  send: "보내기",
   email: "이메일",
   search: "검색",
   password: "비밀번호",
@@ -30,6 +31,14 @@ export default {
   signup: "회원가입",
   forgetPassword: "비밀번호를 잊으셨나요?",
   loginDescription: "계정에 로그인하여 마이페이지에 접근하세요.",
+  resetPassword: "비밀번호 재설정",
+  enterYourNewPassword: "새 비밀번호를 입력하세요.",
+  passwordResetFailed: "비밀번호 재설정 실패",
+  passwordUpdated: "비밀번호가 성공적으로 업데이트되었습니다.",
+  weSentYouAnEmail:
+    "이메일 {email}을 보내드렸습니다. 이메일 링크를 따라가 비밀번호를 재설정하세요.",
+  changeEmail: "이메일 변경",
+  enterEmailToResetPassword: "이메일을 입력하여 비밀번호를 재설정하세요.",
   creatorLogin: "크리에이터 로그인",
   searchCreators: {
     title: "크리에이터 검색",
@@ -135,10 +144,10 @@ export default {
   tipMessagePlaceholder: "메시지 입력",
   tipPrivatePlaceholder: "비공개",
   tipSwapUnavailable: "현재 스왑을 사용할 수 없습니다.",
-  tipSwapMinimum: "스왑 최소 금액은 {minSwapUSD}$입니다",
-  minUsdAmount: "최소 {minUsdAmount}",
+  tipSwapMinimum: "스왑 최소 금액은 {min}입니다",
+  tipMinimum: "최소 {min}",
   recentTips: "최근 팁",
-  tipDisplayValueTooltip: "팁 값을 모네로(Monero) 또는 USD로 표시",
+  tipDisplayValueTooltip: "팁 값을 모네로(Monero) 또는 {fiat}로 표시",
   noRecentTips: "최근 팁이 없습니다!",
   pageDeactivatedAlert:
     "페이지가 비활성화되어 공개적으로 표시되지 않습니다. 자세한 내용은 지원팀에 문의하세요.",
@@ -192,11 +201,17 @@ export default {
   note: "참고",
 
   // STREAMER MENU
+  menu: "메뉴",
   myXmrchats: "내 xmrchats",
   editTipPage: "팁 페이지 편집",
   tipPage: "팁 페이지",
   contentLinks: "콘텐츠 링크",
   obs: "OBS",
+  show: "보기",
+  hide: "숨김",
+  youDontHavePage: "아직 페이지가 만들어지지 않았습니다.",
+  getStartedByCreatingPage: "지금 자신만의 페이지를 만들어보세요",
+  createNewPage: "새 페이지 만들기",
 
   // ACCOUNT PAGE
   changePassword: "비밀번호 변경",
@@ -204,6 +219,7 @@ export default {
   currentPassword: "현재 비밀번호",
   newPassword: "새 비밀번호",
   repeatNewPassword: "새 비밀번호 확인",
+  contactSupportForEmailChange: "지원팀에 문의하여 이메일 주소를 변경하세요.",
 
   // EDIT PAGE
   editPage: "페이지 편집",
@@ -217,13 +233,14 @@ export default {
   remove: "제거",
   name: "이름",
   amountUSD: "금액 (USD)",
+  amountFiat: "금액 ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "브랜드 이름",
-  brandNameHelp: "브랜드/콘텐츠 이름. 슬러그와 다를 수 있습니다.",
+  brandNameHelp: "브랜드/콘텐츠 이름. 페이지 주소와 다를 수 있습니다.",
   searchTerms: "검색어",
   searchTermsHelp:
-    "크리에이터 검색은 페이지 슬러그, 이름 및 이 목록의 키워드를 기반으로 결과를 반환합니다.",
+    "크리에이터를 검색하면 이 목록에 있는 페이지 주소, 이름, 키워드를 바탕으로 결과가 나옵니다.",
   contentLinksDescription: "이름, 검색어 및 콘텐츠 링크",
   contentLinksSecondDescription:
     "소셜 페이지나 웹사이트 링크. 값을 재설정하려면 필드를 비워두세요.",
@@ -231,6 +248,11 @@ export default {
   notUrlWithMessage: "전체 링크 대신 이름만 입력하세요.",
   changesAreSaved: "변경사항이 저장되었습니다.",
   errorSavingChanges: "변경사항 저장 오류.",
+  xUsername: "{platform} 사용자 이름",
+  websiteLink: "웹사이트 링크",
+  youtubeChannel: "유튜브 채널",
+  podcastRssLink: "팟캐스트 RSS 링크",
+  nostrPubKey: "Nostr 공개 키",
 
   // OBS
   obsDescription: "OBS 위젯 및 설정.",
@@ -247,4 +269,17 @@ export default {
   playSoundDescription: "새 팁이 나타날 때 OBS 페이지에서 소리를 재생합니다.",
   playSoundDescriptionLocal:
     "브라우저에서 이 기능을 로컬로 테스트하는 경우, obs 탭을 열고 페이지 어딘가를 클릭하세요. 그렇지 않으면 열린 탭과의 상호작용이 없어 브라우저가 소리를 재생하지 않습니다.",
+  autoShowTips: "자동 팁 표시",
+  autoShowTipsDescription:
+    "활성화하면 OBS 페이지에서 60초 동안 팁이 자동으로 표시됩니다.",
+
+  // HEAD
+  head: {
+    description:
+      "시청자 여러분, 쉽게 그리고 프라이버시를 지키며 메시지와 팁을 보내세요. 스트리머는 빅테크에 30~50%를 넘기는 대신 거의 모든 팁을 유지할 수 있습니다.",
+    title: "Monero로 메시지 및 팁 보내기",
+    XMRChatTip: "XMRChat - {path}에게 Monero로 팁 주기",
+    tip: "{path}에게 팁 주기",
+  },
+  moneroSuperchats: "Monero 슈퍼챗 : XMRChat",
 };

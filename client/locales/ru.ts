@@ -15,6 +15,7 @@ export default {
   account: "Аккаунт",
   logout: "Выйти",
   login: "Войти",
+  send: "Отправить",
   email: "Эл. почта",
   search: "Поиск",
   password: "Пароль",
@@ -31,6 +32,15 @@ export default {
   forgetPassword: "Забыли пароль?",
   loginDescription:
     "Войдите в аккаунт, чтобы получить доступ к вашей странице.",
+  resetPassword: "Сбросить пароль",
+  enterYourNewPassword: "Введите новый пароль",
+  passwordResetFailed: "Ошибка сброса пароля",
+  passwordUpdated: "Ваш пароль был успешно обновлен.",
+  weSentYouAnEmail:
+    "Мы отправили вам электронное письмо {email}, пожалуйста, следуйте ссылке в письме, чтобы сбросить пароль.",
+  changeEmail: "Изменить электронную почту",
+  enterEmailToResetPassword:
+    "Введите вашу электронную почту для сброса пароля.",
   creatorLogin: "Вход для авторов",
   searchCreators: {
     title: "Поиск Создателей",
@@ -133,10 +143,10 @@ export default {
   tipMessagePlaceholder: "Введите сообщение",
   tipPrivatePlaceholder: "Приватно",
   tipSwapUnavailable: "Обмен сейчас недоступен.",
-  tipSwapMinimum: "Минимум {minSwapUSD}$ для обмена",
-  minUsdAmount: "Минимум {minUsdAmount}",
+  tipSwapMinimum: "Минимум {min} для обмена",
+  tipMinimum: "Минимум {min}",
   recentTips: "Последние чаевые",
-  tipDisplayValueTooltip: "Показывать чаевые в XMR или USD",
+  tipDisplayValueTooltip: "Показывать чаевые в XMR или {fiat}",
   noRecentTips: "Нет недавних чаевых!",
   pageDeactivatedAlert:
     "Ваша страница была деактивирована и не отображается для публичного просмотра. Пожалуйста, свяжитесь с поддержкой для получения дополнительной информации.",
@@ -191,11 +201,17 @@ export default {
   note: "Примечание",
 
   // STREAMER MENU
+  menu: "Меню",
   myXmrchats: "Мои xmrchats",
   editTipPage: "Редактировать Страницу Чаевых",
   tipPage: "Страница Чаевых",
   contentLinks: "Ссылки на Контент",
   obs: "OBS",
+  show: "Показать",
+  hide: "Скрыть",
+  youDontHavePage: "У вас еще нет страницы",
+  getStartedByCreatingPage: "Начните с создания страницы для себя",
+  createNewPage: "Создать новую страницу",
 
   // ACCOUNT PAGE
   changePassword: "Изменить Пароль",
@@ -203,6 +219,8 @@ export default {
   currentPassword: "Текущий пароль",
   newPassword: "Новый пароль",
   repeatNewPassword: "Повторите новый пароль",
+  contactSupportForEmailChange:
+    "Свяжитесь с поддержкой для изменения вашего адреса электронной почты.",
 
   // EDIT PAGE
   editPage: "Редактировать Страницу",
@@ -216,6 +234,7 @@ export default {
   remove: "Удалить",
   name: "Имя",
   amountUSD: "Сумма (USD)",
+  amountFiat: "Сумма ( {fiat} )",
 
   // CONTENT LINKS
   brandName: "Название Бренда",
@@ -230,6 +249,11 @@ export default {
   notUrlWithMessage: "Введите только название, не полную ссылку.",
   changesAreSaved: "Изменения сохранены.",
   errorSavingChanges: "Ошибка при сохранении изменений.",
+  xUsername: "{platform} имя пользователя",
+  websiteLink: "Ссылка на сайт",
+  youtubeChannel: "Youtube канал",
+  podcastRssLink: "Ссылка на RSS-канал",
+  nostrPubKey: "Nostr Публичный Ключ",
 
   // OBS
   obsDescription: "Виджет и настройки OBS.",
@@ -247,4 +271,17 @@ export default {
     "Воспроизводит звук на странице OBS при появлении нового чаевого.",
   playSoundDescriptionLocal:
     "Если вы тестируете эту функцию локально в браузере, после открытия вкладки obs обязательно кликните где-нибудь на странице. В противном случае браузер не будет воспроизводить звук из-за отсутствия взаимодействия с открытой вкладкой.",
+  autoShowTips: "Автоматически показывать чаевые",
+  autoShowTipsDescription:
+    "Если активно, чаевые будут автоматически отображаться на странице OBS в течение 60 секунд.",
+
+  // HEAD
+  head: {
+    description:
+      "Зрители, отправляйте сообщения и чаевые легко и конфиденциально. Стримеры, сохраняйте почти все свои чаевые, а не отдавайте 30–50 % крупным технокомпаниям.",
+    title: "Сообщения и чаевые с Monero",
+    XMRChatTip: "XMRChat — чаевые для {path} через Monero",
+    tip: "Оставить чаевые {path}",
+  },
+  moneroSuperchats: "Monero Суперчаты : XMRChat",
 };

@@ -100,17 +100,6 @@ export class NotificationsService {
     });
   }
 
-  getTipMessage(params: {
-    usdAmount: string;
-    message: string;
-    isPrivate: boolean;
-    username: string;
-  }) {
-    return params.isPrivate
-      ? `Private Tip: $${params.usdAmount}`
-      : `${params.username} tipped $${params.usdAmount} ${params.message ? ': ' : ''} ${params.message || ''}`;
-  }
-
   async sendTwitchMessage(channel: string, message: string) {
     await this.twitchService.sendMessage(channel, message);
   }

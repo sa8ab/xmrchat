@@ -8,7 +8,7 @@ import {
   MinLength,
   Validate,
 } from 'class-validator';
-import { SupportedDisplayCurrency } from 'src/shared/constants';
+import { FiatEnum, TipDisplayMode } from 'src/shared/constants';
 import { IsMoneroPrimaryAdrress } from 'src/shared/validations/monero-primary-address.validation';
 import { IsMoneroSecretView } from 'src/shared/validations/monero-secret-view.validation';
 
@@ -36,9 +36,17 @@ export class CreatePageBaseDto {
   @MaxLength(64)
   twitchChannel?: string;
 
-  @IsEnum(SupportedDisplayCurrency)
+  @IsEnum(TipDisplayMode)
   @IsOptional()
-  defaultTipAmountDisplay?: SupportedDisplayCurrency;
+  defaultTipAmountDisplay?: TipDisplayMode;
+
+  @IsEnum(FiatEnum)
+  @IsOptional()
+  fiat?: FiatEnum;
+
+  @IsEnum(TipDisplayMode)
+  @IsOptional()
+  tipDisplayMode?: TipDisplayMode;
 
   @IsBoolean()
   isPublic: boolean;

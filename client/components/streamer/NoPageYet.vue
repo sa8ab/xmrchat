@@ -8,9 +8,11 @@ const { toStreamerCreate } = useRouteLocation();
       src="/images/home-hero.png"
       alt=""
     />
-    <h6>You don't have a page yet</h6>
-    <p>Get started by creating a new page for yourself</p>
-    <UButton size="xl" :to="toStreamerCreate()">Create New Page</UButton>
+    <h6>{{ $t("youDontHavePage") }}</h6>
+    <p>{{ $t("getStartedByCreatingPage") }}</p>
+    <UButton size="xl" :to="toStreamerCreate()">
+      {{ $t("createNewPage") }}
+    </UButton>
   </div>
 </template>
 <style scoped lang="scss">

@@ -19,8 +19,9 @@ watch(
       <slot />
     </div>
     <div class="lg:hidden">
-      <UButton @click="active = true" trailingIcon="i-heroicons-chevron-right">
-        Menu
+      <UButton @click="active = true">
+        {{ $t("menu") }}
+        <DirectionalArrow type="chevron" />
       </UButton>
       <USlideover
         v-model="active"

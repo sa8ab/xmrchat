@@ -19,9 +19,15 @@ export enum PageSettingKey {
   OBS_AUTO_SHOW_TIPS = 'obs-auto-show-tips',
 }
 
-export enum SupportedDisplayCurrency {
+export enum TipDisplayMode {
   XMR = 'xmr',
+  FIAT = 'fiat',
+}
+
+export enum FiatEnum {
   USD = 'usd',
+  EUR = 'eur',
+  MXN = 'mxn',
 }
 
 export enum PageSettingValueType {

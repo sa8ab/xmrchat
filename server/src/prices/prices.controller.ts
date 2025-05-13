@@ -2,6 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { PricesService } from './prices.service';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 import { SkipThrottle } from '@nestjs/throttler';
+import { FiatEnum } from 'src/shared/constants';
 
 @SkipThrottle()
 @Controller('prices')
@@ -11,17 +12,15 @@ export class PricesController {
 
   @Get('')
   async prices() {
-    const xmr = await this.pricesService.getMoneroUsdPrice();
-    const ltc = await this.pricesService.getLitecoinUsdPrice();
+    const xmr = await this.pricesService.getMoneroPrices();
 
     return {
       xmr,
-      ltc,
     };
   }
 
   @Get('/xmr')
-  xmrPrice() {
-    return this.pricesService.getMoneroUsdPrice();
+  async xmrPrice() {
+    return this.pricesService.getMoneroPrice(FiatEnum.USD);
   }
 }

@@ -1,9 +1,11 @@
 import type { StreamerPage } from "~/types";
 
 export const useAppSeoMeta = () => {
-  const description =
-    "Viewers, send messages and tips with ease and privacy. Streamers, keep nearly all of your tips instead of giving 30-50% to big tech.";
-  const title = "Message and Tip with Monero";
+  const { t } = useI18n();
+
+  const description = t("head.description");
+
+  const title = t("head.title");
   useServerSeoMeta({
     description,
     ogTitle: title,
@@ -19,16 +21,18 @@ export const useAppSeoMeta = () => {
 export const useStreamerIdSeoMeta = (
   page: Ref<StreamerPage | undefined | null>
 ) => {
+  const { t } = useI18n();
+
   const {
     public: { imageBaseUrl },
   } = useRuntimeConfig();
   useSeoMeta({
-    title: () => `Tip ${page.value?.path || ""}`,
+    title: () => t("head.tip", { path: page.value?.path || "" }),
   });
 
   useServerSeoMeta({
-    ogTitle: `XMRChat - Tip ${page.value?.path} with Monero`,
-    twitterTitle: `XMRChat - Tip ${page.value?.path} with Monero`,
+    ogTitle: t("head.XMRChatTip", { path: page.value?.path }),
+    twitterTitle: t("head.XMRChatTip", { path: page.value?.path }),
     twitterCard: "summary",
     twitterImage: `${imageBaseUrl}${page.value?.logo.url}`,
     ogImage: `${imageBaseUrl}${page.value?.logo.url}`,
