@@ -243,7 +243,7 @@ export class TipsService {
     this.tipsGateway.notifyTipPayment(tip.id, savedPayment);
 
     const finalMessage = await this.tipMessageService.generateMessage(
-      tip,
+      Object.assign(tip, { payment: savedPayment }),
       page.id,
     );
 
