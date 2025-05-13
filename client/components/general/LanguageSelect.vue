@@ -2,9 +2,13 @@
 import type { DropdownItem } from "#ui/types";
 const { locales, locale, setLocale } = useI18n();
 
+const config = useRuntimeConfig();
+
 const items = computed<DropdownItem[][]>(() => {
+  const activeLocales = config.public.activeLocales.split(",");
   return [
     locales.value
+      .filter((l) => activeLocales.includes(l.code))
       .map((l) => ({
         code: l.code,
         image: `/images/flags/${l.code}.png`,
