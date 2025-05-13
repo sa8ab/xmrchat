@@ -13,6 +13,7 @@ import { FIAT_VALUES } from 'src/shared/constants/fiat';
 @Injectable()
 export class TipMessageService {
   constructor(
+    @InjectRepository(Tip) private tipsRepo: Repository<Tip>,
     @InjectRepository(Page) private pagesRepo: Repository<Page>,
     private pricesService: PricesService,
   ) {}
@@ -20,7 +21,11 @@ export class TipMessageService {
   private privateTemplate = `{{name}} tipped {{fiatValue}}`;
   private template = `{{name}} tipped {{fiatValue}} {{#if message}}: {{message}} {{/if}}`;
 
-  async generateMessage(tip: Tip, pageId: number) {
+  async generateMessage(tipId: number, pageId: number) {
+    const tip = await this.tipsRepo.findOne({
+      where: { id: tipId },
+      relations: { payment: true },
+    });
     const message = clearMessage(tip.message);
     const page = await this.pagesRepo.findOneBy({ id: pageId });
 
