@@ -10,6 +10,9 @@ export default {
     someFieldsAreIncorrect: "일부 필드가 올바르게 작성되지 않았습니다.",
     url: "유효하지 않은 링크입니다.",
     notUrl: "링크일 수 없습니다.",
+    streamerSlug: "경로는 소문자, 숫자, 밑줄 및 하이픈만 포함할 수 있습니다.",
+    moneroPrimaryAddress:
+      "기본 주소가 유효하지 않습니다. 주소는 4로 시작해야 합니다.",
   },
 
   account: "계정",
@@ -199,6 +202,12 @@ export default {
   pageCreatedSuccessfully: "페이지가 성공적으로 생성되었습니다!",
   slugReservedUntil: "슬러그는 다음 시점까지 예약됨: ",
   note: "참고",
+  pageUpdated: "페이지가 업데이트 되었습니다!",
+  loading: "확인중",
+  available: "사용 가능",
+  unavailable: "사용할 수 없음",
+  fiatUnit: "법정 화폐 단위",
+  fiatUnitHelp: "팁을 법정 화폐로 표시할 때 사용하는 단위.",
 
   // STREAMER MENU
   menu: "메뉴",

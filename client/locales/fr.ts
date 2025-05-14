@@ -10,6 +10,10 @@ export default {
     someFieldsAreIncorrect: "Certains champs ne sont pas correctement remplis.",
     url: "Le lien est invalide.",
     notUrl: "Ne doit pas être un lien.",
+    streamerSlug:
+      "Le chemin peut contenir uniquement des lettres minuscules, des chiffres, des traits de soulignement et des traits de soulignement.",
+    moneroPrimaryAddress:
+      "L'adresse principale est invalide. Elle doit commencer par le chiffre 4.",
   },
 
   account: "Compte",
@@ -211,6 +215,13 @@ export default {
   pageCreatedSuccessfully: "Page créée avec succès !",
   slugReservedUntil: "Votre identifiant est réservé jusqu'au ",
   note: "Remarque",
+  pageUpdated: "Page mise à jour !",
+  loading: "Chargement",
+  available: "Disponible",
+  unavailable: "Indisponible",
+  fiatUnit: "Unité de monnaie",
+  fiatUnitHelp:
+    "Unité de monnaie utilisée pour afficher les pourboires lorsque le mode d'affichage des pourboires est en monnaie.",
 
   // STREAMER MENU
   menu: "Menu",

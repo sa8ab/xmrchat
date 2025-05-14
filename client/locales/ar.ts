@@ -10,6 +10,8 @@ export default {
     someFieldsAreIncorrect: "بعض الحقول غير مكتملة بشكل صحيح",
     url: "الرابط غير صالح",
     notUrl: "يجب ألا يكون رابطاً",
+    streamerSlug: "يمكن أن يحتوي الرابط على أحرف صغيرة، أرقام، أسطر و أسطورة",
+    moneroPrimaryAddress: "عنوان الاستلام غير صالح. يجب أن يبدأ بـ 4",
   },
 
   account: "الحساب",
@@ -198,6 +200,13 @@ export default {
   pageCreatedSuccessfully: "تم إنشاء الصفحة بنجاح!",
   slugReservedUntil: "تم حجز الرابط الخاص بك حتى",
   note: "ملاحظة",
+  pageUpdated: "تم تحديث الصفحة!",
+  loading: "جاري التحميل",
+  available: "متاح",
+  unavailable: "غير متاح",
+  fiatUnit: "وحدة العملة",
+  fiatUnitHelp:
+    "وحدة العملة المستخدمة لعرض التبرعات عندما يكون جدول التبرعات في العملة",
 
   // STREAMER MENU
   menu: "القائمة",

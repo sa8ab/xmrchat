@@ -10,6 +10,9 @@ export default {
     someFieldsAreIncorrect: "Some of the fields are not filled correctly.",
     url: "The link is invalid.",
     notUrl: "Should not be a link.",
+    streamerSlug:
+      "Your path can only contain lowercase letters, numbers, underscores, and hyphens.",
+    moneroPrimaryAddress: "Primary address is invalid. It should start with 4.",
   },
 
   account: "Account",
@@ -201,6 +204,12 @@ export default {
   pageCreatedSuccessfully: "Page is created successfully!",
   slugReservedUntil: "Your slug is reserved until ",
   note: "Note",
+  pageUpdated: "Page updated!",
+  loading: "Loading",
+  available: "Available",
+  unavailable: "Unavailable",
+  fiatUnit: "Fiat unit",
+  fiatUnitHelp: "Unit to display tips when tip display mode is fiat.",
 
   // STREAMER MENU
   menu: "Menu",

@@ -10,6 +10,10 @@ export default {
     someFieldsAreIncorrect: "Jotkut kentät on täytetty virheellisesti.",
     url: "Virheellinen linkki.",
     notUrl: "Ei saa olla linkki.",
+    streamerSlug:
+      "Polun saa sisältää vain pieniä kirjaimia, numeroita, alaviivoja ja väliviivoja.",
+    moneroPrimaryAddress:
+      "Monero ensisijainen osoite on virheellinen. Se pitää aloittaa numerolla 4.",
   },
 
   account: "Tili",
@@ -200,6 +204,13 @@ export default {
   pageCreatedSuccessfully: "Sivu luotiin onnistuneesti!",
   slugReservedUntil: "Slug on varattu asti ",
   note: "Huom",
+  pageUpdated: "Sivu päivitetty!",
+  loading: "Lataa",
+  available: "Saatavilla",
+  unavailable: "Ei saatavilla",
+  fiatUnit: "Fiat-yksikkö",
+  fiatUnitHelp:
+    "Yksikkö, joka näytetään tippisivun tippien määränä, kun tippienäkymä on fiat.",
 
   // STREAMER MENU
   menu: "Valikko",
