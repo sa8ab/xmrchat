@@ -13,6 +13,7 @@ import { RolesEnum, UserTokenType } from 'src/shared/constants/enum';
 import { UserTokensService } from './user-tokens/user-tokens.service';
 import { User } from 'src/users/user.entity';
 import { UpdatePasswordDto } from './dtos/update-password.dto';
+import { I18nService } from 'nestjs-i18n';
 
 @Injectable()
 export class AuthService {
@@ -23,16 +24,19 @@ export class AuthService {
     private usersService: UsersService,
     private notificationsService: NotificationsService,
     private userTokensService: UserTokensService,
+    private i18n: I18nService,
   ) {}
 
   async signup(authDto: AuthDto) {
     const current = await this.usersService.findByEmail(authDto.email);
 
-    if (current) throw new BadRequestException('User already exists.');
+    if (current)
+      throw new BadRequestException(this.i18n.t('error.userAlreadyExists'));
 
     const user = await this.usersService.createUser(authDto);
 
-    if (!user) throw new BadRequestException('User could not be created');
+    if (!user)
+      throw new BadRequestException(this.i18n.t('error.userCouldNotBeCreated'));
 
     const { token } = await this.userTokensService.createToken({
       userId: user.id,
@@ -51,14 +55,19 @@ export class AuthService {
   async login(authDto: AuthDto) {
     const user = await this.usersService.findByEmail(authDto.email);
 
-    if (!user) throw new BadRequestException('Username/Password is incorrect.');
+    if (!user)
+      throw new BadRequestException(
+        this.i18n.t('error.usernamePasswordIncorrect'),
+      );
 
     const [salt, storedHash] = user.password.split('.');
 
     const hash = hashPassword(authDto.password, salt);
 
     if (storedHash != hash)
-      throw new BadRequestException('Username/Password is incorrect.');
+      throw new BadRequestException(
+        this.i18n.t('error.usernamePasswordIncorrect'),
+      );
 
     if (!user.isEmailVerified) {
       let token: string;
@@ -70,14 +79,16 @@ export class AuthService {
         token = result;
       } catch (error) {
         throw new BadRequestException(
-          'We have already sent you a verification email. Please follow the link in the email to login. You can request new verification email after few minutes.',
+          this.i18n.t('general.weHaveAlreadySentYouAVerificationEmail'),
         );
       }
 
       this.notificationsService.sendVerificationEmail(user.email, token);
 
       throw new BadRequestException(
-        `We have just sent you another verification email on ${user.email}. Please click the link in the verification email to login.`,
+        this.i18n.t('general.weHaveJustSentYouAnotherVerificationEmail', {
+          args: { email: user.email },
+        }),
       );
     }
 
@@ -100,7 +111,7 @@ export class AuthService {
 
     await this.userTokensService.remove(userToken.id);
 
-    return { message: 'Your account is verified.' };
+    return { message: this.i18n.t('general.yourAccountIsVerified') };
   }
 
   async forgotPassword(email: string) {
@@ -108,8 +119,9 @@ export class AuthService {
 
     if (!user)
       return {
-        message:
-          'Email is sent to your mailbox if you were already registered.',
+        message: this.i18n.t(
+          'general.emailIsSentToYourMailboxIfYouWereAlreadyRegistered',
+        ),
       };
 
     let token: string;
@@ -122,7 +134,7 @@ export class AuthService {
       token = result;
     } catch (error) {
       throw new BadRequestException(
-        'We have already sent you a verification email. Follow the link in the email or try again after few minutes.',
+        this.i18n.t('general.weHaveAlreadySentYouAVerificationEmail'),
       );
     }
 
@@ -131,7 +143,9 @@ export class AuthService {
     this.notificationsService.sendResetPasswordEmail(user.email, token);
 
     return {
-      message: 'Email is sent to your mailbox if you were already registered.',
+      message: this.i18n.t(
+        'general.emailIsSentToYourMailboxIfYouWereAlreadyRegistered',
+      ),
     };
   }
 
@@ -155,7 +169,7 @@ export class AuthService {
     this.notificationsService.sendPasswordChangeEmail(user.email);
 
     return {
-      message: 'Password is changed successfully.',
+      message: this.i18n.t('general.passwordChanged'),
     };
   }
 
@@ -165,7 +179,7 @@ export class AuthService {
     const hash = hashPassword(data.currentPassword, salt);
 
     if (hash !== storedHash) {
-      throw new BadRequestException('Invalid credentials.');
+      throw new BadRequestException(this.i18n.t('error.invalidCredentials'));
     }
 
     await this.usersService.update(user.id, {
@@ -175,7 +189,7 @@ export class AuthService {
     this.notificationsService.sendPasswordChangeEmail(user.email);
 
     return {
-      message: 'Account password updated.',
+      message: this.i18n.t('general.accountPasswordUpdated'),
     };
   }
 
