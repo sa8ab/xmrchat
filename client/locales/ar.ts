@@ -174,11 +174,11 @@ export default {
   createPage: "إنشاء صفحة",
   getStartedCreatingPage: "ابدأ بإنشاء صفحة المبدع الخاصة بك",
   home: "الرئيسية",
-  logo: "الشعار",
+  logo: "صورة ملف شخصي",
   logoRatio: "نسبة 1:1",
-  bannerImage: "صورة البانر",
+  bannerImage: "صورة غلاف",
   bannerImageBestRatio: "من الأفضل رفعها بنسبة 3:1",
-  yourId: "معرفك",
+  yourId: "اضافة رابط الصفحة",
   pageSlug: "رابط الصفحة",
   moneroPrmReciveAddress: "عنوان استلام Monero الرئيسي",
   prmMoneroReciveAdressBegin: "تبدأ عناوين استلام Monero الرئيسية بالرقم 4",
@@ -194,7 +194,7 @@ export default {
   defaultTipAmount: "قيمة مبلغ التبرع الافتراضي",
   thisIsOnlyForDisplaying:
     "هذا فقط لعرض قيم التبرعات. يمكن للمشاهدين تغيير هذا لأنفسهم على صفحة التبرع",
-  publicPage: "صفحة عامة (تظهر في صفحة البحث عن المبدعين)",
+  publicPage: "صفحة عامة (تظهر في صفحة البحث عن صانعي المحتوى)",
   continue: "متابعة",
   clickToUpload: "انقر للرفع",
   pageCreatedSuccessfully: "تم إنشاء الصفحة بنجاح!",
@@ -218,7 +218,7 @@ export default {
   show: "ظهر",
   hide: "غير مرئي",
   youDontHavePage: "ليس لديك صفحة بعد",
-  getStartedByCreatingPage: "ابدأ بإنشاء صفحة المبدع الخاصة بك",
+  getStartedByCreatingPage: "ابدأ بإنشاء صفحة صانع المحتوى",
   createNewPage: "إنشاء صفحة جديدة",
 
   // ACCOUNT PAGE
