@@ -1,4 +1,3 @@
-import {} from 'class-validator';
 import {
   IsEmail,
   IsString,

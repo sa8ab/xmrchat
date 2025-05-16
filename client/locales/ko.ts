@@ -39,7 +39,7 @@ export default {
   passwordResetFailed: "비밀번호 재설정 실패",
   passwordUpdated: "비밀번호가 성공적으로 업데이트되었습니다.",
   weSentYouAnEmail:
-    "이메일 {email}을 보내드렸습니다. 이메일 링크를 따라가 비밀번호를 재설정하세요.",
+    "저희가 {email}으로 이메일을 발송했습니다. 이메일에 있는 링크를 따라 비밀번호를 재설정해 주세요.",
   changeEmail: "이메일 변경",
   enterEmailToResetPassword: "이메일을 입력하여 비밀번호를 재설정하세요.",
   creatorLogin: "크리에이터 로그인",

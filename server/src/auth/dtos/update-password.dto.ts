@@ -1,4 +1,5 @@
-import { IsString, MinLength } from 'class-validator';
+import { IsString } from 'class-validator';
+import { MinLength } from 'src/shared/validations/validation-decorators';
 
 export class UpdatePasswordDto {
   @IsString()

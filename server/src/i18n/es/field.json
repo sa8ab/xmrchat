@@ -1,4 +1,5 @@
 {
   "email": "Correo electrónico",
-  "password": "Contraseña"
+  "password": "Contraseña",
+  "currentPassword": "Contraseña actual"
 }

@@ -1,4 +1,5 @@
 {
   "email": "Email",
-  "password": "Password"
+  "password": "Password",
+  "currentPassword": "Current Password"
 }
