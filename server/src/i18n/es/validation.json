@@ -1,0 +1,7 @@
+{
+  "isEmail": "$t(field.{property}) debe ser un correo electrónico",
+  "isString": "$t(field.{property}) debe ser una cadena de texto",
+  "maxLength": "$t(field.{property}) debe ser más corto o igual a {constraints.0} caracteres",
+  "minLength": "$t(field.{property}) debe ser más largo o igual a {constraints.0} caracteres",
+  "isBoolean": "$t(field.{property}) debe ser un valor booleano"
+}

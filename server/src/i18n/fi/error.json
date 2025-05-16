@@ -1,0 +1,7 @@
+{
+  "userAlreadyExists": "Käyttäjä on jo olemassa.",
+  "userCouldNotBeCreated": "Käyttäjää ei voitu luoda.",
+  "userNotFound": "Käyttäjää ei löytynyt.",
+  "usernamePasswordIncorrect": "Käyttäjätunnus/Salasana on väärä.",
+  "invalidCredentials": "Virheelliset tunnukset."
+}

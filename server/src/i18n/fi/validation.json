@@ -1,0 +1,7 @@
+{
+  "isEmail": "$t(field.{property}) on oltava sähköpostiosoite",
+  "isString": "$t(field.{property}) on oltava merkkijono",
+  "maxLength": "$t(field.{property}) on oltava lyhyempi tai yhtä pitkä kuin {constraints.0} merkkiä",
+  "minLength": "$t(field.{property}) on oltava pidempi tai yhtä pitkä kuin {constraints.0} merkkiä",
+  "isBoolean": "$t(field.{property}) on oltava totuusarvo"
+}

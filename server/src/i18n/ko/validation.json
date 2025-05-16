@@ -1,0 +1,7 @@
+{
+  "isEmail": "$t(field.{property})는 이메일이어야 합니다",
+  "isString": "$t(field.{property})는 문자열이어야 합니다",
+  "maxLength": "$t(field.{property})는 {constraints.0}자 이하여야 합니다",
+  "minLength": "$t(field.{property})는 {constraints.0}자 이상이어야 합니다",
+  "isBoolean": "$t(field.{property})는 불리언 값이어야 합니다"
+}

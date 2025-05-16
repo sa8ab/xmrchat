@@ -1,0 +1,7 @@
+{
+  "userAlreadyExists": "Пользователь уже существует.",
+  "userCouldNotBeCreated": "Не удалось создать пользователя.",
+  "userNotFound": "Пользователь не найден.",
+  "usernamePasswordIncorrect": "Неверное имя пользователя/пароль.",
+  "invalidCredentials": "Неверные учетные данные."
+}
