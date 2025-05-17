@@ -1,4 +1,4 @@
-import { IsEmail } from 'class-validator';
+import { IsEmail } from 'src/shared/validations/validation-decorators';
 
 export class ForgotPasswordDto {
   @IsEmail()

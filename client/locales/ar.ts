@@ -10,6 +10,8 @@ export default {
     someFieldsAreIncorrect: "بعض الحقول غير مكتملة بشكل صحيح",
     url: "الرابط غير صالح",
     notUrl: "يجب ألا يكون رابطاً",
+    streamerSlug: "يمكن أن يحتوي الرابط على أحرف صغيرة، أرقام، أسطر و أسطورة",
+    moneroPrimaryAddress: "عنوان الاستلام غير صالح. يجب أن يبدأ بـ 4",
   },
 
   account: "الحساب",
@@ -172,11 +174,11 @@ export default {
   createPage: "إنشاء صفحة",
   getStartedCreatingPage: "ابدأ بإنشاء صفحة المبدع الخاصة بك",
   home: "الرئيسية",
-  logo: "الشعار",
+  logo: "صورة ملف شخصي",
   logoRatio: "نسبة 1:1",
-  bannerImage: "صورة البانر",
+  bannerImage: "صورة غلاف",
   bannerImageBestRatio: "من الأفضل رفعها بنسبة 3:1",
-  yourId: "معرفك",
+  yourId: "اضافة رابط الصفحة",
   pageSlug: "رابط الصفحة",
   moneroPrmReciveAddress: "عنوان استلام Monero الرئيسي",
   prmMoneroReciveAdressBegin: "تبدأ عناوين استلام Monero الرئيسية بالرقم 4",
@@ -192,12 +194,19 @@ export default {
   defaultTipAmount: "قيمة مبلغ التبرع الافتراضي",
   thisIsOnlyForDisplaying:
     "هذا فقط لعرض قيم التبرعات. يمكن للمشاهدين تغيير هذا لأنفسهم على صفحة التبرع",
-  publicPage: "صفحة عامة (تظهر في صفحة البحث عن المبدعين)",
+  publicPage: "صفحة عامة (تظهر في صفحة البحث عن صانعي المحتوى)",
   continue: "متابعة",
   clickToUpload: "انقر للرفع",
   pageCreatedSuccessfully: "تم إنشاء الصفحة بنجاح!",
   slugReservedUntil: "تم حجز الرابط الخاص بك حتى",
   note: "ملاحظة",
+  pageUpdated: "تم تحديث الصفحة!",
+  loading: "جاري التحميل",
+  available: "متاح",
+  unavailable: "غير متاح",
+  fiatUnit: "وحدة العملة",
+  fiatUnitHelp:
+    "وحدة العملة المستخدمة لعرض التبرعات عندما يكون جدول التبرعات في العملة",
 
   // STREAMER MENU
   menu: "القائمة",
@@ -209,7 +218,7 @@ export default {
   show: "ظهر",
   hide: "غير مرئي",
   youDontHavePage: "ليس لديك صفحة بعد",
-  getStartedByCreatingPage: "ابدأ بإنشاء صفحة المبدع الخاصة بك",
+  getStartedByCreatingPage: "ابدأ بإنشاء صفحة صانع المحتوى",
   createNewPage: "إنشاء صفحة جديدة",
 
   // ACCOUNT PAGE

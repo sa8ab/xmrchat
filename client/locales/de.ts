@@ -10,6 +10,10 @@ export default {
     someFieldsAreIncorrect: "Einige Felder sind nicht korrekt ausgefüllt",
     url: "Der Link ist ungültig",
     notUrl: "Darf kein Link sein",
+    streamerSlug:
+      "Der Pfad darf nur Kleinbuchstaben, Zahlen, Unterstriche und Bindestriche enthalten.",
+    moneroPrimaryAddress:
+      "Die Primäre Adresse ist ungültig. Sie muss mit der Zahl 4 beginnen.",
   },
 
   account: "Konto",
@@ -206,6 +210,13 @@ export default {
   pageCreatedSuccessfully: "Seite wurde erfolgreich erstellt!",
   slugReservedUntil: "Dein Slug ist reserviert bis ",
   note: "Hinweis",
+  pageUpdated: "Seite wurde aktualisiert!",
+  loading: "Laden",
+  available: "Verfügbar",
+  unavailable: "Nicht verfügbar",
+  fiatUnit: "Fiat-Einheit",
+  fiatUnitHelp:
+    "Einheit, die bei der Anzeige von Trinkgeldern verwendet wird, wenn der Trinkgeld-Anzeigemodus auf Fiat gesetzt ist.",
 
   // STREAMER MENU
   menu: "Menü",

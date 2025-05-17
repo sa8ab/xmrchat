@@ -10,6 +10,10 @@ export default {
     someFieldsAreIncorrect: "Algunos campos no están llenados correctamente.",
     url: "El enlace es inválido.",
     notUrl: "No debe ser un enlace.",
+    streamerSlug:
+      "El camino puede contener solo letras minúsculas, números, guiones bajos y guiones.",
+    moneroPrimaryAddress:
+      "La dirección principal es inválida. Debe comenzar con el número 4.",
   },
 
   account: "Cuenta",
@@ -206,6 +210,13 @@ export default {
   pageCreatedSuccessfully: "¡Página creada con éxito!",
   slugReservedUntil: "Tu slug está reservado hasta ",
   note: "Nota",
+  pageUpdated: "¡Página actualizada!",
+  loading: "Cargando",
+  available: "Disponible",
+  unavailable: "No disponible",
+  fiatUnit: "Unidad de moneda",
+  fiatUnitHelp:
+    "Unidad de moneda usada para mostrar propinas cuando el modo de visualización de propinas es en moneda.",
 
   // STREAMER MENU
   menu: "Menú",

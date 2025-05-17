@@ -58,7 +58,7 @@ export const useValidations = (generalV?: Ref<Validation>) => {
   const streamerSlugBase = helpers.regex(/^[a-z0-9_-]+$/);
 
   const streamerSlug = helpers.withMessage(
-    "Your path can only contain lowercase letters, numbers, underscores, and hyphens.",
+    t("validations.streamerSlug"),
     streamerSlugBase
   );
 
@@ -66,7 +66,7 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     typeof v === "string" && v.startsWith("4");
 
   const moneroPrimaryAddress = helpers.withMessage(
-    "Primary address is invalid. It should start with 4.",
+    t("validations.moneroPrimaryAddress"),
     moneroPrimaryAddressBase
   );
 

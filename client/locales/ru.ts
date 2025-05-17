@@ -10,6 +10,10 @@ export default {
     someFieldsAreIncorrect: "Некоторые поля заполнены неверно.",
     url: "Недопустимая ссылка.",
     notUrl: "Не должно быть ссылкой.",
+    streamerSlug:
+      "Путь может содержать только строчные буквы, цифры, подчеркивание и дефисы.",
+    moneroPrimaryAddress:
+      "Основной адрес недействителен. Он должен начинаться с цифры 4.",
   },
 
   account: "Аккаунт",
@@ -199,6 +203,13 @@ export default {
   pageCreatedSuccessfully: "Страница успешно создана!",
   slugReservedUntil: "Ваш slug зарезервирован до ",
   note: "Примечание",
+  pageUpdated: "Страница обновлена!",
+  loading: "Загрузка",
+  available: "Доступно",
+  unavailable: "Недоступно",
+  fiatUnit: "Валюта",
+  fiatUnitHelp:
+    "Валюта, используемая для отображения чаевых при установленном режиме отображения чаевых в валюте.",
 
   // STREAMER MENU
   menu: "Меню",

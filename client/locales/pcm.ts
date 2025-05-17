@@ -10,6 +10,10 @@ export default {
     someFieldsAreIncorrect: "Some field dem no correct.",
     url: "Di link no correct.",
     notUrl: "E no suppose be link.",
+    streamerSlug:
+      "The path can only contain lowercase letters, numbers, underscores and hyphens.",
+    moneroPrimaryAddress:
+      "The primary address is invalid. It must start with the number 4.",
   },
 
   account: "Account",
@@ -199,6 +203,10 @@ export default {
   pageCreatedSuccessfully: "Page don create well well!",
   slugReservedUntil: "Your slug go dey reserved until ",
   note: "Note",
+  streamerSlugHelp:
+    "The path can only contain lowercase letters, numbers, underscores and hyphens.",
+  moneroPrimaryAddressHelp:
+    "The primary address is invalid. It must start with the number 4.",
 
   // STREAMER MENU
   menu: "Menu",

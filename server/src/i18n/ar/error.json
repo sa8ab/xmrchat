@@ -1,0 +1,7 @@
+{
+  "userAlreadyExists": "لقد يوجد مستخدم بهذا البريد الإلكتروني.",
+  "userCouldNotBeCreated": "لم يتم إنشاء المستخدم.",
+  "userNotFound": "لم يتم العثور على المستخدم.",
+  "usernamePasswordIncorrect": "اسم المستخدم/كلمة المرور غير صالحة.",
+  "invalidCredentials": "البيانات المدخلة غير صالحة."
+}

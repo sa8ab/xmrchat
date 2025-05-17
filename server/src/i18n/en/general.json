@@ -21,5 +21,13 @@
     "other": "Every {count} days",
     "zero": "Never"
   },
-  "nested": "We go shopping: $t(test.day_interval, {{\"count\": {count} }})"
+  "nested": "We go shopping: $t(test.day_interval, {{\"count\": {count} }})",
+  "weHaveAlreadySentYouAVerificationEmail": "We have already sent you a verification email. Please follow the link in the email to login. You can request new verification email after few minutes.",
+  "weHaveJustSentYouAnotherVerificationEmail": "We have just sent you another verification email on {email}. Please click the link in the verification email to login.",
+  "yourAccountIsVerified": "Your account is verified.",
+  "emailIsSentToYourMailboxIfYouWereAlreadyRegistered": "Email is sent to your mailbox if you were already registered.",
+  "weSentYouEmailFollowTheLink": "We have already sent you a verification email. Follow the link in the email or try again after few minutes.",
+  "passwordChanged": "Password is changed successfully.",
+  "invalidCredentials": "Invalid credentials.",
+  "accountPasswordUpdated": "Account password updated."
 }

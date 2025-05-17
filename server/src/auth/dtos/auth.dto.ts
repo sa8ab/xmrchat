@@ -1,4 +1,9 @@
-import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'src/shared/validations/validation-decorators';
 
 export class AuthDto {
   @IsEmail()

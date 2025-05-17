@@ -1,0 +1,7 @@
+{
+  "isEmail": "يجب أن يكون $t(field.{property}) بريداً إلكترونياً",
+  "isString": "يجب أن يكون $t(field.{property}) نصاً",
+  "maxLength": "يجب أن يكون $t(field.{property}) أقصر من أو يساوي {constraints.0} حرفاً",
+  "minLength": "يجب أن يكون $t(field.{property}) أطول من أو يساوي {constraints.0} حرفاً",
+  "isBoolean": "يجب أن يكون $t(field.{property}) قيمة منطقية"
+}

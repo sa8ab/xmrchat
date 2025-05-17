@@ -1,0 +1,7 @@
+{
+  "userAlreadyExists": "User already exists.",
+  "userCouldNotBeCreated": "User could not be created.",
+  "userNotFound": "User not found.",
+  "usernamePasswordIncorrect": "Username/Password is incorrect.",
+  "invalidCredentials": "Invalid credentials."
+}

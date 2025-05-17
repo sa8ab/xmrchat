@@ -86,16 +86,16 @@ const renderSlugStatus = computed(() => {
   if (v.value.path.$invalid || props.editable) return undefined;
   if (state.loadingSlug)
     return {
-      text: "Loading",
+      text: t("loading"),
       className: "",
     };
   if (state.slugAvailable)
     return {
-      text: "Available",
+      text: t("available"),
       className: "text-green-500",
     };
   return {
-    text: "Unavailable",
+    text: t("unavailable"),
     className: "text-red-500",
   };
 });
@@ -161,7 +161,7 @@ const handleSubmit = async () => {
         fiat: state.form.fiat,
         minTipAmount: state.form.minTipAmount?.toString() || null,
       });
-      toast.add({ title: "Page updated!" });
+      toast.add({ title: t("pageUpdated") });
       navigateTo(toStreamerDisplay()?.path);
     }
   } catch (error) {
@@ -401,8 +401,8 @@ const handleBannerUpload = (file: UploadedFile) => {
         <UFormGroup
           v-if="editable"
           size="lg"
-          label="Fiat unit"
-          help="Unit to display tips when tip display mode is fiat."
+          :label="$t('fiatUnit')"
+          :help="$t('fiatUnitHelp')"
         >
           <FiatSelect v-model="state.form.fiat" />
         </UFormGroup>
