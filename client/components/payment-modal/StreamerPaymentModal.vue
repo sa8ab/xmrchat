@@ -21,6 +21,9 @@ const { state: authState, getMe } = useAuthStore();
 const { t } = useI18n();
 const { dayjs } = useDate();
 
+const { xmrToFiat } = useXmrPrice();
+const { money } = useMoney();
+
 const cancelPayment = () => {
   stopPaymentCheck();
   expired.value = false;
@@ -119,7 +122,7 @@ const getTime = () => {
           <template #description>
             <p class="text-[15px] leading-6">
               Please pay a small spam prevention fee of
-              <span class="font-bold">{{ reservedData.amount }} XMR</span> in
+              <span class="font-bold">{{ reservedData.amount }} XMR ({{ money(xmrToFiat(reservedData.amount)) }})</span> in
               the next
               <VueCountdown
                 v-if="reservedData?.reservedUntil"
