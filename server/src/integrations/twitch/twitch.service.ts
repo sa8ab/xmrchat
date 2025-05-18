@@ -1,18 +1,8 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import {
-  englishDataset,
-  englishRecommendedTransformers,
-  RegExpMatcher,
-  TextCensor,
-} from 'obscenity';
 import { Client, client as tmiClient } from 'tmi.js';
 
-const badWordMatcher = new RegExpMatcher({
-  ...englishDataset.build(),
-  ...englishRecommendedTransformers,
-});
 @Injectable()
 export class TwitchService {
   private logger = new Logger(TwitchService.name);
@@ -82,13 +72,5 @@ export class TwitchService {
       if (error?.response?.data?.status === 403) return true;
       return false;
     }
-  }
-
-  clearMessage(message: string) {
-    const censor = new TextCensor();
-    const matches = badWordMatcher.getAllMatches(message);
-    const clearedMessage = censor.applyTo(message, matches);
-
-    return clearedMessage;
   }
 }
