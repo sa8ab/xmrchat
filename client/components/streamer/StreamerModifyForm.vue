@@ -7,6 +7,7 @@ import type {
   SlugReservationResponse,
   UploadedFile,
 } from "~/types";
+import type { FiatEnum } from "~/types/enums";
 
 const { toStreamerDisplay, toGuides } = useRouteLocation();
 const { t } = useI18n();
@@ -27,6 +28,7 @@ const emit = defineEmits<{
     {
       data: SlugReservationResponse;
       slug?: string;
+      fiat?: FiatEnum;
     }
   ];
 }>();
@@ -146,6 +148,7 @@ const handleSubmit = async () => {
       emit("done", {
         data: res,
         slug: state.form.path,
+        fiat: state.form.fiat,
       });
     } else {
       if (!state.form.path) return;
@@ -399,7 +402,6 @@ const handleBannerUpload = (file: UploadedFile) => {
           />
         </UFormGroup>
         <UFormGroup
-          v-if="editable"
           size="lg"
           :label="$t('fiatUnit')"
           :help="$t('fiatUnitHelp')"

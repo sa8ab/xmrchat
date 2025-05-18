@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { SlugReservationResponse } from "~/types";
+import type { FiatEnum } from "~/types/enums";
 
 const { toIndex } = useRouteLocation();
 const { t } = useI18n();
@@ -22,15 +23,18 @@ const links = computed(() => [
 
 const reservedData = ref<SlugReservationResponse | undefined>(undefined);
 const reservedSlug = ref<string | undefined>(undefined);
+const fiat = ref<FiatEnum | undefined>(undefined);
 
 const paymentModalActive = ref(false);
 
 const handlePayment = (params: {
   data: SlugReservationResponse;
   slug?: string;
+  fiat?: FiatEnum;
 }) => {
   reservedData.value = params.data;
   reservedSlug.value = params.slug;
+  fiat.value = params.fiat;
   paymentModalActive.value = true;
 };
 
@@ -38,6 +42,7 @@ const cancelPayment = () => {
   paymentModalActive.value = false;
   reservedData.value = undefined;
   reservedSlug.value = undefined;
+  fiat.value = undefined;
 };
 </script>
 
@@ -56,6 +61,7 @@ const cancelPayment = () => {
   <StreamerPaymentModal
     :reservedData="reservedData"
     :reservedSlug="reservedSlug"
+    :fiat="fiat"
     v-model:active="paymentModalActive"
     @cancel="cancelPayment"
   />

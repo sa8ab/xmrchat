@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import type { PaymentSocketMessage, SlugReservationResponse } from "~/types";
 import VueCountdown from "@chenfengyuan/vue-countdown";
+import type { FiatEnum } from "~/types/enums";
 
 const props = defineProps<{
   reservedData?: SlugReservationResponse;
   reservedSlug?: string;
+  fiat?: FiatEnum;
 }>();
 
 const emit = defineEmits<{
@@ -70,6 +72,17 @@ const expired = ref<boolean>(false);
 const handleExpired = () => {
   expired.value = true;
 };
+
+const { xmrToFiat } = useXmrPrice();
+const { money } = useMoney();
+
+const fiatAmount = computed(() => {
+  if (!props.fiat) return undefined;
+  return money(
+    xmrToFiat(props.reservedData?.amount, props.fiat).toFixed(2),
+    props.fiat
+  );
+});
 
 const getTime = () => {
   return (
