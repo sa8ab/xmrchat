@@ -39,6 +39,8 @@ export const useMinTipAmount = ({ pageMinXmr, pageFiat }: Options = {}) => {
 
   return {
     price,
+    minXmr,
+    minSwapXMR,
     minFiatAmount,
     minSwapFiatAmount,
   };
