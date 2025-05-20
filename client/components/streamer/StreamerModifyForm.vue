@@ -410,7 +410,7 @@ const handleBannerUpload = (file: UploadedFile) => {
         </UFormGroup>
       </div>
 
-      <div class="single" v-if="editable">
+      <!-- <div class="single" v-if="editable">
         <UFormGroup :label="t('tipAmountSuggestions')">
           <StreamerTipSuggestions
             v-model="state.form.tiers"
@@ -418,7 +418,7 @@ const handleBannerUpload = (file: UploadedFile) => {
             :fiat="state.form.fiat"
           />
         </UFormGroup>
-      </div>
+      </div> -->
 
       <!-- <div class="mt-8">
         <UCheckbox
