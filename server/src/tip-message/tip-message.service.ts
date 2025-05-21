@@ -40,7 +40,7 @@ export class TipMessageService {
     const isPrivate = tip.private;
 
     const template = isPrivate ? this.privateTemplate : this.template;
-    const hbTemplate = Handlebars.compile(template);
+    const hbTemplate = Handlebars.compile(template, { noEscape: true });
 
     const result = hbTemplate({
       name: tip.name,

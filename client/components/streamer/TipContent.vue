@@ -6,7 +6,7 @@ import type {
   StreamerPage,
   Coin,
 } from "~/types";
-import { FiatEnum } from "~/types/enums";
+import { FiatEnum, TipDisplayMode } from "~/types/enums";
 
 const props = defineProps<{
   streamerId: string;
@@ -18,11 +18,13 @@ const { sendTipToStreamer: sendTipToStreamerApi } = useServices();
 const coins = useState<Coin[]>("coins");
 const swapActive = useState<boolean>("swapActive");
 const { t } = useI18n();
+const { state: generalState } = useGeneralStore();
 
-const { minFiatAmount, price, minSwapFiatAmount } = useMinTipAmount({
-  pageMinXmr: computed(() => props.streamerPage?.minTipAmount),
-  pageFiat: computed(() => props.streamerPage?.fiat),
-});
+const { minFiatAmount, price, minSwapFiatAmount, minXmr, minSwapXMR } =
+  useMinTipAmount({
+    pageMinXmr: computed(() => props.streamerPage?.minTipAmount),
+    pageFiat: computed(() => props.streamerPage?.fiat),
+  });
 const { money } = useMoney();
 
 const emit = defineEmits<{
@@ -52,12 +54,18 @@ const state = reactive<State>({
 
 const v = useVuelidate<State["form"]>(
   computed(() => {
+    const minXmrValue = state.selectedCoin ? minSwapXMR.value : minXmr.value;
+    const minFiatValue = state.selectedCoin
+      ? minSwapFiatAmount.value
+      : minFiatAmount.value;
     return {
       name: { required, minLength: minLength(2), maxLength: maxLength(40) },
       amount: {
         required,
         minValue: minValue(
-          state.selectedCoin ? minSwapFiatAmount.value : minFiatAmount.value
+          generalState.tipDisplayValue === TipDisplayMode.XMR
+            ? minXmrValue
+            : minFiatValue
         ),
       },
       message: { minLength: minLength(3), maxLength: maxLength(255) },
@@ -76,7 +84,12 @@ const handleSubmit = async () => {
   try {
     state.loading = true;
 
-    const xmrAmount = (state.form.amount / (price.value as number)).toFixed(8);
+    let xmrAmount;
+    if (generalState.tipDisplayValue === TipDisplayMode.XMR) {
+      xmrAmount = state.form.amount;
+    } else {
+      xmrAmount = (state.form.amount / (price.value as number)).toFixed(8);
+    }
 
     const response = await sendTipToStreamerApi(props.streamerId, {
       ...state.form,
@@ -126,8 +139,12 @@ const coinSelectOptions = computed(() => {
 
 const { getFiat } = useConstants();
 const fiat = computed(() => getFiat(props.streamerPage?.fiat || FiatEnum.USD));
+const renderInputPrefix = computed(() => {
+  if (generalState.tipDisplayValue === TipDisplayMode.XMR) return "XMR";
+  return fiat.value.symbol;
+});
 const renderInputPadding = computed(
-  () => `${fiat.value.symbol.length * 0.6 + 2}rem`
+  () => `${renderInputPrefix.value.length * 0.6 + 2}rem`
 );
 </script>
 
@@ -168,29 +185,21 @@ const renderInputPadding = computed(
                 <span
                   class="text-pale flex items-center text-center justify-center"
                 >
-                  {{ fiat.symbol }}
+                  {{ renderInputPrefix }}
                 </span>
               </template>
             </UInput>
-            <TipTiers
+            <!-- <TipTiers
               :tiers="streamerPage?.tiers"
               @select="state.form.amount = $event"
               :fiat="streamerPage?.fiat"
               v-if="streamerPage?.tiers?.length"
-            />
+            /> -->
             <template #hint>
-              <span class="text-xs" v-if="state.selectedCoin">{{
-                t("tipSwapMinimum", {
-                  min: money(minSwapFiatAmount, streamerPage?.fiat),
-                })
-              }}</span>
-              <span class="text-xs" v-else>
-                {{
-                  t("tipMinimum", {
-                    min: money(minFiatAmount, streamerPage?.fiat),
-                  })
-                }}</span
-              >
+              <TipInputHint
+                :selectedCoin="state.selectedCoin"
+                :page="streamerPage"
+              />
             </template>
           </UFormGroup>
         </div>

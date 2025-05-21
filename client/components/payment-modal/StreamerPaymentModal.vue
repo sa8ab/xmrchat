@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import type { PaymentSocketMessage, SlugReservationResponse } from "~/types";
 import VueCountdown from "@chenfengyuan/vue-countdown";
+import type { FiatEnum } from "~/types/enums";
 
 const props = defineProps<{
   reservedData?: SlugReservationResponse;
   reservedSlug?: string;
+  fiat?: FiatEnum;
 }>();
 
 const emit = defineEmits<{
@@ -71,6 +73,17 @@ const handleExpired = () => {
   expired.value = true;
 };
 
+const { xmrToFiat } = useXmrPrice();
+const { money } = useMoney();
+
+const fiatAmount = computed(() => {
+  if (!props.fiat) return undefined;
+  return money(
+    xmrToFiat(props.reservedData?.amount, props.fiat).toFixed(2),
+    props.fiat
+  );
+});
+
 const getTime = () => {
   return (
     dayjs(props.reservedData?.reservedUntil).diff(dayjs(), "seconds") * 1000
@@ -106,7 +119,7 @@ const getTime = () => {
           <template #description>
             <p class="text-[15px] leading-6">
               Please pay a small spam prevention fee of
-              <span class="font-bold">{{ reservedData.amount }} XMR</span> in
+              <span class="font-bold">{{ reservedData.amount }} XMR ({{ fiatAmount }})</span> in
               the next
               <VueCountdown
                 v-if="reservedData?.reservedUntil"

@@ -16,12 +16,9 @@ import { Tip } from 'src/tips/tip.entity';
 import { PagesService } from './pages.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { clearMessage } from 'src/shared/utils';
 import { PricesService } from 'src/prices/prices.service';
-import { MoneroUtils } from 'monero-ts';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { FiatEnum } from 'src/shared/constants';
 import { TipMessageService } from 'src/tip-message/tip-message.service';
 
 @WebSocketGateway({ namespace: '/pages', cors: { origin: true } })
