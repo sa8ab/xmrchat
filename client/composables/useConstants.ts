@@ -104,7 +104,7 @@ export const useConstants = () => {
       name: "xmrbazaar",
       colorClassName: "text-[#F25C05]",
       iconClassName: "",
-      icon: "i-tabler-building-store",
+      icon: "i-icon-xmrbazaar",
       inputLabel: t("xUsername", { platform: "Xmrbazaar" }),
       linkCreator: (v?: string) => `https://xmrbazaar.com/user/${v}`,
     },
