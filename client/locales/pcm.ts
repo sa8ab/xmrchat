@@ -3,17 +3,17 @@ export default {
     required: "Dis field na must",
     email: "Email no correct",
     numberic: "Suppose be number",
-    minLength: "E suppose get at least {length} character.",
+    minLength: "E suppose get {length} character at least.",
     maxLength: "E no suppose pass {length} character.",
-    minValue: "E suppose be at least {value}.",
+    minValue: "E suppose be {value} at least.",
     sameAs: "E suppose be di same as {otherName}",
-    someFieldsAreIncorrect: "Some field dem no correct.",
+    someFieldsAreIncorrect: "Some field dem, no correct.",
     url: "Di link no correct.",
     notUrl: "E no suppose be link.",
     streamerSlug:
-      "The path can only contain lowercase letters, numbers, underscores and hyphens.",
+      "Na only lowercase letters, numbers, underscores and hyphens di path fi contain.",
     moneroPrimaryAddress:
-      "The primary address is invalid. It must start with the number 4.",
+      "The primary address no correct. E suppose start with the number 4.",
   },
 
   account: "Account",
@@ -26,34 +26,34 @@ export default {
   confirmPassword: "Confirm Password",
   signupInstead: "Do Signup instead",
   signupFailed: "Signup fail",
-  signupSuccessfull: "Signup work well",
+  signupSuccessfull: "Signup work",
   noItems: "No item dey",
   signupSuccessfullDescription:
     "Abeg check di link wey we send go your email to verify your account.",
-  loginInstead: "Do Login instead",
+  loginInstead: "Login instead",
   loginFailed: "Login no work",
   signup: "Signup",
   forgetPassword: "You forget your Password?",
-  loginDescription: "Log into your account so you fit see your display page.",
+  loginDescription: "Log into your account so you fi see your display page.",
   resetPassword: "Reset Password",
   enterYourNewPassword: "Enter your new password",
-  passwordResetFailed: "Password Reset Failed",
-  passwordUpdated: "Your password has been successfully updated.",
+  passwordResetFailed: "Password Reset Fail",
+  passwordUpdated: "Your password don updated successfully.",
   weSentYouAnEmail:
-    "We have sent you an email {email}, please follow the link in the email to reset your password.",
+    "We don send you email {email}, please follow the link wey dey the email to reset your password.",
   changeEmail: "Change Email",
-  enterEmailToResetPassword: "Enter your email to reset your password.",
+  enterEmailToResetPassword: "Enter your email so you fi reset your password.",
   creatorLogin: "Creator Login",
   searchCreators: {
     title: "Search Creators",
-    description: "Find creators wey get public page for xmrchat.",
+    description: "Find creators wey get xmrchat public page.",
   },
   typePageName: "Type page name...",
   contactUs: "Contact Us",
   here: "here",
 
   xmrchat: "XMRChat",
-  heroDescription: "Send tip give your best streamer with crypto.",
+  heroDescription: "Send crypto tip give your best streamer.",
   findCreators: "Find Creators",
   creatorsStartHere: "Creators go start here",
 
@@ -61,56 +61,56 @@ export default {
     title: "FAQ",
     whyTipWithXMRChat: "Wetin make I use XMRChat tip?",
     whyUseMonero: "Why XMRChat dey use Monero?",
-    whereToGetMonero: "Where I go get Monero?",
+    whereToGetMonero: "Where I fi get Monero?",
   },
 
   earnMore: {
     title: "Make More Money",
     description:
-      "YouTube dey collect 30-50% for Superchats. Rumble dey take 20% for Rants. But XMRChat go give you 100% of wetin your fans tip straight to your Monero wallet.",
+      "YouTube dey collect 30-50% for Superchats. Rumble dey take 20% for Rants. But XMRChat go give you 100% of wetin your fans tip straight for your Monero wallet.",
   },
   censorshipResistant: {
     title: "No Censorship Wahala",
     description:
-      "If you dey collect Monero tip, e mean say your money no go depend on big tech or their policy wahala.",
+      "If you dey collect Monero tip, e mean say your money no go depend on big tech policy or their wahala.",
   },
   corruptionResistant: {
-    title: "No Corruption Wahala",
+    title: "No Corruption Palava",
     description:
       "Plenty government dey seize people money. With Monero, na you dey control your own money.",
   },
   private: {
     title: "Private",
     description:
-      "People fit send tip without anybody sabi. Even your work people no go know.",
+      "People fi send tip and nobody go sabi. Even your work people no go know.",
   },
   quickAndEasy: {
     title: "Fast and Easy",
     description:
-      "No need make person create account or enter card info. Just enter name, message, amount and send tip sharp sharp.",
+      "No need make person create account or enter card info. Just enter name, message, amount and send tip sharparly.",
   },
   openSource: {
     title: "Open Source",
-    description: "XMRChat na open source. You fit check di code for {github}.",
+    description: "XMRChat na open source. You fit check di source code for {github}.",
   },
 
   lowFees: {
     title: "Small Charges",
-    description: "Monero transaction fee na just small change.",
+    description: "Monero transaction fee na just shikini money.",
   },
   privateMonero: {
     title: "Private",
     description:
-      "Most crypto dey show everything for blockchain, but Monero hide everything. Nobody go sabi sender, receiver or amount.",
+      "Most crypto dey show everything for blockchain, but Monero dey hide everything. Nobody go sabi sender, receiver or amount.",
   },
   accepted: {
     title: "E Dey Accepted",
     description:
-      "No need sell your crypto for exchange. You fit use Monero buy things directly from {xmrbazaar} and {monerica}.",
+      "No need sell your crypto for exchange. You fi use Monero buy things directly from {xmrbazaar} and {monerica}.",
   },
   andMore: {
     title: "And more",
-    description: "You fit learn more about Monero for {getmonero}.",
+    description: "You fi learn more about Monero for {getmonero}.",
   },
 
   whereToGetMonero: {
@@ -118,10 +118,10 @@ export default {
     stealthex:
       "Change your crypto go Monero (XMR) for {stealthex} and other places like {kycnot}.",
     haveno:
-      "Buy Monero without KYC for {haveno}. You fit learn from tutorial for {blog}.",
+      "Buy Monero for exchange wey need no KYC for {haveno}. You fi learn from di tutorial for {blog}.",
     thisBlogPost: "Dis blog post",
-    kraken: "Buy Monero with KYC for {kraken}.",
-    xmrbazaar: "Sell things or service collect Monero for {xmrbazaar}.",
+    kraken: "Buy Monero for exchange wey need KYC for {kraken}.",
+    xmrbazaar: "Sell things or services collect Monero for {xmrbazaar}.",
     gupax: "Mine Monero with {gupax}.",
     kunoAnneMedia: "Create Monero fundraiser for {kunoAnneMedia}.",
     monerica:
@@ -144,21 +144,21 @@ export default {
   tipAmountPlaceholder: "Enter amount",
   tipMessagePlaceholder: "Enter message",
   tipPrivatePlaceholder: "Private",
-  tipSwapUnavailable: "Swap no dey work now.",
+  tipSwapUnavailable: "Swap no dey work for now.",
   tipSwapMinimum: "You must swap at least {min}",
   tipMinimum: "Minimum {min}",
   recentTips: "Recent Tips",
   tipDisplayValueTooltip: "Show tip as XMR or {fiat}",
   noRecentTips: "No recent tips!",
   pageDeactivatedAlert:
-    "Your page don deactivate and e no dey show to di public. Abeg talk to support if you wan know more.",
+    "Your page don dey deactivated and e no dey show to di public. Abeg talk to support if you wan know more.",
 
   tipWalletWarningTitle: "No use streamer wallet tip.",
   tipWalletWarningDescription:
-    "No use wallet wey you register for dis page send tip. E go make the amount wey we see too much.",
+    "No use wallet wey you register for dis page send tip. E go make the amount wey we see plenty.",
   tipWalletMinimum:
-    "Send at least {minimumAmount} XMR go dis address make your xmrchat show.",
-  openInMyWallet: "Open for My Wallet",
+    "Send at least {minimumAmount} XMR go dis address make your xmrchat for show.",
+  openInMyWallet: "Open am for My Wallet",
   cancel: "Cancel",
   copyAddress: "Copy Address",
   waitingForPayment: "We dey wait for payment",
@@ -179,7 +179,7 @@ export default {
   logo: "Logo",
   logoRatio: "1:1 ratio",
   bannerImage: "Banner Image",
-  bannerImageBestRatio: "Best make you upload am in 3:1",
+  bannerImageBestRatio: "E better make you upload am in 3:1",
   yourId: "Your ID",
   pageSlug: "Page Slug",
   moneroPrmReciveAddress: "Monero main address wey go receive money",
@@ -187,26 +187,26 @@ export default {
     "Monero address wey dey collect money dey start with number 4.",
   moneroSecretViewKey: "Monero secret view key",
   weNeedSecretViewKey:
-    "We need dis secret view key to fit see money wey people dey send. {whereToFind}",
-  whereToFindViewKey: "Where you fit find di view key?",
+    "We need dis secret view key so you fi see money wey people dey send. {whereToFind}",
+  whereToFindViewKey: "Where you fi find di view key?",
   twitchChannelName: "Twitch channel name",
   nameOfYourTwitchChannel:
-    "Di name wey your Twitch channel get. We go use am show tips with xmr_chat Twitch bot.",
+    "Di name wey dey your Twitch channel. We go use am show tips with xmr_chat Twitch bot.",
   optional: "Optional",
   minTipAmount: "Smallest tip amount (XMR)",
   defaultTipAmount: "Default tip value",
   thisIsOnlyForDisplaying:
-    "Na just for display sake. People wey wan tip fit change am for dia page.",
+    "Na just for display sake. People wey wan tip fi change am for dia page.",
   publicPage: "Public Page (e go show for creator search page).",
   continue: "Continue",
   clickToUpload: "Click make you upload",
-  pageCreatedSuccessfully: "Page don create well well!",
+  pageCreatedSuccessfully: "Di page don create well!",
   slugReservedUntil: "Your slug go dey reserved until ",
   note: "Note",
   streamerSlugHelp:
-    "The path can only contain lowercase letters, numbers, underscores and hyphens.",
+    "Lowercase letters, numbers, underscores and hyphens na wetin this path fi contain.",
   moneroPrimaryAddressHelp:
-    "The primary address is invalid. It must start with the number 4.",
+    "The primary address no correct. E must begin with the number 4.",
 
   // STREAMER MENU
   menu: "Menu",
@@ -217,8 +217,8 @@ export default {
   obs: "OBS",
   show: "Show",
   hide: "Hide",
-  youDontHavePage: "You don't have a page yet",
-  getStartedByCreatingPage: "Get started by creating a new page for yourself",
+  youDontHavePage: "You never get page yet",
+  getStartedByCreatingPage: "You fi start by creating new page yourself",
   createNewPage: "Create New Page",
 
   // ACCOUNT PAGE
@@ -227,12 +227,12 @@ export default {
   currentPassword: "Current password",
   newPassword: "New password",
   repeatNewPassword: "Repeat new password",
-  contactSupportForEmailChange: "Contact support to change your email address.",
+  contactSupportForEmailChange: "Contact if you wan change email address.",
 
   // EDIT PAGE
   editPage: "Edit Page",
   customizeYourTipPage: "Customize your tip page.",
-  errorCreatingUpdatingPage: "Error when dey create/update page",
+  errorCreatingUpdatingPage: "Error dey wen creating/updating page",
   tipAmountSuggestions: "Tip Amount Suggestions",
   pageWillBeAvailableAt: "Your page go dey available for {url}",
   noSuggestedAmountsAdded:
@@ -245,7 +245,7 @@ export default {
 
   // CONTENT LINKS
   brandName: "Brand Name",
-  brandNameHelp: "Name of the brand/content. E fit be different from slug.",
+  brandNameHelp: "Name of the brand/content. E fi dey different from slug.",
   searchTerms: "Search Terms",
   searchTermsHelp:
     "Creator search go return results based on page slug, name, and keywords for this list.",
@@ -284,7 +284,7 @@ export default {
   // HEAD
   head: {
     description:
-      "People wey dey watch, fit send message and tip easy and private. Streamers fit hold most of dia tips instead make dem give 30-50% to big tech companies.",
+      "People wey dey watch, fi send message and tip easy and private. Streamers fi hold most of dia tips instead make dem give 30-50% to big tech companies.",
     title: "Send Message and Tip with Monero",
     XMRChatTip: "XMRChat - Tip {path} with Monero",
     tip: "Tip {path}",
