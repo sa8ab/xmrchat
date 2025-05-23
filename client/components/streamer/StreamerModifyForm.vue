@@ -163,6 +163,7 @@ const handleSubmit = async () => {
         tipDisplayMode: state.form.tipDisplayMode,
         fiat: state.form.fiat,
         minTipAmount: state.form.minTipAmount?.toString() || null,
+        expirationMinutes: state.form.expirationMinutes || null,
       });
       toast.add({ title: t("pageUpdated") });
       navigateTo(toStreamerDisplay()?.path);

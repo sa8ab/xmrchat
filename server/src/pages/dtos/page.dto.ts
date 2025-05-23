@@ -43,6 +43,9 @@ export class PageDto {
   tipDisplayMode: string;
 
   @Expose()
+  expirationMinutes: number;
+
+  @Expose()
   @Transform(
     ({ value }) => value && MoneroUtils.atomicUnitsToXmr(value).toString(),
   )
