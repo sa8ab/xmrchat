@@ -36,9 +36,6 @@ export class Tip {
   @Column({ type: 'timestamptz', nullable: true })
   expiresAt: Date;
 
-  @Column({ type: 'timestamptz', nullable: true })
-  removalAt: Date;
-
   @ManyToOne(() => Page, { onDelete: 'CASCADE' })
   @JoinColumn({ foreignKeyConstraintName: 'tips_page_id_fkey' })
   page: Page;
