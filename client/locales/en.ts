@@ -210,6 +210,12 @@ export default {
   unavailable: "Unavailable",
   fiatUnit: "Fiat unit",
   fiatUnitHelp: "Unit to display tips when tip display mode is fiat.",
+  tipExpiration: "Tip expiration",
+  tipExpirationHelp:
+    "Tips will automatically be removed after specified duaration.",
+  never: "Never",
+  xDays: "{count} Day | {count} Days",
+  xMonths: "{count} Month | {count} Months",
 
   // STREAMER MENU
   menu: "Menu",

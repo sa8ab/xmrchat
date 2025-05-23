@@ -220,6 +220,7 @@ const getPage = async () => {
     minTipAmount: page.minTipAmount,
     tipDisplayMode: page.tipDisplayMode,
     fiat: page.fiat,
+    expirationMinutes: page.expirationMinutes,
     tiers: page.tiers || [],
   };
 
@@ -407,6 +408,16 @@ const handleBannerUpload = (file: UploadedFile) => {
           :help="$t('fiatUnitHelp')"
         >
           <FiatSelect v-model="state.form.fiat" />
+        </UFormGroup>
+      </div>
+
+      <div class="both">
+        <UFormGroup
+          size="lg"
+          :label="t('tipExpiration')"
+          :help="t('tipExpirationHelp')"
+        >
+          <TipExpirationSelect v-model="state.form.expirationMinutes" />
         </UFormGroup>
       </div>
 
