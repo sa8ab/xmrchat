@@ -213,6 +213,8 @@ export default {
   tipExpiration: "Tip expiration",
   tipExpirationHelp:
     "Tips will automatically be removed after specified duaration.",
+  tipExpirationWarning:
+    "Changing expiration will delete all xmrchats older than selected duration.",
   never: "Never",
   xDays: "{count} Day | {count} Days",
   xMonths: "{count} Month | {count} Months",

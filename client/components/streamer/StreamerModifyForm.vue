@@ -5,6 +5,7 @@ import useVuelidate from "@vuelidate/core";
 import type {
   CreateFormFields,
   SlugReservationResponse,
+  StreamerPage,
   UploadedFile,
 } from "~/types";
 import type { FiatEnum } from "~/types/enums";
@@ -17,6 +18,7 @@ interface State {
   loadingSlug: boolean;
   slugAvailable: boolean;
   loading: boolean;
+  page?: StreamerPage;
   errorMessage?: string;
 
   stagedLogoUrl?: string;
@@ -57,10 +59,6 @@ const {
   getMyPage,
   updateStreamer,
 } = useServices();
-
-const { minFiatAmount } = useMinTipAmount({
-  pageFiat: computed(() => state.form.fiat),
-});
 
 const state = reactive<State>({
   form: {
@@ -127,6 +125,13 @@ const chechSlugDebounced = debounce(async (value: string | undefined) => {
     state.loadingSlug = false;
   }
 }, 500);
+
+const showExpirationWarning = computed(() => {
+  if (!state.form.expirationMinutes) return false;
+  if (!state.page?.expirationMinutes) return true;
+
+  return state.form.expirationMinutes < state.page.expirationMinutes;
+});
 
 watch(
   () => state.form.path,
@@ -209,6 +214,7 @@ const getPage = async () => {
   const response = await getMyPage();
   const page = response.page;
   if (!page) return;
+  state.page = page;
 
   state.form = {
     logo: page.logo.id,
@@ -412,14 +418,22 @@ const handleBannerUpload = (file: UploadedFile) => {
         </UFormGroup>
       </div>
 
-      <div class="both">
-        <UFormGroup
-          size="lg"
-          :label="t('tipExpiration')"
-          :help="t('tipExpirationHelp')"
-        >
-          <TipExpirationSelect v-model="state.form.expirationMinutes" />
-        </UFormGroup>
+      <div class="both" v-if="editable">
+        <div class="grid gap-2">
+          <UFormGroup
+            size="lg"
+            :label="t('tipExpiration')"
+            :help="t('tipExpirationHelp')"
+          >
+            <TipExpirationSelect v-model="state.form.expirationMinutes" />
+          </UFormGroup>
+          <UAlert
+            v-if="showExpirationWarning"
+            color="orange"
+            :description="$t('tipExpirationWarning')"
+            variant="soft"
+          ></UAlert>
+        </div>
       </div>
 
       <!-- <div class="single" v-if="editable">
