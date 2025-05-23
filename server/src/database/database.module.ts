@@ -39,7 +39,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
           Swap,
         ],
         namingStrategy: new SnakeNamingStrategy(),
-        // migrationsRun: configService.get('')
+        migrationsRun: process.env.NODE_ENV === 'production',
       }),
       inject: [ConfigService],
     }),
