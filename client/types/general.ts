@@ -102,6 +102,7 @@ export interface Tip {
   payment?: TipPayment;
   expiresAt?: string;
   swap?: Swap;
+  createdAt?: string;
 }
 
 export interface TipTier {

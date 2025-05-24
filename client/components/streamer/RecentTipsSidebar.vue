@@ -9,6 +9,7 @@ const props = defineProps<{
 
 const { getTips: getTipsApi } = useServices();
 const { state: generalState } = useGeneralStore();
+const { relativeDate, dayjs } = useDate();
 
 const { xmrToFiat } = useXmrPrice();
 const { money } = useMoney();
@@ -43,6 +44,14 @@ const getComputedPrice = (amount?: string) => {
 };
 
 const { getFiat } = useConstants();
+const getDisappearText = (date?: string) => {
+  if (!date || !props.page?.expirationMinutes) return "-";
+  const value = relativeDate(
+    dayjs(date).add(props.page.expirationMinutes, "minute").toISOString()
+  );
+
+  return t("disappearsX", { time: value });
+};
 </script>
 
 <template>
@@ -83,12 +92,21 @@ const { getFiat } = useConstants();
       <template v-else>
         <div class="messages">
           <div class="item" v-for="item in data">
-            <p
-              class="pb-1 text-base font-medium"
-              :class="{ 'text-pale': item.private }"
-            >
-              {{ item.private ? t("private") : item.name }}
-            </p>
+            <div class="flex justify-between items-center">
+              <p
+                class="pb-1 text-base font-medium"
+                :class="{ 'text-pale': item.private }"
+              >
+                {{ item.private ? t("private") : item.name }}
+              </p>
+              <UTooltip
+                v-if="!page?.expirationMinutes"
+                :popper="{ placement: 'top' }"
+                :text="getDisappearText(item.createdAt)"
+              >
+                <UIcon name="i-heroicons-clock" class="text-pale" />
+              </UTooltip>
+            </div>
             <span class="flex pb-1 font-medium text-primary">
               {{ getComputedPrice(item.payment?.amount) }}
             </span>

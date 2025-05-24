@@ -62,6 +62,10 @@ export default defineNuxtConfig({
     customCollections: [{ prefix: "icon", dir: "./assets/icons" }],
   },
 
+  dayjs: {
+    locales: ["en", "fr", "es", "de", "ru", "fi", "ko", "ar"],
+  },
+
   colorMode: {
     preference: "light",
     fallback: "light",
