@@ -143,6 +143,9 @@ const handleRemoveClick = async (row: Tip) => {
       <template #paidAt-data="{ row }">
         <div class="flex flex-col text-xs">
           <span class="flex items-center gap-1">
+            <span>
+              {{ new Date(row.payment.paidAt).toLocaleDateString() }}
+            </span>
             <UTooltip
               v-if="getDisappearText(row.createdAt)"
               :popper="{ placement: 'top' }"
@@ -150,9 +153,6 @@ const handleRemoveClick = async (row: Tip) => {
             >
               <UIcon name="i-heroicons-clock" class="text-pale" />
             </UTooltip>
-            <span>
-              {{ new Date(row.payment.paidAt).toLocaleDateString() }}
-            </span>
           </span>
           <span>{{ new Date(row.payment.paidAt).toLocaleTimeString() }}</span>
         </div>
