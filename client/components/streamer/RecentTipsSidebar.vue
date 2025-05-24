@@ -100,7 +100,7 @@ const getDisappearText = (date?: string) => {
                 {{ item.private ? t("private") : item.name }}
               </p>
               <UTooltip
-                v-if="!page?.expirationMinutes"
+                v-if="page?.expirationMinutes"
                 :popper="{ placement: 'top' }"
                 :text="getDisappearText(item.createdAt)"
               >
