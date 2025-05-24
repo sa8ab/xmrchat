@@ -179,9 +179,9 @@ export default {
   home: "Home",
   logo: "Logo",
   logoRatio: "1:1 ratio",
-  bannerImage: "Banner Image",
+  bannerImage: "Banner image",
   bannerImageBestRatio: "Best to be uploaded in 3:1",
-  yourId: "Your Id",
+  yourId: "Your id",
   pageSlug: "Page Slug",
   moneroPrmReciveAddress: "Monero primary receive address",
   prmMoneroReciveAdressBegin:
@@ -194,8 +194,8 @@ export default {
   nameOfYourTwitchChannel:
     "Name of your twitch channel. Used to display tips on Stream via xmr_chat Twitch bot.",
   optional: "Optional",
-  minTipAmount: "Min. Tip Amount ( XMR )",
-  defaultTipAmount: "Default Tip Amount Value",
+  minTipAmount: "Min. tip amount ( XMR )",
+  defaultTipAmount: "Default tip amount value",
   thisIsOnlyForDisplaying:
     "This is only for displaying the tip values. Viewers can change this for themselves on tip page.",
   publicPage: "Public Page ( Shown on creator search page ).",
