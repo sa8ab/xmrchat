@@ -264,7 +264,6 @@ export class TipsService {
 
   @Cron(CronExpression.EVERY_MINUTE)
   async deleteExpiredTips() {
-    this.logger.log('Removing expired tips');
     const query = this.repo
       .createQueryBuilder('tip')
       .leftJoin('tip.page', 'page')
@@ -281,8 +280,6 @@ export class TipsService {
         id: In(res.map((t) => t.id)),
       });
       this.logger.log(`Deleted ${count} Tips.`);
-    } else {
-      this.logger.log('No tips to remove.');
     }
   }
 }
