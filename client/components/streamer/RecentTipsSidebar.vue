@@ -44,14 +44,9 @@ const getComputedPrice = (amount?: string) => {
 };
 
 const { getFiat } = useConstants();
-const getDisappearText = (date?: string) => {
-  if (!date || !props.page?.expirationMinutes) return "-";
-  const value = relativeDate(
-    dayjs(date).add(props.page.expirationMinutes, "minute").toISOString()
-  );
-
-  return t("disappearsX", { time: value });
-};
+const { getDisappearText } = useTip({
+  page: computed(() => props.page),
+});
 </script>
 
 <template>
@@ -100,7 +95,7 @@ const getDisappearText = (date?: string) => {
                 {{ item.private ? t("private") : item.name }}
               </p>
               <UTooltip
-                v-if="page?.expirationMinutes"
+                v-if="getDisappearText(item.createdAt)"
                 :popper="{ placement: 'top' }"
                 :text="getDisappearText(item.createdAt)"
               >

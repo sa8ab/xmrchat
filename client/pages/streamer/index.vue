@@ -60,6 +60,7 @@ const { getFiat } = useConstants();
             :slug="data.page.path"
             :tipValue="tipValue"
             :fiat="data.page.fiat"
+            :page="data.page"
           />
         </div>
         <NoPageYet v-else />

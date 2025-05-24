@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import type { Numberic, ObsTipSocketEvent, Tip } from "~/types";
+import type { Numberic, ObsTipSocketEvent, StreamerPage, Tip } from "~/types";
 import { FiatEnum, TipDisplayMode } from "~/types/enums";
 
 const props = defineProps<{
   slug: string;
   tipValue?: TipDisplayMode;
   fiat?: FiatEnum;
+  page?: StreamerPage;
 }>();
 
 const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
@@ -21,6 +22,7 @@ const { init, disconnect, sendTipToObs, removeTipFromObs } = usePageSocket({
 
 const { errorHandler } = useErrorHandler();
 const { t } = useI18n();
+const { relativeDate, dayjs } = useDate();
 
 const toast = useToast();
 
@@ -101,6 +103,10 @@ const getComputedPrice = (amount?: string) => {
     : money(fiat.toFixed(2), props.fiat);
 };
 
+const { getDisappearText } = useTip({
+  page: computed(() => props.page),
+});
+
 const handleSendClick = async (row: Tip) => {
   try {
     await sendTipToObs(props.slug, row.id);
@@ -136,8 +142,17 @@ const handleRemoveClick = async (row: Tip) => {
       </template>
       <template #paidAt-data="{ row }">
         <div class="flex flex-col text-xs">
-          <span>
-            {{ new Date(row.payment.paidAt).toLocaleDateString() }}
+          <span class="flex items-center gap-1">
+            <UTooltip
+              v-if="getDisappearText(row.createdAt)"
+              :popper="{ placement: 'top' }"
+              :text="getDisappearText(row.createdAt)"
+            >
+              <UIcon name="i-heroicons-clock" class="text-pale" />
+            </UTooltip>
+            <span>
+              {{ new Date(row.payment.paidAt).toLocaleDateString() }}
+            </span>
           </span>
           <span>{{ new Date(row.payment.paidAt).toLocaleTimeString() }}</span>
         </div>
