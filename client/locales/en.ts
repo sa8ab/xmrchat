@@ -231,6 +231,7 @@ export default {
   hide: "Hide",
   youDontHavePage: "You don't have a page yet",
   getStartedByCreatingPage: "Get started by creating a new page for yourself",
+  createNewWallet: "Please create a new Monero wallet to use with XMRChat. We only need to see transactions that relate to XMRChat messages, and nothing else.",
   createNewPage: "Create New Page",
 
   // ACCOUNT PAGE
