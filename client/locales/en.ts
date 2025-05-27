@@ -179,9 +179,9 @@ export default {
   home: "Home",
   logo: "Logo",
   logoRatio: "1:1 ratio",
-  bannerImage: "Banner Image",
+  bannerImage: "Banner image",
   bannerImageBestRatio: "Best to be uploaded in 3:1",
-  yourId: "Your Id",
+  yourId: "Your id",
   pageSlug: "Page Slug",
   moneroPrmReciveAddress: "Monero primary receive address",
   prmMoneroReciveAdressBegin:
@@ -194,8 +194,8 @@ export default {
   nameOfYourTwitchChannel:
     "Name of your twitch channel. Used to display tips on Stream via xmr_chat Twitch bot.",
   optional: "Optional",
-  minTipAmount: "Min. Tip Amount ( XMR )",
-  defaultTipAmount: "Default Tip Amount Value",
+  minTipAmount: "Min. tip amount ( XMR )",
+  defaultTipAmount: "Default tip amount value",
   thisIsOnlyForDisplaying:
     "This is only for displaying the tip values. Viewers can change this for themselves on tip page.",
   publicPage: "Public Page ( Shown on creator search page ).",
@@ -210,6 +210,15 @@ export default {
   unavailable: "Unavailable",
   fiatUnit: "Fiat unit",
   fiatUnitHelp: "Unit to display tips when tip display mode is fiat.",
+  tipExpiration: "Tip expiration",
+  tipExpirationHelp:
+    "Tips will automatically be removed after specified duaration.",
+  tipExpirationWarning:
+    "Changing expiration will delete all xmrchats older than selected duration.",
+  disappearsX: "Disappears {time}",
+  never: "Never",
+  xDays: "{count} Day | {count} Days",
+  xMonths: "{count} Month | {count} Months",
 
   // STREAMER MENU
   menu: "Menu",
@@ -222,6 +231,7 @@ export default {
   hide: "Hide",
   youDontHavePage: "You don't have a page yet",
   getStartedByCreatingPage: "Get started by creating a new page for yourself",
+  createNewWallet: "Please create a new Monero wallet to use with XMRChat. We only need to see transactions that relate to XMRChat messages, and nothing else.",
   createNewPage: "Create New Page",
 
   // ACCOUNT PAGE

@@ -34,4 +34,10 @@ export class TipsController {
   ) {
     return this.tipsService.updateTipByStreamer(id, body, user);
   }
+
+  @Get('/test/test')
+  @IsPublic()
+  test() {
+    return this.tipsService.deleteExpiredTips();
+  }
 }

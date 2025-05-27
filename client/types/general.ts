@@ -38,6 +38,7 @@ export interface CreateFormFields {
   isPublic?: boolean;
   tipDisplayMode?: TipDisplayMode;
   fiat?: FiatEnum;
+  expirationMinutes?: number;
 }
 
 export interface TipFormFields {
@@ -82,6 +83,7 @@ export interface StreamerPage {
   totalTips?: number;
   tipsCount?: number;
   status?: PageStatusEnum;
+  expirationMinutes?: number;
 }
 
 interface TipPayment {
@@ -100,6 +102,7 @@ export interface Tip {
   payment?: TipPayment;
   expiresAt?: string;
   swap?: Swap;
+  createdAt?: string;
 }
 
 export interface TipTier {

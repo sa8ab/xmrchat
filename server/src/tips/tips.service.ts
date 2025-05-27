@@ -10,7 +10,7 @@ import { PagesService } from 'src/pages/pages.service';
 import { LwsService } from 'src/lws/lws.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Tip } from './tip.entity';
-import { Repository } from 'typeorm';
+import { In, LessThan, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
 import { makeIntegratedAddress } from 'src/shared/utils/monero';
 import { PaymentsService } from 'src/payments/payments.service';
 import { MoneroUtils } from 'monero-ts';
@@ -29,6 +29,7 @@ import { Coin } from 'src/integrations/trocador/coin.entity';
 import { TrocadorTrade } from 'src/shared/types';
 import { FiatEnum } from 'src/shared/constants';
 import { TipMessageService } from 'src/tip-message/tip-message.service';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class TipsService {
@@ -259,5 +260,26 @@ export class TipsService {
     try {
       await this.lwsService.deleteWebhook(payment.eventId);
     } catch (error) {}
+  }
+
+  @Cron(CronExpression.EVERY_MINUTE)
+  async deleteExpiredTips() {
+    const query = this.repo
+      .createQueryBuilder('tip')
+      .leftJoin('tip.page', 'page')
+      .where(`page.expirationMinutes IS NOT NULL`)
+      .andWhere(`page.expirationMinutes > 0`)
+      .andWhere(
+        `tip.createdAt < NOW() - (page.expirationMinutes * INTERVAL '1 minute')`,
+      );
+
+    const [res, count] = await query.getManyAndCount();
+
+    if (count) {
+      // await this.repo.delete({
+      //   id: In(res.map((t) => t.id)),
+      // });
+      this.logger.log(`Deleted ${count} Tips.`);
+    }
   }
 }

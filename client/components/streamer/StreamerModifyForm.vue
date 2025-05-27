@@ -5,6 +5,7 @@ import useVuelidate from "@vuelidate/core";
 import type {
   CreateFormFields,
   SlugReservationResponse,
+  StreamerPage,
   UploadedFile,
 } from "~/types";
 import type { FiatEnum } from "~/types/enums";
@@ -17,6 +18,7 @@ interface State {
   loadingSlug: boolean;
   slugAvailable: boolean;
   loading: boolean;
+  page?: StreamerPage;
   errorMessage?: string;
 
   stagedLogoUrl?: string;
@@ -57,10 +59,6 @@ const {
   getMyPage,
   updateStreamer,
 } = useServices();
-
-const { minFiatAmount } = useMinTipAmount({
-  pageFiat: computed(() => state.form.fiat),
-});
 
 const state = reactive<State>({
   form: {
@@ -128,6 +126,13 @@ const chechSlugDebounced = debounce(async (value: string | undefined) => {
   }
 }, 500);
 
+const showExpirationWarning = computed(() => {
+  if (!state.form.expirationMinutes) return false;
+  if (!state.page?.expirationMinutes) return true;
+
+  return state.form.expirationMinutes < state.page.expirationMinutes;
+});
+
 watch(
   () => state.form.path,
   (v) => chechSlugDebounced(v)
@@ -163,6 +168,7 @@ const handleSubmit = async () => {
         tipDisplayMode: state.form.tipDisplayMode,
         fiat: state.form.fiat,
         minTipAmount: state.form.minTipAmount?.toString() || null,
+        expirationMinutes: state.form.expirationMinutes || null,
       });
       toast.add({ title: t("pageUpdated") });
       navigateTo(toStreamerDisplay()?.path);
@@ -208,6 +214,7 @@ const getPage = async () => {
   const response = await getMyPage();
   const page = response.page;
   if (!page) return;
+  state.page = page;
 
   state.form = {
     logo: page.logo.id,
@@ -220,6 +227,7 @@ const getPage = async () => {
     minTipAmount: page.minTipAmount,
     tipDisplayMode: page.tipDisplayMode,
     fiat: page.fiat,
+    expirationMinutes: page.expirationMinutes,
     tiers: page.tiers || [],
   };
 
@@ -408,6 +416,24 @@ const handleBannerUpload = (file: UploadedFile) => {
         >
           <FiatSelect v-model="state.form.fiat" />
         </UFormGroup>
+      </div>
+
+      <div class="both" v-if="editable">
+        <div class="grid gap-2">
+          <UFormGroup
+            size="lg"
+            :label="t('tipExpiration')"
+            :help="t('tipExpirationHelp')"
+          >
+            <TipExpirationSelect v-model="state.form.expirationMinutes" />
+          </UFormGroup>
+          <UAlert
+            v-if="showExpirationWarning"
+            color="orange"
+            :description="$t('tipExpirationWarning')"
+            variant="soft"
+          ></UAlert>
+        </div>
       </div>
 
       <!-- <div class="single" v-if="editable">
