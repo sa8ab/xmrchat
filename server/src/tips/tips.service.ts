@@ -276,9 +276,9 @@ export class TipsService {
     const [res, count] = await query.getManyAndCount();
 
     if (count) {
-      // await this.repo.delete({
-      //   id: In(res.map((t) => t.id)),
-      // });
+      await this.repo.delete({
+        id: In(res.map((t) => t.id)),
+      });
       this.logger.log(`Deleted ${count} Tips.`);
     }
   }
