@@ -212,7 +212,7 @@ export default {
   fiatUnitHelp: "Unit to display tips when tip display mode is fiat.",
   tipExpiration: "Tip expiration",
   tipExpirationHelp:
-    "Tips will automatically be removed after specified duaration.",
+    "Tips will automatically be removed after specified duration.",
   tipExpirationWarning:
     "Changing expiration will delete all xmrchats older than selected duration.",
   disappearsX: "Disappears {time}",
@@ -231,7 +231,8 @@ export default {
   hide: "Hide",
   youDontHavePage: "You don't have a page yet",
   getStartedByCreatingPage: "Get started by creating a new page for yourself",
-  createNewWallet: "Please create a new Monero wallet to use with XMRChat. We only need to see transactions that relate to XMRChat messages, and nothing else.",
+  createNewWallet:
+    "Please create a new Monero wallet to use with XMRChat. We only need to see transactions that relate to XMRChat messages, and nothing else.",
   createNewPage: "Create New Page",
 
   // ACCOUNT PAGE
