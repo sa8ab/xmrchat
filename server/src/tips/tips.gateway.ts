@@ -2,6 +2,7 @@ import { Logger } from '@nestjs/common';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
+  SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
@@ -11,10 +12,6 @@ import { Swap } from 'src/swaps/swap.entity';
 
 @WebSocketGateway({
   namespace: '/tips',
-  connectionStateRecovery: {
-    maxDisconnectionDuration: 2 * 60 * 1000,
-    skipMiddlewares: true,
-  },
 })
 export class TipsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private logger = new Logger(TipsGateway.name);
@@ -22,11 +19,12 @@ export class TipsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Namespace;
 
-  async handleConnection(client: Socket, ...args: any[]) {
+  async handleConnection(client: Socket) {
     const tipId = client.handshake.auth.tipId;
     this.logger.log(`Recovered: ${client.recovered}`);
     this.logger.log(`Client ${client.id} connected - TipId: ${tipId}`);
 
+    client.emit('dummyEvent');
     await client.join(`tip-${tipId}`);
   }
 
