@@ -9,7 +9,13 @@ import { Server, Namespace, Socket } from 'socket.io';
 import { Payment } from 'src/payments/payment.entity';
 import { Swap } from 'src/swaps/swap.entity';
 
-@WebSocketGateway({ namespace: '/tips' })
+@WebSocketGateway({
+  namespace: '/tips',
+  connectionStateRecovery: {
+    maxDisconnectionDuration: 2 * 60 * 1000,
+    skipMiddlewares: true,
+  },
+})
 export class TipsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private logger = new Logger(TipsGateway.name);
 
@@ -18,6 +24,7 @@ export class TipsGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   async handleConnection(client: Socket, ...args: any[]) {
     const tipId = client.handshake.auth.tipId;
+    this.logger.log(`Recovered: ${client.recovered}`);
     this.logger.log(`Client ${client.id} connected - TipId: ${tipId}`);
 
     await client.join(`tip-${tipId}`);

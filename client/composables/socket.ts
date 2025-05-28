@@ -88,6 +88,11 @@ export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
   };
 
   const handleConnect = () => {
+    if (socket.value?.recovered) {
+      console.log("Socket recoverd");
+    } else {
+      console.log("Inital socket connection");
+    }
     console.log("Socket Connected");
     connectionStatus.value = "CONNECTED";
   };
