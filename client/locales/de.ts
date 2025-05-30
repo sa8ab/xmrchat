@@ -62,6 +62,7 @@ export default {
   FAQ: {
     title: "FAQ",
     whyTipWithXMRChat: "Warum mit XMRChat Trinkgeld verschicken?",
+    howToUseXMRChat: "How to use XMRChat?",
     whyUseMonero: "Warum verwendet XMRChat Monero?",
     whereToGetMonero: "Wo bekomme ich Monero?",
   },
@@ -116,7 +117,21 @@ export default {
     title: "Und mehr",
     description: "Erfahre mehr über Monero auf {getmonero}.",
   },
-
+  forContentCreators: {
+    title: "For Content Creators",
+    description: {
+      main: "Click Creators Start Here button. Create xmrchat account. Create Tip Page. Let your audience know the URL of your tip page.",
+      ifUseStreamyard:
+        "— If you use Streamyard - displayed xmrchat bot logo looks best with 'Minimal' setting ",
+      ifUseOBS: "— If you use OBS...",
+      ifOnlyYouTube: "— If you only live stream to YouTube.",
+    },
+  },
+  forFans: {
+    title: "For Fans",
+    description:
+      "go to the URL of your content creator's tip page. Type username and message, choose tip amount, then send.",
+  },
   whereToGetMonero: {
     cakeWallet:
       "Kaufe oder tausche Monero gegen andere Kryptowährungen bei {cakeWallet}.",

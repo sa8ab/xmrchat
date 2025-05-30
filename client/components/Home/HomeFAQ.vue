@@ -8,12 +8,16 @@ const items = computed(() => [
     slot: "one",
   },
   {
-    label: t("FAQ.whyUseMonero"),
+    label: t("FAQ.howToUseXMRChat"),
     slot: "two",
   },
   {
-    label: t("FAQ.whereToGetMonero"),
+    label: t("FAQ.whyUseMonero"),
     slot: "three",
+  },
+  {
+    label: t("FAQ.whereToGetMonero"),
+    slot: "four",
   },
 ]);
 
@@ -114,6 +118,56 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
           </ul>
         </template>
         <template #two>
+          <UAccordion
+            class="max-w-[1024px]"
+            variant="ghost"
+            color="gray"
+            :items="[
+              { label: $t('forContentCreators.title'), slot: 'one' },
+              { label: $t('forFans.title'), slot: 'two' },
+            ]"
+          >
+            <template #default="{ item, open }">
+              <UButton class="mb-2" size="lg" variant="outline">
+                <span class="flex-1 text-start">
+                  {{ item.label }}
+                </span>
+                <template #trailing>
+                  <DirectionalArrow
+                    type="chevron"
+                    :class="[
+                      'transform transition-transform duration-200',
+                      open && 'rotate-90',
+                    ]"
+                  />
+                </template>
+              </UButton>
+            </template>
+            <template #one>
+              <div class="">
+                <p>
+                  {{ $t("forContentCreators.description.main") }}
+                </p>
+                <p>
+                  {{ $t("forContentCreators.description.ifUseStreamyard") }}
+                </p>
+                <p>
+                  {{ $t("forContentCreators.description.ifUseOBS") }}
+                </p>
+                <p>
+                  {{ $t("forContentCreators.description.ifOnlyYouTube") }}
+                </p>
+              </div>
+            </template>
+
+            <template #two>
+              <div>
+                <p>{{ $t("forFans.description") }}</p>
+              </div>
+            </template>
+          </UAccordion>
+        </template>
+        <template #three>
           <ul class="list">
             <li>
               <div class="item-header">
@@ -174,7 +228,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             </li>
           </ul>
         </template>
-        <template #three>
+        <template #four>
           <ul class="list">
             <li>
               <p>
