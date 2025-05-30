@@ -123,8 +123,12 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             variant="ghost"
             color="gray"
             :items="[
-              { label: $t('forContentCreators.title'), slot: 'one' },
-              { label: $t('forFans.title'), slot: 'two' },
+              {
+                label: $t('forContentCreators.title'),
+                slot: 'one',
+                defaultOpen: true,
+              },
+              { label: $t('forFans.title'), slot: 'two', defaultOpen: true },
             ]"
           >
             <template #default="{ item, open }">
