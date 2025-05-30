@@ -59,6 +59,7 @@ export default {
   FAQ: {
     title: "자주 묻는 질문",
     whyTipWithXMRChat: "왜 XMRChat으로 팁을 줘야 할까요?",
+    howToUseXMRChat: "How to use XMRChat?",
     whyUseMonero: "왜 XMRChat은 모네로를 사용하나요?",
     whereToGetMonero: "모네로를 어디서 구하나요?",
   },
@@ -113,7 +114,21 @@ export default {
     title: "그 외에도",
     description: "{getmonero}에서 모네로에 대해 더 알아보세요.",
   },
-
+  forContentCreators: {
+    title: "For Content Creators",
+    description: {
+      main: "Click Creators Start Here button. Create xmrchat account. Create Tip Page. Let your audience know the URL of your tip page.",
+      ifUseStreamyard:
+        "— If you use Streamyard - displayed xmrchat bot logo looks best with 'Minimal' setting ",
+      ifUseOBS: "— If you use OBS...",
+      ifOnlyYouTube: "— If you only live stream to YouTube.",
+    },
+  },
+  forFans: {
+    title: "For Fans",
+    description:
+      "go to the URL of your content creator's tip page. Type username and message, choose tip amount, then send.",
+  },
   whereToGetMonero: {
     cakeWallet:
       "{cakeWallet}에서 다른 암호화폐로 모네로를 구매하거나 교환하세요.",

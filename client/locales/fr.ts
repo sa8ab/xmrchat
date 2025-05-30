@@ -64,6 +64,7 @@ export default {
   FAQ: {
     title: "FAQ",
     whyTipWithXMRChat: "Pourquoi donner des pourboires avec XMRChat ?",
+    howToUseXMRChat: "How to use XMRChat?",
     whyUseMonero: "Pourquoi XMRChat utilise-t-il Monero ?",
     whereToGetMonero: "Où obtenir du Monero ?",
   },
@@ -117,6 +118,21 @@ export default {
   andMore: {
     title: "Et plus encore",
     description: "En savoir plus sur Monero sur {getmonero}.",
+  },
+  forContentCreators: {
+    title: "For Content Creators",
+    description: {
+      main: "Click Creators Start Here button. Create xmrchat account. Create Tip Page. Let your audience know the URL of your tip page.",
+      ifUseStreamyard:
+        "— If you use Streamyard - displayed xmrchat bot logo looks best with 'Minimal' setting ",
+      ifUseOBS: "— If you use OBS...",
+      ifOnlyYouTube: "— If you only live stream to YouTube.",
+    },
+  },
+  forFans: {
+    title: "For Fans",
+    description:
+      "go to the URL of your content creator's tip page. Type username and message, choose tip amount, then send.",
   },
 
   // TIP PAGE
