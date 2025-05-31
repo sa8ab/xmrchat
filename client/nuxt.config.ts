@@ -81,7 +81,6 @@ export default defineNuxtConfig({
     sitemaps: {
       pages: {
         includeAppSources: true,
-        exclude: ["/admin/**", "/streamer/**"],
         defaults: { changefreq: "weekly" },
       },
       creators: {
@@ -89,5 +88,9 @@ export default defineNuxtConfig({
         defaults: { changefreq: "daily" },
       },
     },
+  },
+
+  robots: {
+    disallow: ["/admin", "/streamer"],
   },
 });
