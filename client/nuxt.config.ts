@@ -26,6 +26,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
     "dayjs-nuxt",
+    "@nuxtjs/seo",
   ],
 
   piniaPluginPersistedstate: {
@@ -74,5 +75,19 @@ export default defineNuxtConfig({
 
   fonts: {
     families: [{ name: "Inter", provider: "google" }],
+  },
+
+  sitemap: {
+    sitemaps: {
+      pages: {
+        includeAppSources: true,
+        exclude: ["/admin/**", "/streamer/**"],
+        defaults: { changefreq: "weekly" },
+      },
+      creators: {
+        sources: ["/api/__sitemap__/creators"],
+        defaults: { changefreq: "daily" },
+      },
+    },
   },
 });
