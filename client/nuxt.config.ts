@@ -52,13 +52,13 @@ export default defineNuxtConfig({
     ],
     defaultLocale: "en",
     vueI18n: "./i18n.config.ts",
+    restructureDir: false,
   },
 
-  ui: {
-    icons: ["heroicons", "mdi", "tabler", "simple-icons"],
-  },
+  ui: {},
 
   icon: {
+    collections: ["heroicons", "mdi", "tabler", "simple-icons"],
     customCollections: [{ prefix: "icon", dir: "./assets/icons" }],
   },
 
