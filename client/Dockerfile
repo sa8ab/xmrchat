@@ -14,5 +14,5 @@ COPY --from=builder /app/.output /app/.output
 COPY package*.json ./
 RUN npm install
 
-EXPOSE 3000node js
+EXPOSE 3000
 CMD ["node", ".output/server/index.mjs"]
