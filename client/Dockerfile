@@ -1,5 +1,5 @@
 # Dockerfile
-FROM node:lts-alpine3.23 AS builder
+FROM node:22-slim AS builder
 
 WORKDIR /app
 COPY package*.json ./
@@ -8,11 +8,11 @@ COPY . .
 RUN npm run build
 
 
-FROM node:lts-alpine3.23
+FROM node:22-slim
 WORKDIR /app
 COPY --from=builder /app/.output /app/.output
 COPY package*.json ./
 RUN npm install
 
-EXPOSE 3000
+EXPOSE 3000node js
 CMD ["node", ".output/server/index.mjs"]
