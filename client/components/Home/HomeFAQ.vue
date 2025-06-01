@@ -132,7 +132,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             ]"
           >
             <template #default="{ item, open }">
-              <UButton class="mb-2" size="lg" variant="outline">
+              <UButton class="mb-2" variant="soft">
                 <span class="flex-1 text-start">
                   {{ item.label }}
                 </span>
@@ -149,18 +149,27 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             </template>
             <template #one>
               <div class="">
-                <p>
+                <p class="pb-4">
                   {{ $t("forContentCreators.description.main") }}
                 </p>
-                <p>
-                  {{ $t("forContentCreators.description.ifUseStreamyard") }}
-                </p>
-                <p>
-                  {{ $t("forContentCreators.description.ifUseOBS") }}
-                </p>
-                <p>
-                  {{ $t("forContentCreators.description.ifOnlyYouTube") }}
-                </p>
+                <div class="list">
+                  <div>
+                    <h3 class="text-text font-medium pb-1">
+                      {{ $t("forContentCreators.description.ifStreamyard") }}
+                    </h3>
+                    <p>
+                      {{ $t("forContentCreators.description.streamyard") }}
+                    </p>
+                  </div>
+                  <div>
+                    <h3 class="text-text font-medium pb-1">
+                      {{ $t("forContentCreators.description.ifOBS") }}
+                    </h3>
+                    <p>
+                      {{ $t("forContentCreators.description.obs") }}
+                    </p>
+                  </div>
+                </div>
               </div>
             </template>
 

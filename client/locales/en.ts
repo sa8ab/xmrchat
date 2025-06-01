@@ -117,17 +117,18 @@ export default {
   forContentCreators: {
     title: "For Content Creators",
     description: {
-      main: "Click Creators Start Here button. Create xmrchat account. Create Tip Page. Let your audience know the URL of your tip page.",
-      ifUseStreamyard:
-        "— If you use Streamyard - displayed xmrchat bot logo looks best with 'Minimal' setting ",
-      ifUseOBS: "— If you use OBS...",
-      ifOnlyYouTube: "— If you only live stream to YouTube.",
+      main: `Click "Creators Start Here" button. Create XMRChat account. Create Tip Page. Let your audience know the URL of your tip page.`,
+      ifStreamyard: "If you use Streamyard:",
+      ifOBS: "If you use OBS:",
+      streamyard:
+        "In 'Edit Tip Page' make sure you have added your twitch channel username. When starting the stream in Streamyard add Twtich as a destination. XMRChat bot ( xmr-chat on twitch ) will send the tip message on Twitch and you can display it on your screen from Streamyard. Displayed xmrchat bot logo looks best with 'Minimal' setting.",
+      obs: "After logging in, go to the OBS page. Click on 'Copy OBS Page Link'. Add a browser source in OBS and paste the link.",
     },
   },
   forFans: {
     title: "For Fans",
     description:
-      "go to the URL of your content creator's tip page. Type username and message, choose tip amount, then send.",
+      "Go to the URL of your content creator's tip page. Type username and message, choose tip amount, then send. A dialog will appear with the tip details. Your xmrchat will be displayed on the streamer's page after the tip is sent.",
   },
   whereToGetMonero: {
     cakeWallet: "Buy or trade other crypto for Monero in {cakeWallet}.",
