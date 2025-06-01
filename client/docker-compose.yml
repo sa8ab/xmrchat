@@ -3,7 +3,7 @@ name: ${DOCKER_COMPOSE_PROJECT_NAME}
 services:
   nuxt:
     build: .
-    # restart: always
+    restart: unless-stopped
     ports:
       - ":3000"
     # command: "npm run start"
