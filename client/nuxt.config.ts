@@ -93,4 +93,8 @@ export default defineNuxtConfig({
   robots: {
     disallow: ["/admin", "/streamer"],
   },
+
+  site: {
+    name: "XMRChat",
+  },
 });
