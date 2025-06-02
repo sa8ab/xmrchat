@@ -120,9 +120,8 @@ export default {
       main: `Click "Creators Start Here" button. Create XMRChat account. Create Tip Page. Let your audience know the URL of your tip page.`,
       ifStreamyard: "If you use Streamyard:",
       ifOBS: "If you use OBS:",
-      streamyard:
-        "Go to 'Edit tip page' menu item. Make sure you have added your twitch channel username. When starting the stream in Streamyard add Twtich as a destination. XMRChat bot ( xmr-chat on twitch ) will send the tip message on Twitch and you can display it on your screen from Streamyard. Displayed xmrchat bot logo looks best with 'Minimal' setting.",
-      obs: "Go to 'OBS' menu item. Click on 'Copy OBS Page Link'. Add a browser source in OBS and paste the link.",
+      streamyard: `Go to "Edit tip page" menu item. Make sure you have added your twitch channel username. When starting the stream in Streamyard add Twtich as a destination. XMRChat bot ( xmr-chat on twitch ) will send the tip message on Twitch and you can display it on your screen from Streamyard. Displayed xmrchat bot logo looks best with "Minimal" setting.`,
+      obs: `Go to "OBS" menu item. Click on "Copy OBS Page Link". Add a browser source in OBS and paste the link.`,
     },
   },
   forFans: {
