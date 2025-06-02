@@ -97,4 +97,8 @@ export default defineNuxtConfig({
   site: {
     name: "XMRChat",
   },
+
+  seo: {
+    fallbackTitle: false,
+  },
 });
