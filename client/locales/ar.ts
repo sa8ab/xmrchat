@@ -58,7 +58,7 @@ export default {
   FAQ: {
     title: "الأسئلة الشائعة",
     whyTipWithXMRChat: "لماذا التبرع باستخدام XMRChat؟",
-    howToUseXMRChat: "How to use XMRChat?",
+    howToUseXMRChat: "كيفية استخدام XMRChat؟",
     whyUseMonero: "لماذا يستخدم XMRChat عملة Monero؟",
     whereToGetMonero: "أين يمكن الحصول على Monero؟",
   },

@@ -62,7 +62,7 @@ export default {
   FAQ: {
     title: "Часто задаваемые вопросы",
     whyTipWithXMRChat: "Почему стоит использовать XMRChat?",
-    howToUseXMRChat: "How to use XMRChat?",
+    howToUseXMRChat: "Как использовать XMRChat?",
     whyUseMonero: "Почему XMRChat использует Monero?",
     whereToGetMonero: "Где купить Monero?",
   },
