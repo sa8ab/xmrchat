@@ -60,7 +60,7 @@ export default {
   FAQ: {
     title: "Usein kysytyt kysymykset",
     whyTipWithXMRChat: "Miksi käyttää XMRChatia tippaukseen?",
-    howToUseXMRChat: "How to use XMRChat?",
+    howToUseXMRChat: "Miten käytän XMRChat?",
     whyUseMonero: "Miksi XMRChat käyttää Moneroa?",
     whereToGetMonero: "Mistä saan Moneroa?",
   },

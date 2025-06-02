@@ -59,7 +59,7 @@ export default {
   FAQ: {
     title: "자주 묻는 질문",
     whyTipWithXMRChat: "왜 XMRChat으로 팁을 줘야 할까요?",
-    howToUseXMRChat: "How to use XMRChat?",
+    howToUseXMRChat: "XMRChat을 사용하는 방법",
     whyUseMonero: "왜 XMRChat은 모네로를 사용하나요?",
     whereToGetMonero: "모네로를 어디서 구하나요?",
   },
