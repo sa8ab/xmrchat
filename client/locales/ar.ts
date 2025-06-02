@@ -112,19 +112,19 @@ export default {
     description: "تعرف على المزيد عن Monero في {getmonero}",
   },
   forContentCreators: {
-    title: "For Content Creators",
+    title: "لصانعي المحتوى",
     description: {
-      main: "Click Creators Start Here button. Create xmrchat account. Create Tip Page. Let your audience know the URL of your tip page.",
-      ifUseStreamyard:
-        "— If you use Streamyard - displayed xmrchat bot logo looks best with 'Minimal' setting ",
-      ifUseOBS: "— If you use OBS...",
-      ifOnlyYouTube: "— If you only live stream to YouTube.",
+      main: `انقر على زر "اشترك الآن". أنشئ حساب XMRChat. أنشئ صفحة تبرع. أخبر جمهورك بعنوان URL لصفحة التبرع الخاصة بك.`,
+      ifStreamyard: "إذا كنت تستخدم Streamyard:",
+      ifOBS: "إذا كنت تستخدم OBS:",
+      streamyard: `انتقل إلى عنصر القائمة "تعديل صفحة التبرع". تأكد من إضافة اسم مستخدم قناة Twitch الخاصة بك. عند بدء البث في Streamyard، أضف Twitch كوجهة. سيرسل روبوت XMRChat (xmr-chat على Twitch) رسالة التبرع على Twitch ويمكنك عرضها على شاشتك من Streamyard. يبدو شعار روبوت xmrchat أفضل مع إعداد "Minimal".`,
+      obs: `انتقل إلى عنصر القائمة "OBS". انقر على "نسخ رابط صفحة OBS". أضف مصدر متصفح في OBS والصق الرابط.`,
     },
   },
   forFans: {
-    title: "For Fans",
+    title: "للمعجبين",
     description:
-      "go to the URL of your content creator's tip page. Type username and message, choose tip amount, then send.",
+      "انتقل إلى عنوان URL لصفحة التبرع الخاصة بصانع المحتوى المفضل لديك. أدخل اسم المستخدم والرسالة، اختر مبلغ التبرع، ثم أرسل. ستظهر نافذة منبثقة مع تفاصيل التبرع. سيتم عرض xmrchat الخاص بك على صفحة صانع المحتوى بعد إرسال التبرع.",
   },
   whereToGetMonero: {
     cakeWallet: "اشترِ أو تاجر بعملات مشفرة أخرى مقابل Monero في {cakeWallet}",

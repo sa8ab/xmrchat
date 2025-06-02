@@ -117,19 +117,19 @@ export default {
     description: "Узнайте больше о Monero на {getmonero}.",
   },
   forContentCreators: {
-    title: "For Content Creators",
+    title: "Для Создателей Контента",
     description: {
-      main: "Click Creators Start Here button. Create xmrchat account. Create Tip Page. Let your audience know the URL of your tip page.",
-      ifUseStreamyard:
-        "— If you use Streamyard - displayed xmrchat bot logo looks best with 'Minimal' setting ",
-      ifUseOBS: "— If you use OBS...",
-      ifOnlyYouTube: "— If you only live stream to YouTube.",
+      main: `Нажмите кнопку "Начало для авторов". Создайте аккаунт XMRChat. Создайте Страницу Чаевых. Сообщите своей аудитории URL вашей страницы чаевых.`,
+      ifStreamyard: "Если вы используете Streamyard:",
+      ifOBS: "Если вы используете OBS:",
+      streamyard: `Перейдите в пункт меню "Редактировать страницу чаевых". Убедитесь, что вы добавили имя пользователя вашего канала Twitch. При запуске стрима в Streamyard добавьте Twitch как направление. Бот XMRChat (xmr-chat на Twitch) отправит сообщение с чаевыми на Twitch, и вы сможете отобразить его на экране из Streamyard. Логотип бота xmrchat лучше всего выглядит с настройкой "Minimal".`,
+      obs: `Перейдите в пункт меню "OBS". Нажмите "Копировать ссылку страницы OBS". Добавьте источник браузера в OBS и вставьте ссылку.`,
     },
   },
   forFans: {
-    title: "For Fans",
+    title: "Для Фанатов",
     description:
-      "go to the URL of your content creator's tip page. Type username and message, choose tip amount, then send.",
+      "Перейдите по URL страницы чаевых вашего создателя контента. Введите имя пользователя и сообщение, выберите сумму чаевых, затем отправьте. Появится диалоговое окно с деталями чаевых. Ваш xmrchat будет отображаться на странице стримера после отправки чаевых.",
   },
   whereToGetMonero: {
     cakeWallet: "Купите или обменяйте крипту на Monero в {cakeWallet}.",

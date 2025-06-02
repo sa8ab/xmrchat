@@ -120,19 +120,19 @@ export default {
     description: "En savoir plus sur Monero sur {getmonero}.",
   },
   forContentCreators: {
-    title: "For Content Creators",
+    title: "Pour les Créateurs de Contenu",
     description: {
-      main: "Click Creators Start Here button. Create xmrchat account. Create Tip Page. Let your audience know the URL of your tip page.",
-      ifUseStreamyard:
-        "— If you use Streamyard - displayed xmrchat bot logo looks best with 'Minimal' setting ",
-      ifUseOBS: "— If you use OBS...",
-      ifOnlyYouTube: "— If you only live stream to YouTube.",
+      main: `Cliquez sur le bouton "Les Créateurs commencent ici". Créez un compte XMRChat. Créez une Page de Pourboires. Faites connaître l'URL de votre page de pourboires à votre public.`,
+      ifStreamyard: "Si vous utilisez Streamyard :",
+      ifOBS: "Si vous utilisez OBS :",
+      streamyard: `Allez dans le menu "Modifier la page de pourboires". Assurez-vous d'avoir ajouté votre nom d'utilisateur de chaîne Twitch. Lors du démarrage du stream dans Streamyard, ajoutez Twitch comme destination. Le bot XMRChat (xmr-chat sur Twitch) enverra le message de pourboire sur Twitch et vous pourrez l'afficher sur votre écran depuis Streamyard. Le logo du bot xmrchat s'affiche le mieux avec le paramètre "Minimal".`,
+      obs: `Allez dans le menu "OBS". Cliquez sur "Copier le lien de la page OBS". Ajoutez une source navigateur dans OBS et collez le lien.`,
     },
   },
   forFans: {
-    title: "For Fans",
+    title: "Pour les Fans",
     description:
-      "go to the URL of your content creator's tip page. Type username and message, choose tip amount, then send.",
+      "Allez à l'URL de la page de pourboires de votre créateur de contenu. Saisissez votre nom d'utilisateur et votre message, choisissez le montant du pourboire, puis envoyez. Une boîte de dialogue apparaîtra avec les détails du pourboire. Votre xmrchat sera affiché sur la page du streamer après l'envoi du pourboire.",
   },
 
   // TIP PAGE

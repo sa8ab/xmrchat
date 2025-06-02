@@ -115,19 +115,19 @@ export default {
     description: "Lue lisää Monerosta osoitteessa {getmonero}.",
   },
   forContentCreators: {
-    title: "For Content Creators",
+    title: "Sisällöntuottajille",
     description: {
-      main: "Click Creators Start Here button. Create xmrchat account. Create Tip Page. Let your audience know the URL of your tip page.",
-      ifUseStreamyard:
-        "— If you use Streamyard - displayed xmrchat bot logo looks best with 'Minimal' setting ",
-      ifUseOBS: "— If you use OBS...",
-      ifOnlyYouTube: "— If you only live stream to YouTube.",
+      main: `Klikkaa "Sisällöntuottajille: Aloita tästä" -painiketta. Luo XMRChat-tili. Luo tippisivu. Kerro yleisöllesi tippisivusi URL-osoite.`,
+      ifStreamyard: "Jos käytät Streamyardia:",
+      ifOBS: "Jos käytät OBS:ia:",
+      streamyard: `Siirry "Muokkaa tippisivua" -valikkoon. Varmista, että olet lisännyt Twitch-kanavasi käyttäjänimen. Kun aloitat striimin Streamyardissa, lisää Twitch kohteena. XMRChat-botti (xmr-chat Twitchissä) lähettää tippiviestin Twitchiin ja voit näyttää sen ruudullasi Streamyardista. xmrchat-botin logo näyttää parhaalta "Minimal" -asetuksella.`,
+      obs: `Siirry "OBS" -valikkoon. Klikkaa "Kopioi OBS-sivun linkki". Lisää selainlähde OBS:ään ja liitä linkki.`,
     },
   },
   forFans: {
-    title: "For Fans",
+    title: "Faneille",
     description:
-      "go to the URL of your content creator's tip page. Type username and message, choose tip amount, then send.",
+      "Siirry suosikkisisällöntuottajasi tippisivun URL-osoitteeseen. Kirjoita käyttäjänimesi ja viesti, valitse tippimäärä ja lähetä. Tippitiedot näytetään ponnahdusikkunassa. xmrchat näytetään striimaajan sivulla tippin lähettämisen jälkeen.",
   },
   whereToGetMonero: {
     cakeWallet: "Osta tai vaihda Moneroa {cakeWallet}:ssa.",

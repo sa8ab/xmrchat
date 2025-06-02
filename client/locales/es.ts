@@ -118,19 +118,19 @@ export default {
     description: "Obtenga más información sobre Monero en {getmonero}.",
   },
   forContentCreators: {
-    title: "For Content Creators",
+    title: "Para Creadores de Contenido",
     description: {
-      main: "Click Creators Start Here button. Create xmrchat account. Create Tip Page. Let your audience know the URL of your tip page.",
-      ifUseStreamyard:
-        "— If you use Streamyard - displayed xmrchat bot logo looks best with 'Minimal' setting ",
-      ifUseOBS: "— If you use OBS...",
-      ifOnlyYouTube: "— If you only live stream to YouTube.",
+      main: `Haz clic en el botón "Los creadores comienzan aquí". Crea una cuenta XMRChat. Crea una Página de Propinas. Haz saber a tu audiencia la URL de tu página de propinas.`,
+      ifStreamyard: "Si usas Streamyard:",
+      ifOBS: "Si usas OBS:",
+      streamyard: `Ve al elemento del menú "Editar página de propinas". Asegúrate de haber añadido tu nombre de usuario de canal de Twitch. Al iniciar el stream en Streamyard, añade Twitch como destino. El bot XMRChat (xmr-chat en Twitch) enviará el mensaje de propina en Twitch y podrás mostrarlo en tu pantalla desde Streamyard. El logo del bot xmrchat se ve mejor con la configuración "Minimal".`,
+      obs: `Ve al elemento del menú "OBS". Haz clic en "Copiar enlace de página OBS". Añade una fuente de navegador en OBS y pega el enlace.`,
     },
   },
   forFans: {
-    title: "For Fans",
+    title: "Para Fans",
     description:
-      "go to the URL of your content creator's tip page. Type username and message, choose tip amount, then send.",
+      "Ve a la URL de la página de propinas de tu creador de contenido. Escribe tu nombre de usuario y mensaje, elige el monto de la propina, luego envía. Aparecerá un diálogo con los detalles de la propina. Tu xmrchat se mostrará en la página del streamer después de enviar la propina.",
   },
   whereToGetMonero: {
     cakeWallet:

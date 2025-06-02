@@ -131,17 +131,17 @@ export default {
   forContentCreators: {
     title: "For Content Creators",
     description: {
-      main: "Click Creators Start Here button. Create xmrchat account. Create Tip Page. Let your audience know the URL of your tip page.",
-      ifUseStreamyard:
-        "— If you use Streamyard - displayed xmrchat bot logo looks best with 'Minimal' setting ",
-      ifUseOBS: "— If you use OBS...",
-      ifOnlyYouTube: "— If you only live stream to YouTube.",
+      main: `Click "Creators go start here" button. Create XMRChat account. Create Tip Page. Make your audience sabi di URL of your tip page.`,
+      ifStreamyard: "If you dey use Streamyard:",
+      ifOBS: "If you dey use OBS:",
+      streamyard: `Go to "Edit tip page" menu. Make sure say you don add your Twitch channel name. When you start stream for Streamyard, add Twitch as destination. XMRChat bot (xmr-chat for Twitch) go send di tip message for Twitch and you fit show am for your screen from Streamyard. Di xmrchat bot logo go look better with "Minimal" setting.`,
+      obs: `Go to "OBS" menu. Click on "Copy OBS Page Link". Add browser source for OBS and paste di link.`,
     },
   },
   forFans: {
     title: "For Fans",
     description:
-      "go to the URL of your content creator's tip page. Type username and message, choose tip amount, then send.",
+      "Go to di URL of your content creator tip page. Type your name and message, choose tip amount, then send. One small box go show with di tip details. Your xmrchat go show for di streamer page after you don send di tip.",
   },
 
   // TIP PAGE
