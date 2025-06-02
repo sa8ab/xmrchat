@@ -5,7 +5,8 @@ import { StreamerPage } from "~/types";
 
 export default defineSitemapEventHandler(async () => {
   const config = useRuntimeConfig();
-  const baseUrl = config.public.apiBaseUrl;
+  const baseUrl =
+    config.public.apiServerSideBaseUrl || config.public.apiBaseUrl;
 
   const response = await $fetch<{ pages: StreamerPage[] }>(
     `${baseUrl}/pages/sitemap`
