@@ -121,6 +121,8 @@ export default {
     title: "Para Creadores de Contenido",
     description: {
       main: `Haz clic en el botón "Los creadores comienzan aquí". Crea una cuenta XMRChat. Crea una Página de Propinas. Haz saber a tu audiencia la URL de tu página de propinas.`,
+      tutorialLink:
+        "Alex Anarcho tiene un excelente tutorial sobre cómo usar XMRChat en {youtube}.",
       ifStreamyard: "Si usas Streamyard:",
       ifOBS: "Si usas OBS:",
       streamyard: `Ve al elemento del menú "Editar página de propinas". Asegúrate de haber añadido tu nombre de usuario de canal de Twitch. Al iniciar el stream en Streamyard, añade Twitch como destino. El bot XMRChat (xmr-chat en Twitch) enviará el mensaje de propina en Twitch y podrás mostrarlo en tu pantalla desde Streamyard. El logo del bot xmrchat se ve mejor con la configuración "Minimal".`,

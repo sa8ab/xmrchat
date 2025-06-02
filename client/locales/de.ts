@@ -120,8 +120,10 @@ export default {
   forContentCreators: {
     title: "Für Content Creator",
     description: {
-      main: `Klicke auf den "Creator starten hier" Button. Erstelle ein XMRChat-Konto. Erstelle eine Trinkgeld-Seite. Teile deinem Publikum die URL deiner Trinkgeld-Seite mit.`,
-      ifStreamyard: "Wenn du Streamyard verwendest:",
+      main: `Klicken Sie auf die Schaltfläche "Ersteller starten hier". Erstellen Sie ein XMRChat-Konto. Erstellen Sie eine Trinkgeldseite. Teilen Sie Ihrem Publikum die URL Ihrer Trinkgeldseite mit.`,
+      tutorialLink:
+        "Alex Anarcho hat ein großartiges Tutorial zur Verwendung von XMRChat auf {youtube}.",
+      ifStreamyard: "Wenn Sie Streamyard verwenden:",
       ifOBS: "Wenn du OBS verwendest:",
       streamyard: `Gehe zum Menüpunkt "Trinkgeld-Seite bearbeiten". Stelle sicher, dass du deinen Twitch-Kanalnamen hinzugefügt hast. Wenn du den Stream in Streamyard startest, füge Twitch als Ziel hinzu. Der XMRChat-Bot (xmr-chat auf Twitch) wird die Trinkgeld-Nachricht auf Twitch senden und du kannst sie auf deinem Bildschirm von Streamyard anzeigen. Das angezeigte xmrchat-Bot-Logo sieht am besten mit der "Minimal"-Einstellung aus.`,
       obs: `Gehe zum "OBS"-Menüpunkt. Klicke auf "OBS-Seitenlink kopieren". Füge eine Browserquelle in OBS hinzu und füge den Link ein.`,

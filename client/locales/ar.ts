@@ -114,7 +114,9 @@ export default {
   forContentCreators: {
     title: "لصانعي المحتوى",
     description: {
-      main: `انقر على زر "اشترك الآن". أنشئ حساب XMRChat. أنشئ صفحة تبرع. أخبر جمهورك بعنوان URL لصفحة التبرع الخاصة بك.`,
+      main: `انقر على زر "ابدأ هنا للمبدعين". أنشئ حساب XMRChat. أنشئ صفحة البقشيش. أخبر جمهورك بعنوان URL لصفحة البقشيش الخاصة بك.`,
+      tutorialLink:
+        "لدى Alex Anarcho برنامج تعليمي رائع حول كيفية استخدام XMRChat على {youtube}.",
       ifStreamyard: "إذا كنت تستخدم Streamyard:",
       ifOBS: "إذا كنت تستخدم OBS:",
       streamyard: `انتقل إلى عنصر القائمة "تعديل صفحة التبرع". تأكد من إضافة اسم مستخدم قناة Twitch الخاصة بك. عند بدء البث في Streamyard، أضف Twitch كوجهة. سيرسل روبوت XMRChat (xmr-chat على Twitch) رسالة التبرع على Twitch ويمكنك عرضها على شاشتك من Streamyard. يبدو شعار روبوت xmrchat أفضل مع إعداد "Minimal".`,

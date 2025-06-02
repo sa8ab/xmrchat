@@ -122,7 +122,9 @@ export default {
   forContentCreators: {
     title: "Pour les Créateurs de Contenu",
     description: {
-      main: `Cliquez sur le bouton "Les Créateurs commencent ici". Créez un compte XMRChat. Créez une Page de Pourboires. Faites connaître l'URL de votre page de pourboires à votre public.`,
+      main: `Cliquez sur le bouton "Les créateurs commencent ici". Créez un compte XMRChat. Créez une page de pourboire. Faites connaître l'URL de votre page de pourboire à votre public.`,
+      tutorialLink:
+        "Alex Anarcho a un excellent tutoriel sur l'utilisation de XMRChat sur {youtube}.",
       ifStreamyard: "Si vous utilisez Streamyard :",
       ifOBS: "Si vous utilisez OBS :",
       streamyard: `Allez dans le menu "Modifier la page de pourboires". Assurez-vous d'avoir ajouté votre nom d'utilisateur de chaîne Twitch. Lors du démarrage du stream dans Streamyard, ajoutez Twitch comme destination. Le bot XMRChat (xmr-chat sur Twitch) enverra le message de pourboire sur Twitch et vous pourrez l'afficher sur votre écran depuis Streamyard. Le logo du bot xmrchat s'affiche le mieux avec le paramètre "Minimal".`,
@@ -318,7 +320,7 @@ export default {
   // HEAD
   head: {
     description:
-      "Spectateurs, envoyez des messages et des pourboires facilement et en toute confidentialité. Streamers, gardez presque tous vos pourboires au lieu d’en donner 30 à 50 % aux géants de la tech.",
+      "Spectateurs, envoyez des messages et des pourboires facilement et en toute confidentialité. Streamers, gardez presque tous vos pourboires au lieu d'en donner 30 à 50 % aux géants de la tech.",
     title: "Envoyez un message et un pourboire avec Monero",
     XMRChatTip: "XMRChat - Donnez un pourboire à {path} avec Monero",
     tip: "Donner un pourboire à {path}",

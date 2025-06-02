@@ -118,6 +118,8 @@ export default {
     title: "콘텐츠 크리에이터를 위한 안내",
     description: {
       main: `"크리에이터는 여기서 시작하세요" 버튼을 클릭하세요. XMRChat 계정을 만드세요. 팁 페이지를 만드세요. 팬들에게 팁 페이지의 URL을 알려주세요.`,
+      tutorialLink:
+        "Alex Anarcho가 {youtube}에서 XMRChat 사용법에 대한 훌륭한 튜토리얼을 제공합니다.",
       ifStreamyard: "Streamyard를 사용하는 경우:",
       ifOBS: "OBS를 사용하는 경우:",
       streamyard: `"팁 페이지 편집" 메뉴 항목으로 이동하세요. 트위치 채널 사용자 이름을 추가했는지 확인하세요. Streamyard에서 스트림을 시작할 때 Twitch를 대상으로 추가하세요. XMRChat 봇(트위치의 xmr-chat)이 트위치에 팁 메시지를 보내고 Streamyard에서 화면에 표시할 수 있습니다. xmrchat 봇 로고는 "Minimal" 설정에서 가장 잘 보입니다.`,

@@ -117,7 +117,9 @@ export default {
   forContentCreators: {
     title: "Sisällöntuottajille",
     description: {
-      main: `Klikkaa "Sisällöntuottajille: Aloita tästä" -painiketta. Luo XMRChat-tili. Luo tippisivu. Kerro yleisöllesi tippisivusi URL-osoite.`,
+      main: `Napsauta "Sisällöntuottajat aloittavat tästä" -painiketta. Luo XMRChat-tili. Luo Tippisivu. Kerro yleisöllesi tippisivusi URL-osoite.`,
+      tutorialLink:
+        "Alex Anarcholla on loistava opetusohjelma XMRChatin käytöstä {youtube}-palvelussa.",
       ifStreamyard: "Jos käytät Streamyardia:",
       ifOBS: "Jos käytät OBS:ia:",
       streamyard: `Siirry "Muokkaa tippisivua" -valikkoon. Varmista, että olet lisännyt Twitch-kanavasi käyttäjänimen. Kun aloitat striimin Streamyardissa, lisää Twitch kohteena. XMRChat-botti (xmr-chat Twitchissä) lähettää tippiviestin Twitchiin ja voit näyttää sen ruudullasi Streamyardista. xmrchat-botin logo näyttää parhaalta "Minimal" -asetuksella.`,

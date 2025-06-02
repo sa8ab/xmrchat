@@ -153,14 +153,16 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                   {{ $t("forContentCreators.description.main") }}
                 </p>
                 <p class="pb-4">
-                  Alex Anarcho has a great tutorial on how to use XMRChat on
-                  <UButton
-                    to="https://www.youtube.com/watch?v=nRzmo_bhxxY"
-                    v-bind="linkProps"
-                  >
-                    YouTube
-                  </UButton>
-                  .
+                  <I18nT keypath="forContentCreators.description.tutorialLink">
+                    <template #youtube>
+                      <UButton
+                        to="https://www.youtube.com/watch?v=nRzmo_bhxxY"
+                        v-bind="linkProps"
+                      >
+                        YouTube
+                      </UButton>
+                    </template>
+                  </I18nT>
                 </p>
                 <div class="list">
                   <div>

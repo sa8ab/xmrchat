@@ -131,7 +131,9 @@ export default {
   forContentCreators: {
     title: "For Content Creators",
     description: {
-      main: `Click "Creators go start here" button. Create XMRChat account. Create Tip Page. Make your audience sabi di URL of your tip page.`,
+      main: `Click di "Creators Start Here" button. Create XMRChat account. Create Tip Page. Make your audience know di URL of your tip page.`,
+      tutorialLink:
+        "Alex Anarcho get one great tutorial on how to use XMRChat on {youtube}.",
       ifStreamyard: "If you dey use Streamyard:",
       ifOBS: "If you dey use OBS:",
       streamyard: `Go to "Edit tip page" menu. Make sure say you don add your Twitch channel name. When you start stream for Streamyard, add Twitch as destination. XMRChat bot (xmr-chat for Twitch) go send di tip message for Twitch and you fit show am for your screen from Streamyard. Di xmrchat bot logo go look better with "Minimal" setting.`,
