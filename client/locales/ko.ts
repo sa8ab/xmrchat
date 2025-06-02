@@ -59,6 +59,7 @@ export default {
   FAQ: {
     title: "자주 묻는 질문",
     whyTipWithXMRChat: "왜 XMRChat으로 팁을 줘야 할까요?",
+    howToUseXMRChat: "How to use XMRChat?",
     whyUseMonero: "왜 XMRChat은 모네로를 사용하나요?",
     whereToGetMonero: "모네로를 어디서 구하나요?",
   },
@@ -113,7 +114,23 @@ export default {
     title: "그 외에도",
     description: "{getmonero}에서 모네로에 대해 더 알아보세요.",
   },
-
+  forContentCreators: {
+    title: "콘텐츠 크리에이터를 위한 안내",
+    description: {
+      main: `"크리에이터는 여기서 시작하세요" 버튼을 클릭하세요. XMRChat 계정을 만드세요. 팁 페이지를 만드세요. 팬들에게 팁 페이지의 URL을 알려주세요.`,
+      tutorialLink:
+        "Alex Anarcho가 {youtube}에서 XMRChat 사용법에 대한 훌륭한 튜토리얼을 제공합니다.",
+      ifStreamyard: "Streamyard를 사용하는 경우:",
+      ifOBS: "OBS를 사용하는 경우:",
+      streamyard: `"팁 페이지 편집" 메뉴 항목으로 이동하세요. 트위치 채널 사용자 이름을 추가했는지 확인하세요. Streamyard에서 스트림을 시작할 때 Twitch를 대상으로 추가하세요. XMRChat 봇(트위치의 xmr-chat)이 트위치에 팁 메시지를 보내고 Streamyard에서 화면에 표시할 수 있습니다. xmrchat 봇 로고는 "Minimal" 설정에서 가장 잘 보입니다.`,
+      obs: `"OBS" 메뉴 항목으로 이동하세요. "OBS 페이지 링크 복사"를 클릭하세요. OBS에 브라우저 소스를 추가하고 링크를 붙여넣으세요.`,
+    },
+  },
+  forFans: {
+    title: "팬을 위한 안내",
+    description:
+      "좋아하는 크리에이터의 팁 페이지 URL로 이동하세요. 사용자 이름과 메시지를 입력하고, 팁 금액을 선택한 후 전송하세요. 팁 세부 정보가 포함된 대화 상자가 나타납니다. 팁을 보낸 후 xmrchat이 스트리머의 페이지에 표시됩니다.",
+  },
   whereToGetMonero: {
     cakeWallet:
       "{cakeWallet}에서 다른 암호화폐로 모네로를 구매하거나 교환하세요.",

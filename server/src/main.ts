@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { I18nValidationExceptionFilter, I18nValidationPipe } from 'nestjs-i18n';
+import { SocketIoAdaptor } from './socket/socker-io.adapter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,6 +13,10 @@ async function bootstrap() {
     origin: true,
     credentials: true,
   });
+
+  const adapter = new SocketIoAdaptor(app);
+  app.useWebSocketAdapter(adapter);
+
   await app.listen(3000);
 }
 bootstrap();

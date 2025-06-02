@@ -1,5 +1,5 @@
 # Dockerfile
-FROM node:lts-alpine3.19 AS builder
+FROM node:22-slim AS builder
 
 WORKDIR /app
 COPY package*.json ./
@@ -8,7 +8,7 @@ COPY . .
 RUN npm run build
 
 
-FROM node:lts-alpine3.19
+FROM node:22-slim
 WORKDIR /app
 COPY --from=builder /app/.output /app/.output
 COPY package*.json ./

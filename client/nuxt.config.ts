@@ -26,6 +26,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
     "dayjs-nuxt",
+    "@nuxtjs/seo",
   ],
 
   piniaPluginPersistedstate: {
@@ -52,13 +53,13 @@ export default defineNuxtConfig({
     ],
     defaultLocale: "en",
     vueI18n: "./i18n.config.ts",
+    restructureDir: false,
   },
 
-  ui: {
-    icons: ["heroicons", "mdi", "tabler", "simple-icons"],
-  },
+  ui: {},
 
   icon: {
+    collections: ["heroicons", "mdi", "tabler", "simple-icons"],
     customCollections: [{ prefix: "icon", dir: "./assets/icons" }],
   },
 
@@ -74,5 +75,30 @@ export default defineNuxtConfig({
 
   fonts: {
     families: [{ name: "Inter", provider: "google" }],
+  },
+
+  sitemap: {
+    sitemaps: {
+      pages: {
+        includeAppSources: true,
+        defaults: { changefreq: "weekly" },
+      },
+      creators: {
+        sources: ["/api/__sitemap__/creators"],
+        defaults: { changefreq: "daily" },
+      },
+    },
+  },
+
+  robots: {
+    disallow: ["/admin", "/streamer"],
+  },
+
+  site: {
+    name: "XMRChat",
+  },
+
+  seo: {
+    fallbackTitle: false,
   },
 });

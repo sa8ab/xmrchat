@@ -60,6 +60,7 @@ export default {
   FAQ: {
     title: "FAQ",
     whyTipWithXMRChat: "Wetin make I use XMRChat tip?",
+    howToUseXMRChat: "How to use XMRChat?",
     whyUseMonero: "Why XMRChat dey use Monero?",
     whereToGetMonero: "Where I fi get Monero?",
   },
@@ -126,6 +127,23 @@ export default {
     kunoAnneMedia: "Create Monero fundraiser for {kunoAnneMedia}.",
     monerica:
       "Collect Monero for your business and get listed for {monerica}, {monerodirectory}, and business map for {xmrbazaar}.",
+  },
+  forContentCreators: {
+    title: "For Content Creators",
+    description: {
+      main: `Click di "Creators Start Here" button. Create XMRChat account. Create Tip Page. Make your audience know di URL of your tip page.`,
+      tutorialLink:
+        "Alex Anarcho get one great tutorial on how to use XMRChat on {youtube}.",
+      ifStreamyard: "If you dey use Streamyard:",
+      ifOBS: "If you dey use OBS:",
+      streamyard: `Go to "Edit tip page" menu. Make sure say you don add your Twitch channel name. When you start stream for Streamyard, add Twitch as destination. XMRChat bot (xmr-chat for Twitch) go send di tip message for Twitch and you fit show am for your screen from Streamyard. Di xmrchat bot logo go look better with "Minimal" setting.`,
+      obs: `Go to "OBS" menu. Click on "Copy OBS Page Link". Add browser source for OBS and paste di link.`,
+    },
+  },
+  forFans: {
+    title: "For Fans",
+    description:
+      "Go to di URL of your content creator tip page. Type your name and message, choose tip amount, then send. One small box go show with di tip details. Your xmrchat go show for di streamer page after you don send di tip.",
   },
 
   // TIP PAGE
