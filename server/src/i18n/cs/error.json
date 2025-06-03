@@ -1,0 +1,7 @@
+{
+  "userAlreadyExists": "Uživatel již existuje.",
+  "userCouldNotBeCreated": "Uživatele se nepodařilo vytvořit.",
+  "userNotFound": "Uživatel nebyl nalezen.",
+  "usernamePasswordIncorrect": "Nesprávné uživatelské jméno nebo heslo.",
+  "invalidCredentials": "Neplatné přihlašovací údaje."
+}

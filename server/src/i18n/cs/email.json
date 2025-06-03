@@ -1,0 +1,28 @@
+{
+  "emailVerification": {
+    "subject": "Požadavek na ověření e-mailu XMRChat",
+    "emailTitle": "Aktivujte svůj účet",
+    "title": "Ověření e-mailu",
+    "followThisLink": "Kliknutím na tento odkaz ověříte svou e-mailovou adresu.",
+    "confirmNow": "Potvrdit nyní",
+    "ifYouDidNotAskToVerifyThisAddress": "Pokud jste nepožádali o ověření této adresy, můžete tento e-mail ignorovat.",
+    "thanks": "Děkujeme",
+    "XMRChatTeam": "Tým XMRChat"
+  },
+  "resetPassword": {
+    "subject": "Požadavek na obnovení hesla XMRChat",
+    "emailTitle": "Požadavek na obnovení hesla",
+    "title": "Obnovení hesla",
+    "followThisLink": "Obdrželi jsme žádost o obnovení hesla k tomuto uživatelskému účtu.",
+    "resetNow": "Obnovit heslo",
+    "ifYouDidNotAskToResetPassword": "Pokud jste nepožádali o obnovení hesla, můžete tento e-mail ignorovat."
+  },
+  "passwordChange": {
+    "subject": "Vaše heslo XMRChat bylo aktualizováno",
+    "text": "Vaše heslo XMRChat bylo aktualizováno",
+    "title": "Heslo účtu bylo změněno",
+    "emailTitle": "Heslo aktualizováno",
+    "passwordUpdated": "Heslo vašeho účtu bylo změněno.",
+    "ifItWasNotYou": "Pokud jste to nebyli vy, přihlaste se a obnovte své heslo."
+  }
+}
