@@ -50,6 +50,8 @@ export default defineNuxtConfig({
       { code: "pcm", iso: "pcm", name: "Pidgin", dir: "auto" },
       { code: "ko", iso: "ko", name: "Korean", dir: "auto" },
       { code: "ar", iso: "ar", name: "Arabic", dir: "rtl" },
+      { code: "cs", iso: "cs", name: "Czech", dir: "auto" },
+      { code: "fa", iso: "fa", name: "Farsi", dir: "rtl" },
     ],
     defaultLocale: "en",
     vueI18n: "./i18n.config.ts",
