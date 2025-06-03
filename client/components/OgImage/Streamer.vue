@@ -7,12 +7,12 @@ const props = defineProps({
   image: { type: String, required: false },
 });
 const {
-  public: { imageBaseUrl, apiServerSideBaseUrl },
+  public: { imageBaseUrl, imageServerSideBaseUrl },
 } = useRuntimeConfig();
 const title = computed(() => (props.title || "").slice(0, 60));
 const description = computed(() => (props.description || "").slice(0, 200));
 
-const baseUrl = computed(() => apiServerSideBaseUrl || imageBaseUrl);
+const baseUrl = computed(() => imageServerSideBaseUrl || imageBaseUrl);
 </script>
 
 <template>
