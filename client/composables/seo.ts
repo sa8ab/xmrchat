@@ -14,7 +14,7 @@ export const useAppSeoMeta = () => {
     twitterTitle: title,
     twitterDescription: description,
     // twitterImage: "https://xmrchat.com/images/xmrchat-banner.png",
-    twitterCard: "summary_large_image",
+    // twitterCard: "summary_large_image",
   });
 };
 
@@ -33,7 +33,6 @@ export const useStreamerIdSeoMeta = (
   useServerSeoMeta({
     ogTitle: t("head.XMRChatTip", { path: page.value?.path }),
     twitterTitle: t("head.XMRChatTip", { path: page.value?.path }),
-    twitterCard: "summary",
     // twitterImage: `${imageBaseUrl}${page.value?.logo.url}`,
     // ogImage: `${imageBaseUrl}${page.value?.logo.url}`,
   });
