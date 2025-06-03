@@ -10,6 +10,7 @@ export default defineNuxtConfig({
       apiBaseUrl: "",
       apiServerSideBaseUrl: "",
       imageBaseUrl: "http://localhost:9000",
+      imageServerSideBaseUrl: "",
       showLocaleSelect: "",
       activeLocales: "en,fr,de,es",
     },

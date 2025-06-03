@@ -7,10 +7,12 @@ const props = defineProps({
   image: { type: String, required: false },
 });
 const {
-  public: { imageBaseUrl },
+  public: { imageBaseUrl, apiServerSideBaseUrl },
 } = useRuntimeConfig();
 const title = computed(() => (props.title || "").slice(0, 60));
 const description = computed(() => (props.description || "").slice(0, 200));
+
+const baseUrl = computed(() => apiServerSideBaseUrl || imageBaseUrl);
 </script>
 
 <template>
@@ -82,7 +84,7 @@ const description = computed(() => (props.description || "").slice(0, 200));
         class="absolute top-0 right-0 rounded-full border-[#ff7f0a] border-2 object-cover object-center"
         width="340"
         height="340"
-        :src="`${imageBaseUrl}${image}`"
+        :src="`${baseUrl}${image}`"
       />
       <div
         class="absolute bottom-0 right-0 w-[120px] h-[120px] bg-[#fafafa] rounded-full p-4 border-[#d1d1d1] border-2"
