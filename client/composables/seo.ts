@@ -10,10 +10,10 @@ export const useAppSeoMeta = () => {
     description,
     ogTitle: title,
     ogDescription: description,
-    ogImage: "/images/xmrchat-banner.png",
+    // ogImage: "/images/xmrchat-banner.png",
     twitterTitle: title,
     twitterDescription: description,
-    twitterImage: "https://xmrchat.com/images/xmrchat-banner.png",
+    // twitterImage: "https://xmrchat.com/images/xmrchat-banner.png",
     twitterCard: "summary_large_image",
   });
 };

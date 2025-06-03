@@ -15,6 +15,12 @@ useHead({
 });
 
 useAppSeoMeta();
+defineOgImage({
+  component: "XMRChat",
+  props: {
+    title: "XMRChat",
+  },
+});
 </script>
 
 <template>

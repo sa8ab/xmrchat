@@ -43,7 +43,16 @@ const handlePaid = () => {
   contentRef.value?.reset();
 };
 
+const { t } = useI18n();
 useStreamerIdSeoMeta(data);
+defineOgImage({
+  component: "Streamer",
+  props: {
+    headline: t("head.tip", { path: data.value?.path || "" }),
+    title: data.value?.name || data.value?.path,
+    image: data.value?.coverImage.url,
+  },
+});
 </script>
 
 <template>
