@@ -50,7 +50,7 @@ defineOgImage({
   props: {
     headline: t("head.tip", { path: data.value?.path || "" }),
     title: data.value?.name || data.value?.path,
-    image: data.value?.coverImage.url,
+    image: data.value?.logo.url,
   },
 });
 </script>
