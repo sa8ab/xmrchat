@@ -34,7 +34,7 @@ export default {
   signup: "Registrovat se",
   forgetPassword: "Zapomenuté heslo?",
   loginDescription:
-    "Přihlaste se ke svému účtu pro přístup ke své veřejné stránce.",
+    "Přihlaste se ke svému účtu pro přístup ke své stránce.",
   resetPassword: "Obnovit heslo",
   enterYourNewPassword: "Zadejte nové heslo",
   passwordResetFailed: "Obnovení hesla selhalo",
@@ -43,7 +43,7 @@ export default {
     "Zaslali jsme vám e-mail na adresu {email}, prosím následujte odkaz v e-mailu pro resetování hesla.",
   changeEmail: "Změnit e-mail",
   enterEmailToResetPassword: "Zadejte svůj e-mail pro resetování hesla.",
-  creatorLogin: "Přihlášení tvůrce",
+  creatorLogin: "Přihlášení pro tvůrce",
   searchCreators: {
     title: "Hledat tvůrce",
     description: "Hledejte tvůrce s veřejnými stránkami na xmrchat.",
@@ -55,11 +55,11 @@ export default {
   xmrchat: "XMRChat",
   heroDescription: "Podpořte svého oblíbeného streamera kryptoměnou.",
   findCreators: "Najít tvůrce",
-  creatorsStartHere: "Tvůrci začněte zde",
+  creatorsStartHere: "Tvůrci začínají zde",
 
   FAQ: {
     title: "Často kladené dotazy",
-    whyTipWithXMRChat: "Proč tipovat pomocí XMRChat?",
+    whyTipWithXMRChat: "Proč používat právě XMRChat?",
     howToUseXMRChat: "Jak používat XMRChat?",
     whyUseMonero: "Proč XMRChat používá Monero?",
     whereToGetMonero: "Kde získat Monero?",
@@ -73,7 +73,7 @@ export default {
   censorshipResistant: {
     title: "Odolné vůči cenzuře",
     description:
-      "Přijímáním Monero tipů získáte příjem nezávislý na velkých technologických firmách a jejich svévolných pravidlech.",
+      "Přijímáním tipů v Monero získáte příjem nezávislý na velkých technologických firmách a jejich svévolných pravidlech.",
   },
   corruptionResistant: {
     title: "Odolné vůči korupci",
@@ -81,14 +81,14 @@ export default {
       "Mnohé režimy zabavují nebo zmrazují účty svých odpůrců. Monero vám umožní být vlastní bankou s plnou kontrolou nad financemi.",
   },
   private: {
-    title: "Soukromé",
+    title: "Ochrana soukromí",
     description:
       "Diváci mohou tipovat anonymně, bez obav, že se to dozví zaměstnavatel nebo jiní.",
   },
   quickAndEasy: {
     title: "Rychlé a snadné",
     description:
-      "Není třeba vytvářet účet, ověřovat e-mail nebo zadávat údaje o kartě. Fanoušci navštíví vaši stránku, zadají jméno, zprávu, částku a odešlou XMR tip.",
+      "Není třeba vytvářet účet, ověřovat e-mail nebo zadávat údaje o kartě. Fanoušci navštíví vaši stránku, zadají jméno, zprávu, částku a odešlou XMR.",
   },
   openSource: {
     title: "Open Source",
@@ -105,19 +105,19 @@ export default {
       "Na rozdíl od většiny kryptoměn, Monero skrývá informace o transakcích. Odesílatel, příjemce ani částky nejsou veřejně dostupné.",
   },
   accepted: {
-    title: "Akceptováno",
+    title: "Akceptované",
     description:
-      "Vyhněte se prodeji krypta na centralizovaných burzách. Nakupujte přímo u obchodníků, kteří přijímají Monero na {xmrbazaar} a {monerica}.",
+      "Vyhněte se prodeji kryptoměn na centralizovaných burzách. Raději nakupujte přímo u obchodníků, kteří přijímají Monero na {xmrbazaar} a {monerica}.",
   },
   andMore: {
-    title: "A více",
+    title: "A mnoho dalšího",
     description:
       "Více o Moneru zjistíte na {getmonero} a o jeho využití na {moneroeco}.",
   },
   forContentCreators: {
     title: "Pro tvůrce obsahu",
     description: {
-      main: `Klikněte na tlačítko "Tvůrci začněte zde". Vytvořte si účet na XMRChat. Vytvořte Tip stránku. Sdělte svému publiku její URL.`,
+      main: `Klikněte na tlačítko "Tvůrci začínají zde". Vytvořte si účet na XMRChat. Vytvořte Tip stránku. Sdělte svému publiku její URL.`,
       tutorialLink:
         "Alex Anarcho má skvělý návod jak používat XMRChat na {youtube}.",
       ifStreamyard: "Pokud používáte Streamyard:",
@@ -129,21 +129,21 @@ export default {
   forFans: {
     title: "Pro fanoušky",
     description:
-      "Přejděte na tip stránku tvůrce. Zadejte přezdívku a zprávu, vyberte částku a odešlete. Zobrazí se dialog s podrobnostmi. Vaše xmrchat se pak zobrazí na stránce streamera.",
+      "Přejděte na stránku pro tipy tvůrce. Zadejte svou přezdívku a zprávu, vyberte částku a odešlete. Zobrazí se dialog s podrobnostmi. Váš xmrchat se pak po odeslání částky zobrazí na stránce streamera.",
   },
   whereToGetMonero: {
     cakeWallet: "Kupte nebo směňte kryptoměny za Monero v {cakeWallet}.",
     stealthex:
       "Směňte kryptoměny za Monero (XMR) na {stealthex} nebo {kycnot}.",
     haveno:
-      "Kupte Monero bez KYC na {haveno}. Návod na hotovost poštou na {blog}.",
-    thisBlogPost: "Tento blogový příspěvek",
+      "Kupte Monero bez KYC na {haveno}. Návod na nákup v hotovostí přes poštu je na {blog}.",
+    thisBlogPost: "této stránce blogu",
     kraken: "Kupte Monero s KYC na {kraken}.",
     xmrbazaar: "Prodávejte zboží nebo služby za Monero na {xmrbazaar}.",
     gupax: "Těžte Monero pomocí {gupax}.",
-    kunoAnneMedia: "Vytvořte fundraiser pro Monero na {kunoAnneMedia}.",
+    kunoAnneMedia: "Začněte fundraising v Monero na {kunoAnneMedia}.",
     monerica:
-      "Přijímejte Monero ve svém podnikání a získejte zápis na stránkách {monerica} a {monerodirectory} a mapě obchodníků na {xmrbazaar}.",
+      "Přijímejte Monero ve svém podniku a buďte zveřejněni na stránkách {monerica}, {monerodirectory} a na mapě obchodních nabídek na {xmrbazaar}.",
   },
 
   tipName: "Jméno",
