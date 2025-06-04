@@ -5,7 +5,7 @@
     "title": "Ověření e-mailu",
     "followThisLink": "Kliknutím na tento odkaz ověříte svou e-mailovou adresu.",
     "confirmNow": "Potvrdit nyní",
-    "ifYouDidNotAskToVerifyThisAddress": "Pokud jste nepožádali o ověření této adresy, můžete tento e-mail ignorovat.",
+    "ifYouDidNotAskToVerifyThisAddress": "Pokud jste nežádali o ověření této adresy, můžete tento e-mail ignorovat.",
     "thanks": "Děkujeme",
     "XMRChatTeam": "Tým XMRChat"
   },
@@ -15,7 +15,7 @@
     "title": "Obnovení hesla",
     "followThisLink": "Obdrželi jsme žádost o obnovení hesla k tomuto uživatelskému účtu.",
     "resetNow": "Obnovit heslo",
-    "ifYouDidNotAskToResetPassword": "Pokud jste nepožádali o obnovení hesla, můžete tento e-mail ignorovat."
+    "ifYouDidNotAskToResetPassword": "Pokud jste nežádali o obnovení hesla, můžete tento e-mail ignorovat."
   },
   "passwordChange": {
     "subject": "Vaše heslo XMRChat bylo aktualizováno",
