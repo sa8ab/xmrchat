@@ -47,10 +47,12 @@ const handlePaid = () => {
 };
 
 const { t } = useI18n();
-useStreamerIdSeoMeta(data);
 defineOgImage({
   url: () => `${imageBaseUrl}${data.value?.logo.url}`,
+  width: 200,
+  height: 200,
 });
+useStreamerIdSeoMeta(data);
 </script>
 
 <template>

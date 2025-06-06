@@ -38,4 +38,7 @@ export const useStreamerIdSeoMeta = (
     // twitterImage: `${imageBaseUrl}${page.value?.logo.url}`,
     // ogImage: `${imageBaseUrl}${page.value?.logo.url}`,
   });
+  useSeoMeta({
+    twitterCard: "summary",
+  });
 };
