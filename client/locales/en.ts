@@ -137,7 +137,6 @@ export default {
       "Trade other crypto for Monero (XMR) at {stealthex} and others at {kycnot}.",
     haveno:
       "Buy Monero without KYC at {haveno}.",
-    thisBlogPost: "This blog post",
     kraken: "Buy Monero with KYC at {kraken}.",
     xmrbazaar: "Sell items or services for Monero at {xmrbazaar}.",
     gupax: "Mine it with {gupax}.",

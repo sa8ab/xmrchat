@@ -138,7 +138,6 @@ export default {
       "{stealthex} 및 {kycnot}에서 다른 암호화폐를 모네로로 교환하세요.",
     haveno:
       "{haveno}에서 KYC 없이 모네로를 구매하세요.",
-    thisBlogPost: "이 블로그 포스트",
     kraken: "KYC가 있는 {kraken}에서 모네로를 구매하세요.",
     xmrbazaar:
       "{xmrbazaar}에서 상품이나 서비스를 판매하여 모네로를 획득하세요.",

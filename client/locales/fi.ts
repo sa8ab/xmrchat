@@ -137,7 +137,6 @@ export default {
       "Voit vaihtaa muut kryptosi Moneroon (XMR) sivustoilla kuten {stealthex} ja {kycnot}.",
     haveno:
       "Osta Moneroa ilman KYC:tä {haveno}:sta.",
-    thisBlogPost: "Tämä blogikirjoitus",
     kraken: "Osta Moneroa KYC:llä {kraken}:sta.",
     xmrbazaar:
       "Myy tavaroita tai palveluita Monerolla osoitteessa {xmrbazaar}.",

@@ -134,7 +134,6 @@ export default {
       "تاجر بعملات مشفرة أخرى مقابل Monero (XMR) في {stealthex} وغيرها في {kycnot}",
     haveno:
       "اشترِ Monero بدون توثيق حساب في {haveno}",
-    thisBlogPost: "هذا المنشور في المدونة",
     kraken: "بإمكانك شراء Monero باستخدام حساب موثق في {kraken}",
     xmrbazaar: "بيع و شراء منتجات و خدمات مقابل Monero في {xmrbazaar}",
     gupax: "تعدين Monero من خلال {gupax}",
