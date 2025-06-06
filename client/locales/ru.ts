@@ -138,7 +138,7 @@ export default {
     stealthex:
       "Обменяйте криптовалюту на Monero (XMR) на {stealthex} и других платформах с {kycnot}.",
     haveno:
-      "Купите Monero без KYC на {haveno}. Инструкция по оплате наличными — на {blog}.",
+      "Купите Monero без KYC на {haveno}.",
     thisBlogPost: "Эта запись в блоге",
     kraken: "Купите Monero с KYC на {kraken}.",
     xmrbazaar: "Продавайте товары или услуги за Monero на {xmrbazaar}.",
