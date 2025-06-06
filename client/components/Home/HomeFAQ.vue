@@ -363,6 +363,12 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                       xmrbazaar.com
                     </UButton>
                   </template>
+
+                  <template #bankexit>
+                    <UButton to="https://bank-exit.org/map" v-bind="linkProps">
+                      bank-exit.org
+                    </UButton>
+                  </template>
                 </I18nT>
               </p>
             </li>

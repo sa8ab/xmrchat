@@ -143,7 +143,7 @@ export default {
     gupax: "Mine it with {gupax}.",
     kunoAnneMedia: "Create a Monero Fundraiser at {kunoAnneMedia}.",
     monerica:
-      "Accept Monero at your business and get listed at the {monerica} and {monerodirectory} pages and the business listings map on {xmrbazaar}.",
+      "Accept Monero at your business and get listed at the {monerica} and {monerodirectory} pages and the business listings map on {xmrbazaar} and {bankexit}.",
   },
 
   // TIP PAGE
