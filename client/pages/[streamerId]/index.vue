@@ -47,8 +47,8 @@ const handlePaid = () => {
 };
 
 const { t } = useI18n();
-useStreamerIdSeoMeta(data);
 defineOgImage(false);
+useStreamerIdSeoMeta(data);
 </script>
 
 <template>

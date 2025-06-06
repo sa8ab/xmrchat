@@ -103,5 +103,6 @@ export default defineNuxtConfig({
 
   seo: {
     fallbackTitle: false,
+    automaticOgAndTwitterTags: false,
   },
 });
