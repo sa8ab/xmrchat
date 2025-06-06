@@ -9,6 +9,9 @@ definePageMeta({
 
 const route = useRoute();
 const streamerId = computed(() => route.params.streamerId as string);
+const {
+  public: { imageBaseUrl },
+} = useRuntimeConfig();
 const { getStreamerPage } = useServices();
 const { state: generalState } = useGeneralStore();
 const contentRef = ref<InstanceType<typeof TipContent> | undefined>();
@@ -46,12 +49,7 @@ const handlePaid = () => {
 const { t } = useI18n();
 useStreamerIdSeoMeta(data);
 defineOgImage({
-  component: "Streamer",
-  props: {
-    headline: t("head.tip", { path: data.value?.path || "" }),
-    title: data.value?.name || data.value?.path,
-    image: data.value?.logo.url,
-  },
+  url: () => `${imageBaseUrl}${data.value?.logo.url}`,
 });
 </script>
 

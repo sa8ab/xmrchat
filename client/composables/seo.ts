@@ -33,6 +33,8 @@ export const useStreamerIdSeoMeta = (
   useServerSeoMeta({
     ogTitle: t("head.XMRChatTip", { path: page.value?.path }),
     twitterTitle: t("head.XMRChatTip", { path: page.value?.path }),
+    ogDescription: t("head.XMRChatTip", { path: page.value?.path }),
+    twitterDescription: null,
     // twitterImage: `${imageBaseUrl}${page.value?.logo.url}`,
     // ogImage: `${imageBaseUrl}${page.value?.logo.url}`,
   });
