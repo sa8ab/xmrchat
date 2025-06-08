@@ -33,8 +33,7 @@ export default {
   loginFailed: "Přihlášení selhalo",
   signup: "Registrovat se",
   forgetPassword: "Zapomenuté heslo?",
-  loginDescription:
-    "Přihlaste se ke svému účtu pro přístup ke své stránce.",
+  loginDescription: "Přihlaste se ke svému účtu pro přístup ke své stránce.",
   resetPassword: "Obnovit heslo",
   enterYourNewPassword: "Zadejte nové heslo",
   passwordResetFailed: "Obnovení hesla selhalo",
@@ -135,14 +134,13 @@ export default {
     cakeWallet: "Kupte nebo směňte kryptoměny za Monero v {cakeWallet}.",
     stealthex:
       "Směňte kryptoměny za Monero (XMR) na {stealthex} nebo {kycnot}.",
-    haveno:
-      "Kupte Monero bez KYC na {haveno}.",
+    haveno: "Kupte Monero bez KYC na {haveno}.",
     kraken: "Kupte Monero s KYC na {kraken}.",
     xmrbazaar: "Prodávejte zboží nebo služby za Monero na {xmrbazaar}.",
     gupax: "Těžte Monero pomocí {gupax}.",
     kunoAnneMedia: "Začněte fundraising v Monero na {kunoAnneMedia}.",
     monerica:
-      "Přijímejte Monero ve svém podniku a buďte zveřejněni na stránkách {monerica}, {monerodirectory} a na mapě obchodních nabídek na {xmrbazaar}.",
+      "Přijímejte Monero ve svém podniku a buďte zveřejněni na stránkách {monerica}, {monerodirectory} a na mapě obchodních nabídek na {xmrbazaar} a {bankexit}.",
   },
 
   tipName: "Jméno",

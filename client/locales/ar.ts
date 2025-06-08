@@ -132,14 +132,13 @@ export default {
     cakeWallet: "اشترِ أو تاجر بعملات مشفرة أخرى مقابل Monero في {cakeWallet}",
     stealthex:
       "تاجر بعملات مشفرة أخرى مقابل Monero (XMR) في {stealthex} وغيرها في {kycnot}",
-    haveno:
-      "اشترِ Monero بدون توثيق حساب في {haveno}",
+    haveno: "اشترِ Monero بدون توثيق حساب في {haveno}",
     kraken: "بإمكانك شراء Monero باستخدام حساب موثق في {kraken}",
     xmrbazaar: "بيع و شراء منتجات و خدمات مقابل Monero في {xmrbazaar}",
     gupax: "تعدين Monero من خلال {gupax}",
     kunoAnneMedia: "أنشئ حملة تمويل Monero في {kunoAnneMedia}",
     monerica:
-      "اضافة دفع Monero في متجرك يؤهلك لادراج متجرك على خرائط Monero و مجانا على المواقع التالية: {monerica} و {monerodirectory} و {xmrbazaar}",
+      "اضافة دفع Monero في متجرك يؤهلك لادراج متجرك على خرائط Monero و مجانا على المواقع التالية: {monerica} و {monerodirectory} و {xmrbazaar} و {bankexit}",
   },
 
   // TIP PAGE

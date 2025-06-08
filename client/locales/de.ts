@@ -139,15 +139,14 @@ export default {
       "Kaufe oder tausche Monero gegen andere Kryptowährungen bei {cakeWallet}.",
     stealthex:
       "Tausche Monero gegen andere Kryptowährungen bei {stealthex} oder {kycnot}.",
-    haveno:
-      "Kaufe Monero ohne KYC bei {haveno}.",
+    haveno: "Kaufe Monero ohne KYC bei {haveno}.",
     kraken: "Kaufe Monero mit KYC bei {kraken} (nur bei Kraken USA).",
     xmrbazaar:
       "Verkaufe Artikel oder Dienstleistungen für Monero bei {xmrbazaar}.",
     gupax: "Mine Monero mit {gupax}.",
     kunoAnneMedia: "Erstelle eine Monero-Spendenaktion bei {kunoAnneMedia}.",
     monerica:
-      "Akzeptiere Monero in deinem Unternehmen und werde auf den Seiten {monerica} und {monerodirectory}, sowie auf der Geschäftsübersichtskarte bei {xmrbazaar} gelistet.",
+      "Akzeptiere Monero in deinem Unternehmen und werde auf den Seiten {monerica} und {monerodirectory}, sowie auf der Geschäftsübersichtskarte bei {xmrbazaar} und {bankexit} gelistet.",
   },
 
   // TIP PAGE

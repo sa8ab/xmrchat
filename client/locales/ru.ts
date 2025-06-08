@@ -137,14 +137,13 @@ export default {
     cakeWallet: "Купите или обменяйте крипту на Monero в {cakeWallet}.",
     stealthex:
       "Обменяйте криптовалюту на Monero (XMR) на {stealthex} и других платформах с {kycnot}.",
-    haveno:
-      "Купите Monero без KYC на {haveno}.",
+    haveno: "Купите Monero без KYC на {haveno}.",
     kraken: "Купите Monero с KYC на {kraken}.",
     xmrbazaar: "Продавайте товары или услуги за Monero на {xmrbazaar}.",
     gupax: "Добывайте его с помощью {gupax}.",
     kunoAnneMedia: "Создайте сбор средств в Monero на {kunoAnneMedia}.",
     monerica:
-      "Принимайте Monero в своём бизнесе и появляйтесь в каталогах {monerica}, {monerodirectory} и на карте на {xmrbazaar}.",
+      "Принимайте Monero в своём бизнесе и появляйтесь в каталогах {monerica}, {monerodirectory} и на карте на {xmrbazaar} и {bankexit}.",
   },
 
   tipName: "Имя",

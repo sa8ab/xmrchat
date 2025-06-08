@@ -190,15 +190,14 @@ export default {
       "Achetez ou échangez d'autres cryptomonnaies contre du Monero sur {cakeWallet}.",
     stealthex:
       "Échangez d'autres cryptomonnaies contre du Monero (XMR) sur {stealthex} et d'autres sur {kycnot}.",
-    haveno:
-      "Achetez du Monero sans KYC sur {haveno}.",
+    haveno: "Achetez du Monero sans KYC sur {haveno}.",
     kraken: "Achetez du Monero avec KYC sur {kraken}.",
     xmrbazaar:
       "Vendez des articles ou des services pour du Monero sur {xmrbazaar}.",
     gupax: "Minez-le avec {gupax}.",
     kunoAnneMedia: "Créez une collecte de fonds Monero sur {kunoAnneMedia}.",
     monerica:
-      "Acceptez le Monero dans votre entreprise et soyez répertorié sur les pages {monerica} et {monerodirectory} et sur la carte des entreprises sur {xmrbazaar}.",
+      "Acceptez le Monero dans votre entreprise et soyez répertorié sur les pages {monerica} et {monerodirectory} et sur la carte des entreprises sur {xmrbazaar} et {bankexit}.",
   },
 
   // CREATE PAGE

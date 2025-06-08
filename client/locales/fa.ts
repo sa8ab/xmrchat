@@ -134,14 +134,13 @@ export default {
     cakeWallet: "خرید یا مبادله سایر ارزهای دیجیتال با Monero در {cakeWallet}.",
     stealthex:
       "مبادله سایر ارزهای دیجیتال با Monero (XMR) در {stealthex} و دیگران در {kycnot}.",
-    haveno:
-      "خرید Monero بدون KYC در {haveno}.",
+    haveno: "خرید Monero بدون KYC در {haveno}.",
     kraken: "خرید Monero با KYC در {kraken}.",
     xmrbazaar: "فروش کالا یا خدمات برای Monero در {xmrbazaar}.",
     gupax: "استخراج آن با {gupax}.",
     kunoAnneMedia: "ایجاد یک کمپین جمع‌آوری Monero در {kunoAnneMedia}.",
     monerica:
-      "پذیرش Monero در کسب‌وکار خود و ثبت در صفحات {monerica} و {monerodirectory} و نقشه لیست کسب‌وکارها در {xmrbazaar}.",
+      "پذیرش Monero در کسب‌وکار خود و ثبت در صفحات {monerica} و {monerodirectory} و نقشه لیست کسب‌وکارها در {xmrbazaar} و {bankexit}.",
   },
 
   // TIP PAGE

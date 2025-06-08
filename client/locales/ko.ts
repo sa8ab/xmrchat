@@ -136,15 +136,14 @@ export default {
       "{cakeWallet}에서 다른 암호화폐로 모네로를 구매하거나 교환하세요.",
     stealthex:
       "{stealthex} 및 {kycnot}에서 다른 암호화폐를 모네로로 교환하세요.",
-    haveno:
-      "{haveno}에서 KYC 없이 모네로를 구매하세요.",
+    haveno: "{haveno}에서 KYC 없이 모네로를 구매하세요.",
     kraken: "KYC가 있는 {kraken}에서 모네로를 구매하세요.",
     xmrbazaar:
       "{xmrbazaar}에서 상품이나 서비스를 판매하여 모네로를 획득하세요.",
     gupax: "{gupax}에서 모네로를 채굴하세요.",
     kunoAnneMedia: "{kunoAnneMedia}에서 모네로 모금 캠페인을 시작하세요.",
     monerica:
-      "당신의 사업에서 모네로 결제를 허용하고 {monerica}, {monerodirectory} 그리고 {xmrbazaar}의 모네로 사용 가능 사업 목록에 등록되세요.",
+      "당신의 사업에서 모네로 결제를 허용하고 {monerica}, {monerodirectory} 그리고 {xmrbazaar}, {bankexit}의 모네로 사용 가능 사업 목록에 등록되세요.",
   },
 
   tipName: "이름",

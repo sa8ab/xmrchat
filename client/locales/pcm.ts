@@ -118,14 +118,13 @@ export default {
     cakeWallet: "Buy or change crypto for Monero inside {cakeWallet}.",
     stealthex:
       "Change your crypto go Monero (XMR) for {stealthex} and other places like {kycnot}.",
-    haveno:
-      "Buy Monero without KYC for {haveno}.",
+    haveno: "Buy Monero without KYC for {haveno}.",
     kraken: "Buy Monero with KYC for {kraken}.",
     xmrbazaar: "Sell things or service collect Monero for {xmrbazaar}.",
     gupax: "Mine Monero with {gupax}.",
     kunoAnneMedia: "Create Monero fundraiser for {kunoAnneMedia}.",
     monerica:
-      "Collect Monero for your business and get listed for {monerica}, {monerodirectory}, and business map for {xmrbazaar}.",
+      "Collect Monero for your business and get listed for {monerica}, {monerodirectory}, and business map for {xmrbazaar} and {bankexit}.",
   },
   forContentCreators: {
     title: "For Content Creators",
