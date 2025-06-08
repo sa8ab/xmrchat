@@ -135,8 +135,7 @@ export default {
     stealthex:
       "مبادله سایر ارزهای دیجیتال با Monero (XMR) در {stealthex} و دیگران در {kycnot}.",
     haveno:
-      "خرید Monero بدون KYC در {haveno}. آموزش خرید با پست نقدی در {blog}.",
-    thisBlogPost: "این پست وبلاگ",
+      "خرید Monero بدون KYC در {haveno}.",
     kraken: "خرید Monero با KYC در {kraken}.",
     xmrbazaar: "فروش کالا یا خدمات برای Monero در {xmrbazaar}.",
     gupax: "استخراج آن با {gupax}.",

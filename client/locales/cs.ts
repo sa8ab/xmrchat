@@ -136,8 +136,7 @@ export default {
     stealthex:
       "Směňte kryptoměny za Monero (XMR) na {stealthex} nebo {kycnot}.",
     haveno:
-      "Kupte Monero bez KYC na {haveno}. Návod na nákup v hotovostí přes poštu je na {blog}.",
-    thisBlogPost: "této stránce blogu",
+      "Kupte Monero bez KYC na {haveno}.",
     kraken: "Kupte Monero s KYC na {kraken}.",
     xmrbazaar: "Prodávejte zboží nebo služby za Monero na {xmrbazaar}.",
     gupax: "Těžte Monero pomocí {gupax}.",

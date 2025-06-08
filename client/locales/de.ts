@@ -140,8 +140,7 @@ export default {
     stealthex:
       "Tausche Monero gegen andere Kryptowährungen bei {stealthex} oder {kycnot}.",
     haveno:
-      "Kaufe Monero ohne KYC bei {haveno}. Ein Tutorial für Bargeld per Post findest du auf {blog}.",
-    thisBlogPost: "diesem Blogbeitrag",
+      "Kaufe Monero ohne KYC bei {haveno}.",
     kraken: "Kaufe Monero mit KYC bei {kraken} (nur bei Kraken USA).",
     xmrbazaar:
       "Verkaufe Artikel oder Dienstleistungen für Monero bei {xmrbazaar}.",
