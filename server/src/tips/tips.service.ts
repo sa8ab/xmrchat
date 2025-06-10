@@ -167,9 +167,6 @@ export class TipsService {
       baseSwap = res.baseSwap;
       inputCoin = res.coin;
     }
-
-    console.log(baseSwap || 'Not swap.');
-
     // Create and save tip record
     const createdTip = this.repo.create({
       message: payload.message,
@@ -224,7 +221,7 @@ export class TipsService {
       return;
     }
 
-    this.logger.log(`Tip ${tip.swap ? 'Has Swap' : 'Does not have swap'}.`);
+    // this.logger.log(`Tip ${tip.swap ? 'Has Swap' : 'Does not have swap'}.`);
 
     const savedPayment = await this.paymentsService.updatePaidAmount(
       payment.id,

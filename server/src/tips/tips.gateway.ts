@@ -21,15 +21,19 @@ export class TipsGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   async handleConnection(client: Socket) {
     const tipId = client.handshake.auth.tipId;
-    this.logger.log(`Recovered: ${client.recovered}`);
-    this.logger.log(`Client ${client.id} connected - TipId: ${tipId}`);
+    if (client.recovered) {
+      this.logger.log(`Client ${client.id} recovered`);
+    }
+    // this.logger.log(`Client ${client.id} connected - TipId: ${tipId}`);
 
+    // This is used to trigger the connection recovery
     client.emit('dummyEvent');
+
     await client.join(`tip-${tipId}`);
   }
 
   handleDisconnect(client: any) {
-    this.logger.log(`Client ${client.id} disconnected`);
+    // this.logger.log(`Client ${client.id} disconnected`);
   }
 
   notifyTipPayment(tipId: number, payment: Payment) {
