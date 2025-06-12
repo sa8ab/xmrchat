@@ -64,6 +64,7 @@ export default {
   FAQ: {
     title: "FAQ",
     whyTipWithXMRChat: "Pourquoi donner des pourboires avec XMRChat ?",
+    howToUseXMRChat: "Comment utiliser XMRChat ?",
     whyUseMonero: "Pourquoi XMRChat utilise-t-il Monero ?",
     whereToGetMonero: "Où obtenir du Monero ?",
   },
@@ -117,6 +118,23 @@ export default {
   andMore: {
     title: "Et plus encore",
     description: "En savoir plus sur Monero sur {getmonero}.",
+  },
+  forContentCreators: {
+    title: "Pour les Créateurs de Contenu",
+    description: {
+      main: `Cliquez sur le bouton "Les créateurs commencent ici". Créez un compte XMRChat. Créez une page de pourboire. Faites connaître l'URL de votre page de pourboire à votre public.`,
+      tutorialLink:
+        "Alex Anarcho a un excellent tutoriel sur l'utilisation de XMRChat sur {youtube}.",
+      ifStreamyard: "Si vous utilisez Streamyard :",
+      ifOBS: "Si vous utilisez OBS :",
+      streamyard: `Allez dans le menu "Modifier la page de pourboires". Assurez-vous d'avoir ajouté votre nom d'utilisateur de chaîne Twitch. Lors du démarrage du stream dans Streamyard, ajoutez Twitch comme destination. Le bot XMRChat (xmr-chat sur Twitch) enverra le message de pourboire sur Twitch et vous pourrez l'afficher sur votre écran depuis Streamyard. Le logo du bot xmrchat s'affiche le mieux avec le paramètre "Minimal".`,
+      obs: `Allez dans le menu "OBS". Cliquez sur "Copier le lien de la page OBS". Ajoutez une source navigateur dans OBS et collez le lien.`,
+    },
+  },
+  forFans: {
+    title: "Pour les Fans",
+    description:
+      "Allez à l'URL de la page de pourboires de votre créateur de contenu. Saisissez votre nom d'utilisateur et votre message, choisissez le montant du pourboire, puis envoyez. Une boîte de dialogue apparaîtra avec les détails du pourboire. Votre xmrchat sera affiché sur la page du streamer après l'envoi du pourboire.",
   },
 
   // TIP PAGE
@@ -302,7 +320,7 @@ export default {
   // HEAD
   head: {
     description:
-      "Spectateurs, envoyez des messages et des pourboires facilement et en toute confidentialité. Streamers, gardez presque tous vos pourboires au lieu d’en donner 30 à 50 % aux géants de la tech.",
+      "Spectateurs, envoyez des messages et des pourboires facilement et en toute confidentialité. Streamers, gardez presque tous vos pourboires au lieu d'en donner 30 à 50 % aux géants de la tech.",
     title: "Envoyez un message et un pourboire avec Monero",
     XMRChatTip: "XMRChat - Donnez un pourboire à {path} avec Monero",
     tip: "Donner un pourboire à {path}",

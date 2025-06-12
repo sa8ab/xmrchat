@@ -89,6 +89,14 @@ export class PagesService {
     };
   }
 
+  async sitemapPages() {
+    const pages = await this.repo.find({
+      where: { isPublic: true, status: PageStatusEnum.ACTIVE },
+    });
+
+    return { pages };
+  }
+
   async adminSearchPages(
     slug: string = '',
     offset: number = 0,

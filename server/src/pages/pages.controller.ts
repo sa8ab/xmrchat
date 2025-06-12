@@ -50,6 +50,13 @@ export class PagesController {
     return this.pagesService.searchPages(slug, offset, limit);
   }
 
+  @Get('/sitemap')
+  @IsPublic()
+  @Serialize(SearchPageDto)
+  sitemapPages() {
+    return this.pagesService.sitemapPages();
+  }
+
   @Get('/:slug')
   @IsPublic()
   @Serialize(PageDto)

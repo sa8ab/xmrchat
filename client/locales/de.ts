@@ -62,6 +62,7 @@ export default {
   FAQ: {
     title: "FAQ",
     whyTipWithXMRChat: "Warum mit XMRChat Trinkgeld verschicken?",
+    howToUseXMRChat: "Wie verwende ich XMRChat?",
     whyUseMonero: "Warum verwendet XMRChat Monero?",
     whereToGetMonero: "Wo bekomme ich Monero?",
   },
@@ -116,7 +117,23 @@ export default {
     title: "Und mehr",
     description: "Erfahre mehr über Monero auf {getmonero}.",
   },
-
+  forContentCreators: {
+    title: "Für Content Creator",
+    description: {
+      main: `Klicken Sie auf die Schaltfläche "Ersteller starten hier". Erstellen Sie ein XMRChat-Konto. Erstellen Sie eine Trinkgeldseite. Teilen Sie Ihrem Publikum die URL Ihrer Trinkgeldseite mit.`,
+      tutorialLink:
+        "Alex Anarcho hat ein großartiges Tutorial zur Verwendung von XMRChat auf {youtube}.",
+      ifStreamyard: "Wenn Sie Streamyard verwenden:",
+      ifOBS: "Wenn du OBS verwendest:",
+      streamyard: `Gehe zum Menüpunkt "Trinkgeld-Seite bearbeiten". Stelle sicher, dass du deinen Twitch-Kanalnamen hinzugefügt hast. Wenn du den Stream in Streamyard startest, füge Twitch als Ziel hinzu. Der XMRChat-Bot (xmr-chat auf Twitch) wird die Trinkgeld-Nachricht auf Twitch senden und du kannst sie auf deinem Bildschirm von Streamyard anzeigen. Das angezeigte xmrchat-Bot-Logo sieht am besten mit der "Minimal"-Einstellung aus.`,
+      obs: `Gehe zum "OBS"-Menüpunkt. Klicke auf "OBS-Seitenlink kopieren". Füge eine Browserquelle in OBS hinzu und füge den Link ein.`,
+    },
+  },
+  forFans: {
+    title: "Für Fans",
+    description:
+      "Gehe zur URL der Trinkgeld-Seite deines Content Creators. Gib Benutzernamen und Nachricht ein, wähle den Trinkgeld-Betrag und sende ab. Ein Dialog mit den Trinkgeld-Details wird erscheinen. Dein xmrchat wird auf der Seite des Streamers angezeigt, nachdem das Trinkgeld gesendet wurde.",
+  },
   whereToGetMonero: {
     cakeWallet:
       "Kaufe oder tausche Monero gegen andere Kryptowährungen bei {cakeWallet}.",

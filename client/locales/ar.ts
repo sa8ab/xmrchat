@@ -58,6 +58,7 @@ export default {
   FAQ: {
     title: "الأسئلة الشائعة",
     whyTipWithXMRChat: "لماذا التبرع باستخدام XMRChat؟",
+    howToUseXMRChat: "كيفية استخدام XMRChat؟",
     whyUseMonero: "لماذا يستخدم XMRChat عملة Monero؟",
     whereToGetMonero: "أين يمكن الحصول على Monero؟",
   },
@@ -110,7 +111,23 @@ export default {
     title: "والمزيد",
     description: "تعرف على المزيد عن Monero في {getmonero}",
   },
-
+  forContentCreators: {
+    title: "لصانعي المحتوى",
+    description: {
+      main: `انقر على زر "ابدأ هنا للمبدعين". أنشئ حساب XMRChat. أنشئ صفحة البقشيش. أخبر جمهورك بعنوان URL لصفحة البقشيش الخاصة بك.`,
+      tutorialLink:
+        "لدى Alex Anarcho برنامج تعليمي رائع حول كيفية استخدام XMRChat على {youtube}.",
+      ifStreamyard: "إذا كنت تستخدم Streamyard:",
+      ifOBS: "إذا كنت تستخدم OBS:",
+      streamyard: `انتقل إلى عنصر القائمة "تعديل صفحة التبرع". تأكد من إضافة اسم مستخدم قناة Twitch الخاصة بك. عند بدء البث في Streamyard، أضف Twitch كوجهة. سيرسل روبوت XMRChat (xmr-chat على Twitch) رسالة التبرع على Twitch ويمكنك عرضها على شاشتك من Streamyard. يبدو شعار روبوت xmrchat أفضل مع إعداد "Minimal".`,
+      obs: `انتقل إلى عنصر القائمة "OBS". انقر على "نسخ رابط صفحة OBS". أضف مصدر متصفح في OBS والصق الرابط.`,
+    },
+  },
+  forFans: {
+    title: "للمعجبين",
+    description:
+      "انتقل إلى عنوان URL لصفحة التبرع الخاصة بصانع المحتوى المفضل لديك. أدخل اسم المستخدم والرسالة، اختر مبلغ التبرع، ثم أرسل. ستظهر نافذة منبثقة مع تفاصيل التبرع. سيتم عرض xmrchat الخاص بك على صفحة صانع المحتوى بعد إرسال التبرع.",
+  },
   whereToGetMonero: {
     cakeWallet: "اشترِ أو تاجر بعملات مشفرة أخرى مقابل Monero في {cakeWallet}",
     stealthex:

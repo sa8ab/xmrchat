@@ -126,5 +126,6 @@ export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
     disconnect,
     connectionStatus,
     reconnect,
+    socket,
   };
 };
