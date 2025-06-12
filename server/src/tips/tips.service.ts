@@ -280,4 +280,47 @@ export class TipsService {
       this.logger.log(`Deleted ${count} Tips.`);
     }
   }
+
+  @Cron(CronExpression.EVERY_MINUTE)
+  async deleteExpiredWebhooks() {
+    const [tips, count] = await this.repo
+      .createQueryBuilder('tip')
+      .leftJoinAndSelect('tip.payment', 'payment')
+      .leftJoinAndSelect('tip.swap', 'swap')
+      .where('payment.paidAt IS NULL')
+      .andWhere('tip.webhookDeleted = false')
+      .andWhere(
+        `
+        (CASE
+          WHEN swap.id IS NOT NULL THEN tip.expires_at + interval '2 hours'
+          ELSE tip.expires_at
+        END) < NOW()
+      `,
+      )
+      .getManyAndCount();
+
+    if (!count) return;
+
+    const expiredTips = tips.filter((tip) => tip.payment?.eventId);
+    const eventIds = expiredTips.map((tip) => tip.payment.eventId);
+
+    if (!eventIds.length) return;
+
+    this.logger.log(
+      `Deleting webhooks for ${eventIds.length} expired tips: ${eventIds}`,
+    );
+
+    try {
+      await this.lwsService.deleteWebhook(eventIds);
+    } catch (error) {
+      this.logger.warn(
+        `Failed to delete webhook for tips: ${error?.message || error}`,
+      );
+    }
+
+    await this.repo.update(
+      { id: In(expiredTips.map((tip) => tip.id)) },
+      { webhookDeleted: true },
+    );
+  }
 }

@@ -2,6 +2,7 @@ import { Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Command, CommandRunner, Option } from 'nest-commander';
 import { Page } from 'src/pages/page.entity';
+import { Tip } from 'src/tips/tip.entity';
 import { Repository } from 'typeorm';
 
 @Command({
@@ -13,6 +14,7 @@ export class DataMigrationCommand extends CommandRunner {
 
   constructor(
     @InjectRepository(Page) private readonly pagesRepo: Repository<Page>,
+    @InjectRepository(Tip) private readonly tipsRepo: Repository<Tip>,
   ) {
     super();
   }
@@ -27,6 +29,12 @@ export class DataMigrationCommand extends CommandRunner {
       this.logger.log(
         'Change the values in defaultTipAmountDisplay to tipDisplayMode',
       );
+      return;
+    }
+
+    if (options.migration === 'add-expires-at-to-tips') {
+      await this.addExpiresAtToTips();
+      this.logger.log('Added expiresAt to tips');
       return;
     }
 
@@ -49,6 +57,16 @@ export class DataMigrationCommand extends CommandRunner {
         tipDisplayMode: () =>
           `CASE WHEN default_tip_amount_display = 'usd' THEN 'fiat' ELSE default_tip_amount_display END`,
       });
+
+    await query.execute();
+  }
+
+  async addExpiresAtToTips() {
+    const query = this.tipsRepo
+      .createQueryBuilder('tip')
+      .update()
+      .where('expires_at IS NOT NULL')
+      .set({ expiresAt: () => 'NOW()' });
 
     await query.execute();
   }
