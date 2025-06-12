@@ -63,9 +63,9 @@ export class DataMigrationCommand extends CommandRunner {
 
   async addExpiresAtToTips() {
     const query = this.tipsRepo
-      .createQueryBuilder('tip')
+      .createQueryBuilder()
       .update()
-      .where('expires_at IS NOT NULL')
+      .where('expires_at IS NULL')
       .set({ expiresAt: () => 'NOW()' });
 
     await query.execute();
