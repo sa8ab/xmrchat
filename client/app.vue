@@ -5,6 +5,8 @@ const { t } = useI18n();
 const lang = computed(() => localeProperties.value?.code);
 const dir = computed(() => localeProperties.value?.dir);
 
+const i18nHead = useLocaleHead()
+
 useHead({
   titleTemplate: (title?: string) =>
     title ? `${title} | XMRChat` : t("moneroSuperchats"),
