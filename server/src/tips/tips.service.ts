@@ -292,7 +292,7 @@ export class TipsService {
       .andWhere(
         `
         (CASE
-          WHEN swap.id IS NOT NULL THEN tip.expires_at + interval '2 hours'
+          WHEN swap.id IS NOT NULL THEN tip.expires_at + interval '3 hours'
           ELSE tip.expires_at
         END) < NOW()
       `,
