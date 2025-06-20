@@ -77,11 +77,11 @@ export class LwsService {
     }
   }
 
-  async deleteWebhook(eventId: string) {
+  async deleteWebhook(eventId: string | string[]) {
     const { data } = await this.httpService.axiosRef.post(
       '/webhook_delete_uuid',
       {
-        params: { event_ids: [eventId] },
+        params: { event_ids: Array.isArray(eventId) ? eventId : [eventId] },
       },
     );
 

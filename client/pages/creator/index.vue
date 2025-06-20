@@ -3,6 +3,12 @@ const { getCreators } = useServices();
 
 const route = useRoute();
 const { t } = useI18n();
+defineOgImage({
+  component: "XMRChat",
+  props: {
+    headline: t("searchCreators.title"),
+  },
+});
 
 const { page, offset, limit } = useFilter({
   initialPage: parseInt(route.query.page as string) || 1,

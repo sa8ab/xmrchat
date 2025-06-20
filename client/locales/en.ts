@@ -136,14 +136,13 @@ export default {
     stealthex:
       "Trade other crypto for Monero (XMR) at {stealthex} and others at {kycnot}.",
     haveno:
-      "Buy Monero without KYC at {haveno}. Cash by mail tutorial at {blog}.",
-    thisBlogPost: "This blog post",
+      "Buy Monero without KYC at {haveno}.",
     kraken: "Buy Monero with KYC at {kraken}.",
     xmrbazaar: "Sell items or services for Monero at {xmrbazaar}.",
     gupax: "Mine it with {gupax}.",
     kunoAnneMedia: "Create a Monero Fundraiser at {kunoAnneMedia}.",
     monerica:
-      "Accept Monero at your business and get listed at the {monerica} and {monerodirectory} pages and the business listings map on {xmrbazaar}.",
+      "Accept Monero at your business and get listed at the {monerica} and {monerodirectory} pages and the business listings map on {xmrbazaar} and {bankexit}.",
   },
 
   // TIP PAGE

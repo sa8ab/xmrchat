@@ -9,6 +9,9 @@ definePageMeta({
 
 const route = useRoute();
 const streamerId = computed(() => route.params.streamerId as string);
+const {
+  public: { imageBaseUrl },
+} = useRuntimeConfig();
 const { getStreamerPage } = useServices();
 const { state: generalState } = useGeneralStore();
 const contentRef = ref<InstanceType<typeof TipContent> | undefined>();
@@ -43,6 +46,8 @@ const handlePaid = () => {
   contentRef.value?.reset();
 };
 
+const { t } = useI18n();
+defineOgImage(false);
 useStreamerIdSeoMeta(data);
 </script>
 

@@ -1,0 +1,7 @@
+{
+  "isEmail": "$t(field.{property}) musí být platný e-mail",
+  "isString": "$t(field.{property}) musí být textový řetězec",
+  "maxLength": "$t(field.{property}) musí být kratší než nebo rovno {constraints.0} znakům",
+  "minLength": "$t(field.{property}) musí být delší než nebo rovno {constraints.0} znakům",
+  "isBoolean": "$t(field.{property}) musí být ano/ne (boolean)"
+}

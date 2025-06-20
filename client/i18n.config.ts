@@ -7,6 +7,8 @@ import fi from "./locales/fi";
 import pcm from "./locales/pcm";
 import ko from "./locales/ko";
 import ar from "./locales/ar";
+import cs from "./locales/cs";
+import fa from "./locales/fa";
 
 export default defineI18nConfig(() => ({
   legacy: false,
@@ -20,5 +22,7 @@ export default defineI18nConfig(() => ({
     pcm,
     ko,
     ar,
+    cs,
+    fa,
   },
 }));
