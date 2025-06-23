@@ -62,5 +62,8 @@ export const generateWalletLink = (data: {
   if (data.ticker === "bch")
     return `bitcoincash:${data.address}?amount=${data.amount}`;
 
+  if (data.ticker === "usdt")
+    return `tron:${data.address}?amount=${data.amount}`;
+
   return undefined;
 };

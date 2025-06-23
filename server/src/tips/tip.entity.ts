@@ -36,6 +36,9 @@ export class Tip {
   @Column({ type: 'timestamptz', nullable: true })
   expiresAt: Date;
 
+  @Column({ type: 'boolean', default: false })
+  webhookDeleted: boolean;
+
   @ManyToOne(() => Page, { onDelete: 'CASCADE' })
   @JoinColumn({ foreignKeyConstraintName: 'tips_page_id_fkey' })
   page: Page;

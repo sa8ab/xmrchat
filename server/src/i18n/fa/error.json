@@ -1,0 +1,7 @@
+{
+  "userAlreadyExists": "کاربر از قبل وجود دارد.",
+  "userCouldNotBeCreated": "کاربر قابل ایجاد نبود.",
+  "userNotFound": "کاربر یافت نشد.",
+  "usernamePasswordIncorrect": "نام کاربری/رمز عبور نادرست است.",
+  "invalidCredentials": "اعتبارنامه‌ها نامعتبر هستند."
+}

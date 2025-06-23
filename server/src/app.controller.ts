@@ -2,6 +2,7 @@ import { Body, Controller, Get, NotFoundException, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { IsPublic } from './shared/decorators/is-public.decorator';
 import { NotificationsService } from './notifications/notifications.service';
+import { TipsService } from './tips/tips.service';
 
 @Controller()
 export class AppController {

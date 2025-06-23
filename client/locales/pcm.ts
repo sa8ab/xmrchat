@@ -92,7 +92,8 @@ export default {
   },
   openSource: {
     title: "Open Source",
-    description: "XMRChat na open source. You fit check di source code for {github}.",
+    description:
+      "XMRChat na open source. You fit check di source code for {github}.",
   },
 
   lowFees: {
@@ -118,15 +119,13 @@ export default {
     cakeWallet: "Buy or change crypto for Monero inside {cakeWallet}.",
     stealthex:
       "Change your crypto go Monero (XMR) for {stealthex} and other places like {kycnot}.",
-    haveno:
-      "Buy Monero for exchange wey need no KYC for {haveno}. You fi learn from di tutorial for {blog}.",
-    thisBlogPost: "Dis blog post",
-    kraken: "Buy Monero for exchange wey need KYC for {kraken}.",
-    xmrbazaar: "Sell things or services collect Monero for {xmrbazaar}.",
+    haveno: "Buy Monero without KYC for {haveno}.",
+    kraken: "Buy Monero with KYC for {kraken}.",
+    xmrbazaar: "Sell things or service collect Monero for {xmrbazaar}.",
     gupax: "Mine Monero with {gupax}.",
     kunoAnneMedia: "Create Monero fundraiser for {kunoAnneMedia}.",
     monerica:
-      "Collect Monero for your business and get listed for {monerica}, {monerodirectory}, and business map for {xmrbazaar}.",
+      "Collect Monero for your business and get listed for {monerica}, {monerodirectory}, and business map for {xmrbazaar} and {bankexit}.",
   },
   forContentCreators: {
     title: "For Content Creators",

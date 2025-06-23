@@ -135,16 +135,14 @@ export default {
     cakeWallet: "Osta tai vaihda Moneroa {cakeWallet}:ssa.",
     stealthex:
       "Voit vaihtaa muut kryptosi Moneroon (XMR) sivustoilla kuten {stealthex} ja {kycnot}.",
-    haveno:
-      "Osta Moneroa ilman KYC:tä {haveno}:sta. Katso käteismaksuohje osoitteessa {blog}.",
-    thisBlogPost: "Tämä blogikirjoitus",
+    haveno: "Osta Moneroa ilman KYC:tä {haveno}:sta.",
     kraken: "Osta Moneroa KYC:llä {kraken}:sta.",
     xmrbazaar:
       "Myy tavaroita tai palveluita Monerolla osoitteessa {xmrbazaar}.",
     gupax: "Louhi Moneroa käyttäen {gupax}:ia.",
     kunoAnneMedia: "Luo Monero-varainkeruu {kunoAnneMedia}:ssa.",
     monerica:
-      "Hyväksy Monero liiketoiminnassasi ja listaa itsesi {monerica}, {monerodirectory} ja {xmrbazaar} sivuille.",
+      "Hyväksy Monero liiketoiminnassasi ja listaa itsesi {monerica}, {monerodirectory} ja {xmrbazaar} ja {bankexit} sivuille.",
   },
 
   tipName: "Nimi",

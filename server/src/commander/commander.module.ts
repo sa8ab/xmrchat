@@ -11,6 +11,7 @@ import { LwsModule } from 'src/lws/lws.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Page } from 'src/pages/page.entity';
 import { DataMigrationCommand } from './commands/data-migration.command';
+import { Tip } from 'src/tips/tip.entity';
 
 @Module({
   providers: [
@@ -26,7 +27,7 @@ import { DataMigrationCommand } from './commands/data-migration.command';
     UsersModule,
     NotificationsModule,
     LwsModule,
-    TypeOrmModule.forFeature([Page]),
+    TypeOrmModule.forFeature([Page, Tip]),
   ],
 })
 export class CommanderModule {}

@@ -40,7 +40,6 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const slug = client.handshake.auth.slug;
 
     if (!slug) {
-      console.log('Client connected but there is no slug, returning');
       return;
     }
 
@@ -50,7 +49,7 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   handleDisconnect(client: Socket) {
-    this.logger.log(`Client ${client.id} disconnected`);
+    // this.logger.log(`Client ${client.id} disconnected`);
   }
 
   @SubscribeMessage('join')

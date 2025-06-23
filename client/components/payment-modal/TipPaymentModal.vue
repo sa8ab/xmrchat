@@ -84,7 +84,16 @@ onBeforeUnmount(() => disconnect());
       :connectionStatus="connectionStatus"
     >
     </TipSwapPaymentContent>
-    <PaymentModalContent
+    <TipPaymentContent
+      v-else
+      :createdTip="createdTip"
+      :connectionStatus="connectionStatus"
+      :slug="slug"
+      @cancel="cancelPayment"
+      @retry="handleRetry"
+    >
+    </TipPaymentContent>
+    <!-- <PaymentModalContent
       v-else
       :title="t('sendTip')"
       :qrCode="{
@@ -131,7 +140,7 @@ onBeforeUnmount(() => disconnect());
           </template>
         </UAlert>
       </template>
-    </PaymentModalContent>
+    </PaymentModalContent> -->
   </UModal>
 </template>
 

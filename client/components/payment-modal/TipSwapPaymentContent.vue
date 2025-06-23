@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Coin, Numberic, TipCreationResponse } from "~/types";
+import type { TipCreationResponse } from "~/types";
 import { SwapStatusEnum } from "~/types/enums";
 import VueCountdown from "@chenfengyuan/vue-countdown";
 

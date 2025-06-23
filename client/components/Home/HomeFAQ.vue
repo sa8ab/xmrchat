@@ -289,16 +289,9 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
               <p>
                 <I18nT keypath="whereToGetMonero.haveno">
                   <template #haveno>
-                    <UButton to="https://haveno-reto.com/" v-bind="linkProps">
-                      haveno-reto.com
+                    <UButton to="https://retoswap.com/" v-bind="linkProps">
+                      retoswap.com
                     </UButton>
-                  </template>
-                  <template #blog>
-                    <UButton
-                      to="https://blog.nihilism.network/servers/haveno-cashbymail/index.html"
-                      v-bind="linkProps"
-                      >{{ t("whereToGetMonero.thisBlogPost") }}</UButton
-                    >
                   </template>
                 </I18nT>
               </p>
@@ -368,6 +361,12 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                   <template #xmrbazaar>
                     <UButton to="https://xmrbazaar.com/" v-bind="linkProps">
                       xmrbazaar.com
+                    </UButton>
+                  </template>
+
+                  <template #bankexit>
+                    <UButton to="https://bank-exit.org/map" v-bind="linkProps">
+                      bank-exit.org
                     </UButton>
                   </template>
                 </I18nT>

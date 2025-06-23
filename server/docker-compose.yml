@@ -78,8 +78,10 @@ services:
       - traefik.http.services.${TRAEFIK_MINIO_ROUTER_NAME:-xmrchats3}.loadbalancer.server.port=9000
 
     networks:
-      - traefik
-      - custom-net
+      traefik:
+        aliases:
+          - ${MINIO_ALIAS:-minio}
+      custom-net:
 
   nest:
     build: .
