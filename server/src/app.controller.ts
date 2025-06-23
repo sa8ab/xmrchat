@@ -9,7 +9,6 @@ export class AppController {
   constructor(
     private readonly appService: AppService,
     private notificationsService: NotificationsService,
-    private tipsService: TipsService,
   ) {}
 
   @Get()
@@ -25,7 +24,5 @@ export class AppController {
 
   @IsPublic()
   @Get('/test')
-  async test() {
-    return this.tipsService.deleteExpiredWebhooks();
-  }
+  async test() {}
 }
