@@ -63,15 +63,21 @@ import { TipMessageModule } from './tip-message/tip-message.module';
     ScheduleModule.forRoot(),
     WinstonModule.forRoot({
       transports: [
-        new winston.transports.Console(),
+        new winston.transports.Console({
+          format: winston.format.combine(
+            winston.format.colorize({ all: true }),
+          ),
+        }),
         new winston.transports.File({
           filename: 'logs/log.log',
         }),
       ],
       format: winston.format.combine(
-        winston.format.timestamp({}),
-        winston.format.json(),
-        winston.format.simple(),
+        winston.format.align(),
+        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        winston.format.printf(({ timestamp, level, message, context }) => {
+          return `[${timestamp}] ${level}: ${message} ${context ? `[${context}]` : ''}`;
+        }),
       ),
     }),
     ClsModule.forRoot({

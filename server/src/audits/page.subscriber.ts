@@ -26,24 +26,41 @@ export class PageSubscriber implements EntitySubscriberInterface<Page> {
   afterUpdate(event: UpdateEvent<Page>): Promise<any> | void {
     const logs = [];
 
-    const updatedColumns = event.updatedColumns
-      .map((c) => c.propertyName)
-      .map((c) => {
-        return {
-          field: c,
-          valueFrom: event.databaseEntity[c],
-          value: event.entity[c],
-        };
-      })
-      .forEach((c) => {
-        logs.push({
-          path: c.field,
-          mode: 'ANY',
-          oldValue: c.valueFrom,
-          value: c.value,
-        });
-      });
+    const tableName = event.metadata.name;
+    const entityId = event.databaseEntity.id;
+    const type = 'UPDATE';
+    const changes = {};
+    const comment = '';
 
-    return this.auditsService.createLog(AuditTypeEnum.PAGE_UPDATED, logs);
+    event.updatedColumns.forEach((c) => {
+      const valueFrom = c.getEntityValue(event.databaseEntity);
+      const value = c.getEntityValue(event.entity);
+
+      changes[c.propertyName] = {
+        from: valueFrom,
+        to: value,
+      };
+    });
+
+    event.updatedRelations.forEach((ur) => {
+      const valueFrom = ur.getEntityValue(event.databaseEntity);
+      const value = ur.getEntityValue(event.entity);
+
+      changes[ur.propertyName] = {
+        from: valueFrom,
+        to: value,
+      };
+    });
+
+    const updatedRelations = event.updatedRelations.map((ur) => ur);
+
+    console.log('Table name', tableName);
+    console.log('Changes', changes);
+    this.auditsService.createLog({
+      changes,
+      tableName,
+      entityId,
+      type,
+    });
   }
 }
