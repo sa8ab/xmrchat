@@ -318,9 +318,10 @@ export class TipsService {
       );
     }
 
-    await this.repo.update(
-      { id: In(expiredTips.map((tip) => tip.id)) },
-      { webhookDeleted: true },
-    );
+    expiredTips.forEach((tip) => {
+      tip.webhookDeleted = true;
+    });
+
+    await this.repo.save(expiredTips);
   }
 }

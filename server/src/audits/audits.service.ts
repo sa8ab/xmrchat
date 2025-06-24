@@ -14,13 +14,14 @@ export class AuditsService {
 
   async createLog(log: AuditLog) {
     const user = this.clsService.get('user');
-    this.logger.info(`
-      ${log.type} by ${user?.email}
+    this.logger.info(
+      `
+      [ ${log.type} by ${user?.email || '-'} ]
       Name: ${log.tableName}
-      Entity ID: ${log.entityId || '-'}
+      Entity Id: ${log.entityId || '-'}
       Comment: ${log.comment || '-'}
-      ---------------------------------
-      ${JSON.stringify(log.changes)}
-    `);
+      Changes: ${JSON.stringify(log.changes)}
+      `,
+    );
   }
 }

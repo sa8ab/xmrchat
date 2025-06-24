@@ -24,13 +24,10 @@ export class PageSubscriber implements EntitySubscriberInterface<Page> {
   }
 
   afterUpdate(event: UpdateEvent<Page>): Promise<any> | void {
-    const logs = [];
-
     const tableName = event.metadata.name;
     const entityId = event.databaseEntity.id;
     const type = 'UPDATE';
     const changes = {};
-    const comment = '';
 
     event.updatedColumns.forEach((c) => {
       const valueFrom = c.getEntityValue(event.databaseEntity);
@@ -52,10 +49,6 @@ export class PageSubscriber implements EntitySubscriberInterface<Page> {
       };
     });
 
-    const updatedRelations = event.updatedRelations.map((ur) => ur);
-
-    console.log('Table name', tableName);
-    console.log('Changes', changes);
     this.auditsService.createLog({
       changes,
       tableName,
