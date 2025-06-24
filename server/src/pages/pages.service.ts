@@ -401,7 +401,6 @@ export class PagesService {
       const coverImageEntity = await this.filesRepo.findOneBy({
         id: attrs.coverImage,
       });
-      coverImageEntity.thumbnail = coverImageEntity.thumbnail + '?v=2';
       page.coverImage = coverImageEntity;
     }
 
