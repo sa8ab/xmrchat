@@ -24,6 +24,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { AuditsModule } from './audits/audits.module';
 import { WinstonModule } from 'nest-winston';
 import winston from 'winston';
+import 'winston-daily-rotate-file';
 import { join } from 'path';
 import { ClsModule } from 'nestjs-cls';
 import { ThrottlerModule } from '@nestjs/throttler';
@@ -68,8 +69,10 @@ import { TipMessageModule } from './tip-message/tip-message.module';
             winston.format.colorize({ all: true }),
           ),
         }),
-        new winston.transports.File({
-          filename: 'logs/log.log',
+        new winston.transports.DailyRotateFile({
+          filename: 'logs/log-%DATE%.log',
+          datePattern: 'YYYY-MM-DD',
+          maxFiles: '90d',
         }),
       ],
       format: winston.format.combine(
