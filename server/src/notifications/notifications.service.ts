@@ -4,6 +4,8 @@ import { PageReportEmailOptions } from 'src/shared/types';
 import { ConfigService } from '@nestjs/config';
 import { TwitchService } from 'src/integrations/twitch/twitch.service';
 import { I18nContext, I18nService } from 'nestjs-i18n';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
 
 @Injectable()
 export class NotificationsService {
@@ -12,18 +14,23 @@ export class NotificationsService {
     private twitchService: TwitchService,
     private config: ConfigService,
     private i18n: I18nService,
+    @InjectQueue('notifications-email') private emailQueue: Queue,
   ) {}
 
-  sendTestEmail() {
+  async sendTestEmail() {
     const lang = I18nContext.current?.().lang;
 
-    return this.emailService.sendEmail('bwsaeed8@gmail.com', {
-      subject: this.i18n.t('email.emailVerification.subject'),
-      text: 'link',
-      template: 'verify-email.hbs',
-      context: {
-        link: 'link',
-        lang,
+    await this.emailQueue.add('send-email', {
+      type: 'send-email',
+      to: 'bwsaeed8@gmail.com',
+      options: {
+        subject: this.i18n.t('email.emailVerification.subject'),
+        text: 'link',
+        template: 'verify-email.hbs',
+        context: {
+          link: 'link',
+          lang,
+        },
       },
     });
 
@@ -47,13 +54,17 @@ export class NotificationsService {
     const link = `${this.config.get('CLIENT_BASE_URL')}/auth/email_verification?token=${otp}`;
     const lang = I18nContext.current?.().lang;
 
-    return this.emailService.sendEmail(to, {
-      subject: this.i18n.t('email.emailVerification.subject'),
-      text: link,
-      template: 'verify-email.hbs',
-      context: {
-        link,
-        lang,
+    return this.emailQueue.add('send-email', {
+      type: 'send-email',
+      to,
+      options: {
+        subject: this.i18n.t('email.emailVerification.subject'),
+        text: link,
+        template: 'verify-email.hbs',
+        context: {
+          link,
+          lang,
+        },
       },
     });
   }
@@ -62,13 +73,17 @@ export class NotificationsService {
     const link = `${this.config.get('CLIENT_BASE_URL')}/auth/reset_password?token=${otp}`;
     const lang = I18nContext.current?.().lang;
 
-    return this.emailService.sendEmail(to, {
-      subject: this.i18n.t('email.resetPassword.subject'),
-      text: link,
-      template: 'reset-password.hbs',
-      context: {
-        link,
-        lang,
+    return this.emailQueue.add('send-email', {
+      type: 'send-email',
+      to,
+      options: {
+        subject: this.i18n.t('email.resetPassword.subject'),
+        text: link,
+        template: 'reset-password.hbs',
+        context: {
+          link,
+          lang,
+        },
       },
     });
   }
@@ -78,11 +93,15 @@ export class NotificationsService {
 
     const recepients = this.config.get('PAGE_REPORT_RECEPIENTS').split(' ');
 
-    return this.emailService.sendEmail(recepients, {
-      subject: 'XMRChat new page report',
-      text,
-      template: 'page-report.hbs',
-      context: data,
+    return this.emailQueue.add('send-email', {
+      type: 'send-email',
+      to: recepients,
+      options: {
+        subject: 'XMRChat new page report',
+        text,
+        template: 'page-report.hbs',
+        context: data,
+      },
     });
   }
 
@@ -93,10 +112,14 @@ export class NotificationsService {
 
     const recepients = this.config.get('PAGE_REPORT_RECEPIENTS').split(' ');
 
-    return this.emailService.sendEmail(recepients, {
-      subject: `Swap status change - ${active ? 'Enabled' : 'Disabled'}`,
-      text,
-      html: text,
+    return this.emailQueue.add('send-email', {
+      type: 'send-email',
+      to: recepients,
+      options: {
+        subject: `Swap status change - ${active ? 'Enabled' : 'Disabled'}`,
+        text,
+        html: text,
+      },
     });
   }
 
@@ -107,12 +130,16 @@ export class NotificationsService {
   async sendPasswordChangeEmail(to: string) {
     const lang = I18nContext.current?.().lang;
 
-    return this.emailService.sendEmail(to, {
-      subject: this.i18n.t('email.passwordChange.subject'),
-      text: this.i18n.t('email.passwordChange.text'),
-      template: 'update-password.hbs',
-      context: {
-        lang,
+    return this.emailQueue.add('send-email', {
+      type: 'send-email',
+      to,
+      options: {
+        subject: this.i18n.t('email.passwordChange.subject'),
+        text: this.i18n.t('email.passwordChange.text'),
+        template: 'update-password.hbs',
+        context: {
+          lang,
+        },
       },
     });
   }

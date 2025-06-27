@@ -37,6 +37,10 @@ import {
   QueryResolver,
 } from 'nestjs-i18n';
 import { TipMessageModule } from './tip-message/tip-message.module';
+import { BullModule } from '@nestjs/bullmq';
+import { BullBoardModule } from '@bull-board/nestjs';
+import { ExpressAdapter } from '@bull-board/express';
+import expressBasicAuth from 'express-basic-auth';
 
 @Module({
   imports: [
@@ -109,6 +113,29 @@ import { TipMessageModule } from './tip-message/tip-message.module';
         AcceptLanguageResolver,
         new HeaderResolver(['x-lang']),
       ],
+    }),
+    BullModule.forRootAsync({
+      useFactory: (config: ConfigService) => ({
+        connection: {
+          host: config.get('REDIS_HOST'),
+          port: +config.get('REDIS_PORT'),
+        },
+      }),
+      inject: [ConfigService],
+    }),
+    BullBoardModule.forRootAsync({
+      useFactory: (config: ConfigService) => ({
+        route: 'queues',
+        adapter: ExpressAdapter,
+        middleware: expressBasicAuth({
+          challenge: true,
+          users: {
+            [config.get('BULLBOARD_USERNAME')]:
+              config.get('BULLBOARD_PASSWORD'),
+          },
+        }),
+      }),
+      inject: [ConfigService],
     }),
     UsersModule,
     DatabaseModule,
