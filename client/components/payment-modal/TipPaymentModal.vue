@@ -13,6 +13,7 @@ const emit = defineEmits<{
 
 const active = defineModel<boolean>("active");
 const paymentError = ref(false);
+const partialPaymentAmount = ref<string | undefined>(undefined);
 
 const authStore = useAuthStore();
 
@@ -26,10 +27,12 @@ const { t } = useI18n();
 const { init, disconnect, reconnect, connectionStatus } =
   usePaymentSocket<TipEventData>({
     onTipEvent: (data) => {
-      console.log(data);
+      if (!data.paidAt) {
+        partialPaymentAmount.value = data.paidAmount;
+        return;
+      }
 
-      if (!data.paidAt) return;
-
+      partialPaymentAmount.value = undefined;
       toast.add({
         title: "Tip received successfully!",
       });
@@ -52,6 +55,7 @@ const handleRetry = () => {
 
 const cancelPayment = () => {
   disconnect();
+  partialPaymentAmount.value = undefined;
   emit("cancel");
 };
 
@@ -89,6 +93,7 @@ onBeforeUnmount(() => disconnect());
       :createdTip="createdTip"
       :connectionStatus="connectionStatus"
       :slug="slug"
+      :partialPaymentAmount="partialPaymentAmount"
       @cancel="cancelPayment"
       @retry="handleRetry"
     >

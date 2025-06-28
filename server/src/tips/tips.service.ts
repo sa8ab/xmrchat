@@ -234,6 +234,8 @@ export class TipsService {
       this.logger.log(
         `Tip transaction is received but is lower than expected amount ${savedPayment.amount} - Current paid amount: ${savedPayment.paidAmount} - isPaid: ${savedPayment.isPaid()}`,
       );
+      this.logger.log(`Sending partial tip socket event. Tip Id ${tip.id}`);
+      this.tipsGateway.notifyTipPayment(tip.id, savedPayment);
       return;
     }
 
