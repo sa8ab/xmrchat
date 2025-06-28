@@ -175,6 +175,8 @@ export default {
     "Пожалуйста, не используйте зарегистрированный кошелек стримера — сдача может исказить отображаемую сумму.",
   tipWalletMinimum:
     "Пожалуйста, отправьте минимум {minimumAmount} XMR на следующий адрес, чтобы ваш донат отобразился на xmrchat.",
+  partialAmountReceived:
+    "{partialAmount} получено пока что, пожалуйста, отправьте оставшиеся {remainingAmount}.",
   openInMyWallet: "Открыть в моем кошельке",
   cancel: "Отмена",
   copyAddress: "Скопировать адрес",

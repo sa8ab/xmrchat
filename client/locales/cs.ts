@@ -172,6 +172,8 @@ export default {
     "Vyhněte se prosím odesílání tipů z peněženky registrované na stránce. Vrácené drobné zkreslují přijatou částku.",
   tipWalletMinimum:
     "Odešlete prosím minimálně {minimumAmount} XMR na následující adresu, aby se vaše zpráva zobrazila na xmrchat.",
+  partialAmountReceived:
+    "{partialAmount} dosud přijato, odešlete prosím zbývající {remainingAmount}.",
   openInMyWallet: "Otevřít v mé peněžence",
   cancel: "Zrušit",
   copyAddress: "Kopírovat adresu",

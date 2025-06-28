@@ -96,11 +96,17 @@ watch(
         >
           <template #description>
             <p v-if="partialPaymentAmount" class="text-base">
-              <span class="font-bold"
-                >{{ unitsToXmr(partialPaymentAmount) }}
-              </span>
-              XMR received so far, please send remaining
-              <span class="font-bold">{{ remainingAmount }} </span> XMR.
+              <I18nT keypath="partialAmountReceived">
+                <template #partialAmount>
+                  <span class="font-bold"
+                    >{{ unitsToXmr(partialPaymentAmount) }}
+                  </span>
+                  XMR
+                </template>
+                <template #remainingAmount>
+                  <span class="font-bold">{{ remainingAmount }} </span> XMR
+                </template>
+              </I18nT>
             </p>
           </template>
         </UAlert>

@@ -135,8 +135,7 @@ export default {
     cakeWallet: "Buy or trade other crypto for Monero in {cakeWallet}.",
     stealthex:
       "Trade other crypto for Monero (XMR) at {stealthex} and others at {kycnot}.",
-    haveno:
-      "Buy Monero without KYC at {haveno}.",
+    haveno: "Buy Monero without KYC at {haveno}.",
     kraken: "Buy Monero with KYC at {kraken}.",
     xmrbazaar: "Sell items or services for Monero at {xmrbazaar}.",
     gupax: "Mine it with {gupax}.",
@@ -175,6 +174,8 @@ export default {
     "Please avoid sending tips with wallet registered on the page. The change returned inflates the amount we see received.",
   tipWalletMinimum:
     "Please send a minimum {minimumAmount} XMR to the following address for your xmrchat to be displayed.",
+  partialAmountReceived:
+    "{partialAmount} received so far, please send remaining {remainingAmount}.",
   openInMyWallet: "Open in My Wallet",
   cancel: "Cancel",
   copyAddress: "Copy Address",

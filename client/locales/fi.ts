@@ -174,6 +174,8 @@ export default {
     "Älä käytä rekisteröityä striimaajan lompakkoa – vaihtorahat voivat vääristää näkyvää summaa.",
   tipWalletMinimum:
     "Lähetä vähintään {minimumAmount} XMR seuraavaan osoitteeseen, jotta tippisi näkyy xmrchatissa.",
+  partialAmountReceived:
+    "{partialAmount} vastaanotettu toistaiseksi, lähetä loput {remainingAmount}.",
   openInMyWallet: "Avaa lompakossani",
   cancel: "Peruuta",
   copyAddress: "Kopioi osoite",

@@ -175,6 +175,8 @@ export default {
     "페이지에 등록된 지갑으로 팁을 보내는 것을 피해주세요. 반환되는 잔액으로 인해 수령된 금액이 부풀려집니다.",
   tipWalletMinimum:
     "xmrchat에 표시하려면 다음 주소로 최소 {minimumAmount} 모네로(Monero)을 보내주세요.",
+  partialAmountReceived:
+    "지금까지 {partialAmount}이 수령되었습니다. 나머지 {remainingAmount}을 보내주세요.",
   openInMyWallet: "내 지갑에서 열기",
   cancel: "취소",
   copyAddress: "주소 복사",

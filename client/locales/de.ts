@@ -180,6 +180,8 @@ export default {
     "Bitte vermeide es, Trinkgelder mit der auf der Seite registrierten Wallet zu senden. Die zurückgegebene Outputs erhöhen den Betrag, den wir als empfangen sehen",
   tipWalletMinimum:
     "Bitte sende mindestens {minimumAmount} XMR an die folgende Adresse, damit dein xmrchat angezeigt wird",
+  partialAmountReceived:
+    "{partialAmount} bisher erhalten, bitte sende den Rest {remainingAmount}.",
   openInMyWallet: "In meiner Wallet öffnen",
   cancel: "Abbrechen",
   copyAddress: "Adresse kopieren",

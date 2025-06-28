@@ -175,6 +175,8 @@ export default {
     "No use wallet wey you register for dis page send tip. E go make the amount wey we see plenty.",
   tipWalletMinimum:
     "Send at least {minimumAmount} XMR go dis address make your xmrchat for show.",
+  partialAmountReceived:
+    "{partialAmount} don receive so far, abeg send di remaining {remainingAmount}.",
   openInMyWallet: "Open am for My Wallet",
   cancel: "Cancel",
   copyAddress: "Copy Address",
