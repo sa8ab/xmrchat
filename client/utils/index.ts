@@ -65,5 +65,8 @@ export const generateWalletLink = (data: {
   if (data.ticker === "usdt")
     return `usdt:${data.address}?amount=${data.amount}`;
 
+  if (data.ticker === "usdc")
+    return `usdc:${data.address}?amount=${data.amount}`;
+
   return undefined;
 };
