@@ -27,9 +27,6 @@ export class TipSubscriber implements EntitySubscriberInterface<Tip> {
   }
 
   async afterUpdate(event: UpdateEvent<Tip>) {
-    console.log(event.databaseEntity);
-    console.log(event.entity);
-
     const name = event.metadata.name;
     const entityId = event.databaseEntity?.id;
     const type = 'UPDATE';
