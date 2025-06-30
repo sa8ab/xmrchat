@@ -5,6 +5,7 @@ import VueCountdown from "@chenfengyuan/vue-countdown";
 const props = defineProps<{
   createdTip?: TipCreationResponse;
   connectionStatus?: string;
+  partialPaymentAmount?: string;
   slug?: string;
 }>();
 
@@ -18,6 +19,18 @@ const authStore = useAuthStore();
 
 const showLoading = computed(() => !expired.value);
 const showAddress = computed(() => !expired.value);
+
+const remainingAmount = computed(() => {
+  if (!props.createdTip?.amount) return 0;
+  if (!props.partialPaymentAmount) return 0;
+
+  const amount = parseFloat(props.createdTip.amount); // value is in XMR
+  const paidAmount = unitsToXmr(props.partialPaymentAmount); // value is in XMR units
+
+  if (!amount || !paidAmount) return 0;
+
+  return amount - paidAmount;
+});
 
 const showWalletWarning = computed(
   () => authStore.state.page?.path === props.slug
@@ -75,9 +88,32 @@ watch(
           </template>
         </UAlert>
 
+        <UAlert
+          v-if="partialPaymentAmount"
+          color="orange"
+          variant="subtle"
+          class="mt-2"
+        >
+          <template #description>
+            <p v-if="partialPaymentAmount" class="text-base">
+              <I18nT keypath="partialAmountReceived">
+                <template #partialAmount>
+                  <span class="font-bold"
+                    >{{ unitsToXmr(partialPaymentAmount) }}
+                  </span>
+                  XMR
+                </template>
+                <template #remainingAmount>
+                  <span class="font-bold">{{ remainingAmount }} </span> XMR
+                </template>
+              </I18nT>
+            </p>
+          </template>
+        </UAlert>
+
         <PaymentQRCode
           :address="createdTip?.paymentAddress"
-          :amount="createdTip?.amount"
+          :amount="remainingAmount || createdTip?.amount"
           :ticker="'xmr'"
         />
 

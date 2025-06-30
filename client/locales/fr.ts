@@ -170,6 +170,8 @@ export default {
     "Veuillez éviter d'envoyer des pourboires avec le portefeuille enregistré sur la page. Le changement retourné gonfle le montant que nous voyons reçu.",
   tipWalletMinimum:
     "Veuillez envoyer un minimum de {minimumAmount} XMR à l'adresse suivante pour que votre xmrchat soit affiché.",
+  partialAmountReceived:
+    "{partialAmount} reçu jusqu'à présent, veuillez envoyer le reste {remainingAmount}.",
   openInMyWallet: "Ouvrir dans Mon Portefeuille",
   cancel: "Annuler",
   copyAddress: "Copier l'Adresse",

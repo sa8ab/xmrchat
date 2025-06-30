@@ -171,6 +171,8 @@ export default {
     "يرجى تجنب إرسال التبرعات باستخدام المحفظة المسجلة على الصفحة. التغيير المعاد يزيد من المبلغ الذي نراه مستلم",
   tipWalletMinimum:
     "يرجى إرسال ما لا يقل عن {minimumAmount} XMR إلى العنوان التالي ليتم عرض xmrchat الخاص بك",
+  partialAmountReceived:
+    "تم استلام {partialAmount} حتى الآن، يرجى إرسال المتبقي {remainingAmount}.",
   openInMyWallet: "فتح في محفظتي",
   cancel: "إلغاء",
   copyAddress: "نسخ العنوان",

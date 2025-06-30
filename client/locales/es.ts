@@ -180,6 +180,8 @@ export default {
     "Evite enviar propinas con la billetera registrada en la página. El cambio devuelto infla la cantidad que vemos recibida.",
   tipWalletMinimum:
     "Envíe un mínimo de {minimumAmount} XMR a la siguiente dirección para que se muestre su xmrchat.",
+  partialAmountReceived:
+    "{partialAmount} recibido hasta ahora, por favor envíe el resto {remainingAmount}.",
   openInMyWallet: "Abrir en mi billetera",
   cancel: "Cancelar",
   copyAddress: "Copiar dirección",

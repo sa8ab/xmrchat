@@ -43,6 +43,7 @@ XMRChat is a tip-for-chat application. Users can set up a page and have others s
   - **Cache:** [Redis](https://redis.io/)
   - **ORM:** [TypeORM](https://typeorm.io/)
   - **Database:** [PostgreSQL](https://www.postgresql.org/)
+  - **Queues:** [BullMQ](https://docs.bullmq.io/)
 
 - **Infrastructure:**
 
@@ -52,7 +53,7 @@ XMRChat is a tip-for-chat application. Users can set up a page and have others s
 - **Payment Providers:**
   - **Monero:**
     - [Monero Project](https://www.getmonero.com/)
-    - wallet Server : [monero-lws](https://github.com/vtnerd/monero-lws)
+    - Wallet Server : [monero-lws](https://github.com/vtnerd/monero-lws)
 
 ## Business Strategy: <a name="payment-strategy">Payment</a>
 
@@ -200,6 +201,8 @@ docker compose up -d
 ```
 
 The website should be up on the value set on `/client/.env -> DOMAIN_NAME`.
+
+BullMQ is used for background tasks. BullBoard is used for monitoring the queues and can be accessed on server domain `${DOMAIN_NAME}/queues` with credencials set on server envs `BULLBOARD_USERNAME` and `BULLBOARD_PASSWORD`.
 
 ## <a name="development">Development</a>
 

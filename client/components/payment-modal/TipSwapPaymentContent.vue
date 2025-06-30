@@ -58,6 +58,10 @@ const showAddress = computed(() => {
   ].includes(status);
 });
 
+const showFailedMessage = computed(() => {
+  return props.createdTip?.swap?.status === SwapStatusEnum.FAILED;
+});
+
 const renderMessage = computed(() => {
   const status = props.createdTip?.swap?.status!;
 
@@ -103,10 +107,25 @@ watch(
     :expiresAt="props.createdTip?.tip.expiresAt"
   >
     <div class="w-full flex flex-col gap-2">
-      <p class="text-red-500 text-center" v-if="expired">
+      <UAlert
+        color="red"
+        variant="subtle"
+        v-if="showFailedMessage"
+        class="mt-2"
+      >
+        <template #description>
+          <p class="text-base">
+            Swap failed. Please visit the Trocador link below to check the
+            status and cancel the swap if necessary.
+          </p>
+        </template>
+      </UAlert>
+
+      <p class="text-red-500 text-center" v-else-if="expired">
         Payment is expired. If you have already sent your payment please contact
         support.
       </p>
+
       <template v-else>
         <template v-if="showAddress">
           <UAlert color="emerald" variant="subtle" v-if="renderMessage">
@@ -186,7 +205,7 @@ watch(
             class="text-primary"
             :to="`https://trocador.app/en/checkout/${createdTip?.swap?.swapId}`"
           >
-            Trocador</ULink
+            Trocador </ULink
           >.
         </div>
       </div>

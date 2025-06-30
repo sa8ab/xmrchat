@@ -27,6 +27,7 @@ import { UpdatePageDto } from './dtos/update-page.dto';
 import { TwitchService } from 'src/integrations/twitch/twitch.service';
 import { AuditsService } from 'src/audits/audits.service';
 import { AuditTypeEnum, PageStatusEnum } from 'src/shared/constants';
+import { File as FileEntity } from 'src/files/file.entity';
 
 @Injectable()
 export class PagesService {
@@ -35,6 +36,7 @@ export class PagesService {
   constructor(
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     @InjectRepository(Page) private repo: Repository<Page>,
+    @InjectRepository(FileEntity) private filesRepo: Repository<FileEntity>,
     private lwsService: LwsService,
     private configService: ConfigService,
     private paymentsService: PaymentsService,
@@ -393,7 +395,21 @@ export class PagesService {
       });
     }
 
-    const savedPage = Object.assign(page, attrs);
+    const { coverImage, logo, ...attrsRest } = attrs;
+
+    if (attrs.coverImage) {
+      const coverImageEntity = await this.filesRepo.findOneBy({
+        id: attrs.coverImage,
+      });
+      page.coverImage = coverImageEntity;
+    }
+
+    if (attrs.logo) {
+      const logoEntity = await this.filesRepo.findOneBy({ id: attrs.logo });
+      page.logo = logoEntity;
+    }
+
+    const savedPage = Object.assign(page, attrsRest);
 
     const result = await this.repo.save(savedPage);
 

@@ -28,8 +28,12 @@
     "commander:change-email": "ts-node -r tsconfig-paths/register src/commander.ts change-email"
   },
   "dependencies": {
+    "@bull-board/api": "^6.10.1",
+    "@bull-board/express": "^6.10.1",
+    "@bull-board/nestjs": "^6.10.1",
     "@nestjs-modules/mailer": "^2.0.2",
     "@nestjs/axios": "^3.0.3",
+    "@nestjs/bullmq": "^11.0.2",
     "@nestjs/cache-manager": "^2.2.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.2.3",
@@ -46,11 +50,13 @@
     "@noble/hashes": "^1.5.0",
     "@scure/base": "^1.1.9",
     "axios": "^1.7.7",
+    "bullmq": "^5.56.0",
     "cache-manager": "^5.7.6",
     "cache-manager-redis-store": "^3.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
+    "express-basic-auth": "^1.2.1",
     "handlebars": "^4.7.8",
     "microdiff": "^1.5.0",
     "minio": "^8.0.1",
@@ -75,7 +81,8 @@
     "typeorm-extension": "^3.6.3",
     "typeorm-naming-strategies": "^4.1.0",
     "uuid": "^10.0.0",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

@@ -173,6 +173,8 @@ export default {
     "لطفاً از ارسال انعام با کیف پول ثبت‌شده در صفحه خودداری کنید. تغییرات بازگشتی مقدار دریافتی را افزایش می‌دهد.",
   tipWalletMinimum:
     "لطفاً حداقل {minimumAmount} XMR به آدرس زیر ارسال کنید تا انعام xmrchat شما نمایش داده شود.",
+  partialAmountReceived:
+    "{partialAmount} تاکنون دریافت شده است، لطفاً باقی‌مانده {remainingAmount} را ارسال کنید.",
   openInMyWallet: "باز کردن در کیف پول من",
   cancel: "لغو",
   copyAddress: "کپی آدرس",
