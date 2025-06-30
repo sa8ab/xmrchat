@@ -290,6 +290,7 @@ export default {
   xUsername: "{platform} username",
   websiteLink: "Website link",
   youtubeChannel: "Youtube channel",
+  peertubeChannel: "Peertube channel",
   podcastRssLink: "Podcast RSS Link",
   nostrPubKey: "Nostr Pub Key",
 
