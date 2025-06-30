@@ -107,7 +107,12 @@ watch(
     :expiresAt="props.createdTip?.tip.expiresAt"
   >
     <div class="w-full flex flex-col gap-2">
-      <UAlert color="red" variant="subtle" v-if="true" class="mt-2">
+      <UAlert
+        color="red"
+        variant="subtle"
+        v-if="showFailedMessage"
+        class="mt-2"
+      >
         <template #description>
           <p class="text-base">
             Swap failed. Please visit the Trocador link below to check the
