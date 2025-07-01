@@ -22,6 +22,8 @@ export default {
   email: "Email",
   search: "Search",
   password: "Password",
+  confirm: "Confirm",
+  reconnect: "Reconnect",
   confirmPassword: "Confirm Password",
   signupInstead: "Signup Instead",
   signupFailed: "Signup Failed",
@@ -51,6 +53,8 @@ export default {
   typePageName: "Type page name...",
   contactUs: "Contact Us",
   here: "here",
+  backToHome: "Back to Home",
+  somethingWentWrong: "Something went wrong!",
 
   xmrchat: "XMRChat",
   heroDescription: "Tip your favorite streamer in cryptocurrency.",
@@ -236,6 +240,12 @@ export default {
   never: "Never",
   xDays: "{count} Day | {count} Days",
   xMonths: "{count} Month | {count} Months",
+  paymentIsExpired:
+    "Payment is expired. If you have already sent your payment please contact support.",
+  pageReservationExpired: "Page reservation expired.",
+  paymentCheckingDis: "Payment checking is disconnected.",
+  ifPaymentMade:
+    "If payment is already made it will be displayed on tips list.",
 
   // STREAMER MENU
   menu: "Menu",

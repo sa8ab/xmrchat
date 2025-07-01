@@ -18,10 +18,10 @@ const handleAccept = () => {
       </div>
       <template #footer>
         <div class="flex gap-2 justify-end">
-          <UButton :color="state.color as any || 'red'" @click="handleAccept"
-            >Confirm</UButton
-          >
-          <UButton variant="ghost" @click="hide">Cancel</UButton>
+          <UButton :color="state.color as any || 'red'" @click="handleAccept">{{
+            $t("confirm")
+          }}</UButton>
+          <UButton variant="ghost" @click="hide">{{ $t("cancel") }}</UButton>
         </div>
       </template>
     </UCard>

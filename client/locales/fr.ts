@@ -24,6 +24,8 @@ export default {
   email: "Email",
   search: "Rechercher",
   password: "Mot de passe",
+  confirm: "Confirmer",
+  reconnect: "Reconnecter",
   confirmPassword: "Confirmer le mot de passe",
   signupInstead: "S'inscrire à la place",
   loginInstead: "Se connecter à la place",
@@ -54,6 +56,8 @@ export default {
   typePageName: "Entrez le nom de la page...",
   contactUs: "Contactez-nous",
   here: "ici",
+  backToHome: "Retour à l'accueil",
+  somethingWentWrong: "Une erreur s'est produite !",
 
   xmrchat: "XMRChat",
   heroDescription:
@@ -240,6 +244,12 @@ export default {
   fiatUnit: "Unité de monnaie",
   fiatUnitHelp:
     "Unité de monnaie utilisée pour afficher les pourboires lorsque le mode d'affichage des pourboires est en monnaie.",
+  paymentIsExpired:
+    "Le paiement a expiré. Si vous avez déjà effectué le paiement, veuillez contacter le support.",
+  pageReservationExpired: "La réservation de la page a expiré.",
+  paymentCheckingDis: "La vérification du paiement est déconnectée.",
+  ifPaymentMade:
+    "Si le paiement a déjà été effectué, il apparaîtra dans la liste des conseils.",
 
   // STREAMER MENU
   menu: "Menu",

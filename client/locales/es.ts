@@ -24,6 +24,8 @@ export default {
   email: "Correo electrónico",
   search: "Buscar",
   password: "Contraseña",
+  confirm: "Confirmar",
+  reconnect: "Reconectar",
   confirmPassword: "Confirmar contraseña",
   signupInstead: "Registrarse en su lugar",
   loginInstead: "Iniciar sesión en su lugar",
@@ -53,6 +55,8 @@ export default {
   typePageName: "Escribe el nombre de la página...",
   contactUs: "Contáctanos",
   here: "aquí",
+  backToHome: "Volver al inicio",
+  somethingWentWrong: "¡Algo salió mal!",
 
   xmrchat: "XMRChat",
   heroDescription: "De propinas en criptomonedas a sus streamers favoritos.",
@@ -234,6 +238,11 @@ export default {
   fiatUnit: "Unidad de moneda",
   fiatUnitHelp:
     "Unidad de moneda usada para mostrar propinas cuando el modo de visualización de propinas es en moneda.",
+  paymentIsExpired:
+    "El pago ha expirado. Si ya realizaste el pago, por favor contacta al soporte.",
+  pageReservationExpired: "La reserva de la página ha expirado.",
+  paymentCheckingDis: "La verificación de pago se ha desconectado.",
+  ifPaymentMade: "Si el pago ya se realizó, aparecerá en la lista de propinas.",
 
   // STREAMER MENU
   menu: "Menú",

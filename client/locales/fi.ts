@@ -23,6 +23,8 @@ export default {
   email: "Sähköposti",
   search: "Haku",
   password: "Salasana",
+  confirm: "Vahvista",
+  reconnect: "Yhdistä uudelleen",
   confirmPassword: "Vahvista salasana",
   signupInstead: "Luo tili",
   signupFailed: "Rekisteröinti epäonnistui",
@@ -51,6 +53,8 @@ export default {
   typePageName: "Kirjoita sivun nimi...",
   contactUs: "Ota Yhteyttä",
   here: "tässä",
+  backToHome: "Takaisin kotiin",
+  somethingWentWrong: "Jotain meni pieleen!",
 
   xmrchat: "XMRChat",
   heroDescription: "Tue suosikkistriimaajaasi Monerolla.",
@@ -228,6 +232,11 @@ export default {
   fiatUnit: "Fiat-yksikkö",
   fiatUnitHelp:
     "Yksikkö, joka näytetään tippisivun tippien määränä, kun tippienäkymä on fiat.",
+  paymentIsExpired:
+    "Maksu on vanhentunut. Jos olet jo maksanut, ota yhteyttä tukeen.",
+  pageReservationExpired: "Sivun varaus on vanhentunut.",
+  paymentCheckingDis: "Maksun tarkistus on katkaistu.",
+  ifPaymentMade: "Jos maksu on jo tehty, se näkyy vinkkilistassa.",
 
   // STREAMER MENU
   menu: "Valikko",

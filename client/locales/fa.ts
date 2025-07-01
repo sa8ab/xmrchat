@@ -22,6 +22,8 @@ export default {
   email: "ایمیل",
   search: "جستجو",
   password: "رمز عبور",
+  confirm: "تأیید",
+  reconnect: "اتصال مجدد",
   confirmPassword: "تکرار رمز عبور",
   signupInstead: "ثبت‌نام کنید",
   signupFailed: "ثبت‌نام ناموفق",
@@ -50,6 +52,8 @@ export default {
   typePageName: "نام صفحه را وارد کنید...",
   contactUs: "تماس با ما",
   here: "اینجا",
+  backToHome: "بازگشت به خانه",
+  somethingWentWrong: "مشکلی پیش آمد!",
 
   xmrchat: "XMRChat",
   heroDescription: "به استریمر مورد علاقه خود با ارز دیجیتال انعام دهید.",
@@ -234,6 +238,12 @@ export default {
   never: "هرگز",
   xDays: "{count} روز | {count} روز",
   xMonths: "{count} ماه | {count} ماه",
+  paymentIsExpired:
+    "پرداخت منقضی شده است. اگر قبلاً پرداخت کرده‌اید لطفاً با پشتیبانی تماس بگیرید.",
+  pageReservationExpired: "رزرو صفحه منقضی شده است.",
+  paymentCheckingDis: "بررسی پرداخت قطع شده است.",
+  ifPaymentMade:
+    "اگر پرداخت انجام شده باشد، در لیست راهنماها نمایش داده می‌شود.",
 
   // STREAMER MENU
   menu: "منو",

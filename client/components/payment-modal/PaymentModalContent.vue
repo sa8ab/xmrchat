@@ -14,8 +14,6 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   showRemainingTime: true,
-  expiredMessage:
-    "Payment is expired. If you have already sent your payment please contact support.",
 });
 
 const emit = defineEmits<{
@@ -24,8 +22,12 @@ const emit = defineEmits<{
   expired: [];
 }>();
 
+const { t } = useI18n();
 const remaining = ref<number | undefined>();
 const expired = defineModel<boolean>("expired", { default: false });
+const translatedExpiredMessage = computed(
+  () => props.expiredMessage || t("paymentIsExpired")
+);
 
 const getRemainingTime = () => {
   console.log("getting remaining time");
@@ -56,8 +58,8 @@ watch(
     </template>
     <slot />
     <div class="w-full flex flex-col gap-2 pt-4">
-      <p class="text-red-500 text-center" v-if="expired">
-        {{ expiredMessage }}
+      <p class="text-red-500 text-center" v-if="true">
+        {{ translatedExpiredMessage }}
       </p>
       <template v-else>
         <PaymentQRCode v-if="qrCode" v-bind="qrCode" />

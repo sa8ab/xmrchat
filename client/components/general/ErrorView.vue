@@ -21,7 +21,7 @@ const renderMessage = computed(() => {
     <div class="message text-center py-10">
       <p class="pb-4 text-xl">{{ renderMessage }}</p>
       <div class="flex gap-3 justify-center">
-        <UButton :to="toIndex()">Back to Home</UButton>
+        <UButton :to="toIndex()">{{ $t("backToHome") }}</UButton>
       </div>
     </div>
     <slot />

@@ -21,6 +21,8 @@ export default {
   email: "البريد الإلكتروني",
   search: "بحث",
   password: "كلمة المرور",
+  confirm: "تأكيد",
+  reconnect: "إعادة الاتصال",
   confirmPassword: "تأكيد كلمة المرور",
   signupInstead: "انشاء حساب جديد",
   signupFailed: "فشل التسجيل",
@@ -49,6 +51,8 @@ export default {
   typePageName: "اكتب اسم الصفحة...",
   contactUs: "اتصل بنا",
   here: "هنا",
+  backToHome: "العودة إلى الصفحة الرئيسية",
+  somethingWentWrong: "حدث خطأ ما!",
 
   xmrchat: "XMRChat",
   heroDescription: "تبرّع لصانع المحتوى المفضل لديك بالعملات المشفرة",
@@ -224,6 +228,11 @@ export default {
   fiatUnit: "وحدة العملة",
   fiatUnitHelp:
     "وحدة العملة المستخدمة لعرض التبرعات عندما يكون جدول التبرعات في العملة",
+  paymentIsExpired:
+    "انتهت صلاحية الدفع. إذا كنت قد أتممت الدفع بالفعل، يرجى التواصل مع الدعم.",
+  pageReservationExpired: "انتهت صلاحية حجز الصفحة.",
+  paymentCheckingDis: "تم فصل التحقق من الدفع.",
+  ifPaymentMade: "إذا تم الدفع بالفعل، فسيتم عرضه في قائمة النصائح.",
 
   // STREAMER MENU
   menu: "القائمة",

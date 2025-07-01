@@ -50,8 +50,7 @@ watch(
   <TipPaymentViewContainer :title="$t('sendTip')" @cancel="emit('cancel')">
     <div class="w-full grid gap-2">
       <p v-if="expired" class="text-red-500 text-center">
-        Payment is expired. If you have already sent your payment please contact
-        support.
+        {{ $t("paymentIsExpired") }}
       </p>
       <template v-else>
         <UAlert

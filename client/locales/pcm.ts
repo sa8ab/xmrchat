@@ -23,6 +23,8 @@ export default {
   email: "Email",
   search: "Search",
   password: "Password",
+  confirm: "Confirm am",
+  reconnect: "Try connect again",
   confirmPassword: "Confirm Password",
   signupInstead: "Do Signup instead",
   signupFailed: "Signup fail",
@@ -51,6 +53,8 @@ export default {
   typePageName: "Type page name...",
   contactUs: "Contact Us",
   here: "here",
+  backToHome: "Go back to home",
+  somethingWentWrong: "Wetin wey no correct happen!",
 
   xmrchat: "XMRChat",
   heroDescription: "Send crypto tip give your best streamer.",
@@ -226,6 +230,11 @@ export default {
     "Lowercase letters, numbers, underscores and hyphens na wetin this path fi contain.",
   moneroPrimaryAddressHelp:
     "The primary address no correct. E must begin with the number 4.",
+  paymentIsExpired:
+    "Payment don expire. If you don already pay, abeg contact support.",
+  pageReservationExpired: "Di page wey you hold don expire.",
+  paymentCheckingDis: "Di payment checking don cut off.",
+  ifPaymentMade: "If you don pay, e go show for di tip list.",
 
   // STREAMER MENU
   menu: "Menu",
