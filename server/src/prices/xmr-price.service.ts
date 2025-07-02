@@ -54,10 +54,14 @@ export class XmrPriceService {
   }
 
   async getFromCake() {
-    return this.cakeService.getRate({
-      quote: 'USD',
-      base: 'XMR',
-    });
+    try {
+      return this.cakeService.getRate({
+        quote: 'USD',
+        base: 'XMR',
+      });
+    } catch (error) {
+      this.logger.warn('Error getting price from cake');
+    }
   }
 
   async getFromCryptocompare() {
@@ -96,10 +100,14 @@ export class XmrPriceService {
   }
 
   async getMxnFromCake() {
-    return this.cakeService.getRate({
-      quote: 'MXN',
-      base: 'XMR',
-    });
+    try {
+      return this.cakeService.getRate({
+        quote: 'MXN',
+        base: 'XMR',
+      });
+    } catch (error) {
+      this.logger.warn('Error getting price from cake');
+    }
   }
 
   async getMoneroMxnPriceFromCryptocompare() {
@@ -138,10 +146,14 @@ export class XmrPriceService {
   }
 
   async getEurFromCake() {
-    return this.cakeService.getRate({
-      quote: 'EUR',
-      base: 'XMR',
-    });
+    try {
+      return this.cakeService.getRate({
+        quote: 'EUR',
+        base: 'XMR',
+      });
+    } catch (error) {
+      this.logger.warn('Error getting price from cake');
+    }
   }
   async getMoneroEurPriceFromCryptocompare() {
     try {
