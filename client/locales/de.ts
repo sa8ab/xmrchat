@@ -24,6 +24,8 @@ export default {
   email: "E-Mail",
   search: "Suchen",
   password: "Passwort",
+  confirm: "Bestätigen",
+  reconnect: "Erneut verbinden",
   confirmPassword: "Passwort bestätigen",
   signupInstead: "Stattdessen registrieren",
   loginInstead: "Stattdessen anmelden",
@@ -53,6 +55,8 @@ export default {
   typePageName: "Seitennamen eingeben...",
   contactUs: "Kontaktiere uns",
   here: "hier",
+  backToHome: "Zurück zur Startseite",
+  somethingWentWrong: "Etwas ist schiefgelaufen!",
 
   xmrchat: "XMRChat",
   heroDescription: "Unterstütze deinen Lieblings-Streamer mit Kryptowährung",
@@ -234,6 +238,12 @@ export default {
   fiatUnit: "Fiat-Einheit",
   fiatUnitHelp:
     "Einheit, die bei der Anzeige von Trinkgeldern verwendet wird, wenn der Trinkgeld-Anzeigemodus auf Fiat gesetzt ist.",
+  paymentIsExpired:
+    "Die Zahlung ist abgelaufen. Wenn Sie bereits bezahlt haben, kontaktieren Sie bitte den Support.",
+  pageReservationExpired: "Die Seitenreservierung ist abgelaufen.",
+  paymentCheckingDis: "Die Zahlungsüberprüfung wurde getrennt.",
+  ifPaymentMade:
+    "Wenn die Zahlung bereits erfolgt ist, wird sie in der Tipp-Liste angezeigt.",
 
   // STREAMER MENU
   menu: "Menü",

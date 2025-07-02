@@ -5,13 +5,15 @@ interface Props {
   cancelText?: string;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  cancelText: "Cancel",
-});
+const props = withDefaults(defineProps<Props>(), {});
 
 const emit = defineEmits<{
   cancel: [];
 }>();
+
+const { t } = useI18n();
+
+const translatedCancelText = computed(() => props.cancelText || t("cancel"));
 </script>
 
 <template>
@@ -22,7 +24,7 @@ const emit = defineEmits<{
     <slot />
     <div class="flex justify-end pt-3">
       <UButton variant="outline" @click="emit('cancel')">{{
-        cancelText
+        translatedCancelText
       }}</UButton>
     </div>
   </UCard>

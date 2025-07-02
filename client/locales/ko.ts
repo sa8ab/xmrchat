@@ -22,6 +22,8 @@ export default {
   email: "이메일",
   search: "검색",
   password: "비밀번호",
+  confirm: "확인",
+  reconnect: "다시 연결",
   confirmPassword: "비밀번호 확인",
   signupInstead: "대신 회원가입",
   signupFailed: "회원가입 실패",
@@ -50,6 +52,8 @@ export default {
   typePageName: "페이지 이름 입력...",
   contactUs: "문의하기",
   here: "여기",
+  backToHome: "홈으로 돌아가기",
+  somethingWentWrong: "문제가 발생했습니다!",
 
   xmrchat: "XMRChat",
   heroDescription: "좋아하는 스트리머에게 암호화폐로 팁을 주세요.",
@@ -190,6 +194,7 @@ export default {
   followUsOnTwitter: "트위터 팔로우",
   twitter: "트위터",
 
+  // CREATE PAGE
   createPage: "페이지 생성",
   getStartedCreatingPage: "스트리머 페이지를 만들어 시작하세요",
   home: "홈",
@@ -225,6 +230,11 @@ export default {
   unavailable: "사용할 수 없음",
   fiatUnit: "법정 화폐 단위",
   fiatUnitHelp: "팁을 법정 화폐로 표시할 때 사용하는 단위.",
+  paymentIsExpired:
+    "결제 기간이 만료되었습니다. 이미 결제하셨다면 고객 지원에 문의하세요.",
+  pageReservationExpired: "페이지 예약이 만료되었습니다.",
+  paymentCheckingDis: "결제 확인이 끊어졌습니다.",
+  ifPaymentMade: "이미 결제하셨다면 팁 목록에 표시됩니다.",
 
   // STREAMER MENU
   menu: "메뉴",

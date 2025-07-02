@@ -6,11 +6,12 @@ const props = withDefaults(
   }>(),
   {
     showLoading: true,
-    text: "waitingForPayment",
   }
 );
 
 const { t } = useI18n();
+
+const translatedText = computed(() => props.text || t("waitingForPayment"));
 </script>
 
 <template>
@@ -20,7 +21,7 @@ const { t } = useI18n();
       name="i-heroicons-arrow-path-20-solid"
       v-if="showLoading"
     />
-    <span class="text-sm">{{ t(text) }}</span>
+    <span class="text-sm">{{ translatedText }}</span>
   </div>
 </template>
 

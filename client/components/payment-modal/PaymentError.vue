@@ -11,17 +11,17 @@ const emit = defineEmits<{
         class="w-[24px] h-[24px] text-red-500"
         name="i-heroicons-exclamation-circle"
       />
-      Payment checking is disconnected.
+      {{ $t("paymentCheckingDis") }}
     </span>
     <span class="text-sm text-pale">
-      If payment is already made it will be displayed on tips list.
+      {{ $t("ifPaymentMade") }}
     </span>
     <UButton
       @click="emit('retry')"
       variant="ghost"
       icon="i-heroicons-arrow-path"
     >
-      Reconnect
+      {{ $t("reconnect") }}
     </UButton>
   </div>
 </template>

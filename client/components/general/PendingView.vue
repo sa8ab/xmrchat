@@ -10,7 +10,7 @@ const props = defineProps<{
   <ErrorView
     :error="error"
     v-if="error"
-    defaultMessage="Something went wrong!"
+    :defaultMessage="t$('somethingWentWrong')"
   />
   <slot v-else />
 </template>

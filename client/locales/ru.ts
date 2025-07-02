@@ -23,6 +23,8 @@ export default {
   email: "Эл. почта",
   search: "Поиск",
   password: "Пароль",
+  confirm: "Подтвердить",
+  reconnect: "Переподключиться",
   confirmPassword: "Подтвердите пароль",
   signupInstead: "Зарегистрироваться",
   signupFailed: "Ошибка регистрации",
@@ -53,6 +55,8 @@ export default {
   typePageName: "Введите название страницы...",
   contactUs: "Свяжитесь с нами",
   here: "здесь",
+  backToHome: "Назад на главную",
+  somethingWentWrong: "Что-то пошло не так!",
 
   xmrchat: "XMRChat",
   heroDescription: "Поддержите любимого стримера криптовалютой.",
@@ -227,6 +231,11 @@ export default {
   fiatUnit: "Валюта",
   fiatUnitHelp:
     "Валюта, используемая для отображения чаевых при установленном режиме отображения чаевых в валюте.",
+  paymentIsExpired:
+    "Срок действия платежа истёк. Если вы уже оплатили, пожалуйста, свяжитесь со службой поддержки.",
+  pageReservationExpired: "Резервация страницы истекла.",
+  paymentCheckingDis: "Проверка платежа отключена.",
+  ifPaymentMade: "Если платеж уже был произведён, он появится в списке чаевых.",
 
   // STREAMER MENU
   menu: "Меню",
