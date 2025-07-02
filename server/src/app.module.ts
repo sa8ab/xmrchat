@@ -41,6 +41,7 @@ import { BullModule } from '@nestjs/bullmq';
 import { BullBoardModule } from '@bull-board/nestjs';
 import { ExpressAdapter } from '@bull-board/express';
 import expressBasicAuth from 'express-basic-auth';
+import { CakeModule } from './integrations/cake/cake.module';
 
 @Module({
   imports: [
@@ -150,6 +151,7 @@ import expressBasicAuth from 'express-basic-auth';
     PageSettingsModule,
     LinksModule,
     TwitchModule,
+    CakeModule,
     SwapsModule,
     TrocadorModule,
     AuditsModule,
