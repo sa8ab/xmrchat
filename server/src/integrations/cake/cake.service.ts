@@ -13,6 +13,8 @@ export class CakeService {
       const firstResult = data.results[Object.keys(data.results)[0]];
       return firstResult as number;
     } catch (error) {
+      console.log('error', error.message);
+
       throw new BadRequestException(
         `Cake wallet API failed, make sure you have a valid API key. ${error.message}`,
       );

@@ -9,7 +9,7 @@ import { CakeService } from './cake.service';
       useFactory: (configService: ConfigService) => ({
         baseURL: configService.get('CAKE_WALLET_FIAT_API_BASE_URL'),
         headers: {
-          'X-API-KEY': configService.get('CAKE_WALLET_FIAT_API_KEY'),
+          'x-api-key': configService.get('CAKE_WALLET_FIAT_API_KEY'),
         },
       }),
       inject: [ConfigService],
