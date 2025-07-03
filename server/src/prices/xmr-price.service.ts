@@ -25,13 +25,6 @@ export class XmrPriceService {
       return priceCake;
     }
 
-    const priceLocalmonero = await this.getFromLocalmonero();
-
-    if (priceLocalmonero) {
-      await this.cachePrice(priceLocalmonero);
-      return priceLocalmonero;
-    }
-
     const priceCryptoCompare = await this.getFromCryptocompare();
 
     if (priceCryptoCompare) {
@@ -40,17 +33,6 @@ export class XmrPriceService {
     }
 
     return 300;
-  }
-
-  async getFromLocalmonero() {
-    try {
-      const { data } = await this.httpService.axiosRef.get(
-        'https://localmonero.co/web/ticker?currencyCode=USD',
-      );
-      return data.USD?.avg_6h;
-    } catch (error) {
-      this.logger.warn('Error getting price from localmonero');
-    }
   }
 
   async getFromCake() {
