@@ -42,6 +42,7 @@ import { BullBoardModule } from '@bull-board/nestjs';
 import { ExpressAdapter } from '@bull-board/express';
 import expressBasicAuth from 'express-basic-auth';
 import { CakeModule } from './integrations/cake/cake.module';
+import { IntegrationsModule } from './integrations/integrations.module';
 
 @Module({
   imports: [
@@ -158,6 +159,7 @@ import { CakeModule } from './integrations/cake/cake.module';
     CommanderModule,
     AdminModule,
     TipMessageModule,
+    IntegrationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
