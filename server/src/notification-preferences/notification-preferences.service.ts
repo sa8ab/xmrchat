@@ -20,7 +20,7 @@ export class NotificationPreferencesService {
     }
 
     const preferences = await this.repo.find({
-      where: { page },
+      where: { page: { id: page.id } },
     });
 
     return preferences;

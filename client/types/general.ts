@@ -1,6 +1,8 @@
 import type {
   ContentLinkPlatformEnum,
   FiatEnum,
+  NotificationChannelEnum,
+  NotificationPreferenceType,
   PageSettingKey,
   PageStatusEnum,
   RolesEnum,
@@ -207,4 +209,10 @@ export interface Prices {
   usd?: number;
   mxn?: number;
   eur?: number;
+}
+
+export interface NotificationPreference {
+  type: NotificationPreferenceType;
+  channel: NotificationChannelEnum;
+  enabled: boolean;
 }
