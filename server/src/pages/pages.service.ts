@@ -48,6 +48,18 @@ export class PagesService {
   ) {}
 
   async searchPages(slug: string = '', offset: number = 0, limit: number = 8) {
+    const weightedTotalQuery = `
+      SUM(
+        paid_tip.paid_amount::NUMERIC * 
+        CASE 
+          WHEN paid_tip.paid_at > NOW() - INTERVAL '7 days' THEN 1.0
+          WHEN paid_tip.paid_at > NOW() - INTERVAL '30 days' THEN 0.7
+          WHEN paid_tip.paid_at > NOW() - INTERVAL '90 days' THEN 0.4
+          ELSE 0.1
+        END
+      ) AS weighted_total
+    `;
+
     let query = this.repo
       .createQueryBuilder('page')
       .leftJoinAndSelect('page.logo', 'logo')
@@ -65,9 +77,9 @@ export class PagesService {
       )
       .where('page.isPublic = true')
       .andWhere('page.status != :status', { status: PageStatusEnum.DEACTIVE })
-      .addSelect('SUM(paid_tip.paid_amount::NUMERIC) AS total_paid')
+      .addSelect(weightedTotalQuery)
       .groupBy('page.id, logo.id, cover_image.id')
-      .orderBy('total_paid', 'DESC', 'NULLS LAST');
+      .orderBy('weighted_total', 'DESC', 'NULLS LAST');
 
     if (slug) {
       query = query.andWhere(
