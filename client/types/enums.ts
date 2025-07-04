@@ -65,7 +65,7 @@ export enum NotificationPreferenceType {
 
 export enum NotificationChannelEnum {
   EMAIL = "email",
-  WEBHOOK = "webhook",
-  TELEGRAM = "telegram",
-  SINGAL = "singal",
+  // WEBHOOK = "webhook",
+  // TELEGRAM = "telegram",
+  // SINGAL = "singal",
 }

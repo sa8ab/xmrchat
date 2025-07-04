@@ -1,5 +1,10 @@
 import type { ContentLinkFull } from "~/types";
-import { ContentLinkPlatformEnum, FiatEnum } from "~/types/enums";
+import {
+  ContentLinkPlatformEnum,
+  FiatEnum,
+  NotificationChannelEnum,
+  NotificationPreferenceType,
+} from "~/types/enums";
 
 export const useConstants = () => {
   const { t } = useI18n();
@@ -151,10 +156,38 @@ export const useConstants = () => {
 
   const getFiat = (v: FiatEnum) => fiats.value[v];
 
+  const NOTIFICATION_CHANNELS = {
+    [NotificationChannelEnum.EMAIL]: {
+      name: "Email",
+      description: "Receive notifications via email",
+      icon: "i-heroicons-envelope",
+    },
+  };
+
+  const getNotificationChannel = (v: NotificationChannelEnum) => {
+    return NOTIFICATION_CHANNELS[v];
+  };
+
+  const NOTIFICATION_TYPES = {
+    [NotificationPreferenceType.NEW_TIP]: {
+      name: "New Tip",
+      description: "Receive notifications when a new tip is received",
+      icon: "i-heroicons-sparkles",
+    },
+  };
+
+  const getNotificationType = (v: NotificationPreferenceType) => {
+    return NOTIFICATION_TYPES[v];
+  };
+
   return {
     getContentLink,
     CONTENT_LINKS,
     fiats,
     getFiat,
+    NOTIFICATION_CHANNELS,
+    getNotificationChannel,
+    NOTIFICATION_TYPES,
+    getNotificationType,
   };
 };
