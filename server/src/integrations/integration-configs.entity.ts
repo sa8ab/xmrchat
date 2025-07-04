@@ -4,13 +4,11 @@ import {
   Column,
   ManyToOne,
   Unique,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Page } from 'src/pages/page.entity';
-
-export enum IntegrationConfigType {
-  SINGAL = 'singal',
-  TELEGRAM = 'telegram',
-}
+import { IntegrationConfigType } from 'src/shared/constants';
 
 @Entity('integration_configs')
 @Unique('unique-page-and-type', ['page.id', 'type'])
@@ -21,9 +19,15 @@ export class IntegrationConfig {
   @Column({ type: 'enum', enum: IntegrationConfigType })
   type: IntegrationConfigType;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'jsonb', nullable: true })
   config: any;
 
-  @ManyToOne(() => Page)
+  @ManyToOne(() => Page, { onDelete: 'CASCADE' })
   page: Page;
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt: Date;
 }

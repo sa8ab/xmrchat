@@ -4,8 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PageSubscriber } from 'src/audits/page.subscriber';
 import { UserToken } from 'src/auth/user-tokens/user-token.entity';
 import { File as FileEntity } from 'src/files/file.entity';
+import { IntegrationConfig } from 'src/integrations/integration-configs.entity';
 import { Coin } from 'src/integrations/trocador/coin.entity';
 import { Link } from 'src/links/link.entity';
+import { NotificationPreference } from 'src/notification-preferences/notification-preferences.entity';
 import { PageSetting } from 'src/page-settings/page-setting.entity';
 import { Page } from 'src/pages/page.entity';
 import { Tier } from 'src/pages/tier.entity';
@@ -37,6 +39,8 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
           Link,
           Coin,
           Swap,
+          IntegrationConfig,
+          NotificationPreference,
         ],
         namingStrategy: new SnakeNamingStrategy(),
         migrationsRun: process.env.NODE_ENV === 'production',

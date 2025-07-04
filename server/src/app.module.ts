@@ -43,6 +43,7 @@ import { ExpressAdapter } from '@bull-board/express';
 import expressBasicAuth from 'express-basic-auth';
 import { CakeModule } from './integrations/cake/cake.module';
 import { IntegrationsModule } from './integrations/integrations.module';
+import { NotificationPreferencesModule } from './notification-preferences/notification-preferences.module';
 
 @Module({
   imports: [
@@ -160,6 +161,7 @@ import { IntegrationsModule } from './integrations/integrations.module';
     AdminModule,
     TipMessageModule,
     IntegrationsModule,
+    NotificationPreferencesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

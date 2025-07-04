@@ -90,3 +90,19 @@ export enum PageStatusEnum {
   ACTIVE = 'active',
   DEACTIVE = 'deactive',
 }
+
+export enum IntegrationConfigType {
+  SINGAL = 'singal',
+  TELEGRAM = 'telegram',
+}
+
+export enum NotificationPreferenceType {
+  NEW_TIP = 'new_tip',
+}
+
+export enum NotificationChannelEnum {
+  EMAIL = 'email',
+  WEBHOOK = 'webhook',
+  TELEGRAM = 'telegram',
+  SINGAL = 'singal',
+}
