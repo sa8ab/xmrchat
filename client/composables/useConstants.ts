@@ -116,6 +116,14 @@ export const useConstants = () => {
       inputLabel: t("xUsername", { platform: "Kick" }),
       linkCreator: (v?: string) => `https://kick.com/${v}`,
     },
+    [ContentLinkPlatformEnum.PEERTUBE]: {
+      name: "Peertube",
+      colorClassName: "",
+      iconClassName: "",
+      icon: "i-icon-peertube",
+      inputLabel: t("peertubeChannel"),
+      linkCreator: (v?: string) => `https://peertube.tv/c/${v}`,
+    },
   };
   const getContentLink = (v: ContentLinkPlatformEnum) => {
     return CONTENT_LINKS[v];

@@ -51,6 +51,7 @@ export enum LinkPlatformEnum {
   ODYSEE = 'odysee',
   XMRBAZAAR = 'xmrbazaar',
   KICK = 'kick',
+  PEERTUBE = 'peertube',
 }
 
 export enum TrocadorStatusEnum {
