@@ -67,7 +67,7 @@ export class PagesService {
       .leftJoin(
         (qb) => {
           return qb
-            .select(['tip.id', 'tip.page_id', 'payment.paid_amount'])
+            .select(['tip.id', 'tip.page_id', 'payment.paid_amount', 'payment.paid_at'])
             .from(Tip, 'tip')
             .innerJoin('tip.payment', 'payment')
             .where('payment.paid_at IS NOT NULL');
