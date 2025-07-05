@@ -66,7 +66,7 @@ const items = computed(() => {
           to: toStreamer(page.value.path),
         },
         {
-          label: "Notification Preferences",
+          label: "Notifications",
           icon: "i-heroicons-bell",
           to: toStreamerNotificationPreferences(),
         },

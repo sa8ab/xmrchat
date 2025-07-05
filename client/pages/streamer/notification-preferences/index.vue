@@ -86,10 +86,7 @@ const handleSave = async () => {
 
 <template>
   <div>
-    <PageTitle
-      title="Notification Preferences"
-      description="Manage your notification preferences"
-    />
+    <PageTitle title="Notifications" description="Manage your notifications" />
     <GeneralForm @submit="handleSave">
       <div class="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-4">
         <NotificationPreferenceContainer
