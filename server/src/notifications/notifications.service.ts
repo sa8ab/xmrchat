@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { EmailService } from './email/email.service';
 import { PageReportEmailOptions } from 'src/shared/types';
 import { ConfigService } from '@nestjs/config';
@@ -6,14 +6,17 @@ import { TwitchService } from 'src/integrations/twitch/twitch.service';
 import { I18nContext, I18nService } from 'nestjs-i18n';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
+import { NotificationDispatcherService } from './notification-dispatcher.service';
 
 @Injectable()
 export class NotificationsService {
+  private logger = new Logger(NotificationsService.name);
   constructor(
     private emailService: EmailService,
     private twitchService: TwitchService,
     private config: ConfigService,
     private i18n: I18nService,
+    private notificationDispatcherService: NotificationDispatcherService,
     @InjectQueue('notifications-email') private emailQueue: Queue,
   ) {}
 
@@ -142,5 +145,13 @@ export class NotificationsService {
         },
       },
     });
+  }
+
+  async handleNewTip(pageId: number, tipId: number) {
+    try {
+      await this.notificationDispatcherService.notifyNewTip(pageId, tipId);
+    } catch (error) {
+      this.logger.error(`Error notifying new tip: ${error}`);
+    }
   }
 }

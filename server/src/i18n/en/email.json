@@ -24,5 +24,16 @@
     "emailTitle": "Password Updated",
     "passwordUpdated": "Password of your account has been updated.",
     "ifItWasNotYou": "If it wasn't you please login and reset your password."
+  },
+  "newTip": {
+    "subject": "You received a tip on XMRChat",
+    "title": "New Tip Received",
+    "emailTitle": "You received a tip!",
+    "youReceivedATip": "You received a tip!",
+    "from": "From",
+    "amount": "Amount",
+    "message": "Message",
+    "thankYouForYourContent": "Thank you for your great content! Keep up the amazing work.",
+    "visitXMRChat": "Visit XMRChat"
   }
 }

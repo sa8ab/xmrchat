@@ -1,0 +1,39 @@
+{{#>layout title="{{translate 'email.newTip.title' lang=lang}}" }}
+
+  <div style="padding-bottom: 16px; background: #f8f9fa; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+    <h2 style="margin: 0 0 16px 0; color: #ff7f0a;">{{translate "email.newTip.youReceivedATip" lang=lang}}</h2>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 16px;">
+      <tr>
+        <td style="padding: 8px 0; color: #8f8f8f;">{{translate "email.newTip.from" lang=lang}}:</td>
+        <td style="padding: 8px 0; font-weight: 500;">{{name}}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #8f8f8f;">{{translate "email.newTip.amount" lang=lang}}:</td>
+        <td style="padding: 8px 0; font-weight: 500; color: #ff7f0a; font-size: 18px;">{{amount}} XMR</td>
+      </tr>
+    </table>
+
+    {{#if message}}
+      <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e9ecef;">
+        <p style="margin: 0 0 8px 0; color: #8f8f8f; font-size: 14px;">{{translate "email.newTip.message" lang=lang}}:
+        </p>
+        <p
+          style="margin: 0; font-style: italic; color: #495057; background: #ffffff; padding: 12px; border-radius: 4px; border-left: 4px solid #ff7f0a;">
+          {{message}}
+        </p>
+      </div>
+    {{/if}}
+  </div>
+
+  <p style="padding-bottom: 16px">{{translate "email.newTip.thankYouForYourContent" lang=lang}}</p>
+
+  <div style="text-align: center; margin-top: 24px;">
+    <a href="https://xmrchat.com" target="_blank"
+      style="padding: 12px 24px; border-radius: 4px; color: #FFF; background: #ff7f0a; display: inline-flex; text-decoration: none;">
+      {{translate "email.newTip.visitXMRChat" lang=lang}}
+    </a>
+  </div>
+
+  {{>ending}}
+{{/layout}}

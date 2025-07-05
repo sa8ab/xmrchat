@@ -5,12 +5,18 @@ import { TwitchModule } from 'src/integrations/twitch/twitch.module';
 import { BullModule } from '@nestjs/bullmq';
 import { BullBoardModule } from '@bull-board/nestjs';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
+import { NotificationDispatcherService } from './notification-dispatcher.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Page } from 'src/pages/page.entity';
+import { User } from 'src/users/user.entity';
+import { Tip } from 'src/tips/tip.entity';
+import { NotificationPreference } from 'src/notification-preferences/notification-preferences.entity';
 
 @Module({
-  providers: [NotificationsService],
   imports: [
     EmailModule,
     TwitchModule,
+    TypeOrmModule.forFeature([Page, User, Tip, NotificationPreference]),
     BullModule.registerQueue({
       name: 'notifications-email',
     }),
@@ -19,6 +25,7 @@ import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
       adapter: BullMQAdapter,
     }),
   ],
-  exports: [NotificationsService],
+  providers: [NotificationsService, NotificationDispatcherService],
+  exports: [NotificationsService, NotificationDispatcherService],
 })
 export class NotificationsModule {}
