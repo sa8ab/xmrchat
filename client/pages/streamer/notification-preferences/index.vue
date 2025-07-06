@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { NotificationPreference } from "~/types";
+import useVuelidate from "@vuelidate/core";
+import type { NotificationPreference, Numberic } from "~/types";
 import {
   NotificationChannelEnum,
   NotificationPreferenceType,
@@ -7,6 +8,7 @@ import {
 
 const { axios } = useApp();
 const toast = useToast();
+const { numberic } = useValidations();
 
 type Form = {
   [key in NotificationChannelEnum]: {
@@ -16,6 +18,7 @@ type Form = {
 interface State {
   form: Form;
   pending: boolean;
+  minNotificationThreshold?: Numberic;
 }
 
 const state = reactive<State>({
@@ -23,6 +26,7 @@ const state = reactive<State>({
     [NotificationChannelEnum.EMAIL]: {},
   },
   pending: false,
+  minNotificationThreshold: undefined,
 });
 
 const getObjectPereferences = (
@@ -39,14 +43,17 @@ const getObjectPereferences = (
 
 await useLazyAsyncData(
   async () => {
-    const { data } = await axios.get<{ preferences: NotificationPreference[] }>(
-      `/notification-preferences`
-    );
+    const { data } = await axios.get<{
+      preferences: NotificationPreference[];
+      minNotificationThreshold: number;
+    }>(`/notification-preferences`);
 
     state.form.email = getObjectPereferences(
       NotificationChannelEnum.EMAIL,
       data.preferences
     );
+
+    state.minNotificationThreshold = data.minNotificationThreshold;
   },
   { server: false }
 );
@@ -68,6 +75,9 @@ const handleSave = async () => {
   try {
     await axios.patch("/notification-preferences", {
       preferences: convertedPreferences,
+      minNotificationThreshold: state.minNotificationThreshold
+        ? parseFloat(state.minNotificationThreshold as string)
+        : null,
     });
     toast.add({
       color: "green",
@@ -82,12 +92,43 @@ const handleSave = async () => {
     state.pending = false;
   }
 };
+
+const v = useVuelidate<any>(
+  {
+    minNotificationThreshold: { numberic },
+  },
+  state
+);
+
+const { getValidationAttrs } = useValidations(v);
 </script>
 
 <template>
   <div>
     <PageTitle title="Notifications" description="Manage your notifications" />
     <GeneralForm @submit="handleSave">
+      <div class="grid mb-10 grid-cols-1 md:grid-cols-2 gap-4">
+        <UFormGroup
+          label="Min Notification Threshold"
+          name="minNotificationThreshold"
+          :error="getValidationAttrs('minNotificationThreshold').error"
+          help="The minimum amount of XMR tip that will trigger a notification."
+        >
+          <UInput
+            v-model="state.minNotificationThreshold"
+            @blur="getValidationAttrs('minNotificationThreshold').onBlur"
+            :style="{ paddingStart: '54px' }"
+          >
+            <template #leading>
+              <span
+                class="text-pale flex items-center text-center justify-center"
+              >
+                XMR
+              </span>
+            </template>
+          </UInput>
+        </UFormGroup>
+      </div>
       <div class="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-4">
         <NotificationPreferenceContainer
           :channel="NotificationChannelEnum.EMAIL"
@@ -97,7 +138,7 @@ const handleSave = async () => {
       </div>
       <div class="flex mt-4">
         <UButton type="submit" color="primary" :loading="state.pending">
-          Save
+          {{ $t("saveChanges") }}
         </UButton>
       </div>
     </GeneralForm>

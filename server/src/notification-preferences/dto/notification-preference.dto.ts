@@ -28,4 +28,7 @@ export class NotificationPreferencesRO {
   @Expose()
   @Type(() => NotificationPreferenceDto)
   preferences: NotificationPreferenceDto[];
+
+  @Expose()
+  minNotificationThreshold: number;
 }

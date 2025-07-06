@@ -8,6 +8,7 @@ import { NotificationPreferencesRO } from './dto/notification-preference.dto';
 import { UpdateNotificationPreferencesDto } from './dto/update-notification-preference.dto';
 import { PageSettingsService } from 'src/page-settings/page-settings.service';
 import { PageSettingKey } from 'src/shared/constants';
+import { MoneroUtils } from 'monero-ts';
 
 @Controller('notification-preferences')
 export class NotificationPreferencesController {
@@ -28,7 +29,12 @@ export class NotificationPreferencesController {
         page.id,
       );
 
-    return { preferences };
+    const minThreshold = await this.pageSettingsService.getSettingValue(
+      page.path,
+      PageSettingKey.MIN_NOTIFICATION_THRESHOLD,
+    );
+
+    return { preferences, minNotificationThreshold: minThreshold };
   }
 
   // Update prefences
@@ -42,7 +48,9 @@ export class NotificationPreferencesController {
     await this.pageSettingsService.upsert(page.id, [
       {
         key: PageSettingKey.MIN_NOTIFICATION_THRESHOLD,
-        value: dto.minNotificationThreshold,
+        value: dto.minNotificationThreshold
+          ? MoneroUtils.xmrToAtomicUnits(dto.minNotificationThreshold)
+          : null,
       },
     ]);
 
