@@ -10,6 +10,7 @@ export enum FileType {
 export enum PageSettingCategory {
   OBS = 'obs',
   STREAMING = 'streaming',
+  NOTIFICATIONS = 'notifications',
 }
 
 export enum PageSettingKey {
@@ -17,6 +18,7 @@ export enum PageSettingKey {
   OBS_KEEP_MESSAGES = 'obs-keep-messages',
   OBS_PLAY_SOUND = 'obs-play-sound',
   OBS_AUTO_SHOW_TIPS = 'obs-auto-show-tips',
+  MIN_NOTIFICATION_THRESHOLD = 'min-notification-threshold',
 }
 
 export enum TipDisplayMode {
