@@ -1,8 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NotificationPreferencesService } from 'src/notification-preferences/notification-preferences.service';
 import { Page } from 'src/pages/page.entity';
 import {
+  Action,
   NotificationChannelEnum,
   NotificationPreferenceType,
   PageSettingKey,
@@ -15,6 +20,7 @@ import { InjectQueue } from '@nestjs/bullmq';
 import { NotificationPreference } from 'src/notification-preferences/notification-preferences.entity';
 import { MoneroUtils } from 'monero-ts';
 import { PageSetting } from 'src/page-settings/page-setting.entity';
+import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 
 @Injectable()
 export class NotificationDispatcherService {
@@ -26,6 +32,7 @@ export class NotificationDispatcherService {
     @InjectRepository(PageSetting)
     private pageSettingsRepo: Repository<PageSetting>,
     @InjectQueue('notifications-email') private emailQueue: Queue,
+    private caslAbility: CaslAbilityFactory,
   ) {}
   async notifyNewTip(pageId: number, tipId: number) {
     // get page
@@ -37,6 +44,10 @@ export class NotificationDispatcherService {
 
     if (!page) {
       throw new NotFoundException('Page not found');
+    }
+    const ability = this.caslAbility.createForUser(page.user);
+    if (!ability.can(Action.Receive, 'notification')) {
+      throw new ForbiddenException('User can not receive notifications');
     }
 
     // get tip
