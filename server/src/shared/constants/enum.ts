@@ -108,3 +108,12 @@ export enum NotificationChannelEnum {
   TELEGRAM = 'telegram',
   SINGAL = 'singal',
 }
+
+export enum Action {
+  Manage = 'manage',
+  Create = 'create',
+  Read = 'read',
+  Update = 'update',
+  Delete = 'delete',
+  Receive = 'receive',
+}

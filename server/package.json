@@ -31,6 +31,7 @@
     "@bull-board/api": "^6.10.1",
     "@bull-board/express": "^6.10.1",
     "@bull-board/nestjs": "^6.10.1",
+    "@casl/ability": "^6.7.3",
     "@nestjs-modules/mailer": "^2.0.2",
     "@nestjs/axios": "^3.0.3",
     "@nestjs/bullmq": "^11.0.2",

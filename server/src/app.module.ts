@@ -44,6 +44,7 @@ import expressBasicAuth from 'express-basic-auth';
 import { CakeModule } from './integrations/cake/cake.module';
 import { IntegrationsModule } from './integrations/integrations.module';
 import { NotificationPreferencesModule } from './notification-preferences/notification-preferences.module';
+import { CaslModule } from './casl/casl.module';
 
 @Module({
   imports: [
@@ -162,6 +163,7 @@ import { NotificationPreferencesModule } from './notification-preferences/notifi
     TipMessageModule,
     IntegrationsModule,
     NotificationPreferencesModule,
+    CaslModule,
   ],
   controllers: [AppController],
   providers: [AppService],
