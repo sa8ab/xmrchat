@@ -1,5 +1,12 @@
 import { Type } from 'class-transformer';
-import { IsArray, IsBoolean, IsEnum, ValidateNested } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  ValidateNested,
+} from 'class-validator';
 import {
   NotificationChannelEnum,
   NotificationPreferenceType,
@@ -21,4 +28,8 @@ export class UpdateNotificationPreferencesDto {
   @ValidateNested({ each: true })
   @Type(() => UpdateNotificationPreferenceDto)
   preferences: UpdateNotificationPreferenceDto[];
+
+  @IsNumber()
+  @IsOptional()
+  minNotificationThreshold: number;
 }

@@ -6,12 +6,15 @@ import { NotificationPreferencesService } from './notification-preferences.servi
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
 import { NotificationPreferencesRO } from './dto/notification-preference.dto';
 import { UpdateNotificationPreferencesDto } from './dto/update-notification-preference.dto';
+import { PageSettingsService } from 'src/page-settings/page-settings.service';
+import { PageSettingKey } from 'src/shared/constants';
 
 @Controller('notification-preferences')
 export class NotificationPreferencesController {
   constructor(
     private pagesService: PagesService,
     private notificationPreferencesService: NotificationPreferencesService,
+    private pageSettingsService: PageSettingsService,
   ) {}
 
   // Get prefences
@@ -35,6 +38,13 @@ export class NotificationPreferencesController {
     @Body() dto: UpdateNotificationPreferencesDto,
   ) {
     const page = await this.pagesService.findMyPage(user);
+
+    await this.pageSettingsService.upsert(page.id, [
+      {
+        key: PageSettingKey.MIN_NOTIFICATION_THRESHOLD,
+        value: dto.minNotificationThreshold,
+      },
+    ]);
 
     await this.notificationPreferencesService.updateNotificationPreferences(
       page.id,
