@@ -9,6 +9,7 @@ import {
 const { axios } = useApp();
 const toast = useToast();
 const { numberic } = useValidations();
+const authStore = useAuthStore();
 
 type Form = {
   [key in NotificationChannelEnum]: {
@@ -101,12 +102,19 @@ const v = useVuelidate<any>(
 );
 
 const { getValidationAttrs } = useValidations(v);
+
+const isPremium = computed(() => authStore.state.user?.isPremium);
 </script>
 
 <template>
   <div>
     <PageTitle title="Notifications" description="Manage your notifications" />
-    <ErrorView :error="error" v-if="error" />
+    <div class="text-center" v-if="!isPremium">
+      <p class="text-2xl font-bold">Coming Soon</p>
+      <p class="mt-2">This feature will be available soon.</p>
+    </div>
+
+    <ErrorView :error="error" v-else-if="error" />
 
     <GeneralForm @submit="handleSave" v-else>
       <div class="grid mb-10 grid-cols-1 md:grid-cols-2 gap-4">
