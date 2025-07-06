@@ -12,6 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Page } from 'src/pages/page.entity';
 import { DataMigrationCommand } from './commands/data-migration.command';
 import { Tip } from 'src/tips/tip.entity';
+import { ChangePremiumCommand } from './commands/premium.command';
 
 @Module({
   providers: [
@@ -21,6 +22,7 @@ import { Tip } from 'src/tips/tip.entity';
     SendEmailCommand,
     LwsCommand,
     DataMigrationCommand,
+    ChangePremiumCommand,
   ],
   imports: [
     AuthModule,
