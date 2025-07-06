@@ -11,12 +11,19 @@ import { Page } from 'src/pages/page.entity';
 import { User } from 'src/users/user.entity';
 import { Tip } from 'src/tips/tip.entity';
 import { NotificationPreference } from 'src/notification-preferences/notification-preferences.entity';
+import { PageSetting } from 'src/page-settings/page-setting.entity';
 
 @Module({
   imports: [
     EmailModule,
     TwitchModule,
-    TypeOrmModule.forFeature([Page, User, Tip, NotificationPreference]),
+    TypeOrmModule.forFeature([
+      Page,
+      User,
+      Tip,
+      NotificationPreference,
+      PageSetting,
+    ]),
     BullModule.registerQueue({
       name: 'notifications-email',
     }),

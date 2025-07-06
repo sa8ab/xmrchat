@@ -5,6 +5,7 @@ import { Page } from 'src/pages/page.entity';
 import {
   NotificationChannelEnum,
   NotificationPreferenceType,
+  PageSettingKey,
 } from 'src/shared/constants';
 import { Tip } from 'src/tips/tip.entity';
 import { Repository } from 'typeorm';
@@ -13,6 +14,7 @@ import { Queue } from 'bullmq';
 import { InjectQueue } from '@nestjs/bullmq';
 import { NotificationPreference } from 'src/notification-preferences/notification-preferences.entity';
 import { MoneroUtils } from 'monero-ts';
+import { PageSetting } from 'src/page-settings/page-setting.entity';
 
 @Injectable()
 export class NotificationDispatcherService {
@@ -21,6 +23,8 @@ export class NotificationDispatcherService {
     @InjectRepository(Tip) private tipsRepo: Repository<Tip>,
     @InjectRepository(NotificationPreference)
     private notificationPreferencesRepo: Repository<NotificationPreference>,
+    @InjectRepository(PageSetting)
+    private pageSettingsRepo: Repository<PageSetting>,
     @InjectQueue('notifications-email') private emailQueue: Queue,
   ) {}
   async notifyNewTip(pageId: number, tipId: number) {
@@ -50,8 +54,35 @@ export class NotificationDispatcherService {
       where: { page: { id: pageId } },
     });
 
+    const minNotificationThresholdSetting = await this.pageSettingsRepo.findOne(
+      {
+        where: {
+          page: { id: pageId },
+          key: PageSettingKey.MIN_NOTIFICATION_THRESHOLD,
+        },
+      },
+    );
+
+    const minNotificationThreshold = minNotificationThresholdSetting?.value;
+
+    console.log('minNotificationThreshold', minNotificationThreshold);
+    console.log('tip.payment.amount', tip.payment.amount);
+
+    const meetsThreshold = this.getMeetsThreshold(
+      tip,
+      minNotificationThreshold,
+    );
+
+    console.log('meetsThreshold', meetsThreshold);
+
     // based on preferences, send email, telegram, etc
     for (const preference of preferences) {
+      if (
+        preference.type === NotificationPreferenceType.NEW_TIP &&
+        !meetsThreshold
+      )
+        continue;
+
       if (
         preference.channel === NotificationChannelEnum.EMAIL &&
         preference.type === NotificationPreferenceType.NEW_TIP
@@ -71,5 +102,14 @@ export class NotificationDispatcherService {
         });
       }
     }
+  }
+
+  getMeetsThreshold(tip: Tip, minNotificationThreshold: string) {
+    const tipAmount = MoneroUtils.atomicUnitsToXmr(tip.payment.amount);
+    const minNotificationThresholdAmount = MoneroUtils.atomicUnitsToXmr(
+      minNotificationThreshold,
+    );
+
+    return tipAmount >= minNotificationThresholdAmount;
   }
 }

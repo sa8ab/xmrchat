@@ -1,4 +1,5 @@
-import { Expose, Type } from 'class-transformer';
+import { Expose, Transform, Type } from 'class-transformer';
+import { MoneroUtils } from 'monero-ts';
 import {
   NotificationChannelEnum,
   NotificationPreferenceType,
@@ -30,5 +31,6 @@ export class NotificationPreferencesRO {
   preferences: NotificationPreferenceDto[];
 
   @Expose()
+  @Transform(({ value }) => value && MoneroUtils.atomicUnitsToXmr(value))
   minNotificationThreshold: number;
 }
