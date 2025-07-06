@@ -12,7 +12,6 @@ import { NotificationDispatcherService } from './notification-dispatcher.service
 export class NotificationsService {
   private logger = new Logger(NotificationsService.name);
   constructor(
-    private emailService: EmailService,
     private twitchService: TwitchService,
     private config: ConfigService,
     private i18n: I18nService,
