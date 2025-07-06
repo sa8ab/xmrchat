@@ -20,9 +20,9 @@ export class CaslAbilityFactory {
 
     const isAdmin = user.roles.includes(RolesEnum.ADMIN);
 
-    // if (isAdmin) {
-    //   can(Action.Manage, 'all');
-    // }
+    if (isAdmin) {
+      can(Action.Manage, 'all');
+    }
 
     if (user.isPremium) {
       can(Action.Manage, 'notification');

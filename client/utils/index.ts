@@ -1,17 +1,38 @@
+import { AxiosError, isAxiosError } from "axios";
 import type { Numberic, StreamerPage } from "~/types";
+import type { H3Error } from "h3";
 
 const getFirstErrorMessage = (message: any) => {
   if (Array.isArray(message)) return message[0];
   return message;
 };
 
-export const getErrorMessage = (error?: any) => {
+export const getErrorMessage = (error: any): string | undefined => {
   if (!error) return undefined;
-  if (error.response?.data?.message)
-    return getFirstErrorMessage(error.response?.data?.message);
-  if (error.response?.data?.error) return error.response?.data?.error;
-  if (error.message) return error.message;
-  return undefined;
+
+  if (error.cause && isNuxtError(error)) {
+    error = error.cause;
+  }
+
+  if (isAxiosError(error)) {
+    const data = (error as AxiosError).response?.data as
+      | { message?: string | string[]; error?: string | string[] }
+      | undefined;
+
+    const msg = data?.message ?? data?.error;
+
+    if (msg) {
+      return Array.isArray(msg) ? msg[0] : msg;
+    }
+
+    return (error as AxiosError).message;
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return String(error);
 };
 
 export const getProperty = (obj: any, path: string): any => {

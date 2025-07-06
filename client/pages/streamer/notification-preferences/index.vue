@@ -41,7 +41,7 @@ const getObjectPereferences = (
     }, {} as Form[NotificationChannelEnum]);
 };
 
-await useLazyAsyncData(
+const { error } = await useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{
       preferences: NotificationPreference[];
@@ -106,7 +106,9 @@ const { getValidationAttrs } = useValidations(v);
 <template>
   <div>
     <PageTitle title="Notifications" description="Manage your notifications" />
-    <GeneralForm @submit="handleSave">
+    <ErrorView :error="error" v-if="error" />
+
+    <GeneralForm @submit="handleSave" v-else>
       <div class="grid mb-10 grid-cols-1 md:grid-cols-2 gap-4">
         <UFormGroup
           label="Min Notification Threshold"

@@ -59,6 +59,14 @@ export class NotificationPreferencesController {
     @CurrentUser() user: User,
     @Body() dto: UpdateNotificationPreferencesDto,
   ) {
+    const ability = this.casl.createForUser(user);
+
+    if (!ability.can(Action.Manage, 'notification')) {
+      throw new UnauthorizedException(
+        'You need to be a premium user to manage notification preferences',
+      );
+    }
+
     const page = await this.pagesService.findMyPage(user);
 
     await this.pageSettingsService.upsert(page.id, [
