@@ -174,6 +174,11 @@ export const useConstants = () => {
       description: "Receive notifications when a new tip is received",
       icon: "i-heroicons-sparkles",
     },
+    [NotificationPreferenceType.DAILY_SUMMERY]: {
+      name: "Daily Summury",
+      description: "Receive daily summury of your tips",
+      icon: "i-heroicons-sparkles",
+    },
   };
 
   const getNotificationType = (v: NotificationPreferenceType) => {

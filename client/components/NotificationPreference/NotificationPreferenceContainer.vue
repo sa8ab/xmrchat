@@ -33,7 +33,7 @@ const channel = computed(() => getNotificationChannel(props.channel));
       </div>
     </template>
 
-    <div>
+    <div class="grid gap-4">
       <div class="flex items-center gap-2">
         <div>
           <UIcon
@@ -54,6 +54,32 @@ const channel = computed(() => getNotificationChannel(props.channel));
         </div>
         <div>
           <UToggle v-model="model[NotificationPreferenceType.NEW_TIP]" />
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <div>
+          <UIcon
+            :name="
+              getNotificationType(NotificationPreferenceType.DAILY_SUMMERY).icon
+            "
+            size="20px"
+          />
+        </div>
+        <div class="flex-grow">
+          <span>
+            {{
+              getNotificationType(NotificationPreferenceType.DAILY_SUMMERY).name
+            }}
+          </span>
+          <p class="text-pale text-xs">
+            {{
+              getNotificationType(NotificationPreferenceType.DAILY_SUMMERY)
+                .description
+            }}
+          </p>
+        </div>
+        <div>
+          <UToggle v-model="model[NotificationPreferenceType.DAILY_SUMMERY]" />
         </div>
       </div>
       <slot />

@@ -101,7 +101,7 @@ export enum IntegrationConfigType {
 
 export enum NotificationPreferenceType {
   NEW_TIP = 'new_tip',
-  SCHEDULED_TIPS = 'scheduled_tips',
+  DAILY_SUMMERY = 'daily_summury',
 }
 
 export enum NotificationChannelEnum {

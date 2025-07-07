@@ -61,6 +61,7 @@ export enum PageStatusEnum {
 
 export enum NotificationPreferenceType {
   NEW_TIP = "new_tip",
+  DAILY_SUMMERY = "daily_summury",
 }
 
 export enum NotificationChannelEnum {
