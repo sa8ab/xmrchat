@@ -174,9 +174,9 @@ export const useConstants = () => {
       description: "Receive notifications when a new tip is received",
       icon: "i-heroicons-sparkles",
     },
-    [NotificationPreferenceType.DAILY_SUMMERY]: {
-      name: "Daily Summury",
-      description: "Receive daily summury of your tips",
+    [NotificationPreferenceType.DAILY_SUMMARY]: {
+      name: "Daily Summary",
+      description: "Receive daily summary of your tips",
       icon: "i-heroicons-sparkles",
     },
   };

@@ -60,7 +60,7 @@ const channel = computed(() => getNotificationChannel(props.channel));
         <div>
           <UIcon
             :name="
-              getNotificationType(NotificationPreferenceType.DAILY_SUMMERY).icon
+              getNotificationType(NotificationPreferenceType.DAILY_SUMMARY).icon
             "
             size="20px"
           />
@@ -68,18 +68,18 @@ const channel = computed(() => getNotificationChannel(props.channel));
         <div class="flex-grow">
           <span>
             {{
-              getNotificationType(NotificationPreferenceType.DAILY_SUMMERY).name
+              getNotificationType(NotificationPreferenceType.DAILY_SUMMARY).name
             }}
           </span>
           <p class="text-pale text-xs">
             {{
-              getNotificationType(NotificationPreferenceType.DAILY_SUMMERY)
+              getNotificationType(NotificationPreferenceType.DAILY_SUMMARY)
                 .description
             }}
           </p>
         </div>
         <div>
-          <UToggle v-model="model[NotificationPreferenceType.DAILY_SUMMERY]" />
+          <UToggle v-model="model[NotificationPreferenceType.DAILY_SUMMARY]" />
         </div>
       </div>
       <slot />
