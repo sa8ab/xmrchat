@@ -4,6 +4,9 @@ import { NotificationPreference } from './notification-preferences.entity';
 import { Repository } from 'typeorm';
 import { PagesService } from 'src/pages/pages.service';
 import { UpdateNotificationPreferencesDto } from './dto/update-notification-preference.dto';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
+import { Page } from 'src/pages/page.entity';
 
 @Injectable()
 export class NotificationPreferencesService {
@@ -11,6 +14,8 @@ export class NotificationPreferencesService {
     @InjectRepository(NotificationPreference)
     private repo: Repository<NotificationPreference>,
     private pagesService: PagesService,
+    @InjectQueue('notifications-daily-summary')
+    private dailySummaryQueue: Queue,
   ) {}
 
   async getNotificationPreferences(pageId: number) {
@@ -47,6 +52,32 @@ export class NotificationPreferencesService {
       {
         conflictPaths: ['page.id', 'type', 'channel'],
       },
+    );
+
+    await this.updateDailySummaryQueue(page, dto);
+  }
+
+  async updateDailySummaryQueue(
+    page: Page,
+    dto: UpdateNotificationPreferencesDto,
+  ) {
+    const dailySummaryTime = dto.dailySummaryTime;
+
+    if (!dailySummaryTime) {
+      await this.dailySummaryQueue.removeJobScheduler(
+        `daily-summary-${page.id}`,
+      );
+      return;
+    }
+
+    const [hour, minute] = dailySummaryTime.split(':');
+    const cron = `${minute} ${hour} * * *`;
+
+    await this.dailySummaryQueue.upsertJobScheduler(
+      `daily-summary-${page.id}`,
+      // { pattern: cron },
+      { every: 1000 * 60 },
+      { data: { pageId: page.id } },
     );
   }
 }

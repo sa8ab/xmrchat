@@ -12,6 +12,8 @@ import { User } from 'src/users/user.entity';
 import { Tip } from 'src/tips/tip.entity';
 import { NotificationPreference } from 'src/notification-preferences/notification-preferences.entity';
 import { PageSetting } from 'src/page-settings/page-setting.entity';
+import { DailySummaryProcessor } from './daily-summery.processor';
+import { PageSettingsModule } from 'src/page-settings/page-settings.module';
 
 @Module({
   imports: [
@@ -32,7 +34,11 @@ import { PageSetting } from 'src/page-settings/page-setting.entity';
       adapter: BullMQAdapter,
     }),
   ],
-  providers: [NotificationsService, NotificationDispatcherService],
+  providers: [
+    NotificationsService,
+    NotificationDispatcherService,
+    DailySummaryProcessor,
+  ],
   exports: [NotificationsService, NotificationDispatcherService],
 })
 export class NotificationsModule {}

@@ -84,8 +84,6 @@ export class NotificationDispatcherService {
       minNotificationThreshold,
     );
 
-    console.log('meetsThreshold', meetsThreshold);
-
     // based on preferences, send email, telegram, etc
     for (const preference of preferences) {
       if (
