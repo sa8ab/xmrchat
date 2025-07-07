@@ -19,7 +19,7 @@ export enum PageSettingKey {
   OBS_PLAY_SOUND = 'obs-play-sound',
   OBS_AUTO_SHOW_TIPS = 'obs-auto-show-tips',
   MIN_NOTIFICATION_THRESHOLD = 'min-notification-threshold',
-  SCHEDULED_DAILY_NOTIFICATION_TIME = 'scheduled-daily-notification-time',
+  DAILY_SUMMARY_NOTIFICATION_TIME = 'daily-summary-notification-time',
 }
 
 export enum TipDisplayMode {
@@ -101,7 +101,7 @@ export enum IntegrationConfigType {
 
 export enum NotificationPreferenceType {
   NEW_TIP = 'new_tip',
-  DAILY_SUMMERY = 'daily_summury',
+  DAILY_SUMMARY = 'daily_summary',
 }
 
 export enum NotificationChannelEnum {

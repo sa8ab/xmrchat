@@ -49,8 +49,16 @@ export class NotificationPreferencesController {
       page.path,
       PageSettingKey.MIN_NOTIFICATION_THRESHOLD,
     );
+    const dailySummaryTime = await this.pageSettingsService.getSettingValue(
+      page.path,
+      PageSettingKey.DAILY_SUMMARY_NOTIFICATION_TIME,
+    );
 
-    return { preferences, minNotificationThreshold: minThreshold };
+    return {
+      preferences,
+      minNotificationThreshold: minThreshold,
+      dailySummaryTime,
+    };
   }
 
   // Update prefences

@@ -25,7 +25,7 @@ export const PAGE_SETTINGS = {
     category: PageSettingCategory.NOTIFICATIONS,
     type: PageSettingValueType.NUMBER,
   },
-  [PageSettingKey.SCHEDULED_DAILY_NOTIFICATION_TIME]: {
+  [PageSettingKey.DAILY_SUMMARY_NOTIFICATION_TIME]: {
     category: PageSettingCategory.NOTIFICATIONS,
     type: PageSettingValueType.STRING,
   },
