@@ -3,8 +3,10 @@ import {
   IsArray,
   IsBoolean,
   IsEnum,
+  IsMilitaryTime,
   IsNumber,
   IsOptional,
+  IsString,
   ValidateNested,
 } from 'class-validator';
 import {
@@ -32,4 +34,9 @@ export class UpdateNotificationPreferencesDto {
   @IsNumber()
   @IsOptional()
   minNotificationThreshold: number;
+
+  @IsString()
+  @IsOptional()
+  @IsMilitaryTime()
+  dailySummaryTime: string;
 }

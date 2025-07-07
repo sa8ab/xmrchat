@@ -33,4 +33,7 @@ export class NotificationPreferencesRO {
   @Expose()
   @Transform(({ value }) => value && MoneroUtils.atomicUnitsToXmr(value))
   minNotificationThreshold: number;
+
+  @Expose()
+  dailySummaryTime: string;
 }

@@ -84,6 +84,10 @@ export class NotificationPreferencesController {
           ? MoneroUtils.xmrToAtomicUnits(dto.minNotificationThreshold)
           : null,
       },
+      {
+        key: PageSettingKey.DAILY_SUMMARY_NOTIFICATION_TIME,
+        value: dto.dailySummaryTime,
+      },
     ]);
 
     await this.notificationPreferencesService.updateNotificationPreferences(

@@ -10,6 +10,7 @@ const { axios } = useApp();
 const toast = useToast();
 const { numberic } = useValidations();
 const authStore = useAuthStore();
+const { dayjs } = useDate();
 
 type Form = {
   [key in NotificationChannelEnum]: {
@@ -20,6 +21,7 @@ interface State {
   form: Form;
   pending: boolean;
   minNotificationThreshold?: Numberic;
+  dailySummaryTime?: string;
 }
 
 const state = reactive<State>({
@@ -28,6 +30,7 @@ const state = reactive<State>({
   },
   pending: false,
   minNotificationThreshold: undefined,
+  dailySummaryTime: undefined,
 });
 
 const getObjectPereferences = (
@@ -42,11 +45,30 @@ const getObjectPereferences = (
     }, {} as Form[NotificationChannelEnum]);
 };
 
+const convertUTCToLocal = (utcTime?: string): string => {
+  if (!utcTime) return "";
+
+  const today = dayjs().format("YYYY-MM-DD");
+  const utcDateTime = dayjs(`${today}T${utcTime}:00Z`);
+
+  return utcDateTime.local().format("HH:mm");
+};
+
+const convertLocalToUTC = (localTime?: string): string => {
+  if (!localTime) return "";
+
+  const today = dayjs().format("YYYY-MM-DD");
+  const localDateTime = dayjs(`${today}T${localTime}:00`);
+
+  return localDateTime.utc().format("HH:mm");
+};
+
 const { error } = await useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{
       preferences: NotificationPreference[];
       minNotificationThreshold: number;
+      dailySummaryTime: string;
     }>(`/notification-preferences`);
 
     state.form.email = getObjectPereferences(
@@ -55,6 +77,7 @@ const { error } = await useLazyAsyncData(
     );
 
     state.minNotificationThreshold = data.minNotificationThreshold;
+    state.dailySummaryTime = convertUTCToLocal(data.dailySummaryTime);
   },
   { server: false }
 );
@@ -79,6 +102,7 @@ const handleSave = async () => {
       minNotificationThreshold: state.minNotificationThreshold
         ? parseFloat(state.minNotificationThreshold as string)
         : null,
+      dailySummaryTime: convertLocalToUTC(state.dailySummaryTime) || null,
     });
     toast.add({
       color: "green",
@@ -139,6 +163,14 @@ const isPremium = computed(
               </span>
             </template>
           </UInput>
+        </UFormGroup>
+
+        <UFormGroup
+          label="Daily Summary Time"
+          name="dailySummaryTime"
+          help="Time when daily summary notifications will be sent."
+        >
+          <TimeInput v-model="state.dailySummaryTime" />
         </UFormGroup>
       </div>
       <div class="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-4">
