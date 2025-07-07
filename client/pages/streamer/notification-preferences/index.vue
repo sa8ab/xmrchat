@@ -103,7 +103,9 @@ const v = useVuelidate<any>(
 
 const { getValidationAttrs } = useValidations(v);
 
-const isPremium = computed(() => authStore.state.user?.isPremium);
+const isPremium = computed(
+  () => authStore.state.user?.isPremium || authStore.isAdmin
+);
 </script>
 
 <template>
