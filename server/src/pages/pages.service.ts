@@ -49,14 +49,24 @@ export class PagesService {
 
   async searchPages(slug: string = '', offset: number = 0, limit: number = 8) {
     const weightedTotalQuery = `
-      SUM(
-        paid_tip.paid_amount::NUMERIC * 
-        CASE 
-          WHEN paid_tip.paid_at > NOW() - INTERVAL '30 days' THEN 1.0
-          WHEN paid_tip.paid_at > NOW() - INTERVAL '90 days' THEN 0.7
-          WHEN paid_tip.paid_at > NOW() - INTERVAL '180 days' THEN 0.4
-          ELSE 0.1
-        END
+      (
+        0.5 * SUM(
+          paid_tip.paid_amount::NUMERIC * 
+          CASE 
+            WHEN paid_tip.paid_at > NOW() - INTERVAL '30 days' THEN 1.0
+            WHEN paid_tip.paid_at > NOW() - INTERVAL '90 days' THEN 0.7
+            WHEN paid_tip.paid_at > NOW() - INTERVAL '180 days' THEN 0.4
+            ELSE 0.1
+          END
+        ) +
+        0.5 * SUM(
+          CASE 
+            WHEN paid_tip.paid_at > NOW() - INTERVAL '30 days' THEN 1.0
+            WHEN paid_tip.paid_at > NOW() - INTERVAL '90 days' THEN 0.7
+            WHEN paid_tip.paid_at > NOW() - INTERVAL '180 days' THEN 0.4
+            ELSE 0.1
+          END
+        )
       ) AS weighted_total
     `;
 
