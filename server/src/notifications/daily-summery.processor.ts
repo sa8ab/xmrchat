@@ -1,5 +1,5 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Job } from 'bullmq';
 import { MoneroUtils } from 'monero-ts';
@@ -11,6 +11,7 @@ import { In, IsNull, MoreThan, Not, Repository } from 'typeorm';
 
 @Processor('notifications-daily-summary')
 export class DailySummaryProcessor extends WorkerHost {
+  private readonly logger = new Logger(DailySummaryProcessor.name);
   constructor(
     @InjectRepository(Page)
     private pagesRepo: Repository<Page>,
@@ -71,7 +72,9 @@ export class DailySummaryProcessor extends WorkerHost {
       return paidAmount > minThresholdXmr;
     });
 
-    console.log(tipsAboveThreshold);
+    if (tipsAboveThreshold.length) {
+      this.logger.log(tipsAboveThreshold);
+    }
 
     // based on active preferences send the notifications
   }
