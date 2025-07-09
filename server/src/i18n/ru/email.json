@@ -24,5 +24,28 @@
     "emailTitle": "Пароль обновлен",
     "passwordUpdated": "Пароль вашей учетной записи был обновлен.",
     "ifItWasNotYou": "Если это были не вы, пожалуйста, войдите и сбросьте свой пароль."
+  },
+  "newTip": {
+    "subject": "Вы получили чаевые на XMRChat",
+    "title": "Получены новые чаевые",
+    "emailTitle": "Вы получили чаевые!",
+    "youReceivedATip": "Вы получили чаевые!",
+    "from": "От",
+    "amount": "Сумма",
+    "message": "Сообщение",
+    "thankYouForYourContent": "Спасибо за ваш отличный контент! Продолжайте в том же духе.",
+    "visitXMRChat": "Посетить XMRChat"
+  },
+  "dailySummary": {
+    "subject": "Ваше Ежедневное Резюме - XMRChat",
+    "title": "Ваше Ежедневное Резюме",
+    "emailTitle": "Ваше Ежедневное Резюме",
+    "yourDailySummary": "Ваше Ежедневное Резюме",
+    "totalReceived": "Всего Получено",
+    "last24Hours": "Последние 24 часа",
+    "tipsReceived": "Полученные Чаевые",
+    "noTipsReceived": "Чаевые за последние 24 часа не получены",
+    "thankYouForYourContent": "Спасибо за ваш отличный контент! Продолжайте в том же духе.",
+    "visitXMRChat": "Посетить XMRChat"
   }
 }

@@ -24,5 +24,28 @@
     "emailTitle": "رمز عبور به‌روزرسانی شد",
     "passwordUpdated": "رمز عبور حساب کاربری شما به‌روزرسانی شده است.",
     "ifItWasNotYou": "اگر این کار را انجام نداده‌اید، لطفاً وارد حساب کاربری خود شوید و رمز عبور را بازنشانی کنید."
+  },
+  "newTip": {
+    "subject": "شما یک پولی از XMRChat دریافت کردید",
+    "title": "یک پولی جدید دریافت شد",
+    "emailTitle": "شما یک پولی دریافت کردید!",
+    "youReceivedATip": "شما یک پولی دریافت کردید!",
+    "from": "از",
+    "amount": "مبلغ",
+    "message": "پیام",
+    "thankYouForYourContent": "با تشکر از محتوای خوب شما! ادامه به خوبی کار خود را ادامه دهید.",
+    "visitXMRChat": "بازدید از XMRChat"
+  },
+  "dailySummary": {
+    "subject": "ملخص روزانه شما - XMRChat",
+    "title": "ملخص روزانه شما",
+    "emailTitle": "ملخص روزانه شما",
+    "yourDailySummary": "ملخص روزانه شما",
+    "totalReceived": "کل مبلغ دریافتی",
+    "last24Hours": "24 ساعت گذشته",
+    "tipsReceived": "پولی ها دریافت شده اند",
+    "noTipsReceived": "در 24 ساعت گذشته پولی ها دریافت نشده اند",
+    "thankYouForYourContent": "با تشکر از محتوای خوب شما! ادامه به خوبی کار خود را ادامه دهید.",
+    "visitXMRChat": "بازدید از XMRChat"
   }
 }

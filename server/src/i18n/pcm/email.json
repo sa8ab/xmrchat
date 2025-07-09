@@ -24,5 +24,28 @@
     "emailTitle": "Password Don Change",
     "passwordUpdated": "Di password wey dey your account don change.",
     "ifItWasNotYou": "If na no be you do am, abeg login and reset your password sharp sharp."
+  },
+  "newTip": {
+    "subject": "You don receive tip for XMRChat",
+    "title": "New Tip Don Come",
+    "emailTitle": "You don receive tip!",
+    "youReceivedATip": "You don receive tip!",
+    "from": "From",
+    "amount": "Amount",
+    "message": "Message",
+    "thankYouForYourContent": "Tainks for your fine content! Continue with your fine work.",
+    "visitXMRChat": "Visit XMRChat"
+  },
+  "dailySummary": {
+    "subject": "Your Daily Summary - XMRChat",
+    "title": "Your Daily Summary",
+    "emailTitle": "Your Daily Summary",
+    "yourDailySummary": "Your Daily Summary",
+    "totalReceived": "Total Wey You Don Receive",
+    "last24Hours": "Last 24 hours",
+    "tipsReceived": "Tips Wey You Don Receive",
+    "noTipsReceived": "No tips don come for last 24 hours",
+    "thankYouForYourContent": "Tainks for your fine content! Continue with your fine work.",
+    "visitXMRChat": "Visit XMRChat"
   }
 }

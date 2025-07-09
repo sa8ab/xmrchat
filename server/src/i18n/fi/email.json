@@ -24,5 +24,28 @@
     "emailTitle": "Salasana päivitetty",
     "passwordUpdated": "Tilisi salasana on päivitetty.",
     "ifItWasNotYou": "Jos et ollut sinä, kirjaudu sisään ja palauta salasanasi."
+  },
+  "newTip": {
+    "subject": "Sait juomarahan XMRChatissa",
+    "title": "Uusi juomaraha saatu",
+    "emailTitle": "Sait juomarahan!",
+    "youReceivedATip": "Sait juomarahan!",
+    "from": "Lähettäjä",
+    "amount": "Summa",
+    "message": "Viesti",
+    "thankYouForYourContent": "Kiitos hienosta sisällöstäsi! Jatka upeaa työtäsi.",
+    "visitXMRChat": "Vieraile XMRChatissa"
+  },
+  "dailySummary": {
+    "subject": "Päivittäinen yhteenvetosi - XMRChat",
+    "title": "Päivittäinen yhteenvetosi",
+    "emailTitle": "Päivittäinen yhteenvetosi",
+    "yourDailySummary": "Päivittäinen yhteenvetosi",
+    "totalReceived": "Yhteensä Saatu",
+    "last24Hours": "Viimeiset 24 tuntia",
+    "tipsReceived": "Saadut Juomarahat",
+    "noTipsReceived": "Juomarahoja ei saatu viimeisen 24 tunnin aikana",
+    "thankYouForYourContent": "Kiitos hienosta sisällöstäsi! Jatka upeaa työtäsi.",
+    "visitXMRChat": "Vieraile XMRChatissa"
   }
 }

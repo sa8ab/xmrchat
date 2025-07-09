@@ -35,5 +35,17 @@
     "message": "Message",
     "thankYouForYourContent": "Thank you for your great content! Keep up the amazing work.",
     "visitXMRChat": "Visit XMRChat"
+  },
+  "dailySummary": {
+    "subject": "Your Daily Summary - XMRChat",
+    "title": "Your Daily Summary",
+    "emailTitle": "Your Daily Summary",
+    "yourDailySummary": "Your Daily Summary",
+    "totalReceived": "Total Received",
+    "last24Hours": "Last 24 hours",
+    "tipsReceived": "Tips Received",
+    "noTipsReceived": "No tips received in the last 24 hours",
+    "thankYouForYourContent": "Thank you for your great content! Keep up the amazing work.",
+    "visitXMRChat": "Visit XMRChat"
   }
 }
