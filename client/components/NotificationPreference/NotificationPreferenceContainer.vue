@@ -12,6 +12,8 @@ const model = defineModel<{ [key in NotificationPreferenceType]?: boolean }>({
   required: true,
 });
 
+const dailySummaryModel = defineModel<string>("dailySummaryTime");
+
 const { getNotificationChannel, getNotificationType } = useConstants();
 
 const channel = computed(() => getNotificationChannel(props.channel));
@@ -34,7 +36,7 @@ const channel = computed(() => getNotificationChannel(props.channel));
     </template>
 
     <div class="grid gap-4">
-      <div class="flex items-center gap-2">
+      <div class="grid grid-cols-[auto_1fr_auto] gap-2 items-center">
         <div>
           <UIcon
             :name="getNotificationType(NotificationPreferenceType.NEW_TIP).icon"
@@ -56,7 +58,7 @@ const channel = computed(() => getNotificationChannel(props.channel));
           <UToggle v-model="model[NotificationPreferenceType.NEW_TIP]" />
         </div>
       </div>
-      <div class="flex items-center gap-2">
+      <div class="grid grid-cols-[auto_1fr_auto] gap-2 items-center">
         <div>
           <UIcon
             :name="
@@ -78,10 +80,24 @@ const channel = computed(() => getNotificationChannel(props.channel));
             }}
           </p>
         </div>
+
         <div>
           <UToggle v-model="model[NotificationPreferenceType.DAILY_SUMMARY]" />
         </div>
+        <div></div>
+        <UFormGroup name="dailySummaryTime">
+          <div class="max-w-[200px]">
+            <TimeInput v-model="dailySummaryModel" />
+          </div>
+          <template #help>
+            <p class="text-pale text-xs">
+              Time when daily summary notifications will be sent.
+            </p>
+          </template>
+        </UFormGroup>
+        <div></div>
       </div>
+
       <slot />
     </div>
   </UCard>

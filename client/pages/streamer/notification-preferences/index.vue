@@ -165,18 +165,19 @@ const isPremium = computed(
           </UInput>
         </UFormGroup>
 
-        <UFormGroup
+        <!-- <UFormGroup
           label="Daily Summary Time"
           name="dailySummaryTime"
           help="Time when daily summary notifications will be sent."
         >
           <TimeInput v-model="state.dailySummaryTime" />
-        </UFormGroup>
+        </UFormGroup> -->
       </div>
       <div class="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-4">
         <NotificationPreferenceContainer
           :channel="NotificationChannelEnum.EMAIL"
           v-model="state.form.email"
+          v-model:daily-summary-time="state.dailySummaryTime"
         >
         </NotificationPreferenceContainer>
       </div>
