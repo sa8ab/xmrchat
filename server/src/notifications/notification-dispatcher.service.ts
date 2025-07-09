@@ -115,7 +115,7 @@ export class NotificationDispatcherService {
   getMeetsThreshold(tip: Tip, minNotificationThreshold: string) {
     const tipAmount = MoneroUtils.atomicUnitsToXmr(tip.payment.amount);
     const minNotificationThresholdAmount = MoneroUtils.atomicUnitsToXmr(
-      minNotificationThreshold,
+      minNotificationThreshold || '0',
     );
 
     return tipAmount >= minNotificationThresholdAmount;
