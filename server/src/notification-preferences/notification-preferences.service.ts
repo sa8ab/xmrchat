@@ -7,6 +7,10 @@ import { UpdateNotificationPreferencesDto } from './dto/update-notification-pref
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { Page } from 'src/pages/page.entity';
+import {
+  NotificationChannelEnum,
+  NotificationPreferenceType,
+} from 'src/shared/constants';
 
 @Injectable()
 export class NotificationPreferencesService {
@@ -62,14 +66,20 @@ export class NotificationPreferencesService {
     dto: UpdateNotificationPreferencesDto,
   ) {
     const dailySummaryTime = dto.dailySummaryTime;
+    const dailySummaryEnabled = dto.preferences.find(
+      (p) =>
+        p.type === NotificationPreferenceType.DAILY_SUMMARY &&
+        p.channel === NotificationChannelEnum.EMAIL,
+    )?.enabled;
 
-    if (!dailySummaryTime) {
+    if (!dailySummaryTime || !dailySummaryEnabled) {
       await this.dailySummaryQueue.removeJobScheduler(
         `daily-summary-${page.id}`,
       );
       return;
     }
 
+    console.log(dailySummaryTime, dailySummaryEnabled);
     const [hour, minute] = dailySummaryTime.split(':');
     const cron = `${minute} ${hour} * * *`;
 

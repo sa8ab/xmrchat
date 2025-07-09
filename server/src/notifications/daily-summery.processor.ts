@@ -82,7 +82,6 @@ export class DailySummaryProcessor extends WorkerHost {
         acc + MoneroUtils.atomicUnitsToXmr(payment.paidAmount),
       0,
     );
-    this.logger.log(tipsAboveThreshold, totalAmount);
 
     await this.emailQueue.add('send-email', {
       to: page.user.email,
