@@ -23,7 +23,6 @@ export class NotificationsService {
     const lang = I18nContext.current?.().lang;
 
     await this.emailQueue.add('send-email', {
-      type: 'send-email',
       to: 'bwsaeed8@gmail.com',
       options: {
         subject: this.i18n.t('email.emailVerification.subject'),
@@ -57,7 +56,6 @@ export class NotificationsService {
     const lang = I18nContext.current?.().lang;
 
     return this.emailQueue.add('send-email', {
-      type: 'send-email',
       to,
       options: {
         subject: this.i18n.t('email.emailVerification.subject'),
@@ -76,7 +74,6 @@ export class NotificationsService {
     const lang = I18nContext.current?.().lang;
 
     return this.emailQueue.add('send-email', {
-      type: 'send-email',
       to,
       options: {
         subject: this.i18n.t('email.resetPassword.subject'),
@@ -96,7 +93,6 @@ export class NotificationsService {
     const recepients = this.config.get('PAGE_REPORT_RECEPIENTS').split(' ');
 
     return this.emailQueue.add('send-email', {
-      type: 'send-email',
       to: recepients,
       options: {
         subject: 'XMRChat new page report',
@@ -115,7 +111,6 @@ export class NotificationsService {
     const recepients = this.config.get('PAGE_REPORT_RECEPIENTS').split(' ');
 
     return this.emailQueue.add('send-email', {
-      type: 'send-email',
       to: recepients,
       options: {
         subject: `Swap status change - ${active ? 'Enabled' : 'Disabled'}`,
@@ -133,7 +128,6 @@ export class NotificationsService {
     const lang = I18nContext.current?.().lang;
 
     return this.emailQueue.add('send-email', {
-      type: 'send-email',
       to,
       options: {
         subject: this.i18n.t('email.passwordChange.subject'),

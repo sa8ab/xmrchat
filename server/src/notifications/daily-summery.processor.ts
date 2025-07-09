@@ -1,7 +1,7 @@
-import { Processor, WorkerHost } from '@nestjs/bullmq';
+import { InjectQueue, Processor, WorkerHost } from '@nestjs/bullmq';
 import { BadRequestException, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Job } from 'bullmq';
+import { Job, Queue } from 'bullmq';
 import { MoneroUtils } from 'monero-ts';
 import { PageSetting } from 'src/page-settings/page-setting.entity';
 import { Page } from 'src/pages/page.entity';
@@ -19,6 +19,8 @@ export class DailySummaryProcessor extends WorkerHost {
     private pageSettingsRepo: Repository<PageSetting>,
     @InjectRepository(Tip)
     private tipsRepo: Repository<Tip>,
+    @InjectQueue('notifications-email')
+    private emailQueue: Queue,
   ) {
     super();
   }
@@ -72,10 +74,32 @@ export class DailySummaryProcessor extends WorkerHost {
       return paidAmount > minThresholdXmr;
     });
 
-    if (tipsAboveThreshold.length) {
-      this.logger.log(tipsAboveThreshold);
-    }
+    if (!tipsAboveThreshold.length) return;
 
     // based on active preferences send the notifications
+    const totalAmount = tipsAboveThreshold.reduce(
+      (acc, { payment }) =>
+        acc + MoneroUtils.atomicUnitsToXmr(payment.paidAmount),
+      0,
+    );
+    this.logger.log(tipsAboveThreshold, totalAmount);
+
+    await this.emailQueue.add('send-email', {
+      to: page.user.email,
+      options: {
+        subject: 'Daily Summary',
+        template: 'daily-summary.hbs',
+        context: {
+          tips: tipsAboveThreshold.map(({ name, payment, message }) => {
+            return {
+              name,
+              amount: MoneroUtils.atomicUnitsToXmr(payment.paidAmount),
+              message,
+            };
+          }),
+          totalAmount,
+        },
+      },
+    });
   }
 }

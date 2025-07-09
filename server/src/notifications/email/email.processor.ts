@@ -15,7 +15,7 @@ export class EmailProcessor extends WorkerHost {
   async process(job: Job) {
     const data = job.data;
 
-    if (data.type === 'send-email') {
+    if (job.name === 'send-email') {
       await this.emailService.sendEmail(data.to, data.options);
     }
   }

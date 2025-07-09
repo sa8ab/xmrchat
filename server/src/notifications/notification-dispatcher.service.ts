@@ -97,7 +97,6 @@ export class NotificationDispatcherService {
         preference.type === NotificationPreferenceType.NEW_TIP
       ) {
         await this.emailQueue.add('send-email', {
-          type: 'send-email',
           to: page.user.email,
           options: {
             subject: 'New tip',
