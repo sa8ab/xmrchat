@@ -13,7 +13,7 @@ import { ReserveSlugDto } from './dtos/reserve-slug.dto';
 import { User } from 'src/users/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Page } from './page.entity';
-import { Repository } from 'typeorm';
+import { QueryBuilder, Repository, SelectQueryBuilder } from 'typeorm';
 import { makeIntegratedAddress } from 'src/shared/utils/monero';
 import { LwsService } from 'src/lws/lws.service';
 import { ConfigService } from '@nestjs/config';
@@ -48,53 +48,65 @@ export class PagesService {
   ) {}
 
   async searchPages(slug: string = '', offset: number = 0, limit: number = 8) {
-    const weightedTotalQuery = `
-      (
-        0.5 * SUM(
-          paid_tip.paid_amount::NUMERIC * 
-          CASE 
-            WHEN paid_tip.paid_at > NOW() - INTERVAL '30 days' THEN 1.0
-            WHEN paid_tip.paid_at > NOW() - INTERVAL '90 days' THEN 0.7
-            WHEN paid_tip.paid_at > NOW() - INTERVAL '180 days' THEN 0.4
+    const tipsSubQuery = (qb: SelectQueryBuilder<any>) =>
+      qb
+        .select('tip.page_id', 'page_id')
+        .addSelect(
+          `SUM(
+          payment.paid_amount::NUMERIC *
+          CASE
+            WHEN payment.paid_at > NOW() - INTERVAL '30 days'  THEN 1.0
+            WHEN payment.paid_at > NOW() - INTERVAL '90 days'  THEN 0.7
+            WHEN payment.paid_at > NOW() - INTERVAL '180 days' THEN 0.4
             ELSE 0.1
           END
-        ) +
-        0.5 * SUM(
-          CASE 
-            WHEN paid_tip.paid_at > NOW() - INTERVAL '30 days' THEN 1.0
-            WHEN paid_tip.paid_at > NOW() - INTERVAL '90 days' THEN 0.7
-            WHEN paid_tip.paid_at > NOW() - INTERVAL '180 days' THEN 0.4
-            ELSE 0.1
-          END
+        )`,
+          'raw_amount',
         )
-      ) AS weighted_total
-    `;
+        .addSelect(
+          `SUM(
+          CASE
+            WHEN payment.paid_at > NOW() - INTERVAL '30 days'  THEN 1.0
+            WHEN payment.paid_at > NOW() - INTERVAL '90 days'  THEN 0.5
+            WHEN payment.paid_at > NOW() - INTERVAL '180 days' THEN 0.2
+            ELSE 0.1
+          END
+        )`,
+          'raw_count',
+        )
+        .from(Tip, 'tip')
+        .groupBy('tip.page_id')
+        .innerJoin('tip.payment', 'payment')
+        .where('payment.paid_at IS NOT NULL');
 
     let query = this.repo
       .createQueryBuilder('page')
       .leftJoinAndSelect('page.logo', 'logo')
       .leftJoinAndSelect('page.coverImage', 'cover_image')
-      .leftJoin(
-        (qb) => {
-          return qb
-            .select([
-              'tip.id',
-              'tip.page_id',
-              'payment.paid_amount',
-              'payment.paid_at',
-            ])
-            .from(Tip, 'tip')
-            .innerJoin('tip.payment', 'payment')
-            .where('payment.paid_at IS NOT NULL');
-        },
-        'paid_tip',
-        'paid_tip.page_id = page.id',
-      )
+      .leftJoin(tipsSubQuery, 'paid_tip', 'paid_tip.page_id = page.id')
       .where('page.isPublic = true')
       .andWhere('page.status != :status', { status: PageStatusEnum.DEACTIVE })
-      .addSelect(weightedTotalQuery)
-      .groupBy('page.id, logo.id, cover_image.id')
-      .orderBy('weighted_total', 'DESC', 'NULLS LAST');
+      .addSelect('paid_tip.raw_amount', 'raw_amount')
+      .addSelect('paid_tip.raw_count', 'raw_count')
+      .addSelect(
+        `
+        CASE
+          WHEN MAX(COALESCE(raw_amount,0))  OVER () = MIN(COALESCE(raw_amount,0)) OVER () THEN 0
+          ELSE
+            (COALESCE(raw_amount,0)  - MIN(COALESCE(raw_amount,0)) OVER ())
+            / (MAX(COALESCE(raw_amount,0)) OVER () - MIN(COALESCE(raw_amount,0)) OVER ()) * 10
+        END
+        +
+        CASE
+          WHEN MAX(COALESCE(raw_count, 0)) OVER () = MIN(COALESCE(raw_count, 0)) OVER () THEN 0
+          ELSE
+            (COALESCE(raw_count,0) - MIN(COALESCE(raw_count,0)) OVER ())
+            / (MAX(COALESCE(raw_count,0)) OVER () - MIN(COALESCE(raw_count,0)) OVER ()) * 10
+        END        
+        `,
+        'final_score',
+      )
+      .orderBy('final_score', 'DESC', 'NULLS LAST');
 
     if (slug) {
       query = query.andWhere(
