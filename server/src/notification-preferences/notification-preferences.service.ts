@@ -79,14 +79,16 @@ export class NotificationPreferencesService {
       return;
     }
 
-    console.log(dailySummaryTime, dailySummaryEnabled);
     const [hour, minute] = dailySummaryTime.split(':');
     const cron = `${minute} ${hour} * * *`;
 
+    await this.dailySummaryQueue.add('daily-summary', {
+      pageId: page.id,
+    });
+
     await this.dailySummaryQueue.upsertJobScheduler(
       `daily-summary-${page.id}`,
-      // { pattern: cron },
-      { every: 1000 * 60 },
+      { pattern: cron },
       { data: { pageId: page.id } },
     );
   }
