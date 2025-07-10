@@ -4,12 +4,15 @@ import { IsPublic } from './shared/decorators/is-public.decorator';
 import { NotificationsService } from './notifications/notifications.service';
 import { TipsService } from './tips/tips.service';
 import { SimplexService } from './integrations/simplex/simplex.service';
+import { SignalService } from './integrations/signal/signal.service';
+
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
     private notificationsService: NotificationsService,
     private simplexService: SimplexService,
+    private signalService: SignalService,
   ) {}
 
   @Get()
@@ -26,6 +29,6 @@ export class AppController {
   @IsPublic()
   @Get('/test')
   async test() {
-    return this.simplexService.init();
+    return this.signalService.sendTestMessage();
   }
 }

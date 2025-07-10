@@ -6,6 +6,6 @@ import { SignalModule } from './signal/signal.module';
 @Module({
   providers: [IntegrationsService],
   imports: [SimplexModule, SignalModule],
-  exports: [SimplexModule],
+  exports: [SimplexModule, SignalModule],
 })
 export class IntegrationsModule {}
