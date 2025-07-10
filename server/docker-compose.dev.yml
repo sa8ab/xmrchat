@@ -60,3 +60,14 @@ services:
     ports:
       - '1025:1025'
       - '8025:8025'
+
+  signal-cli:
+    image: bbernhard/signal-cli-rest-api
+    ports:
+      - '8080:8080'
+    restart: unless-stopped
+    volumes:
+      - ./signal-cli:/home/.local/share/signal-cli
+    environment:
+      - MODE=native
+  
