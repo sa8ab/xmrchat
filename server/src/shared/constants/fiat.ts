@@ -14,6 +14,6 @@ export const FIAT_VALUES = {
   [FiatEnum.MXN]: {
     code: FiatEnum.MXN,
     name: 'MXN',
-    symbol: 'MEX$',
+    symbol: 'MXN$',
   },
 };
