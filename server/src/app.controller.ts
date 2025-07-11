@@ -29,6 +29,6 @@ export class AppController {
   @IsPublic()
   @Get('/test')
   async test() {
-    return this.signalService.sendTestMessage();
+    return this.simplexService.init();
   }
 }

@@ -3,6 +3,8 @@ import { ChatClient } from 'simplex-chat';
 import { ChatType, CreateActiveUser } from 'simplex-chat/dist/command';
 import { ciContentText, ChatInfoType } from 'simplex-chat/dist/response';
 import { ConfigService } from '@nestjs/config';
+import WebSocket from 'ws';
+
 @Injectable()
 export class SimplexService {
   private readonly logger = new Logger(SimplexService.name);
@@ -32,10 +34,25 @@ export class SimplexService {
     //   return;
     // }
     try {
-      this.chat = await ChatClient.create('ws://193.36.132.91:5225');
+      this.chat = await ChatClient.create('ws://localhost:5225');
+      const user = await this.chat.apiGetActiveUser();
+      console.log(user);
     } catch (error) {
       this.logger.error('Error creating chat client', error);
     }
+    // const ws = new WebSocket('ws://localhost:5225');
+    // ws.on('open', () => {
+    //   console.log('connected to simplex');
+    // });
+    // ws.on('message', (message) => {
+    //   console.log('message', message);
+    // });
+    // ws.on('error', (error) => {
+    //   console.log('error', error);
+    // });
+    // ws.on('close', () => {
+    //   console.log('closed');
+    // });
   }
 
   async getActiveUser() {
