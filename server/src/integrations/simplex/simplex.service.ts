@@ -1,7 +1,13 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { ChatClient } from 'simplex-chat';
-import { ChatType, CreateActiveUser } from 'simplex-chat/dist/command';
-import { ciContentText, ChatInfoType } from 'simplex-chat/dist/response';
+import { ChatClient } from '@reply2future/simplex-chat';
+import {
+  ChatType,
+  CreateActiveUser,
+} from '@reply2future/simplex-chat/dist/command';
+import {
+  ciContentText,
+  ChatInfoType,
+} from '@reply2future/simplex-chat/dist/response';
 import { ConfigService } from '@nestjs/config';
 import WebSocket from 'ws';
 
@@ -10,49 +16,52 @@ export class SimplexService {
   private readonly logger = new Logger(SimplexService.name);
 
   private chat: ChatClient;
-  private user: any;
 
   constructor(private readonly configService: ConfigService) {}
 
-  // async onModuleInit() {
-  //   const wsUrl = this.configService.get('SIMPLEX_WS_URL');
-  //   if (!wsUrl) {
-  //     this.logger.warn('SIMPLEX_WS_URL is not set.');
-  //     return;
-  //   }
-  //   try {
-  //     this.chat = await ChatClient.create(wsUrl);
-  //   } catch (error) {
-  //     this.logger.error('Error creating chat client', error);
-  //   }
-  // }
+  async onModuleInit() {
+    // this.init();
+  }
 
   async init() {
-    // const wsUrl = this.configService.get('SIMPLEX_WS_URL');
-    // if (!wsUrl) {
-    //   this.logger.warn('SIMPLEX_WS_URL is not set.');
-    //   return;
-    // }
-    try {
-      this.chat = await ChatClient.create('ws://localhost:5225');
-      const user = await this.chat.apiGetActiveUser();
-      console.log(user);
-    } catch (error) {
-      this.logger.error('Error creating chat client', error);
+    const wsUrl = this.configService.get('SIMPLEX_WS_URL');
+    if (!wsUrl) {
+      this.logger.warn('SIMPLEX_WS_URL is not set.');
+      return;
     }
-    // const ws = new WebSocket('ws://localhost:5225');
-    // ws.on('open', () => {
-    //   console.log('connected to simplex');
-    // });
-    // ws.on('message', (message) => {
-    //   console.log('message', message);
-    // });
-    // ws.on('error', (error) => {
-    //   console.log('error', error);
-    // });
-    // ws.on('close', () => {
-    //   console.log('closed');
-    // });
+    try {
+      this.chat = await ChatClient.create(wsUrl);
+      this.chat.enableAddressAutoAccept();
+
+      const resp = await this.chat.apiCreateActiveUser({
+        displayName: 'XMRChat',
+        fullName: '',
+      });
+
+      console.log(resp);
+
+      // const user = await this.chat.apiGetActiveUser();
+      // console.log('user profile: ', user.profile);
+
+      // for await (const r of this.chat.msgQ) {
+      //   const resp = r instanceof Promise ? await r : r;
+      //   if (resp.type === 'contactConnected') {
+      //     console.log('contactConnected', resp.contact);
+      //   }
+
+      //   if (resp.type === 'newChatItems') {
+      //     for (const { chatInfo, chatItem } of resp.chatItems) {
+      //       if (chatInfo.type !== ChatInfoType.Direct) continue;
+      //       const msg = ciContentText(chatItem.content);
+      //       if (msg) {
+      //         console.log(msg);
+      //       }
+      //     }
+      //   }
+      // }
+    } catch (error) {
+      console.log(error.response);
+    }
   }
 
   async getActiveUser() {
