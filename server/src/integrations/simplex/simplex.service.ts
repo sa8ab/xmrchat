@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   Logger,
+  NotFoundException,
   OnModuleInit,
 } from '@nestjs/common';
 import { ChatClient } from '@reply2future/simplex-chat';
@@ -16,7 +17,9 @@ import {
   ChatResponse,
 } from '@reply2future/simplex-chat/dist/response';
 import { ConfigService } from '@nestjs/config';
-import WebSocket from 'ws';
+import { InjectRepository } from '@nestjs/typeorm';
+import { IntegrationConfig } from '../integration-configs.entity';
+import { Raw, Repository } from 'typeorm';
 
 @Injectable()
 export class SimplexService {
@@ -24,10 +27,14 @@ export class SimplexService {
 
   private chat: ChatClient;
 
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    @InjectRepository(IntegrationConfig)
+    private icRepo: Repository<IntegrationConfig>,
+  ) {}
 
   async onModuleInit() {
-    // this.init();
+    this.init();
   }
 
   async init() {
@@ -65,7 +72,16 @@ export class SimplexService {
     for await (const r of this.chat.msgQ) {
       const resp = r instanceof Promise ? await r : r;
       if (resp.type === 'contactConnected') {
-        console.log('contactConnected', resp.contact);
+        try {
+          await this.handleContactContactConnected(resp.contact);
+          await this.chat.apiSendTextMessage(
+            ChatType.Direct,
+            resp.contact.contactId,
+            'Connected to XMRChat. You can now enable your simplex notifications from notifications page.',
+          );
+        } catch (error) {
+          this.logger.error('Error handling contact connected', error);
+        }
       }
 
       if (resp.type === 'newChatItems') {
@@ -102,13 +118,40 @@ export class SimplexService {
     }
   }
 
+  async handleContactContactConnected(contact: any) {
+    this.logger.log(`${contact.profile.displayName} connected`);
+    const connId = contact.activeConn?.agentConnId;
+    const config = await this.icRepo.findOne({
+      where: {
+        config: Raw((alias) => `${alias} ->> 'connId' = :connId`, {
+          connId,
+        }),
+      },
+    });
+
+    if (!config) {
+      throw new NotFoundException(`No config found for connId: ${connId}`);
+    }
+
+    config.config.contactId = contact.contactId;
+    config.config.contact = contact;
+
+    await this.icRepo.save(config);
+  }
+
   async connectContact(link: string) {
-    try {
-      await this.chat.apiConnect(link);
-    } catch (error) {
+    const res = await this.chat.sendChatCmdStr(`/connect ${link}`);
+    console.log(res);
+    const connId =
+      (res as any).connection?.pccAgentConnId ||
+      (res as any).connectionPlan?.contactAddressPlan?.contact?.activeConn
+        ?.agentConnId;
+
+    if (!connId) {
       throw new BadRequestException(
-        'Could not connect. Make sure you sent the correct address and you are not already connected.',
+        'Connection id was not found, please try again.',
       );
     }
+    return connId;
   }
 }

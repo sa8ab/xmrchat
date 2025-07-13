@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { ConnectSimplexDto } from './dto/connect-simplex.dto';
 import { User } from 'src/users/user.entity';
 import { PagesService } from 'src/pages/pages.service';
@@ -43,10 +47,11 @@ export class IntegrationsService {
     }
 
     // add address to integration config
+    const connId = await this.simplexService.connectContact(body.address);
     config.config.connectLink = body.address;
-    await this.icRepo.save(config);
+    config.config.connId = connId;
 
-    await this.simplexService.connectContact(body.address);
+    await this.icRepo.save(config);
 
     // after accepting ( from simplex service ) add contact information to integration config
   }
