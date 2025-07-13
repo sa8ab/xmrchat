@@ -71,3 +71,12 @@ services:
     environment:
       - MODE=native
   
+  simplex:
+    build:
+      context: ./docker/simplex
+      dockerfile: Dockerfile
+    ports:
+      - "5225:5225"
+    volumes:
+      - ./simplex:/root/.simplex
+    restart: no

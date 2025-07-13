@@ -47,6 +47,8 @@ export class SimplexService {
         return;
       }
 
+      await this.generateAddress();
+
       this.logger.log(
         `Bot profile: ${user.profile.displayName} (${user.profile.fullName})`,
       );
