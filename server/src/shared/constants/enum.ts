@@ -97,6 +97,7 @@ export enum PageStatusEnum {
 export enum IntegrationConfigType {
   SINGAL = 'singal',
   TELEGRAM = 'telegram',
+  SIMPLEX = 'simplex',
 }
 
 export enum NotificationPreferenceType {
