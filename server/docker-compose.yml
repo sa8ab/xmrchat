@@ -83,6 +83,16 @@ services:
           - ${MINIO_ALIAS:-minio}
       custom-net:
 
+  simplex:
+    build:
+      context: ./docker/simplex
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - ':5225'
+    volumes:
+      - ./simplex:/root/.simplex
+
   nest:
     build: .
     restart: unless-stopped
@@ -92,6 +102,7 @@ services:
       - postgres
       - redis
       - minio
+      - simplex
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik
