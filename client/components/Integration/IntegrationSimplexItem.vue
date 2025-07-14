@@ -30,6 +30,7 @@ const connect = async () => {
         "Open SimpleX app on your device and accept connection from XMRChat account.",
       color: "green",
     });
+    open.value = false;
   } catch (error) {
     console.log(error);
 
@@ -62,8 +63,8 @@ const { getValidationAttrs } = useValidations(v);
       </template>
       <p class="pb-4">
         Enter your simplex connection link then click connect. XMRChat account
-        will send you a connection request to your simplex account. Accept the
-        request to connect.
+        will send a connection request to your simplex account. Accept the
+        request to connect your XMRChat page to SimpleX.
       </p>
       <UFormGroup
         size="lg"
