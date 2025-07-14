@@ -92,6 +92,8 @@ services:
       - ':5225'
     volumes:
       - ./simplex:/root/.simplex
+    networks:
+      custom-net:
 
   nest:
     build: .

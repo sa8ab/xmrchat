@@ -46,6 +46,7 @@ export class SimplexService {
       this.logger.warn('SIMPLEX_WS_URL is not set.');
       return;
     }
+    this.logger.log(`Simplex ws url: ${wsUrl}`);
     try {
       this.chat = await ChatClient.create(wsUrl);
 
