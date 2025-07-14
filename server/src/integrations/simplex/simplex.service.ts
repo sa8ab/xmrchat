@@ -34,7 +34,10 @@ export class SimplexService {
   ) {}
 
   async onModuleInit() {
-    this.init();
+    // Wait for 10 seconds to ensure the service is ready
+    setTimeout(() => {
+      this.init();
+    }, 10_1000);
   }
 
   async init() {
