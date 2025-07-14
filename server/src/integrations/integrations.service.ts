@@ -21,6 +21,17 @@ export class IntegrationsService {
     private icRepo: Repository<IntegrationConfig>,
   ) {}
 
+  async findAllConfigs(user: User) {
+    const page = await this.pagesService.findMyPage(user);
+    const configs = await this.icRepo.find({
+      where: {
+        page: { id: page.id },
+      },
+    });
+
+    return configs;
+  }
+
   async connectSimplex(body: ConnectSimplexDto, user: User) {
     // get contact address, get user, get page
     const page = await this.pagesService.findMyPage(user);
@@ -52,7 +63,5 @@ export class IntegrationsService {
     config.config.connId = connId;
 
     await this.icRepo.save(config);
-
-    // after accepting ( from simplex service ) add contact information to integration config
   }
 }
