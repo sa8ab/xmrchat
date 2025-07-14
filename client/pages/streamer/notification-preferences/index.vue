@@ -27,6 +27,7 @@ interface State {
 const state = reactive<State>({
   form: {
     [NotificationChannelEnum.EMAIL]: {},
+    [NotificationChannelEnum.SIMPLEX]: {},
   },
   pending: false,
   minNotificationThreshold: undefined,
@@ -73,6 +74,11 @@ const { error } = await useLazyAsyncData(
 
     state.form.email = getObjectPereferences(
       NotificationChannelEnum.EMAIL,
+      data.preferences
+    );
+
+    state.form.simplex = getObjectPereferences(
+      NotificationChannelEnum.SIMPLEX,
       data.preferences
     );
 
@@ -180,6 +186,10 @@ const isPremium = computed(
           v-model:daily-summary-time="state.dailySummaryTime"
         >
         </NotificationPreferenceContainer>
+        <NotificationPreferenceContainer
+          :channel="NotificationChannelEnum.SIMPLEX"
+          v-model="state.form.simplex"
+        ></NotificationPreferenceContainer>
       </div>
       <div class="flex mt-4">
         <UButton type="submit" color="primary" :loading="state.pending">

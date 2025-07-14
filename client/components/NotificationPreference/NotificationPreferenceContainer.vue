@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  type NotificationChannelEnum,
+  NotificationChannelEnum,
   NotificationPreferenceType,
 } from "~/types/enums";
 
@@ -9,7 +9,7 @@ const props = defineProps<{
 }>();
 
 const model = defineModel<{ [key in NotificationPreferenceType]?: boolean }>({
-  required: true,
+  default: () => ({}),
 });
 
 const dailySummaryModel = defineModel<string>("dailySummaryTime");
@@ -17,6 +17,9 @@ const dailySummaryModel = defineModel<string>("dailySummaryTime");
 const { getNotificationChannel, getNotificationType } = useConstants();
 
 const channel = computed(() => getNotificationChannel(props.channel));
+const showDailySummaryTime = computed(
+  () => props.channel === NotificationChannelEnum.EMAIL
+);
 </script>
 
 <template>
@@ -58,7 +61,10 @@ const channel = computed(() => getNotificationChannel(props.channel));
           <UToggle v-model="model[NotificationPreferenceType.NEW_TIP]" />
         </div>
       </div>
-      <div class="grid grid-cols-[auto_1fr_auto] gap-2 items-center">
+      <div
+        v-if="showDailySummaryTime"
+        class="grid grid-cols-[auto_1fr_auto] gap-2 items-center"
+      >
         <div>
           <UIcon
             :name="

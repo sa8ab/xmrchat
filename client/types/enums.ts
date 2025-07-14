@@ -69,6 +69,7 @@ export enum NotificationChannelEnum {
   // WEBHOOK = "webhook",
   // TELEGRAM = "telegram",
   // SINGAL = "singal",
+  SIMPLEX = "simplex",
 }
 
 export enum IntegrationConfigType {
