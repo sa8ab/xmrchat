@@ -33,6 +33,7 @@ const integration = computed(() =>
         variant="link"
         :to="integration.link?.url"
         external
+        :padded="false"
         target="_blank"
       >
         {{ integration.link?.label }}
