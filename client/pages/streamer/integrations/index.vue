@@ -17,7 +17,11 @@ const state = reactive<State>({
   pending: false,
 });
 
-const { data: integrations, error } = await useLazyAsyncData(
+const {
+  data: integrations,
+  error,
+  refresh,
+} = await useLazyAsyncData(
   async () => {
     const res = await axios.get<{ integrations: IntegrationConfig[] }>(
       "/integrations"
@@ -46,7 +50,7 @@ const { getValidationAttrs } = useValidations(v);
       v-else
       class="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4"
     >
-      <IntegrationSimplexItem :config="simplexConfig" />
+      <IntegrationSimplexItem :config="simplexConfig" @connect="refresh" />
     </div>
   </div>
 </template>

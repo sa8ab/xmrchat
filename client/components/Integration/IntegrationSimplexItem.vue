@@ -7,6 +7,10 @@ const props = defineProps<{
   config?: IntegrationConfig;
 }>();
 
+const emit = defineEmits<{
+  connect: [];
+}>();
+
 const { required } = useValidations();
 const { axios } = useApp();
 const toast = useToast();
@@ -36,6 +40,7 @@ const connect = async () => {
       color: "green",
     });
     open.value = false;
+    emit("connect");
   } catch (error) {
     console.log(error);
 
