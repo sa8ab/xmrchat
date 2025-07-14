@@ -186,11 +186,18 @@ export const useConstants = () => {
     return NOTIFICATION_TYPES[v];
   };
 
-  const INTEGRATION_CONFIG_TYPES = {
+  const INTEGRATION_CONFIG_TYPES: Record<
+    IntegrationConfigType,
+    {
+      name: string;
+      image?: string;
+      description?: string;
+      tags?: string[];
+      link?: { label?: string; url?: string };
+    }
+  > = {
     [IntegrationConfigType.SINGAL]: {
       name: "Singal",
-      image: "",
-      description: "Receive notifications via Singal",
       tags: [],
     },
     [IntegrationConfigType.TELEGRAM]: {
@@ -198,6 +205,14 @@ export const useConstants = () => {
     },
     [IntegrationConfigType.SIMPLEX]: {
       name: "Simplex",
+      image: "i-icon-simplex",
+      description:
+        "The first messenger without user IDs. Receive notifications via Singal",
+      tags: [],
+      link: {
+        label: "simplex.chat",
+        url: "https://simplex.chat/",
+      },
     },
   };
 

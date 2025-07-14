@@ -9,11 +9,11 @@ import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 export class IntegrationsController {
   constructor(private readonly integrationsService: IntegrationsService) {}
   @Post('/connect/simplex')
-  @IsPublic()
   async connectSimplex(
     @Body() body: ConnectSimplexDto,
     @CurrentUser() user: User,
   ) {
-    return this.integrationsService.connectSimplex(body, user || undefined);
+    await this.integrationsService.connectSimplex(body, user || undefined);
+    return { message: 'Connection request sent' };
   }
 }

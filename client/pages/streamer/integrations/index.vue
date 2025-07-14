@@ -2,6 +2,7 @@
 import useVuelidate from "@vuelidate/core";
 import type { NotificationPreference, Numberic } from "~/types";
 import {
+  IntegrationConfigType,
   NotificationChannelEnum,
   NotificationPreferenceType,
 } from "~/types/enums";
@@ -10,7 +11,6 @@ const { axios } = useApp();
 const toast = useToast();
 const { numberic } = useValidations();
 const authStore = useAuthStore();
-const { dayjs } = useDate();
 
 interface State {
   // form: Form;
@@ -31,6 +31,9 @@ const { getValidationAttrs } = useValidations(v);
     <PageTitle title="Notifications" description="Manage your notifications" />
 
     <!-- <ErrorView :error="error" v-if="error" /> -->
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4">
+      <IntegrationSimplexItem />
+    </div>
   </div>
 </template>
 
