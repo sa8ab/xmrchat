@@ -50,12 +50,12 @@ const connect = async () => {
 };
 
 const renderInfo = computed(() => {
-  if (!props.config) return "Not connected";
+  if (!props.config) return "Not connected.";
   if (props.config.config.contact) {
-    return `"${props.config.config.contact.profile.displayName}" connected`;
+    return `"${props.config.config.contact.profile.displayName}" connected.`;
   }
   if (props.config.config.connId) {
-    return `Request sent`;
+    return `Request sent.`;
   }
 });
 

@@ -212,7 +212,7 @@ export const useConstants = () => {
       name: "Simplex",
       image: "i-icon-simplex",
       description:
-        "The first messenger without user IDs. Receive notifications via SimpleX",
+        "The first messenger without user IDs. Receive notifications via SimpleX.",
       tags: [],
       link: {
         label: "simplex.chat",
