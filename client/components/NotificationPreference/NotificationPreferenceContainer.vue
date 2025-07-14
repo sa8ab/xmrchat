@@ -96,9 +96,9 @@ const showDailySummaryTime = computed(
             <TimeInput v-model="dailySummaryModel" />
           </div>
           <template #help>
-            <p class="text-pale text-xs">
+            <span class="text-pale text-xs">
               Time when daily summary notifications will be sent.
-            </p>
+            </span>
           </template>
         </UFormGroup>
         <div></div>
