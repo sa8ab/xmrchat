@@ -1,6 +1,7 @@
 import type {
   ContentLinkPlatformEnum,
   FiatEnum,
+  IntegrationConfigType,
   NotificationChannelEnum,
   NotificationPreferenceType,
   PageSettingKey,
@@ -216,4 +217,9 @@ export interface NotificationPreference {
   type: NotificationPreferenceType;
   channel: NotificationChannelEnum;
   enabled: boolean;
+}
+
+export interface IntegrationConfig {
+  type: IntegrationConfigType;
+  config: any;
 }

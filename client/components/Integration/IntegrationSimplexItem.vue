@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import useVuelidate from "@vuelidate/core";
+import type { IntegrationConfig } from "~/types";
 import { IntegrationConfigType } from "~/types/enums";
+
+const props = defineProps<{
+  config?: IntegrationConfig;
+}>();
 
 const { required } = useValidations();
 const { axios } = useApp();
@@ -44,6 +49,16 @@ const connect = async () => {
   }
 };
 
+const renderInfo = computed(() => {
+  if (!props.config) return "Not connected";
+  if (props.config.config.contact) {
+    return `"${props.config.config.contact.profile.displayName}" connected`;
+  }
+  if (props.config.config.connId) {
+    return `Request sent`;
+  }
+});
+
 const v = useVuelidate<any>(
   { link: { required } },
   computed(() => state.form)
@@ -55,7 +70,13 @@ const { getValidationAttrs } = useValidations(v);
   <IntegrationItem
     :integrationType="IntegrationConfigType.SIMPLEX"
     @connect="open = true"
-  />
+  >
+    <template #info>
+      <div class="text-sm text-pale">
+        <p>{{ renderInfo }}</p>
+      </div>
+    </template>
+  </IntegrationItem>
   <UModal v-model="open">
     <UCard>
       <template #header>

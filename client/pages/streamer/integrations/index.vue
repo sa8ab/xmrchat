@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import useVuelidate from "@vuelidate/core";
-import type { NotificationPreference, Numberic } from "~/types";
+import type {
+  IntegrationConfig,
+  NotificationPreference,
+  Numberic,
+} from "~/types";
 import {
   IntegrationConfigType,
   NotificationChannelEnum,
@@ -21,6 +25,21 @@ const state = reactive<State>({
   pending: false,
 });
 
+const { data: integrations, error } = await useLazyAsyncData(
+  async () => {
+    const res = await axios.get<{ integrations: IntegrationConfig[] }>(
+      "/integrations"
+    );
+    return res.data;
+  },
+  { server: false }
+);
+
+const simplexConfig = computed(() => {
+  return integrations.value?.integrations.find(
+    (i) => i.type === IntegrationConfigType.SIMPLEX
+  );
+});
 const v = useVuelidate<any>({}, state);
 
 const { getValidationAttrs } = useValidations(v);
@@ -30,9 +49,12 @@ const { getValidationAttrs } = useValidations(v);
   <div>
     <PageTitle title="Notifications" description="Manage your notifications" />
 
-    <!-- <ErrorView :error="error" v-if="error" /> -->
-    <div class="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4">
-      <IntegrationSimplexItem />
+    <ErrorView :error="error" v-if="error" />
+    <div
+      v-else
+      class="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4"
+    >
+      <IntegrationSimplexItem :config="simplexConfig" />
     </div>
   </div>
 </template>

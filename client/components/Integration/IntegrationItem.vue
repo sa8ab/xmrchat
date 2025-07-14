@@ -43,7 +43,7 @@ const integration = computed(() =>
       <!-- actions -->
     </div>
     <template #footer>
-      <div class="flex justify-between gap-2">
+      <div class="flex justify-between items-center gap-2">
         <div>
           <slot name="info" />
         </div>
