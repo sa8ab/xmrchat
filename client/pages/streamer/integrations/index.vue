@@ -1,15 +1,7 @@
 <script setup lang="ts">
 import useVuelidate from "@vuelidate/core";
-import type {
-  IntegrationConfig,
-  NotificationPreference,
-  Numberic,
-} from "~/types";
-import {
-  IntegrationConfigType,
-  NotificationChannelEnum,
-  NotificationPreferenceType,
-} from "~/types/enums";
+import type { IntegrationConfig } from "~/types";
+import { IntegrationConfigType } from "~/types/enums";
 
 const { axios } = useApp();
 const toast = useToast();
