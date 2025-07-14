@@ -15,23 +15,34 @@ import { PageSetting } from 'src/page-settings/page-setting.entity';
 import { DailySummaryProcessor } from './daily-summery.processor';
 import { PageSettingsModule } from 'src/page-settings/page-settings.module';
 import { SimplexModule } from './simplex/simplex.module';
+import { IntegrationConfig } from 'src/integrations/integration-configs.entity';
+import { TipMessageModule } from 'src/tip-message/tip-message.module';
 
 @Module({
   imports: [
     EmailModule,
     TwitchModule,
+    TipMessageModule,
     TypeOrmModule.forFeature([
       Page,
       User,
       Tip,
       NotificationPreference,
       PageSetting,
+      IntegrationConfig,
     ]),
     BullModule.registerQueue({
       name: 'notifications-email',
     }),
+    BullModule.registerQueue({
+      name: 'notifications-simplex',
+    }),
     BullBoardModule.forFeature({
       name: 'notifications-email',
+      adapter: BullMQAdapter,
+    }),
+    BullBoardModule.forFeature({
+      name: 'notifications-simplex',
       adapter: BullMQAdapter,
     }),
     SimplexModule,

@@ -154,4 +154,8 @@ export class SimplexService {
     }
     return connId;
   }
+
+  async sendMessage(contactId: number, message: string) {
+    await this.chat.apiSendTextMessage(ChatType.Direct, contactId, message);
+  }
 }

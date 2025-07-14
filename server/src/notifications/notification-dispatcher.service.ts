@@ -8,6 +8,7 @@ import { NotificationPreferencesService } from 'src/notification-preferences/not
 import { Page } from 'src/pages/page.entity';
 import {
   Action,
+  IntegrationConfigType,
   NotificationChannelEnum,
   NotificationPreferenceType,
   PageSettingKey,
@@ -21,6 +22,7 @@ import { NotificationPreference } from 'src/notification-preferences/notificatio
 import { MoneroUtils } from 'monero-ts';
 import { PageSetting } from 'src/page-settings/page-setting.entity';
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
+import { IntegrationConfig } from 'src/integrations/integration-configs.entity';
 
 @Injectable()
 export class NotificationDispatcherService {
@@ -31,7 +33,10 @@ export class NotificationDispatcherService {
     private notificationPreferencesRepo: Repository<NotificationPreference>,
     @InjectRepository(PageSetting)
     private pageSettingsRepo: Repository<PageSetting>,
+    @InjectRepository(IntegrationConfig)
+    private icRepo: Repository<IntegrationConfig>,
     @InjectQueue('notifications-email') private emailQueue: Queue,
+    @InjectQueue('notifications-simplex') private simplexQueue: Queue,
     private caslAbility: CaslAbilityFactory,
   ) {}
   async notifyNewTip(pageId: number, tipId: number) {
@@ -109,6 +114,23 @@ export class NotificationDispatcherService {
           },
         });
       }
+
+      if (
+        preference.channel === NotificationChannelEnum.SIMPLEX &&
+        preference.type === NotificationPreferenceType.NEW_TIP
+      ) {
+        const config = await this.getSimplexConfig(pageId);
+
+        if (!config) {
+          throw new NotFoundException(
+            `Simplex config not found for page ${page.path} but settings are enabled for new tip.`,
+          );
+        }
+        await this.simplexQueue.add('send-message', {
+          contactId: config.config.contactId,
+          message: `New tip from ${tip.name}\nAmount: ${MoneroUtils.atomicUnitsToXmr(tip.payment.amount)} XMR\nMessage: ${tip.message || '-'}`,
+        });
+      }
     }
   }
 
@@ -119,5 +141,16 @@ export class NotificationDispatcherService {
     );
 
     return tipAmount >= minNotificationThresholdAmount;
+  }
+
+  async getSimplexConfig(pageId: number) {
+    const config = await this.icRepo.findOne({
+      where: {
+        page: { id: pageId },
+        type: IntegrationConfigType.SIMPLEX,
+      },
+    });
+
+    return config;
   }
 }
