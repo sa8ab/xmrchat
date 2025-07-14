@@ -28,7 +28,13 @@ const integration = computed(() =>
     <div class="mt-2 flex justify-between items-center">
       <!-- header -->
       <h3 class="text-2xl font-medium">{{ integration.name }}</h3>
-      <UButton color="gray" variant="link" :to="integration.link?.url" external>
+      <UButton
+        color="gray"
+        variant="link"
+        :to="integration.link?.url"
+        external
+        target="_blank"
+      >
         {{ integration.link?.label }}
         <template #trailing>
           <UIcon name="i-heroicons-arrow-top-right-on-square" />
