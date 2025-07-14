@@ -2,6 +2,7 @@ import type { ContentLinkFull } from "~/types";
 import {
   ContentLinkPlatformEnum,
   FiatEnum,
+  IntegrationConfigType,
   NotificationChannelEnum,
   NotificationPreferenceType,
 } from "~/types/enums";
@@ -185,6 +186,25 @@ export const useConstants = () => {
     return NOTIFICATION_TYPES[v];
   };
 
+  const INTEGRATION_CONFIG_TYPES = {
+    [IntegrationConfigType.SINGAL]: {
+      name: "Singal",
+      image: "",
+      description: "Receive notifications via Singal",
+      tags: [],
+    },
+    [IntegrationConfigType.TELEGRAM]: {
+      name: "Telegram",
+    },
+    [IntegrationConfigType.SIMPLEX]: {
+      name: "Simplex",
+    },
+  };
+
+  const getIntegrationConfigType = (v: IntegrationConfigType) => {
+    return INTEGRATION_CONFIG_TYPES[v];
+  };
+
   return {
     getContentLink,
     CONTENT_LINKS,
@@ -194,5 +214,7 @@ export const useConstants = () => {
     getNotificationChannel,
     NOTIFICATION_TYPES,
     getNotificationType,
+    INTEGRATION_CONFIG_TYPES,
+    getIntegrationConfigType,
   };
 };

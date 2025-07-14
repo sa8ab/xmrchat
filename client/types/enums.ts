@@ -70,3 +70,9 @@ export enum NotificationChannelEnum {
   // TELEGRAM = "telegram",
   // SINGAL = "singal",
 }
+
+export enum IntegrationConfigType {
+  SINGAL = "singal",
+  TELEGRAM = "telegram",
+  SIMPLEX = "simplex",
+}
