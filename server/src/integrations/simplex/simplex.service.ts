@@ -68,6 +68,7 @@ export class SimplexService {
       this.chat.enableAddressAutoAccept();
     } catch (error) {
       console.log('Init error:', error.response);
+      console.log(error);
     }
   }
 
