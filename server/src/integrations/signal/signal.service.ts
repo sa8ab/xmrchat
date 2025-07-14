@@ -10,7 +10,7 @@ export class SignalService implements OnModuleInit {
   constructor(private http: HttpService) {}
 
   onModuleInit() {
-    this.init();
+    // this.init();
   }
 
   async init() {
