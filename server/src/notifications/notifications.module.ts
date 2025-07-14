@@ -14,6 +14,7 @@ import { NotificationPreference } from 'src/notification-preferences/notificatio
 import { PageSetting } from 'src/page-settings/page-setting.entity';
 import { DailySummaryProcessor } from './daily-summery.processor';
 import { PageSettingsModule } from 'src/page-settings/page-settings.module';
+import { SimplexModule } from './simplex/simplex.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { PageSettingsModule } from 'src/page-settings/page-settings.module';
       name: 'notifications-email',
       adapter: BullMQAdapter,
     }),
+    SimplexModule,
   ],
   providers: [
     NotificationsService,
