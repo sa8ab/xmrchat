@@ -11,6 +11,7 @@ import { IntegrationConfig } from './integration-configs.entity';
 import { In, Repository } from 'typeorm';
 import { IntegrationConfigType } from 'src/shared/constants';
 import { SimplexService } from './simplex/simplex.service';
+import { ConnectSignalDto } from './dto/connect-signal.dto';
 
 @Injectable()
 export class IntegrationsService {
@@ -62,6 +63,32 @@ export class IntegrationsService {
     config.config.connectLink = body.address;
     config.config.connId = connId;
 
+    await this.icRepo.save(config);
+  }
+
+  async connectSignal(body: ConnectSignalDto, user: User) {
+    const page = await this.pagesService.findMyPage(user);
+
+    if (!page) {
+      throw new NotFoundException('Page not found');
+    }
+
+    let config = await this.icRepo.findOne({
+      where: {
+        page: { id: page.id },
+        type: IntegrationConfigType.SINGAL,
+      },
+    });
+
+    if (!config) {
+      const create = this.icRepo.create({
+        page: { id: page.id },
+        type: IntegrationConfigType.SINGAL,
+      });
+      config = await this.icRepo.save(create);
+    }
+
+    config.config.number = body.number;
     await this.icRepo.save(config);
   }
 }

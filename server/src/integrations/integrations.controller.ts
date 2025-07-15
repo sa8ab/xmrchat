@@ -5,7 +5,7 @@ import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import { User } from 'src/users/user.entity';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
 import { IntegrationsRO } from './dto/integrations.dto';
-
+import { ConnectSignalDto } from './dto/connect-signal.dto';
 @Controller('integrations')
 export class IntegrationsController {
   constructor(private readonly integrationsService: IntegrationsService) {}
@@ -23,6 +23,15 @@ export class IntegrationsController {
     @CurrentUser() user: User,
   ) {
     await this.integrationsService.connectSimplex(body, user || undefined);
-    return { message: 'Connection request sent' };
+    return { message: 'Connection request sent.' };
+  }
+
+  @Post('/connect/signal')
+  async connectSignal(
+    @Body() body: ConnectSignalDto,
+    @CurrentUser() user: User,
+  ) {
+    await this.integrationsService.connectSignal(body, user);
+    return { message: 'Connected to Signal.' };
   }
 }
