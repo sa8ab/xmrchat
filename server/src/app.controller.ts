@@ -26,9 +26,9 @@ export class AppController {
   //   return this.notificationsService.sendTestEmail();
   // }
 
-  // @IsPublic()
-  // @Get('/test')
-  // async test() {
-  //   return this.simplexService.init();
-  // }
+  @IsPublic()
+  @Get('/test')
+  async test() {
+    return this.signalService.sendTestMessage();
+  }
 }

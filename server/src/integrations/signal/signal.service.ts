@@ -10,32 +10,39 @@ export class SignalService implements OnModuleInit {
   constructor(private http: HttpService) {}
 
   onModuleInit() {
-    // this.init();
+    this.init();
   }
 
   async init() {
-    const { data } = await this.http.axiosRef.get('/v1/accounts');
-    console.log(data);
-    const account = data[0];
-    if (!account) {
-      this.logger.warn(
-        'No accounts found on Signal. Scan the QR code to add an account.',
-      );
-      return;
+    try {
+      const { data } = await this.http.axiosRef.get('/v1/accounts');
+      const account = data[0];
+      if (!account) {
+        this.logger.warn(
+          'No accounts found on Signal. Scan the QR code to add an account.',
+        );
+        return;
+      }
+      this.logger.log(`Signal account: ${account}`);
+      this.account = account;
+    } catch (error) {
+      this.logger.warn('Signal service init failed', error.response.data);
     }
-    this.account = account;
   }
 
-  async sendTestMessage() {
+  async sendMessage(to: string, message: string) {
     try {
-      const { data } = await this.http.axiosRef.post('/v2/send', {
-        message: 'Test message',
+      await this.http.axiosRef.post('/v2/send', {
+        message,
         number: this.account,
-        recipients: [this.account],
+        recipients: [to],
       });
-      console.log(data);
     } catch (error) {
       this.logger.error(error.response.data);
     }
+  }
+
+  async sendTestMessage() {
+    await this.sendMessage(this.account, 'Test message');
   }
 }
