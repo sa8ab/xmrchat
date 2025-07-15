@@ -78,7 +78,7 @@ watch(
         <UAlert v-if="createdTip" color="emerald" variant="subtle">
           <template #description>
             <p class="text-base">
-              <I18nT keypath="tipWalletMinimum">
+              <I18nT keypath="tipWalletMinimum" scope="global">
                 <template #minimumAmount>
                   <span class="font-bold">{{ createdTip.amount }}</span>
                 </template>
@@ -95,7 +95,7 @@ watch(
         >
           <template #description>
             <p v-if="partialPaymentAmount" class="text-base">
-              <I18nT keypath="partialAmountReceived">
+              <I18nT keypath="partialAmountReceived" scope="global">
                 <template #partialAmount>
                   <span class="font-bold"
                     >{{ unitsToXmr(partialPaymentAmount) }}
