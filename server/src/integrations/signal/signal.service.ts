@@ -30,12 +30,13 @@ export class SignalService implements OnModuleInit {
     }
   }
 
-  async sendMessage(to: string, message: string) {
+  async sendMessage(to: string | string[], message: string) {
+    to = Array.isArray(to) ? to : [to];
     try {
       await this.http.axiosRef.post('/v2/send', {
         message,
         number: this.account,
-        recipients: [to],
+        recipients: to,
       });
     } catch (error) {
       this.logger.error(error.response.data);
