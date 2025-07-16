@@ -168,6 +168,11 @@ export const useConstants = () => {
       description: "Receive notifications via Simplex",
       icon: "i-icon-simplex",
     },
+    [NotificationChannelEnum.SINGAL]: {
+      name: "Singal",
+      description: "Receive notifications via Singal",
+      icon: "i-icon-signal",
+    },
   };
 
   const getNotificationChannel = (v: NotificationChannelEnum) => {
