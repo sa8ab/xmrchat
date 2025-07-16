@@ -32,6 +32,6 @@ export class AppController {
   @Get('/test')
   async test() {
     // return this.signalService.sendTestMessage();
-    return this.notificationDispatcherService.notifyNewTip(1, 271);
+    // return this.notificationDispatcherService.notifyNewTip(1, 271);
   }
 }
