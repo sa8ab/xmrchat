@@ -43,8 +43,6 @@ export class NotificationDispatcherService {
     private caslAbility: CaslAbilityFactory,
   ) {}
   async notifyNewTip(pageId: number, tipId: number) {
-    // get page
-    // get user of the page
     const page = await this.pagesRepo.findOne({
       where: { id: pageId },
       relations: { user: true },
@@ -89,32 +87,21 @@ export class NotificationDispatcherService {
       minNotificationThreshold,
     );
 
-    // based on preferences, send email, telegram, etc
-    for (const preference of preferences) {
-      if (
-        preference.type === NotificationPreferenceType.NEW_TIP &&
-        !meetsThreshold
-      )
-        continue;
+    // based on preferences, send email, simplex, signal, etc
+    for (const preference of preferences.filter(
+      (p) => p.type === NotificationPreferenceType.NEW_TIP,
+    )) {
+      if (!meetsThreshold) continue;
 
-      if (
-        preference.channel === NotificationChannelEnum.EMAIL &&
-        preference.type === NotificationPreferenceType.NEW_TIP
-      ) {
+      if (preference.channel === NotificationChannelEnum.EMAIL) {
         await this.notifyNewTipEmail(tip, page);
       }
 
-      if (
-        preference.channel === NotificationChannelEnum.SIMPLEX &&
-        preference.type === NotificationPreferenceType.NEW_TIP
-      ) {
+      if (preference.channel === NotificationChannelEnum.SIMPLEX) {
         await this.notifyNewTipSimplex(tip, page);
       }
 
-      if (
-        preference.channel === NotificationChannelEnum.SINGAL &&
-        preference.type === NotificationPreferenceType.NEW_TIP
-      ) {
+      if (preference.channel === NotificationChannelEnum.SINGAL) {
         await this.notifyNewTipSignal(tip, page);
       }
     }
