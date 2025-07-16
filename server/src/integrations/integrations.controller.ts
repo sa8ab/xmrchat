@@ -44,4 +44,10 @@ export class IntegrationsController {
     await this.integrationsService.confirmSignal(body, user);
     return { message: 'Signal connected.' };
   }
+
+  @Post('/disconnect/signal')
+  async disconnectSignal(@CurrentUser() user: User) {
+    await this.integrationsService.disconnectSignal(user);
+    return { message: 'Signal disconnected.' };
+  }
 }

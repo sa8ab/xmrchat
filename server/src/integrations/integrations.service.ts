@@ -126,4 +126,29 @@ export class IntegrationsService {
 
     await this.signalService.confirmVerification(config, body.code);
   }
+
+  async disconnectSignal(user: User) {
+    const page = await this.pagesService.findMyPage(user);
+
+    if (!page) {
+      throw new NotFoundException('Page not found');
+    }
+
+    const config = await this.icRepo.findOne({
+      where: {
+        page: { id: page.id },
+        type: IntegrationConfigType.SINGAL,
+      },
+    });
+
+    if (!config) {
+      throw new NotFoundException('Signal not found');
+    }
+
+    config.verified = false;
+    config.config = null;
+    config.verificationCode = null;
+    config.verificationExpiresAt = null;
+    await this.icRepo.save(config);
+  }
 }
