@@ -204,6 +204,12 @@ export const useConstants = () => {
     [IntegrationConfigType.SINGAL]: {
       name: "Singal",
       tags: [],
+      image: "i-icon-signal",
+      description: `Say "hello" to a different messaging experience. An unexpected focus on privacy, combined with all of the features you expect.`,
+      link: {
+        label: "signal.org",
+        url: "https://signal.org/",
+      },
     },
     [IntegrationConfigType.TELEGRAM]: {
       name: "Telegram",
@@ -211,8 +217,7 @@ export const useConstants = () => {
     [IntegrationConfigType.SIMPLEX]: {
       name: "Simplex",
       image: "i-icon-simplex",
-      description:
-        "The first messenger without user IDs. Receive notifications via SimpleX.",
+      description: "The first messenger without user IDs.",
       tags: [],
       link: {
         label: "simplex.chat",

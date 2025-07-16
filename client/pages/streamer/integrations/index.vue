@@ -36,6 +36,12 @@ const simplexConfig = computed(() => {
     (i) => i.type === IntegrationConfigType.SIMPLEX
   );
 });
+
+const signalConfig = computed(() => {
+  return integrations.value?.integrations.find(
+    (i) => i.type === IntegrationConfigType.SINGAL
+  );
+});
 const v = useVuelidate<any>({}, state);
 
 const { getValidationAttrs } = useValidations(v);
@@ -43,7 +49,7 @@ const { getValidationAttrs } = useValidations(v);
 
 <template>
   <div>
-    <PageTitle title="Notifications" description="Manage your notifications" />
+    <PageTitle title="Integrations" description="Manage your integrations" />
 
     <ErrorView :error="error" v-if="error" />
     <div
@@ -51,6 +57,7 @@ const { getValidationAttrs } = useValidations(v);
       class="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4"
     >
       <IntegrationSimplexItem :config="simplexConfig" @connect="refresh" />
+      <IntegrationSignalItem :config="signalConfig" @connect="refresh" />
     </div>
   </div>
 </template>

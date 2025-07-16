@@ -12,12 +12,14 @@ import { In, Repository } from 'typeorm';
 import { IntegrationConfigType } from 'src/shared/constants';
 import { SimplexService } from './simplex/simplex.service';
 import { ConnectSignalDto } from './dto/connect-signal.dto';
+import { SignalService } from './signal/signal.service';
 
 @Injectable()
 export class IntegrationsService {
   constructor(
     private pagesService: PagesService,
     private simplexService: SimplexService,
+    private signalService: SignalService,
     @InjectRepository(IntegrationConfig)
     private icRepo: Repository<IntegrationConfig>,
   ) {}
@@ -81,14 +83,21 @@ export class IntegrationsService {
     });
 
     if (!config) {
-      const create = this.icRepo.create({
+      const created = this.icRepo.create({
         page: { id: page.id },
         type: IntegrationConfigType.SINGAL,
       });
-      config = await this.icRepo.save(create);
+      config = await this.icRepo.save(created);
+    }
+
+    if (config && config.verified) {
+      throw new BadRequestException(
+        'Signal is already verified. If you want to change the number disconnect/unlink it first.',
+      );
     }
 
     config.config.number = body.number;
     await this.icRepo.save(config);
+    await this.signalService.requestVerification(config);
   }
 }

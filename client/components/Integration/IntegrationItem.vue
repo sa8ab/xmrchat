@@ -17,7 +17,12 @@ const integration = computed(() =>
 </script>
 
 <template>
-  <UCard>
+  <UCard
+    :ui="{
+      base: 'flex flex-col',
+      body: { base: 'flex-1' },
+    }"
+  >
     <div
       v-if="integration.image"
       class="p-2 ring-1 rounded-md ring-border inline-flex"

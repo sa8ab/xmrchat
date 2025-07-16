@@ -22,6 +22,17 @@ export class IntegrationConfig {
   @Column({ type: 'jsonb', nullable: true })
   config: any;
 
+  // Verifications
+
+  @Column({ type: 'boolean', default: false })
+  verified: boolean;
+
+  @Column({ nullable: true })
+  verificationCode: string;
+
+  @Column({ type: 'timestamptz', nullable: true })
+  verificationExpiresAt: Date;
+
   @ManyToOne(() => Page, { onDelete: 'CASCADE' })
   page: Page;
 
@@ -30,4 +41,15 @@ export class IntegrationConfig {
 
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
+
+  get valid() {
+    if (!this.verified) return false;
+
+    if (this.type === IntegrationConfigType.SINGAL) {
+      return !!this.config.number;
+    }
+    if (this.type === IntegrationConfigType.SIMPLEX) {
+      return !!this.config.contactId;
+    }
+  }
 }
