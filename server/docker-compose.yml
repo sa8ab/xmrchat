@@ -83,6 +83,20 @@ services:
           - ${MINIO_ALIAS:-minio}
       custom-net:
 
+
+  signal-cli:
+    image: bbernhard/signal-cli-rest-api
+    ports:
+      - ':8080'
+    restart: unless-stopped
+    volumes:
+      - ./signal-cli:/home/.local/share/signal-cli
+    environment:
+      - MODE=native
+    networks:
+      custom-net:
+
+
   simplex:
     build:
       context: ./docker/simplex
