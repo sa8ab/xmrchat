@@ -56,6 +56,7 @@ const state = reactive<State>({
       nostr: {},
       xmrbazaar: {},
       kick: {},
+      kuno: {},
       peertube: {},
     },
     name: undefined,
