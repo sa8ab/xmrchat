@@ -41,6 +41,9 @@ export class SignalService implements OnModuleInit, IIntegrationVerifier {
   }
 
   async generateQrCode(name?: string) {
+    if (this.account)
+      throw new BadRequestException('Account already initialized.');
+
     const random = Math.floor(Math.random() * 100);
     name = name || `signal-cli-${random}`;
     const { data } = await this.http.axiosRef.get(`/v1/qrcodelink`, {
