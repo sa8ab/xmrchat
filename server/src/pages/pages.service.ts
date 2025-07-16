@@ -13,7 +13,7 @@ import { ReserveSlugDto } from './dtos/reserve-slug.dto';
 import { User } from 'src/users/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Page } from './page.entity';
-import { Repository } from 'typeorm';
+import { QueryBuilder, Repository, SelectQueryBuilder } from 'typeorm';
 import { makeIntegratedAddress } from 'src/shared/utils/monero';
 import { LwsService } from 'src/lws/lws.service';
 import { ConfigService } from '@nestjs/config';
@@ -27,6 +27,7 @@ import { UpdatePageDto } from './dtos/update-page.dto';
 import { TwitchService } from 'src/integrations/twitch/twitch.service';
 import { AuditsService } from 'src/audits/audits.service';
 import { AuditTypeEnum, PageStatusEnum } from 'src/shared/constants';
+import { File as FileEntity } from 'src/files/file.entity';
 
 @Injectable()
 export class PagesService {
@@ -35,6 +36,7 @@ export class PagesService {
   constructor(
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     @InjectRepository(Page) private repo: Repository<Page>,
+    @InjectRepository(FileEntity) private filesRepo: Repository<FileEntity>,
     private lwsService: LwsService,
     private configService: ConfigService,
     private paymentsService: PaymentsService,
@@ -46,26 +48,65 @@ export class PagesService {
   ) {}
 
   async searchPages(slug: string = '', offset: number = 0, limit: number = 8) {
+    const tipsSubQuery = (qb: SelectQueryBuilder<any>) =>
+      qb
+        .select('tip.page_id', 'page_id')
+        .addSelect(
+          `SUM(
+          payment.paid_amount::NUMERIC *
+          CASE
+            WHEN payment.paid_at > NOW() - INTERVAL '30 days'  THEN 1.0
+            WHEN payment.paid_at > NOW() - INTERVAL '90 days'  THEN 0.7
+            WHEN payment.paid_at > NOW() - INTERVAL '180 days' THEN 0.4
+            ELSE 0.1
+          END
+        )`,
+          'raw_amount',
+        )
+        .addSelect(
+          `SUM(
+          CASE
+            WHEN payment.paid_at > NOW() - INTERVAL '30 days'  THEN 1.0
+            WHEN payment.paid_at > NOW() - INTERVAL '90 days'  THEN 0.5
+            WHEN payment.paid_at > NOW() - INTERVAL '180 days' THEN 0.2
+            ELSE 0.1
+          END
+        )`,
+          'raw_count',
+        )
+        .from(Tip, 'tip')
+        .groupBy('tip.page_id')
+        .innerJoin('tip.payment', 'payment')
+        .where('payment.paid_at IS NOT NULL');
+
     let query = this.repo
       .createQueryBuilder('page')
       .leftJoinAndSelect('page.logo', 'logo')
       .leftJoinAndSelect('page.coverImage', 'cover_image')
-      .leftJoin(
-        (qb) => {
-          return qb
-            .select(['tip.id', 'tip.page_id', 'payment.paid_amount'])
-            .from(Tip, 'tip')
-            .innerJoin('tip.payment', 'payment')
-            .where('payment.paid_at IS NOT NULL');
-        },
-        'paid_tip',
-        'paid_tip.page_id = page.id',
-      )
+      .leftJoin(tipsSubQuery, 'paid_tip', 'paid_tip.page_id = page.id')
       .where('page.isPublic = true')
       .andWhere('page.status != :status', { status: PageStatusEnum.DEACTIVE })
-      .addSelect('SUM(paid_tip.paid_amount::NUMERIC) AS total_paid')
-      .groupBy('page.id, logo.id, cover_image.id')
-      .orderBy('total_paid', 'DESC', 'NULLS LAST');
+      .addSelect('paid_tip.raw_amount', 'raw_amount')
+      .addSelect('paid_tip.raw_count', 'raw_count')
+      .addSelect(
+        `
+        CASE
+          WHEN MAX(COALESCE(raw_amount,0))  OVER () = MIN(COALESCE(raw_amount,0)) OVER () THEN 0
+          ELSE
+            (COALESCE(raw_amount,0)  - MIN(COALESCE(raw_amount,0)) OVER ())
+            / (MAX(COALESCE(raw_amount,0)) OVER () - MIN(COALESCE(raw_amount,0)) OVER ()) * 10
+        END
+        +
+        CASE
+          WHEN MAX(COALESCE(raw_count, 0)) OVER () = MIN(COALESCE(raw_count, 0)) OVER () THEN 0
+          ELSE
+            (COALESCE(raw_count,0) - MIN(COALESCE(raw_count,0)) OVER ())
+            / (MAX(COALESCE(raw_count,0)) OVER () - MIN(COALESCE(raw_count,0)) OVER ()) * 10
+        END        
+        `,
+        'final_score',
+      )
+      .orderBy('final_score', 'DESC', 'NULLS LAST');
 
     if (slug) {
       query = query.andWhere(
@@ -87,6 +128,14 @@ export class PagesService {
       pages,
       total,
     };
+  }
+
+  async sitemapPages() {
+    const pages = await this.repo.find({
+      where: { isPublic: true, status: PageStatusEnum.ACTIVE },
+    });
+
+    return { pages };
   }
 
   async adminSearchPages(
@@ -385,17 +434,24 @@ export class PagesService {
       });
     }
 
-    // const temp = { ...page };
+    const { coverImage, logo, ...attrsRest } = attrs;
 
-    const savedPage = Object.assign(page, attrs);
+    if (attrs.coverImage) {
+      const coverImageEntity = await this.filesRepo.findOneBy({
+        id: attrs.coverImage,
+      });
+      page.coverImage = coverImageEntity;
+    }
+
+    if (attrs.logo) {
+      const logoEntity = await this.filesRepo.findOneBy({ id: attrs.logo });
+      page.logo = logoEntity;
+    }
+
+    const savedPage = Object.assign(page, attrsRest);
 
     const result = await this.repo.save(savedPage);
 
-    // this.auditsService.add(
-    //   AuditTypeEnum.PAGE_UPDATED,
-    //   temp,
-    //   await this.findByPath(result.path),
-    // );
     return result;
   }
 

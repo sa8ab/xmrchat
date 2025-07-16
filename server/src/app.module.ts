@@ -24,6 +24,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { AuditsModule } from './audits/audits.module';
 import { WinstonModule } from 'nest-winston';
 import winston from 'winston';
+import 'winston-daily-rotate-file';
 import { join } from 'path';
 import { ClsModule } from 'nestjs-cls';
 import { ThrottlerModule } from '@nestjs/throttler';
@@ -36,6 +37,14 @@ import {
   QueryResolver,
 } from 'nestjs-i18n';
 import { TipMessageModule } from './tip-message/tip-message.module';
+import { BullModule } from '@nestjs/bullmq';
+import { BullBoardModule } from '@bull-board/nestjs';
+import { ExpressAdapter } from '@bull-board/express';
+import expressBasicAuth from 'express-basic-auth';
+import { CakeModule } from './integrations/cake/cake.module';
+import { IntegrationsModule } from './integrations/integrations.module';
+import { NotificationPreferencesModule } from './notification-preferences/notification-preferences.module';
+import { CaslModule } from './casl/casl.module';
 
 @Module({
   imports: [
@@ -63,15 +72,23 @@ import { TipMessageModule } from './tip-message/tip-message.module';
     ScheduleModule.forRoot(),
     WinstonModule.forRoot({
       transports: [
-        new winston.transports.Console(),
-        new winston.transports.File({
-          filename: 'logs/log.log',
+        new winston.transports.Console({
+          format: winston.format.combine(
+            winston.format.colorize({ all: true }),
+          ),
+        }),
+        new winston.transports.DailyRotateFile({
+          filename: 'logs/log-%DATE%.log',
+          datePattern: 'YYYY-MM-DD',
+          maxFiles: '90d',
         }),
       ],
       format: winston.format.combine(
-        winston.format.timestamp({}),
-        winston.format.json(),
-        winston.format.simple(),
+        winston.format.align(),
+        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        winston.format.printf(({ timestamp, level, message, context }) => {
+          return `[${timestamp}] ${level}: ${message} ${context ? `[${context}]` : ''}`;
+        }),
       ),
     }),
     ClsModule.forRoot({
@@ -101,6 +118,29 @@ import { TipMessageModule } from './tip-message/tip-message.module';
         new HeaderResolver(['x-lang']),
       ],
     }),
+    BullModule.forRootAsync({
+      useFactory: (config: ConfigService) => ({
+        connection: {
+          host: config.get('REDIS_HOST'),
+          port: +config.get('REDIS_PORT'),
+        },
+      }),
+      inject: [ConfigService],
+    }),
+    BullBoardModule.forRootAsync({
+      useFactory: (config: ConfigService) => ({
+        route: 'queues',
+        adapter: ExpressAdapter,
+        middleware: expressBasicAuth({
+          challenge: true,
+          users: {
+            [config.get('BULLBOARD_USERNAME')]:
+              config.get('BULLBOARD_PASSWORD'),
+          },
+        }),
+      }),
+      inject: [ConfigService],
+    }),
     UsersModule,
     DatabaseModule,
     NotificationsModule,
@@ -114,12 +154,16 @@ import { TipMessageModule } from './tip-message/tip-message.module';
     PageSettingsModule,
     LinksModule,
     TwitchModule,
+    CakeModule,
     SwapsModule,
     TrocadorModule,
     AuditsModule,
     CommanderModule,
     AdminModule,
     TipMessageModule,
+    IntegrationsModule,
+    NotificationPreferencesModule,
+    CaslModule,
   ],
   controllers: [AppController],
   providers: [AppService],

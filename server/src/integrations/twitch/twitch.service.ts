@@ -69,7 +69,11 @@ export class TwitchService {
         'Twitch api error on getting channel name',
         error.response?.data,
       );
-      if (error?.response?.data?.status === 403) return true;
+      if (
+        error?.response?.data?.status === 403 ||
+        error?.response?.data?.status === 401
+      )
+        return true;
       return false;
     }
   }

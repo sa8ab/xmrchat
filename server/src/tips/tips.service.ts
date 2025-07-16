@@ -10,7 +10,7 @@ import { PagesService } from 'src/pages/pages.service';
 import { LwsService } from 'src/lws/lws.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Tip } from './tip.entity';
-import { Repository } from 'typeorm';
+import { In, LessThan, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
 import { makeIntegratedAddress } from 'src/shared/utils/monero';
 import { PaymentsService } from 'src/payments/payments.service';
 import { MoneroUtils } from 'monero-ts';
@@ -21,14 +21,12 @@ import { User } from 'src/users/user.entity';
 import { UpdateTipDto } from './dtos/update-tip.dto';
 import { PagesGateway } from 'src/pages/pages.gateway';
 import { NotificationsService } from 'src/notifications/notifications.service';
-import { clearMessage } from 'src/shared/utils';
-import { PricesService } from 'src/prices/prices.service';
 import { SwapsService } from 'src/swaps/swaps.service';
 import { Swap } from 'src/swaps/swap.entity';
 import { Coin } from 'src/integrations/trocador/coin.entity';
 import { TrocadorTrade } from 'src/shared/types';
-import { FiatEnum } from 'src/shared/constants';
 import { TipMessageService } from 'src/tip-message/tip-message.service';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class TipsService {
@@ -166,15 +164,13 @@ export class TipsService {
       baseSwap = res.baseSwap;
       inputCoin = res.coin;
     }
-
-    console.log(baseSwap || 'Not swap.');
-
     // Create and save tip record
     const createdTip = this.repo.create({
       message: payload.message,
       name: payload.name,
       private: payload.private,
-      expiresAt: baseSwap?.details?.expiresAt || null,
+      expiresAt:
+        baseSwap?.details?.expiresAt || new Date(Date.now() + 60 * 60 * 1000),
       page: { id: page.id },
     });
 
@@ -223,7 +219,7 @@ export class TipsService {
       return;
     }
 
-    this.logger.log(`Tip ${tip.swap ? 'Has Swap' : 'Does not have swap'}.`);
+    // this.logger.log(`Tip ${tip.swap ? 'Has Swap' : 'Does not have swap'}.`);
 
     const savedPayment = await this.paymentsService.updatePaidAmount(
       payment.id,
@@ -235,6 +231,8 @@ export class TipsService {
       this.logger.log(
         `Tip transaction is received but is lower than expected amount ${savedPayment.amount} - Current paid amount: ${savedPayment.paidAmount} - isPaid: ${savedPayment.isPaid()}`,
       );
+      this.logger.log(`Sending partial tip socket event. Tip Id ${tip.id}`);
+      this.tipsGateway.notifyTipPayment(tip.id, savedPayment);
       return;
     }
 
@@ -256,8 +254,75 @@ export class TipsService {
       );
     }
 
+    await this.notificationsService.handleNewTip(page.id, tip.id);
+
     try {
       await this.lwsService.deleteWebhook(payment.eventId);
     } catch (error) {}
+  }
+
+  @Cron(CronExpression.EVERY_MINUTE)
+  async deleteExpiredTips() {
+    const query = this.repo
+      .createQueryBuilder('tip')
+      .leftJoin('tip.page', 'page')
+      .where(`page.expirationMinutes IS NOT NULL`)
+      .andWhere(`page.expirationMinutes > 0`)
+      .andWhere(
+        `tip.createdAt < NOW() - (page.expirationMinutes * INTERVAL '1 minute')`,
+      );
+
+    const [res, count] = await query.getManyAndCount();
+
+    if (count) {
+      await this.repo.delete({
+        id: In(res.map((t) => t.id)),
+      });
+      this.logger.log(`Deleted ${count} Tips.`);
+    }
+  }
+
+  @Cron(CronExpression.EVERY_MINUTE)
+  async deleteExpiredWebhooks() {
+    const [tips, count] = await this.repo
+      .createQueryBuilder('tip')
+      .leftJoinAndSelect('tip.payment', 'payment')
+      .leftJoinAndSelect('tip.swap', 'swap')
+      .where('payment.paidAt IS NULL')
+      .andWhere('tip.webhookDeleted = false')
+      .andWhere(
+        `
+        (CASE
+          WHEN swap.id IS NOT NULL THEN tip.expires_at + interval '3 hours'
+          ELSE tip.expires_at
+        END) < NOW()
+      `,
+      )
+      .getManyAndCount();
+
+    if (!count) return;
+
+    const expiredTips = tips.filter((tip) => tip.payment?.eventId);
+    const eventIds = expiredTips.map((tip) => tip.payment.eventId);
+
+    if (!eventIds.length) return;
+
+    this.logger.log(
+      `Deleting webhooks for ${eventIds.length} expired tips: ${eventIds}`,
+    );
+
+    try {
+      await this.lwsService.deleteWebhook(eventIds);
+    } catch (error) {
+      this.logger.warn(
+        `Failed to delete webhook for tips: ${error?.message || error}`,
+      );
+    }
+
+    expiredTips.forEach((tip) => {
+      tip.webhookDeleted = true;
+    });
+
+    await this.repo.save(expiredTips);
   }
 }

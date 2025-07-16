@@ -1,0 +1,54 @@
+{{#>layout title="{{translate 'email.dailySummary.title' lang=lang}}" }}
+
+  <div style="padding-bottom: 16px; background: #f8f9fa; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+    <h2 style="margin: 0 0 16px 0; color: #ff7f0a;">{{translate "email.dailySummary.yourDailySummary" lang=lang}}</h2>
+
+    <div style="margin-bottom: 20px;">
+      <p style="margin: 0 0 8px 0; color: #8f8f8f; font-size: 14px;">
+        {{translate "email.dailySummary.totalReceived" lang=lang}}:
+      </p>
+      <p style="margin: 0; font-weight: 500; color: #ff7f0a; font-size: 24px;">{{totalAmount}} XMR</p>
+      <p style="margin: 8px 0 0 0; color: #8f8f8f; font-size: 12px;">
+        {{translate "email.dailySummary.last24Hours" lang=lang}}
+      </p>
+    </div>
+
+    {{#if tips}}
+      <div style="margin-top: 20px;">
+        <h3 style="margin: 0 0 16px 0; color: #495057; font-size: 18px;">
+          {{translate "email.dailySummary.tipsReceived" lang=lang}}
+        </h3>
+
+        {{#each tips}}
+          <div
+            style="margin-bottom: 16px; padding: 12px; background: #ffffff; border-radius: 4px; border-left: 4px solid #ff7f0a;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-weight: 500; color: #495057;">{{name}}</span>
+              <span style="font-weight: 500; color: #ff7f0a; font-size: 16px;">{{amount}} XMR</span>
+            </div>
+            {{#if message}}
+              <p style="margin: 0; font-style: italic; color: #6c757d; font-size: 14px;">{{message}}</p>
+            {{/if}}
+          </div>
+        {{/each}}
+      </div>
+    {{else}}
+      <div style="margin-top: 20px; padding: 16px; background: #ffffff; border-radius: 4px; text-align: center;">
+        <p style="margin: 0; color: #8f8f8f; font-style: italic;">
+          {{translate "email.dailySummary.noTipsReceived" lang=lang}}
+        </p>
+      </div>
+    {{/if}}
+  </div>
+
+  <p style="padding-bottom: 16px">{{translate "email.dailySummary.thankYouForYourContent" lang=lang}}</p>
+
+  <div style="text-align: center; margin-top: 24px;">
+    <a href="https://xmrchat.com" target="_blank"
+      style="padding: 12px 24px; border-radius: 4px; color: #FFF; background: #ff7f0a; display: inline-flex; text-decoration: none;">
+      {{translate "email.dailySummary.visitXMRChat" lang=lang}}
+    </a>
+  </div>
+
+  {{>ending}}
+{{/layout}}

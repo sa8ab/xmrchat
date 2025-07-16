@@ -22,6 +22,7 @@ export const CONTENT_LINKS_LIST = [
   ContentLinkPlatformEnum.XMRBAZAAR,
   ContentLinkPlatformEnum.KICK,
   ContentLinkPlatformEnum.KUNO,
+  ContentLinkPlatformEnum.PEERTUBE,
 ];
 
 export const SWAP_STATUSES = {

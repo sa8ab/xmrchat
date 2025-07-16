@@ -36,6 +36,10 @@ export class CreatePageBaseDto {
   @MaxLength(64)
   twitchChannel?: string;
 
+  @IsNumber()
+  @IsOptional()
+  expirationMinutes?: number = 90 * 24 * 60;
+
   @IsEnum(TipDisplayMode)
   @IsOptional()
   defaultTipAmountDisplay?: TipDisplayMode;

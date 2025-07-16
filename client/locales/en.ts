@@ -22,6 +22,8 @@ export default {
   email: "Email",
   search: "Search",
   password: "Password",
+  confirm: "Confirm",
+  reconnect: "Reconnect",
   confirmPassword: "Confirm Password",
   signupInstead: "Signup Instead",
   signupFailed: "Signup Failed",
@@ -51,6 +53,8 @@ export default {
   typePageName: "Type page name...",
   contactUs: "Contact Us",
   here: "here",
+  backToHome: "Back to Home",
+  somethingWentWrong: "Something went wrong!",
 
   xmrchat: "XMRChat",
   heroDescription: "Tip your favorite streamer in cryptocurrency.",
@@ -60,6 +64,7 @@ export default {
   FAQ: {
     title: "FAQ",
     whyTipWithXMRChat: "Why tip with XMRChat?",
+    howToUseXMRChat: "How to use XMRChat?",
     whyUseMonero: "Why does XMRChat use Monero?",
     whereToGetMonero: "Where to get Monero?",
   },
@@ -113,20 +118,34 @@ export default {
     description:
       "Learn more about Monero at {getmonero} and where it's used at {moneroeco}.",
   },
-
+  forContentCreators: {
+    title: "For Content Creators",
+    description: {
+      main: `Click "Creators Start Here" button. Create XMRChat account. Create Tip Page. Let your audience know the URL of your tip page.`,
+      tutorialLink:
+        "Alex Anarcho has a great tutorial on how to use XMRChat on {youtube}.",
+      ifStreamyard: "If you use Streamyard:",
+      ifOBS: "If you use OBS:",
+      streamyard: `Go to "Edit tip page" menu item. Make sure you have added your twitch channel username. When starting the stream in Streamyard add Twtich as a destination. XMRChat bot ( xmr-chat on twitch ) will send the tip message on Twitch and you can display it on your screen from Streamyard. Displayed xmrchat bot logo looks best with "Minimal" setting.`,
+      obs: `Go to "OBS" menu item. Click on "Copy OBS Page Link". Add a browser source in OBS and paste the link.`,
+    },
+  },
+  forFans: {
+    title: "For Fans",
+    description:
+      "Go to the URL of your content creator's tip page. Type username and message, choose tip amount, then send. A dialog will appear with the tip details. Your xmrchat will be displayed on the streamer's page after the tip is sent.",
+  },
   whereToGetMonero: {
     cakeWallet: "Buy or trade other crypto for Monero in {cakeWallet}.",
     stealthex:
       "Trade other crypto for Monero (XMR) at {stealthex} and others at {kycnot}.",
-    haveno:
-      "Buy Monero without KYC at {haveno}. Cash by mail tutorial at {blog}.",
-    thisBlogPost: "This blog post",
+    haveno: "Buy Monero without KYC at {haveno}.",
     kraken: "Buy Monero with KYC at {kraken}.",
     xmrbazaar: "Sell items or services for Monero at {xmrbazaar}.",
     gupax: "Mine it with {gupax}.",
     kunoAnneMedia: "Create a Monero Fundraiser at {kunoAnneMedia}.",
     monerica:
-      "Accept Monero at your business and get listed at the {monerica} and {monerodirectory} pages and the business listings map on {xmrbazaar}.",
+      "Accept Monero at your business and get listed at the {monerica} and {monerodirectory} pages and the business listings map on {xmrbazaar} and {bankexit}.",
   },
 
   // TIP PAGE
@@ -159,6 +178,8 @@ export default {
     "Please avoid sending tips with wallet registered on the page. The change returned inflates the amount we see received.",
   tipWalletMinimum:
     "Please send a minimum {minimumAmount} XMR to the following address for your xmrchat to be displayed.",
+  partialAmountReceived:
+    "{partialAmount} received so far, please send remaining {remainingAmount}.",
   openInMyWallet: "Open in My Wallet",
   cancel: "Cancel",
   copyAddress: "Copy Address",
@@ -179,9 +200,9 @@ export default {
   home: "Home",
   logo: "Logo",
   logoRatio: "1:1 ratio",
-  bannerImage: "Banner Image",
+  bannerImage: "Banner image",
   bannerImageBestRatio: "Best to be uploaded in 3:1",
-  yourId: "Your Id",
+  yourId: "Your id",
   pageSlug: "Page Slug",
   moneroPrmReciveAddress: "Monero primary receive address",
   prmMoneroReciveAdressBegin:
@@ -194,8 +215,8 @@ export default {
   nameOfYourTwitchChannel:
     "Name of your twitch channel. Used to display tips on Stream via xmr_chat Twitch bot.",
   optional: "Optional",
-  minTipAmount: "Min. Tip Amount ( XMR )",
-  defaultTipAmount: "Default Tip Amount Value",
+  minTipAmount: "Min. tip amount ( XMR )",
+  defaultTipAmount: "Default tip amount value",
   thisIsOnlyForDisplaying:
     "This is only for displaying the tip values. Viewers can change this for themselves on tip page.",
   publicPage: "Public Page ( Shown on creator search page ).",
@@ -210,6 +231,21 @@ export default {
   unavailable: "Unavailable",
   fiatUnit: "Fiat unit",
   fiatUnitHelp: "Unit to display tips when tip display mode is fiat.",
+  tipExpiration: "Tip expiration",
+  tipExpirationHelp:
+    "Tips will automatically be removed after specified duration.",
+  tipExpirationWarning:
+    "Changing expiration will delete all xmrchats older than selected duration.",
+  disappearsX: "Disappears {time}",
+  never: "Never",
+  xDays: "{count} Day | {count} Days",
+  xMonths: "{count} Month | {count} Months",
+  paymentIsExpired:
+    "Payment is expired. If you have already sent your payment please contact support.",
+  pageReservationExpired: "Page reservation expired.",
+  paymentCheckingDis: "Payment checking is disconnected.",
+  ifPaymentMade:
+    "If payment is already made it will be displayed on tips list.",
 
   // STREAMER MENU
   menu: "Menu",
@@ -222,6 +258,8 @@ export default {
   hide: "Hide",
   youDontHavePage: "You don't have a page yet",
   getStartedByCreatingPage: "Get started by creating a new page for yourself",
+  createNewWallet:
+    "Please create a new Monero wallet to use with XMRChat. We only need to see transactions that relate to XMRChat messages, and nothing else.",
   createNewPage: "Create New Page",
 
   // ACCOUNT PAGE
@@ -262,6 +300,7 @@ export default {
   xUsername: "{platform} username",
   websiteLink: "Website link",
   youtubeChannel: "Youtube channel",
+  peertubeChannel: "Peertube channel",
   podcastRssLink: "Podcast RSS Link",
   nostrPubKey: "Nostr Pub Key",
   kunoUsername: "Kuno Username",

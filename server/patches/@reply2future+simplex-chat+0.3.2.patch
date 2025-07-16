@@ -1,0 +1,17 @@
+diff --git a/node_modules/@reply2future/simplex-chat/dist/transport.js b/node_modules/@reply2future/simplex-chat/dist/transport.js
+index 4757d65..7218464 100644
+--- a/node_modules/@reply2future/simplex-chat/dist/transport.js
++++ b/node_modules/@reply2future/simplex-chat/dist/transport.js
+@@ -111,6 +111,12 @@ async function processWSQueue(c, ws) {
+         let resp;
+         try {
+             const json = JSON.parse(str);
++            if (json.resp.Right) {
++                json.resp = json.resp.Right;
++            }
++            if (json.resp.Left) {
++                json.resp = json.resp.Left;
++            }
+             if (typeof ((_a = json === null || json === void 0 ? void 0 : json.resp) === null || _a === void 0 ? void 0 : _a.type) == "string") {
+                 resp = json;
+             }

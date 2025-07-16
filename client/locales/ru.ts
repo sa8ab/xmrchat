@@ -23,6 +23,8 @@ export default {
   email: "Эл. почта",
   search: "Поиск",
   password: "Пароль",
+  confirm: "Подтвердить",
+  reconnect: "Переподключиться",
   confirmPassword: "Подтвердите пароль",
   signupInstead: "Зарегистрироваться",
   signupFailed: "Ошибка регистрации",
@@ -53,6 +55,8 @@ export default {
   typePageName: "Введите название страницы...",
   contactUs: "Свяжитесь с нами",
   here: "здесь",
+  backToHome: "Назад на главную",
+  somethingWentWrong: "Что-то пошло не так!",
 
   xmrchat: "XMRChat",
   heroDescription: "Поддержите любимого стримера криптовалютой.",
@@ -62,6 +66,7 @@ export default {
   FAQ: {
     title: "Часто задаваемые вопросы",
     whyTipWithXMRChat: "Почему стоит использовать XMRChat?",
+    howToUseXMRChat: "Как использовать XMRChat?",
     whyUseMonero: "Почему XMRChat использует Monero?",
     whereToGetMonero: "Где купить Monero?",
   },
@@ -115,20 +120,34 @@ export default {
     title: "И многое другое",
     description: "Узнайте больше о Monero на {getmonero}.",
   },
-
+  forContentCreators: {
+    title: "Для Создателей Контента",
+    description: {
+      main: `Нажмите кнопку "Начало для авторов". Создайте аккаунт XMRChat. Создайте Страницу Чаевых. Сообщите своей аудитории URL вашей страницы чаевых.`,
+      tutorialLink:
+        "У Алекса Анархо есть отличный урок по использованию XMRChat на {youtube}.",
+      ifStreamyard: "Если вы используете Streamyard:",
+      ifOBS: "Если вы используете OBS:",
+      streamyard: `Перейдите в пункт меню "Редактировать страницу чаевых". Убедитесь, что вы добавили имя пользователя вашего канала Twitch. При запуске стрима в Streamyard добавьте Twitch как направление. Бот XMRChat (xmr-chat на Twitch) отправит сообщение с чаевыми на Twitch, и вы сможете отобразить его на экране из Streamyard. Логотип бота xmrchat лучше всего выглядит с настройкой "Minimal".`,
+      obs: `Перейдите в пункт меню "OBS". Нажмите "Копировать ссылку страницы OBS". Добавьте источник браузера в OBS и вставьте ссылку.`,
+    },
+  },
+  forFans: {
+    title: "Для Фанатов",
+    description:
+      "Перейдите по URL страницы чаевых вашего создателя контента. Введите имя пользователя и сообщение, выберите сумму чаевых, затем отправьте. Появится диалоговое окно с деталями чаевых. Ваш xmrchat будет отображаться на странице стримера после отправки чаевых.",
+  },
   whereToGetMonero: {
     cakeWallet: "Купите или обменяйте крипту на Monero в {cakeWallet}.",
     stealthex:
       "Обменяйте криптовалюту на Monero (XMR) на {stealthex} и других платформах с {kycnot}.",
-    haveno:
-      "Купите Monero без KYC на {haveno}. Инструкция по оплате наличными — на {blog}.",
-    thisBlogPost: "Эта запись в блоге",
+    haveno: "Купите Monero без KYC на {haveno}.",
     kraken: "Купите Monero с KYC на {kraken}.",
     xmrbazaar: "Продавайте товары или услуги за Monero на {xmrbazaar}.",
     gupax: "Добывайте его с помощью {gupax}.",
     kunoAnneMedia: "Создайте сбор средств в Monero на {kunoAnneMedia}.",
     monerica:
-      "Принимайте Monero в своём бизнесе и появляйтесь в каталогах {monerica}, {monerodirectory} и на карте на {xmrbazaar}.",
+      "Принимайте Monero в своём бизнесе и появляйтесь в каталогах {monerica}, {monerodirectory} и на карте на {xmrbazaar} и {bankexit}.",
   },
 
   tipName: "Имя",
@@ -160,6 +179,8 @@ export default {
     "Пожалуйста, не используйте зарегистрированный кошелек стримера — сдача может исказить отображаемую сумму.",
   tipWalletMinimum:
     "Пожалуйста, отправьте минимум {minimumAmount} XMR на следующий адрес, чтобы ваш донат отобразился на xmrchat.",
+  partialAmountReceived:
+    "{partialAmount} получено пока что, пожалуйста, отправьте оставшиеся {remainingAmount}.",
   openInMyWallet: "Открыть в моем кошельке",
   cancel: "Отмена",
   copyAddress: "Скопировать адрес",
@@ -210,6 +231,11 @@ export default {
   fiatUnit: "Валюта",
   fiatUnitHelp:
     "Валюта, используемая для отображения чаевых при установленном режиме отображения чаевых в валюте.",
+  paymentIsExpired:
+    "Срок действия платежа истёк. Если вы уже оплатили, пожалуйста, свяжитесь со службой поддержки.",
+  pageReservationExpired: "Резервация страницы истекла.",
+  paymentCheckingDis: "Проверка платежа отключена.",
+  ifPaymentMade: "Если платеж уже был произведён, он появится в списке чаевых.",
 
   // STREAMER MENU
   menu: "Меню",

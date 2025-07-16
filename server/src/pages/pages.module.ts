@@ -12,10 +12,11 @@ import { Tip } from 'src/tips/tip.entity';
 import { UsersModule } from 'src/users/users.module';
 import { PricesModule } from 'src/prices/prices.module';
 import { TipMessageModule } from 'src/tip-message/tip-message.module';
+import { File } from 'src/files/file.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Page, Tip]),
+    TypeOrmModule.forFeature([Page, Tip, File]),
     LwsModule,
     PaymentsModule,
     NotificationsModule,

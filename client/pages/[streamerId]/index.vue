@@ -43,6 +43,8 @@ const handlePaid = () => {
   contentRef.value?.reset();
 };
 
+const { t } = useI18n();
+defineOgImage(false);
 useStreamerIdSeoMeta(data);
 </script>
 

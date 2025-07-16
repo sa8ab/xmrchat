@@ -22,6 +22,8 @@ export default {
   email: "이메일",
   search: "검색",
   password: "비밀번호",
+  confirm: "확인",
+  reconnect: "다시 연결",
   confirmPassword: "비밀번호 확인",
   signupInstead: "대신 회원가입",
   signupFailed: "회원가입 실패",
@@ -50,6 +52,8 @@ export default {
   typePageName: "페이지 이름 입력...",
   contactUs: "문의하기",
   here: "여기",
+  backToHome: "홈으로 돌아가기",
+  somethingWentWrong: "문제가 발생했습니다!",
 
   xmrchat: "XMRChat",
   heroDescription: "좋아하는 스트리머에게 암호화폐로 팁을 주세요.",
@@ -59,6 +63,7 @@ export default {
   FAQ: {
     title: "자주 묻는 질문",
     whyTipWithXMRChat: "왜 XMRChat으로 팁을 줘야 할까요?",
+    howToUseXMRChat: "XMRChat을 사용하는 방법",
     whyUseMonero: "왜 XMRChat은 모네로를 사용하나요?",
     whereToGetMonero: "모네로를 어디서 구하나요?",
   },
@@ -113,22 +118,36 @@ export default {
     title: "그 외에도",
     description: "{getmonero}에서 모네로에 대해 더 알아보세요.",
   },
-
+  forContentCreators: {
+    title: "콘텐츠 크리에이터를 위한 안내",
+    description: {
+      main: `"크리에이터는 여기서 시작하세요" 버튼을 클릭하세요. XMRChat 계정을 만드세요. 팁 페이지를 만드세요. 팬들에게 팁 페이지의 URL을 알려주세요.`,
+      tutorialLink:
+        "Alex Anarcho가 {youtube}에서 XMRChat 사용법에 대한 훌륭한 튜토리얼을 제공합니다.",
+      ifStreamyard: "Streamyard를 사용하는 경우:",
+      ifOBS: "OBS를 사용하는 경우:",
+      streamyard: `"팁 페이지 편집" 메뉴 항목으로 이동하세요. 트위치 채널 사용자 이름을 추가했는지 확인하세요. Streamyard에서 스트림을 시작할 때 Twitch를 대상으로 추가하세요. XMRChat 봇(트위치의 xmr-chat)이 트위치에 팁 메시지를 보내고 Streamyard에서 화면에 표시할 수 있습니다. xmrchat 봇 로고는 "Minimal" 설정에서 가장 잘 보입니다.`,
+      obs: `"OBS" 메뉴 항목으로 이동하세요. "OBS 페이지 링크 복사"를 클릭하세요. OBS에 브라우저 소스를 추가하고 링크를 붙여넣으세요.`,
+    },
+  },
+  forFans: {
+    title: "팬을 위한 안내",
+    description:
+      "좋아하는 크리에이터의 팁 페이지 URL로 이동하세요. 사용자 이름과 메시지를 입력하고, 팁 금액을 선택한 후 전송하세요. 팁 세부 정보가 포함된 대화 상자가 나타납니다. 팁을 보낸 후 xmrchat이 스트리머의 페이지에 표시됩니다.",
+  },
   whereToGetMonero: {
     cakeWallet:
       "{cakeWallet}에서 다른 암호화폐로 모네로를 구매하거나 교환하세요.",
     stealthex:
       "{stealthex} 및 {kycnot}에서 다른 암호화폐를 모네로로 교환하세요.",
-    haveno:
-      "{haveno}에서 KYC 없이 모네로를 구매하세요. {blog}에서 현금 우편 가이드를 확인하세요.",
-    thisBlogPost: "이 블로그 포스트",
+    haveno: "{haveno}에서 KYC 없이 모네로를 구매하세요.",
     kraken: "KYC가 있는 {kraken}에서 모네로를 구매하세요.",
     xmrbazaar:
       "{xmrbazaar}에서 상품이나 서비스를 판매하여 모네로를 획득하세요.",
     gupax: "{gupax}에서 모네로를 채굴하세요.",
     kunoAnneMedia: "{kunoAnneMedia}에서 모네로 모금 캠페인을 시작하세요.",
     monerica:
-      "당신의 사업에서 모네로 결제를 허용하고 {monerica}, {monerodirectory} 그리고 {xmrbazaar}의 모네로 사용 가능 사업 목록에 등록되세요.",
+      "당신의 사업에서 모네로 결제를 허용하고 {monerica}, {monerodirectory} 그리고 {xmrbazaar}, {bankexit}의 모네로 사용 가능 사업 목록에 등록되세요.",
   },
 
   tipName: "이름",
@@ -160,6 +179,8 @@ export default {
     "페이지에 등록된 지갑으로 팁을 보내는 것을 피해주세요. 반환되는 잔액으로 인해 수령된 금액이 부풀려집니다.",
   tipWalletMinimum:
     "xmrchat에 표시하려면 다음 주소로 최소 {minimumAmount} 모네로(Monero)을 보내주세요.",
+  partialAmountReceived:
+    "지금까지 {partialAmount}이 수령되었습니다. 나머지 {remainingAmount}을 보내주세요.",
   openInMyWallet: "내 지갑에서 열기",
   cancel: "취소",
   copyAddress: "주소 복사",
@@ -173,6 +194,7 @@ export default {
   followUsOnTwitter: "트위터 팔로우",
   twitter: "트위터",
 
+  // CREATE PAGE
   createPage: "페이지 생성",
   getStartedCreatingPage: "스트리머 페이지를 만들어 시작하세요",
   home: "홈",
@@ -208,6 +230,11 @@ export default {
   unavailable: "사용할 수 없음",
   fiatUnit: "법정 화폐 단위",
   fiatUnitHelp: "팁을 법정 화폐로 표시할 때 사용하는 단위.",
+  paymentIsExpired:
+    "결제 기간이 만료되었습니다. 이미 결제하셨다면 고객 지원에 문의하세요.",
+  pageReservationExpired: "페이지 예약이 만료되었습니다.",
+  paymentCheckingDis: "결제 확인이 끊어졌습니다.",
+  ifPaymentMade: "이미 결제하셨다면 팁 목록에 표시됩니다.",
 
   // STREAMER MENU
   menu: "메뉴",

@@ -10,6 +10,7 @@ const { toStreamerCreate } = useRouteLocation();
     />
     <h6>{{ $t("youDontHavePage") }}</h6>
     <p>{{ $t("getStartedByCreatingPage") }}</p>
+    <p>{{ $t("createNewWallet") }}</p>
     <UButton size="xl" :to="toStreamerCreate()">
       {{ $t("createNewPage") }}
     </UButton>

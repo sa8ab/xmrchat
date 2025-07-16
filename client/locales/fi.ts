@@ -23,6 +23,8 @@ export default {
   email: "Sähköposti",
   search: "Haku",
   password: "Salasana",
+  confirm: "Vahvista",
+  reconnect: "Yhdistä uudelleen",
   confirmPassword: "Vahvista salasana",
   signupInstead: "Luo tili",
   signupFailed: "Rekisteröinti epäonnistui",
@@ -51,6 +53,8 @@ export default {
   typePageName: "Kirjoita sivun nimi...",
   contactUs: "Ota Yhteyttä",
   here: "tässä",
+  backToHome: "Takaisin kotiin",
+  somethingWentWrong: "Jotain meni pieleen!",
 
   xmrchat: "XMRChat",
   heroDescription: "Tue suosikkistriimaajaasi Monerolla.",
@@ -60,6 +64,7 @@ export default {
   FAQ: {
     title: "Usein kysytyt kysymykset",
     whyTipWithXMRChat: "Miksi käyttää XMRChatia tippaukseen?",
+    howToUseXMRChat: "Miten käytän XMRChat?",
     whyUseMonero: "Miksi XMRChat käyttää Moneroa?",
     whereToGetMonero: "Mistä saan Moneroa?",
   },
@@ -113,21 +118,35 @@ export default {
     title: "Ja paljon muuta",
     description: "Lue lisää Monerosta osoitteessa {getmonero}.",
   },
-
+  forContentCreators: {
+    title: "Sisällöntuottajille",
+    description: {
+      main: `Napsauta "Sisällöntuottajat aloittavat tästä" -painiketta. Luo XMRChat-tili. Luo Tippisivu. Kerro yleisöllesi tippisivusi URL-osoite.`,
+      tutorialLink:
+        "Alex Anarcholla on loistava opetusohjelma XMRChatin käytöstä {youtube}-palvelussa.",
+      ifStreamyard: "Jos käytät Streamyardia:",
+      ifOBS: "Jos käytät OBS:ia:",
+      streamyard: `Siirry "Muokkaa tippisivua" -valikkoon. Varmista, että olet lisännyt Twitch-kanavasi käyttäjänimen. Kun aloitat striimin Streamyardissa, lisää Twitch kohteena. XMRChat-botti (xmr-chat Twitchissä) lähettää tippiviestin Twitchiin ja voit näyttää sen ruudullasi Streamyardista. xmrchat-botin logo näyttää parhaalta "Minimal" -asetuksella.`,
+      obs: `Siirry "OBS" -valikkoon. Klikkaa "Kopioi OBS-sivun linkki". Lisää selainlähde OBS:ään ja liitä linkki.`,
+    },
+  },
+  forFans: {
+    title: "Faneille",
+    description:
+      "Siirry suosikkisisällöntuottajasi tippisivun URL-osoitteeseen. Kirjoita käyttäjänimesi ja viesti, valitse tippimäärä ja lähetä. Tippitiedot näytetään ponnahdusikkunassa. xmrchat näytetään striimaajan sivulla tippin lähettämisen jälkeen.",
+  },
   whereToGetMonero: {
     cakeWallet: "Osta tai vaihda Moneroa {cakeWallet}:ssa.",
     stealthex:
       "Voit vaihtaa muut kryptosi Moneroon (XMR) sivustoilla kuten {stealthex} ja {kycnot}.",
-    haveno:
-      "Osta Moneroa ilman KYC:tä {haveno}:sta. Katso käteismaksuohje osoitteessa {blog}.",
-    thisBlogPost: "Tämä blogikirjoitus",
+    haveno: "Osta Moneroa ilman KYC:tä {haveno}:sta.",
     kraken: "Osta Moneroa KYC:llä {kraken}:sta.",
     xmrbazaar:
       "Myy tavaroita tai palveluita Monerolla osoitteessa {xmrbazaar}.",
     gupax: "Louhi Moneroa käyttäen {gupax}:ia.",
     kunoAnneMedia: "Luo Monero-varainkeruu {kunoAnneMedia}:ssa.",
     monerica:
-      "Hyväksy Monero liiketoiminnassasi ja listaa itsesi {monerica}, {monerodirectory} ja {xmrbazaar} sivuille.",
+      "Hyväksy Monero liiketoiminnassasi ja listaa itsesi {monerica}, {monerodirectory} ja {xmrbazaar} ja {bankexit} sivuille.",
   },
 
   tipName: "Nimi",
@@ -159,6 +178,8 @@ export default {
     "Älä käytä rekisteröityä striimaajan lompakkoa – vaihtorahat voivat vääristää näkyvää summaa.",
   tipWalletMinimum:
     "Lähetä vähintään {minimumAmount} XMR seuraavaan osoitteeseen, jotta tippisi näkyy xmrchatissa.",
+  partialAmountReceived:
+    "{partialAmount} vastaanotettu toistaiseksi, lähetä loput {remainingAmount}.",
   openInMyWallet: "Avaa lompakossani",
   cancel: "Peruuta",
   copyAddress: "Kopioi osoite",
@@ -211,6 +232,11 @@ export default {
   fiatUnit: "Fiat-yksikkö",
   fiatUnitHelp:
     "Yksikkö, joka näytetään tippisivun tippien määränä, kun tippienäkymä on fiat.",
+  paymentIsExpired:
+    "Maksu on vanhentunut. Jos olet jo maksanut, ota yhteyttä tukeen.",
+  pageReservationExpired: "Sivun varaus on vanhentunut.",
+  paymentCheckingDis: "Maksun tarkistus on katkaistu.",
+  ifPaymentMade: "Jos maksu on jo tehty, se näkyy vinkkilistassa.",
 
   // STREAMER MENU
   menu: "Valikko",

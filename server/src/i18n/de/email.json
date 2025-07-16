@@ -24,5 +24,28 @@
     "emailTitle": "Passwort aktualisiert",
     "passwordUpdated": "Das Passwort Ihres Kontos wurde aktualisiert.",
     "ifItWasNotYou": "Wenn Sie es nicht waren, melden Sie sich bitte an und setzen Sie Ihr Passwort zurück."
+  },
+  "newTip": {
+    "subject": "Sie haben ein Trinkgeld auf XMRChat erhalten",
+    "title": "Neues Trinkgeld erhalten",
+    "emailTitle": "Sie haben ein Trinkgeld erhalten!",
+    "youReceivedATip": "Sie haben ein Trinkgeld erhalten!",
+    "from": "Von",
+    "amount": "Betrag",
+    "message": "Nachricht",
+    "thankYouForYourContent": "Vielen Dank für Ihren großartigen Inhalt! Machen Sie weiter so.",
+    "visitXMRChat": "XMRChat besuchen"
+  },
+  "dailySummary": {
+    "subject": "Ihre Tägliche Zusammenfassung - XMRChat",
+    "title": "Ihre Tägliche Zusammenfassung",
+    "emailTitle": "Ihre Tägliche Zusammenfassung",
+    "yourDailySummary": "Ihre Tägliche Zusammenfassung",
+    "totalReceived": "Gesamt Erhalten",
+    "last24Hours": "Letzte 24 Stunden",
+    "tipsReceived": "Erhaltene Trinkgelder",
+    "noTipsReceived": "Keine Trinkgelder in den letzten 24 Stunden erhalten",
+    "thankYouForYourContent": "Vielen Dank für Ihren großartigen Inhalt! Machen Sie weiter so.",
+    "visitXMRChat": "XMRChat besuchen"
   }
 }

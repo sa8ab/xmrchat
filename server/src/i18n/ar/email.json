@@ -24,5 +24,28 @@
     "emailTitle": "تم تحديث كلمة المرور",
     "passwordUpdated": "تم تحديث كلمة مرور حسابك.",
     "ifItWasNotYou": "إذا لم تكن أنت، يرجى تسجيل الدخول وإعادة تعيين كلمة المرور الخاصة بك."
+  },
+  "newTip": {
+    "subject": "لقد تلقيت إكرامية على XMRChat",
+    "title": "إكرامية جديدة مستلمة",
+    "emailTitle": "لقد تلقيت إكرامية!",
+    "youReceivedATip": "لقد تلقيت إكرامية!",
+    "from": "من",
+    "amount": "المبلغ",
+    "message": "الرسالة",
+    "thankYouForYourContent": "شكراً لك على المحتوى الرائع! استمر في العمل المذهل.",
+    "visitXMRChat": "زيارة XMRChat"
+  },
+  "dailySummary": {
+    "subject": "ملخصك اليومي - XMRChat",
+    "title": "ملخصك اليومي",
+    "emailTitle": "ملخصك اليومي",
+    "yourDailySummary": "ملخصك اليومي",
+    "totalReceived": "إجمالي المستلم",
+    "last24Hours": "آخر 24 ساعة",
+    "tipsReceived": "الإكراميات المستلمة",
+    "noTipsReceived": "لم يتم استلام إكراميات في آخر 24 ساعة",
+    "thankYouForYourContent": "شكراً لك على المحتوى الرائع! استمر في العمل المذهل.",
+    "visitXMRChat": "زيارة XMRChat"
   }
 }

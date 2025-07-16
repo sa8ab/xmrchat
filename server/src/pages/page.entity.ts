@@ -68,6 +68,9 @@ export class Page {
   @Column('boolean', { default: true })
   isPublic: boolean;
 
+  @Column({ type: 'integer', nullable: true })
+  expirationMinutes: number;
+
   @OneToOne(() => FileEntity, { eager: true })
   @JoinColumn({ foreignKeyConstraintName: 'pages_cover_image_id_fkey' })
   coverImage: FileEntity;

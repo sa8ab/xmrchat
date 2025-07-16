@@ -1,5 +1,5 @@
 import { ISendMailOptions, MailerService } from '@nestjs-modules/mailer';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -11,18 +11,19 @@ export class EmailService {
     private mailer: MailerService,
   ) {}
 
-  sendEmail(to: string | string[], options: ISendMailOptions) {
+  async sendEmail(to: string | string[], options: ISendMailOptions) {
     const from = `${this.configService.get('MAIL_FROM_NAME')} <${this.configService.get('MAIL_FROM_ADDRESS')}>`;
 
-    this.mailer
-      .sendMail({
+    try {
+      await this.mailer.sendMail({
         from: from,
         to: to,
         ...options,
-      })
-      .catch((e) => {
-        this.logger.error(`Email sending failled`, e);
       });
+    } catch (error) {
+      this.logger.error(`Email sending failled`, error);
+      throw error;
+    }
   }
 
   getConfig() {

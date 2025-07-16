@@ -21,6 +21,8 @@ export default {
   email: "البريد الإلكتروني",
   search: "بحث",
   password: "كلمة المرور",
+  confirm: "تأكيد",
+  reconnect: "إعادة الاتصال",
   confirmPassword: "تأكيد كلمة المرور",
   signupInstead: "انشاء حساب جديد",
   signupFailed: "فشل التسجيل",
@@ -49,6 +51,8 @@ export default {
   typePageName: "اكتب اسم الصفحة...",
   contactUs: "اتصل بنا",
   here: "هنا",
+  backToHome: "العودة إلى الصفحة الرئيسية",
+  somethingWentWrong: "حدث خطأ ما!",
 
   xmrchat: "XMRChat",
   heroDescription: "تبرّع لصانع المحتوى المفضل لديك بالعملات المشفرة",
@@ -58,6 +62,7 @@ export default {
   FAQ: {
     title: "الأسئلة الشائعة",
     whyTipWithXMRChat: "لماذا التبرع باستخدام XMRChat؟",
+    howToUseXMRChat: "كيفية استخدام XMRChat؟",
     whyUseMonero: "لماذا يستخدم XMRChat عملة Monero؟",
     whereToGetMonero: "أين يمكن الحصول على Monero؟",
   },
@@ -110,20 +115,34 @@ export default {
     title: "والمزيد",
     description: "تعرف على المزيد عن Monero في {getmonero}",
   },
-
+  forContentCreators: {
+    title: "لصانعي المحتوى",
+    description: {
+      main: `انقر على زر "ابدأ هنا للمبدعين". أنشئ حساب XMRChat. أنشئ صفحة البقشيش. أخبر جمهورك بعنوان URL لصفحة البقشيش الخاصة بك.`,
+      tutorialLink:
+        "لدى Alex Anarcho برنامج تعليمي رائع حول كيفية استخدام XMRChat على {youtube}.",
+      ifStreamyard: "إذا كنت تستخدم Streamyard:",
+      ifOBS: "إذا كنت تستخدم OBS:",
+      streamyard: `انتقل إلى عنصر القائمة "تعديل صفحة التبرع". تأكد من إضافة اسم مستخدم قناة Twitch الخاصة بك. عند بدء البث في Streamyard، أضف Twitch كوجهة. سيرسل روبوت XMRChat (xmr-chat على Twitch) رسالة التبرع على Twitch ويمكنك عرضها على شاشتك من Streamyard. يبدو شعار روبوت xmrchat أفضل مع إعداد "Minimal".`,
+      obs: `انتقل إلى عنصر القائمة "OBS". انقر على "نسخ رابط صفحة OBS". أضف مصدر متصفح في OBS والصق الرابط.`,
+    },
+  },
+  forFans: {
+    title: "للمعجبين",
+    description:
+      "انتقل إلى عنوان URL لصفحة التبرع الخاصة بصانع المحتوى المفضل لديك. أدخل اسم المستخدم والرسالة، اختر مبلغ التبرع، ثم أرسل. ستظهر نافذة منبثقة مع تفاصيل التبرع. سيتم عرض xmrchat الخاص بك على صفحة صانع المحتوى بعد إرسال التبرع.",
+  },
   whereToGetMonero: {
     cakeWallet: "اشترِ أو تاجر بعملات مشفرة أخرى مقابل Monero في {cakeWallet}",
     stealthex:
       "تاجر بعملات مشفرة أخرى مقابل Monero (XMR) في {stealthex} وغيرها في {kycnot}",
-    haveno:
-      "اشترِ Monero بدون توثيق حساب في {haveno} . تعليمات الدفع نقداً عن طريق البريد في {blog}",
-    thisBlogPost: "هذا المنشور في المدونة",
+    haveno: "اشترِ Monero بدون توثيق حساب في {haveno}",
     kraken: "بإمكانك شراء Monero باستخدام حساب موثق في {kraken}",
     xmrbazaar: "بيع و شراء منتجات و خدمات مقابل Monero في {xmrbazaar}",
     gupax: "تعدين Monero من خلال {gupax}",
     kunoAnneMedia: "أنشئ حملة تمويل Monero في {kunoAnneMedia}",
     monerica:
-      "اضافة دفع Monero في متجرك يؤهلك لادراج متجرك على خرائط Monero و مجانا على المواقع التالية: {monerica} و {monerodirectory} و {xmrbazaar}",
+      "اضافة دفع Monero في متجرك يؤهلك لادراج متجرك على خرائط Monero و مجانا على المواقع التالية: {monerica} و {monerodirectory} و {xmrbazaar} و {bankexit}",
   },
 
   // TIP PAGE
@@ -156,6 +175,8 @@ export default {
     "يرجى تجنب إرسال التبرعات باستخدام المحفظة المسجلة على الصفحة. التغيير المعاد يزيد من المبلغ الذي نراه مستلم",
   tipWalletMinimum:
     "يرجى إرسال ما لا يقل عن {minimumAmount} XMR إلى العنوان التالي ليتم عرض xmrchat الخاص بك",
+  partialAmountReceived:
+    "تم استلام {partialAmount} حتى الآن، يرجى إرسال المتبقي {remainingAmount}.",
   openInMyWallet: "فتح في محفظتي",
   cancel: "إلغاء",
   copyAddress: "نسخ العنوان",
@@ -207,6 +228,11 @@ export default {
   fiatUnit: "وحدة العملة",
   fiatUnitHelp:
     "وحدة العملة المستخدمة لعرض التبرعات عندما يكون جدول التبرعات في العملة",
+  paymentIsExpired:
+    "انتهت صلاحية الدفع. إذا كنت قد أتممت الدفع بالفعل، يرجى التواصل مع الدعم.",
+  pageReservationExpired: "انتهت صلاحية حجز الصفحة.",
+  paymentCheckingDis: "تم فصل التحقق من الدفع.",
+  ifPaymentMade: "إذا تم الدفع بالفعل، فسيتم عرضه في قائمة النصائح.",
 
   // STREAMER MENU
   menu: "القائمة",

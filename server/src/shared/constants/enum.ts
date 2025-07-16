@@ -10,6 +10,7 @@ export enum FileType {
 export enum PageSettingCategory {
   OBS = 'obs',
   STREAMING = 'streaming',
+  NOTIFICATIONS = 'notifications',
 }
 
 export enum PageSettingKey {
@@ -17,6 +18,8 @@ export enum PageSettingKey {
   OBS_KEEP_MESSAGES = 'obs-keep-messages',
   OBS_PLAY_SOUND = 'obs-play-sound',
   OBS_AUTO_SHOW_TIPS = 'obs-auto-show-tips',
+  MIN_NOTIFICATION_THRESHOLD = 'min-notification-threshold',
+  DAILY_SUMMARY_NOTIFICATION_TIME = 'daily-summary-notification-time',
 }
 
 export enum TipDisplayMode {
@@ -52,6 +55,7 @@ export enum LinkPlatformEnum {
   XMRBAZAAR = 'xmrbazaar',
   KICK = 'kick',
   KUNO = 'KUNO',
+  PEERTUBE = 'peertube',
 }
 
 export enum TrocadorStatusEnum {
@@ -89,4 +93,32 @@ export enum RolesEnum {
 export enum PageStatusEnum {
   ACTIVE = 'active',
   DEACTIVE = 'deactive',
+}
+
+export enum IntegrationConfigType {
+  SINGAL = 'singal',
+  TELEGRAM = 'telegram',
+  SIMPLEX = 'simplex',
+}
+
+export enum NotificationPreferenceType {
+  NEW_TIP = 'new_tip',
+  DAILY_SUMMARY = 'daily_summary',
+}
+
+export enum NotificationChannelEnum {
+  EMAIL = 'email',
+  WEBHOOK = 'webhook',
+  TELEGRAM = 'telegram',
+  SINGAL = 'singal',
+  SIMPLEX = 'simplex',
+}
+
+export enum Action {
+  Manage = 'manage',
+  Create = 'create',
+  Read = 'read',
+  Update = 'update',
+  Delete = 'delete',
+  Receive = 'receive',
 }

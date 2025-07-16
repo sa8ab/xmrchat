@@ -24,6 +24,8 @@ export default {
   email: "Correo electrónico",
   search: "Buscar",
   password: "Contraseña",
+  confirm: "Confirmar",
+  reconnect: "Reconectar",
   confirmPassword: "Confirmar contraseña",
   signupInstead: "Registrarse en su lugar",
   loginInstead: "Iniciar sesión en su lugar",
@@ -53,6 +55,8 @@ export default {
   typePageName: "Escribe el nombre de la página...",
   contactUs: "Contáctanos",
   here: "aquí",
+  backToHome: "Volver al inicio",
+  somethingWentWrong: "¡Algo salió mal!",
 
   xmrchat: "XMRChat",
   heroDescription: "De propinas en criptomonedas a sus streamers favoritos.",
@@ -62,6 +66,7 @@ export default {
   FAQ: {
     title: "Preguntas frecuentes",
     whyTipWithXMRChat: "¿Por qué dar propinas con XMRChat?",
+    howToUseXMRChat: "¿Cómo usar XMRChat?",
     whyUseMonero: "¿Por qué XMRChat usa Monero?",
     whereToGetMonero: "¿Dónde obtener Monero?",
   },
@@ -116,22 +121,36 @@ export default {
     title: "Y más",
     description: "Obtenga más información sobre Monero en {getmonero}.",
   },
-
+  forContentCreators: {
+    title: "Para Creadores de Contenido",
+    description: {
+      main: `Haz clic en el botón "Los creadores comienzan aquí". Crea una cuenta XMRChat. Crea una Página de Propinas. Haz saber a tu audiencia la URL de tu página de propinas.`,
+      tutorialLink:
+        "Alex Anarcho tiene un excelente tutorial sobre cómo usar XMRChat en {youtube}.",
+      ifStreamyard: "Si usas Streamyard:",
+      ifOBS: "Si usas OBS:",
+      streamyard: `Ve al elemento del menú "Editar página de propinas". Asegúrate de haber añadido tu nombre de usuario de canal de Twitch. Al iniciar el stream en Streamyard, añade Twitch como destino. El bot XMRChat (xmr-chat en Twitch) enviará el mensaje de propina en Twitch y podrás mostrarlo en tu pantalla desde Streamyard. El logo del bot xmrchat se ve mejor con la configuración "Minimal".`,
+      obs: `Ve al elemento del menú "OBS". Haz clic en "Copiar enlace de página OBS". Añade una fuente de navegador en OBS y pega el enlace.`,
+    },
+  },
+  forFans: {
+    title: "Para Fans",
+    description:
+      "Ve a la URL de la página de propinas de tu creador de contenido. Escribe tu nombre de usuario y mensaje, elige el monto de la propina, luego envía. Aparecerá un diálogo con los detalles de la propina. Tu xmrchat se mostrará en la página del streamer después de enviar la propina.",
+  },
   whereToGetMonero: {
     cakeWallet:
       "Compre o intercambie otras criptomonedas por Monero en {cakeWallet}.",
     stealthex:
       "Intercambie otras criptomonedas por Monero (XMR) en {stealthex} y otros en {kycnot}.",
-    haveno:
-      "Compre Monero sin KYC en {haveno}. Tutorial de efectivo por correo en {blog}.",
-    thisBlogPost: "Esta entrada del blog",
+    haveno: "Compre Monero sin KYC en {haveno}.",
     kraken: "Compre Monero con KYC en {kraken}.",
     xmrbazaar: "Venda artículos o servicios por Monero en {xmrbazaar}.",
     gupax: "Mínele con {gupax}.",
     kunoAnneMedia:
       "Cree una recaudación de fondos de Monero en {kunoAnneMedia}.",
     monerica:
-      "Acepte Monero en su negocio y aparezca en las páginas {monerica} y {monerodirectory} y en el mapa de listados comerciales en {xmrbazaar}.",
+      "Acepte Monero en su negocio y aparezca en las páginas {monerica} y {monerodirectory} y en el mapa de listados comerciales en {xmrbazaar} y {bankexit}.",
   },
 
   // TIP PAGE
@@ -165,6 +184,8 @@ export default {
     "Evite enviar propinas con la billetera registrada en la página. El cambio devuelto infla la cantidad que vemos recibida.",
   tipWalletMinimum:
     "Envíe un mínimo de {minimumAmount} XMR a la siguiente dirección para que se muestre su xmrchat.",
+  partialAmountReceived:
+    "{partialAmount} recibido hasta ahora, por favor envíe el resto {remainingAmount}.",
   openInMyWallet: "Abrir en mi billetera",
   cancel: "Cancelar",
   copyAddress: "Copiar dirección",
@@ -217,6 +238,11 @@ export default {
   fiatUnit: "Unidad de moneda",
   fiatUnitHelp:
     "Unidad de moneda usada para mostrar propinas cuando el modo de visualización de propinas es en moneda.",
+  paymentIsExpired:
+    "El pago ha expirado. Si ya realizaste el pago, por favor contacta al soporte.",
+  pageReservationExpired: "La reserva de la página ha expirado.",
+  paymentCheckingDis: "La verificación de pago se ha desconectado.",
+  ifPaymentMade: "Si el pago ya se realizó, aparecerá en la lista de propinas.",
 
   // STREAMER MENU
   menu: "Menú",

@@ -57,6 +57,7 @@ const state = reactive<State>({
       xmrbazaar: {},
       kick: {},
       kuno: {},
+      peertube: {},
     },
     name: undefined,
     searchTerms: undefined,
@@ -135,7 +136,7 @@ const { getValidationAttrs } = useValidations(v);
     <div
       class="grid md:grid-cols-2 md:grid-flow-col gap-4"
       :style="`grid-template-rows: repeat(${
-        CONTENT_LINKS_LIST.length / 2
+        Math.ceil(CONTENT_LINKS_LIST.length / 2)
       }, 1fr)`"
     >
       <UFormGroup

@@ -24,6 +24,9 @@ export const useRouteLocation = () => {
     toStreamer: (id: Numberic) => localeRoute(`/${id}`),
     toCreators: () => localeRoute(`/creator`),
     toGuides: () => localeRoute("/guides/secret-and-primary-address"),
+    toStreamerNotificationPreferences: () =>
+      localeRoute("/streamer/notification-preferences"),
+    toStreamerIntegrations: () => localeRoute("/streamer/integrations"),
 
     toUsers: () => localeRoute("/admin/users"),
     toPages: () => localeRoute("/admin/pages"),

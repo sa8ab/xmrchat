@@ -3,6 +3,7 @@ name: ${DOCKER_COMPOSE_PROJECT_NAME}
 services:
   postgres:
     image: postgres:14-alpine
+    restart: unless-stopped
     ports:
       - ${DATABASE_EXTERNAL_PORT:-5428}:5432
     volumes:
@@ -17,6 +18,7 @@ services:
 
   postgres-backup:
     image: postgres:14-alpine
+    restart: unless-stopped
     depends_on:
       - postgres
     environment:
@@ -53,6 +55,7 @@ services:
 
   minio:
     image: quay.io/minio/minio
+    restart: unless-stopped
     ports:
       - ':9000'
       - ':9001'
@@ -75,17 +78,47 @@ services:
       - traefik.http.services.${TRAEFIK_MINIO_ROUTER_NAME:-xmrchats3}.loadbalancer.server.port=9000
 
     networks:
-      - traefik
-      - custom-net
+      traefik:
+        aliases:
+          - ${MINIO_ALIAS:-minio}
+      custom-net:
+
+
+  signal-cli:
+    image: bbernhard/signal-cli-rest-api
+    ports:
+      - ':8080'
+    restart: unless-stopped
+    volumes:
+      - ./signal-cli:/home/.local/share/signal-cli
+    environment:
+      - MODE=native
+    networks:
+      custom-net:
+
+
+  simplex:
+    build:
+      context: ./docker/simplex
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - ':5225'
+    volumes:
+      - ./simplex:/root/.simplex
+    networks:
+      custom-net:
 
   nest:
     build: .
+    restart: unless-stopped
     ports:
       - ${PORT:-3083}:3000
     depends_on:
       - postgres
       - redis
       - minio
+      - simplex
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik

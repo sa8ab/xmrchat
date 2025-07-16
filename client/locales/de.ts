@@ -24,6 +24,8 @@ export default {
   email: "E-Mail",
   search: "Suchen",
   password: "Passwort",
+  confirm: "Bestätigen",
+  reconnect: "Erneut verbinden",
   confirmPassword: "Passwort bestätigen",
   signupInstead: "Stattdessen registrieren",
   loginInstead: "Stattdessen anmelden",
@@ -53,6 +55,8 @@ export default {
   typePageName: "Seitennamen eingeben...",
   contactUs: "Kontaktiere uns",
   here: "hier",
+  backToHome: "Zurück zur Startseite",
+  somethingWentWrong: "Etwas ist schiefgelaufen!",
 
   xmrchat: "XMRChat",
   heroDescription: "Unterstütze deinen Lieblings-Streamer mit Kryptowährung",
@@ -62,6 +66,7 @@ export default {
   FAQ: {
     title: "FAQ",
     whyTipWithXMRChat: "Warum mit XMRChat Trinkgeld verschicken?",
+    howToUseXMRChat: "Wie verwende ich XMRChat?",
     whyUseMonero: "Warum verwendet XMRChat Monero?",
     whereToGetMonero: "Wo bekomme ich Monero?",
   },
@@ -116,22 +121,36 @@ export default {
     title: "Und mehr",
     description: "Erfahre mehr über Monero auf {getmonero}.",
   },
-
+  forContentCreators: {
+    title: "Für Content Creator",
+    description: {
+      main: `Klicken Sie auf die Schaltfläche "Ersteller starten hier". Erstellen Sie ein XMRChat-Konto. Erstellen Sie eine Trinkgeldseite. Teilen Sie Ihrem Publikum die URL Ihrer Trinkgeldseite mit.`,
+      tutorialLink:
+        "Alex Anarcho hat ein großartiges Tutorial zur Verwendung von XMRChat auf {youtube}.",
+      ifStreamyard: "Wenn Sie Streamyard verwenden:",
+      ifOBS: "Wenn du OBS verwendest:",
+      streamyard: `Gehe zum Menüpunkt "Trinkgeld-Seite bearbeiten". Stelle sicher, dass du deinen Twitch-Kanalnamen hinzugefügt hast. Wenn du den Stream in Streamyard startest, füge Twitch als Ziel hinzu. Der XMRChat-Bot (xmr-chat auf Twitch) wird die Trinkgeld-Nachricht auf Twitch senden und du kannst sie auf deinem Bildschirm von Streamyard anzeigen. Das angezeigte xmrchat-Bot-Logo sieht am besten mit der "Minimal"-Einstellung aus.`,
+      obs: `Gehe zum "OBS"-Menüpunkt. Klicke auf "OBS-Seitenlink kopieren". Füge eine Browserquelle in OBS hinzu und füge den Link ein.`,
+    },
+  },
+  forFans: {
+    title: "Für Fans",
+    description:
+      "Gehe zur URL der Trinkgeld-Seite deines Content Creators. Gib Benutzernamen und Nachricht ein, wähle den Trinkgeld-Betrag und sende ab. Ein Dialog mit den Trinkgeld-Details wird erscheinen. Dein xmrchat wird auf der Seite des Streamers angezeigt, nachdem das Trinkgeld gesendet wurde.",
+  },
   whereToGetMonero: {
     cakeWallet:
       "Kaufe oder tausche Monero gegen andere Kryptowährungen bei {cakeWallet}.",
     stealthex:
       "Tausche Monero gegen andere Kryptowährungen bei {stealthex} oder {kycnot}.",
-    haveno:
-      "Kaufe Monero ohne KYC bei {haveno}. Ein Tutorial für Bargeld per Post findest du auf {blog}.",
-    thisBlogPost: "diesem Blogbeitrag",
+    haveno: "Kaufe Monero ohne KYC bei {haveno}.",
     kraken: "Kaufe Monero mit KYC bei {kraken} (nur bei Kraken USA).",
     xmrbazaar:
       "Verkaufe Artikel oder Dienstleistungen für Monero bei {xmrbazaar}.",
     gupax: "Mine Monero mit {gupax}.",
     kunoAnneMedia: "Erstelle eine Monero-Spendenaktion bei {kunoAnneMedia}.",
     monerica:
-      "Akzeptiere Monero in deinem Unternehmen und werde auf den Seiten {monerica} und {monerodirectory}, sowie auf der Geschäftsübersichtskarte bei {xmrbazaar} gelistet.",
+      "Akzeptiere Monero in deinem Unternehmen und werde auf den Seiten {monerica} und {monerodirectory}, sowie auf der Geschäftsübersichtskarte bei {xmrbazaar} und {bankexit} gelistet.",
   },
 
   // TIP PAGE
@@ -165,6 +184,8 @@ export default {
     "Bitte vermeide es, Trinkgelder mit der auf der Seite registrierten Wallet zu senden. Die zurückgegebene Outputs erhöhen den Betrag, den wir als empfangen sehen",
   tipWalletMinimum:
     "Bitte sende mindestens {minimumAmount} XMR an die folgende Adresse, damit dein xmrchat angezeigt wird",
+  partialAmountReceived:
+    "{partialAmount} bisher erhalten, bitte sende den Rest {remainingAmount}.",
   openInMyWallet: "In meiner Wallet öffnen",
   cancel: "Abbrechen",
   copyAddress: "Adresse kopieren",
@@ -217,6 +238,12 @@ export default {
   fiatUnit: "Fiat-Einheit",
   fiatUnitHelp:
     "Einheit, die bei der Anzeige von Trinkgeldern verwendet wird, wenn der Trinkgeld-Anzeigemodus auf Fiat gesetzt ist.",
+  paymentIsExpired:
+    "Die Zahlung ist abgelaufen. Wenn Sie bereits bezahlt haben, kontaktieren Sie bitte den Support.",
+  pageReservationExpired: "Die Seitenreservierung ist abgelaufen.",
+  paymentCheckingDis: "Die Zahlungsüberprüfung wurde getrennt.",
+  ifPaymentMade:
+    "Wenn die Zahlung bereits erfolgt ist, wird sie in der Tipp-Liste angezeigt.",
 
   // STREAMER MENU
   menu: "Menü",

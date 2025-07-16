@@ -24,6 +24,8 @@ export default {
   email: "Email",
   search: "Rechercher",
   password: "Mot de passe",
+  confirm: "Confirmer",
+  reconnect: "Reconnecter",
   confirmPassword: "Confirmer le mot de passe",
   signupInstead: "S'inscrire à la place",
   loginInstead: "Se connecter à la place",
@@ -54,6 +56,8 @@ export default {
   typePageName: "Entrez le nom de la page...",
   contactUs: "Contactez-nous",
   here: "ici",
+  backToHome: "Retour à l'accueil",
+  somethingWentWrong: "Une erreur s'est produite !",
 
   xmrchat: "XMRChat",
   heroDescription:
@@ -64,6 +68,7 @@ export default {
   FAQ: {
     title: "FAQ",
     whyTipWithXMRChat: "Pourquoi donner des pourboires avec XMRChat ?",
+    howToUseXMRChat: "Comment utiliser XMRChat ?",
     whyUseMonero: "Pourquoi XMRChat utilise-t-il Monero ?",
     whereToGetMonero: "Où obtenir du Monero ?",
   },
@@ -118,6 +123,23 @@ export default {
     title: "Et plus encore",
     description: "En savoir plus sur Monero sur {getmonero}.",
   },
+  forContentCreators: {
+    title: "Pour les Créateurs de Contenu",
+    description: {
+      main: `Cliquez sur le bouton "Les créateurs commencent ici". Créez un compte XMRChat. Créez une page de pourboire. Faites connaître l'URL de votre page de pourboire à votre public.`,
+      tutorialLink:
+        "Alex Anarcho a un excellent tutoriel sur l'utilisation de XMRChat sur {youtube}.",
+      ifStreamyard: "Si vous utilisez Streamyard :",
+      ifOBS: "Si vous utilisez OBS :",
+      streamyard: `Allez dans le menu "Modifier la page de pourboires". Assurez-vous d'avoir ajouté votre nom d'utilisateur de chaîne Twitch. Lors du démarrage du stream dans Streamyard, ajoutez Twitch comme destination. Le bot XMRChat (xmr-chat sur Twitch) enverra le message de pourboire sur Twitch et vous pourrez l'afficher sur votre écran depuis Streamyard. Le logo du bot xmrchat s'affiche le mieux avec le paramètre "Minimal".`,
+      obs: `Allez dans le menu "OBS". Cliquez sur "Copier le lien de la page OBS". Ajoutez une source navigateur dans OBS et collez le lien.`,
+    },
+  },
+  forFans: {
+    title: "Pour les Fans",
+    description:
+      "Allez à l'URL de la page de pourboires de votre créateur de contenu. Saisissez votre nom d'utilisateur et votre message, choisissez le montant du pourboire, puis envoyez. Une boîte de dialogue apparaîtra avec les détails du pourboire. Votre xmrchat sera affiché sur la page du streamer après l'envoi du pourboire.",
+  },
 
   // TIP PAGE
   tipName: "Nom",
@@ -152,6 +174,8 @@ export default {
     "Veuillez éviter d'envoyer des pourboires avec le portefeuille enregistré sur la page. Le changement retourné gonfle le montant que nous voyons reçu.",
   tipWalletMinimum:
     "Veuillez envoyer un minimum de {minimumAmount} XMR à l'adresse suivante pour que votre xmrchat soit affiché.",
+  partialAmountReceived:
+    "{partialAmount} reçu jusqu'à présent, veuillez envoyer le reste {remainingAmount}.",
   openInMyWallet: "Ouvrir dans Mon Portefeuille",
   cancel: "Annuler",
   copyAddress: "Copier l'Adresse",
@@ -172,16 +196,14 @@ export default {
       "Achetez ou échangez d'autres cryptomonnaies contre du Monero sur {cakeWallet}.",
     stealthex:
       "Échangez d'autres cryptomonnaies contre du Monero (XMR) sur {stealthex} et d'autres sur {kycnot}.",
-    haveno:
-      "Achetez du Monero sans KYC sur {haveno}. Tutoriel pour l'envoi d'argent par courrier sur {blog}.",
-    thisBlogPost: "Cet article de blog",
+    haveno: "Achetez du Monero sans KYC sur {haveno}.",
     kraken: "Achetez du Monero avec KYC sur {kraken}.",
     xmrbazaar:
       "Vendez des articles ou des services pour du Monero sur {xmrbazaar}.",
     gupax: "Minez-le avec {gupax}.",
     kunoAnneMedia: "Créez une collecte de fonds Monero sur {kunoAnneMedia}.",
     monerica:
-      "Acceptez le Monero dans votre entreprise et soyez répertorié sur les pages {monerica} et {monerodirectory} et sur la carte des entreprises sur {xmrbazaar}.",
+      "Acceptez le Monero dans votre entreprise et soyez répertorié sur les pages {monerica} et {monerodirectory} et sur la carte des entreprises sur {xmrbazaar} et {bankexit}.",
   },
 
   // CREATE PAGE
@@ -222,6 +244,12 @@ export default {
   fiatUnit: "Unité de monnaie",
   fiatUnitHelp:
     "Unité de monnaie utilisée pour afficher les pourboires lorsque le mode d'affichage des pourboires est en monnaie.",
+  paymentIsExpired:
+    "Le paiement a expiré. Si vous avez déjà effectué le paiement, veuillez contacter le support.",
+  pageReservationExpired: "La réservation de la page a expiré.",
+  paymentCheckingDis: "La vérification du paiement est déconnectée.",
+  ifPaymentMade:
+    "Si le paiement a déjà été effectué, il apparaîtra dans la liste des conseils.",
 
   // STREAMER MENU
   menu: "Menu",
@@ -302,7 +330,7 @@ export default {
   // HEAD
   head: {
     description:
-      "Spectateurs, envoyez des messages et des pourboires facilement et en toute confidentialité. Streamers, gardez presque tous vos pourboires au lieu d’en donner 30 à 50 % aux géants de la tech.",
+      "Spectateurs, envoyez des messages et des pourboires facilement et en toute confidentialité. Streamers, gardez presque tous vos pourboires au lieu d'en donner 30 à 50 % aux géants de la tech.",
     title: "Envoyez un message et un pourboire avec Monero",
     XMRChatTip: "XMRChat - Donnez un pourboire à {path} avec Monero",
     tip: "Donner un pourboire à {path}",

@@ -10,6 +10,7 @@ export default defineNuxtConfig({
       apiBaseUrl: "",
       apiServerSideBaseUrl: "",
       imageBaseUrl: "http://localhost:9000",
+      imageServerSideBaseUrl: "",
       showLocaleSelect: "",
       activeLocales: "en,fr,de,es",
     },
@@ -26,6 +27,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
     "dayjs-nuxt",
+    "@nuxtjs/seo",
   ],
 
   piniaPluginPersistedstate: {
@@ -40,26 +42,63 @@ export default defineNuxtConfig({
       redirectOn: "root",
     },
     locales: [
-      { code: "en", iso: "en", name: "English", dir: "auto" },
-      { code: "fr", iso: "fr", name: "French", dir: "auto" },
-      { code: "es", iso: "es", name: "Spanish", dir: "auto" },
-      { code: "de", iso: "de", name: "German", dir: "auto" },
-      { code: "ru", iso: "ru", name: "Russian", dir: "auto" },
-      { code: "fi", iso: "fi", name: "Finnish", dir: "auto" },
-      { code: "pcm", iso: "pcm", name: "Pidgin", dir: "auto" },
-      { code: "ko", iso: "ko", name: "Korean", dir: "auto" },
-      { code: "ar", iso: "ar", name: "Arabic", dir: "rtl" },
+      {
+        code: "en",
+        language: "en-US",
+        iso: "en",
+        name: "English",
+        dir: "auto",
+      },
+      { code: "fr", language: "fr-FR", iso: "fr", name: "French", dir: "auto" },
+      {
+        code: "es",
+        language: "es-ES",
+        iso: "es",
+        name: "Spanish",
+        dir: "auto",
+      },
+      { code: "de", language: "de-DE", iso: "de", name: "German", dir: "auto" },
+      {
+        code: "ru",
+        language: "ru-RU",
+        iso: "ru",
+        name: "Russian",
+        dir: "auto",
+      },
+      {
+        code: "fi",
+        language: "fi-FI",
+        iso: "fi",
+        name: "Finnish",
+        dir: "auto",
+      },
+      {
+        code: "pcm",
+        language: "pcm-NG",
+        iso: "pcm",
+        name: "Pidgin",
+        dir: "auto",
+      },
+      { code: "ko", language: "ko-KR", iso: "ko", name: "Korean", dir: "auto" },
+      { code: "ar", language: "ar-SA", iso: "ar", name: "Arabic", dir: "rtl" },
+      { code: "cs", language: "cs-CZ", iso: "cs", name: "Czech", dir: "auto" },
+      { code: "fa", language: "fa-IR", iso: "fa", name: "Farsi", dir: "rtl" },
     ],
     defaultLocale: "en",
     vueI18n: "./i18n.config.ts",
+    restructureDir: false,
+    baseUrl: "http://localhost:3000",
   },
 
-  ui: {
-    icons: ["heroicons", "mdi", "tabler", "simple-icons"],
-  },
+  ui: {},
 
   icon: {
+    collections: ["heroicons", "mdi", "tabler", "simple-icons"],
     customCollections: [{ prefix: "icon", dir: "./assets/icons" }],
+  },
+
+  dayjs: {
+    locales: ["en", "fr", "es", "de", "ru", "fi", "ko", "ar"],
   },
 
   colorMode: {
@@ -70,5 +109,31 @@ export default defineNuxtConfig({
 
   fonts: {
     families: [{ name: "Inter", provider: "google" }],
+  },
+
+  sitemap: {
+    sitemaps: {
+      pages: {
+        includeAppSources: true,
+        defaults: { changefreq: "weekly" },
+      },
+      creators: {
+        sources: ["/api/__sitemap__/creators"],
+        defaults: { changefreq: "daily" },
+      },
+    },
+  },
+
+  robots: {
+    disallow: ["/admin", "/streamer"],
+  },
+
+  site: {
+    name: "XMRChat",
+  },
+
+  seo: {
+    fallbackTitle: false,
+    automaticOgAndTwitterTags: false,
   },
 });

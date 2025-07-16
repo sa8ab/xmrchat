@@ -2,26 +2,27 @@ import { HttpService } from '@nestjs/axios';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Cache } from 'cache-manager';
-
+import { CakeService } from 'src/integrations/cake/cake.service';
 @Injectable()
 export class XmrPriceService {
   private logger = new Logger(XmrPriceService.name);
   constructor(
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private httpService: HttpService,
+    private cakeService: CakeService,
   ) {}
 
-  // Monero
+  // USD
   async getMoneroUsdPrice() {
     const cachedPrice = await this.cacheManager.get('xmr-usd-price');
 
     if (cachedPrice) return cachedPrice;
 
-    const priceLocalmonero = await this.getFromLocalmonero();
+    const priceCake = await this.getFromCake();
 
-    if (priceLocalmonero) {
-      await this.cachePrice(priceLocalmonero);
-      return priceLocalmonero;
+    if (priceCake) {
+      await this.cachePrice(priceCake);
+      return priceCake;
     }
 
     const priceCryptoCompare = await this.getFromCryptocompare();
@@ -31,17 +32,17 @@ export class XmrPriceService {
       return priceCryptoCompare;
     }
 
-    return 200;
+    return 300;
   }
 
-  async getFromLocalmonero() {
+  async getFromCake() {
     try {
-      const { data } = await this.httpService.axiosRef.get(
-        'https://localmonero.co/web/ticker?currencyCode=USD',
-      );
-      return data.USD?.avg_6h;
+      return this.cakeService.getRate({
+        quote: 'USD',
+        base: 'XMR',
+      });
     } catch (error) {
-      this.logger.warn('Error getting price from localmonero');
+      this.logger.warn('Error getting price from cake');
     }
   }
 
@@ -57,10 +58,18 @@ export class XmrPriceService {
     }
   }
 
+  // MXN
   async getMoneroMxnPrice() {
     const cachedPrice = await this.cacheManager.get('xmr-mxn-price');
 
     if (cachedPrice) return cachedPrice;
+
+    const priceCake = await this.getMxnFromCake();
+
+    if (priceCake) {
+      await this.cachePrice(priceCake, 'xmr-mxn-price');
+      return priceCake;
+    }
 
     const price = await this.getMoneroMxnPriceFromCryptocompare();
 
@@ -70,6 +79,17 @@ export class XmrPriceService {
     }
 
     return 0;
+  }
+
+  async getMxnFromCake() {
+    try {
+      return this.cakeService.getRate({
+        quote: 'MXN',
+        base: 'XMR',
+      });
+    } catch (error) {
+      this.logger.warn('Error getting price from cake');
+    }
   }
 
   async getMoneroMxnPriceFromCryptocompare() {
@@ -84,10 +104,18 @@ export class XmrPriceService {
     }
   }
 
+  // EUR
   async getMoneroEurPrice() {
     const cachedPrice = await this.cacheManager.get('xmr-eur-price');
 
     if (cachedPrice) return cachedPrice;
+
+    const priceCake = await this.getEurFromCake();
+
+    if (priceCake) {
+      await this.cachePrice(priceCake, 'xmr-eur-price');
+      return priceCake;
+    }
 
     const price = await this.getMoneroEurPriceFromCryptocompare();
 
@@ -99,6 +127,16 @@ export class XmrPriceService {
     return 0;
   }
 
+  async getEurFromCake() {
+    try {
+      return this.cakeService.getRate({
+        quote: 'EUR',
+        base: 'XMR',
+      });
+    } catch (error) {
+      this.logger.warn('Error getting price from cake');
+    }
+  }
   async getMoneroEurPriceFromCryptocompare() {
     try {
       const { data } = await this.httpService.axiosRef.get(

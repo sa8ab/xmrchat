@@ -8,12 +8,16 @@ const items = computed(() => [
     slot: "one",
   },
   {
-    label: t("FAQ.whyUseMonero"),
+    label: t("FAQ.howToUseXMRChat"),
     slot: "two",
   },
   {
-    label: t("FAQ.whereToGetMonero"),
+    label: t("FAQ.whyUseMonero"),
     slot: "three",
+  },
+  {
+    label: t("FAQ.whereToGetMonero"),
+    slot: "four",
   },
 ]);
 
@@ -99,7 +103,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                 <span>{{ t("openSource.title") }}</span>
               </div>
               <p>
-                <I18nT keypath="openSource.description">
+                <I18nT keypath="openSource.description" scope="global">
                   <template #github>
                     <UButton
                       to="https://github.com/sa8ab/xmrchat"
@@ -114,6 +118,84 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
           </ul>
         </template>
         <template #two>
+          <UAccordion
+            class="max-w-[1024px]"
+            variant="ghost"
+            color="gray"
+            :items="[
+              {
+                label: $t('forContentCreators.title'),
+                slot: 'one',
+                defaultOpen: true,
+              },
+              { label: $t('forFans.title'), slot: 'two', defaultOpen: true },
+            ]"
+          >
+            <template #default="{ item, open }">
+              <UButton class="mb-2" variant="soft">
+                <span class="flex-1 text-start">
+                  {{ item.label }}
+                </span>
+                <template #trailing>
+                  <DirectionalArrow
+                    type="chevron"
+                    :class="[
+                      'transform transition-transform duration-200',
+                      open && 'rotate-90',
+                    ]"
+                  />
+                </template>
+              </UButton>
+            </template>
+            <template #one>
+              <div class="">
+                <p class="pb-2">
+                  {{ $t("forContentCreators.description.main") }}
+                </p>
+                <p class="pb-4">
+                  <I18nT
+                    keypath="forContentCreators.description.tutorialLink"
+                    scope="global"
+                  >
+                    <template #youtube>
+                      <UButton
+                        to="https://www.youtube.com/watch?v=nRzmo_bhxxY"
+                        v-bind="linkProps"
+                      >
+                        YouTube
+                      </UButton>
+                    </template>
+                  </I18nT>
+                </p>
+                <div class="list">
+                  <div>
+                    <h3 class="text-text font-medium pb-1">
+                      {{ $t("forContentCreators.description.ifStreamyard") }}
+                    </h3>
+                    <p>
+                      {{ $t("forContentCreators.description.streamyard") }}
+                    </p>
+                  </div>
+                  <div>
+                    <h3 class="text-text font-medium pb-1">
+                      {{ $t("forContentCreators.description.ifOBS") }}
+                    </h3>
+                    <p>
+                      {{ $t("forContentCreators.description.obs") }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </template>
+
+            <template #two>
+              <div>
+                <p>{{ $t("forFans.description") }}</p>
+              </div>
+            </template>
+          </UAccordion>
+        </template>
+        <template #three>
           <ul class="list">
             <li>
               <div class="item-header">
@@ -137,7 +219,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                 <span>{{ t("accepted.title") }}</span>
               </div>
               <p>
-                <I18nT keypath="accepted.description">
+                <I18nT keypath="accepted.description" scope="global">
                   <template #xmrbazaar>
                     <UButton to="https://xmrbazaar.com" v-bind="linkProps">
                       xmrbazaar.com
@@ -158,7 +240,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                 <span>{{ t("andMore.title") }}</span>
               </div>
               <p>
-                <I18nT keypath="andMore.description">
+                <I18nT keypath="andMore.description" scope="global">
                   <template #getmonero>
                     <UButton to="https://getmonero.org" v-bind="linkProps">
                       getmonero.org
@@ -174,11 +256,11 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             </li>
           </ul>
         </template>
-        <template #three>
+        <template #four>
           <ul class="list">
             <li>
               <p>
-                <I18nT keypath="whereToGetMonero.cakeWallet">
+                <I18nT keypath="whereToGetMonero.cakeWallet" scope="global">
                   <template #cakeWallet>
                     <UButton to="https://cakewallet.com" v-bind="linkProps">
                       Cake Wallet
@@ -189,7 +271,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             </li>
             <li>
               <p>
-                <I18nT keypath="whereToGetMonero.stealthex">
+                <I18nT keypath="whereToGetMonero.stealthex" scope="global">
                   <template #stealthex>
                     <UButton to="https://stealthex.io" v-bind="linkProps">
                       stealthex.io
@@ -208,25 +290,18 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             </li>
             <li>
               <p>
-                <I18nT keypath="whereToGetMonero.haveno">
+                <I18nT keypath="whereToGetMonero.haveno" scope="global">
                   <template #haveno>
-                    <UButton to="https://haveno-reto.com/" v-bind="linkProps">
-                      haveno-reto.com
+                    <UButton to="https://retoswap.com/" v-bind="linkProps">
+                      retoswap.com
                     </UButton>
-                  </template>
-                  <template #blog>
-                    <UButton
-                      to="https://blog.nihilism.network/servers/haveno-cashbymail/index.html"
-                      v-bind="linkProps"
-                      >{{ t("whereToGetMonero.thisBlogPost") }}</UButton
-                    >
                   </template>
                 </I18nT>
               </p>
             </li>
             <li>
               <p>
-                <I18nT keypath="whereToGetMonero.kraken">
+                <I18nT keypath="whereToGetMonero.kraken" scope="global">
                   <template #kraken>
                     <UButton to="https://kraken.com" v-bind="linkProps"
                       >kraken.com</UButton
@@ -237,7 +312,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             </li>
             <li>
               <p>
-                <I18nT keypath="whereToGetMonero.xmrbazaar">
+                <I18nT keypath="whereToGetMonero.xmrbazaar" scope="global">
                   <template #xmrbazaar>
                     <UButton to="https://xmrbazaar.com" v-bind="linkProps">
                       xmrbazaar.com
@@ -248,7 +323,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             </li>
             <li>
               <p>
-                <I18nT keypath="whereToGetMonero.gupax">
+                <I18nT keypath="whereToGetMonero.gupax" scope="global">
                   <template #gupax>
                     <UButton to="https://gupax.io" v-bind="linkProps">
                       gupax.io
@@ -259,7 +334,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             </li>
             <li>
               <p>
-                <I18nT keypath="whereToGetMonero.kunoAnneMedia">
+                <I18nT keypath="whereToGetMonero.kunoAnneMedia" scope="global">
                   <template #kunoAnneMedia>
                     <UButton to="https://kuno.anne.media/" v-bind="linkProps">
                       kuno.anne.media
@@ -270,7 +345,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
             </li>
             <li>
               <p>
-                <I18nT keypath="whereToGetMonero.monerica">
+                <I18nT keypath="whereToGetMonero.monerica" scope="global">
                   <template #monerica>
                     <UButton to="https://monerica.com" v-bind="linkProps">
                       monerica.com
@@ -289,6 +364,12 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                   <template #xmrbazaar>
                     <UButton to="https://xmrbazaar.com/" v-bind="linkProps">
                       xmrbazaar.com
+                    </UButton>
+                  </template>
+
+                  <template #bankexit>
+                    <UButton to="https://bank-exit.org/map" v-bind="linkProps">
+                      bank-exit.org
                     </UButton>
                   </template>
                 </I18nT>

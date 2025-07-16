@@ -1,6 +1,9 @@
 import type {
   ContentLinkPlatformEnum,
   FiatEnum,
+  IntegrationConfigType,
+  NotificationChannelEnum,
+  NotificationPreferenceType,
   PageSettingKey,
   PageStatusEnum,
   RolesEnum,
@@ -24,6 +27,7 @@ export interface User {
   email: string;
   id: string;
   roles: RolesEnum[];
+  isPremium: boolean;
 }
 
 export interface CreateFormFields {
@@ -38,6 +42,7 @@ export interface CreateFormFields {
   isPublic?: boolean;
   tipDisplayMode?: TipDisplayMode;
   fiat?: FiatEnum;
+  expirationMinutes?: number;
 }
 
 export interface TipFormFields {
@@ -82,6 +87,7 @@ export interface StreamerPage {
   totalTips?: number;
   tipsCount?: number;
   status?: PageStatusEnum;
+  expirationMinutes?: number;
 }
 
 interface TipPayment {
@@ -100,6 +106,7 @@ export interface Tip {
   payment?: TipPayment;
   expiresAt?: string;
   swap?: Swap;
+  createdAt?: string;
 }
 
 export interface TipTier {
@@ -204,4 +211,16 @@ export interface Prices {
   usd?: number;
   mxn?: number;
   eur?: number;
+}
+
+export interface NotificationPreference {
+  type: NotificationPreferenceType;
+  channel: NotificationChannelEnum;
+  enabled: boolean;
+}
+
+export interface IntegrationConfig {
+  type: IntegrationConfigType;
+  config: any;
+  verified: boolean;
 }
