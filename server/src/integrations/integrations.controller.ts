@@ -6,6 +6,7 @@ import { User } from 'src/users/user.entity';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
 import { IntegrationsRO } from './dto/integrations.dto';
 import { ConnectSignalDto } from './dto/connect-signal.dto';
+import { ConfirmSignalDto } from './dto/confirm-signal.dto';
 @Controller('integrations')
 export class IntegrationsController {
   constructor(private readonly integrationsService: IntegrationsService) {}
@@ -33,5 +34,13 @@ export class IntegrationsController {
   ) {
     await this.integrationsService.connectSignal(body, user);
     return { message: 'Connected to Signal.' };
+  }
+
+  @Post('/confirm/signal')
+  async confirmSignal(
+    @Body() body: ConfirmSignalDto,
+    @CurrentUser() user: User,
+  ) {
+    await this.integrationsService.confirmSignal(body, user);
   }
 }

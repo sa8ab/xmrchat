@@ -13,6 +13,7 @@ import { IntegrationConfigType } from 'src/shared/constants';
 import { SimplexService } from './simplex/simplex.service';
 import { ConnectSignalDto } from './dto/connect-signal.dto';
 import { SignalService } from './signal/signal.service';
+import { ConfirmSignalDto } from './dto/confirm-signal.dto';
 
 @Injectable()
 export class IntegrationsService {
@@ -99,5 +100,30 @@ export class IntegrationsService {
     config.config.number = body.number;
     await this.icRepo.save(config);
     await this.signalService.requestVerification(config);
+  }
+
+  async confirmSignal(body: ConfirmSignalDto, user: User) {
+    const page = await this.pagesService.findMyPage(user);
+
+    if (!page) {
+      throw new NotFoundException('Page not found');
+    }
+
+    const config = await this.icRepo.findOne({
+      where: {
+        page: { id: page.id },
+        type: IntegrationConfigType.SINGAL,
+      },
+    });
+
+    if (!config) {
+      throw new NotFoundException('Signal not found');
+    }
+
+    if (config.verified) {
+      throw new BadRequestException('Signal is already verified.');
+    }
+
+    await this.signalService.confirmVerification(config, body.code);
   }
 }
