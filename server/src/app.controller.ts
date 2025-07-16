@@ -33,5 +33,6 @@ export class AppController {
   async test() {
     // return this.signalService.sendTestMessage();
     // return this.notificationDispatcherService.notifyNewTip(1, 271);
+    return this.signalService.generateQrCode();
   }
 }
