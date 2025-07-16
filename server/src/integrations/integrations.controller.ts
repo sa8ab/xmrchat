@@ -27,6 +27,12 @@ export class IntegrationsController {
     return { message: 'Connection request sent.' };
   }
 
+  @Post('/disconnect/simplex')
+  async disconnectSimplex(@CurrentUser() user: User) {
+    await this.integrationsService.disconnectSimplex(user);
+    return { message: 'Simplex disconnected.' };
+  }
+
   @Post('/connect/signal')
   async connectSignal(
     @Body() body: ConnectSignalDto,

@@ -69,6 +69,10 @@ export class IntegrationsService {
     await this.icRepo.save(config);
   }
 
+  async disconnectSimplex(user: User) {
+    await this.disconnect(user, IntegrationConfigType.SIMPLEX);
+  }
+
   async connectSignal(body: ConnectSignalDto, user: User) {
     const page = await this.pagesService.findMyPage(user);
 
@@ -128,6 +132,10 @@ export class IntegrationsService {
   }
 
   async disconnectSignal(user: User) {
+    await this.disconnect(user, IntegrationConfigType.SINGAL);
+  }
+
+  async disconnect(user: User, type: IntegrationConfigType) {
     const page = await this.pagesService.findMyPage(user);
 
     if (!page) {
@@ -137,12 +145,12 @@ export class IntegrationsService {
     const config = await this.icRepo.findOne({
       where: {
         page: { id: page.id },
-        type: IntegrationConfigType.SINGAL,
+        type,
       },
     });
 
     if (!config) {
-      throw new NotFoundException('Signal not found');
+      throw new NotFoundException('Integration not found');
     }
 
     config.verified = false;
