@@ -23,6 +23,7 @@ const state = reactive({
     code: "",
   },
   loading: false,
+  loadingDisconnect: false,
 });
 
 const connect = async () => {
@@ -56,6 +57,8 @@ const connect = async () => {
 };
 
 const confirmCode = async () => {
+  const valid = await v.value.$validate();
+  if (!valid) return;
   try {
     state.loading = true;
     const { data } = await axios.post("/integrations/confirm/signal", {
@@ -85,7 +88,7 @@ const confirmCode = async () => {
 
 const disconnect = async () => {
   try {
-    state.loading = true;
+    state.loadingDisconnect = true;
     await axios.post("/integrations/disconnect/signal");
     toast.add({
       title: "Success",
@@ -102,12 +105,12 @@ const disconnect = async () => {
       color: "red",
     });
   } finally {
-    state.loading = false;
+    state.loadingDisconnect = false;
   }
 };
 
 const waitingVerification = computed(() => {
-  return props.config && !props.config.verified;
+  return props.config?.config && !props.config.verified;
 });
 
 const isConnected = computed(() => {
@@ -160,7 +163,11 @@ const { getValidationAttrs } = useValidations(v);
           Signal is connected to account {{ config?.config.number }}.
         </p>
         <div class="flex justify-end">
-          <UButton @click="disconnect" color="red" :loading="state.loading">
+          <UButton
+            @click="disconnect"
+            color="red"
+            :loading="state.loadingDisconnect"
+          >
             Disconnect
           </UButton>
         </div>
@@ -178,9 +185,17 @@ const { getValidationAttrs } = useValidations(v);
             @blur="getValidationAttrs('code').onBlur"
           />
         </UFormGroup>
-        <div class="flex justify-end mt-2">
+        <div class="flex justify-end mt-2 gap-2">
           <UButton :loading="state.loading" @click="confirmCode">
             Confirm code
+          </UButton>
+          <UButton
+            @click="disconnect"
+            color="red"
+            variant="soft"
+            :loading="state.loadingDisconnect"
+          >
+            Disconnect
           </UButton>
         </div>
       </template>
