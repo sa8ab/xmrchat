@@ -135,9 +135,9 @@ const { getValidationAttrs } = useValidations(v);
 
     <div
       class="grid md:grid-cols-2 md:grid-flow-col gap-4"
-      :style="`grid-template-rows: repeat(${
-        Math.ceil(CONTENT_LINKS_LIST.length / 2)
-      }, 1fr)`"
+      :style="`grid-template-rows: repeat(${Math.ceil(
+        CONTENT_LINKS_LIST.length / 2
+      )}, 1fr)`"
     >
       <UFormGroup
         label="Website"
@@ -153,10 +153,10 @@ const { getValidationAttrs } = useValidations(v);
             <span>{{ getContentLink(p).inputLabel }}</span>
           </span>
         </template>
-        <UInput
+        <!-- <UInput
           v-model="state.form.links[p].value"
           @blur="getValidationAttrs(`${p}.value`).onBlur"
-        />
+        /> -->
       </UFormGroup>
     </div>
 

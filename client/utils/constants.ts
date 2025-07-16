@@ -1,9 +1,7 @@
-import { ContentLinkFull } from "~/types";
 import {
   ContentLinkPlatformEnum,
   PageStatusEnum,
   SwapStatusEnum,
-  TipDisplayMode,
 } from "~/types/enums";
 
 export const CONTENT_LINKS_LIST = [
