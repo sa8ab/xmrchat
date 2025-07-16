@@ -4,6 +4,7 @@ import { HttpModule } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IntegrationConfig } from '../integration-configs.entity';
+import { SignalController } from './signal.controller';
 
 @Module({
   imports: [
@@ -19,5 +20,6 @@ import { IntegrationConfig } from '../integration-configs.entity';
   ],
   providers: [SignalService],
   exports: [SignalService],
+  controllers: [SignalController],
 })
 export class SignalModule {}
