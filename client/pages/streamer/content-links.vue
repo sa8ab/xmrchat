@@ -153,10 +153,10 @@ const { getValidationAttrs } = useValidations(v);
             <span>{{ getContentLink(p).inputLabel }}</span>
           </span>
         </template>
-        <!-- <UInput
+        <UInput
           v-model="state.form.links[p].value"
           @blur="getValidationAttrs(`${p}.value`).onBlur"
-        /> -->
+        />
       </UFormGroup>
     </div>
 
