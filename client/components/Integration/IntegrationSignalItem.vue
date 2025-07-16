@@ -19,7 +19,8 @@ const open = ref(false);
 
 const state = reactive({
   form: {
-    link: "",
+    number: "",
+    code: "",
   },
   loading: false,
 });
@@ -29,17 +30,17 @@ const connect = async () => {
   if (!valid) return;
   try {
     state.loading = true;
-    const { data } = await axios.post("/integrations/connect/simplex", {
-      address: state.form.link,
+    const { data } = await axios.post("/integrations/connect/signal", {
+      number: state.form.number,
     });
 
-    toast.add({
-      title: "Success",
-      description:
-        "Open SimpleX app on your device and accept connection from XMRChat account.",
-      color: "green",
-    });
-    open.value = false;
+    // toast.add({
+    //   title: "Success",
+    //   description:
+    //     "Enter the code you received in your Signal app to verify your account.",
+    //   color: "green",
+    // });
+    // open.value = false;
     emit("connect");
   } catch (error) {
     console.log(error);
@@ -54,18 +55,77 @@ const connect = async () => {
   }
 };
 
+const confirmCode = async () => {
+  try {
+    state.loading = true;
+    const { data } = await axios.post("/integrations/confirm/signal", {
+      code: state.form.code,
+    });
+
+    open.value = false;
+
+    toast.add({
+      title: "Success",
+      description: "Signal is connected.",
+      color: "green",
+    });
+    emit("connect");
+  } catch (error) {
+    console.log(error);
+
+    toast.add({
+      title: "Error",
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+    state.loading = false;
+  }
+};
+
+const disconnect = async () => {
+  try {
+    state.loading = true;
+    await axios.post("/integrations/disconnect/signal");
+    toast.add({
+      title: "Success",
+      description: "Signal is disconnected.",
+      color: "green",
+    });
+    open.value = false;
+    emit("connect");
+  } catch (error) {
+    console.log(error);
+    toast.add({
+      title: "Error",
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+    state.loading = false;
+  }
+};
+
+const waitingVerification = computed(() => {
+  return props.config && !props.config.verified;
+});
+
+const isConnected = computed(() => {
+  return props.config?.verified;
+});
+
 const renderInfo = computed(() => {
-  if (!props.config) return "Not connected.";
-  if (props.config.config.contact) {
-    return `"${props.config.config.contact.profile.displayName}" connected.`;
-  }
-  if (props.config.config.connId) {
-    return `Request sent.`;
-  }
+  if (isConnected.value) return `Connected.`;
+  if (waitingVerification.value) return `Waiting for verification.`;
+  return "Not connected.";
 });
 
 const v = useVuelidate<any>(
-  { link: { required } },
+  computed(() => {
+    return waitingVerification.value
+      ? { number: { required }, code: { required } }
+      : { number: { required }, code: {} };
+  }),
   computed(() => state.form)
 );
 const { getValidationAttrs } = useValidations(v);
@@ -87,22 +147,69 @@ const { getValidationAttrs } = useValidations(v);
       <template #header>
         <h2 class="text-xl font-medium">Signal Integration</h2>
       </template>
-      <p class="pb-4">Enter your signal phone number</p>
-      <UFormGroup
-        size="lg"
-        label="SimpleX link"
-        :error="getValidationAttrs('link').error"
-      >
-        <UInput
-          v-model="state.form.link"
-          @blur="getValidationAttrs('link').onBlur"
-        />
-      </UFormGroup>
+
+      <template v-if="isConnected">
+        <div class="flex justify-center pb-4">
+          <UIcon
+            name="i-heroicons-check-16-solid"
+            class="text-primary"
+            size="60px"
+          />
+        </div>
+        <p class="pb-4 text-center">
+          Signal is connected to account {{ config?.config.number }}.
+        </p>
+        <div class="flex justify-end">
+          <UButton @click="disconnect" color="red" :loading="state.loading">
+            Disconnect
+          </UButton>
+        </div>
+      </template>
+
+      <template v-else-if="waitingVerification">
+        <p class="pb-4">Enter the code sent to your signal app.</p>
+        <UFormGroup
+          size="lg"
+          label="Code"
+          :error="getValidationAttrs('code').error"
+        >
+          <UInput
+            v-model="state.form.code"
+            @blur="getValidationAttrs('code').onBlur"
+          />
+        </UFormGroup>
+        <div class="flex justify-end mt-2">
+          <UButton :loading="state.loading" @click="confirmCode">
+            Confirm code
+          </UButton>
+        </div>
+      </template>
+
+      <template v-else>
+        <p class="pb-4">
+          Enter your signal phone number. We will send a code to this number to
+          verify.
+        </p>
+        <UFormGroup
+          size="lg"
+          label="Signal phone number"
+          :error="getValidationAttrs('number').error"
+        >
+          <UInput
+            v-model="state.form.number"
+            @blur="getValidationAttrs('number').onBlur"
+          />
+        </UFormGroup>
+        <div class="flex justify-end mt-2">
+          <UButton :loading="state.loading" @click="connect">
+            Send code
+          </UButton>
+        </div>
+      </template>
 
       <template #footer>
         <div class="flex justify-end gap-2">
           <UButton variant="soft" @click="open = false">Cancel</UButton>
-          <UButton :loading="state.loading" @click="connect"> Connect </UButton>
         </div>
       </template>
     </UCard>

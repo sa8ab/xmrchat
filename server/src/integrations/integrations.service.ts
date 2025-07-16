@@ -97,7 +97,7 @@ export class IntegrationsService {
       );
     }
 
-    config.config.number = body.number;
+    config.config = { number: body.number };
     await this.icRepo.save(config);
     await this.signalService.requestVerification(config);
   }

@@ -7,6 +7,9 @@ export class IntegrationConfigDto {
 
   @Expose()
   config: any;
+
+  @Expose()
+  verified: boolean;
 }
 
 export class IntegrationsRO {

@@ -42,5 +42,6 @@ export class IntegrationsController {
     @CurrentUser() user: User,
   ) {
     await this.integrationsService.confirmSignal(body, user);
+    return { message: 'Signal connected.' };
   }
 }

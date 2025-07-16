@@ -222,4 +222,5 @@ export interface NotificationPreference {
 export interface IntegrationConfig {
   type: IntegrationConfigType;
   config: any;
+  verified: boolean;
 }
