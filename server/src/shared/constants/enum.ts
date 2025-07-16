@@ -54,7 +54,6 @@ export enum LinkPlatformEnum {
   ODYSEE = 'odysee',
   XMRBAZAAR = 'xmrbazaar',
   KICK = 'kick',
-  KUNO = 'KUNO',
   PEERTUBE = 'peertube',
 }
 
