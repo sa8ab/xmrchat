@@ -37,6 +37,7 @@ export class NotificationDispatcherService {
     private icRepo: Repository<IntegrationConfig>,
     @InjectQueue('notifications-email') private emailQueue: Queue,
     @InjectQueue('notifications-simplex') private simplexQueue: Queue,
+    @InjectQueue('notifications-singal') private singalQueue: Queue,
     private caslAbility: CaslAbilityFactory,
   ) {}
   async notifyNewTip(pageId: number, tipId: number) {
@@ -121,12 +122,31 @@ export class NotificationDispatcherService {
       ) {
         const config = await this.getSimplexConfig(pageId);
 
-        if (!config) {
+        if (config?.valid) {
           throw new NotFoundException(
-            `Simplex config not found for page ${page.path} but settings are enabled for new tip.`,
+            `Simplex config not set for page ${page.path} but settings are enabled for new tip.`,
           );
         }
         await this.simplexQueue.add('send-message', {
+          contactId: config.config.contactId,
+          message: `New tip from ${tip.name}\nAmount: ${MoneroUtils.atomicUnitsToXmr(tip.payment.amount)} XMR\nMessage: ${tip.message || '-'}`,
+        });
+      }
+
+      // add signal
+      if (
+        preference.channel === NotificationChannelEnum.SINGAL &&
+        preference.type === NotificationPreferenceType.NEW_TIP
+      ) {
+        const config = await this.getSignalConfig(pageId);
+
+        if (config?.valid) {
+          throw new NotFoundException(
+            `Signal config not set for page ${page.path} but settings are enabled for new tip.`,
+          );
+        }
+
+        await this.singalQueue.add('send-message', {
           contactId: config.config.contactId,
           message: `New tip from ${tip.name}\nAmount: ${MoneroUtils.atomicUnitsToXmr(tip.payment.amount)} XMR\nMessage: ${tip.message || '-'}`,
         });
@@ -144,13 +164,14 @@ export class NotificationDispatcherService {
   }
 
   async getSimplexConfig(pageId: number) {
-    const config = await this.icRepo.findOne({
-      where: {
-        page: { id: pageId },
-        type: IntegrationConfigType.SIMPLEX,
-      },
+    return this.icRepo.findOne({
+      where: { page: { id: pageId }, type: IntegrationConfigType.SIMPLEX },
     });
+  }
 
-    return config;
+  async getSignalConfig(pageId: number) {
+    return this.icRepo.findOne({
+      where: { page: { id: pageId }, type: IntegrationConfigType.SINGAL },
+    });
   }
 }

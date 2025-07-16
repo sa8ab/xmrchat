@@ -17,6 +17,7 @@ import { PageSettingsModule } from 'src/page-settings/page-settings.module';
 import { SimplexModule } from './simplex/simplex.module';
 import { IntegrationConfig } from 'src/integrations/integration-configs.entity';
 import { TipMessageModule } from 'src/tip-message/tip-message.module';
+import { SignalModule } from './signal/signal.module';
 
 @Module({
   imports: [
@@ -37,6 +38,9 @@ import { TipMessageModule } from 'src/tip-message/tip-message.module';
     BullModule.registerQueue({
       name: 'notifications-simplex',
     }),
+    BullModule.registerQueue({
+      name: 'notifications-singal',
+    }),
     BullBoardModule.forFeature({
       name: 'notifications-email',
       adapter: BullMQAdapter,
@@ -45,7 +49,12 @@ import { TipMessageModule } from 'src/tip-message/tip-message.module';
       name: 'notifications-simplex',
       adapter: BullMQAdapter,
     }),
+    BullBoardModule.forFeature({
+      name: 'notifications-singal',
+      adapter: BullMQAdapter,
+    }),
     SimplexModule,
+    SignalModule,
   ],
   providers: [
     NotificationsService,
