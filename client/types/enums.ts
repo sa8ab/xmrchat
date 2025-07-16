@@ -24,6 +24,7 @@ export enum ContentLinkPlatformEnum {
   ODYSEE = "odysee",
   XMRBAZAAR = "xmrbazaar",
   KICK = "kick",
+  KUNO = "kuno"
 }
 
 export enum TipDisplayMode {

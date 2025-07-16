@@ -51,6 +51,7 @@ export enum LinkPlatformEnum {
   ODYSEE = 'odysee',
   XMRBAZAAR = 'xmrbazaar',
   KICK = 'kick',
+  KUNO = 'KUNO',
 }
 
 export enum TrocadorStatusEnum {

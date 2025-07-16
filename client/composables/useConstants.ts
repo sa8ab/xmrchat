@@ -116,6 +116,14 @@ export const useConstants = () => {
       inputLabel: t("xUsername", { platform: "Kick" }),
       linkCreator: (v?: string) => `https://kick.com/${v}`,
     },
+    [ContentLinkPlatformEnum.KUNO]: {
+      name: "Kuno",
+      colorClassName: "text-[#FF6600]",
+      iconClassName: "",
+      icon: "i-icon-kuno",
+      inputLabel: t("kunoUsername"),
+      linkCreator: (v?: string) => `https://kuno.anne.media/${v}`,
+    },
   };
   const getContentLink = (v: ContentLinkPlatformEnum) => {
     return CONTENT_LINKS[v];

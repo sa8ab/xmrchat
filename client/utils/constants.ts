@@ -1,4 +1,4 @@
-import type { ContentLinkFull } from "~/types";
+import { ContentLinkFull } from "~/types";
 import {
   ContentLinkPlatformEnum,
   PageStatusEnum,
@@ -21,6 +21,7 @@ export const CONTENT_LINKS_LIST = [
   ContentLinkPlatformEnum.ODYSEE,
   ContentLinkPlatformEnum.XMRBAZAAR,
   ContentLinkPlatformEnum.KICK,
+  ContentLinkPlatformEnum.KUNO,
 ];
 
 export const SWAP_STATUSES = {
