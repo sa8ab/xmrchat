@@ -1,10 +1,10 @@
 import {
   ForbiddenException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { NotificationPreferencesService } from 'src/notification-preferences/notification-preferences.service';
 import { Page } from 'src/pages/page.entity';
 import {
   Action,
@@ -26,6 +26,8 @@ import { IntegrationConfig } from 'src/integrations/integration-configs.entity';
 
 @Injectable()
 export class NotificationDispatcherService {
+  private readonly logger = new Logger(NotificationDispatcherService.name);
+
   constructor(
     @InjectRepository(Page) private pagesRepo: Repository<Page>,
     @InjectRepository(Tip) private tipsRepo: Repository<Tip>,
@@ -37,7 +39,7 @@ export class NotificationDispatcherService {
     private icRepo: Repository<IntegrationConfig>,
     @InjectQueue('notifications-email') private emailQueue: Queue,
     @InjectQueue('notifications-simplex') private simplexQueue: Queue,
-    @InjectQueue('notifications-singal') private singalQueue: Queue,
+    @InjectQueue('notifications-signal') private singalQueue: Queue,
     private caslAbility: CaslAbilityFactory,
   ) {}
   async notifyNewTip(pageId: number, tipId: number) {
@@ -82,9 +84,6 @@ export class NotificationDispatcherService {
 
     const minNotificationThreshold = minNotificationThresholdSetting?.value;
 
-    console.log('minNotificationThreshold', minNotificationThreshold);
-    console.log('tip.payment.amount', tip.payment.amount);
-
     const meetsThreshold = this.getMeetsThreshold(
       tip,
       minNotificationThreshold,
@@ -102,56 +101,68 @@ export class NotificationDispatcherService {
         preference.channel === NotificationChannelEnum.EMAIL &&
         preference.type === NotificationPreferenceType.NEW_TIP
       ) {
-        await this.emailQueue.add('send-email', {
-          to: page.user.email,
-          options: {
-            subject: 'New tip',
-            template: 'new-tip.hbs',
-            context: {
-              name: tip.name,
-              amount: MoneroUtils.atomicUnitsToXmr(tip.payment.amount),
-              message: tip.message,
-            },
-          },
-        });
+        await this.notifyNewTipEmail(tip, page);
       }
 
       if (
         preference.channel === NotificationChannelEnum.SIMPLEX &&
         preference.type === NotificationPreferenceType.NEW_TIP
       ) {
-        const config = await this.getSimplexConfig(pageId);
-
-        if (config?.valid) {
-          throw new NotFoundException(
-            `Simplex config not set for page ${page.path} but settings are enabled for new tip.`,
-          );
-        }
-        await this.simplexQueue.add('send-message', {
-          contactId: config.config.contactId,
-          message: `New tip from ${tip.name}\nAmount: ${MoneroUtils.atomicUnitsToXmr(tip.payment.amount)} XMR\nMessage: ${tip.message || '-'}`,
-        });
+        await this.notifyNewTipSimplex(tip, page);
       }
 
-      // add signal
       if (
         preference.channel === NotificationChannelEnum.SINGAL &&
         preference.type === NotificationPreferenceType.NEW_TIP
       ) {
-        const config = await this.getSignalConfig(pageId);
-
-        if (config?.valid) {
-          throw new NotFoundException(
-            `Signal config not set for page ${page.path} but settings are enabled for new tip.`,
-          );
-        }
-
-        await this.singalQueue.add('send-message', {
-          contactId: config.config.contactId,
-          message: `New tip from ${tip.name}\nAmount: ${MoneroUtils.atomicUnitsToXmr(tip.payment.amount)} XMR\nMessage: ${tip.message || '-'}`,
-        });
+        await this.notifyNewTipSignal(tip, page);
       }
     }
+  }
+
+  async notifyNewTipEmail(tip: Tip, page: Page) {
+    await this.emailQueue.add('send-email', {
+      to: page.user.email,
+      options: {
+        subject: 'New tip',
+        template: 'new-tip.hbs',
+        context: {
+          name: tip.name,
+          amount: MoneroUtils.atomicUnitsToXmr(tip.payment.amount),
+          message: tip.message,
+        },
+      },
+    });
+  }
+
+  async notifyNewTipSimplex(tip: Tip, page: Page) {
+    const config = await this.getSimplexConfig(page.id);
+    if (!config?.valid) {
+      this.logger.error(
+        `Simplex config not set for page ${page.path} but settings are enabled for new tip.`,
+      );
+      return;
+    }
+
+    await this.simplexQueue.add('send-message', {
+      contactId: config.config.contactId,
+      message: `New tip from ${tip.name}\nAmount: ${MoneroUtils.atomicUnitsToXmr(tip.payment.amount)} XMR\nMessage: ${tip.message || '-'}`,
+    });
+  }
+
+  async notifyNewTipSignal(tip: Tip, page: Page) {
+    const config = await this.getSignalConfig(page.id);
+    if (!config?.valid) {
+      this.logger.error(
+        `Signal config not set for page ${page.path} but settings are enabled for new tip.`,
+      );
+      return;
+    }
+
+    await this.singalQueue.add('send-message', {
+      account: config.config.number,
+      message: `New tip from ${tip.name}\nAmount: ${MoneroUtils.atomicUnitsToXmr(tip.payment.amount)} XMR\nMessage: ${tip.message || '-'}`,
+    });
   }
 
   getMeetsThreshold(tip: Tip, minNotificationThreshold: string) {

@@ -5,6 +5,7 @@ import { NotificationsService } from './notifications/notifications.service';
 import { TipsService } from './tips/tips.service';
 import { SimplexService } from './integrations/simplex/simplex.service';
 import { SignalService } from './integrations/signal/signal.service';
+import { NotificationDispatcherService } from './notifications/notification-dispatcher.service';
 
 @Controller()
 export class AppController {
@@ -13,6 +14,7 @@ export class AppController {
     private notificationsService: NotificationsService,
     private simplexService: SimplexService,
     private signalService: SignalService,
+    private notificationDispatcherService: NotificationDispatcherService,
   ) {}
 
   @Get()
@@ -29,6 +31,7 @@ export class AppController {
   @IsPublic()
   @Get('/test')
   async test() {
-    return this.signalService.sendTestMessage();
+    // return this.signalService.sendTestMessage();
+    return this.notificationDispatcherService.notifyNewTip(1, 271);
   }
 }

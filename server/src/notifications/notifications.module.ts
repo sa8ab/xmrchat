@@ -39,7 +39,7 @@ import { SignalModule } from './signal/signal.module';
       name: 'notifications-simplex',
     }),
     BullModule.registerQueue({
-      name: 'notifications-singal',
+      name: 'notifications-signal',
     }),
     BullBoardModule.forFeature({
       name: 'notifications-email',
@@ -50,7 +50,7 @@ import { SignalModule } from './signal/signal.module';
       adapter: BullMQAdapter,
     }),
     BullBoardModule.forFeature({
-      name: 'notifications-singal',
+      name: 'notifications-signal',
       adapter: BullMQAdapter,
     }),
     SimplexModule,

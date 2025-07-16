@@ -43,13 +43,14 @@ export class IntegrationConfig {
   updatedAt: Date;
 
   get valid() {
+    if (this.type === IntegrationConfigType.SIMPLEX) {
+      return Boolean(this.config.contactId);
+    }
+
     if (!this.verified) return false;
 
     if (this.type === IntegrationConfigType.SINGAL) {
-      return !!this.config.number;
-    }
-    if (this.type === IntegrationConfigType.SIMPLEX) {
-      return !!this.config.contactId;
+      return Boolean(this.config.number);
     }
   }
 }
