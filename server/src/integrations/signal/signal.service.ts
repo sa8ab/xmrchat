@@ -57,11 +57,15 @@ export class SignalService implements OnModuleInit, IIntegrationVerifier {
   async sendMessage(to: string | string[], message: string) {
     if (!this.account) await this.init();
     to = Array.isArray(to) ? to : [to];
-    await this.http.axiosRef.post('/v2/send', {
-      message,
-      number: this.account,
-      recipients: to,
-    });
+    try {
+      await this.http.axiosRef.post('/v2/send', {
+        message,
+        number: this.account,
+        recipients: to,
+      });
+    } catch (error) {
+      throw new BadRequestException('Error sending message. Please try again.');
+    }
   }
 
   async sendTestMessage() {
@@ -80,11 +84,17 @@ export class SignalService implements OnModuleInit, IIntegrationVerifier {
     const code = this.generateCode();
     config.verificationCode = code;
     config.verificationExpiresAt = new Date(Date.now() + 1000 * 60 * 15);
+    try {
+      await this.sendMessage(
+        config.config.number,
+        `Your verification code is ${code}. The code will expire in 15 minutes.`,
+      );
+    } catch (error) {
+      throw new BadRequestException(
+        'Error sending verification code. Make sure the number or id is correct.',
+      );
+    }
     await this.icRepo.save(config);
-    await this.sendMessage(
-      config.config.number,
-      `Your verification code is ${code}. The code will expire in 15 minutes.`,
-    );
   }
 
   async confirmVerification(

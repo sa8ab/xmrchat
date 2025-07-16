@@ -202,12 +202,12 @@ const { getValidationAttrs } = useValidations(v);
 
       <template v-else>
         <p class="pb-4">
-          Enter your signal phone number. We will send a code to this number to
-          verify.
+          Enter your signal phone number or id. We will send a code to this
+          number to verify.
         </p>
         <UFormGroup
           size="lg"
-          label="Signal phone number"
+          label="Signal phone number or id"
           :error="getValidationAttrs('number').error"
         >
           <UInput
