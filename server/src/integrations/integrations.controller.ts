@@ -6,7 +6,8 @@ import { User } from 'src/users/user.entity';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
 import { IntegrationsRO } from './dto/integrations.dto';
 import { ConnectSignalDto } from './dto/connect-signal.dto';
-import { ConfirmSignalDto } from './dto/confirm-signal.dto';
+import { ConfirmDto } from './dto/confirm.dto';
+
 @Controller('integrations')
 export class IntegrationsController {
   constructor(private readonly integrationsService: IntegrationsService) {}
@@ -27,6 +28,12 @@ export class IntegrationsController {
     return { message: 'Connection request sent.' };
   }
 
+  @Post('/confirm/simplex')
+  async confirmSimplex(@Body() body: ConfirmDto, @CurrentUser() user: User) {
+    await this.integrationsService.confirmSimplex(body, user);
+    return { message: 'Simplex connected.' };
+  }
+
   @Post('/disconnect/simplex')
   async disconnectSimplex(@CurrentUser() user: User) {
     await this.integrationsService.disconnectSimplex(user);
@@ -43,10 +50,7 @@ export class IntegrationsController {
   }
 
   @Post('/confirm/signal')
-  async confirmSignal(
-    @Body() body: ConfirmSignalDto,
-    @CurrentUser() user: User,
-  ) {
+  async confirmSignal(@Body() body: ConfirmDto, @CurrentUser() user: User) {
     await this.integrationsService.confirmSignal(body, user);
     return { message: 'Signal connected.' };
   }

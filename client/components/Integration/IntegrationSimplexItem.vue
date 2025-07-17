@@ -42,7 +42,6 @@ const connect = async () => {
         "Open SimpleX app on your device and accept connection from XMRChat account.",
       color: "green",
     });
-    open.value = false;
     emit("connect");
   } catch (error) {
     console.log(error);
@@ -152,9 +151,29 @@ const { getValidationAttrs } = useValidations(v);
       <template #header>
         <h2 class="text-xl font-medium">Simplex Integration</h2>
       </template>
-      <div v-if="isConnected">
-        <p>Connected</p>
-      </div>
+      <template v-if="isConnected">
+        <div class="flex justify-center pb-4">
+          <UIcon
+            name="i-heroicons-check-16-solid"
+            class="text-primary"
+            size="60px"
+          />
+        </div>
+        <p class="pb-4 text-center">
+          Simplex is connected to account "{{
+            config?.config.contact.profile.displayName
+          }}".
+        </p>
+        <div class="flex justify-end">
+          <UButton
+            @click="disconnect"
+            color="red"
+            :loading="state.loadingDisconnect"
+          >
+            Disconnect
+          </UButton>
+        </div>
+      </template>
 
       <template v-else-if="waitingVerification">
         <p class="pb-4">
