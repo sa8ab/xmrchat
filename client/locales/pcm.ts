@@ -289,7 +289,7 @@ export default {
   youtubeChannel: "Youtube channel",
   podcastRssLink: "Podcast RSS Link",
   nostrPubKey: "Nostr Pub Key",
-  xKuno: "Kuno fundraiser",
+  kunoFundraiser: "Kuno fundraiser",
 
   // OBS
   obsDescription: "OBS widget and settings.",
