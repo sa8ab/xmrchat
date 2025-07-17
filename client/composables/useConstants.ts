@@ -127,7 +127,7 @@ export const useConstants = () => {
       colorClassName: "text-[#FF6600]",
       iconClassName: "",
       icon: "i-icon-kuno",
-      inputLabel: t("xKuno"),
+      inputLabel: t("kunoFundraiser"),
       linkCreator: (v?: string) => `https://kuno.anne.media/fundraiser/${v}`,
     },  
     [ContentLinkPlatformEnum.PEERTUBE]: {
