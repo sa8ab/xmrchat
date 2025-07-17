@@ -54,9 +54,6 @@ export class IntegrationsService {
       const create = this.icRepo.create({
         page: { id: page.id },
         type: IntegrationConfigType.SIMPLEX,
-        config: {
-          connectLink: body.address,
-        },
       });
       config = await this.icRepo.save(create);
     }

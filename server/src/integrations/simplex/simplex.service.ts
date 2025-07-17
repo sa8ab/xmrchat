@@ -20,9 +20,10 @@ import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IntegrationConfig } from '../integration-configs.entity';
 import { Raw, Repository } from 'typeorm';
+import { IIntegrationVerifier } from '../integration-verifier.interface';
 
 @Injectable()
-export class SimplexService {
+export class SimplexService implements IIntegrationVerifier {
   private readonly logger = new Logger(SimplexService.name);
 
   private chat: ChatClient;
@@ -143,7 +144,6 @@ export class SimplexService {
 
   async connectContact(link: string) {
     const res = await this.chat.sendChatCmdStr(`/connect ${link}`);
-    console.log(res);
     const connId =
       (res as any).connection?.pccAgentConnId ||
       (res as any).connectionPlan?.contactAddressPlan?.contact?.activeConn
@@ -160,4 +160,10 @@ export class SimplexService {
   async sendMessage(contactId: number, message: string) {
     await this.chat.apiSendTextMessage(ChatType.Direct, contactId, message);
   }
+
+  async requestVerification(config: IntegrationConfig): Promise<void> {}
+  async confirmVerification(
+    config: IntegrationConfig,
+    candidate: string,
+  ): Promise<void> {}
 }

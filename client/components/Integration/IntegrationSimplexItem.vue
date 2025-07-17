@@ -9,6 +9,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   connect: [];
+  disconnect: [];
 }>();
 
 const { required } = useValidations();
@@ -22,6 +23,7 @@ const state = reactive({
     link: "",
   },
   loading: false,
+  disconnectLoading: false,
 });
 
 const connect = async () => {
@@ -53,6 +55,39 @@ const connect = async () => {
     state.loading = false;
   }
 };
+
+const disconnect = async () => {
+  try {
+    state.disconnectLoading = true;
+    await axios.post("/integrations/disconnect/simplex");
+    toast.add({
+      title: "Success",
+      description: "Simplex disconnected.",
+      color: "green",
+    });
+    emit("disconnect");
+  } catch (error) {
+    console.log(error);
+
+    toast.add({
+      title: "Error",
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+    state.disconnectLoading = false;
+  }
+};
+
+// const isConnected = computed(() => {
+//   if (!props.config) return false;
+//   return props.config.config.contact;
+// });
+
+// const waitingVerification = computed(() => {
+//   if (!props.config) return false;
+//   return props.config.config.waitingVerification;
+// });
 
 const renderInfo = computed(() => {
   if (!props.config) return "Not connected.";
