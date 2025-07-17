@@ -49,7 +49,7 @@ export class IntegrationConfig {
       return Boolean(this.config.contactId);
     }
 
-    if (this.type === IntegrationConfigType.SINGAL) {
+    if (this.type === IntegrationConfigType.SIGNAL) {
       return Boolean(this.config.number);
     }
   }

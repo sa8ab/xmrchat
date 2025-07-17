@@ -134,7 +134,7 @@ export class IntegrationsService {
 
     const config = await this.findOrCreateConfigByPageAndType(
       page.id,
-      IntegrationConfigType.SINGAL,
+      IntegrationConfigType.SIGNAL,
     );
 
     if (config && config.verified) {
@@ -157,14 +157,14 @@ export class IntegrationsService {
 
     const config = await this.previewConfirmation(
       page.id,
-      IntegrationConfigType.SINGAL,
+      IntegrationConfigType.SIGNAL,
     );
 
     await this.signalService.confirmVerification(config, body.code);
   }
 
   async disconnectSignal(user: User) {
-    await this.disconnect(user, IntegrationConfigType.SINGAL);
+    await this.disconnect(user, IntegrationConfigType.SIGNAL);
   }
 
   async disconnect(user: User, type: IntegrationConfigType) {

@@ -39,7 +39,7 @@ export class NotificationDispatcherService {
     private icRepo: Repository<IntegrationConfig>,
     @InjectQueue('notifications-email') private emailQueue: Queue,
     @InjectQueue('notifications-simplex') private simplexQueue: Queue,
-    @InjectQueue('notifications-signal') private singalQueue: Queue,
+    @InjectQueue('notifications-signal') private signalQueue: Queue,
     private caslAbility: CaslAbilityFactory,
   ) {}
   async notifyNewTip(pageId: number, tipId: number) {
@@ -101,7 +101,7 @@ export class NotificationDispatcherService {
         await this.notifyNewTipSimplex(tip, page);
       }
 
-      if (preference.channel === NotificationChannelEnum.SINGAL) {
+      if (preference.channel === NotificationChannelEnum.SIGNAL) {
         await this.notifyNewTipSignal(tip, page);
       }
     }
@@ -146,7 +146,7 @@ export class NotificationDispatcherService {
       return;
     }
 
-    await this.singalQueue.add('send-message', {
+    await this.signalQueue.add('send-message', {
       account: config.config.number,
       message: `New tip from ${tip.name}\nAmount: ${MoneroUtils.atomicUnitsToXmr(tip.payment.amount)} XMR\nMessage: ${tip.message || '-'}`,
     });
@@ -169,7 +169,7 @@ export class NotificationDispatcherService {
 
   async getSignalConfig(pageId: number) {
     return this.icRepo.findOne({
-      where: { page: { id: pageId }, type: IntegrationConfigType.SINGAL },
+      where: { page: { id: pageId }, type: IntegrationConfigType.SIGNAL },
     });
   }
 }

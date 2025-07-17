@@ -39,7 +39,7 @@ const simplexConfig = computed(() => {
 
 const signalConfig = computed(() => {
   return integrations.value?.integrations.find(
-    (i) => i.type === IntegrationConfigType.SINGAL
+    (i) => i.type === IntegrationConfigType.SIGNAL
   );
 });
 const v = useVuelidate<any>({}, state);

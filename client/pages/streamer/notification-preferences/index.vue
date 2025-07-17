@@ -28,7 +28,7 @@ const state = reactive<State>({
   form: {
     [NotificationChannelEnum.EMAIL]: {},
     [NotificationChannelEnum.SIMPLEX]: {},
-    [NotificationChannelEnum.SINGAL]: {},
+    [NotificationChannelEnum.SIGNAL]: {},
   },
   pending: false,
   minNotificationThreshold: undefined,
@@ -83,8 +83,8 @@ const { error } = await useLazyAsyncData(
       data.preferences
     );
 
-    state.form.singal = getObjectPereferences(
-      NotificationChannelEnum.SINGAL,
+    state.form.signal = getObjectPereferences(
+      NotificationChannelEnum.SIGNAL,
       data.preferences
     );
 
@@ -197,8 +197,8 @@ const isPremium = computed(
           v-model="state.form.simplex"
         ></NotificationPreferenceContainer>
         <NotificationPreferenceContainer
-          :channel="NotificationChannelEnum.SINGAL"
-          v-model="state.form.singal"
+          :channel="NotificationChannelEnum.SIGNAL"
+          v-model="state.form.signal"
         >
         </NotificationPreferenceContainer>
       </div>

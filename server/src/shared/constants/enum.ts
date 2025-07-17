@@ -96,7 +96,7 @@ export enum PageStatusEnum {
 }
 
 export enum IntegrationConfigType {
-  SINGAL = 'singal',
+  SIGNAL = 'signal',
   TELEGRAM = 'telegram',
   SIMPLEX = 'simplex',
 }
@@ -110,7 +110,7 @@ export enum NotificationChannelEnum {
   EMAIL = 'email',
   WEBHOOK = 'webhook',
   TELEGRAM = 'telegram',
-  SINGAL = 'singal',
+  SIGNAL = 'signal',
   SIMPLEX = 'simplex',
 }
 

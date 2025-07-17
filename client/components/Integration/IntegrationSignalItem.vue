@@ -136,7 +136,7 @@ const { getValidationAttrs } = useValidations(v);
 
 <template>
   <IntegrationItem
-    :integrationType="IntegrationConfigType.SINGAL"
+    :integrationType="IntegrationConfigType.SIGNAL"
     @connect="open = true"
   >
     <template #info>
