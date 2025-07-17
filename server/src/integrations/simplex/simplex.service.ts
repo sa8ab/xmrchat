@@ -77,11 +77,12 @@ export class SimplexService implements IIntegrationVerifier {
       if (resp.type === 'contactConnected') {
         try {
           await this.handleContactContactConnected(resp.contact);
-          await this.chat.apiSendTextMessage(
-            ChatType.Direct,
-            resp.contact.contactId,
-            'Connected to XMRChat. You can now enable your simplex notifications from notifications page.',
-          );
+
+          // await this.chat.apiSendTextMessage(
+          //   ChatType.Direct,
+          //   resp.contact.contactId,
+          //   'Connected to XMRChat. You can now enable your simplex notifications from notifications page.',
+          // );
         } catch (error) {
           this.logger.error('Error handling contact connected', error);
         }
@@ -138,8 +139,7 @@ export class SimplexService implements IIntegrationVerifier {
 
     config.config.contactId = contact.contactId;
     config.config.contact = contact;
-
-    await this.icRepo.save(config);
+    await this.requestVerification(config);
   }
 
   async connectContact(link: string) {
@@ -161,9 +161,45 @@ export class SimplexService implements IIntegrationVerifier {
     await this.chat.apiSendTextMessage(ChatType.Direct, contactId, message);
   }
 
-  async requestVerification(config: IntegrationConfig): Promise<void> {}
+  async requestVerification(config: IntegrationConfig): Promise<void> {
+    config.verificationCode = this.generateCode();
+    config.verificationExpiresAt = new Date(Date.now() + 1000 * 60 * 15);
+
+    await this.icRepo.save(config);
+
+    await this.sendMessage(
+      config.config.contactId,
+      `Your verification code is ${config.verificationCode}. The code will expire in 15 minutes.`,
+    );
+  }
+
   async confirmVerification(
     config: IntegrationConfig,
     candidate: string,
-  ): Promise<void> {}
+  ): Promise<void> {
+    const { verificationCode, verificationExpiresAt } = config;
+    if (!verificationCode || !verificationExpiresAt) {
+      throw new BadRequestException(
+        'Verification code or expires at not found.',
+      );
+    }
+
+    if (verificationExpiresAt < new Date()) {
+      throw new BadRequestException('Verification code expired.');
+    }
+
+    if (verificationCode !== candidate) {
+      throw new BadRequestException('Invalid verification code.');
+    }
+
+    config.verified = true;
+    config.verificationCode = null;
+    config.verificationExpiresAt = null;
+    await this.icRepo.save(config);
+  }
+
+  generateCode() {
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    return code;
+  }
 }

@@ -21,9 +21,10 @@ const open = ref(false);
 const state = reactive({
   form: {
     link: "",
+    code: "",
   },
   loading: false,
-  disconnectLoading: false,
+  loadingDisconnect: false,
 });
 
 const connect = async () => {
@@ -56,16 +57,23 @@ const connect = async () => {
   }
 };
 
-const disconnect = async () => {
+const confirmCode = async () => {
+  const valid = await v.value.$validate();
+  if (!valid) return;
   try {
-    state.disconnectLoading = true;
-    await axios.post("/integrations/disconnect/simplex");
+    state.loading = true;
+    const { data } = await axios.post("/integrations/confirm/simplex", {
+      code: state.form.code,
+    });
+
+    open.value = false;
+
     toast.add({
       title: "Success",
-      description: "Simplex disconnected.",
+      description: "Simplex is connected.",
       color: "green",
     });
-    emit("disconnect");
+    emit("connect");
   } catch (error) {
     console.log(error);
 
@@ -75,32 +83,54 @@ const disconnect = async () => {
       color: "red",
     });
   } finally {
-    state.disconnectLoading = false;
+    state.loading = false;
   }
 };
 
-// const isConnected = computed(() => {
-//   if (!props.config) return false;
-//   return props.config.config.contact;
-// });
+const disconnect = async () => {
+  try {
+    state.loadingDisconnect = true;
+    await axios.post("/integrations/disconnect/simplex");
+    toast.add({
+      title: "Success",
+      description: "Simplex disconnected.",
+      color: "green",
+    });
+    emit("connect");
+  } catch (error) {
+    console.log(error);
 
-// const waitingVerification = computed(() => {
-//   if (!props.config) return false;
-//   return props.config.config.waitingVerification;
-// });
+    toast.add({
+      title: "Error",
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+    state.loadingDisconnect = false;
+  }
+};
+
+const isConnected = computed(() => {
+  return props.config?.config?.contact && props.config.verified;
+});
+
+const waitingVerification = computed(() => {
+  if (props.config?.verified) return false;
+  return props.config?.config;
+});
 
 const renderInfo = computed(() => {
-  if (!props.config) return "Not connected.";
-  if (props.config.config.contact) {
-    return `"${props.config.config.contact.profile.displayName}" connected.`;
-  }
-  if (props.config.config.connId) {
-    return `Request sent.`;
-  }
+  if (isConnected.value) return "Connected";
+  if (waitingVerification.value) return "Waiting for verification";
+  return "Not connected.";
 });
 
 const v = useVuelidate<any>(
-  { link: { required } },
+  computed(() => {
+    return waitingVerification.value
+      ? { link: {}, code: { required } }
+      : { link: { required }, code: {} };
+  }),
   computed(() => state.form)
 );
 const { getValidationAttrs } = useValidations(v);
@@ -122,26 +152,66 @@ const { getValidationAttrs } = useValidations(v);
       <template #header>
         <h2 class="text-xl font-medium">Simplex Integration</h2>
       </template>
-      <p class="pb-4">
-        Enter your simplex connection link then click connect. XMRChat account
-        will send a connection request to your simplex account. Accept the
-        request to connect your XMRChat page to SimpleX.
-      </p>
-      <UFormGroup
-        size="lg"
-        label="SimpleX link"
-        :error="getValidationAttrs('link').error"
-      >
-        <UInput
-          v-model="state.form.link"
-          @blur="getValidationAttrs('link').onBlur"
-        />
-      </UFormGroup>
+      <div v-if="isConnected">
+        <p>Connected</p>
+      </div>
+
+      <template v-else-if="waitingVerification">
+        <p class="pb-4">
+          Accept connection request in SimpleX app and enter the code you get.
+        </p>
+        <UFormGroup
+          size="lg"
+          label="Code"
+          :error="getValidationAttrs('code').error"
+        >
+          <UInput
+            v-model="state.form.code"
+            @blur="getValidationAttrs('code').onBlur"
+          />
+        </UFormGroup>
+
+        <div class="flex justify-end mt-2 gap-2">
+          <UButton :loading="state.loading" @click="confirmCode">
+            Confirm code
+          </UButton>
+          <UButton
+            @click="disconnect"
+            color="red"
+            variant="soft"
+            :loading="state.loadingDisconnect"
+          >
+            Disconnect
+          </UButton>
+        </div>
+      </template>
+
+      <template v-else>
+        <p class="pb-4">
+          Enter your simplex connection link then click connect. XMRChat account
+          will send a connection request to your simplex account. After
+          accepting the request you will get a code. Enter the code to complete
+          the connection.
+        </p>
+        <UFormGroup
+          size="lg"
+          label="SimpleX link"
+          :error="getValidationAttrs('link').error"
+        >
+          <UInput
+            v-model="state.form.link"
+            @blur="getValidationAttrs('link').onBlur"
+          />
+        </UFormGroup>
+        <div class="flex justify-end mt-2 gap-2">
+          <UButton :loading="state.loading" @click="connect"> Connect </UButton>
+        </div>
+      </template>
 
       <template #footer>
         <div class="flex justify-end gap-2">
           <UButton variant="soft" @click="open = false">Cancel</UButton>
-          <UButton :loading="state.loading" @click="connect"> Connect </UButton>
+          <!-- <UButton :loading="state.loading" @click="connect"> Connect </UButton> -->
         </div>
       </template>
     </UCard>

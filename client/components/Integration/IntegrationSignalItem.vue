@@ -126,7 +126,7 @@ const renderInfo = computed(() => {
 const v = useVuelidate<any>(
   computed(() => {
     return waitingVerification.value
-      ? { number: { required }, code: { required } }
+      ? { number: {}, code: { required } }
       : { number: { required }, code: {} };
   }),
   computed(() => state.form)

@@ -58,10 +58,18 @@ export class IntegrationsService {
       config = await this.icRepo.save(create);
     }
 
+    if (config && config.verified) {
+      throw new BadRequestException(
+        'Simplex is already verified. If you want to change the account disconnect/unlink it first.',
+      );
+    }
+
     // add address to integration config
     const connId = await this.simplexService.connectContact(body.address);
-    config.config.connectLink = body.address;
-    config.config.connId = connId;
+    config.config = {
+      connectLink: body.address,
+      connId,
+    };
 
     await this.icRepo.save(config);
   }
