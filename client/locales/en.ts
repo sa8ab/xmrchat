@@ -303,7 +303,7 @@ export default {
   peertubeChannel: "Peertube channel",
   podcastRssLink: "Podcast RSS Link",
   nostrPubKey: "Nostr Pub Key",
-  xKuno: "Kuno",
+  xKuno: "Kuno fundraser",
 
   // OBS
   obsDescription: "OBS widget and settings.",
