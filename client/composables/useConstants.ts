@@ -128,7 +128,7 @@ export const useConstants = () => {
       iconClassName: "",
       icon: "i-icon-kuno",
       inputLabel: t("xKuno"),
-      linkCreator: (v?: string) => `https://kuno.anne.media/${v}`,
+      linkCreator: (v?: string) => `https://kuno.anne.media/fundraiser/${v}`,
     },  
     [ContentLinkPlatformEnum.PEERTUBE]: {
       name: "Peertube",
