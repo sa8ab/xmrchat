@@ -60,7 +60,7 @@ export class PagesService {
             WHEN payment.paid_at > NOW() - INTERVAL '180 days' THEN 0.4
             ELSE 0.1
           END
-        )`,
+        ) * (CASE WHEN SUM(1) < 5 THEN .5 ELSE 1 END)`,
           'raw_amount',
         )
         .addSelect(
@@ -71,7 +71,7 @@ export class PagesService {
             WHEN payment.paid_at > NOW() - INTERVAL '180 days' THEN 0.2
             ELSE 0.1
           END
-        )`,
+        ) * (CASE WHEN SUM(1) < 5 THEN .5 ELSE 1 END)`,
           'raw_count',
         )
         .from(Tip, 'tip')
