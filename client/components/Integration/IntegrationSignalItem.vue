@@ -35,13 +35,6 @@ const connect = async () => {
       number: state.form.number,
     });
 
-    // toast.add({
-    //   title: "Success",
-    //   description:
-    //     "Enter the code you received in your Signal app to verify your account.",
-    //   color: "green",
-    // });
-    // open.value = false;
     emit("connect");
   } catch (error) {
     console.log(error);

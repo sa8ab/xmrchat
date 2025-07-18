@@ -66,16 +66,16 @@ const items = computed(() => {
           icon: "i-heroicons-banknotes",
           to: toStreamer(page.value.path),
         },
-        {
-          label: "Notifications",
-          icon: "i-heroicons-bell",
-          to: toStreamerNotificationPreferences(),
-        },
-        {
-          label: "Integrations",
-          icon: "i-tabler-plug",
-          to: toStreamerIntegrations(),
-        },
+        // {
+        //   label: "Notifications",
+        //   icon: "i-heroicons-bell",
+        //   to: toStreamerNotificationPreferences(),
+        // },
+        // {
+        //   label: "Integrations",
+        //   icon: "i-tabler-plug",
+        //   to: toStreamerIntegrations(),
+        // },
         {
           label: t("contentLinks"),
           icon: "i-heroicons-link-20-solid",
