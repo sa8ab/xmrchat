@@ -21,13 +21,10 @@ import { User } from 'src/users/user.entity';
 import { UpdateTipDto } from './dtos/update-tip.dto';
 import { PagesGateway } from 'src/pages/pages.gateway';
 import { NotificationsService } from 'src/notifications/notifications.service';
-import { clearMessage } from 'src/shared/utils';
-import { PricesService } from 'src/prices/prices.service';
 import { SwapsService } from 'src/swaps/swaps.service';
 import { Swap } from 'src/swaps/swap.entity';
 import { Coin } from 'src/integrations/trocador/coin.entity';
 import { TrocadorTrade } from 'src/shared/types';
-import { FiatEnum } from 'src/shared/constants';
 import { TipMessageService } from 'src/tip-message/tip-message.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
 
@@ -256,6 +253,8 @@ export class TipsService {
         finalMessage,
       );
     }
+
+    await this.notificationsService.handleNewTip(page.id, tip.id);
 
     try {
       await this.lwsService.deleteWebhook(payment.eventId);

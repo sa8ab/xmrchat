@@ -82,7 +82,7 @@ const handleSubmit = async () => {
     </UForm>
     <div v-else>
       <p class="text-base">
-        <I18nT keypath="weSentYouAnEmail">
+        <I18nT keypath="weSentYouAnEmail" scope="global">
           <template #email>
             <span class="text-primary font-medium">{{ state.email }}</span>
           </template>

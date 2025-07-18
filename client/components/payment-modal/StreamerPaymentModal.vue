@@ -102,7 +102,7 @@ const getTime = () => {
         ticker: 'xmr',
       }"
       :connectionStatus="connectionStatus"
-      expiredMessage="Page reservation expired."
+      :expiredMessage="$t('pageReservationExpired')"
       @cancel="cancelPayment"
       @retry="handleRetry"
     >
@@ -119,8 +119,10 @@ const getTime = () => {
           <template #description>
             <p class="text-[15px] leading-6">
               Please pay a small spam prevention fee of
-              <span class="font-bold">{{ reservedData.amount }} XMR ({{ fiatAmount }})</span> in
-              the next
+              <span class="font-bold"
+                >{{ reservedData.amount }} XMR ({{ fiatAmount }})</span
+              >
+              in the next
               <VueCountdown
                 v-if="reservedData?.reservedUntil"
                 :time="getTime()"

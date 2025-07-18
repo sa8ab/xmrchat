@@ -2,72 +2,77 @@ export default {
   validations: {
     required: "این فیلد الزامی است",
     email: "ایمیل نامعتبر است",
-    numberic: "باید عدد باشد",
-    minLength: "باید حداقل {length} کاراکتر باشد.",
-    maxLength: "نباید بیشتر از {length} کاراکتر باشد.",
-    minValue: "باید حداقل {value} باشد.",
-    sameAs: "باید با {otherName} یکسان باشد",
+    numberic: "در این قسمت باید تنها عدد نوشته ",
+    minLength: " در این قسمت باید حداقل {Length} کاراکتر نوشته شود. ",
+    maxLength: " دراین قسمت باید حداکثر{Length} کاراکتر نوشته شود. ",
+    minValue: "باید حداقل باشد {value} ",
+    sameAs: " باید با {otherName} یکسان در نظر گرفته شود.",
     someFieldsAreIncorrect: "برخی از فیلدها به درستی پر نشده‌اند.",
     url: "لینک نامعتبر است.",
-    notUrl: "نباید لینک باشد.",
+    notUrl: " در این قسمت نباید لینک نوشته شود. ",
     streamerSlug:
-      "مسیر شما فقط می‌تواند شامل حروف کوچک، اعداد، زیرخط و خط تیره باشد.",
+      "متن شما باید شامل حروف بزرگ، حروف کوچک، اعداد، زیر خط و خط تیره باشد.  ",
     moneroPrimaryAddress: "آدرس اصلی نامعتبر است. باید با 4 شروع شود.",
   },
 
   account: "حساب کاربری",
-  logout: "خروج",
-  login: "ورود",
-  send: "ارسال",
+  logout: "خروج از حساب",
+  login: "ورود به حساب",
+  send: "ارسال کردن",
   email: "ایمیل",
-  search: "جستجو",
+  search: "جستجو کردن",
   password: "رمز عبور",
+  confirm: "تأیید کردن",
+  reconnect: "اتصال مجدد",
   confirmPassword: "تکرار رمز عبور",
   signupInstead: "ثبت‌نام کنید",
   signupFailed: "ثبت‌نام ناموفق",
-  noItems: "موردی وجود ندارد",
+  noItems: "موردی یافت نشد",
   signupSuccessfull: "ثبت‌نام موفق",
   signupSuccessfullDescription:
-    "لطفاً برای تأیید حساب خود روی لینک ارسال شده به ایمیلتان کلیک کنید.",
-  loginInstead: "ورود کنید",
+    " لطفا جهت تائید حساب کاربری خود روی لینکی که به ایمیل شما ارسال شده است کلیک کنید. ",
+  loginInstead: "وارد شوید",
   loginFailed: "ورود ناموفق",
   signup: "ثبت‌نام",
   forgetPassword: "فراموشی رمز عبور؟",
   loginDescription: "برای دسترسی به صفحه نمایش خود وارد حساب کاربری خود شوید.",
   resetPassword: "بازیابی رمز عبور",
   enterYourNewPassword: "رمز عبور جدید خود را وارد کنید",
-  passwordResetFailed: "بازیابی رمز عبور ناموفق",
+  passwordResetFailed: "بازیابی رمز عبور ناموفق می باشد",
   passwordUpdated: "رمز عبور شما با موفقیت به‌روزرسانی شد.",
   weSentYouAnEmail:
-    "ایمیلی به {email} ارسال کرده‌ایم، لطفاً برای بازیابی رمز عبور روی لینک موجود در ایمیل کلیک کنید.",
+    "به ایمیل {email}شما لینکی جهت بازیابی رمز عبور ارسال کردیم. لطفا روی آن کلیک کنید.",
   changeEmail: "تغییر ایمیل",
-  enterEmailToResetPassword: "برای بازیابی رمز عبور ایمیل خود را وارد کنید.",
+  enterEmailToResetPassword: "برای بازیابی رمز عبور, ایمیل خود را وارد کنید.",
   creatorLogin: "ورود سازنده محتوا",
   searchCreators: {
     title: "جستجوی سازندگان محتوا",
-    description: "سازندگان محتوای دارای صفحات عمومی در xmrchat را جستجو کنید.",
+    description:
+      "   تولیدکنندگان محتوا را با صفحات عمومی شان در xmrchat پیدا کنید  ",
   },
   typePageName: "نام صفحه را وارد کنید...",
   contactUs: "تماس با ما",
   here: "اینجا",
+  backToHome: "بازگشت به خانه",
+  somethingWentWrong: "خطایی ناخواسته پیش آمده ",
 
   xmrchat: "XMRChat",
   heroDescription: "به استریمر مورد علاقه خود با ارز دیجیتال انعام دهید.",
   findCreators: "پیدا کردن سازندگان محتوا",
-  creatorsStartHere: "سازندگان محتوا از اینجا شروع کنند",
+  creatorsStartHere: " تولیدکنندگان محتوا جهت شروع از این قسمت استفاده کنند.",
 
   FAQ: {
     title: "سوالات متداول",
-    whyTipWithXMRChat: "چرا با XMRChat انعام دهید؟",
+    whyTipWithXMRChat: "چرا باید با XMRChat انعام دهید؟ ",
     howToUseXMRChat: "چگونه از XMRChat استفاده کنیم؟",
-    whyUseMonero: "چرا XMRChat از Monero استفاده می‌کند؟",
-    whereToGetMonero: "از کجا Monero تهیه کنیم؟",
+    whyUseMonero: "   چرا در XMRChat از Monero استفاده می کنند؟   ",
+    whereToGetMonero: "  از کجا می توانیم Monero را تهیه کنیم؟  ",
   },
 
   earnMore: {
     title: "درآمد بیشتر",
     description:
-      "یوتیوب 30-50٪ برای سوپرچت‌ها دریافت می‌کند. رامبل 20٪ برای رنت‌ها. با XMRChat شما 100٪ انعام‌های XMR خود را از طرفداران دریافت می‌کنید، مستقیماً به کیف پول Monero شما.",
+      "یوتیوب ۳۰ الی ۵۰ درصد برای سوپر چت ها و رامبل ها ۲۰ درصد برای رنت ها دریافت می کنند. با XMRChat شما می توانید ۱۰۰ درصد انعام های XMR خود را از طرفداران دریافت و مستقیم به کیف پول Monero شما واریز می گردد. ",
   },
   censorshipResistant: {
     title: "مقاوم در برابر سانسور",
@@ -91,15 +96,16 @@ export default {
   },
   openSource: {
     title: "متن باز",
-    description: "XMRChat متن باز است. می‌توانید کد را در {github} بررسی کنید.",
+    description:
+      "متن XMRChat باز بوده و می توانید کد را در {github} بررسی کنید. ",
   },
 
   lowFees: {
-    title: "کارمزد کم",
-    description: "کارمزد تراکنش‌های Monero حداکثر چند پنی است.",
+    title: "حداقل کارمزد",
+    description: "   کارمزد تراکنش های Monero حداکثر چند  پنی می باشد.  ",
   },
   privateMonero: {
-    title: "خصوصی",
+    title: "حریم خصوصی",
     description:
       "در حالی که بیشتر ارزهای دیجیتال از دفتر کل باز استفاده می‌کنند، Monero داده‌های تراکنش را مخفی می‌کند. فرستنده، گیرنده و مبالغ تراکنش‌ها با نگاه کردن به بلاکچین آشکار نمی‌شوند.",
   },
@@ -116,13 +122,14 @@ export default {
   forContentCreators: {
     title: "برای سازندگان محتوا",
     description: {
-      main: `روی دکمه "سازندگان محتوا از اینجا شروع کنند" کلیک کنید. حساب XMRChat ایجاد کنید. صفحه انعام ایجاد کنید. آدرس صفحه انعام خود را به مخاطبان خود اطلاع دهید.`,
+      main: 'روی دکمه "سازندگان محتوا از اینجا شروع کنند" کلیک کرده و حساب XMRChat ایجاد کنید. و صفحه انعام ایجاد کرده و آدرس صفحه انعام خود را به مخاطبان خود اطلاع دهید.',
       tutorialLink:
         "الکس آنارکو یک آموزش عالی درباره نحوه استفاده از XMRChat در {youtube} دارد.",
       ifStreamyard: "اگر از Streamyard استفاده می‌کنید:",
       ifOBS: "اگر از OBS استفاده می‌کنید:",
-      streamyard: `به منوی "ویرایش صفحه انعام" بروید. مطمئن شوید که نام کاربری کانال توییچ خود را اضافه کرده‌اید. هنگام شروع استریم در Streamyard، توییچ را به عنوان مقصد اضافه کنید. ربات XMRChat (xmr-chat در توییچ) پیام انعام را در توییچ ارسال می‌کند و شما می‌توانید آن را از Streamyard روی صفحه نمایش خود نشان دهید. لوگوی ربات xmrchat با تنظیم "Minimal" بهترین ظاهر را دارد.`,
-      obs: `به منوی "OBS" بروید. روی "کپی لینک صفحه OBS" کلیک کنید. یک منبع مرورگر در OBS اضافه کنید و لینک را جایگذاری کنید.`,
+      streamyard:
+        'به منوی "ویرایش صفحه انعام" بروید. مطمئن شوید که نام کاربری کانال توییچ خود را اضافه کرده‌اید. هنگام شروع استریم در Streamyard، توییچ را به عنوان مقصد اضافه کنید. ربات XMRChat (xmr-chat در توییچ) پیام انعام را در توییچ ارسال می‌کند و شما می‌توانید آن را از Streamyard روی صفحه نمایش خود نشان دهید. لوگوی ربات xmrchat با تنظیم "Minimal" بهترین ظاهر را دارد.',
+      obs: 'به منوی "OBS" بروید. روی "کپی لینک صفحه OBS" کلیک کنید. یک منبع مرورگر در OBS اضافه کنید و لینک را جایگذاری کنید.',
     },
   },
   forFans: {
@@ -137,37 +144,36 @@ export default {
     haveno: "خرید Monero بدون KYC در {haveno}.",
     kraken: "خرید Monero با KYC در {kraken}.",
     xmrbazaar: "فروش کالا یا خدمات برای Monero در {xmrbazaar}.",
-    gupax: "استخراج آن با {gupax}.",
-    kunoAnneMedia: "ایجاد یک کمپین جمع‌آوری Monero در {kunoAnneMedia}.",
+    gupax: "استخراج کردن آن با {gupax}.",
+    kunoAnneMedia: "ایجاد کردن یک کمپین جمع‌آوری Monero در {kunoAnneMedia}.",
     monerica:
       "پذیرش Monero در کسب‌وکار خود و ثبت در صفحات {monerica} و {monerodirectory} و نقشه لیست کسب‌وکارها در {xmrbazaar} و {bankexit}.",
   },
 
   // TIP PAGE
-  tipName: "نام",
-  tipAmount: "مبلغ",
-  tipMessage: "پیام",
-  tipPrivate: "خصوصی",
-  tipDate: "تاریخ",
+  tipName: "نام انعام",
+  tipAmount: "مبلغ انعام",
+  tipMessage: "پیام انعام",
+  tipPrivate: "نعام خصوصی و محرمانه",
+  tipDate: "تاریخ انعام ",
   tipUpdated: "انعام به‌روزرسانی شد!",
   tipPrivateTooltip: "نام و پیام فقط برای استریمر قابل مشاهده خواهد بود.",
   tipCoin: "سکه",
   tipCoinPlaceholder: "XMR",
   sendTip: "ارسال انعام",
-  tipCreationFailed: "ایجاد انعام ناموفق",
-  tipNamePlaceholder: "نام را وارد کنید",
-  tipAmountPlaceholder: "مبلغ را وارد کنید",
-  tipMessagePlaceholder: "پیام را وارد کنید",
-  tipPrivatePlaceholder: "خصوصی",
-  tipSwapUnavailable: "مبادله در حال حاضر غیرفعال است.",
+  tipCreationFailed: "ایجاد انعام ناموفق بود",
+  tipNamePlaceholder: "نام انعام را وارد کنید",
+  tipAmountPlaceholder: "مبلغ انعام را وارد کنید",
+  tipMessagePlaceholder: "پیام انعام را وارد کنید",
+  tipPrivatePlaceholder: "انعام خصوصی و محرمانه",
+  tipSwapUnavailable: "مبادله انعام در حال حاضر غیرفعال است.",
   tipSwapMinimum: "حداقل {min} برای مبادله",
   tipMinimum: "حداقل {min}",
   recentTips: "انعام‌های اخیر",
   tipDisplayValueTooltip: "نمایش مقادیر انعام در XMR یا {fiat}",
-  noRecentTips: "هیچ انعام اخیری وجود ندارد!",
+  noRecentTips: "   اخیرا انعامی وجود ندارد!",
   pageDeactivatedAlert:
-    "صفحه شما غیرفعال شده است و برای عموم قابل مشاهده نیست. لطفاً برای اطلاعات بیشتر با پشتیبانی تماس بگیرید.",
-
+    "صفحه شما غیرفعال شده است و برای عموم قابل مشاهده نمی باشد. لطفاً برای اطلاعات بیشتر با پشتیبانی تماس بگیرید.",
   tipWalletWarningTitle: "با کیف پول استریمر انعام ندهید.",
   tipWalletWarningDescription:
     "لطفاً از ارسال انعام با کیف پول ثبت‌شده در صفحه خودداری کنید. تغییرات بازگشتی مقدار دریافتی را افزایش می‌دهد.",
@@ -176,16 +182,16 @@ export default {
   partialAmountReceived:
     "{partialAmount} تاکنون دریافت شده است، لطفاً باقی‌مانده {remainingAmount} را ارسال کنید.",
   openInMyWallet: "باز کردن در کیف پول من",
-  cancel: "لغو",
+  cancel: "لغو کردن",
   copyAddress: "کپی آدرس",
   waitingForPayment: "در انتظار پرداخت",
 
   // CONTACT US PAGE
-  contactUsDescription: "برای هرگونه سوال یا بازخورد با ما تماس بگیرید.",
+  contactUsDescription: "جهت هرگونه سوال یا بازخورد با ما تماس بگیرید.",
   contactUsForm: "فرم تماس با ما",
-  contactUsFormDescription: "برای هرگونه سوال یا بازخورد با ما تماس بگیرید.",
+  contactUsFormDescription: "جهت هرگونه سوال یا بازخورد با ما تماس بگیرید.",
   contactUsFormButton: "تماس با ما",
-  emailUsDirectly: "مستقیماً به ما ایمیل بزنید",
+  emailUsDirectly: "مستقیماً به ما ایمیل ارسال کنید",
   followUsOnTwitter: "ما را در توییتر دنبال کنید",
   twitter: "توییتر",
 
@@ -204,8 +210,8 @@ export default {
     "آدرس‌های اصلی دریافت Monero با عدد 4 شروع می‌شوند.",
   moneroSecretViewKey: "کلید دید مخفی Monero",
   weNeedSecretViewKey:
-    "ما به کلید دید مخفی نیاز داریم تا بتوانیم تراکنش‌های ورودی از طرف بینندگان را مشاهده کنیم. {whereToFind}",
-  whereToFindViewKey: "کلید دید را از کجا پیدا کنیم؟",
+    "ما به کلید مشاهده مخفی نیاز داریم تا بتوانیم تراکنش‌های ورودی از طرف بینندگان را مشاهده کنیم. {whereToFind}",
+  whereToFindViewKey: "کلید مشاهده را از کجا پیدا کنیم؟",
   twitchChannelName: "نام کانال توییچ",
   nameOfYourTwitchChannel:
     "نام کانال توییچ شما. برای نمایش انعام‌ها در استریم از طریق ربات توییچ xmr_chat استفاده می‌شود.",
@@ -213,19 +219,20 @@ export default {
   minTipAmount: "حداقل مبلغ انعام (XMR)",
   defaultTipAmount: "مقدار پیش‌فرض انعام",
   thisIsOnlyForDisplaying:
-    "این فقط برای نمایش مقادیر انعام است. بینندگان می‌توانند این مقدار را در صفحه انعام برای خود تغییر دهند.",
+    "این مورد فقط برای نمایش مقادیر انعام است. بینندگان می‌توانند این مقدار را در صفحه انعام برای خود تغییر دهند.",
   publicPage: "صفحه عمومی (در صفحه جستجوی سازندگان نمایش داده می‌شود).",
-  continue: "ادامه",
+  continue: "ادامه دادن",
   clickToUpload: "برای آپلود کلیک کنید",
   pageCreatedSuccessfully: "صفحه با موفقیت ایجاد شد!",
   slugReservedUntil: "اسلاگ شما تا تاریخ زیر رزرو شده است ",
   note: "توجه",
   pageUpdated: "صفحه به‌روزرسانی شد!",
   loading: "در حال بارگذاری",
-  available: "موجود",
+  available: "موجود و در دسترس",
   unavailable: "ناموجود",
   fiatUnit: "واحد فیات",
-  fiatUnitHelp: "واحد نمایش انعام‌ها هنگامی که حالت نمایش انعام فیات است.",
+  fiatUnitHelp:
+    "واحد نمایش انعام‌ها در هنگامی که حالت نمایش انعام فیات می باشد.",
   tipExpiration: "انقضای انعام",
   tipExpirationHelp: "انعام‌ها پس از مدت مشخص شده به طور خودکار حذف می‌شوند.",
   tipExpirationWarning:
@@ -234,6 +241,12 @@ export default {
   never: "هرگز",
   xDays: "{count} روز | {count} روز",
   xMonths: "{count} ماه | {count} ماه",
+  paymentIsExpired:
+    "پرداخت منقضی شده است. اگر قبلاً پرداخت کرده‌اید لطفاً با پشتیبانی تماس بگیرید.",
+  pageReservationExpired: "رزرو صفحه منقضی شده است.",
+  paymentCheckingDis: "بررسی پرداخت قطع شده است.",
+  ifPaymentMade:
+    "اگر پرداخت انجام شده باشد، در لیست راهنماها نمایش داده می‌شود.",
 
   // STREAMER MENU
   menu: "منو",
@@ -245,7 +258,7 @@ export default {
   show: "نمایش",
   hide: "پنهان",
   youDontHavePage: "هنوز صفحه‌ای ندارید",
-  getStartedByCreatingPage: "با ایجاد یک صفحه جدید برای خود شروع کنید",
+  getStartedByCreatingPage: "با ایجاد یک صفحه جدید برای خود, شروع کنید",
   createNewWallet:
     "لطفاً یک کیف پول جدید Monero برای استفاده با XMRChat ایجاد کنید. ما فقط نیاز داریم تراکنش‌های مربوط به پیام‌های XMRChat را مشاهده کنیم و نه چیز دیگری.",
   createNewPage: "ایجاد صفحه جدید",
@@ -267,7 +280,7 @@ export default {
   pageWillBeAvailableAt: "صفحه شما در آدرس {url} در دسترس خواهد بود",
   noSuggestedAmountsAdded:
     "هیچ مبلغ پیشنهادی اضافه نشده است، برای افزودن سطوح جدید روی دکمه زیر کلیک کنید.",
-  addTier: "افزودن سطح",
+  addTier: "افزودن ردیف",
   remove: "حذف",
   name: "نام",
   amountUSD: "مبلغ (USD)",
@@ -283,7 +296,7 @@ export default {
   contentLinksSecondDescription:
     "لینک‌هایی به صفحات اجتماعی یا وبسایت‌های شما. برای بازنشانی مقدار، فیلد را خالی بگذارید.",
   saveChanges: "ذخیره تغییرات",
-  notUrlWithMessage: "فقط نام را وارد کنید، نه لینک کامل.",
+  notUrlWithMessage: "در این قسمت فقط نام را وارد کنید، نه لینک کامل .",
   changesAreSaved: "تغییرات ذخیره شدند.",
   errorSavingChanges: "خطا در ذخیره تغییرات.",
   xUsername: "نام کاربری {platform}",

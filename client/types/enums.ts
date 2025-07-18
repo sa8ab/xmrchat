@@ -24,6 +24,8 @@ export enum ContentLinkPlatformEnum {
   ODYSEE = "odysee",
   XMRBAZAAR = "xmrbazaar",
   KICK = "kick",
+  KUNO = "kuno",
+  PEERTUBE = "peertube",
 }
 
 export enum TipDisplayMode {
@@ -56,4 +58,23 @@ export enum RolesEnum {
 export enum PageStatusEnum {
   ACTIVE = "active",
   DEACTIVE = "deactive",
+}
+
+export enum NotificationPreferenceType {
+  NEW_TIP = "new_tip",
+  DAILY_SUMMARY = "daily_summary",
+}
+
+export enum NotificationChannelEnum {
+  EMAIL = "email",
+  // WEBHOOK = "webhook",
+  // TELEGRAM = "telegram",
+  SIMPLEX = "simplex",
+  SIGNAL = "signal",
+}
+
+export enum IntegrationConfigType {
+  SIGNAL = "signal",
+  TELEGRAM = "telegram",
+  SIMPLEX = "simplex",
 }

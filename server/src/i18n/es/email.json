@@ -24,5 +24,28 @@
     "emailTitle": "Contraseña actualizada",
     "passwordUpdated": "La contraseña de su cuenta ha sido actualizada.",
     "ifItWasNotYou": "Si no fue usted, por favor inicie sesión y restablezca su contraseña."
+  },
+  "newTip": {
+    "subject": "Recibiste una propina en XMRChat",
+    "title": "Nueva propina recibida",
+    "emailTitle": "¡Recibiste una propina!",
+    "youReceivedATip": "¡Recibiste una propina!",
+    "from": "De",
+    "amount": "Cantidad",
+    "message": "Mensaje",
+    "thankYouForYourContent": "¡Gracias por tu excelente contenido! Sigue con el increíble trabajo.",
+    "visitXMRChat": "Visitar XMRChat"
+  },
+  "dailySummary": {
+    "subject": "Tu Resumen Diario - XMRChat",
+    "title": "Tu Resumen Diario",
+    "emailTitle": "Tu Resumen Diario",
+    "yourDailySummary": "Tu Resumen Diario",
+    "totalReceived": "Total Recibido",
+    "last24Hours": "Últimas 24 horas",
+    "tipsReceived": "Propinas Recibidas",
+    "noTipsReceived": "No se recibieron propinas en las últimas 24 horas",
+    "thankYouForYourContent": "¡Gracias por tu excelente contenido! Sigue con el increíble trabajo.",
+    "visitXMRChat": "Visitar XMRChat"
   }
 }

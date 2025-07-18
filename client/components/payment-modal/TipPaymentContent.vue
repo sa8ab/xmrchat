@@ -50,8 +50,7 @@ watch(
   <TipPaymentViewContainer :title="$t('sendTip')" @cancel="emit('cancel')">
     <div class="w-full grid gap-2">
       <p v-if="expired" class="text-red-500 text-center">
-        Payment is expired. If you have already sent your payment please contact
-        support.
+        {{ $t("paymentIsExpired") }}
       </p>
       <template v-else>
         <UAlert
@@ -79,7 +78,7 @@ watch(
         <UAlert v-if="createdTip" color="emerald" variant="subtle">
           <template #description>
             <p class="text-base">
-              <I18nT keypath="tipWalletMinimum">
+              <I18nT keypath="tipWalletMinimum" scope="global">
                 <template #minimumAmount>
                   <span class="font-bold">{{ createdTip.amount }}</span>
                 </template>
@@ -96,7 +95,7 @@ watch(
         >
           <template #description>
             <p v-if="partialPaymentAmount" class="text-base">
-              <I18nT keypath="partialAmountReceived">
+              <I18nT keypath="partialAmountReceived" scope="global">
                 <template #partialAmount>
                   <span class="font-bold"
                     >{{ unitsToXmr(partialPaymentAmount) }}

@@ -24,5 +24,28 @@
     "emailTitle": "Mot de passe mis à jour",
     "passwordUpdated": "Le mot de passe de votre compte a été mis à jour.",
     "ifItWasNotYou": "Si ce n'était pas vous, veuillez vous connecter et réinitialiser votre mot de passe."
+  },
+  "newTip": {
+    "subject": "Vous avez reçu un pourboire sur XMRChat",
+    "title": "Nouveau pourboire reçu",
+    "emailTitle": "Vous avez reçu un pourboire !",
+    "youReceivedATip": "Vous avez reçu un pourboire !",
+    "from": "De",
+    "amount": "Montant",
+    "message": "Message",
+    "thankYouForYourContent": "Merci pour votre excellent contenu ! Continuez votre travail incroyable.",
+    "visitXMRChat": "Visiter XMRChat"
+  },
+  "dailySummary": {
+    "subject": "Votre Résumé Quotidien - XMRChat",
+    "title": "Votre Résumé Quotidien",
+    "emailTitle": "Votre Résumé Quotidien",
+    "yourDailySummary": "Votre Résumé Quotidien",
+    "totalReceived": "Total Reçu",
+    "last24Hours": "Dernières 24 heures",
+    "tipsReceived": "Pourboires Reçus",
+    "noTipsReceived": "Aucun pourboire reçu dans les dernières 24 heures",
+    "thankYouForYourContent": "Merci pour votre excellent contenu ! Continuez votre travail incroyable.",
+    "visitXMRChat": "Visiter XMRChat"
   }
 }

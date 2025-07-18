@@ -1,5 +1,11 @@
 import type { ContentLinkFull } from "~/types";
-import { ContentLinkPlatformEnum, FiatEnum } from "~/types/enums";
+import {
+  ContentLinkPlatformEnum,
+  FiatEnum,
+  IntegrationConfigType,
+  NotificationChannelEnum,
+  NotificationPreferenceType,
+} from "~/types/enums";
 
 export const useConstants = () => {
   const { t } = useI18n();
@@ -116,6 +122,22 @@ export const useConstants = () => {
       inputLabel: t("xUsername", { platform: "Kick" }),
       linkCreator: (v?: string) => `https://kick.com/${v}`,
     },
+    [ContentLinkPlatformEnum.KUNO]: {
+      name: "Kuno",
+      colorClassName: "text-[#FF6600]",
+      iconClassName: "",
+      icon: "i-icon-kuno",
+      inputLabel: t("kunoFundraiser"),
+      linkCreator: (v?: string) => `https://kuno.anne.media/fundraiser/${v}`,
+    },
+    [ContentLinkPlatformEnum.PEERTUBE]: {
+      name: "Peertube",
+      colorClassName: "",
+      iconClassName: "",
+      icon: "i-icon-peertube",
+      inputLabel: t("peertubeChannel"),
+      linkCreator: (v?: string) => `https://peertube.tv/c/${v}`,
+    },
   };
   const getContentLink = (v: ContentLinkPlatformEnum) => {
     return CONTENT_LINKS[v];
@@ -136,17 +158,101 @@ export const useConstants = () => {
       [FiatEnum.MXN]: {
         code: FiatEnum.MXN,
         name: "MXN",
-        symbol: "MEX$",
+        symbol: "MXN$",
       },
     };
   });
 
   const getFiat = (v: FiatEnum) => fiats.value[v];
 
+  const NOTIFICATION_CHANNELS = {
+    [NotificationChannelEnum.EMAIL]: {
+      name: "Email",
+      description: "Receive notifications via email",
+      icon: "i-heroicons-envelope",
+    },
+    [NotificationChannelEnum.SIMPLEX]: {
+      name: "Simplex",
+      description: "Receive notifications via Simplex",
+      icon: "i-icon-simplex",
+    },
+    [NotificationChannelEnum.SIGNAL]: {
+      name: "Signal",
+      description: "Receive notifications via Signal",
+      icon: "i-icon-signal",
+    },
+  };
+
+  const getNotificationChannel = (v: NotificationChannelEnum) => {
+    return NOTIFICATION_CHANNELS[v];
+  };
+
+  const NOTIFICATION_TYPES = {
+    [NotificationPreferenceType.NEW_TIP]: {
+      name: "New Tip",
+      description: "Receive notifications when a new tip is received",
+      icon: "i-heroicons-sparkles",
+    },
+    [NotificationPreferenceType.DAILY_SUMMARY]: {
+      name: "Daily Summary",
+      description: "Receive daily summary of your tips",
+      icon: "i-heroicons-sparkles",
+    },
+  };
+
+  const getNotificationType = (v: NotificationPreferenceType) => {
+    return NOTIFICATION_TYPES[v];
+  };
+
+  const INTEGRATION_CONFIG_TYPES: Record<
+    IntegrationConfigType,
+    {
+      name: string;
+      image?: string;
+      description?: string;
+      tags?: string[];
+      link?: { label?: string; url?: string };
+    }
+  > = {
+    [IntegrationConfigType.SIGNAL]: {
+      name: "Signal",
+      tags: [],
+      image: "i-icon-signal",
+      description: `Say "hello" to a different messaging experience. An unexpected focus on privacy, combined with all of the features you expect.`,
+      link: {
+        label: "signal.org",
+        url: "https://signal.org/",
+      },
+    },
+    [IntegrationConfigType.TELEGRAM]: {
+      name: "Telegram",
+    },
+    [IntegrationConfigType.SIMPLEX]: {
+      name: "SimpleX",
+      image: "i-icon-simplex",
+      description: "The first messenger without user IDs.",
+      tags: [],
+      link: {
+        label: "simplex.chat",
+        url: "https://simplex.chat/",
+      },
+    },
+  };
+
+  const getIntegrationConfigType = (v: IntegrationConfigType) => {
+    return INTEGRATION_CONFIG_TYPES[v];
+  };
+
   return {
     getContentLink,
     CONTENT_LINKS,
     fiats,
     getFiat,
+    NOTIFICATION_CHANNELS,
+    getNotificationChannel,
+    NOTIFICATION_TYPES,
+    getNotificationType,
+    INTEGRATION_CONFIG_TYPES,
+    getIntegrationConfigType,
   };
 };

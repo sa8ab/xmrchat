@@ -41,6 +41,10 @@ import { BullModule } from '@nestjs/bullmq';
 import { BullBoardModule } from '@bull-board/nestjs';
 import { ExpressAdapter } from '@bull-board/express';
 import expressBasicAuth from 'express-basic-auth';
+import { CakeModule } from './integrations/cake/cake.module';
+import { IntegrationsModule } from './integrations/integrations.module';
+import { NotificationPreferencesModule } from './notification-preferences/notification-preferences.module';
+import { CaslModule } from './casl/casl.module';
 
 @Module({
   imports: [
@@ -150,12 +154,16 @@ import expressBasicAuth from 'express-basic-auth';
     PageSettingsModule,
     LinksModule,
     TwitchModule,
+    CakeModule,
     SwapsModule,
     TrocadorModule,
     AuditsModule,
     CommanderModule,
     AdminModule,
     TipMessageModule,
+    IntegrationsModule,
+    NotificationPreferencesModule,
+    CaslModule,
   ],
   controllers: [AppController],
   providers: [AppService],

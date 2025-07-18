@@ -354,7 +354,7 @@ const handleBannerUpload = (file: UploadedFile) => {
             @blur="getValidationAttrs('secretViewKey').onBlur"
           />
           <template #help>
-            <I18nT keypath="weNeedSecretViewKey">
+            <I18nT keypath="weNeedSecretViewKey" scope="global">
               <template #whereToFind>
                 <UButton
                   variant="link"

@@ -29,6 +29,9 @@ export class User {
   })
   roles: RolesEnum[];
 
+  @Column({ type: 'boolean', default: false })
+  isPremium: boolean;
+
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 

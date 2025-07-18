@@ -24,5 +24,28 @@
     "emailTitle": "Heslo aktualizováno",
     "passwordUpdated": "Heslo vašeho účtu bylo změněno.",
     "ifItWasNotYou": "Pokud jste to nebyli vy, přihlaste se a obnovte své heslo."
+  },
+  "newTip": {
+    "subject": "Obdrželi jste spropitné na XMRChat",
+    "title": "Nové spropitné obdrženo",
+    "emailTitle": "Obdrželi jste spropitné!",
+    "youReceivedATip": "Obdrželi jste spropitné!",
+    "from": "Od",
+    "amount": "Částka",
+    "message": "Zpráva",
+    "thankYouForYourContent": "Děkujeme za váš skvělý obsah! Pokračujte v úžasné práci.",
+    "visitXMRChat": "Navštívit XMRChat"
+  },
+  "dailySummary": {
+    "subject": "Váš Denní Souhrn - XMRChat",
+    "title": "Váš Denní Souhrn",
+    "emailTitle": "Váš Denní Souhrn",
+    "yourDailySummary": "Váš Denní Souhrn",
+    "totalReceived": "Celkem Obdrženo",
+    "last24Hours": "Posledních 24 hodin",
+    "tipsReceived": "Obdržená Spropitná",
+    "noTipsReceived": "Žádné spropitné nebylo obdrženo za posledních 24 hodin",
+    "thankYouForYourContent": "Děkujeme za váš skvělý obsah! Pokračujte v úžasné práci.",
+    "visitXMRChat": "Navštívit XMRChat"
   }
 }

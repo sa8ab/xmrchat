@@ -3,12 +3,18 @@ import { AppService } from './app.service';
 import { IsPublic } from './shared/decorators/is-public.decorator';
 import { NotificationsService } from './notifications/notifications.service';
 import { TipsService } from './tips/tips.service';
+import { SimplexService } from './integrations/simplex/simplex.service';
+import { SignalService } from './integrations/signal/signal.service';
+import { NotificationDispatcherService } from './notifications/notification-dispatcher.service';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
     private notificationsService: NotificationsService,
+    private simplexService: SimplexService,
+    private signalService: SignalService,
+    private notificationDispatcherService: NotificationDispatcherService,
   ) {}
 
   @Get()
@@ -24,5 +30,9 @@ export class AppController {
 
   @IsPublic()
   @Get('/test')
-  async test() {}
+  async test() {
+    // return this.signalService.sendTestMessage();
+    // return this.notificationDispatcherService.notifyNewTip(1, 271);
+    return this.signalService.generateQrCode();
+  }
 }

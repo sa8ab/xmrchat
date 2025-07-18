@@ -18,5 +18,8 @@ export class UserDto {
   isEmailVerified: boolean;
 
   @Expose()
+  isPremium: boolean;
+
+  @Expose()
   roles: RolesEnum[];
 }

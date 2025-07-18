@@ -83,6 +83,32 @@ services:
           - ${MINIO_ALIAS:-minio}
       custom-net:
 
+
+  signal-cli:
+    image: bbernhard/signal-cli-rest-api
+    ports:
+      - ':8080'
+    restart: unless-stopped
+    volumes:
+      - ./signal-cli:/home/.local/share/signal-cli
+    environment:
+      - MODE=native
+    networks:
+      custom-net:
+
+
+  simplex:
+    build:
+      context: ./docker/simplex
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - ':5225'
+    volumes:
+      - ./simplex:/root/.simplex
+    networks:
+      custom-net:
+
   nest:
     build: .
     restart: unless-stopped
@@ -92,6 +118,7 @@ services:
       - postgres
       - redis
       - minio
+      - simplex
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik

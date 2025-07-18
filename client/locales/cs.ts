@@ -22,6 +22,8 @@ export default {
   email: "E-mail",
   search: "Hledat",
   password: "Heslo",
+  confirm: "Potvrdit",
+  reconnect: "Znovu připojit",
   confirmPassword: "Potvrďte heslo",
   signupInstead: "Zaregistrovat se místo toho",
   signupFailed: "Registrace selhala",
@@ -50,6 +52,8 @@ export default {
   typePageName: "Zadejte název stránky...",
   contactUs: "Kontaktujte nás",
   here: "zde",
+  backToHome: "Zpět na domovskou stránku",
+  somethingWentWrong: "Něco se pokazilo!",
 
   xmrchat: "XMRChat",
   heroDescription: "Podpořte svého oblíbeného streamera kryptoměnou.",
@@ -189,6 +193,7 @@ export default {
   followUsOnTwitter: "Sledujte nás na Twitteru",
   twitter: "Twitter",
 
+  // CREATE PAGE
   createPage: "Vytvořit stránku",
   getStartedCreatingPage: "Začněte vytvořením své streamer stránky",
   home: "Domů",
@@ -232,6 +237,11 @@ export default {
   never: "Nikdy",
   xDays: "{count} den | {count} dnů",
   xMonths: "{count} měsíc | {count} měsíců",
+  paymentIsExpired:
+    "Platba vypršela. Pokud jste již platbu provedli, kontaktujte podporu.",
+  pageReservationExpired: "Rezervace stránky vypršela.",
+  paymentCheckingDis: "Ověřování platby bylo přerušeno.",
+  ifPaymentMade: "Pokud již byla platba provedena, zobrazí se v seznamu tipů.",
 
   // STREAMER MENU
   menu: "Menu",
