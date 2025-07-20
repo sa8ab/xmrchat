@@ -154,7 +154,7 @@ export default {
   tipName: "نام انعام",
   tipAmount: "مبلغ انعام",
   tipMessage: "پیام انعام",
-  tipPrivate: "نعام خصوصی و محرمانه",
+  tipPrivate: "انعام خصوصی و محرمانه",
   tipDate: "تاریخ انعام ",
   tipUpdated: "انعام به‌روزرسانی شد!",
   tipPrivateTooltip: "نام و پیام فقط برای استریمر قابل مشاهده خواهد بود.",
