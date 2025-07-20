@@ -5,6 +5,8 @@ import { Coin } from './coin.entity';
 import { Repository } from 'typeorm';
 import { InitSwapData, TrocadorRate, TrocadorTrade } from 'src/shared/types';
 import { ConfigService } from '@nestjs/config';
+import { CronExpression } from '@nestjs/schedule';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class TrocadorService {
@@ -26,6 +28,7 @@ export class TrocadorService {
     }
   }
 
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   async getAndSaveCoins() {
     const coins = await this.getCoinsApi();
 
