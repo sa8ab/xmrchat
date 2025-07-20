@@ -14,7 +14,7 @@ import {
 } from 'src/shared/constants';
 
 @Entity('integration_configs')
-@Unique('unique-page-and-type', ['page.id', 'type'])
+@Unique('unique-page-and-type-and-method', ['page.id', 'type', 'method'])
 export class IntegrationConfig {
   @PrimaryGeneratedColumn()
   id: number;
