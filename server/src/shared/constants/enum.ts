@@ -101,6 +101,10 @@ export enum IntegrationConfigType {
   SIMPLEX = 'simplex',
 }
 
+export enum IntegrationConfigMethod {
+  CODE = 'code',
+}
+
 export enum NotificationPreferenceType {
   NEW_TIP = 'new_tip',
   DAILY_SUMMARY = 'daily_summary',
