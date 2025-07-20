@@ -29,10 +29,11 @@ export class UsersService {
   async createUser(user: CreateUserDto) {
     const passwordResult = createFinalPassword(user.password);
 
-    const createdUser = await this.repo.create({
+    const createdUser = this.repo.create({
       username: user.email,
       email: user.email,
       password: passwordResult,
+      language: user.language,
     });
 
     return this.repo.save(createdUser);

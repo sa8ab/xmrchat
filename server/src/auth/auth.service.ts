@@ -13,7 +13,7 @@ import { RolesEnum, UserTokenType } from 'src/shared/constants/enum';
 import { UserTokensService } from './user-tokens/user-tokens.service';
 import { User } from 'src/users/user.entity';
 import { UpdatePasswordDto } from './dtos/update-password.dto';
-import { I18nService } from 'nestjs-i18n';
+import { I18nContext, I18nService } from 'nestjs-i18n';
 
 @Injectable()
 export class AuthService {
@@ -33,7 +33,12 @@ export class AuthService {
     if (current)
       throw new BadRequestException(this.i18n.t('error.userAlreadyExists'));
 
-    const user = await this.usersService.createUser(authDto);
+    const locale = I18nContext.current().lang;
+
+    const user = await this.usersService.createUser({
+      ...authDto,
+      language: locale,
+    });
 
     if (!user)
       throw new BadRequestException(this.i18n.t('error.userCouldNotBeCreated'));
