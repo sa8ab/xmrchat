@@ -30,12 +30,6 @@ export class AuthController {
     private pagesService: PagesService,
   ) {}
 
-  @IsPublic()
-  @Get('/test')
-  test(@Request() req) {
-    return {};
-  }
-
   @Throttle({ default: { ttl: seconds(1), limit: 2 } })
   @IsPublic()
   @Post('/signup')
