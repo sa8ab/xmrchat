@@ -28,6 +28,7 @@ export interface User {
   id: string;
   roles: RolesEnum[];
   isPremium: boolean;
+  language?: string;
 }
 
 export interface CreateFormFields {
