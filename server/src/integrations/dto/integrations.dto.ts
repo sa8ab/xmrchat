@@ -1,5 +1,8 @@
 import { Expose, Type } from 'class-transformer';
-import { IntegrationConfigType } from 'src/shared/constants';
+import {
+  IntegrationConfigMethod,
+  IntegrationConfigType,
+} from 'src/shared/constants';
 
 export class IntegrationConfigDto {
   @Expose()
@@ -7,6 +10,9 @@ export class IntegrationConfigDto {
 
   @Expose()
   config: any;
+
+  @Expose()
+  method: IntegrationConfigMethod;
 
   @Expose()
   verified: boolean;
