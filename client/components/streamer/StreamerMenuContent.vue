@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const authStore = useAuthStore();
 const { state, logout } = authStore;
-const { isAdmin } = storeToRefs(authStore);
+const { isAdmin, isPremium } = storeToRefs(authStore);
 const { t } = useI18n();
 
 const page = computed(() => state.page);
@@ -66,16 +66,28 @@ const items = computed(() => {
           icon: "i-heroicons-banknotes",
           to: toStreamer(page.value.path),
         },
-        // {
-        //   label: "Notifications",
-        //   icon: "i-heroicons-bell",
-        //   to: toStreamerNotificationPreferences(),
-        // },
-        // {
-        //   label: "Integrations",
-        //   icon: "i-tabler-plug",
-        //   to: toStreamerIntegrations(),
-        // },
+      ]
+    );
+
+    if (isPremium.value || isAdmin.value) {
+      res.push(
+        ...[
+          {
+            label: "Notifications",
+            icon: "i-heroicons-bell",
+            to: toStreamerNotificationPreferences(),
+          },
+          {
+            label: "Integrations",
+            icon: "i-tabler-plug",
+            to: toStreamerIntegrations(),
+          },
+        ]
+      );
+    }
+
+    res.push(
+      ...[
         {
           label: t("contentLinks"),
           icon: "i-heroicons-link-20-solid",
