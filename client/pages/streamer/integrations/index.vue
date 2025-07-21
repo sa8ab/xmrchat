@@ -31,16 +31,8 @@ const {
   { server: false }
 );
 
-const simplexConfig = computed(() => {
-  return integrations.value?.integrations.find(
-    (i) => i.type === IntegrationConfigType.SIMPLEX
-  );
-});
-
-const signalConfig = computed(() => {
-  return integrations.value?.integrations.find(
-    (i) => i.type === IntegrationConfigType.SIGNAL
-  );
+const { simplex: simplexConfig, signal: signalConfig } = useIntegrations({
+  integrations: computed(() => integrations.value?.integrations),
 });
 const v = useVuelidate<any>({}, state);
 
