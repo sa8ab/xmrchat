@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import useVuelidate from "@vuelidate/core";
-import type { NotificationPreference, Numberic } from "~/types";
+import type {
+  IntegrationConfig,
+  NotificationPreference,
+  Numberic,
+} from "~/types";
 import {
   NotificationChannelEnum,
   NotificationPreferenceType,
@@ -65,13 +69,17 @@ const convertLocalToUTC = (localTime?: string): string => {
   return localDateTime.utc().format("HH:mm");
 };
 
-const { error } = await useLazyAsyncData(
+const { error, data: integrations } = await useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{
       preferences: NotificationPreference[];
       minNotificationThreshold: number;
       dailySummaryTime: string;
     }>(`/notification-preferences`);
+
+    const { data: integrationsData } = await axios.get<{
+      integrations: IntegrationConfig[];
+    }>("/integrations");
 
     state.form.email = getObjectPereferences(
       NotificationChannelEnum.EMAIL,
@@ -90,9 +98,14 @@ const { error } = await useLazyAsyncData(
 
     state.minNotificationThreshold = data.minNotificationThreshold;
     state.dailySummaryTime = convertUTCToLocal(data.dailySummaryTime);
+    return integrationsData.integrations;
   },
   { server: false }
 );
+
+const { simplex: simplexConfig, signal: signalConfig } = useIntegrations({
+  integrations: computed(() => integrations.value),
+});
 
 const handleSave = async () => {
   const convertedPreferences = Object.entries(state.form)
@@ -189,16 +202,19 @@ const isPremium = computed(
         <NotificationPreferenceContainer
           :channel="NotificationChannelEnum.EMAIL"
           v-model="state.form.email"
-          v-model:daily-summary-time="state.dailySummaryTime"
+          v-model:dailySummaryTime="state.dailySummaryTime"
+          configVerified
         >
         </NotificationPreferenceContainer>
         <NotificationPreferenceContainer
           :channel="NotificationChannelEnum.SIMPLEX"
           v-model="state.form.simplex"
+          :configVerified="simplexConfig?.verified"
         ></NotificationPreferenceContainer>
         <NotificationPreferenceContainer
           :channel="NotificationChannelEnum.SIGNAL"
           v-model="state.form.signal"
+          :configVerified="signalConfig?.verified"
         >
         </NotificationPreferenceContainer>
       </div>

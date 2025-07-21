@@ -2,7 +2,7 @@ import type { IntegrationConfig } from "~/types";
 import { IntegrationConfigType } from "~/types/enums";
 
 interface Params {
-  integrations?: MaybeRef<IntegrationConfig[] | undefined>;
+  integrations?: MaybeRef<IntegrationConfig[] | undefined | null>;
 }
 
 export const useIntegrations = (params: Params) => {

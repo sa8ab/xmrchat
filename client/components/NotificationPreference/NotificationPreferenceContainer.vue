@@ -6,11 +6,14 @@ import {
 
 const props = defineProps<{
   channel: NotificationChannelEnum;
+  configVerified?: boolean;
 }>();
 
 const model = defineModel<{ [key in NotificationPreferenceType]?: boolean }>({
   default: () => ({}),
 });
+
+const { toStreamerIntegrations } = useRouteLocation();
 
 const dailySummaryModel = defineModel<string>("dailySummaryTime");
 
@@ -20,6 +23,8 @@ const channel = computed(() => getNotificationChannel(props.channel));
 const showDailySummaryTime = computed(
   () => props.channel === NotificationChannelEnum.EMAIL
 );
+
+const isVerified = computed(() => props.configVerified);
 </script>
 
 <template>
@@ -30,7 +35,9 @@ const showDailySummaryTime = computed(
           <UIcon :name="channel.icon" size="40px" />
         </div>
         <div class="grid">
-          <h3 class="text-lg font-bold">{{ channel.name }}</h3>
+          <h3 class="text-lg font-bold">
+            {{ channel.name }} {{ isVerified ? `` : `( Not connected )` }}
+          </h3>
           <p class="text-xs text-pale">
             {{ channel.description }}
           </p>
@@ -39,6 +46,22 @@ const showDailySummaryTime = computed(
     </template>
 
     <div class="grid gap-4">
+      <UAlert v-if="!isVerified" color="orange" variant="soft">
+        <template #description>
+          <p>
+            This channel is not connected to your account. Please connect it
+            from
+            <UButton
+              variant="link"
+              :padded="false"
+              class="underline"
+              :to="toStreamerIntegrations()"
+            >
+              integrations page
+            </UButton>
+          </p>
+        </template>
+      </UAlert>
       <div class="grid grid-cols-[auto_1fr_auto] gap-2 items-center">
         <div>
           <UIcon
