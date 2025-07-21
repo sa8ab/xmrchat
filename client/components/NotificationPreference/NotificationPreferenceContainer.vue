@@ -59,6 +59,7 @@ const isVerified = computed(() => props.configVerified);
             >
               integrations page
             </UButton>
+            .
           </p>
         </template>
       </UAlert>
@@ -81,7 +82,10 @@ const isVerified = computed(() => props.configVerified);
           </p>
         </div>
         <div>
-          <UToggle v-model="model[NotificationPreferenceType.NEW_TIP]" />
+          <UToggle
+            v-model="model[NotificationPreferenceType.NEW_TIP]"
+            :disabled="!isVerified"
+          />
         </div>
       </div>
       <div

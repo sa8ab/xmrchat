@@ -6,10 +6,10 @@ interface Params {
 }
 
 export const useIntegrations = (params: Params) => {
-  const integrations = unref(params.integrations);
-
-  const getIntegration = (type: IntegrationConfigType, method: string) =>
-    integrations?.find((i) => i.type === type && i.method === method);
+  const getIntegration = (type: IntegrationConfigType, method: string) => {
+    const integrations = unref(params.integrations);
+    return integrations?.find((i) => i.type === type && i.method === method);
+  };
 
   const simplex = computed(() =>
     getIntegration(IntegrationConfigType.SIMPLEX, "code")
