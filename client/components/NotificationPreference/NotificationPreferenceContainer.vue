@@ -49,17 +49,16 @@ const isVerified = computed(() => props.configVerified);
       <UAlert v-if="!isVerified" color="orange" variant="soft">
         <template #description>
           <p>
-            This channel is not connected to your account. Please connect it
-            from
+            Connect in
             <UButton
               variant="link"
               :padded="false"
               class="underline"
               :to="toStreamerIntegrations()"
             >
-              integrations page
+              Integrations
             </UButton>
-            .
+            to enable.
           </p>
         </template>
       </UAlert>

@@ -172,8 +172,8 @@ export const useConstants = () => {
       icon: "i-heroicons-envelope",
     },
     [NotificationChannelEnum.SIMPLEX]: {
-      name: "Simplex",
-      description: "Receive notifications via Simplex",
+      name: "SimpleX",
+      description: "Receive notifications via SimpleX",
       icon: "i-icon-simplex",
     },
     [NotificationChannelEnum.SIGNAL]: {
