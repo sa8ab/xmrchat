@@ -58,7 +58,7 @@ watch(
     </template>
     <slot />
     <div class="w-full flex flex-col gap-2 pt-4">
-      <p class="text-red-500 text-center" v-if="true">
+      <p class="text-red-500 text-center" v-if="expired">
         {{ translatedExpiredMessage }}
       </p>
       <template v-else>
