@@ -34,9 +34,6 @@ const {
 const { simplex: simplexConfig, signal: signalConfig } = useIntegrations({
   integrations: computed(() => integrations.value?.integrations),
 });
-const v = useVuelidate<any>({}, state);
-
-const { getValidationAttrs } = useValidations(v);
 </script>
 
 <template>
