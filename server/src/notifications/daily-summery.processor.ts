@@ -71,7 +71,7 @@ export class DailySummaryProcessor extends WorkerHost {
 
     const tipsAboveThreshold = tips.filter(({ payment }) => {
       const paidAmount = MoneroUtils.atomicUnitsToXmr(payment.paidAmount);
-      return paidAmount > minThresholdXmr;
+      return paidAmount >= minThresholdXmr;
     });
 
     if (!tipsAboveThreshold.length) return;
