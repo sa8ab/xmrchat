@@ -92,6 +92,7 @@ export class NotificationDispatcherService {
       (p) => p.type === NotificationPreferenceType.NEW_TIP,
     )) {
       if (!meetsThreshold) continue;
+      if (!preference.enabled) continue;
 
       if (preference.channel === NotificationChannelEnum.EMAIL) {
         await this.notifyNewTipEmail(tip, page);
