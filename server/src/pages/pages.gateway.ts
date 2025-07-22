@@ -45,6 +45,9 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     this.logger.log(`Client ${client.id} connected to page - Slug: ${slug}`);
 
+    // This is used to trigger the connection recovery
+    client.emit('dummyEvent');
+
     await client.join(`page-${slug}`);
   }
 
