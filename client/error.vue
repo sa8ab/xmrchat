@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NuxtError } from "#app";
+const localeRoute = useLocaleRoute();
 
 const props = defineProps({
   error: Object as () => NuxtError,
@@ -25,12 +26,12 @@ defineOgImage(false);
         >
           {{ error?.message }}
         </h1>
-        <NuxtLink
-          to="/"
-          class="btn text-primary text-lg sm:text-xl mt-8 sm:mt-10"
+        <UButton
+          :to="localeRoute('/')"
+          class="text-lg sm:text-xl mt-8 sm:mt-10"
         >
-          <span class="box">Go Home</span>
-        </NuxtLink>
+          <span>Go Home</span>
+        </UButton>
       </div>
 
       <div>
