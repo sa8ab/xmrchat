@@ -2,17 +2,6 @@ name: Deploy to Production
 
 on:
   workflow_dispatch:
-    inputs:
-      build_client:
-        description: "Build and deploy client"
-        type: boolean
-        default: true
-        required: true
-      build_server:
-        description: "Build and deploy server"
-        type: boolean
-        default: true
-        required: true
 
 jobs:
   build-and-deploy:
@@ -27,7 +16,6 @@ jobs:
 
       # Build client image
       - name: Build client image
-        if: ${{ inputs.build_client }}
         uses: docker/build-push-action@v4
         with:
           context: ./client
@@ -39,7 +27,6 @@ jobs:
 
       # Build server image
       - name: Build server image
-        if: ${{ inputs.build_server }}
         uses: docker/build-push-action@v4
         with:
           context: ./server
@@ -57,10 +44,9 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           source: |
-            ${{ inputs.build_client && 'client/client-image.tar' || '' }}
-            ${{ inputs.build_server && 'server/server-image.tar' || '' }}
+            client/client-image.tar
+            server/server-image.tar
           target: "/tmp"
-          strip_components: 0
 
       - name: Execute remote commands
         uses: appleboy/ssh-action@v0.1.4
@@ -72,16 +58,12 @@ jobs:
             #!/bin/bash
             set -e
 
-            if [ "${{ inputs.build_client }}" = "true" ]; then
-              echo "Loading and deploying client..."
-              docker load < /tmp/client-image.tar
-              cd /directory/xmrchat-dev/client
-              docker-compose up -d
-            fi
+            echo "Loading and deploying client..."
+            docker load < /tmp/client-image.tar
+            cd /projnew/xmrchat-dev/client
+            docker-compose up -d
 
-            if [ "${{ inputs.build_server }}" = "true" ]; then
-              echo "Loading and deploying server..."
-              docker load < /tmp/server-image.tar
-              cd /directory/xmrchat-dev/server
-              docker-compose up -d
-            fi
+            echo "Loading and deploying server..."
+            docker load < /tmp/server-image.tar
+            cd /projnew/xmrchat-dev/server
+            docker-compose up -d
