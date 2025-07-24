@@ -45,6 +45,7 @@ import { CakeModule } from './integrations/cake/cake.module';
 import { IntegrationsModule } from './integrations/integrations.module';
 import { NotificationPreferencesModule } from './notification-preferences/notification-preferences.module';
 import { CaslModule } from './casl/casl.module';
+import { TestModule } from './test/test.module';
 
 @Module({
   imports: [
@@ -164,6 +165,7 @@ import { CaslModule } from './casl/casl.module';
     IntegrationsModule,
     NotificationPreferencesModule,
     CaslModule,
+    TestModule,
   ],
   controllers: [AppController],
   providers: [AppService],
