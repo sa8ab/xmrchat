@@ -68,9 +68,9 @@ jobs:
             echo "Loading and deploying nuxt..."
             docker load < /tmp/xmrchat-nuxt-dev.tar
             cd /projnew/xmrchat-dev/client
-            docker-compose up -d
+            docker compose -f docker-compose.yml -f docker-compose.action.dev.yml up -d
 
             echo "Loading and deploying nest..."
             docker load < /tmp/xmrchat-nest-dev.tar
             cd /projnew/xmrchat-dev/server
-            docker-compose up -d
+            docker compose -f docker-compose.yml -f docker-compose.action.dev.yml up -d
