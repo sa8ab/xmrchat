@@ -33,7 +33,9 @@ export class TestService implements OnModuleInit {
       email: 'test@test.com',
       password: 'password',
       language: 'en',
+      isEmailVerified: true,
     });
+
     return user;
   }
 }
