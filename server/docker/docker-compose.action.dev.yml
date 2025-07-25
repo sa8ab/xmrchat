@@ -1,3 +1,0 @@
-services:
-  nest:
-    image: xmrchat-nest-dev:latest

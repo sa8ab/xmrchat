@@ -1,3 +1,0 @@
-services:
-  nuxt:
-    image: xmrchat-nuxt-dev:latest
