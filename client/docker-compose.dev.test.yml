@@ -9,5 +9,5 @@ services:
     volumes:
       - .:/app
     command: ['npx', 'playwright', 'test']
-    environment:
-      - TEST_BASE_URL: ${TEST_BASE_URL}
+    env_file:
+      - .env
