@@ -1,0 +1,76 @@
+name: Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build client image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./client
+          load: true
+          tags: xmrchat-nuxt-dev-test:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build server image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./server
+          load: true
+          tags: xmrchat-nest-dev-test:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Save docker images
+        run: |
+          docker save -o xmrchat-nuxt-dev-test.tar xmrchat-nuxt-dev-test:latest
+          docker save -o xmrchat-nest-dev-test.tar xmrchat-nest-dev-test:latest
+
+      - name: Send nuxt image
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          source: xmrchat-nuxt-dev-test.tar
+          target: /tmp
+
+      - name: Send nest image
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          source: xmrchat-nest-dev-test.tar
+          target: /tmp
+
+      - name: Load and run docker
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            #!/bin/bash
+            set -e
+
+            echo "Loading and deploying nuxt..."
+            docker load < /tmp/xmrchat-nuxt-dev-test.tar
+            cd /projnew/xmrchat-test/client
+            docker compose -f docker-compose.yml -f docker-compose.dev.test.yml up -d
+
+            echo "Loading and deploying nest..."
+            docker load < /tmp/xmrchat-nest-dev-test.tar
+            cd /projnew/xmrchat-test/server
+            docker compose -f docker-compose.yml -f docker/docker-compose.dev.test.yml up -d
