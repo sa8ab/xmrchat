@@ -1,3 +1,13 @@
 services:
   nuxt:
     image: xmrchat-nuxt-dev-test:latest
+  
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.50.0-noble
+    depends_on:
+      - nuxt
+    volumes:
+      - .:/app
+    command: ['npx', 'playwright', 'test']
+    environment:
+      - TEST_BASE_URL: ${TEST_BASE_URL}
