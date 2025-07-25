@@ -3,11 +3,10 @@ services:
     image: xmrchat-nuxt-dev-test:latest
   
   playwright:
-    image: mcr.microsoft.com/playwright:v1.50.0-noble
+    build:
+      context: .
+      dockerfile: Dockerfile.playwright
     depends_on:
       - nuxt
-    volumes:
-      - .:/app
-    command: ['npx', 'playwright', 'test']
     env_file:
       - .env
