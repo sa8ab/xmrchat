@@ -8,6 +8,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.playwright
+    volumes:
+      - ./test-results:/app/test-results
     depends_on:
       - nuxt
     env_file:
