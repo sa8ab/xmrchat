@@ -71,7 +71,8 @@ jobs:
             docker compose -f docker-compose.yml -f docker/docker-compose.dev.test.yml up -d
 
             cd /projnew/xmrchat-test/client
-            docker compose -f docker-compose.yml -f docker-compose.dev.test.yml up --build --abort-on-container-exit --exit-code-from playwright
+            docker compose -f docker-compose.yml -f docker-compose.dev.test.yml build playwright
+            docker compose -f docker-compose.yml -f docker-compose.dev.test.yml up --abort-on-container-exit --exit-code-from playwright
 
             cd /projnew/xmrchat-test/server
             docker compose down --volumes
