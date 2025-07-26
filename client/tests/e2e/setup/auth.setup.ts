@@ -19,7 +19,7 @@ setup("authenticate", async ({ page }) => {
   const loginButton = page.getByRole("button", { name: "Login" });
   await loginButton.click();
 
-  await page.waitForURL("/streamer", { waitUntil: "commit" });
+  await page.waitForURL("/streamerx", { waitUntil: "commit" });
 
   await page.context().storageState({ path: authFile });
 });
