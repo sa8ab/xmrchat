@@ -1,9 +1,4 @@
 services:
-  nuxt:
-    image: xmrchat-nuxt-dev-test:latest
-    networks:
-      - custom-net
-
   playwright:
     build:
       context: .
