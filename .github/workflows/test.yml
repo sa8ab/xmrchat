@@ -28,4 +28,6 @@ jobs:
             docker compose -f server/docker-compose.yml up --build -d
             docker compose -f client/docker-compose.yml up --build -d
 
+            docker compose -f server/docker-compose.yml exec -it nest npm run migration:run
+
             docker compose -f client/docker-compose.playwright.yml up --build --abort-on-container-exit --exit-code-from playwright
