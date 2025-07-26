@@ -22,8 +22,8 @@ jobs:
             set -e
 
             cd /projnew/xmrchat-test
-            git checkout ${{ ${GITHUB_REF##*/} }}
-            git pull origin ${{ ${GITHUB_REF##*/} }}
+            git checkout ${{ github.ref_name }}
+            git pull origin ${{ github.ref_name }}
 
             docker compose -f server/docker-compose.yml up --build -d
             docker compose -f client/docker-compose.yml up --build -d
