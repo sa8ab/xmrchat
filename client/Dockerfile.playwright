@@ -9,6 +9,6 @@ RUN npm install
 # Copy the entire project
 COPY . .
 # Install Playwright browsers (chromium, firefox, webkit)
-RUN npx playwright install
+RUN npx playwright install --with-deps chromium
 # Default command to run tests
 CMD ["npx", "playwright", "test"]
