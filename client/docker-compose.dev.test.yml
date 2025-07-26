@@ -1,7 +1,9 @@
 services:
   nuxt:
     image: xmrchat-nuxt-dev-test:latest
-  
+    networks:
+      - custom-net
+
   playwright:
     build:
       context: .
@@ -10,3 +12,6 @@ services:
       - nuxt
     env_file:
       - .env
+    networks:
+      - custom-net
+
