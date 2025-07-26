@@ -128,8 +128,8 @@ export const useConstants = () => {
       iconClassName: "",
       icon: "i-icon-kuno",
       inputLabel: t("kunoFundraiser"),
-      linkCreator: (v?: string) => `https://kuno.anne.media/fundraiser/${v}`,
-    },
+      linkCreator: (v?: string) => `https://kuno.anne.media/${v}`,
+    },  
     [ContentLinkPlatformEnum.PEERTUBE]: {
       name: "Peertube",
       colorClassName: "",
@@ -172,13 +172,13 @@ export const useConstants = () => {
       icon: "i-heroicons-envelope",
     },
     [NotificationChannelEnum.SIMPLEX]: {
-      name: "SimpleX",
-      description: "Receive notifications via SimpleX",
+      name: "Simplex",
+      description: "Receive notifications via Simplex",
       icon: "i-icon-simplex",
     },
-    [NotificationChannelEnum.SIGNAL]: {
-      name: "Signal",
-      description: "Receive notifications via Signal",
+    [NotificationChannelEnum.SINGAL]: {
+      name: "Singal",
+      description: "Receive notifications via Singal",
       icon: "i-icon-signal",
     },
   };
@@ -214,8 +214,8 @@ export const useConstants = () => {
       link?: { label?: string; url?: string };
     }
   > = {
-    [IntegrationConfigType.SIGNAL]: {
-      name: "Signal",
+    [IntegrationConfigType.SINGAL]: {
+      name: "Singal",
       tags: [],
       image: "i-icon-signal",
       description: `Say "hello" to a different messaging experience. An unexpected focus on privacy, combined with all of the features you expect.`,
@@ -228,7 +228,7 @@ export const useConstants = () => {
       name: "Telegram",
     },
     [IntegrationConfigType.SIMPLEX]: {
-      name: "SimpleX",
+      name: "Simplex",
       image: "i-icon-simplex",
       description: "The first messenger without user IDs.",
       tags: [],
