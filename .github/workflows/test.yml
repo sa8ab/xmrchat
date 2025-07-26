@@ -66,6 +66,7 @@ jobs:
             set -e
             # docker load < /tmp/xmrchat-nuxt-dev-test.tar
             # docker load < /tmp/xmrchat-nest-dev-test.tar
+            echo "CI: $CI"
 
             cd /projnew/xmrchat-test/server
             docker compose -f docker-compose.yml -f docker/docker-compose.dev.test.yml up -d
