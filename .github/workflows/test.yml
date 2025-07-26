@@ -22,6 +22,7 @@ jobs:
             set -e
 
             cd /projnew/xmrchat-test
+            git fetch origin ${{ github.ref_name }}
             git checkout ${{ github.ref_name }}
             git pull origin ${{ github.ref_name }}
 
