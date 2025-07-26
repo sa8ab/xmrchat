@@ -14,6 +14,5 @@ services:
       - nuxt
     env_file:
       - .env
-    networks:
-      - custom-net
+    network_mode: host
 
