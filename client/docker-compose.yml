@@ -21,4 +21,3 @@ networks:
   traefik:
     name: traefik
     external: true
-  custom-net:
