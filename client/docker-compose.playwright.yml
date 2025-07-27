@@ -1,0 +1,11 @@
+services:
+  playwright:
+    build:
+      context: .
+      dockerfile: Dockerfile.playwright
+    volumes:
+      - ./test-results:/app/test-results
+    env_file:
+      - .env
+    network_mode: host
+

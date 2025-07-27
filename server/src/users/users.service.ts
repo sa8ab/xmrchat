@@ -34,6 +34,7 @@ export class UsersService {
       email: user.email,
       password: passwordResult,
       language: user.language,
+      isEmailVerified: user.isEmailVerified,
     });
 
     return this.repo.save(createdUser);

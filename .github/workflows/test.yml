@@ -1,0 +1,34 @@
+name: Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Load and run docker
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            #!/bin/bash
+            set -e
+
+            cd /projnew/xmrchat-test
+            git fetch origin ${{ github.ref_name }}
+            git checkout ${{ github.ref_name }}
+            git pull origin ${{ github.ref_name }}
+
+            docker compose -f server/docker-compose.yml up --build -d
+            docker compose -f client/docker-compose.yml up --build -d
+
+            docker compose -f server/docker-compose.yml exec -it nest npm run migration:run
+
+            docker compose -f client/docker-compose.playwright.yml up --build --abort-on-container-exit --exit-code-from playwright

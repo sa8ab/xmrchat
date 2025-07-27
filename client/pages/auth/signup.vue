@@ -12,7 +12,15 @@ const { toLogin } = useRouteLocation();
 const toast = useToast();
 const { t } = useI18n();
 
-const state = reactive({
+interface State {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  passwordVisible: boolean;
+  loading: boolean;
+  errorMessage?: string;
+}
+const state: State = reactive({
   email: "",
   password: "",
   confirmPassword: "",
