@@ -38,6 +38,7 @@ test("Create page", async ({ page }) => {
 
   const moneroPrimaryInput = page.getByLabel("Monero primary");
   await moneroPrimaryInput.fill(
+    // Temporary monero address. Do not use.
     "45RVXPBdpGd91GMityvhXVCLs2RM1YQxcheCmvvSDuggZNauJVj7UPaC2qD4ubkNBcRxxoPe2VvEJ5Uuzrp8Hd4NEVdfEzJ"
   );
 
