@@ -129,8 +129,6 @@ services:
       - traefik.http.services.${TRAEFIK_NEST_ROUTER_NAME:-xmrchatnest}.loadbalancer.server.port=3000
     volumes:
       - ./logs:/home/node/app/logs
-    env_file:
-      - .env
 
     networks:
       traefik:
