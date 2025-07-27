@@ -205,6 +205,7 @@ const { getValidationAttrs } = useValidations(v);
         >
           <UInput
             v-model="state.form.number"
+            placeholder="+15551234567 or MyUsername123"
             @blur="getValidationAttrs('number').onBlur"
           />
         </UFormGroup>

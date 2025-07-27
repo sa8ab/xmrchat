@@ -119,8 +119,8 @@ const waitingVerification = computed(() => {
 });
 
 const renderInfo = computed(() => {
-  if (isConnected.value) return "Connected";
-  if (waitingVerification.value) return "Waiting for verification";
+  if (isConnected.value) return "Connected.";
+  if (waitingVerification.value) return "Waiting for verification.";
   return "Not connected.";
 });
 
