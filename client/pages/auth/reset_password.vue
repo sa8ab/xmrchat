@@ -17,7 +17,7 @@ interface State {
   errorMessage?: string;
 }
 
-useHead({ title: "Login" });
+useHead({ title: "Reset Password" });
 
 const state: State = reactive({
   password: "",
