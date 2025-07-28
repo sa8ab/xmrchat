@@ -95,7 +95,7 @@ export class NotificationsService {
     return this.emailQueue.add('send-email', {
       to: recepients,
       options: {
-        subject: 'XMRChat new page report',
+        subject: `XMRChat new page ${data.slug}`,
         text,
         template: 'page-report.hbs',
         context: data,
