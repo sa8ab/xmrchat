@@ -13,10 +13,10 @@ defineOgImage(false);
   <div class="flex flex-col min-h-screen bg-background">
     <AppHeader />
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 flex-grow inner py-4 items-center justify-center"
+      class="grid grid-cols-1 sm:grid-cols-2 flex-grow inner py-16 sm:py-0 items-center justify-center"
     >
       <div
-        class="text-text items-center sm:items-start flex flex-col gap-2 mx-auto w-fit"
+        class="text-text items-center sm:items-start row-start-2 sm:row-start-1 flex flex-col gap-2 mx-auto w-fit"
       >
         <h2 class="text-3xl md:text-6xl lg:text-8xl font-extralight">
           {{ error?.statusCode }}
@@ -34,11 +34,11 @@ defineOgImage(false);
         </UButton>
       </div>
 
-      <div>
+      <div class="mx-auto">
         <img
           src="/images/notfound.svg"
           alt="404 Not Found"
-          class="w-full h-full object-contain contrast-50"
+          class="w-full h-full sm:max-w-full max-w-[250px] object-contain contrast-50"
         />
       </div>
     </div>
