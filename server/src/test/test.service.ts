@@ -4,7 +4,7 @@ import { PagesService } from 'src/pages/pages.service';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
-export class TestService implements OnModuleInit {
+export class TestService {
   private logger = new Logger(TestService.name);
 
   constructor(
@@ -12,10 +12,6 @@ export class TestService implements OnModuleInit {
     private readonly pagesService: PagesService,
     private readonly configService: ConfigService,
   ) {}
-
-  async onModuleInit() {
-    await this.init();
-  }
 
   async init() {
     const isTestEnv = this.configService.get('TEST_ENV');
