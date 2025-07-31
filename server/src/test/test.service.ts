@@ -20,18 +20,22 @@ export class TestService {
     await this.createTestUser();
   }
 
-  async createTestUser() {
+  async createTestUser(email: string = 'test@test.com') {
     this.logger.log('Creating test user..');
-    const exists = await this.usersService.findByEmail('test@test.com');
+    const exists = await this.usersService.findByEmail(email);
     if (exists) return;
 
     const user = await this.usersService.createUser({
-      email: 'test@test.com',
+      email,
       password: 'password',
       language: 'en',
       isEmailVerified: true,
     });
 
     return user;
+  }
+
+  async createPage() {
+    const user = await this.createTestUser('user-with-page@test.com');
   }
 }
