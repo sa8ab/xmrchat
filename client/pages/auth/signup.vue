@@ -1,16 +1,16 @@
 <script lang="ts" setup>
 import useVuelidate from "@vuelidate/core";
 
-useHead({
-  title: "Sign up",
-});
-
 const { required, email, maxLength, minLength, sameAs, validate } =
   useValidations();
 const { signup } = useAuthStore();
 const { toLogin } = useRouteLocation();
 const toast = useToast();
 const { t } = useI18n();
+
+useHead({
+  title: t("signUp"),
+});
 
 interface State {
   email: string;

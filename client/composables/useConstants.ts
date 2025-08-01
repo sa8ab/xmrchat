@@ -167,18 +167,18 @@ export const useConstants = () => {
 
   const NOTIFICATION_CHANNELS = {
     [NotificationChannelEnum.EMAIL]: {
-      name: "Email",
-      description: "Receive notifications via email",
+      name: t("email"),
+      description: t("receiveNotifsViaEmail"),
       icon: "i-heroicons-envelope",
     },
     [NotificationChannelEnum.SIMPLEX]: {
       name: "SimpleX",
-      description: "Receive notifications via SimpleX",
+      description: t("receiveNotifsViaSimplex"),
       icon: "i-icon-simplex",
     },
     [NotificationChannelEnum.SIGNAL]: {
       name: "Signal",
-      description: "Receive notifications via Signal",
+      description: t("receiveNotifsViaSignal"),
       icon: "i-icon-signal",
     },
   };
@@ -189,13 +189,13 @@ export const useConstants = () => {
 
   const NOTIFICATION_TYPES = {
     [NotificationPreferenceType.NEW_TIP]: {
-      name: "New Tip",
-      description: "Receive notifications when a new tip is received",
+      name: t("newTip"),
+      description: t("receiveNotifsWhenTipReceived"),
       icon: "i-heroicons-sparkles",
     },
     [NotificationPreferenceType.DAILY_SUMMARY]: {
-      name: "Daily Summary",
-      description: "Receive daily summary of your tips",
+      name: t("dailySummary"),
+      description: t("receiveDailySummary"),
       icon: "i-heroicons-sparkles",
     },
   };
@@ -218,7 +218,7 @@ export const useConstants = () => {
       name: "Signal",
       tags: [],
       image: "i-icon-signal",
-      description: `Say "hello" to a different messaging experience. An unexpected focus on privacy, combined with all of the features you expect.`,
+      description: t(`signalDescription`),
       link: {
         label: "signal.org",
         url: "https://signal.org/",
@@ -230,7 +230,7 @@ export const useConstants = () => {
     [IntegrationConfigType.SIMPLEX]: {
       name: "SimpleX",
       image: "i-icon-simplex",
-      description: "The first messenger without user IDs.",
+      description: t("simplexDescription"),
       tags: [],
       link: {
         label: "simplex.chat",

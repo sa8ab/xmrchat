@@ -36,7 +36,8 @@ const isVerified = computed(() => props.configVerified);
         </div>
         <div class="grid">
           <h3 class="text-lg font-bold">
-            {{ channel.name }} {{ isVerified ? `` : `( Not connected )` }}
+            {{ channel.name }}
+            {{ isVerified ? `` : `( ${$t("notConnected")} )` }}
           </h3>
           <p class="text-xs text-pale">
             {{ channel.description }}
@@ -49,16 +50,18 @@ const isVerified = computed(() => props.configVerified);
       <UAlert v-if="!isVerified" color="orange" variant="soft">
         <template #description>
           <p>
-            Connect in
-            <UButton
-              variant="link"
-              :padded="false"
-              class="underline"
-              :to="toStreamerIntegrations()"
-            >
-              Integrations
-            </UButton>
-            to enable.
+            <I18nT keypath="connectInIntegrations" scope="global">
+              <template #integrations>
+                <UButton
+                  variant="link"
+                  :padded="false"
+                  class="underline"
+                  :to="toStreamerIntegrations()"
+                >
+                  {{ $t("integrations") }}
+                </UButton>
+              </template>
+            </I18nT>
           </p>
         </template>
       </UAlert>
@@ -123,7 +126,7 @@ const isVerified = computed(() => props.configVerified);
           </div>
           <template #help>
             <span class="text-pale text-xs">
-              Time when daily summary notifications will be sent.
+              {{ $t("dailySummaryTimeHelp") }}
             </span>
           </template>
         </UFormGroup>

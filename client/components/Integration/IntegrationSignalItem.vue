@@ -14,6 +14,7 @@ const emit = defineEmits<{
 const { required } = useValidations();
 const { axios } = useApp();
 const toast = useToast();
+const { t } = useI18n();
 
 const open = ref(false);
 
@@ -40,7 +41,7 @@ const connect = async () => {
     console.log(error);
 
     toast.add({
-      title: "Error",
+      title: t("error"),
       description: getErrorMessage(error),
       color: "red",
     });
@@ -61,8 +62,8 @@ const confirmCode = async () => {
     open.value = false;
 
     toast.add({
-      title: "Success",
-      description: "Signal is connected.",
+      title: t("success"),
+      description: t("signalIsConnected"),
       color: "green",
     });
     emit("connect");
@@ -70,7 +71,7 @@ const confirmCode = async () => {
     console.log(error);
 
     toast.add({
-      title: "Error",
+      title: t("error"),
       description: getErrorMessage(error),
       color: "red",
     });
@@ -84,8 +85,8 @@ const disconnect = async () => {
     state.loadingDisconnect = true;
     await axios.post("/integrations/disconnect/signal");
     toast.add({
-      title: "Success",
-      description: "Signal is disconnected.",
+      title: t("success"),
+      description: t("signalIsDisconnected"),
       color: "green",
     });
     open.value = false;
@@ -93,7 +94,7 @@ const disconnect = async () => {
   } catch (error) {
     console.log(error);
     toast.add({
-      title: "Error",
+      title: t("error"),
       description: getErrorMessage(error),
       color: "red",
     });
@@ -111,9 +112,9 @@ const isConnected = computed(() => {
 });
 
 const renderInfo = computed(() => {
-  if (isConnected.value) return `Connected.`;
-  if (waitingVerification.value) return `Waiting for verification.`;
-  return "Not connected.";
+  if (isConnected.value) return t("connected");
+  if (waitingVerification.value) return t("waitingForVerification");
+  return t("notConnected");
 });
 
 const v = useVuelidate<any>(
@@ -141,7 +142,7 @@ const { getValidationAttrs } = useValidations(v);
   <UModal v-model="open">
     <UCard>
       <template #header>
-        <h2 class="text-xl font-medium">Signal Integration</h2>
+        <h2 class="text-xl font-medium">{{ $t("signalIntegration") }}</h2>
       </template>
 
       <template v-if="isConnected">
@@ -153,7 +154,7 @@ const { getValidationAttrs } = useValidations(v);
           />
         </div>
         <p class="pb-4 text-center">
-          Signal is connected to account {{ config?.config.number }}.
+          {{ $t("signalIsConnectedTo", { number: config?.config.number }) }}
         </p>
         <div class="flex justify-end">
           <UButton
@@ -161,16 +162,16 @@ const { getValidationAttrs } = useValidations(v);
             color="red"
             :loading="state.loadingDisconnect"
           >
-            Disconnect
+            {{ t("disconnect") }}
           </UButton>
         </div>
       </template>
 
       <template v-else-if="waitingVerification">
-        <p class="pb-4">Enter the code sent to your signal app.</p>
+        <p class="pb-4">{{ t("enterCodeinSignalApp") }}</p>
         <UFormGroup
           size="lg"
-          label="Code"
+          :label="t('code')"
           :error="getValidationAttrs('code').error"
         >
           <UInput
@@ -180,7 +181,7 @@ const { getValidationAttrs } = useValidations(v);
         </UFormGroup>
         <div class="flex justify-end mt-2 gap-2">
           <UButton :loading="state.loading" @click="confirmCode">
-            Confirm code
+            {{ t("confirmCode") }}
           </UButton>
           <UButton
             @click="disconnect"
@@ -188,19 +189,18 @@ const { getValidationAttrs } = useValidations(v);
             variant="soft"
             :loading="state.loadingDisconnect"
           >
-            Disconnect
+            {{ t("disconnect") }}
           </UButton>
         </div>
       </template>
 
       <template v-else>
         <p class="pb-4">
-          Enter your signal phone number or id. We will send a code to this
-          number to verify.
+          {{ t("enterSignalNumOrId") }}
         </p>
         <UFormGroup
           size="lg"
-          label="Signal phone number or id"
+          :label="t('signalPhoneNumOrId')"
           :error="getValidationAttrs('number').error"
         >
           <UInput
@@ -211,14 +211,16 @@ const { getValidationAttrs } = useValidations(v);
         </UFormGroup>
         <div class="flex justify-end mt-2">
           <UButton :loading="state.loading" @click="connect">
-            Send code
+            {{ $t("sendCode") }}
           </UButton>
         </div>
       </template>
 
       <template #footer>
         <div class="flex justify-end gap-2">
-          <UButton variant="soft" @click="open = false">Cancel</UButton>
+          <UButton variant="soft" @click="open = false">{{
+            $t("cancel")
+          }}</UButton>
         </div>
       </template>
     </UCard>

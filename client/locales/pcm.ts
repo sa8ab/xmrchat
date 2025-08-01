@@ -46,6 +46,7 @@ export default {
   changeEmail: "Change Email",
   enterEmailToResetPassword: "Enter your email so you fi reset your password.",
   creatorLogin: "Creator Login",
+  goToHomePage: "Go To Home Page",
   searchCreators: {
     title: "Search Creators",
     description: "Find creators wey get xmrchat public page.",
@@ -310,6 +311,63 @@ export default {
   autoShowTipsDescription:
     "If active, tips will be automatically shown on the OBS page for 60 seconds.",
 
+  // INTEGRATIONS PAGE
+  integrations: "Integrations",
+  integrationsTitle: "Integrations",
+  integrationsDes: "Manage your integrations",
+  notConnected: "No connect.",
+  waitingForVerification: "Dey wait for verification.",
+  connected: "Dem don connect.",
+  connect: "Connect",
+  disconnect: "Disconnect",
+  simplexDescription: "Na di first messenger wey no get user ID dem.",
+  simplexIntegration: "Simplex Integration",
+  enterYourSimplexLink:
+    "Put your simplex connection link den press connect. XMRChat account go send connection request go your simplex account. After you accept di request, you go get one code. Put di code make di connection complete.",
+  simplexIsConnectedTo: 'Simplex don connect to account "{name}".',
+  acceptRequestInSimplex:
+    "Accept di connection request for SimpleX app den put di code wey you get.",
+  confirmCode: "Confirm code",
+  success: "Success",
+  openSimplexAndAccept:
+    "Open SimpleX app for your device den accept connection from XMRChat account.",
+  error: "Error",
+  simplexIsConnected: "Simplex don connect.",
+  simplexDisconnected: "Simplex don disconnect.",
+  simplexLink: "SimpleX link",
+  signalDescription:
+    'Talk "hello" to beta messaging experience. Dem put plenty mind for privacy plus all di features wey you expect.',
+  signalIsConnected: "Signal don connect.",
+  signalIsDisconnected: "Signal don disconnect.",
+  signalIntegration: "Signal Integration",
+  signalIsConnectedTo: "Signal don connect to account {number}.",
+  enterCodeinSignalApp: "Put di code wey dem send go your signal app.",
+  enterSignalNumOrId:
+    "Put your signal phone number or id. We go send code go dis number to verify.",
+  signalPhoneNumOrId: "Signal phone number or id",
+  sendCode: "Send code",
+  code: "Code",
+
+  // NOTIFICATIONS-PREFRENCES PAGE
+  notifications: "Notifications",
+  manageYourNotifs: "Manage your notifications",
+  comingSoon: "E go soon come",
+  featureAvailableSoon: "Dis feature go soon dey available.",
+  minNotifsThreshold: "Min Notification Threshold",
+  minNotifsThresholdHelp:
+    "Di smallest amount of XMR tip wey go trigger notification.",
+  connectInIntegrations: "Connect for {integrations} to enable am.",
+  dailySummaryTimeHelp: "Time wey daily summary notification go dey send.",
+  notifsPreferencesSaved: "Notification preferences don save.",
+  newTip: "New Tip",
+  receiveNotifsWhenTipReceived:
+    "You go dey receive notification when new tip don land",
+  dailySummary: "Daily Summary",
+  receiveDailySummary: "Receive daily summary of your tips",
+  receiveNotifsViaEmail: "Receive notifications via email",
+  receiveNotifsViaSimplex: "Receive notifications via SimpleX",
+  receiveNotifsViaSignal: "Receive notifications via Signal",
+
   // HEAD
   head: {
     description:
@@ -319,4 +377,7 @@ export default {
     tip: "Tip {path}",
   },
   moneroSuperchats: "Monero Superchats : XMRChat",
+  emailVerification: "Email Verification",
+  forgotPassword: "Forget Password",
+  signUp: "Sign up",
 };

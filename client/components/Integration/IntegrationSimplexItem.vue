@@ -15,7 +15,7 @@ const emit = defineEmits<{
 const { required } = useValidations();
 const { axios } = useApp();
 const toast = useToast();
-
+const { t } = useI18n();
 const open = ref(false);
 
 const state = reactive({
@@ -37,9 +37,8 @@ const connect = async () => {
     });
 
     toast.add({
-      title: "Success",
-      description:
-        "Open SimpleX app on your device and accept connection from XMRChat account.",
+      title: t("success"),
+      description: t("openSimplexAndAccept"),
       color: "green",
     });
     emit("connect");
@@ -47,7 +46,7 @@ const connect = async () => {
     console.log(error);
 
     toast.add({
-      title: "Error",
+      title: t("error"),
       description: getErrorMessage(error),
       color: "red",
     });
@@ -68,8 +67,8 @@ const confirmCode = async () => {
     open.value = false;
 
     toast.add({
-      title: "Success",
-      description: "Simplex is connected.",
+      title: t("success"),
+      description: t("simplexIsConnected"),
       color: "green",
     });
     emit("connect");
@@ -77,7 +76,7 @@ const confirmCode = async () => {
     console.log(error);
 
     toast.add({
-      title: "Error",
+      title: t("error"),
       description: getErrorMessage(error),
       color: "red",
     });
@@ -91,8 +90,8 @@ const disconnect = async () => {
     state.loadingDisconnect = true;
     await axios.post("/integrations/disconnect/simplex");
     toast.add({
-      title: "Success",
-      description: "Simplex disconnected.",
+      title: t("success"),
+      description: t("simplexDisconnected"),
       color: "green",
     });
     emit("connect");
@@ -100,7 +99,7 @@ const disconnect = async () => {
     console.log(error);
 
     toast.add({
-      title: "Error",
+      title: t("error"),
       description: getErrorMessage(error),
       color: "red",
     });
@@ -119,9 +118,9 @@ const waitingVerification = computed(() => {
 });
 
 const renderInfo = computed(() => {
-  if (isConnected.value) return "Connected.";
-  if (waitingVerification.value) return "Waiting for verification.";
-  return "Not connected.";
+  if (isConnected.value) return t("connected");
+  if (waitingVerification.value) return t("waitingForVerification");
+  return t("notConnected");
 });
 
 const v = useVuelidate<any>(
@@ -149,7 +148,7 @@ const { getValidationAttrs } = useValidations(v);
   <UModal v-model="open">
     <UCard>
       <template #header>
-        <h2 class="text-xl font-medium">Simplex Integration</h2>
+        <h2 class="text-xl font-medium">{{ $t("simplexIntegration") }}</h2>
       </template>
       <template v-if="isConnected">
         <div class="flex justify-center pb-4">
@@ -160,9 +159,11 @@ const { getValidationAttrs } = useValidations(v);
           />
         </div>
         <p class="pb-4 text-center">
-          Simplex is connected to account "{{
-            config?.config.contact.profile.displayName
-          }}".
+          {{
+            $t("simplexIsConnectedTo", {
+              name: config?.config.contact.profile.displayName,
+            })
+          }}
         </p>
         <div class="flex justify-end">
           <UButton
@@ -170,18 +171,18 @@ const { getValidationAttrs } = useValidations(v);
             color="red"
             :loading="state.loadingDisconnect"
           >
-            Disconnect
+            {{ $t("disconnect") }}
           </UButton>
         </div>
       </template>
 
       <template v-else-if="waitingVerification">
         <p class="pb-4">
-          Accept connection request in SimpleX app and enter the code you get.
+          {{ $t("acceptRequestInSimplex") }}
         </p>
         <UFormGroup
           size="lg"
-          label="Code"
+          :label="t('code')"
           :error="getValidationAttrs('code').error"
         >
           <UInput
@@ -192,7 +193,7 @@ const { getValidationAttrs } = useValidations(v);
 
         <div class="flex justify-end mt-2 gap-2">
           <UButton :loading="state.loading" @click="confirmCode">
-            Confirm code
+            {{ $t("confirmCode") }}
           </UButton>
           <UButton
             @click="disconnect"
@@ -200,21 +201,18 @@ const { getValidationAttrs } = useValidations(v);
             variant="soft"
             :loading="state.loadingDisconnect"
           >
-            Disconnect
+            {{ $t("disconnect") }}
           </UButton>
         </div>
       </template>
 
       <template v-else>
         <p class="pb-4">
-          Enter your simplex connection link then click connect. XMRChat account
-          will send a connection request to your simplex account. After
-          accepting the request you will get a code. Enter the code to complete
-          the connection.
+          {{ $t("enterYourSimplexLink") }}
         </p>
         <UFormGroup
           size="lg"
-          label="SimpleX link"
+          :label="t('simplexLink')"
           :error="getValidationAttrs('link').error"
         >
           <UInput
@@ -223,13 +221,17 @@ const { getValidationAttrs } = useValidations(v);
           />
         </UFormGroup>
         <div class="flex justify-end mt-2 gap-2">
-          <UButton :loading="state.loading" @click="connect"> Connect </UButton>
+          <UButton :loading="state.loading" @click="connect">
+            {{ $t("connect") }}
+          </UButton>
         </div>
       </template>
 
       <template #footer>
         <div class="flex justify-end gap-2">
-          <UButton variant="soft" @click="open = false">Cancel</UButton>
+          <UButton variant="soft" @click="open = false">{{
+            $t("cancel")
+          }}</UButton>
           <!-- <UButton :loading="state.loading" @click="connect"> Connect </UButton> -->
         </div>
       </template>

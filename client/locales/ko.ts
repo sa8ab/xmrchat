@@ -45,6 +45,7 @@ export default {
   changeEmail: "이메일 변경",
   enterEmailToResetPassword: "이메일을 입력하여 비밀번호를 재설정하세요.",
   creatorLogin: "크리에이터 로그인",
+  goToHomePage: "홈페이지로 이동",
   searchCreators: {
     title: "크리에이터 검색",
     description: "xmrchat에서 공개 페이지가 있는 크리에이터를 검색하세요.",
@@ -309,6 +310,61 @@ export default {
   autoShowTipsDescription:
     "활성화하면 OBS 페이지에서 60초 동안 팁이 자동으로 표시됩니다.",
 
+  // INTEGRATIONS PAGE
+  integrations: "연동",
+  integrationsTitle: "연동",
+  integrationsDes: "연동 항목을 관리하세요",
+  notConnected: "연결되지 않음",
+  waitingForVerification: "인증 대기 중",
+  connected: "연결됨",
+  connect: "연결",
+  disconnect: "연결 해제",
+  simplexDescription: "사용자 ID가 없는 최초의 메신저입니다.",
+  simplexIntegration: "SimpleX 연동",
+  enterYourSimplexLink:
+    "SimpleX 연결 링크를 입력한 후 '연결'을 클릭하세요. XMRChat 계정에서 SimpleX 계정으로 연결 요청이 전송됩니다. 요청을 수락한 후 코드를 받게 됩니다. 해당 코드를 입력하여 연결을 완료하세요.",
+  simplexIsConnectedTo: 'SimpleX는 "{name}" 계정에 연결되어 있습니다.',
+  acceptRequestInSimplex:
+    "SimpleX 앱에서 연결 요청을 수락하고 받은 코드를 입력하세요.",
+  confirmCode: "코드 확인",
+  success: "성공",
+  openSimplexAndAccept:
+    "기기에서 SimpleX 앱을 열고 XMRChat 계정의 연결 요청을 수락하세요.",
+  error: "오류",
+  simplexIsConnected: "SimpleX에 연결됨",
+  simplexDisconnected: "SimpleX 연결이 해제됨",
+  simplexLink: "SimpleX 링크",
+  signalDescription:
+    "새로운 메시징 경험을 만나보세요. 기대 이상의 프라이버시 보호와 필수 기능을 모두 갖췄습니다.",
+  signalIsConnected: "Signal에 연결됨",
+  signalIsDisconnected: "Signal 연결 해제됨",
+  signalIntegration: "Signal 연동",
+  signalIsConnectedTo: "Signal은 {number} 계정에 연결되어 있습니다.",
+  enterCodeinSignalApp: "Signal 앱에 전송된 코드를 입력하세요.",
+  enterSignalNumOrId:
+    "Signal 전화번호 또는 ID를 입력하세요. 인증을 위해 해당 번호로 코드를 전송합니다.",
+  signalPhoneNumOrId: "Signal 전화번호 또는 ID",
+  sendCode: "코드 보내기",
+  code: "코드",
+
+  // NOTIFICATIONS-PREFERENCES PAGE
+  notifications: "알림",
+  manageYourNotifs: "알림 설정 관리",
+  comingSoon: "곧 제공 예정",
+  featureAvailableSoon: "이 기능은 곧 제공될 예정입니다.",
+  minNotifsThreshold: "최소 알림 기준",
+  minNotifsThresholdHelp: "알림을 트리거하는 최소 XMR 팁 금액입니다.",
+  connectInIntegrations: "활성화하려면 {integrations}에서 연결하세요.",
+  dailySummaryTimeHelp: "일일 요약 알림이 전송되는 시간입니다.",
+  notifsPreferencesSaved: "알림 설정이 저장되었습니다.",
+  newTip: "새 팁",
+  receiveNotifsWhenTipReceived: "새 팁을 받으면 알림을 받습니다",
+  dailySummary: "일일 요약",
+  receiveDailySummary: "팁의 일일 요약을 수신합니다",
+  receiveNotifsViaEmail: "이메일로 알림 받기",
+  receiveNotifsViaSimplex: "SimpleX로 알림 받기",
+  receiveNotifsViaSignal: "Signal로 알림 받기",
+
   // HEAD
   head: {
     description:
@@ -318,4 +374,7 @@ export default {
     tip: "{path}에게 팁 주기",
   },
   moneroSuperchats: "Monero 슈퍼챗 : XMRChat",
+  emailVerification: "이메일 인증",
+  forgotPassword: "비밀번호를 잊으셨나요?",
+  signUp: "회원가입",
 };

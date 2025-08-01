@@ -48,6 +48,7 @@ export default {
   enterEmailToResetPassword:
     "Введите вашу электронную почту для сброса пароля.",
   creatorLogin: "Вход для авторов",
+  goToHomePage: "Перейти на главную страницу",
   searchCreators: {
     title: "Поиск Создателей",
     description: "Ищите создателей с публичными страницами на xmrchat.",
@@ -312,6 +313,63 @@ export default {
   autoShowTipsDescription:
     "Если активно, чаевые будут автоматически отображаться на странице OBS в течение 60 секунд.",
 
+  // INTEGRATIONS PAGE
+  integrations: "Интеграции",
+  integrationsTitle: "Интеграции",
+  integrationsDes: "Управляйте вашими интеграциями",
+  notConnected: "Не подключено.",
+  waitingForVerification: "Ожидание подтверждения.",
+  connected: "Подключено.",
+  connect: "Подключить",
+  disconnect: "Отключить",
+  simplexDescription: "Первый мессенджер без идентификаторов пользователей.",
+  simplexIntegration: "Интеграция SimpleX",
+  enterYourSimplexLink:
+    "Введите ссылку для подключения SimpleX и нажмите «Подключить». Аккаунт XMRChat отправит запрос на подключение к вашему аккаунту SimpleX. После принятия запроса вы получите код. Введите код, чтобы завершить подключение.",
+  simplexIsConnectedTo: "SimpleX подключен к аккаунту «{name}».",
+  acceptRequestInSimplex:
+    "Примите запрос на подключение в приложении SimpleX и введите полученный код.",
+  confirmCode: "Подтвердить код",
+  success: "Успешно",
+  openSimplexAndAccept:
+    "Откройте приложение SimpleX на вашем устройстве и примите подключение от аккаунта XMRChat.",
+  error: "Ошибка",
+  simplexIsConnected: "SimpleX подключен.",
+  simplexDisconnected: "SimpleX отключен.",
+  simplexLink: "Ссылка SimpleX",
+  signalDescription:
+    "Поздоровайтесь с новым опытом обмена сообщениями. Неожиданный упор на конфиденциальность вместе со всеми ожидаемыми функциями.",
+  signalIsConnected: "Signal подключен.",
+  signalIsDisconnected: "Signal отключён.",
+  signalIntegration: "Интеграция Signal",
+  signalIsConnectedTo: "Signal подключён к аккаунту {number}.",
+  enterCodeinSignalApp: "Введите код, отправленный в ваше приложение Signal.",
+  enterSignalNumOrId:
+    "Введите ваш номер телефона или ID Signal. Мы отправим код на этот номер для подтверждения.",
+  signalPhoneNumOrId: "Номер телефона или ID Signal",
+  sendCode: "Отправить код",
+  code: "Код",
+
+  // NOTIFICATIONS-PREFERENCES PAGE
+  notifications: "Уведомления",
+  manageYourNotifs: "Управляйте вашими уведомлениями",
+  comingSoon: "Скоро будет",
+  featureAvailableSoon: "Эта функция скоро станет доступна.",
+  minNotifsThreshold: "Минимальный порог уведомлений",
+  minNotifsThresholdHelp:
+    "Минимальная сумма чаевых в XMR, при которой будет отправлено уведомление.",
+  connectInIntegrations: "Подключитесь в {integrations}, чтобы включить.",
+  dailySummaryTimeHelp: "Время отправки ежедневных уведомлений с итогами.",
+  notifsPreferencesSaved: "Настройки уведомлений сохранены.",
+  newTip: "Новый чаевые",
+  receiveNotifsWhenTipReceived:
+    "Получать уведомления при получении новых чаевых",
+  dailySummary: "Ежедневная сводка",
+  receiveDailySummary: "Получать ежедневную сводку ваших чаевых",
+  receiveNotifsViaEmail: "Получать уведомления по электронной почте",
+  receiveNotifsViaSimplex: "Получать уведомления через SimpleX",
+  receiveNotifsViaSignal: "Получать уведомления через Signal",
+
   // HEAD
   head: {
     description:
@@ -321,4 +379,7 @@ export default {
     tip: "Оставить чаевые {path}",
   },
   moneroSuperchats: "Monero Суперчаты : XMRChat",
+  emailVerification: "Подтверждение электронной почты",
+  forgotPassword: "Забыли пароль?",
+  signUp: "Зарегистрироваться",
 };

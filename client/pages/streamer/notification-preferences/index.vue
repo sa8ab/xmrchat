@@ -15,6 +15,7 @@ const toast = useToast();
 const { numberic } = useValidations();
 const authStore = useAuthStore();
 const { dayjs } = useDate();
+const { t } = useI18n();
 
 type Form = {
   [key in NotificationChannelEnum]: {
@@ -131,7 +132,7 @@ const handleSave = async () => {
     });
     toast.add({
       color: "green",
-      title: "Notification preferences saved.",
+      title: t("notifsPreferencesSaved"),
     });
   } catch (error) {
     toast.add({
@@ -159,10 +160,15 @@ const isPremium = computed(
 
 <template>
   <div>
-    <PageTitle title="Notifications" description="Manage your notifications" />
+    <PageTitle
+      :title="$t('notifications')"
+      :description="$t('manageYourNotifs')"
+    />
     <div class="text-center" v-if="!isPremium">
-      <p class="text-2xl font-bold">Coming Soon</p>
-      <p class="mt-2">This feature will be available soon.</p>
+      <p class="text-2xl font-bold">{{ $t("comingSoon") }}</p>
+      <p class="mt-2">
+        {{ $t("featureAvailableSoon") }}
+      </p>
     </div>
 
     <ErrorView :error="error" v-else-if="error" />
@@ -170,10 +176,10 @@ const isPremium = computed(
     <GeneralForm @submit="handleSave" v-else>
       <div class="grid mb-10 grid-cols-1 md:grid-cols-2 gap-4">
         <UFormGroup
-          label="Min Notification Threshold"
+          :label="$t('minNotifsThreshold')"
           name="minNotificationThreshold"
           :error="getValidationAttrs('minNotificationThreshold').error"
-          help="The minimum amount of XMR tip that will trigger a notification."
+          :help="$t('minNotifsThresholdHelp')"
         >
           <UInput
             v-model="state.minNotificationThreshold"
