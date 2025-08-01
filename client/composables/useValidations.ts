@@ -81,6 +81,8 @@ export const useValidations = (generalV?: Ref<Validation>) => {
       "subscribe",
       "subscription",
       "subscriptions",
+      "test",
+      "test-page",
     ].includes(v);
 
   const streamerSlugInternal = helpers.withMessage(
