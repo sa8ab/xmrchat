@@ -6,11 +6,13 @@ import { TestController } from './test.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Page } from 'src/pages/page.entity';
 import { Payment } from 'src/payments/payment.entity';
+import { FilesModule } from 'src/files/files.module';
 
 @Module({
   imports: [
     PagesModule,
     UsersModule,
+    FilesModule,
     TypeOrmModule.forFeature([Page, Payment]),
   ],
   providers: [TestService],

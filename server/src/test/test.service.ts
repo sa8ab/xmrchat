@@ -1,9 +1,10 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
+import { FilesService } from 'src/files/files.service';
 import { Page } from 'src/pages/page.entity';
 import { PagesService } from 'src/pages/pages.service';
-import { FiatEnum } from 'src/shared/constants';
+import { FiatEnum, FileType } from 'src/shared/constants';
 import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
 
@@ -15,6 +16,7 @@ export class TestService {
     private readonly usersService: UsersService,
     private readonly pagesService: PagesService,
     private readonly configService: ConfigService,
+    private readonly filesService: FilesService,
 
     @InjectRepository(Page)
     private readonly pageRepo: Repository<Page>,
@@ -57,6 +59,17 @@ export class TestService {
       return;
     }
 
+    const coverImage = await this.filesService.createFile({
+      filename: 'test-cover-image.png',
+      originalName: 'test-cover-image.png',
+      type: FileType.PAGE_LOGO,
+    });
+    const logo = await this.filesService.createFile({
+      filename: 'test-logo.png',
+      originalName: 'test-logo.png',
+      type: FileType.PAGE_LOGO,
+    });
+
     const createdPage = this.pageRepo.create({
       path: 'test-page',
       name: 'Test Page',
@@ -66,6 +79,8 @@ export class TestService {
         'de87a42b9ad3e3044beea7ec41f1a8c76dc239cdd934e991118d7aeb790b6d0d',
       fiat: FiatEnum.USD,
       user,
+      coverImage,
+      logo,
     });
 
     await this.pageRepo.save(createdPage);

@@ -9,5 +9,6 @@ import { MinioService } from './minio.service';
   imports: [TypeOrmModule.forFeature([FileEntity])],
   controllers: [FilesController],
   providers: [FilesService, MinioService],
+  exports: [FilesService],
 })
 export class FilesModule {}
