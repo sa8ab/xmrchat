@@ -165,7 +165,7 @@ import { TestModule } from './test/test.module';
     IntegrationsModule,
     NotificationPreferencesModule,
     CaslModule,
-    TestModule,
+    ...(process.env.TEST_ENV === 'true' ? [TestModule] : []),
   ],
   controllers: [AppController],
   providers: [AppService],

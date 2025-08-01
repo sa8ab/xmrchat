@@ -148,6 +148,8 @@ export class TipsService {
       });
       eventId = webhook.event_id;
     } catch (error) {
+      console.log(error.response);
+
       throw new BadRequestException('The page has not setup tipping yet.');
     }
 
