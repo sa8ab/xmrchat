@@ -39,12 +39,12 @@ test("Create page", async ({ page }) => {
   const moneroPrimaryInput = page.getByLabel("Monero primary");
   await moneroPrimaryInput.fill(
     // Temporary monero address. Do not use.
-    "45RVXPBdpGd91GMityvhXVCLs2RM1YQxcheCmvvSDuggZNauJVj7UPaC2qD4ubkNBcRxxoPe2VvEJ5Uuzrp8Hd4NEVdfEzJ"
+    "45ttFTPkNZrA9qar2tSQywaJZhLRri3YgLVeYbd3pApQYTQjYrRuB9LBCuJMp2fzNtS433ihrMQgZh16exFvNjz2Q3UTUEm"
   );
 
   const moneroKeyInput = page.getByLabel("Monero secret");
   await moneroKeyInput.fill(
-    "de87a42b9ad3e3044beea7ec41f1a8c76dc239cdd934e991118d7aeb790b6d0d"
+    "ea271297df7a01c42cb0a63879b4d7d3fc2f169449d92a7dd1eefe7261fe0202"
   );
 
   const continueButton = page.locator("button", { hasText: "Continue" });
