@@ -46,6 +46,7 @@ export default {
   changeEmail: "Vaihda sähköposti",
   enterEmailToResetPassword: "Kirjoita sähköposti uusiksi salasanaasi.",
   creatorLogin: "Sisäänkirjautuminen sisällöntuottajille",
+  goToHomePage: "Siirry etusivulle",
   searchCreators: {
     title: "Etsi Sisällöntuottajia",
     description: "Etsi sisällöntuottajia, joilla on julkinen sivu xmrchatissa.",
@@ -312,6 +313,63 @@ export default {
   autoShowTipsDescription:
     "Jos aktiivinen, vinkit näytetään automaattisesti OBS-sivulla 60 sekunnin ajan.",
 
+  // INTEGRATIONS PAGE
+  integrations: "Integraatiot",
+  integrationsTitle: "Integraatiot",
+  integrationsDes: "Hallinnoi integraatioitasi",
+  notConnected: "Ei yhdistetty.",
+  waitingForVerification: "Odotetaan vahvistusta.",
+  connected: "Yhdistetty.",
+  connect: "Yhdistä",
+  disconnect: "Katkaise yhteys",
+  simplexDescription: "Ensimmäinen viestisovellus ilman käyttäjätunnuksia.",
+  simplexIntegration: "SimpleX-integraatio",
+  enterYourSimplexLink:
+    "Syötä SimpleX-yhteyslinkkisi ja napsauta 'Yhdistä'. XMRChat-tili lähettää yhdistyspyynnön SimpleX-tilillesi. Hyväksy pyyntö, niin saat koodin. Syötä koodi yhteyden muodostamiseksi.",
+  simplexIsConnectedTo: 'SimpleX on yhdistetty tiliin "{name}".',
+  acceptRequestInSimplex:
+    "Hyväksy yhdistyspyyntö SimpleX-sovelluksessa ja syötä saamasi koodi.",
+  confirmCode: "Vahvista koodi",
+  success: "Onnistui",
+  openSimplexAndAccept:
+    "Avaa SimpleX-sovellus laitteellasi ja hyväksy yhteys XMRChat-tililtä.",
+  error: "Virhe",
+  simplexIsConnected: "SimpleX on yhdistetty.",
+  simplexDisconnected: "SimpleX-yhteys katkaistu.",
+  simplexLink: "SimpleX-linkki",
+  signalDescription:
+    "Sano 'hei' erilaiselle viestintäkokemukselle. Yllättävä yksityisyyden painotus yhdistettynä kaikkiin odottamiisi ominaisuuksiin.",
+  signalIsConnected: "Signal on yhdistetty.",
+  signalIsDisconnected: "Signal-yhteys katkaistu.",
+  signalIntegration: "Signal-integraatio",
+  signalIsConnectedTo: "Signal on yhdistetty tiliin {number}.",
+  enterCodeinSignalApp: "Syötä Signal-sovellukseen lähetetty koodi.",
+  enterSignalNumOrId:
+    "Syötä Signal-puhelinnumerosi tai ID. Lähetämme tähän numeroon vahvistuskoodin.",
+  signalPhoneNumOrId: "Signal-puhelinnumero tai ID",
+  sendCode: "Lähetä koodi",
+  code: "Koodi",
+
+  // NOTIFICATIONS-PREFERENCES PAGE
+  notifications: "Ilmoitukset",
+  manageYourNotifs: "Hallinnoi ilmoituksiasi",
+  comingSoon: "Tulossa pian",
+  featureAvailableSoon: "Tämä ominaisuus on saatavilla pian.",
+  minNotifsThreshold: "Ilmoitusten vähimmäisraja",
+  minNotifsThresholdHelp: "Pienin XMR-juomaraha, joka laukaisee ilmoituksen.",
+  connectInIntegrations: "Yhdistä kohdassa {integrations} ottaaksesi käyttöön.",
+  dailySummaryTimeHelp:
+    "Aika, jolloin päivittäiset yhteenvetoilmoitukset lähetetään.",
+  notifsPreferencesSaved: "Ilmoitusasetukset tallennettu.",
+  newTip: "Uusi juomaraha",
+  receiveNotifsWhenTipReceived:
+    "Vastaanota ilmoitus, kun saat uuden juomarahan",
+  dailySummary: "Päivittäinen yhteenveto",
+  receiveDailySummary: "Vastaanota päivittäinen yhteenveto juomarahoistasi",
+  receiveNotifsViaEmail: "Vastaanota ilmoitukset sähköpostitse",
+  receiveNotifsViaSimplex: "Vastaanota ilmoitukset SimpleX:n kautta",
+  receiveNotifsViaSignal: "Vastaanota ilmoitukset Signal:n kautta",
+
   // HEAD
   head: {
     description:
@@ -321,4 +379,7 @@ export default {
     tip: "Tippaa {path}",
   },
   moneroSuperchats: "Monero Superchats : XMRChat",
+  emailVerification: "Sähköpostivahvistus",
+  forgotPassword: "Unohditko salasanan?",
+  signUp: "Rekisteröidy",
 };

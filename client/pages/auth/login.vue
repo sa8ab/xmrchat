@@ -13,7 +13,7 @@ interface State {
   passwordVisible: boolean;
 }
 
-useHead({ title: "Login" });
+useHead({ title: t("login") });
 
 const state: State = reactive({
   email: "",

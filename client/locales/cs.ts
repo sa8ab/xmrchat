@@ -45,6 +45,7 @@ export default {
   changeEmail: "Změnit e-mail",
   enterEmailToResetPassword: "Zadejte svůj e-mail pro resetování hesla.",
   creatorLogin: "Přihlášení pro tvůrce",
+  goToHomePage: "Přejít na domovskou stránku",
   searchCreators: {
     title: "Hledat tvůrce",
     description: "Hledejte tvůrce s veřejnými stránkami na xmrchat.",
@@ -319,6 +320,63 @@ export default {
   autoShowTipsDescription:
     "Pokud je aktivní, tipy se automaticky zobrazí na OBS stránce na 60 sekund.",
 
+  // INTEGRATIONS PAGE
+  integrations: "Integrace",
+  integrationsTitle: "Integrace",
+  integrationsDes: "Spravujte své integrace",
+  notConnected: "Nepřipojeno.",
+  waitingForVerification: "Čeká se na ověření.",
+  connected: "Připojeno.",
+  connect: "Připojit",
+  disconnect: "Odpojit",
+  simplexDescription: "První messenger bez uživatelských ID.",
+  simplexIntegration: "Integrace SimpleX",
+  enterYourSimplexLink:
+    "Zadejte odkaz na připojení SimpleX a klikněte na připojit. Účet XMRChat pošle žádost o připojení vašemu účtu SimpleX. Po přijetí žádosti obdržíte kód. Zadejte kód pro dokončení připojení.",
+  simplexIsConnectedTo: "SimpleX je připojen k účtu „{name}“.",
+  acceptRequestInSimplex:
+    "Přijměte žádost o připojení v aplikaci SimpleX a zadejte obdržený kód.",
+  confirmCode: "Potvrdit kód",
+  success: "Úspěch",
+  openSimplexAndAccept:
+    "Otevřete aplikaci SimpleX na svém zařízení a přijměte připojení z účtu XMRChat.",
+  error: "Chyba",
+  simplexIsConnected: "SimpleX je připojen.",
+  simplexDisconnected: "SimpleX byl odpojen.",
+  simplexLink: "Odkaz SimpleX",
+  signalDescription:
+    "Řekněte „ahoj“ odlišné zážitku z chatu. Nečekaný důraz na soukromí spolu se všemi funkcemi, které očekáváte.",
+  signalIsConnected: "Signal je připojen.",
+  signalIsDisconnected: "Signal byl odpojen.",
+  signalIntegration: "Integrace Signal",
+  signalIsConnectedTo: "Signal je připojen k účtu {number}.",
+  enterCodeinSignalApp: "Zadejte kód zaslaný do vaší aplikace Signal.",
+  enterSignalNumOrId:
+    "Zadejte své telefonní číslo nebo ID ve službě Signal. Na toto číslo odešleme ověřovací kód.",
+  signalPhoneNumOrId: "Telefonní číslo nebo ID ve službě Signal",
+  sendCode: "Odeslat kód",
+  code: "Kód",
+
+  // NOTIFICATIONS-PREFERENCES PAGE
+  notifications: "Oznámení",
+  manageYourNotifs: "Spravujte svá oznámení",
+  comingSoon: "Již brzy",
+  featureAvailableSoon: "Tato funkce bude brzy dostupná.",
+  minNotifsThreshold: "Minimální práh oznámení",
+  minNotifsThresholdHelp:
+    "Minimální částka XMR spropitného, která spustí oznámení.",
+  connectInIntegrations: "Připojte se v {integrations} pro aktivaci.",
+  dailySummaryTimeHelp: "Čas, kdy budou odesílána denní shrnutí oznámení.",
+  notifsPreferencesSaved: "Nastavení oznámení bylo uloženo.",
+  newTip: "Nové spropitné",
+  receiveNotifsWhenTipReceived:
+    "Dostávejte oznámení, když obdržíte nové spropitné",
+  dailySummary: "Denní shrnutí",
+  receiveDailySummary: "Dostávejte denní shrnutí svých spropitných",
+  receiveNotifsViaEmail: "Dostávejte oznámení e-mailem",
+  receiveNotifsViaSimplex: "Dostávejte oznámení přes SimpleX",
+  receiveNotifsViaSignal: "Dostávejte oznámení přes Signal",
+
   // HEAD
   head: {
     description:
@@ -328,4 +386,7 @@ export default {
     tip: "Tip pro {path}",
   },
   moneroSuperchats: "Monero Superchats: XMRChat",
+  emailVerification: "Ověření e-mailu",
+  forgotPassword: "Zapomněli jste heslo?",
+  signUp: "Zaregistrovat se",
 };

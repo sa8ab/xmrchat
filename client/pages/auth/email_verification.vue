@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 const { confirmEmail } = useServices();
 const { toLogin, toIndex } = useRouteLocation();
+const { t } = useI18n();
 
-useHead({ title: "Email Verification" });
+useHead({ title: t("emailVerification") });
 
 const route = useRoute();
 const toast = useToast();
@@ -38,7 +39,7 @@ onMounted(() => {
         title="Verification Failed"
       ></UAlert>
       <div>
-        <UButton :to="toIndex()">Go To Home Page</UButton>
+        <UButton :to="toIndex()">{{ $t("goToHomePage") }}</UButton>
       </div>
     </div>
   </div>

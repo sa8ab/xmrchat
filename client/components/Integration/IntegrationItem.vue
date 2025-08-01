@@ -60,7 +60,9 @@ const integration = computed(() =>
           <slot name="info" />
         </div>
         <div>
-          <UButton variant="soft" @click="emit('connect')">Connect</UButton>
+          <UButton variant="soft" @click="emit('connect')">{{
+            $t("connect")
+          }}</UButton>
         </div>
       </div>
     </template>

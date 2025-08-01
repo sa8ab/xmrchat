@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import useVuelidate from "@vuelidate/core";
+const { t } = useI18n();
 
 interface State {
   email?: string;
@@ -8,7 +9,7 @@ interface State {
   isEmailSent: boolean;
 }
 
-useHead({ title: "Forgot password" });
+useHead({ title: t("forgotPassword") });
 
 const { required, email } = useValidations();
 const { forgotPassword } = useServices();
@@ -52,28 +53,16 @@ const handleSubmit = async () => {
     :title="$t('resetPassword')"
     :description="state.isEmailSent ? '' : $t('enterEmailToResetPassword')"
   >
-    <UForm
-      :state="state"
-      class="form"
-      @submit="handleSubmit"
-      v-if="!state.isEmailSent"
-    >
+    <UForm :state="state" class="form" @submit="handleSubmit" v-if="!state.isEmailSent">
       <UFormGroup
         :label="$t('email')"
         name="email"
         :error="getValidationAttrs('email').error"
       >
-        <UInput
-          v-model="state.email"
-          @blur="getValidationAttrs('email').onBlur"
-        />
+        <UInput v-model="state.email" @blur="getValidationAttrs('email').onBlur" />
       </UFormGroup>
 
-      <UAlert
-        color="red"
-        :description="state.errorMessage"
-        v-if="state.errorMessage"
-      >
+      <UAlert color="red" :description="state.errorMessage" v-if="state.errorMessage">
       </UAlert>
 
       <UButton block type="submit" :loading="state.loading">

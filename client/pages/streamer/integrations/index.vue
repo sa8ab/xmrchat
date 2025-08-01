@@ -38,7 +38,10 @@ const { simplex: simplexConfig, signal: signalConfig } = useIntegrations({
 
 <template>
   <div>
-    <PageTitle title="Integrations" description="Manage your integrations" />
+    <PageTitle
+      :title="$t('integrationsTitle')"
+      :description="$t('integrationsDes')"
+    />
 
     <ErrorView :error="error" v-if="error" />
     <div

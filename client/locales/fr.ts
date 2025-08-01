@@ -48,6 +48,7 @@ export default {
   enterEmailToResetPassword:
     "Entrez votre email pour réinitialiser votre mot de passe.",
   creatorLogin: "Connexion Créateur",
+  goToHomePage: "Aller à la page d’accueil",
   searchCreators: {
     title: "Rechercher des Créateurs",
     description:
@@ -327,6 +328,63 @@ export default {
   autoShowTipsDescription:
     "Si activé, les pourboires seront affichés automatiquement sur la page OBS pendant 60 secondes.",
 
+  // INTEGRATIONS PAGE
+  integrations: "Intégrations",
+  integrationsTitle: "Intégrations",
+  integrationsDes: "Gérez vos intégrations",
+  notConnected: "Non connecté.",
+  waitingForVerification: "En attente de vérification.",
+  connected: "Connecté.",
+  connect: "Connecter",
+  disconnect: "Déconnecter",
+  simplexDescription: "Le premier messager sans identifiants utilisateur.",
+  simplexIntegration: "Intégration SimpleX",
+  enterYourSimplexLink:
+    "Saisissez votre lien de connexion SimpleX, puis cliquez sur « Connecter ». Le compte XMRChat enverra une demande de connexion à votre compte SimpleX. Après avoir accepté la demande, vous recevrez un code. Entrez ce code pour finaliser la connexion.",
+  simplexIsConnectedTo: "SimpleX est connecté au compte « {name} ».",
+  acceptRequestInSimplex:
+    "Acceptez la demande de connexion dans l’application SimpleX et entrez le code reçu.",
+  confirmCode: "Confirmer le code",
+  success: "Succès",
+  openSimplexAndAccept:
+    "Ouvrez l’application SimpleX sur votre appareil et acceptez la connexion du compte XMRChat.",
+  error: "Erreur",
+  simplexIsConnected: "SimpleX est connecté.",
+  simplexDisconnected: "SimpleX est déconnecté.",
+  simplexLink: "Lien SimpleX",
+  signalDescription:
+    "Dites « bonjour » à une expérience de messagerie différente. Un accent inattendu sur la confidentialité, avec toutes les fonctionnalités attendues.",
+  signalIsConnected: "Signal est connecté.",
+  signalIsDisconnected: "Signal est déconnecté.",
+  signalIntegration: "Intégration Signal",
+  signalIsConnectedTo: "Signal est connecté au compte {number}.",
+  enterCodeinSignalApp: "Entrez le code envoyé à votre application Signal.",
+  enterSignalNumOrId:
+    "Entrez votre numéro de téléphone ou ID Signal. Un code vous sera envoyé pour vérification.",
+  signalPhoneNumOrId: "Numéro de téléphone ou ID Signal",
+  sendCode: "Envoyer le code",
+  code: "Code",
+
+  // NOTIFICATIONS-PREFRENCES PAGE
+  notifications: "Notifications",
+  manageYourNotifs: "Gérez vos notifications",
+  comingSoon: "Bientôt disponible",
+  featureAvailableSoon: "Cette fonctionnalité sera bientôt disponible.",
+  minNotifsThreshold: "Seuil minimum de notification",
+  minNotifsThresholdHelp:
+    "Montant minimum de pourboire en XMR déclenchant une notification.",
+  connectInIntegrations: "Connectez-vous dans {integrations} pour activer.",
+  dailySummaryTimeHelp: "Heure d’envoi du résumé quotidien des notifications.",
+  notifsPreferencesSaved: "Préférences de notifications enregistrées.",
+  newTip: "Nouveau pourboire",
+  receiveNotifsWhenTipReceived:
+    "Recevoir une notification lors de la réception d’un nouveau pourboire",
+  dailySummary: "Résumé quotidien",
+  receiveDailySummary: "Recevoir un résumé quotidien de vos pourboires",
+  receiveNotifsViaEmail: "Recevoir les notifications par email",
+  receiveNotifsViaSimplex: "Recevoir les notifications via SimpleX",
+  receiveNotifsViaSignal: "Recevoir les notifications via Signal",
+
   // HEAD
   head: {
     description:
@@ -336,4 +394,7 @@ export default {
     tip: "Donner un pourboire à {path}",
   },
   moneroSuperchats: "Superchats Monero : XMRChat",
+  emailVerification: "Vérification de l’e-mail",
+  forgotPassword: "Mot de passe oublié",
+  signUp: "S’inscrire",
 };
