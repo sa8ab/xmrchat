@@ -30,6 +30,7 @@ XMRChat is a tip-for-chat application. Users can set up a page and have others s
   - [Client](#client)
 
 - [Development](#development)
+- [Testing 🔬](#testing)
 
 ## <a name="tech-stack">Technology Stack 🚀</a>
 
@@ -233,6 +234,19 @@ Add your .env based on .env.example, then run the project:
 npm i
 npm run dev
 ```
+
+## <a name="testing">Testing 🔬</a>
+
+For detailed testing instructions, see [TESTING.md](./TESTING.md).
+
+**Client tests** live in `client/` and can be run with:
+
+```bash
+cd client
+npx playwright test
+```
+
+We also provide a GitHub Actions workflow to SSH into your server, spin up containers, run migrations, and execute Playwright tests. See [TESTING.md](./TESTING.md) for more information.
 
 ## License
 
