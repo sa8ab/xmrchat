@@ -132,6 +132,7 @@ const { getValidationAttrs } = useValidations(v);
   <IntegrationItem
     :integrationType="IntegrationConfigType.SIGNAL"
     @connect="open = true"
+    :connected="isConnected"
   >
     <template #info>
       <div class="text-sm text-pale">

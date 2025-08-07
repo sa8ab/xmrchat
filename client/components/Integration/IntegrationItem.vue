@@ -3,6 +3,7 @@ import type { IntegrationConfigType } from "~/types/enums";
 
 const props = defineProps<{
   integrationType: IntegrationConfigType;
+  connected?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -60,9 +61,13 @@ const integration = computed(() =>
           <slot name="info" />
         </div>
         <div>
-          <UButton variant="soft" @click="emit('connect')">{{
-            $t("connect")
-          }}</UButton>
+          <UButton
+            variant="soft"
+            @click="emit('connect')"
+            :color="connected ? 'red' : 'primary'"
+          >
+            {{ connected ? $t("disconnect") : $t("connect") }}
+          </UButton>
         </div>
       </div>
     </template>

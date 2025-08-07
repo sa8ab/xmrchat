@@ -138,6 +138,7 @@ const { getValidationAttrs } = useValidations(v);
   <IntegrationItem
     :integrationType="IntegrationConfigType.SIMPLEX"
     @connect="open = true"
+    :connected="isConnected"
   >
     <template #info>
       <div class="text-sm text-pale">
