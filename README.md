@@ -185,6 +185,18 @@ Then we need to run the migrations:
 docker compose exec -it nest npm run migration:run
 ```
 
+#### Notifications and integrations
+
+In order to use notifications like SimpleX or Signal you need to set up the integrations. If you don't need them skip to next step.
+
+- Email
+  Email notifications already uses the env variables for sending emails.
+- [SimpleX](https://simplex.chat/)
+  Simplex is automatically set up when running the server docker compose. The data from container will be in `/server/simplex` directory.
+- [Signal](https://signal.org/)
+  In order to use Signal notifications you need to have a Signal account. Open server url in a browser or send a get request to `/signal/qrcode` ( Example: `https://server.xmrchat.com/signal/qrcode` ).
+  It will give you a qr code if there is not a signal account already added. Open Signal app on your phone and navigate to settings -> Linked devices and add new device. Scan then qr code you got from the server.
+
 ### <a name="client">4. Client</a>
 
 Go to `/xmrchat/client` directory and create your `.env` file from `.env.example`.
