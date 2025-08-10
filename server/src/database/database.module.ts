@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PageSubscriber } from 'src/audits/page.subscriber';
 import { UserToken } from 'src/auth/user-tokens/user-token.entity';
 import { File as FileEntity } from 'src/files/file.entity';
 import { IntegrationConfig } from 'src/integrations/integration-configs.entity';
