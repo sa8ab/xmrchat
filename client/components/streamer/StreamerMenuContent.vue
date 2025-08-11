@@ -16,6 +16,7 @@ const {
   toPages,
   toStreamerNotificationPreferences,
   toStreamerIntegrations,
+  toStreamerRecipients,
 } = useRouteLocation();
 
 const items = computed(() => {
@@ -88,6 +89,11 @@ const items = computed(() => {
 
     res.push(
       ...[
+        {
+          label: "Recipients",
+          icon: "i-heroicons-users",
+          to: toStreamerRecipients(),
+        },
         {
           label: t("contentLinks"),
           icon: "i-heroicons-link-20-solid",
