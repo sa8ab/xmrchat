@@ -7,7 +7,8 @@
       description="Manage the recipients of the page"
     />
     <div class="grid gap-2">
-      <!-- <RecipientItem /> -->
+      <RecipientItem />
+      <RecipientItem editableAddress editablePercentage showDelete />
     </div>
   </div>
 </template>
