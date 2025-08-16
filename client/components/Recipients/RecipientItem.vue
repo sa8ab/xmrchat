@@ -18,7 +18,7 @@ const props = withDefaults(
 </script>
 
 <template>
-  <div class="grid grid-cols-[1fr_100px_auto] gap-2">
+  <div class="grid grid-cols-[1fr_160px_auto] gap-2">
     <div>
       <!-- name and address -->
       <div v-if="editableAddress" class="flex gap-2">
@@ -30,23 +30,23 @@ const props = withDefaults(
         </UFormGroup>
       </div>
       <div v-else>
-        <div class="font-medium">Address</div>
-        <p>4CscFcV...RQ8RZX</p>
+        <div class="font-medium">{{ model.name }}</div>
+        <p>{{ model.address }}</p>
       </div>
     </div>
     <div>
       <!-- percentage -->
       <div v-if="editablePercentage">
-        <UFormGroup label="Percentage" size="lg">
+        <UFormGroup label="Percentage %" size="lg">
           <UInput v-model="model.percentage" />
         </UFormGroup>
       </div>
       <div v-else>
         <div class="font-medium">Percentage</div>
-        <p>80%</p>
+        <p>{{ model.percentage }}%</p>
       </div>
     </div>
-    <div>
+    <div class="min-w-[140px] flex justify-end">
       <!-- delete -->
       <div v-if="showDelete">
         <span class="mb-1 flex text-sm">&nbsp;</span>
