@@ -50,7 +50,9 @@ const props = withDefaults(
       <!-- delete -->
       <div v-if="showDelete">
         <span class="mb-1 flex text-sm">&nbsp;</span>
-        <UButton color="red" size="lg">{{ $t("remove") }}</UButton>
+        <UButton color="red" size="lg" type="button">{{
+          $t("remove")
+        }}</UButton>
       </div>
     </div>
   </div>
