@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import useVuelidate from "@vuelidate/core";
 import type { PageRecipient } from "~/types";
 
 const model = defineModel<PageRecipient>({ default: () => ({}) });
@@ -19,6 +20,21 @@ const props = withDefaults(
 const emit = defineEmits<{
   delete: [];
 }>();
+
+const { required, moneroPrimaryAddress, integer } = useValidations();
+
+const v = useVuelidate<any>(
+  computed(() => {
+    return {
+      name: { required },
+      address: { required, moneroPrimaryAddress },
+      percentage: { required, integer },
+    };
+  }),
+  model
+);
+
+const { getValidationAttrs } = useValidations(v);
 </script>
 
 <template>
@@ -26,11 +42,26 @@ const emit = defineEmits<{
     <div>
       <!-- name and address -->
       <div v-if="editableAddress" class="flex gap-2">
-        <UFormGroup label="Name" size="lg">
-          <UInput v-model="model.name" />
+        <UFormGroup
+          label="Name"
+          size="lg"
+          :error="getValidationAttrs('name').error"
+        >
+          <UInput
+            v-model="model.name"
+            @blur="getValidationAttrs('name').onBlur"
+          />
         </UFormGroup>
-        <UFormGroup label="Address" size="lg" class="flex-grow">
-          <UInput v-model="model.address" />
+        <UFormGroup
+          label="Address"
+          size="lg"
+          class="flex-grow"
+          :error="getValidationAttrs('address').error"
+        >
+          <UInput
+            v-model="model.address"
+            @blur="getValidationAttrs('address').onBlur"
+          />
         </UFormGroup>
       </div>
       <div v-else>
@@ -41,8 +72,15 @@ const emit = defineEmits<{
     <div>
       <!-- percentage -->
       <div v-if="editablePercentage">
-        <UFormGroup label="Percentage %" size="lg">
-          <UInput v-model="model.percentage" />
+        <UFormGroup
+          label="Percentage %"
+          size="lg"
+          :error="getValidationAttrs('percentage').error"
+        >
+          <UInput
+            v-model="model.percentage"
+            @blur="getValidationAttrs('percentage').onBlur"
+          />
         </UFormGroup>
       </div>
       <div v-else>

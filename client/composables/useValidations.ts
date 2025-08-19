@@ -8,6 +8,7 @@ import {
   maxLength as baseMaxLength,
   sameAs as baseSameAs,
   url as baseUrl,
+  integer as baseInteger,
   helpers,
 } from "@vuelidate/validators";
 // import { getProperty } from "~/utils";
@@ -22,6 +23,11 @@ export const useValidations = (generalV?: Ref<Validation>) => {
   const numberic = helpers.withMessage(
     () => t("validations.numberic"),
     baseNumberic
+  );
+
+  const integer = helpers.withMessage(
+    () => t("validations.numberic"),
+    baseInteger
   );
 
   const url = helpers.withMessage(() => t("validations.url"), baseUrl);
@@ -116,6 +122,7 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     required,
     email,
     numberic,
+    integer,
     minLength,
     maxLength,
     minValue,
