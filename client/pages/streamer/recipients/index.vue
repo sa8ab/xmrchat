@@ -8,34 +8,37 @@ const state = reactive<{
   xmrchat?: PageRecipient;
 }>({
   recipients: [],
-  page: undefined,
-  xmrchat: undefined,
+  page: {
+    variant: PageRecipientVariant.PAGE,
+    name: "Page Address",
+  },
+  xmrchat: {
+    variant: PageRecipientVariant.XMRCHAT,
+    name: "XMRChat",
+    address: "XMRChat address",
+  },
 });
 
 const { axios } = useApp();
 const {} = useLazyAsyncData(
   async () => {
-    const { data } = await axios.get<{ pageRecipients: PageRecipient[] }>(
-      "/page-recipients"
-    );
+    // const { data } = await axios.get<{ pageRecipients: PageRecipient[] }>(
+    //   "/page-recipients"
+    // );
+
+    const data = { pageRecipients: [] };
 
     const page = getStateRecipient(
       data.pageRecipients,
       PageRecipientVariant.PAGE
-    ) || {
-      variant: PageRecipientVariant.PAGE,
-      name: "Page Address",
-    };
-    state.page = page;
+    );
+    if (page) state.page = page;
 
     const xmrchat = getStateRecipient(
       data.pageRecipients,
       PageRecipientVariant.XMRCHAT
-    ) || {
-      variant: PageRecipientVariant.XMRCHAT,
-      name: "XMRChat",
-    };
-    state.xmrchat = xmrchat;
+    );
+    if (xmrchat) state.xmrchat = xmrchat;
 
     state.recipients = data.pageRecipients.filter(({ variant }) => {
       return variant == PageRecipientVariant.RECIPIENT;
@@ -62,6 +65,17 @@ const addRecipient = () => {
 const removeRecipient = (index: number) => {
   state.recipients = state.recipients.filter((_, i) => i != index);
 };
+
+const remainingPagePercentage = computed(() => {
+  const xmrchat = Number(state.xmrchat?.percentage) || 0;
+
+  let sum = state.recipients.reduce((acc, curr) => {
+    return acc + (Number(curr.percentage) ?? 0);
+  }, 0);
+
+  const res = 100 - (xmrchat + sum);
+  return res ?? 100;
+});
 </script>
 
 <template>
@@ -76,13 +90,10 @@ const removeRecipient = (index: number) => {
           :modelValue="{
             name: 'Address',
             address: '4CscFcV...RQ8RZX',
-            percentage: 80,
+            percentage: remainingPagePercentage,
           }"
         />
-        <RecipientItem
-          :modelValue="{ name: 'XMRChat', address: '4CscFcV...RQ8RZX' }"
-          editablePercentage
-        />
+        <RecipientItem v-model="state.xmrchat" editablePercentage />
         <RecipientItem
           v-for="(item, i) in state.recipients"
           v-model="state.recipients[i]"

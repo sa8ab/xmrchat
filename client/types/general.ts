@@ -231,6 +231,6 @@ export interface IntegrationConfig {
 export interface PageRecipient {
   name?: string;
   address?: string;
-  percentage?: number;
+  percentage?: Numberic;
   variant?: PageRecipientVariant;
 }
