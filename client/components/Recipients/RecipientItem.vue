@@ -15,6 +15,10 @@ const props = withDefaults(
     showDelete: false,
   }
 );
+
+const emit = defineEmits<{
+  delete: [];
+}>();
 </script>
 
 <template>
@@ -50,7 +54,7 @@ const props = withDefaults(
       <!-- delete -->
       <div v-if="showDelete">
         <span class="mb-1 flex text-sm">&nbsp;</span>
-        <UButton color="red" size="lg" type="button">{{
+        <UButton color="red" size="lg" type="button" @click="emit('delete')">{{
           $t("remove")
         }}</UButton>
       </div>
