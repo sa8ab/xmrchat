@@ -21,14 +21,16 @@ const emit = defineEmits<{
   delete: [];
 }>();
 
-const { required, moneroPrimaryAddress, integer } = useValidations();
+const { required, moneroPrimaryAddress, integer, between } = useValidations();
 
 const v = useVuelidate<any>(
   computed(() => {
     return {
       name: { required },
-      address: { required, moneroPrimaryAddress },
-      percentage: { required, integer },
+      address: props.editableAddress ? { required, moneroPrimaryAddress } : {},
+      percentage: props.editablePercentage
+        ? { required, integer, between: between(0, 100) }
+        : {},
     };
   }),
   model

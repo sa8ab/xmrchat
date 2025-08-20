@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { type PageRecipient } from "@/types/general";
+import useVuelidate from "@vuelidate/core";
 import { PageRecipientVariant } from "~/types/enums";
 
 const state = reactive<{
   recipients: PageRecipient[];
-  page?: PageRecipient;
-  xmrchat?: PageRecipient;
+  page: PageRecipient;
+  xmrchat: PageRecipient;
+  loading: boolean;
 }>({
   recipients: [],
   page: {
@@ -16,10 +18,13 @@ const state = reactive<{
     variant: PageRecipientVariant.XMRCHAT,
     name: "XMRChat",
     address: "XMRChat address",
+    percentage: 0,
   },
+  loading: false,
 });
 
 const { axios } = useApp();
+const toast = useToast();
 const {} = useLazyAsyncData(
   async () => {
     // const { data } = await axios.get<{ pageRecipients: PageRecipient[] }>(
@@ -49,6 +54,40 @@ const {} = useLazyAsyncData(
   { server: false }
 );
 
+const handleSave = async () => {
+  state.loading = true;
+  // const valid = await v.value.$validate();
+
+  // if (!valid) return;
+
+  try {
+    const recipients = [...state.recipients];
+    recipients.push({
+      ...state.page,
+      percentage: remainingPagePercentage.value,
+      address: undefined,
+    });
+    recipients.push({
+      ...state.xmrchat,
+      address: undefined,
+    });
+    const { data } = await axios.post("/page-recipients", {
+      recipients,
+    });
+    toast.add({
+      description: "Recipients updated successfully",
+      color: "green",
+    });
+  } catch (error) {
+    toast.add({
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+    state.loading = false;
+  }
+};
+
 const getStateRecipient = (
   data: PageRecipient[],
   variant: PageRecipientVariant
@@ -69,13 +108,16 @@ const removeRecipient = (index: number) => {
 const remainingPagePercentage = computed(() => {
   const xmrchat = Number(state.xmrchat?.percentage) || 0;
 
-  let sum = state.recipients.reduce((acc, curr) => {
-    return acc + (Number(curr.percentage) ?? 0);
-  }, 0);
+  let sum =
+    state.recipients.reduce((acc, curr) => {
+      return acc + (Number(curr.percentage) ?? 0);
+    }, 0) || 0;
 
   const res = 100 - (xmrchat + sum);
   return res ?? 100;
 });
+
+const v = useVuelidate();
 </script>
 
 <template>
@@ -84,7 +126,7 @@ const remainingPagePercentage = computed(() => {
       title="Page Recipients"
       description="Manage the recipients of the page"
     />
-    <GeneralForm>
+    <GeneralForm @submit="handleSave">
       <div class="grid gap-4">
         <RecipientItem
           :modelValue="{
@@ -103,11 +145,18 @@ const remainingPagePercentage = computed(() => {
           @delete="removeRecipient(i)"
         />
       </div>
-      <div class="flex gap-2 mt-4">
-        <UButton type="button">Save</UButton>
-        <UButton variant="outline" @click="addRecipient" type="button">
-          Add recipient
-        </UButton>
+      <div class="flex gap-2 mt-6 justify-between flex-wrap">
+        <div class="flex gap-2">
+          <UButton type="submit">Save</UButton>
+          <UButton variant="outline" @click="addRecipient" type="button">
+            Add recipient
+          </UButton>
+        </div>
+        <div>
+          <UButton color="red" variant="outline" type="button"
+            >Reset recipients</UButton
+          >
+        </div>
       </div>
     </GeneralForm>
   </div>

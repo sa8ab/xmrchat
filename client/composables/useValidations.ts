@@ -4,8 +4,10 @@ import {
   email as baseEmail,
   numeric as baseNumberic,
   minValue as baseMinValue,
+  maxValue as baseMaxValue,
   minLength as baseMinLength,
   maxLength as baseMaxLength,
+  between as baseBetween,
   sameAs as baseSameAs,
   url as baseUrl,
   integer as baseInteger,
@@ -52,6 +54,18 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     helpers.withMessage(
       ({ $params }) => t("validations.minValue", { value: $params.min }),
       baseMinValue(...v)
+    );
+  const maxValue = (...v: Parameters<typeof baseMaxValue>) =>
+    helpers.withMessage(
+      ({ $params }) => t("validations.maxValue", { value: $params.max }),
+      baseMaxValue(...v)
+    );
+
+  const between = (...v: Parameters<typeof baseBetween>) =>
+    helpers.withMessage(
+      ({ $params }) =>
+        t("validations.between", { value: $params.min, max: $params.max }),
+      baseBetween(...v)
     );
 
   const sameAs = (...v: Parameters<typeof baseSameAs>) =>
@@ -126,6 +140,8 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     minLength,
     maxLength,
     minValue,
+    maxValue,
+    between,
     sameAs,
     url,
     notUrl,

@@ -1,9 +1,11 @@
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
   IsArray,
   IsEnum,
   IsNumber,
   IsString,
+  Max,
+  Min,
   Validate,
   ValidateIf,
   ValidateNested,
@@ -22,6 +24,9 @@ export class UpdateRecipientDto {
   address: string;
 
   @IsNumber()
+  @Transform(({ value }) => Number(value))
+  @Min(0)
+  @Max(100)
   percentage: number;
 
   @IsEnum(PageRecipientVariant)
