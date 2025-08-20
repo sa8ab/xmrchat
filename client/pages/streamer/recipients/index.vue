@@ -27,11 +27,9 @@ const { axios } = useApp();
 const toast = useToast();
 const {} = useLazyAsyncData(
   async () => {
-    // const { data } = await axios.get<{ pageRecipients: PageRecipient[] }>(
-    //   "/page-recipients"
-    // );
-
-    const data = { pageRecipients: [] };
+    const { data } = await axios.get<{ pageRecipients: PageRecipient[] }>(
+      "/page-recipients"
+    );
 
     const page = getStateRecipient(
       data.pageRecipients,
