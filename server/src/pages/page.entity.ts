@@ -107,7 +107,9 @@ export class Page {
   @OneToMany(() => Link, (l) => l.page)
   links: Link[];
 
-  @OneToMany(() => PageRecipient, (p: PageRecipient) => p.page)
+  @OneToMany(() => PageRecipient, (p: PageRecipient) => p.page, {
+    cascade: true,
+  })
   recipients: PageRecipient[];
 
   totalTips: number | null;

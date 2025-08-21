@@ -18,8 +18,11 @@ export class PageRecipientsController {
   }
 
   @Post('/')
-  async updateRecipients(@Body() dto: UpdateRecipientsDto) {
-    await this.pageRecipientsService.updateRecipients(dto);
-    return { message: '' };
+  async updateRecipients(
+    @Body() dto: UpdateRecipientsDto,
+    @CurrentUser() user: User,
+  ) {
+    await this.pageRecipientsService.updateRecipients(dto, user);
+    return { message: 'Updated recipients' };
   }
 }

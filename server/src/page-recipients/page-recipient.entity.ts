@@ -25,7 +25,10 @@ export class PageRecipient {
   @Column({ type: 'numeric', precision: 5, scale: 2 })
   percentage: number;
 
-  @ManyToOne(() => Page, (page) => page.recipients, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Page, (page) => page.recipients, {
+    onDelete: 'CASCADE',
+    orphanedRowAction: 'delete',
+  })
   page: Page;
 
   @Column({ default: PageRecipientVariant.RECIPIENT })
