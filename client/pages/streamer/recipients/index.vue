@@ -27,27 +27,24 @@ const { axios } = useApp();
 const toast = useToast();
 const {} = useLazyAsyncData(
   async () => {
-    const { data } = await axios.get<{ pageRecipients: PageRecipient[] }>(
+    const { data } = await axios.get<{ recipients: PageRecipient[] }>(
       "/page-recipients"
     );
 
-    const page = getStateRecipient(
-      data.pageRecipients,
-      PageRecipientVariant.PAGE
-    );
+    const page = getStateRecipient(data.recipients, PageRecipientVariant.PAGE);
     if (page) state.page = page;
 
     const xmrchat = getStateRecipient(
-      data.pageRecipients,
+      data.recipients,
       PageRecipientVariant.XMRCHAT
     );
     if (xmrchat) state.xmrchat = xmrchat;
 
-    state.recipients = data.pageRecipients.filter(({ variant }) => {
+    state.recipients = data.recipients.filter(({ variant }) => {
       return variant == PageRecipientVariant.RECIPIENT;
     });
 
-    return data.pageRecipients;
+    return data.recipients;
   },
   { server: false }
 );
