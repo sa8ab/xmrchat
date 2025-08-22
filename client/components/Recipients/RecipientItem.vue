@@ -9,11 +9,13 @@ const props = withDefaults(
     editableAddress?: boolean;
     editablePercentage?: boolean;
     showDelete?: boolean;
+    truncateAddress?: boolean;
   }>(),
   {
     editableAddress: false,
     editablePercentage: false,
     showDelete: false,
+    truncateAddress: false,
   }
 );
 
@@ -68,7 +70,15 @@ const { getValidationAttrs } = useValidations(v);
       </div>
       <div v-else>
         <div class="font-medium">{{ model.name }}</div>
-        <p>{{ model.address }}</p>
+        <p>
+          {{
+            model.address
+              ? truncateAddress
+                ? truncateMiddle(model.address, 4, 4)
+                : model.address
+              : ""
+          }}
+        </p>
       </div>
     </div>
     <div>

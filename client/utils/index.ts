@@ -91,3 +91,25 @@ export const generateWalletLink = (data: {
 
   return undefined;
 };
+
+/**
+ * Truncates a string by showing the beginning and end with ellipsis in the middle
+ * @param text - The text to truncate
+ * @param startCount - Number of characters to show at the beginning (default: 4)
+ * @param endCount - Number of characters to show at the end (default: 4)
+ * @returns The truncated string with middle ellipsis
+ */
+export const truncateMiddle = (
+  text: string,
+  startCount: number = 4,
+  endCount: number = 4
+): string => {
+  if (!text || text.length <= startCount + endCount + 3) {
+    return text;
+  }
+
+  const start = text.slice(0, startCount);
+  const end = text.slice(-endCount);
+
+  return `${start}...${end}`;
+};

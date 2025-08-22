@@ -25,6 +25,10 @@ const state = reactive<{
 
 const { axios } = useApp();
 const toast = useToast();
+const authStore = useAuthStore();
+
+const pageAddress = computed(() => authStore.state.page?.primaryAddress);
+
 const {} = useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{ recipients: PageRecipient[] }>(
@@ -32,13 +36,19 @@ const {} = useLazyAsyncData(
     );
 
     const page = getStateRecipient(data.recipients, PageRecipientVariant.PAGE);
-    if (page) state.page = page;
+    if (page) {
+      page.address = pageAddress.value;
+      state.page = page;
+    }
 
     const xmrchat = getStateRecipient(
       data.recipients,
       PageRecipientVariant.XMRCHAT
     );
-    if (xmrchat) state.xmrchat = xmrchat;
+    if (xmrchat) {
+      xmrchat.address = "XMRChat address";
+      state.xmrchat = xmrchat;
+    }
 
     state.recipients = data.recipients.filter(({ variant }) => {
       return variant == PageRecipientVariant.RECIPIENT;
@@ -51,9 +61,9 @@ const {} = useLazyAsyncData(
 
 const handleSave = async () => {
   state.loading = true;
-  // const valid = await v.value.$validate();
+  const valid = await v.value.$validate();
 
-  // if (!valid) return;
+  if (!valid) return;
 
   try {
     const recipients = [...state.recipients];
@@ -125,10 +135,10 @@ const v = useVuelidate();
       <div class="grid gap-4">
         <RecipientItem
           :modelValue="{
-            name: 'Address',
-            address: '4CscFcV...RQ8RZX',
+            ...state.page,
             percentage: remainingPagePercentage,
           }"
+          truncateAddress
         />
         <RecipientItem v-model="state.xmrchat" editablePercentage />
         <RecipientItem
