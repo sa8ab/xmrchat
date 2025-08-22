@@ -42,10 +42,15 @@ export class PageRecipientsService {
       return recipient;
     });
 
-    page.recipients = newRecipients;
+    return this.repo.manager.transaction(async (manager) => {
+      await manager.delete(PageRecipient, {
+        page: { id: page.id },
+      });
 
-    const savedPage = await this.pageRepo.save(page);
+      page.recipients = newRecipients;
+      await manager.save(page);
 
-    return savedPage.recipients;
+      return page.recipients;
+    });
   }
 }
