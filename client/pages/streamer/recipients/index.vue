@@ -36,15 +36,13 @@ const {} = useLazyAsyncData(
     );
 
     const page = getStateRecipient(data.recipients, PageRecipientVariant.PAGE);
-    if (page) {
-      page.address = pageAddress.value;
-      state.page = page;
-    }
+    if (page) state.page = page;
 
     const xmrchat = getStateRecipient(
       data.recipients,
       PageRecipientVariant.XMRCHAT
     );
+
     if (xmrchat) {
       xmrchat.address = "XMRChat address";
       state.xmrchat = xmrchat;
@@ -136,6 +134,7 @@ const v = useVuelidate();
         <RecipientItem
           :modelValue="{
             ...state.page,
+            address: pageAddress,
             percentage: remainingPagePercentage,
           }"
           truncateAddress
