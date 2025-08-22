@@ -27,6 +27,7 @@ export class CaslAbilityFactory {
     if (user.isPremium) {
       can(Action.Manage, 'notification');
       can(Action.Receive, 'notification');
+      can(Action.Manage, 'recipient');
     }
 
     return build({

@@ -78,3 +78,9 @@ export enum IntegrationConfigType {
   TELEGRAM = "telegram",
   SIMPLEX = "simplex",
 }
+
+export enum PageRecipientVariant {
+  RECIPIENT = "recipient",
+  PAGE = "page",
+  XMRCHAT = "xmrchat",
+}

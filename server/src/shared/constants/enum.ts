@@ -126,3 +126,9 @@ export enum Action {
   Delete = 'delete',
   Receive = 'receive',
 }
+
+export enum PageRecipientVariant {
+  PAGE = 'page',
+  XMRCHAT = 'xmrchat',
+  RECIPIENT = 'recipient',
+}

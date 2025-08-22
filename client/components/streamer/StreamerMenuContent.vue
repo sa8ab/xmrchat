@@ -16,6 +16,7 @@ const {
   toPages,
   toStreamerNotificationPreferences,
   toStreamerIntegrations,
+  toStreamerRecipients,
 } = useRouteLocation();
 
 const items = computed(() => {
@@ -81,6 +82,11 @@ const items = computed(() => {
             label: "Integrations",
             icon: "i-tabler-plug",
             to: toStreamerIntegrations(),
+          },
+          {
+            label: "Recipients",
+            icon: "i-heroicons-users",
+            to: toStreamerRecipients(),
           },
         ]
       );

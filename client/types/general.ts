@@ -6,6 +6,7 @@ import type {
   NotificationPreferenceType,
   PageSettingKey,
   PageStatusEnum,
+  PageRecipientVariant,
   RolesEnum,
   SwapStatusEnum,
   TipDisplayMode,
@@ -225,4 +226,11 @@ export interface IntegrationConfig {
   method: string;
   config: any;
   verified: boolean;
+}
+
+export interface PageRecipient {
+  name?: string;
+  address?: string;
+  percentage?: Numberic;
+  variant?: PageRecipientVariant;
 }
