@@ -83,17 +83,17 @@ const items = computed(() => {
             icon: "i-tabler-plug",
             to: toStreamerIntegrations(),
           },
+          {
+            label: "Recipients",
+            icon: "i-heroicons-users",
+            to: toStreamerRecipients(),
+          },
         ]
       );
     }
 
     res.push(
       ...[
-        {
-          label: "Recipients",
-          icon: "i-heroicons-users",
-          to: toStreamerRecipients(),
-        },
         {
           label: t("contentLinks"),
           icon: "i-heroicons-link-20-solid",
