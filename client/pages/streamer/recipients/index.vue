@@ -58,10 +58,10 @@ const {} = useLazyAsyncData(
 );
 
 const handleSave = async () => {
-  state.loading = true;
   const valid = await v.value.$validate();
 
   if (!valid) return;
+  state.loading = true;
 
   try {
     const recipients = [...state.recipients];

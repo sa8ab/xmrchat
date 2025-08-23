@@ -42,7 +42,7 @@ export class CaslAbilityFactory {
     if (pageResult?.isPremium) {
       can(Action.Manage, 'notification');
       can(Action.Receive, 'notification');
-      can(Action.Manage, 'recipient');
+      // TODO: add manage on integrations
     }
 
     return build({
