@@ -508,4 +508,14 @@ export class PagesService {
 
     return this.repo.save(page);
   }
+
+  async changePremiumBySlug(slug: string, isPremium: boolean) {
+    const page = await this.findByPath(slug);
+
+    if (!page) throw new NotFoundException('Page not found');
+
+    page.isPremium = isPremium;
+
+    return this.repo.save(page);
+  }
 }

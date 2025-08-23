@@ -67,6 +67,11 @@ const items = computed(() => {
           icon: "i-heroicons-banknotes",
           to: toStreamer(page.value.path),
         },
+        {
+          label: "Tip Splits",
+          icon: "i-heroicons-users",
+          to: toStreamerRecipients(),
+        },
       ]
     );
 
@@ -85,11 +90,6 @@ const items = computed(() => {
           icon: "i-tabler-plug",
           to: toStreamerIntegrations(),
           disabled: !premium,
-        },
-        {
-          label: "Tip Splits",
-          icon: "i-heroicons-users",
-          to: toStreamerRecipients(),
         },
       ]
     );
