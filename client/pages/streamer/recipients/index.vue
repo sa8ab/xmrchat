@@ -130,7 +130,7 @@ const v = useVuelidate();
       description="Manage the recipients of the page"
     />
     <GeneralForm @submit="handleSave">
-      <div class="grid gap-4">
+      <div class="grid gap-6 lg:gap-4">
         <RecipientItem
           :modelValue="{
             ...state.page,
@@ -157,9 +157,9 @@ const v = useVuelidate();
           </UButton>
         </div>
         <div>
-          <UButton color="red" variant="outline" type="button"
-            >Reset recipients</UButton
-          >
+          <UButton color="red" variant="outline" type="button">
+            Reset recipients
+          </UButton>
         </div>
       </div>
     </GeneralForm>

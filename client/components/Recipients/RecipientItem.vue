@@ -42,7 +42,9 @@ const { getValidationAttrs } = useValidations(v);
 </script>
 
 <template>
-  <div class="grid grid-cols-[1fr_160px_auto] gap-2">
+  <div
+    class="grid grid-cols-1 lg:grid-cols-[1fr_160px_auto] gap-2 border border-border p-4 rounded-lg lg:border-none lg:p-0 lg:rounded-none"
+  >
     <div>
       <!-- name and address -->
       <div v-if="editableAddress" class="flex gap-2">
@@ -103,7 +105,7 @@ const { getValidationAttrs } = useValidations(v);
     <div class="min-w-[140px] flex justify-end">
       <!-- delete -->
       <div v-if="showDelete">
-        <span class="mb-1 flex text-sm">&nbsp;</span>
+        <span class="mb-1 text-sm hidden lg:flex">&nbsp;</span>
         <UButton color="red" size="lg" type="button" @click="emit('delete')">{{
           $t("remove")
         }}</UButton>
