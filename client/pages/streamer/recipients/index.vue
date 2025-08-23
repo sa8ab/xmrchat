@@ -127,8 +127,8 @@ const v = useVuelidate();
 <template>
   <div>
     <PageTitle
-      title="Page Recipients"
-      description="Manage the recipients of the page"
+      title="Tip Recipients"
+      description="Manage the recipients of your tips"
     />
     <GeneralForm @submit="handleSave">
       <div class="grid gap-6 lg:gap-4">

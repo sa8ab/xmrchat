@@ -87,7 +87,7 @@ const items = computed(() => {
           disabled: !premium,
         },
         {
-          label: "Recipients",
+          label: "Tip Splits",
           icon: "i-heroicons-users",
           to: toStreamerRecipients(),
         },
