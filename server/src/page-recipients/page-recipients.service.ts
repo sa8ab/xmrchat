@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { User } from 'src/users/user.entity';
 import { PagesService } from 'src/pages/pages.service';
 import { Page } from 'src/pages/page.entity';
+import { PageRecipientVariant } from 'src/shared/constants';
 
 @Injectable()
 export class PageRecipientsService {
@@ -42,7 +43,7 @@ export class PageRecipientsService {
       return recipient;
     });
 
-    return this.repo.manager.transaction(async (manager) => {
+    await this.repo.manager.transaction(async (manager) => {
       await manager.delete(PageRecipient, {
         page: { id: page.id },
       });
@@ -52,5 +53,28 @@ export class PageRecipientsService {
 
       return page.recipients;
     });
+
+    await this.updatePagePremium(page.id);
+  }
+
+  async updatePagePremium(pageId: number) {
+    const page = await this.pageRepo.findOne({ where: { id: pageId } });
+    if (!page) throw new NotFoundException('Page not found!');
+
+    const xmrchatRecipient = await this.repo.findOne({
+      where: {
+        variant: PageRecipientVariant.XMRCHAT,
+        page: { id: page.id },
+      },
+    });
+
+    const isPremium = xmrchatRecipient && xmrchatRecipient.percentage >= 3;
+
+    page.isPremium = isPremium;
+    await this.pageRepo.save(page);
+
+    console.log(`Is premium: ${isPremium}`);
+
+    return isPremium;
   }
 }

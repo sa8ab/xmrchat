@@ -151,7 +151,7 @@ const v = useVuelidate();
       </div>
       <div class="flex gap-2 mt-6 justify-between flex-wrap">
         <div class="flex gap-2">
-          <UButton type="submit">Save</UButton>
+          <UButton type="submit" :loading="state.loading">Save</UButton>
           <UButton variant="outline" @click="addRecipient" type="button">
             Add recipient
           </UButton>
