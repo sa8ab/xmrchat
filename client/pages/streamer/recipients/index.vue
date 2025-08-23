@@ -81,6 +81,7 @@ const handleSave = async () => {
       description: "Recipients updated successfully",
       color: "green",
     });
+    await authStore.getMe();
   } catch (error) {
     toast.add({
       description: getErrorMessage(error),
