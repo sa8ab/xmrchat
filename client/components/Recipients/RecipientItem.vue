@@ -59,7 +59,7 @@ const { getValidationAttrs } = useValidations(v);
           />
         </UFormGroup>
         <UFormGroup
-          label="Address"
+          label="Your wallet address"
           size="lg"
           class="flex-grow"
           :error="getValidationAttrs('address').error"

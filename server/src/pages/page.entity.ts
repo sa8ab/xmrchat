@@ -69,6 +69,9 @@ export class Page {
   @Column('boolean', { default: true })
   isPublic: boolean;
 
+  @Column({ type: 'boolean', default: false })
+  isPremium: boolean;
+
   @Column({ type: 'integer', nullable: true })
   expirationMinutes: number;
 

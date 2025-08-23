@@ -33,11 +33,6 @@ export class PageRecipientsController {
     @Body() dto: UpdateRecipientsDto,
     @CurrentUser() user: User,
   ) {
-    const ability = this.casl.createForUser(user);
-    if (!ability.can(Action.Update, 'recipient')) {
-      throw new UnauthorizedException('Unauthorized to change recipients');
-    }
-
     await this.pageRecipientsService.updateRecipients(dto, user);
     return { message: 'Recipients updated.' };
   }

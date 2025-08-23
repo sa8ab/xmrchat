@@ -13,6 +13,9 @@ export class StreamerPageDto extends PageDto {
   isPublic: string;
 
   @Expose()
+  isPremium: boolean;
+
+  @Expose()
   status: PageStatusEnum;
 }
 

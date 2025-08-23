@@ -58,10 +58,10 @@ const {} = useLazyAsyncData(
 );
 
 const handleSave = async () => {
-  state.loading = true;
   const valid = await v.value.$validate();
 
   if (!valid) return;
+  state.loading = true;
 
   try {
     const recipients = [...state.recipients];
@@ -81,6 +81,7 @@ const handleSave = async () => {
       description: "Recipients updated successfully",
       color: "green",
     });
+    await authStore.getMe();
   } catch (error) {
     toast.add({
       description: getErrorMessage(error),
@@ -126,8 +127,8 @@ const v = useVuelidate();
 <template>
   <div>
     <PageTitle
-      title="Page Recipients"
-      description="Manage the recipients of the page"
+      title="Tip Recipients"
+      description="Manage the recipients of your tips"
     />
     <GeneralForm @submit="handleSave">
       <div class="grid gap-6 lg:gap-4">
@@ -151,7 +152,7 @@ const v = useVuelidate();
       </div>
       <div class="flex gap-2 mt-6 justify-between flex-wrap">
         <div class="flex gap-2">
-          <UButton type="submit">Save</UButton>
+          <UButton type="submit" :loading="state.loading">Save</UButton>
           <UButton variant="outline" @click="addRecipient" type="button">
             Add recipient
           </UButton>

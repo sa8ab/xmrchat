@@ -82,6 +82,7 @@ export interface StreamerPage {
   twitchChannel?: string;
   minTipAmount?: string;
   isPublic: boolean;
+  isPremium?: boolean;
   tipDisplayMode?: TipDisplayMode;
   fiat?: FiatEnum;
   links?: ContentLink[];
