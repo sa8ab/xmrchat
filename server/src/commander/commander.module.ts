@@ -13,6 +13,7 @@ import { Page } from 'src/pages/page.entity';
 import { DataMigrationCommand } from './commands/data-migration.command';
 import { Tip } from 'src/tips/tip.entity';
 import { ChangePremiumCommand } from './commands/premium.command';
+import { PagesModule } from 'src/pages/pages.module';
 
 @Module({
   providers: [
@@ -26,6 +27,7 @@ import { ChangePremiumCommand } from './commands/premium.command';
   ],
   imports: [
     AuthModule,
+    PagesModule,
     UsersModule,
     NotificationsModule,
     LwsModule,
