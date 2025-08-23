@@ -70,27 +70,29 @@ const items = computed(() => {
       ]
     );
 
-    if (isPremium.value || isAdmin.value) {
-      res.push(
-        ...[
-          {
-            label: "Notifications",
-            icon: "i-heroicons-bell",
-            to: toStreamerNotificationPreferences(),
-          },
-          {
-            label: "Integrations",
-            icon: "i-tabler-plug",
-            to: toStreamerIntegrations(),
-          },
-          {
-            label: "Recipients",
-            icon: "i-heroicons-users",
-            to: toStreamerRecipients(),
-          },
-        ]
-      );
-    }
+    const premium = isPremium.value || isAdmin.value;
+
+    res.push(
+      ...[
+        {
+          label: "Notifications",
+          icon: "i-heroicons-bell",
+          to: toStreamerNotificationPreferences(),
+          disabled: !premium,
+        },
+        {
+          label: "Integrations",
+          icon: "i-tabler-plug",
+          to: toStreamerIntegrations(),
+          disabled: !premium,
+        },
+        {
+          label: "Recipients",
+          icon: "i-heroicons-users",
+          to: toStreamerRecipients(),
+        },
+      ]
+    );
 
     res.push(
       ...[
@@ -132,8 +134,12 @@ const items = computed(() => {
           :to="item.to"
           :exact="item.exact"
           variant="soft"
-          class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:text-primary transition-all"
-          activeClass="bg-primary text-white dark:text-gray-900 pointer-events-none"
+          :class="[
+            'flex items-center gap-2 px-2 py-1.5 rounded-lg hover:text-primary transition-all',
+            { 'opacity-50 pointer-events-none': item.disabled },
+          ]"
+          activeClass="bg-primary !text-white "
+          :disabled="item.disabled"
         >
           <UIcon v-if="item.icon" :name="item.icon" class="w-5 h-5" />
           <span>

@@ -30,7 +30,7 @@ export class NotificationPreferencesController {
   @Get()
   @Serialize(NotificationPreferencesRO)
   async getPreferences(@CurrentUser() user: User) {
-    const ability = this.casl.createForUser(user);
+    const ability = await this.casl.createForUser(user);
 
     if (!ability.can(Action.Manage, 'notification')) {
       throw new UnauthorizedException(
@@ -67,7 +67,7 @@ export class NotificationPreferencesController {
     @CurrentUser() user: User,
     @Body() dto: UpdateNotificationPreferencesDto,
   ) {
-    const ability = this.casl.createForUser(user);
+    const ability = await this.casl.createForUser(user);
 
     if (!ability.can(Action.Manage, 'notification')) {
       throw new UnauthorizedException(
