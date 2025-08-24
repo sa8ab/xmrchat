@@ -8,7 +8,6 @@ import {
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Page } from 'src/pages/page.entity';
-import { PagesService } from 'src/pages/pages.service';
 import { Action, RolesEnum } from 'src/shared/constants/enum';
 import { User } from 'src/users/user.entity';
 import { Repository } from 'typeorm';
