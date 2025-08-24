@@ -153,9 +153,7 @@ const v = useVuelidate<any>(
 
 const { getValidationAttrs } = useValidations(v);
 
-const isPremium = computed(
-  () => authStore.state.user?.isPremium || authStore.isAdmin
-);
+const isPremium = computed(() => authStore.isPremiumOrAdmin);
 </script>
 
 <template>
@@ -164,14 +162,17 @@ const isPremium = computed(
       :title="$t('notifications')"
       :description="$t('manageYourNotifs')"
     />
-    <div class="text-center" v-if="!isPremium">
+
+    <PremiumAlert v-if="!isPremium" class="mb-6" />
+
+    <!-- <div class="text-center" v-if="!isPremium">
       <p class="text-2xl font-bold">{{ $t("comingSoon") }}</p>
       <p class="mt-2">
         {{ $t("featureAvailableSoon") }}
       </p>
-    </div>
+    </div> -->
 
-    <ErrorView :error="error" v-else-if="error" />
+    <ErrorView :error="error" v-if="error" />
 
     <GeneralForm @submit="handleSave" v-else>
       <div class="grid mb-10 grid-cols-1 md:grid-cols-2 gap-4">

@@ -78,8 +78,8 @@ export const useAuthStore = defineStore(
 
     const isLoggedIn = computed(() => state.token);
     const isAdmin = computed(() => state.user?.roles.includes(RolesEnum.ADMIN));
-    // const isPremium = computed(() => state.user?.isPremium);
     const isPremium = computed(() => state.page?.isPremium);
+    const isPremiumOrAdmin = computed(() => isPremium.value || isAdmin.value);
     const userEmail = computed(() => state.user?.email);
 
     return {
@@ -88,6 +88,7 @@ export const useAuthStore = defineStore(
       userEmail,
       isAdmin,
       isPremium,
+      isPremiumOrAdmin,
       getMe,
       login,
       signup,

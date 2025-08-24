@@ -83,13 +83,11 @@ const items = computed(() => {
           label: "Notifications",
           icon: "i-heroicons-bell",
           to: toStreamerNotificationPreferences(),
-          disabled: !premium,
         },
         {
           label: "Integrations",
           icon: "i-tabler-plug",
           to: toStreamerIntegrations(),
-          disabled: !premium,
         },
       ]
     );
