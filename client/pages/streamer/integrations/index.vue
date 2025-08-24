@@ -34,6 +34,8 @@ const {
 const { simplex: simplexConfig, signal: signalConfig } = useIntegrations({
   integrations: computed(() => integrations.value?.integrations),
 });
+
+const isPremium = computed(() => authStore.isPremiumOrAdmin);
 </script>
 
 <template>
@@ -42,6 +44,8 @@ const { simplex: simplexConfig, signal: signalConfig } = useIntegrations({
       :title="$t('integrationsTitle')"
       :description="$t('integrationsDes')"
     />
+
+    <PremiumAlert v-if="!isPremium" class="mb-6" />
 
     <ErrorView :error="error" v-if="error" />
     <div

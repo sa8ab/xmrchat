@@ -43,6 +43,7 @@ export class CaslAbilityFactory {
       can(Action.Manage, 'notification');
       can(Action.Receive, 'notification');
       // TODO: add manage on integrations
+      can(Action.Manage, 'integration');
     }
 
     return build({

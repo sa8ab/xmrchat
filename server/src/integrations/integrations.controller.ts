@@ -1,4 +1,10 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { IntegrationsService } from './integrations.service';
 import { ConnectSimplexDto } from './dto/connect-simplex.dto';
 import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
@@ -7,10 +13,15 @@ import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
 import { IntegrationsRO } from './dto/integrations.dto';
 import { ConnectSignalDto } from './dto/connect-signal.dto';
 import { ConfirmDto } from './dto/confirm.dto';
+import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
+import { Action } from 'src/shared/constants';
 
 @Controller('integrations')
 export class IntegrationsController {
-  constructor(private readonly integrationsService: IntegrationsService) {}
+  constructor(
+    private readonly integrationsService: IntegrationsService,
+    private casl: CaslAbilityFactory,
+  ) {}
 
   @Get('/')
   @Serialize(IntegrationsRO)
@@ -24,6 +35,13 @@ export class IntegrationsController {
     @Body() body: ConnectSimplexDto,
     @CurrentUser() user: User,
   ) {
+    const ability = await this.casl.createForUser(user);
+    if (!ability.can(Action.Create, 'integration')) {
+      throw new UnauthorizedException(
+        'You need to be a premium user to manage integrations.',
+      );
+    }
+
     await this.integrationsService.connectSimplex(body, user || undefined);
     return { message: 'Connection request sent.' };
   }
@@ -36,6 +54,12 @@ export class IntegrationsController {
 
   @Post('/disconnect/simplex')
   async disconnectSimplex(@CurrentUser() user: User) {
+    const ability = await this.casl.createForUser(user);
+    if (!ability.can(Action.Delete, 'integration')) {
+      throw new UnauthorizedException(
+        'You need to be a premium user to manage integrations.',
+      );
+    }
     await this.integrationsService.disconnectSimplex(user);
     return { message: 'Simplex disconnected.' };
   }
@@ -45,6 +69,13 @@ export class IntegrationsController {
     @Body() body: ConnectSignalDto,
     @CurrentUser() user: User,
   ) {
+    const ability = await this.casl.createForUser(user);
+    if (!ability.can(Action.Create, 'integration')) {
+      throw new UnauthorizedException(
+        'You need to be a premium user to manage integrations.',
+      );
+    }
+
     await this.integrationsService.connectSignal(body, user);
     return { message: 'Connected to Signal.' };
   }
@@ -57,6 +88,12 @@ export class IntegrationsController {
 
   @Post('/disconnect/signal')
   async disconnectSignal(@CurrentUser() user: User) {
+    const ability = await this.casl.createForUser(user);
+    if (!ability.can(Action.Delete, 'integration')) {
+      throw new UnauthorizedException(
+        'You need to be a premium user to manage integrations.',
+      );
+    }
     await this.integrationsService.disconnectSignal(user);
     return { message: 'Signal disconnected.' };
   }
