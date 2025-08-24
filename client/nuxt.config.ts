@@ -13,6 +13,7 @@ export default defineNuxtConfig({
       imageServerSideBaseUrl: "",
       showLocaleSelect: "",
       activeLocales: "en,fr,de,es",
+      showPremiumPages: "false",
     },
   },
 

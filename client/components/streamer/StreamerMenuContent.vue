@@ -3,6 +3,7 @@ const authStore = useAuthStore();
 const { state, logout } = authStore;
 const { isAdmin, isPremium } = storeToRefs(authStore);
 const { t } = useI18n();
+const config = useRuntimeConfig();
 
 const page = computed(() => state.page);
 const {
@@ -67,30 +68,32 @@ const items = computed(() => {
           icon: "i-heroicons-banknotes",
           to: toStreamer(page.value.path),
         },
-        {
-          label: "Tip Splits",
-          icon: "i-heroicons-users",
-          to: toStreamerRecipients(),
-        },
       ]
     );
 
-    const premium = isPremium.value || isAdmin.value;
+    const showPremiumPages = config.public.showPremiumPages;
 
-    res.push(
-      ...[
-        {
-          label: "Notifications",
-          icon: "i-heroicons-bell",
-          to: toStreamerNotificationPreferences(),
-        },
-        {
-          label: "Integrations",
-          icon: "i-tabler-plug",
-          to: toStreamerIntegrations(),
-        },
-      ]
-    );
+    if (showPremiumPages) {
+      res.push(
+        ...[
+          {
+            label: "Tip Splits",
+            icon: "i-heroicons-users",
+            to: toStreamerRecipients(),
+          },
+          {
+            label: "Notifications",
+            icon: "i-heroicons-bell",
+            to: toStreamerNotificationPreferences(),
+          },
+          {
+            label: "Integrations",
+            icon: "i-tabler-plug",
+            to: toStreamerIntegrations(),
+          },
+        ]
+      );
+    }
 
     res.push(
       ...[
