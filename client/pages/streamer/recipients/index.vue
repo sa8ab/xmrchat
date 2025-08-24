@@ -128,7 +128,7 @@ const v = useVuelidate();
   <div>
     <PageTitle
       title="Tip Recipients"
-      description="Manage the recipients of your tips"
+      description="Split a portion of your tips to more recipients"
     />
     <GeneralForm @submit="handleSave">
       <div class="grid gap-6 lg:gap-4">
