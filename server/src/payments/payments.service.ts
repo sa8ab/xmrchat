@@ -33,6 +33,7 @@ export class PaymentsService {
   async updatePaidAmount(
     id: number,
     newAmount: number | string,
+    minAmount?: number | string,
     allowThreshold: number = 0,
   ) {
     const payment = await this.findOneById(id);
@@ -41,7 +42,9 @@ export class PaymentsService {
     const amount = Number(payment.amount);
     const newPaidAmount = Number(payment.paidAmount) + Number(newAmount);
 
-    const minimumAmountAsPaid = amount - allowThreshold * amount;
+    const minimumAmountAsPaid = minAmount
+      ? Number(minAmount)
+      : amount - allowThreshold * amount;
 
     const newPayment = Object.assign(payment, {
       paidAmount: `${newPaidAmount}`,

@@ -190,13 +190,10 @@ export class TipsService {
         integratedAddress,
       );
 
-    const finalAmount = pageTipRecipient?.amount || payload.amount;
-    const finalUnitAmount = MoneroUtils.xmrToAtomicUnits(finalAmount);
-
     // Create and save payment record
     await this.paymentsService.createPayment({
       eventId,
-      amount: finalUnitAmount.toString(),
+      amount: xmrUnits.toString(),
       tip: { id: tip.id },
     });
 
@@ -211,13 +208,15 @@ export class TipsService {
     }
 
     return {
-      amount: finalAmount,
+      amount: payload.amount,
       paymentAddress: integratedAddress,
-      tipRecipients: recipientsActive ? tipRecipients : [],
-      url,
       tip,
       id: tip.id,
       swap,
+
+      // Multi recipients
+      tipRecipients: recipientsActive ? tipRecipients : [],
+      url,
     };
   }
 
@@ -238,11 +237,19 @@ export class TipsService {
       return;
     }
 
-    // this.logger.log(`Tip ${tip.swap ? 'Has Swap' : 'Does not have swap'}.`);
+    // handle multi recipients, get page amount from handlePageRecipientsAndAmounts and use
+    // that value to mark it as paid or not in payments service
+    const pageAmount = await this.pageRecipientsService.getPageAmount(
+      page.id,
+      amount,
+    );
+
+    const pageUnitAmount = MoneroUtils.xmrToAtomicUnits(pageAmount);
 
     const savedPayment = await this.paymentsService.updatePaidAmount(
       payment.id,
       amount,
+      pageUnitAmount ? pageUnitAmount.toString() : undefined,
       // tip.swap ? 0.1 : 0, // threshold - accepts payment if paid amount has 0.1 less.
     );
 

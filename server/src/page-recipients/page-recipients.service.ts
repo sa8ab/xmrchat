@@ -150,6 +150,15 @@ export class PageRecipientsService {
     };
   }
 
+  async getPageAmount(pageId: number, amount: number | string) {
+    const { pageTipRecipient } = await this.handleRecipientsAndAmounts(
+      pageId,
+      Number(amount),
+      '',
+    );
+    return pageTipRecipient?.amount;
+  }
+
   getIsRecipientsActive(recipients: PageRecipient[]) {
     if (!recipients.length || recipients.length === 1) return false;
 
