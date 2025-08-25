@@ -27,6 +27,8 @@ import { Coin } from 'src/integrations/trocador/coin.entity';
 import { TrocadorTrade } from 'src/shared/types';
 import { TipMessageService } from 'src/tip-message/tip-message.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import { Page } from 'src/pages/page.entity';
+import { PageRecipientsService } from 'src/page-recipients/page-recipients.service';
 
 @Injectable()
 export class TipsService {
@@ -41,6 +43,7 @@ export class TipsService {
     private notificationsService: NotificationsService,
     private swapsService: SwapsService,
     private tipMessageService: TipMessageService,
+    private pageRecipientsService: PageRecipientsService,
     @InjectRepository(Tip) private repo: Repository<Tip>,
   ) {}
 
@@ -153,7 +156,7 @@ export class TipsService {
       throw new BadRequestException('The page has not setup tipping yet.');
     }
 
-    // TODO: If coin, initiate a swap
+    // If coin, initiate a swap
 
     let baseSwap: TrocadorTrade | undefined;
     let inputCoin: Coin | undefined;
@@ -166,6 +169,7 @@ export class TipsService {
       baseSwap = res.baseSwap;
       inputCoin = res.coin;
     }
+
     // Create and save tip record
     const createdTip = this.repo.create({
       message: payload.message,
@@ -178,10 +182,21 @@ export class TipsService {
 
     const tip = await this.repo.save(createdTip);
 
+    // Tip recipients
+    const { pageTipRecipient, tipRecipients, recipientsActive } =
+      await this.pageRecipientsService.handleRecipientsAndAmounts(
+        page.id,
+        parseFloat(payload.amount),
+        integratedAddress,
+      );
+
+    const finalAmount = pageTipRecipient?.amount || payload.amount;
+    const finalUnitAmount = MoneroUtils.xmrToAtomicUnits(finalAmount);
+
     // Create and save payment record
     await this.paymentsService.createPayment({
       eventId,
-      amount: xmrUnits.toString(),
+      amount: finalUnitAmount.toString(),
       tip: { id: tip.id },
     });
 
@@ -196,8 +211,9 @@ export class TipsService {
     }
 
     return {
-      amount: payload.amount,
+      amount: finalAmount,
       paymentAddress: integratedAddress,
+      tipRecipients: recipientsActive ? tipRecipients : [],
       tip,
       id: tip.id,
       swap,

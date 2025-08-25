@@ -279,7 +279,7 @@ export class PagesService {
     path = path.toLowerCase();
     return this.repo.findOne({
       where: { path },
-      relations: { tiers: true, links: true },
+      relations: { tiers: true, links: true, recipients: true },
     });
   }
 

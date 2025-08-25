@@ -22,7 +22,15 @@ export class PageRecipient {
   @Column({ nullable: true })
   address: string;
 
-  @Column({ type: 'numeric', precision: 5, scale: 2 })
+  @Column({
+    type: 'numeric',
+    precision: 5,
+    scale: 2,
+    transformer: {
+      to: (data: number) => data,
+      from: (data: string) => parseFloat(data),
+    },
+  })
   percentage: number;
 
   @ManyToOne(() => Page, (page) => page.recipients, {
