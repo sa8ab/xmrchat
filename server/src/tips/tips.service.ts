@@ -183,7 +183,7 @@ export class TipsService {
     const tip = await this.repo.save(createdTip);
 
     // Tip recipients
-    const { pageTipRecipient, tipRecipients, recipientsActive } =
+    const { pageTipRecipient, tipRecipients, recipientsActive, url } =
       await this.pageRecipientsService.handleRecipientsAndAmounts(
         page.id,
         parseFloat(payload.amount),
@@ -214,6 +214,7 @@ export class TipsService {
       amount: finalAmount,
       paymentAddress: integratedAddress,
       tipRecipients: recipientsActive ? tipRecipients : [],
+      url,
       tip,
       id: tip.id,
       swap,

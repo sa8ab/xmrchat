@@ -13,6 +13,7 @@ import { Page } from 'src/pages/page.entity';
 import { PageRecipientVariant } from 'src/shared/constants';
 import { TipRecipientDto } from 'src/tips/dtos/tip-recipient.dto';
 import { ConfigService } from '@nestjs/config';
+import { generateMoneroUriFromTipRecipients } from 'src/shared/utils/monero';
 
 @Injectable()
 export class PageRecipientsService {
@@ -93,6 +94,7 @@ export class PageRecipientsService {
     pageTipRecipient?: TipRecipientDto;
     tipRecipients: TipRecipientDto[];
     recipientsActive?: boolean;
+    url?: string;
   }> {
     const page = await this.pageRepo.findOne({
       where: { id: pageId },
@@ -138,10 +140,13 @@ export class PageRecipientsService {
       (recipient) => recipient.variant === PageRecipientVariant.PAGE,
     );
 
+    const url = generateMoneroUriFromTipRecipients(tipRecipients);
+
     return {
       pageTipRecipient,
       tipRecipients,
       recipientsActive: isRecipientsActive,
+      url,
     };
   }
 

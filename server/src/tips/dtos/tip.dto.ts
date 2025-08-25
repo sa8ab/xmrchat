@@ -52,4 +52,7 @@ export class TipDtoRO {
   @Expose()
   @Type(() => TipRecipientDto)
   tipRecipients: TipRecipientDto[];
+
+  @Expose()
+  url?: string;
 }
