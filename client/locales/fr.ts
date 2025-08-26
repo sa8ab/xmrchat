@@ -251,6 +251,10 @@ export default {
   paymentCheckingDis: "La vérification du paiement est déconnectée.",
   ifPaymentMade:
     "Si le paiement a déjà été effectué, il apparaîtra dans la liste des conseils.",
+  splitPaymentToMultipleRecipients:
+    "Diviser le paiement entre plusieurs destinataires",
+  backToSinglePayment: "Retour au paiement unique",
+  recipients: "Destinataires",
 
   // STREAMER MENU
   menu: "Menu",

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { TipCreationResponse } from "~/types";
+import type { TipCreationResponse, TipRecipient } from "~/types";
 import VueCountdown from "@chenfengyuan/vue-countdown";
 
 const props = defineProps<{
@@ -12,13 +12,14 @@ const props = defineProps<{
 const emit = defineEmits<{
   cancel: [];
   retry: [];
+  back: [];
 }>();
 
 const { expired, remaining, initialize } = usePaymentExpiration();
 const authStore = useAuthStore();
 
-// State for switching between single and multi-recipient views
-const showMultiRecipient = ref(false);
+const showLoading = computed(() => !expired.value);
+const showAddress = computed(() => !expired.value);
 
 const remainingAmount = computed(() => {
   if (!props.createdTip?.amount) return 0;
@@ -36,10 +37,6 @@ const showWalletWarning = computed(
   () => authStore.state.page?.path === props.slug
 );
 
-const hasMultiRecipients = computed(
-  () => props.createdTip?.tipRecipients?.length
-);
-
 // Using watch cause we are not sure if when component mounts the props are passed to it.
 watch(
   () => props.createdTip?.tip.expiresAt,
@@ -51,24 +48,7 @@ watch(
 </script>
 
 <template>
-  <!-- Multi-recipient payment view -->
-  <MultiRecipientPaymentContent
-    v-if="showMultiRecipient"
-    :createdTip="createdTip"
-    :connectionStatus="connectionStatus"
-    :partialPaymentAmount="partialPaymentAmount"
-    :slug="slug"
-    @cancel="emit('cancel')"
-    @retry="emit('retry')"
-    @back="showMultiRecipient = false"
-  />
-
-  <!-- Single recipient payment view -->
-  <TipPaymentViewContainer
-    v-else
-    :title="$t('sendTip')"
-    @cancel="emit('cancel')"
-  >
+  <TipPaymentViewContainer :title="$t('sendTip')" @cancel="emit('cancel')">
     <div class="w-full grid gap-2">
       <p v-if="expired" class="text-red-500 text-center">
         {{ $t("paymentIsExpired") }}
@@ -131,29 +111,41 @@ watch(
           </template>
         </UAlert>
 
-        <PaymentQRCode
-          :address="createdTip?.paymentAddress"
-          :amount="remainingAmount || createdTip?.amount"
-          :ticker="'xmr'"
-        />
+        <!-- Multi-recipient QR Code -->
+        <PaymentQRCode :qrCodeUrl="createdTip?.url" :ticker="'xmr'" />
 
         <UDivider label="OR" class="mb-3" />
 
-        <PaymentAddressDisplay
-          :address="createdTip?.paymentAddress"
-          class="mb-4"
-        />
-
-        <!-- Multi-recipient toggle button -->
-        <div class="flex justify-center">
-          <UButton
-            v-if="hasMultiRecipients"
-            variant="outline"
-            @click="showMultiRecipient = true"
-            class="mb-4"
+        <!-- Multi-recipient addresses display -->
+        <div class="space-y-3 mb-4">
+          <h3 class="text-lg font-semibold text-center">
+            {{ $t("recipients") }}
+          </h3>
+          <div
+            v-for="(recipient, index) in createdTip?.tipRecipients"
+            :key="index"
+            class="p-3 border border-border rounded-lg"
           >
-            <UIcon name="i-heroicons-users" class="w-4 h-4 mr-2" />
-            {{ $t("splitPaymentToMultipleRecipients") }}
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <!-- <h4 class="font-medium">
+                  {{ recipient.name || `Recipient ${index + 1}` }}
+                </h4> -->
+                <p class="text-muted-foreground">{{ recipient.percentage }}%</p>
+              </div>
+              <div class="text-right">
+                <p class="font-bold">{{ recipient.amount }} XMR</p>
+              </div>
+            </div>
+            <PaymentAddressDisplay :address="recipient.address" compact />
+          </div>
+        </div>
+
+        <!-- Back to single payment button -->
+        <div class="flex justify-center">
+          <UButton variant="outline" @click="emit('back')" class="mb-4">
+            <UIcon name="i-heroicons-arrow-left" class="w-4 h-4 mr-2" />
+            {{ $t("backToSinglePayment") }}
           </UButton>
         </div>
 

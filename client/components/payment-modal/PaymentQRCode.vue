@@ -7,12 +7,17 @@ export interface PaymentQRCodeProps {
   amount?: Numberic;
   description?: string;
   ticker: string;
+  qrCodeUrl?: string;
 }
 
 const props = defineProps<PaymentQRCodeProps>();
 const { t } = useI18n();
 
 const renderValue = computed(() => {
+  // If there is qrCodeUrl use it directly
+  if (props.qrCodeUrl) return props.qrCodeUrl;
+
+  // Otherwise, generate a wallet link
   return generateWalletLink({
     ticker: props.ticker,
     address: props.address,
@@ -23,7 +28,10 @@ const renderValue = computed(() => {
 </script>
 
 <template>
-  <div v-if="address" class="flex flex-col gap-2 items-center pt-2">
+  <div
+    v-if="address || qrCodeUrl"
+    class="flex flex-col gap-2 items-center pt-2"
+  >
     <UButton
       :to="renderValue"
       target="_blank"

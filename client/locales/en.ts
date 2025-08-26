@@ -247,6 +247,9 @@ export default {
   paymentCheckingDis: "Payment checking is disconnected.",
   ifPaymentMade:
     "If payment is already made it will be displayed on tips list.",
+  splitPaymentToMultipleRecipients: "Split payment to multiple recipients",
+  backToSinglePayment: "Back to single payment",
+  recipients: "Recipients",
 
   // STREAMER MENU
   menu: "Menu",

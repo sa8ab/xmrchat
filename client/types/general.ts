@@ -60,12 +60,19 @@ export interface SlugReservationResponse {
   reservedUntil: number;
 }
 
+export interface TipRecipient extends PageRecipient {
+  amount: number | string;
+}
+
 export interface TipCreationResponse {
   amount: string;
   id: number;
   paymentAddress: string;
   tip: Tip;
   swap?: Swap;
+
+  tipRecipients: TipRecipient[];
+  url?: string;
 }
 
 export interface StreamerPage {
