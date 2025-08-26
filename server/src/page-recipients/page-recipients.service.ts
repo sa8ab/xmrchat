@@ -116,8 +116,11 @@ export class PageRecipientsService {
       ({ variant }) => variant === PageRecipientVariant.XMRCHAT,
     );
 
-    if (xmrchatRecipient.percentage && !xmrchatAddress)
-      throw new BadRequestException('XMRChat wallet not found');
+    // Validate XMRChat address exists
+    if (xmrchatRecipient?.percentage && !xmrchatAddress)
+      throw new BadRequestException(
+        'XMRChat wallet not found, add it using `XMRCHAT_WALLET_ADDRESS` env variable.',
+      );
 
     // fill page and xmrchat addresses
     recipients.forEach((recipient) => {
@@ -129,12 +132,14 @@ export class PageRecipientsService {
       }
     });
 
-    const tipRecipients = recipients.map((recipient) => {
-      return {
-        ...recipient,
-        amount: (amount * recipient.percentage) / 100,
-      };
-    });
+    const tipRecipients = recipients
+      .filter((recipient) => Boolean(recipient.percentage))
+      .map((recipient) => {
+        return {
+          ...recipient,
+          amount: (amount * recipient.percentage) / 100,
+        };
+      });
 
     const pageTipRecipient = tipRecipients.find(
       (recipient) => recipient.variant === PageRecipientVariant.PAGE,
