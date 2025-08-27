@@ -128,10 +128,12 @@ watch(
           >
             <div class="flex justify-between items-start mb-2">
               <div>
-                <!-- <h4 class="font-medium">
+                <h4 class="font-medium">
                   {{ recipient.name || `Recipient ${index + 1}` }}
-                </h4> -->
-                <p class="text-muted-foreground">{{ recipient.percentage }}%</p>
+                </h4>
+                <p class="text-sm text-muted-foreground">
+                  {{ recipient.percentage }}%
+                </p>
               </div>
               <div class="text-right">
                 <p class="font-bold">{{ recipient.amount }} XMR</p>
