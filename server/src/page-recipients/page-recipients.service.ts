@@ -66,6 +66,16 @@ export class PageRecipientsService {
     await this.updatePagePremium(page.id);
   }
 
+  async resetRecipients(user: User) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page not found!');
+
+    page.recipients = [];
+    await this.pageRepo.save(page);
+
+    await this.updatePagePremium(page.id);
+  }
+
   async updatePagePremium(pageId: number) {
     const page = await this.pageRepo.findOne({ where: { id: pageId } });
     if (!page) throw new NotFoundException('Page not found!');
@@ -79,22 +89,10 @@ export class PageRecipientsService {
 
     const isPremium = xmrchatRecipient && xmrchatRecipient.percentage >= 3;
 
-    page.isPremium = isPremium;
+    page.isPremium = Boolean(isPremium);
     await this.pageRepo.save(page);
-
-    console.log(`Is premium: ${isPremium}`);
 
     return isPremium;
-  }
-
-  async resetRecipients(user: User) {
-    const page = await this.pagesService.findMyPage(user);
-    if (!page) throw new NotFoundException('Page not found!');
-
-    page.recipients = [];
-    await this.pageRepo.save(page);
-
-    await this.updatePagePremium(page.id);
   }
 
   async handleRecipientsAndAmounts(

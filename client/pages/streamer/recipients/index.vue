@@ -8,6 +8,7 @@ const state = reactive<{
   page: PageRecipient;
   xmrchat: PageRecipient;
   loading: boolean;
+  loadingReset: boolean;
 }>({
   recipients: [],
   page: {
@@ -21,6 +22,7 @@ const state = reactive<{
     percentage: 0,
   },
   loading: false,
+  loadingReset: false,
 });
 
 const { axios } = useApp();
@@ -29,7 +31,7 @@ const authStore = useAuthStore();
 
 const pageAddress = computed(() => authStore.state.page?.primaryAddress);
 
-const {} = useLazyAsyncData(
+const { refresh } = useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{ recipients: PageRecipient[] }>(
       "/page-recipients"
@@ -89,6 +91,26 @@ const handleSave = async () => {
     });
   } finally {
     state.loading = false;
+  }
+};
+
+const handleReset = async () => {
+  state.loadingReset = true;
+  try {
+    await axios.post("/page-recipients/reset");
+    toast.add({
+      description: "Recipients reset successfully",
+      color: "green",
+    });
+    await refresh();
+    await authStore.getMe();
+  } catch (error) {
+    toast.add({
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+    state.loadingReset = false;
   }
 };
 
@@ -158,7 +180,13 @@ const v = useVuelidate();
           </UButton>
         </div>
         <div>
-          <UButton color="red" variant="outline" type="button">
+          <UButton
+            color="red"
+            variant="outline"
+            type="button"
+            :loading="state.loadingReset"
+            @click="handleReset"
+          >
             Reset recipients
           </UButton>
         </div>
