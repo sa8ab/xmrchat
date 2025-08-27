@@ -2,7 +2,7 @@ import { Transform, Type } from 'class-transformer';
 import {
   IsArray,
   IsEnum,
-  IsNumber,
+  IsInt,
   IsString,
   Max,
   Min,
@@ -23,7 +23,7 @@ export class UpdateRecipientDto {
   @Validate(IsMoneroPrimaryAdrress)
   address: string;
 
-  @IsNumber()
+  @IsInt()
   @Transform(({ value }) => Number(value))
   @Min(0)
   @Max(100)
