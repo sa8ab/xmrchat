@@ -36,4 +36,10 @@ export class PageRecipientsController {
     await this.pageRecipientsService.updateRecipients(dto, user);
     return { message: 'Recipients updated.' };
   }
+
+  @Post('/reset')
+  async resetRecipients(@CurrentUser() user: User) {
+    await this.pageRecipientsService.resetRecipients(user);
+    return { message: 'Recipients reset.' };
+  }
 }

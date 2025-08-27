@@ -87,6 +87,16 @@ export class PageRecipientsService {
     return isPremium;
   }
 
+  async resetRecipients(user: User) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page not found!');
+
+    page.recipients = [];
+    await this.pageRepo.save(page);
+
+    await this.updatePagePremium(page.id);
+  }
+
   async handleRecipientsAndAmounts(
     pageId: number,
     amount: number,
