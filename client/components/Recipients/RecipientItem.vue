@@ -23,7 +23,7 @@ const emit = defineEmits<{
   delete: [];
 }>();
 
-const { required, numberic, between, minLength, maxLength } = useValidations();
+const { required, integer, between, minLength, maxLength } = useValidations();
 
 const v = useVuelidate<any>(
   computed(() => {
@@ -33,7 +33,7 @@ const v = useVuelidate<any>(
         ? { required, minLength: minLength(95), maxLength: maxLength(106) }
         : {},
       percentage: props.editablePercentage
-        ? { required, numberic, between: between(0, 100) }
+        ? { required, integer, between: between(0, 100) }
         : {},
     };
   }),

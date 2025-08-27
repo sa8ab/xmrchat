@@ -14,6 +14,7 @@ import { PageRecipientVariant } from 'src/shared/constants';
 import { TipRecipientDto } from 'src/tips/dtos/tip-recipient.dto';
 import { ConfigService } from '@nestjs/config';
 import { generateMoneroUriFromTipRecipients } from 'src/shared/utils/monero';
+import { MoneroUtils } from 'monero-ts';
 
 @Injectable()
 export class PageRecipientsService {
@@ -132,12 +133,18 @@ export class PageRecipientsService {
       }
     });
 
+    const amountUnits = MoneroUtils.xmrToAtomicUnits(amount);
+    const fullPercentageBig = BigInt(100);
+
     const tipRecipients = recipients
       .filter((recipient) => Boolean(recipient.percentage))
       .map((recipient) => {
+        const percentageBig = BigInt(recipient.percentage || 0);
+        const amountBig = (amountUnits * percentageBig) / fullPercentageBig;
+        const amountXMR = MoneroUtils.atomicUnitsToXmr(amountBig);
         return {
           ...recipient,
-          amount: (amount * recipient.percentage) / 100,
+          amount: amountXMR,
         };
       });
 

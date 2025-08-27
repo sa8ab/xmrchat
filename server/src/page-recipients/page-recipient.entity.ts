@@ -23,13 +23,13 @@ export class PageRecipient {
   address: string;
 
   @Column({
-    type: 'numeric',
-    precision: 5,
-    scale: 2,
-    transformer: {
-      to: (data: number) => data,
-      from: (data: string) => parseFloat(data),
-    },
+    nullable: true,
+    type: 'integer',
+    default: 0,
+    // transformer: {
+    //   to: (data: number) => data,
+    //   from: (data: string) => parseFloat(data),
+    // },
   })
   percentage: number;
 
