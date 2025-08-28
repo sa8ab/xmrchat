@@ -17,7 +17,7 @@ const state = reactive<{
   xmrchat: {
     variant: PageRecipientVariant.XMRCHAT,
     name: "XMRChat",
-    address: "XMRChat address",
+    address: undefined,
     percentage: 0,
   },
   loading: false,
@@ -37,7 +37,7 @@ const { refresh } = useLazyAsyncData(
     );
 
     const page = getStateRecipient(data.recipients, PageRecipientVariant.PAGE);
-    if (page) state.page = page;
+    if (page) state.page.percentage = page.percentage;
 
     const xmrchat = getStateRecipient(
       data.recipients,
@@ -45,8 +45,15 @@ const { refresh } = useLazyAsyncData(
     );
 
     if (xmrchat) {
-      xmrchat.address = "Thanks for your support!";
-      state.xmrchat = xmrchat;
+      state.xmrchat.address = "Thanks for your support!";
+      state.xmrchat.percentage = xmrchat.percentage;
+    } else {
+      state.xmrchat = {
+        variant: PageRecipientVariant.XMRCHAT,
+        name: "XMRChat",
+        address: "Thanks for your support!",
+        percentage: 0,
+      };
     }
 
     state.recipients = data.recipients.filter(({ variant }) => {
@@ -67,13 +74,13 @@ const handleSave = async () => {
   try {
     const recipients = [...state.recipients];
     recipients.push({
-      ...state.page,
+      variant: PageRecipientVariant.PAGE,
       percentage: remainingPagePercentage.value,
-      address: undefined,
     });
     recipients.push({
       ...state.xmrchat,
       address: undefined,
+      name: undefined,
     });
     const { data } = await axios.post("/page-recipients", {
       recipients,
@@ -155,7 +162,7 @@ const v = useVuelidate();
       <div class="grid gap-6 lg:gap-4">
         <RecipientItem
           :modelValue="{
-            ...state.page,
+            variant: PageRecipientVariant.PAGE,
             name: `${authStore.pageName} Address`,
             address: pageAddress,
             percentage: remainingPagePercentage,
