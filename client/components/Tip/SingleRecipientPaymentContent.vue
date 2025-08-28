@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { TipCreationResponse } from "~/types";
-import VueCountdown from "@chenfengyuan/vue-countdown";
 
 const props = defineProps<{
   createdTip?: TipCreationResponse;
@@ -16,7 +15,6 @@ const emit = defineEmits<{
 }>();
 
 const { expired, remaining, initialize } = usePaymentExpiration();
-const authStore = useAuthStore();
 
 const remainingAmount = computed(() => {
   if (!props.createdTip?.amount) return 0;
@@ -29,10 +27,6 @@ const remainingAmount = computed(() => {
 
   return amount - paidAmount;
 });
-
-const showWalletWarning = computed(
-  () => authStore.state.page?.path === props.slug
-);
 
 const hasMultiRecipients = computed(
   () => props.createdTip?.tipRecipients?.length
@@ -50,110 +44,41 @@ watch(
 
 <template>
   <TipPaymentViewContainer :title="$t('sendTip')" @cancel="emit('cancel')">
-    <div class="w-full grid gap-2">
-      <p v-if="expired" class="text-red-500 text-center">
-        {{ $t("paymentIsExpired") }}
-      </p>
-      <template v-else>
-        <UAlert
-          v-if="showWalletWarning"
-          color="orange"
-          variant="subtle"
-          class="mb-2"
-        >
-          <template #title>
-            <span>
-              {{ $t("tipWalletWarningTitle") }}
-            </span>
-          </template>
-          <template #description>
-            {{ $t("tipWalletWarningDescription") }}
-          </template>
-          <template #icon>
-            <UIcon
-              name="i-heroicons-exclamation-triangle"
-              class="w-[24px] h-[24px]"
-            />
-          </template>
-        </UAlert>
+    <SharedPaymentContent
+      :createdTip="createdTip"
+      :connectionStatus="connectionStatus"
+      :partialPaymentAmount="partialPaymentAmount"
+      :slug="slug"
+      :expired="expired"
+      :remaining="remaining"
+      @retry="emit('retry')"
+      @expired="expired = true"
+    >
+      <PaymentQRCode
+        :address="createdTip?.paymentAddress"
+        :amount="remainingAmount || createdTip?.amount"
+        :ticker="'xmr'"
+      />
 
-        <UAlert v-if="createdTip" color="emerald" variant="subtle">
-          <template #description>
-            <p class="text-base">
-              <I18nT keypath="tipWalletMinimum" scope="global">
-                <template #minimumAmount>
-                  <span class="font-bold">{{ createdTip.amount }}</span>
-                </template>
-              </I18nT>
-            </p>
-          </template>
-        </UAlert>
+      <UDivider label="OR" class="mb-3" />
 
-        <UAlert
-          v-if="partialPaymentAmount"
-          color="orange"
-          variant="subtle"
-          class="mt-2"
-        >
-          <template #description>
-            <p v-if="partialPaymentAmount" class="text-base">
-              <I18nT keypath="partialAmountReceived" scope="global">
-                <template #partialAmount>
-                  <span class="font-bold"
-                    >{{ unitsToXmr(partialPaymentAmount) }}
-                  </span>
-                  XMR
-                </template>
-                <template #remainingAmount>
-                  <span class="font-bold">{{ remainingAmount }} </span> XMR
-                </template>
-              </I18nT>
-            </p>
-          </template>
-        </UAlert>
+      <PaymentAddressDisplay
+        :address="createdTip?.paymentAddress"
+        class="mb-4"
+      />
 
-        <PaymentQRCode
-          :address="createdTip?.paymentAddress"
-          :amount="remainingAmount || createdTip?.amount"
-          :ticker="'xmr'"
-        />
-
-        <UDivider label="OR" class="mb-3" />
-
-        <PaymentAddressDisplay
-          :address="createdTip?.paymentAddress"
+      <!-- Multi-recipient toggle button -->
+      <div class="flex justify-center">
+        <UButton
+          v-if="hasMultiRecipients"
+          variant="outline"
+          @click="emit('showMultiRecipient')"
           class="mb-4"
-        />
-
-        <!-- Multi-recipient toggle button -->
-        <div class="flex justify-center">
-          <UButton
-            v-if="hasMultiRecipients"
-            variant="outline"
-            @click="emit('showMultiRecipient')"
-            class="mb-4"
-          >
-            <UIcon name="i-heroicons-users" class="w-4 h-4 mr-2" />
-            {{ $t("splitPaymentToMultipleRecipients") }}
-          </UButton>
-        </div>
-
-        <PaymentError
-          v-if="connectionStatus === 'DISCONNECTED'"
-          @retry="emit('retry')"
-        />
-        <PaymentLoading v-else />
-
-        <VueCountdown v-if="remaining" :time="remaining" @end="expired = true">
-          <template #default="{ minutes, seconds }">
-            <p class="text-center">
-              {{ minutes.toString().padStart(2, "0") }}:{{
-                seconds.toString().padStart(2, "0")
-              }}
-            </p>
-          </template>
-        </VueCountdown>
-      </template>
-    </div>
+        >
+          <UIcon name="i-heroicons-users" class="w-4 h-4 mr-2" />
+          {{ $t("splitPaymentToMultipleRecipients") }}
+        </UButton>
+      </div>
+    </SharedPaymentContent>
   </TipPaymentViewContainer>
 </template>
