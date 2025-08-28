@@ -46,7 +46,7 @@ const { getValidationAttrs } = useValidations(v);
 <template>
   <div
     :class="[
-      'grid lg:grid-cols-[1fr_160px_auto] gap-2 border border-border p-4 rounded-lg lg:border-none lg:p-0 lg:rounded-none',
+      'grid lg:grid-cols-[1fr_160px_auto] gap-2 border border-border p-4 rounded-lg lg:border-none lg:p-0 lg:rounded-none grid-cols-1',
       editableAddress ? 'grid-cols-1' : 'grid-cols-2 items-center',
     ]"
   >
@@ -63,17 +63,31 @@ const { getValidationAttrs } = useValidations(v);
             @blur="getValidationAttrs('name').onBlur"
           />
         </UFormGroup>
-        <UFormGroup
-          label="Your wallet address"
-          size="lg"
-          class="flex-grow"
-          :error="getValidationAttrs('address').error"
-        >
-          <UInput
-            v-model="model.address"
-            @blur="getValidationAttrs('address').onBlur"
-          />
-        </UFormGroup>
+        <div class="lg:hidden flex-grow">
+          <UFormGroup
+            label="Percentage %"
+            size="lg"
+            :error="getValidationAttrs('percentage').error"
+          >
+            <UInput
+              v-model="model.percentage"
+              @blur="getValidationAttrs('percentage').onBlur"
+            />
+          </UFormGroup>
+        </div>
+        <div class="hidden lg:block flex-grow">
+          <UFormGroup
+            label="Your wallet address"
+            size="lg"
+            class="flex-grow"
+            :error="getValidationAttrs('address').error"
+          >
+            <UInput
+              v-model="model.address"
+              @blur="getValidationAttrs('address').onBlur"
+            />
+          </UFormGroup>
+        </div>
       </div>
       <div v-else>
         <div class="font-medium">{{ model.name }}</div>
@@ -91,16 +105,31 @@ const { getValidationAttrs } = useValidations(v);
     <div>
       <!-- percentage -->
       <div v-if="editablePercentage">
-        <UFormGroup
-          label="Percentage %"
-          size="lg"
-          :error="getValidationAttrs('percentage').error"
-        >
-          <UInput
-            v-model="model.percentage"
-            @blur="getValidationAttrs('percentage').onBlur"
-          />
-        </UFormGroup>
+        <div class="hidden lg:block">
+          <UFormGroup
+            label="Percentage %"
+            size="lg"
+            :error="getValidationAttrs('percentage').error"
+          >
+            <UInput
+              v-model="model.percentage"
+              @blur="getValidationAttrs('percentage').onBlur"
+            />
+          </UFormGroup>
+        </div>
+        <div class="lg:hidden">
+          <UFormGroup
+            label="Your wallet address"
+            size="lg"
+            class="flex-grow"
+            :error="getValidationAttrs('address').error"
+          >
+            <UInput
+              v-model="model.address"
+              @blur="getValidationAttrs('address').onBlur"
+            />
+          </UFormGroup>
+        </div>
       </div>
       <div v-else>
         <div class="font-medium">Percentage</div>
