@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { TipCreationResponse, TipRecipient } from "~/types";
+import type { TipCreationResponse } from "~/types";
 import VueCountdown from "@chenfengyuan/vue-countdown";
 
 const props = defineProps<{
