@@ -45,7 +45,10 @@ const { getValidationAttrs } = useValidations(v);
 
 <template>
   <div
-    class="grid grid-cols-1 lg:grid-cols-[1fr_160px_auto] gap-2 border border-border p-4 rounded-lg lg:border-none lg:p-0 lg:rounded-none"
+    :class="[
+      'grid lg:grid-cols-[1fr_160px_auto] gap-2 border border-border p-4 rounded-lg lg:border-none lg:p-0 lg:rounded-none',
+      editableAddress ? 'grid-cols-1' : 'grid-cols-2 items-center',
+    ]"
   >
     <div>
       <!-- name and address -->

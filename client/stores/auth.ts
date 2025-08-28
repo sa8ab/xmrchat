@@ -81,11 +81,13 @@ export const useAuthStore = defineStore(
     const isPremium = computed(() => state.page?.isPremium);
     const isPremiumOrAdmin = computed(() => isPremium.value || isAdmin.value);
     const userEmail = computed(() => state.user?.email);
+    const pageName = computed(() => state.page?.name || state.page?.path);
 
     return {
       state,
       isLoggedIn,
       userEmail,
+      pageName,
       isAdmin,
       isPremium,
       isPremiumOrAdmin,

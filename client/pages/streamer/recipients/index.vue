@@ -13,7 +13,6 @@ const state = reactive<{
   recipients: [],
   page: {
     variant: PageRecipientVariant.PAGE,
-    name: "Page Address",
   },
   xmrchat: {
     variant: PageRecipientVariant.XMRCHAT,
@@ -46,7 +45,7 @@ const { refresh } = useLazyAsyncData(
     );
 
     if (xmrchat) {
-      xmrchat.address = "XMRChat address";
+      xmrchat.address = "Thanks for your support!";
       state.xmrchat = xmrchat;
     }
 
@@ -157,6 +156,7 @@ const v = useVuelidate();
         <RecipientItem
           :modelValue="{
             ...state.page,
+            name: `${authStore.pageName} Address`,
             address: pageAddress,
             percentage: remainingPagePercentage,
           }"
