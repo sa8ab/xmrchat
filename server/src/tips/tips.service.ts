@@ -182,14 +182,6 @@ export class TipsService {
 
     const tip = await this.repo.save(createdTip);
 
-    // Tip recipients
-    const { pageTipRecipient, tipRecipients, recipientsActive, url } =
-      await this.pageRecipientsService.handleRecipientsAndAmounts(
-        page.id,
-        parseFloat(payload.amount),
-        integratedAddress,
-      );
-
     // Create and save payment record
     await this.paymentsService.createPayment({
       eventId,
@@ -206,6 +198,15 @@ export class TipsService {
         tip,
       });
     }
+
+    // Tip recipients
+    const { tipRecipients, recipientsActive, url } =
+      await this.pageRecipientsService.handleRecipientsAndAmounts({
+        pageId: page.id,
+        tipId: tip.id,
+        amount: parseFloat(payload.amount),
+        integratedAddress,
+      });
 
     return {
       amount: payload.amount,
@@ -241,6 +242,7 @@ export class TipsService {
     // that value to mark it as paid or not in payments service
     const pageAmount = await this.pageRecipientsService.getPageAmount(
       page.id,
+      tip.id,
       amount,
     );
 

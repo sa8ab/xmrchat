@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { UpdateRecipientsDto } from './dtos/update-recipient.dto';
@@ -15,14 +16,19 @@ import { TipRecipientDto } from 'src/tips/dtos/tip-recipient.dto';
 import { ConfigService } from '@nestjs/config';
 import { generateMoneroUriFromTipRecipients } from 'src/shared/utils/monero';
 import { MoneroUtils } from 'monero-ts';
+import { Swap } from 'src/swaps/swap.entity';
 
 @Injectable()
 export class PageRecipientsService {
+  private logger = new Logger(PageRecipientsService.name);
+
   constructor(
     @InjectRepository(PageRecipient)
     private repo: Repository<PageRecipient>,
     @InjectRepository(Page)
     private pageRepo: Repository<Page>,
+    @InjectRepository(Swap)
+    private swapRepo: Repository<Swap>,
     private pagesService: PagesService,
     private configService: ConfigService,
   ) {}
@@ -95,16 +101,23 @@ export class PageRecipientsService {
     return isPremium;
   }
 
-  async handleRecipientsAndAmounts(
-    pageId: number,
-    amount: number,
-    integratedAddress: string,
-  ): Promise<{
+  async handleRecipientsAndAmounts({
+    pageId,
+    tipId,
+    amount,
+    integratedAddress,
+  }: {
+    pageId: number;
+    tipId: number;
+    amount: number;
+    integratedAddress: string;
+  }): Promise<{
     pageTipRecipient?: TipRecipientDto;
     tipRecipients: TipRecipientDto[];
     recipientsActive?: boolean;
     url?: string;
   }> {
+    this.logger.log({ pageId, tipId, amount, integratedAddress });
     const page = await this.pageRepo.findOne({
       where: { id: pageId },
       relations: {
@@ -114,11 +127,12 @@ export class PageRecipientsService {
 
     if (!page) throw new NotFoundException('Page not found!');
 
-    const recipients = page.recipients;
+    const swap = await this.swapRepo.findOne({ where: { tip: { id: tipId } } });
 
+    const recipients = page.recipients;
     const isRecipientsActive = this.getIsRecipientsActive(page.recipients);
 
-    if (!isRecipientsActive) return { tipRecipients: [] };
+    if (!isRecipientsActive || swap) return { tipRecipients: [] };
 
     const xmrchatAddress = this.configService.get('XMRCHAT_WALLET_ADDRESS');
     const xmrchatRecipient = recipients.find(
@@ -170,12 +184,13 @@ export class PageRecipientsService {
     };
   }
 
-  async getPageAmount(pageId: number, amount: number | string) {
-    const { pageTipRecipient } = await this.handleRecipientsAndAmounts(
+  async getPageAmount(pageId: number, tipId: number, amount: number | string) {
+    const { pageTipRecipient } = await this.handleRecipientsAndAmounts({
       pageId,
-      Number(amount),
-      '',
-    );
+      tipId,
+      amount: Number(amount),
+      integratedAddress: '',
+    });
     return pageTipRecipient?.amount;
   }
 
