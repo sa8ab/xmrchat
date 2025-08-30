@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const authStore = useAuthStore();
 const { state, logout } = authStore;
-const { isAdmin, isPremium } = storeToRefs(authStore);
+const { isAdmin } = storeToRefs(authStore);
 const { t } = useI18n();
 const config = useRuntimeConfig();
 
