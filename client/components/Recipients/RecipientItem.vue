@@ -65,7 +65,7 @@ const { getValidationAttrs } = useValidations(v);
       <div class="col-span-2 lg:col-span-1 col-start-1 lg:col-start-auto">
         <!-- address -->
         <UFormGroup
-          label="Your wallet address"
+          label="Recipient wallet address"
           size="lg"
           class="flex-grow"
           :error="getValidationAttrs('address').error"

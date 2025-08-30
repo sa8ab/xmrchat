@@ -151,7 +151,7 @@ const v = useVuelidate();
         <RecipientItem
           :modelValue="{
             variant: PageRecipientVariant.PAGE,
-            name: `${authStore.pageName} Address`,
+            name: `${authStore.pageName} address`,
             address: pageAddress,
             percentage: remainingPagePercentage,
           }"
