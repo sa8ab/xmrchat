@@ -16,8 +16,6 @@ const state = reactive<{
   },
   xmrchat: {
     variant: PageRecipientVariant.XMRCHAT,
-    name: "XMRChat",
-    address: undefined,
     percentage: 0,
   },
   loading: false,
@@ -44,17 +42,7 @@ const { refresh } = useLazyAsyncData(
       PageRecipientVariant.XMRCHAT
     );
 
-    if (xmrchat) {
-      state.xmrchat.address = "Thanks for your support!";
-      state.xmrchat.percentage = xmrchat.percentage;
-    } else {
-      state.xmrchat = {
-        variant: PageRecipientVariant.XMRCHAT,
-        name: "XMRChat",
-        address: "Thanks for your support!",
-        percentage: 0,
-      };
-    }
+    state.xmrchat.percentage = xmrchat?.percentage ?? 0;
 
     state.recipients = data.recipients.filter(({ variant }) => {
       return variant == PageRecipientVariant.RECIPIENT;
@@ -169,7 +157,12 @@ const v = useVuelidate();
           }"
           truncateAddress
         />
-        <RecipientItem v-model="state.xmrchat" editablePercentage />
+        <RecipientItem
+          v-model="state.xmrchat"
+          name="XMRChat"
+          address="Thanks for your support!"
+          editablePercentage
+        />
         <RecipientItem
           v-for="(item, i) in state.recipients"
           v-model="state.recipients[i]"
