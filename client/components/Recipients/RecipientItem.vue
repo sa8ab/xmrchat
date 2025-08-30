@@ -46,7 +46,7 @@ const { getValidationAttrs } = useValidations(v);
 <template>
   <div
     :class="[
-      'grid lg:grid-cols-[200px_1fr_160px_auto] gap-2 border border-border p-4 rounded-lg lg:border-none lg:p-0 lg:rounded-none grid-cols-2',
+      'grid grid-cols-2 gap-2 border border-border p-4 rounded-lg lg:border-none lg:p-0 lg:rounded-none lg:grid-cols-[200px_1fr_160px_auto]',
     ]"
   >
     <template v-if="editableAddress">
@@ -78,7 +78,7 @@ const { getValidationAttrs } = useValidations(v);
       </div>
     </template>
 
-    <div v-else class="lg:col-span-2">
+    <div v-else class="lg:col-span-2 self-center lg:self-auto">
       <!-- name and address -->
       <div class="font-medium">{{ name || model.name }}</div>
       <p>
