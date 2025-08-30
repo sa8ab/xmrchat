@@ -56,8 +56,6 @@ const { refresh } = useLazyAsyncData(
 const handleSave = async () => {
   const valid = await v.value.$validate();
 
-  console.log(v.value.$errors);
-
   if (!valid) return;
   state.loading = true;
 
