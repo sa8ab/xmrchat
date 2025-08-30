@@ -28,7 +28,7 @@ const { required, integer, between, minLength, maxLength } = useValidations();
 const v = useVuelidate<any>(
   computed(() => {
     return {
-      name: { required },
+      name: props.editableAddress ? { required } : {},
       address: props.editableAddress
         ? { required, minLength: minLength(95), maxLength: maxLength(106) }
         : {},
