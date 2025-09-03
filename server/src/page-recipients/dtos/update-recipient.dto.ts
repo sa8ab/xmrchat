@@ -19,7 +19,6 @@ export class UpdateRecipientDto {
   @IsString()
   name: string;
 
-  // TODO: Add  validation to be empty if variant is not recipient
   @ValidateIf((o) => o.variant === PageRecipientVariant.RECIPIENT)
   @Validate(IsMoneroPrimaryAdrress)
   address: string;
