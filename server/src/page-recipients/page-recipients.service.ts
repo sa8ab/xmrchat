@@ -191,7 +191,7 @@ export class PageRecipientsService {
       amount: Number(amount),
       integratedAddress: '',
     });
-    return pageTipRecipient?.amount;
+    return pageTipRecipient?.amount || 0;
   }
 
   getIsRecipientsActive(recipients: PageRecipient[]) {
