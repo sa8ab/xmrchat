@@ -34,16 +34,18 @@ const { refresh } = useLazyAsyncData(
       "/page-recipients"
     );
 
+    // Add page recipient
     const page = getStateRecipient(data.recipients, PageRecipientVariant.PAGE);
     if (page) state.page.percentage = page.percentage;
 
+    // Add xmrchat recipient
     const xmrchat = getStateRecipient(
       data.recipients,
       PageRecipientVariant.XMRCHAT
     );
-
     state.xmrchat.percentage = xmrchat?.percentage ?? 0;
 
+    // Add recipients
     state.recipients = data.recipients.filter(({ variant }) => {
       return variant == PageRecipientVariant.RECIPIENT;
     });
@@ -70,7 +72,7 @@ const handleSave = async () => {
       address: undefined,
       name: undefined,
     });
-    const { data } = await axios.post("/page-recipients", {
+    await axios.post("/page-recipients", {
       recipients,
     });
     toast.add({
