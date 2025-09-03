@@ -26,10 +26,6 @@ export class PageRecipient {
     nullable: true,
     type: 'integer',
     default: 0,
-    // transformer: {
-    //   to: (data: number) => data,
-    //   from: (data: string) => parseFloat(data),
-    // },
   })
   percentage: number;
 
