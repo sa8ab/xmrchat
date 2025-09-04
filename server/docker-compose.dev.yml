@@ -67,7 +67,7 @@ services:
     volumes:
       - ./signal-cli:/home/.local/share/signal-cli
     environment:
-      - MODE=native
+      - MODE=normal
   
   simplex:
     build:
