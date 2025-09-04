@@ -117,7 +117,6 @@ export class PageRecipientsService {
     recipientsActive?: boolean;
     url?: string;
   }> {
-    this.logger.log({ pageId, tipId, amount, integratedAddress });
     const page = await this.pageRepo.findOne({
       where: { id: pageId },
       relations: {
