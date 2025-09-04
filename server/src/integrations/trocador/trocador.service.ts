@@ -35,7 +35,7 @@ export class TrocadorService {
     if (!coins)
       throw new BadRequestException('Could not get coins from trocador!');
 
-    await this.repo.upsert(coins, ['name', 'ticker']);
+    await this.repo.upsert(coins, ['name', 'ticker', 'network']);
     return coins;
   }
 

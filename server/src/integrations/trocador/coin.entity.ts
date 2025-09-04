@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
 @Entity({ name: 'coins' })
-@Unique('name-and-ticker', ['name', 'ticker'])
+@Unique('name-and-ticker-and-network', ['name', 'ticker', 'network'])
 export class Coin {
   @PrimaryGeneratedColumn()
   id: number;
