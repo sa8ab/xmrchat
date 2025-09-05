@@ -68,13 +68,22 @@ const items = computed(() => {
           icon: "i-heroicons-banknotes",
           to: toStreamer(page.value.path),
         },
-        {
-          label: "Tip Splits",
-          icon: "i-heroicons-users",
-          to: toStreamerRecipients(),
-        },
       ]
     );
+
+    const showTipSplits = config.public.showTipSplits;
+
+    if (showTipSplits) {
+      res.push(
+        ...[
+          {
+            label: "Tip Splits",
+            icon: "i-heroicons-users",
+            to: toStreamerRecipients(),
+          },
+        ]
+      );
+    }
 
     const showPremiumPages = config.public.showPremiumPages;
 

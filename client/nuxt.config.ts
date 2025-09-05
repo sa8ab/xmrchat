@@ -14,6 +14,7 @@ export default defineNuxtConfig({
       showLocaleSelect: "",
       activeLocales: "en,fr,de,es",
       showPremiumPages: "",
+      showTipSplits: "",
     },
   },
 
