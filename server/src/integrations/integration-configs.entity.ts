@@ -8,10 +8,13 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Page } from 'src/pages/page.entity';
-import { IntegrationConfigType } from 'src/shared/constants';
+import {
+  IntegrationConfigMethod,
+  IntegrationConfigType,
+} from 'src/shared/constants';
 
 @Entity('integration_configs')
-@Unique('unique-page-and-type', ['page.id', 'type'])
+@Unique('unique-page-and-type-and-method', ['page.id', 'type', 'method'])
 export class IntegrationConfig {
   @PrimaryGeneratedColumn()
   id: number;
@@ -21,6 +24,9 @@ export class IntegrationConfig {
 
   @Column({ type: 'jsonb', nullable: true })
   config: any;
+
+  @Column({ nullable: true })
+  method: string;
 
   // Verifications
 

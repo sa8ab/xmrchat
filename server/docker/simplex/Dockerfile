@@ -8,7 +8,7 @@ RUN apt-get update && \
 
 # Download simplex-chat binary directly
 RUN curl -L -o /usr/local/bin/simplex-chat \
-    "https://github.com/simplex-chat/simplex-chat/releases/latest/download/simplex-chat-ubuntu-22_04-x86-64" && \
+    "https://github.com/simplex-chat/simplex-chat/releases/latest/download/simplex-chat-ubuntu-22_04-x86_64" && \
     chmod +x /usr/local/bin/simplex-chat
 
 # Copy setup script to container

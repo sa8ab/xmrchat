@@ -17,7 +17,7 @@ interface State {
   errorMessage?: string;
 }
 
-useHead({ title: "Login" });
+useHead({ title: t("resetPassword") });
 
 const state: State = reactive({
   password: "",
@@ -59,10 +59,7 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <AuthContainer
-    :title="t('resetPassword')"
-    :description="t('enterYourNewPassword')"
-  >
+  <AuthContainer :title="t('resetPassword')" :description="t('enterYourNewPassword')">
     <UForm :state="state" class="form" @submit="handleSubmit">
       <UFormGroup
         :label="t('password')"

@@ -32,6 +32,9 @@ export class User {
   @Column({ type: 'boolean', default: false })
   isPremium: boolean;
 
+  @Column({ default: 'en', length: 2 })
+  language: string;
+
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 

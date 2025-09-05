@@ -4,10 +4,13 @@ import {
   email as baseEmail,
   numeric as baseNumberic,
   minValue as baseMinValue,
+  maxValue as baseMaxValue,
   minLength as baseMinLength,
   maxLength as baseMaxLength,
+  between as baseBetween,
   sameAs as baseSameAs,
   url as baseUrl,
+  integer as baseInteger,
   helpers,
 } from "@vuelidate/validators";
 // import { getProperty } from "~/utils";
@@ -22,6 +25,11 @@ export const useValidations = (generalV?: Ref<Validation>) => {
   const numberic = helpers.withMessage(
     () => t("validations.numberic"),
     baseNumberic
+  );
+
+  const integer = helpers.withMessage(
+    () => t("validations.numberic"),
+    baseInteger
   );
 
   const url = helpers.withMessage(() => t("validations.url"), baseUrl);
@@ -46,6 +54,18 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     helpers.withMessage(
       ({ $params }) => t("validations.minValue", { value: $params.min }),
       baseMinValue(...v)
+    );
+  const maxValue = (...v: Parameters<typeof baseMaxValue>) =>
+    helpers.withMessage(
+      ({ $params }) => t("validations.maxValue", { value: $params.max }),
+      baseMaxValue(...v)
+    );
+
+  const between = (...v: Parameters<typeof baseBetween>) =>
+    helpers.withMessage(
+      ({ $params }) =>
+        t("validations.between", { value: $params.min, max: $params.max }),
+      baseBetween(...v)
     );
 
   const sameAs = (...v: Parameters<typeof baseSameAs>) =>
@@ -81,6 +101,8 @@ export const useValidations = (generalV?: Ref<Validation>) => {
       "subscribe",
       "subscription",
       "subscriptions",
+      "test",
+      "test-page",
     ].includes(v);
 
   const streamerSlugInternal = helpers.withMessage(
@@ -114,9 +136,12 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     required,
     email,
     numberic,
+    integer,
     minLength,
     maxLength,
     minValue,
+    maxValue,
+    between,
     sameAs,
     url,
     notUrl,

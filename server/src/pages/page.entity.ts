@@ -18,6 +18,7 @@ import { PageSetting } from '../page-settings/page-setting.entity';
 import { Link } from '../links/link.entity';
 import { Tip } from 'src/tips/tip.entity';
 import { PageStatusEnum } from '../shared/constants';
+import { PageRecipient } from 'src/page-recipients/page-recipient.entity';
 
 @Entity({ name: 'pages' })
 @Unique(['path'])
@@ -68,6 +69,9 @@ export class Page {
   @Column('boolean', { default: true })
   isPublic: boolean;
 
+  @Column({ type: 'boolean', default: false })
+  isPremium: boolean;
+
   @Column({ type: 'integer', nullable: true })
   expirationMinutes: number;
 
@@ -105,6 +109,11 @@ export class Page {
 
   @OneToMany(() => Link, (l) => l.page)
   links: Link[];
+
+  @OneToMany(() => PageRecipient, (p: PageRecipient) => p.page, {
+    cascade: true,
+  })
+  recipients: PageRecipient[];
 
   totalTips: number | null;
   tipsCount: number | null;

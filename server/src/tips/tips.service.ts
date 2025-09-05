@@ -27,6 +27,8 @@ import { Coin } from 'src/integrations/trocador/coin.entity';
 import { TrocadorTrade } from 'src/shared/types';
 import { TipMessageService } from 'src/tip-message/tip-message.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import { Page } from 'src/pages/page.entity';
+import { PageRecipientsService } from 'src/page-recipients/page-recipients.service';
 
 @Injectable()
 export class TipsService {
@@ -41,6 +43,7 @@ export class TipsService {
     private notificationsService: NotificationsService,
     private swapsService: SwapsService,
     private tipMessageService: TipMessageService,
+    private pageRecipientsService: PageRecipientsService,
     @InjectRepository(Tip) private repo: Repository<Tip>,
   ) {}
 
@@ -151,7 +154,7 @@ export class TipsService {
       throw new BadRequestException('The page has not setup tipping yet.');
     }
 
-    // TODO: If coin, initiate a swap
+    // If coin, initiate a swap
 
     let baseSwap: TrocadorTrade | undefined;
     let inputCoin: Coin | undefined;
@@ -164,6 +167,7 @@ export class TipsService {
       baseSwap = res.baseSwap;
       inputCoin = res.coin;
     }
+
     // Create and save tip record
     const createdTip = this.repo.create({
       message: payload.message,
@@ -193,12 +197,25 @@ export class TipsService {
       });
     }
 
+    // Tip recipients
+    const { tipRecipients, recipientsActive, url } =
+      await this.pageRecipientsService.handleRecipientsAndAmounts({
+        pageId: page.id,
+        tipId: tip.id,
+        amount: parseFloat(payload.amount),
+        integratedAddress,
+      });
+
     return {
       amount: payload.amount,
       paymentAddress: integratedAddress,
       tip,
       id: tip.id,
       swap,
+
+      // Multi recipients
+      tipRecipients: recipientsActive ? tipRecipients : [],
+      url,
     };
   }
 
@@ -219,11 +236,20 @@ export class TipsService {
       return;
     }
 
-    // this.logger.log(`Tip ${tip.swap ? 'Has Swap' : 'Does not have swap'}.`);
+    // handle multi recipients, get page amount from handlePageRecipientsAndAmounts and use
+    // that value to mark it as paid or not in payments service
+    const pageAmount = await this.pageRecipientsService.getPageAmount(
+      page.id,
+      tip.id,
+      amount,
+    );
+
+    const pageUnitAmount = MoneroUtils.xmrToAtomicUnits(pageAmount);
 
     const savedPayment = await this.paymentsService.updatePaidAmount(
       payment.id,
       amount,
+      pageUnitAmount ? pageUnitAmount.toString() : undefined,
       // tip.swap ? 0.1 : 0, // threshold - accepts payment if paid amount has 0.1 less.
     );
 

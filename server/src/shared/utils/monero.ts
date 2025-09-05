@@ -1,6 +1,7 @@
 import { base58xmr } from '@scure/base';
 import { keccak_256 } from '@noble/hashes/sha3';
 import { bytesToHex, randomBytes, hexToBytes } from '@noble/hashes/utils';
+import { TipRecipientDto } from 'src/tips/dtos/tip-recipient.dto';
 
 function keccak(bytes: any) {
   var h = keccak_256.create();
@@ -41,4 +42,86 @@ export const makeIntegratedAddress = (
     integratedAddress: integrated_address_base58,
     paymentId: payment_id_hex,
   };
+};
+
+export interface MoneroUriRecipient {
+  address: string;
+  name?: string;
+  amount: number;
+}
+
+export interface MoneroUriOptions {
+  description?: string;
+}
+
+/**
+ * Generates a Monero URI for multiple recipients according to the Monero URI specification
+ * @param recipients Array of recipients with addresses, names, and amounts
+ * @param options Optional parameters like description
+ * @returns Formatted Monero URI string
+ */
+export const generateMoneroUri = (
+  recipients: MoneroUriRecipient[],
+  options: MoneroUriOptions = {},
+): string => {
+  if (!recipients || recipients.length === 0) {
+    throw new Error('At least one recipient is required');
+  }
+
+  // Filter out recipients without addresses
+  const validRecipients = recipients.filter((recipient) => recipient.address);
+
+  if (validRecipients.length === 0) {
+    throw new Error('At least one recipient with a valid address is required');
+  }
+
+  // Build the base URI with addresses
+  const addresses = validRecipients
+    .map((recipient) => recipient.address)
+    .join(';');
+  let uri = `monero:${addresses}`;
+
+  // Add query parameters
+  const queryParams: string[] = [];
+
+  // Add recipient names if provided
+  const names = validRecipients
+    .map((recipient) => recipient.name || '')
+    .join(';');
+  if (names && names.split(';').some((name) => name.length > 0)) {
+    queryParams.push(`recipient_name=${encodeURIComponent(names)}`);
+  }
+
+  // Add amounts if provided
+  const amounts = validRecipients
+    .map((recipient) => recipient.amount?.toString() || '')
+    .join(';');
+  if (amounts && amounts.split(';').some((amount) => amount.length > 0)) {
+    queryParams.push(`tx_amount=${encodeURIComponent(amounts)}`);
+  }
+
+  // Add description if provided
+  if (options.description) {
+    queryParams.push(
+      `tx_description=${encodeURIComponent(options.description)}`,
+    );
+  }
+
+  // Append query parameters if any exist
+  if (queryParams.length > 0) {
+    uri += `?${queryParams.join('&')}`;
+  }
+
+  return uri;
+};
+
+export const generateMoneroUriFromTipRecipients = (
+  tipRecipients: TipRecipientDto[],
+): string => {
+  const recipients: MoneroUriRecipient[] = tipRecipients.map((recipient) => ({
+    address: recipient.address,
+    amount: recipient.amount,
+  }));
+
+  return generateMoneroUri(recipients);
 };

@@ -1,6 +1,6 @@
 import { Expose, Type } from 'class-transformer';
 import { StreamerPageDto } from 'src/pages/dtos/streamer-page.dto';
-import { UserDto } from 'src/users/dtos/user.dto';
+import { AdminUserDto } from './admin-user.dto';
 
 export class AdminPageDto extends StreamerPageDto {
   @Expose()
@@ -10,8 +10,8 @@ export class AdminPageDto extends StreamerPageDto {
   tipsCount: number;
 
   @Expose()
-  @Type(() => UserDto)
-  user: UserDto;
+  @Type(() => AdminUserDto)
+  user: AdminUserDto;
 }
 
 export class PageSearchAdminRO {

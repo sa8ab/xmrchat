@@ -18,6 +18,7 @@ import { SimplexModule } from './simplex/simplex.module';
 import { IntegrationConfig } from 'src/integrations/integration-configs.entity';
 import { TipMessageModule } from 'src/tip-message/tip-message.module';
 import { SignalModule } from './signal/signal.module';
+import { NotificationTestsService } from './notification-tests.service';
 
 @Module({
   imports: [
@@ -60,7 +61,12 @@ import { SignalModule } from './signal/signal.module';
     NotificationsService,
     NotificationDispatcherService,
     DailySummaryProcessor,
+    NotificationTestsService,
   ],
-  exports: [NotificationsService, NotificationDispatcherService],
+  exports: [
+    NotificationsService,
+    NotificationDispatcherService,
+    NotificationTestsService,
+  ],
 })
 export class NotificationsModule {}

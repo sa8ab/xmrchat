@@ -46,6 +46,7 @@ export default {
   changeEmail: "Change Email",
   enterEmailToResetPassword: "Enter your email to reset your password.",
   creatorLogin: "Creator Login",
+  goToHomePage: "Go To Home Page",
   searchCreators: {
     title: "Search Creators",
     description: "Search creators with public pages on xmrchat.",
@@ -246,6 +247,9 @@ export default {
   paymentCheckingDis: "Payment checking is disconnected.",
   ifPaymentMade:
     "If payment is already made it will be displayed on tips list.",
+  splitPaymentToMultipleRecipients: "Split tip",
+  backToSinglePayment: "Back to single recipient",
+  recipients: "Recipients",
 
   // STREAMER MENU
   menu: "Menu",
@@ -325,6 +329,63 @@ export default {
   autoShowTipsDescription:
     "If active, tips will be automatically shown on the OBS page for 60 seconds.",
 
+  //  INTEGRATIONS PAGE
+  integrations: "Integrations",
+  integrationsTitle: "Integrations",
+  integrationsDes: "Manage your integrations",
+  notConnected: "Not connected.",
+  waitingForVerification: "Waiting for verification.",
+  connected: "Connected.",
+  connect: "Connect",
+  disconnect: "Disconnect",
+  simplexDescription: "The first messenger without user IDs.",
+  simplexIntegration: "Simplex Integration",
+  enterYourSimplexLink:
+    "Enter your simplex connection link then click connect. XMRChat account will send a connection request to your simplex account. After accepting the request you will get a code. Enter the code to complete the connection.",
+  simplexIsConnectedTo: 'Simplex is connected to account "{name}".',
+  acceptRequestInSimplex:
+    "Accept connection request in SimpleX app and enter the code you get.",
+  confirmCode: "Confirm code",
+  success: "Success",
+  openSimplexAndAccept:
+    "Open SimpleX app on your device and accept connection from XMRChat account.",
+  error: "Error",
+  simplexIsConnected: "Simplex is connected.",
+  simplexDisconnected: "Simplex disconnected.",
+  simplexLink: "SimpleX link",
+  signalDescription:
+    'Say "hello" to a different messaging experience. An unexpected focus on privacy, combined with all of the features you expect.',
+  signalIsConnected: "Signal is connected.",
+  signalIsDisconnected: "Signal is disconnected.",
+  signalIntegration: "Signal Integration",
+  signalIsConnectedTo: "Signal is connected to account {number}.",
+  enterCodeinSignalApp: "Enter the code sent to your signal app.",
+  enterSignalNumOrId:
+    "Enter your signal phone number or id. We will send a code to this number to verify.",
+  signalPhoneNumOrId: "Signal phone number or id",
+  sendCode: "Send code",
+  code: "Code",
+
+  // NOTIFICATIONS-PREFERENCES PAGE
+  notifications: "Notifications",
+  manageYourNotifs: "Manage your notifications",
+  comingSoon: "Coming Soon",
+  featureAvailableSoon: "This feature will be available soon.",
+  minNotifsThreshold: "Min Notification Threshold",
+  minNotifsThresholdHelp:
+    "The minimum amount of XMR tip that will trigger a notification.",
+  connectInIntegrations: "Connect in {integrations} to enable.",
+  dailySummaryTimeHelp: "Time when daily summary notifications will be sent.",
+  notifsPreferencesSaved: "Notification preferences saved.",
+  newTip: "New Tip",
+  receiveNotifsWhenTipReceived:
+    "Receive notifications when a new tip is received",
+  dailySummary: "Daily Summary",
+  receiveDailySummary: "Receive daily summary of your tips",
+  receiveNotifsViaEmail: "Receive notifications via email",
+  receiveNotifsViaSimplex: "Receive notifications via SimpleX",
+  receiveNotifsViaSignal: "Receive notifications via Signal",
+
   // HEAD
   head: {
     description:
@@ -334,4 +395,7 @@ export default {
     tip: "Tip {path}",
   },
   moneroSuperchats: "Monero Superchats : XMRChat",
+  emailVerification: "Email Verification",
+  forgotPassword: "Forgot Password",
+  signUp: "Sign up",
 };

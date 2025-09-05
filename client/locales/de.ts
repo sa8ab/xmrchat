@@ -48,6 +48,7 @@ export default {
   enterEmailToResetPassword:
     "Gib deine E-Mail ein, um dein Passwort zurücksetzen",
   creatorLogin: "Creator Anmeldung",
+  goToHomePage: "Zur Startseite gehen",
   searchCreators: {
     title: "Creator Suchen",
     description: "Suche nach Creators mit öffentlichen Seiten auf xmrchat.",
@@ -320,6 +321,66 @@ export default {
   autoShowTipsDescription:
     "Wenn aktiviert, werden Trinkgeld-Transaktionen automatisch auf der OBS-Seite für 60 Sekunden angezeigt.",
 
+  // INTEGRATIONS PAGE
+  integrations: "Integrationen",
+  integrationsTitle: "Integrationen",
+  integrationsDes: "Verwalte deine Integrationen",
+  notConnected: "Nicht verbunden.",
+  waitingForVerification: "Warte auf Verifizierung.",
+  connected: "Verbunden.",
+  connect: "Verbinden",
+  disconnect: "Trennen",
+  simplexDescription: "Der erste Messenger ohne Benutzer-IDs.",
+  simplexIntegration: "SimpleX-Integration",
+  enterYourSimplexLink:
+    "Gib deinen SimpleX-Verbindungslink ein und klicke dann auf 'Verbinden'. Das XMRChat-Konto sendet eine Verbindungsanfrage an dein SimpleX-Konto. Nach dem Akzeptieren der Anfrage erhältst du einen Code. Gib den Code ein, um die Verbindung abzuschließen.",
+  simplexIsConnectedTo: "SimpleX ist mit dem Konto „{name}“ verbunden.",
+  acceptRequestInSimplex:
+    "Akzeptiere die Verbindungsanfrage in der SimpleX-App und gib den erhaltenen Code ein.",
+  confirmCode: "Code bestätigen",
+  success: "Erfolg",
+  openSimplexAndAccept:
+    "Öffne die SimpleX-App auf deinem Gerät und akzeptiere die Verbindung vom XMRChat-Konto.",
+  error: "Fehler",
+  simplexIsConnected: "SimpleX ist verbunden.",
+  simplexDisconnected: "SimpleX wurde getrennt.",
+  simplexLink: "SimpleX-Link",
+  signalDescription:
+    "Sag 'Hallo' zu einem anderen Messenger-Erlebnis. Ein unerwarteter Fokus auf Datenschutz, kombiniert mit allen Funktionen, die du erwartest.",
+  signalIsConnected: "Signal ist verbunden.",
+  signalIsDisconnected: "Signal wurde getrennt.",
+  signalIntegration: "Signal-Integration",
+  signalIsConnectedTo: "Signal ist mit dem Konto {number} verbunden.",
+  enterCodeinSignalApp:
+    "Gib den Code ein, der dir in der Signal-App gesendet wurde.",
+  enterSignalNumOrId:
+    "Gib deine Signal-Telefonnummer oder ID ein. Wir senden einen Code zur Verifizierung.",
+  signalPhoneNumOrId: "Signal-Telefonnummer oder ID",
+  sendCode: "Code senden",
+  code: "Code",
+
+  // NOTIFICATIONS-PREFERENCES PAGE
+  notifications: "Benachrichtigungen",
+  manageYourNotifs: "Verwalte deine Benachrichtigungen",
+  comingSoon: "Demnächst verfügbar",
+  featureAvailableSoon: "Diese Funktion ist bald verfügbar.",
+  minNotifsThreshold: "Mindestbenachrichtigungsgrenze",
+  minNotifsThresholdHelp:
+    "Der Mindestbetrag eines XMR-Tipps, der eine Benachrichtigung auslöst.",
+  connectInIntegrations:
+    "Verbinde dich in {integrations}, um dies zu aktivieren.",
+  dailySummaryTimeHelp:
+    "Uhrzeit, zu der tägliche Zusammenfassungen gesendet werden.",
+  notifsPreferencesSaved: "Benachrichtigungseinstellungen gespeichert.",
+  newTip: "Neues Trinkgeld",
+  receiveNotifsWhenTipReceived:
+    "Benachrichtigung erhalten, wenn ein neues Trinkgeld eingeht",
+  dailySummary: "Tägliche Zusammenfassung",
+  receiveDailySummary: "Tägliche Zusammenfassung deiner Trinkgelder erhalten",
+  receiveNotifsViaEmail: "Benachrichtigungen per E-Mail erhalten",
+  receiveNotifsViaSimplex: "Benachrichtigungen über SimpleX erhalten",
+  receiveNotifsViaSignal: "Benachrichtigungen über Signal erhalten",
+
   // HEAD
   head: {
     description:
@@ -329,4 +390,7 @@ export default {
     tip: "Trinkgeld an {path}",
   },
   moneroSuperchats: "Monero Superchats : XMRChat",
+  emailVerification: "E-Mail-Verifizierung",
+  forgotPassword: "Passwort vergessen",
+  signUp: "Registrieren",
 };

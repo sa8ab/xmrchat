@@ -44,6 +44,7 @@ export default {
   changeEmail: "تغيير البريد الإلكتروني",
   enterEmailToResetPassword: "أدخل البريد الإلكتروني لإعادة تعيين كلمة المرور",
   creatorLogin: "تسجيل دخول المبدع",
+  goToHomePage: "اذهب إلى الصفحة الرئيسية",
   searchCreators: {
     title: "البحث عن صانعي المحتوى",
     description: "البحث عن صانعي المحتوى (الصفحات العامة) ",
@@ -308,6 +309,61 @@ export default {
   autoShowTipsDescription:
     "إذا كان مفعلاً، سيتم عرض التبرعات تلقائياً على صفحة OBS لمدة 60 ثانية",
 
+  // INTEGRATIONS PAGE
+  integrations: "التكاملات",
+  integrationsTitle: "التكاملات",
+  integrationsDes: "إدارة التكاملات الخاصة بك",
+  notConnected: "غير متصل.",
+  waitingForVerification: "في انتظار التحقق.",
+  connected: "متصل.",
+  connect: "اتصال",
+  disconnect: "قطع الاتصال",
+  simplexDescription: "أول تطبيق مراسلة بدون معرفات مستخدم.",
+  simplexIntegration: "تكامل SimpleX",
+  enterYourSimplexLink:
+    "أدخل رابط الاتصال بـ SimpleX ثم اضغط على اتصال. سيرسل حساب XMRChat طلب اتصال إلى حسابك في SimpleX. بعد قبول الطلب، ستحصل على رمز. أدخل الرمز لإكمال الاتصال.",
+  simplexIsConnectedTo: 'SimpleX متصل بالحساب "{name}".',
+  acceptRequestInSimplex:
+    "اقبل طلب الاتصال في تطبيق SimpleX وأدخل الرمز الذي تحصل عليه.",
+  confirmCode: "تأكيد الرمز",
+  success: "نجاح",
+  openSimplexAndAccept:
+    "افتح تطبيق SimpleX على جهازك ووافق على الاتصال من حساب XMRChat.",
+  error: "خطأ",
+  simplexIsConnected: "تم الاتصال بـ SimpleX.",
+  simplexDisconnected: "تم قطع الاتصال بـ SimpleX.",
+  simplexLink: "رابط SimpleX",
+  signalDescription:
+    'قل "مرحبًا" لتجربة مراسلة مختلفة. تركيز غير متوقع على الخصوصية، مع جميع الميزات التي تتوقعها.',
+  signalIsConnected: "تم الاتصال بـ Signal.",
+  signalIsDisconnected: "تم قطع الاتصال بـ Signal.",
+  signalIntegration: "تكامل Signal",
+  signalIsConnectedTo: "Signal متصل بالحساب {number}.",
+  enterCodeinSignalApp: "أدخل الرمز المُرسل إلى تطبيق Signal الخاص بك.",
+  enterSignalNumOrId:
+    "أدخل رقم هاتفك أو معرفك في Signal. سنرسل رمزًا إلى هذا الرقم للتحقق.",
+  signalPhoneNumOrId: "رقم الهاتف أو المعرف في Signal",
+  sendCode: "إرسال الرمز",
+  code: "الرمز",
+
+  // NOTIFICATIONS-PREFERENCES PAGE
+  notifications: "الإشعارات",
+  manageYourNotifs: "إدارة إشعاراتك",
+  comingSoon: "قريبًا",
+  featureAvailableSoon: "هذه الميزة ستكون متوفرة قريبًا.",
+  minNotifsThreshold: "الحد الأدنى للإشعارات",
+  minNotifsThresholdHelp: "الحد الأدنى من إكراميات XMR التي ستؤدي إلى إشعار.",
+  connectInIntegrations: "اتصل من خلال {integrations} لتفعيل الميزة.",
+  dailySummaryTimeHelp: "الوقت الذي سيتم فيه إرسال ملخص يومي بالإشعارات.",
+  notifsPreferencesSaved: "تم حفظ تفضيلات الإشعارات.",
+  newTip: "إكرامية جديدة",
+  receiveNotifsWhenTipReceived: "استلام إشعار عند تلقي إكرامية جديدة",
+  dailySummary: "الملخص اليومي",
+  receiveDailySummary: "استلام ملخص يومي لإكرامياتك",
+  receiveNotifsViaEmail: "استلام الإشعارات عبر البريد الإلكتروني",
+  receiveNotifsViaSimplex: "استلام الإشعارات عبر SimpleX",
+  receiveNotifsViaSignal: "استلام الإشعارات عبر Signal",
+
   // HEAD
   head: {
     description:
@@ -317,4 +373,7 @@ export default {
     tip: "تبرع لـ {path}",
   },
   moneroSuperchats: "سوبر شات مونيرو : XMRChat",
+  emailVerification: "التحقق من البريد الإلكتروني",
+  forgotPassword: "هل نسيت كلمة المرور؟",
+  signUp: "إنشاء حساب",
 };

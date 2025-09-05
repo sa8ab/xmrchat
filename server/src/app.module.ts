@@ -45,6 +45,8 @@ import { CakeModule } from './integrations/cake/cake.module';
 import { IntegrationsModule } from './integrations/integrations.module';
 import { NotificationPreferencesModule } from './notification-preferences/notification-preferences.module';
 import { CaslModule } from './casl/casl.module';
+import { TestModule } from './test/test.module';
+import { PageRecipientsModule } from './page-recipients/page-recipients.module';
 
 @Module({
   imports: [
@@ -164,6 +166,8 @@ import { CaslModule } from './casl/casl.module';
     IntegrationsModule,
     NotificationPreferencesModule,
     CaslModule,
+    PageRecipientsModule,
+    ...(process.env.TEST_ENV === 'true' ? [TestModule] : []),
   ],
   controllers: [AppController],
   providers: [AppService],

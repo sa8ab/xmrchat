@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import useVuelidate from "@vuelidate/core";
-import type { NotificationPreference, Numberic } from "~/types";
+import type {
+  IntegrationConfig,
+  NotificationPreference,
+  Numberic,
+} from "~/types";
 import {
   NotificationChannelEnum,
   NotificationPreferenceType,
@@ -11,6 +15,7 @@ const toast = useToast();
 const { numberic } = useValidations();
 const authStore = useAuthStore();
 const { dayjs } = useDate();
+const { t } = useI18n();
 
 type Form = {
   [key in NotificationChannelEnum]: {
@@ -65,13 +70,17 @@ const convertLocalToUTC = (localTime?: string): string => {
   return localDateTime.utc().format("HH:mm");
 };
 
-const { error } = await useLazyAsyncData(
+const { error, data: integrations } = await useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{
       preferences: NotificationPreference[];
       minNotificationThreshold: number;
       dailySummaryTime: string;
     }>(`/notification-preferences`);
+
+    const { data: integrationsData } = await axios.get<{
+      integrations: IntegrationConfig[];
+    }>("/integrations");
 
     state.form.email = getObjectPereferences(
       NotificationChannelEnum.EMAIL,
@@ -90,9 +99,14 @@ const { error } = await useLazyAsyncData(
 
     state.minNotificationThreshold = data.minNotificationThreshold;
     state.dailySummaryTime = convertUTCToLocal(data.dailySummaryTime);
+    return integrationsData.integrations;
   },
   { server: false }
 );
+
+const { simplex: simplexConfig, signal: signalConfig } = useIntegrations({
+  integrations: computed(() => integrations.value),
+});
 
 const handleSave = async () => {
   const convertedPreferences = Object.entries(state.form)
@@ -118,7 +132,7 @@ const handleSave = async () => {
     });
     toast.add({
       color: "green",
-      title: "Notification preferences saved.",
+      title: t("notifsPreferencesSaved"),
     });
   } catch (error) {
     toast.add({
@@ -139,28 +153,34 @@ const v = useVuelidate<any>(
 
 const { getValidationAttrs } = useValidations(v);
 
-const isPremium = computed(
-  () => authStore.state.user?.isPremium || authStore.isAdmin
-);
+const isPremium = computed(() => authStore.isPremiumOrAdmin);
 </script>
 
 <template>
   <div>
-    <PageTitle title="Notifications" description="Manage your notifications" />
-    <div class="text-center" v-if="!isPremium">
-      <p class="text-2xl font-bold">Coming Soon</p>
-      <p class="mt-2">This feature will be available soon.</p>
-    </div>
+    <PageTitle
+      :title="$t('notifications')"
+      :description="$t('manageYourNotifs')"
+    />
 
-    <ErrorView :error="error" v-else-if="error" />
+    <PremiumAlert v-if="!isPremium" class="mb-6" />
+
+    <!-- <div class="text-center" v-if="!isPremium">
+      <p class="text-2xl font-bold">{{ $t("comingSoon") }}</p>
+      <p class="mt-2">
+        {{ $t("featureAvailableSoon") }}
+      </p>
+    </div> -->
+
+    <ErrorView :error="error" v-if="error" />
 
     <GeneralForm @submit="handleSave" v-else>
       <div class="grid mb-10 grid-cols-1 md:grid-cols-2 gap-4">
         <UFormGroup
-          label="Min Notification Threshold"
+          :label="$t('minNotifsThreshold')"
           name="minNotificationThreshold"
           :error="getValidationAttrs('minNotificationThreshold').error"
-          help="The minimum amount of XMR tip that will trigger a notification."
+          :help="$t('minNotifsThresholdHelp')"
         >
           <UInput
             v-model="state.minNotificationThreshold"
@@ -189,16 +209,19 @@ const isPremium = computed(
         <NotificationPreferenceContainer
           :channel="NotificationChannelEnum.EMAIL"
           v-model="state.form.email"
-          v-model:daily-summary-time="state.dailySummaryTime"
+          v-model:dailySummaryTime="state.dailySummaryTime"
+          configVerified
         >
         </NotificationPreferenceContainer>
         <NotificationPreferenceContainer
           :channel="NotificationChannelEnum.SIMPLEX"
           v-model="state.form.simplex"
+          :configVerified="simplexConfig?.verified"
         ></NotificationPreferenceContainer>
         <NotificationPreferenceContainer
           :channel="NotificationChannelEnum.SIGNAL"
           v-model="state.form.signal"
+          :configVerified="signalConfig?.verified"
         >
         </NotificationPreferenceContainer>
       </div>

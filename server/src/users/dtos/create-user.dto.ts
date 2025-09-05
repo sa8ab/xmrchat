@@ -10,4 +10,7 @@ export class CreateUserDto {
 
   @IsOptional()
   isEmailVerified?: boolean;
+
+  @IsOptional()
+  language?: string;
 }

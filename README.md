@@ -30,6 +30,7 @@ XMRChat is a tip-for-chat application. Users can set up a page and have others s
   - [Client](#client)
 
 - [Development](#development)
+- [Testing 🔬](#testing)
 
 ## <a name="tech-stack">Technology Stack 🚀</a>
 
@@ -184,6 +185,18 @@ Then we need to run the migrations:
 docker compose exec -it nest npm run migration:run
 ```
 
+#### Notifications and integrations
+
+In order to use notifications like SimpleX or Signal you need to set up the integrations. If you don't need them skip to next step.
+
+- Email:
+  Email notifications already uses the env variables for sending emails.
+- [SimpleX](https://simplex.chat/):
+  Simplex is automatically set up when running the server docker compose. The data from container will be in `/server/simplex` directory.
+- [Signal](https://signal.org/):
+  In order to use Signal notifications you need to have a Signal account. Open server url in a browser or send a get request to `/signal/qrcode` ( Example: `https://server.xmrchat.com/signal/qrcode` ).
+  It will give you a qr code if there is not a signal account already added. Open Signal app on your phone and navigate to settings -> Linked devices and add new device. Scan then qr code you got from the server.
+
 ### <a name="client">4. Client</a>
 
 Go to `/xmrchat/client` directory and create your `.env` file from `.env.example`.
@@ -233,6 +246,19 @@ Add your .env based on .env.example, then run the project:
 npm i
 npm run dev
 ```
+
+## <a name="testing">Testing 🔬</a>
+
+For detailed testing instructions, see [TESTING.md](./TESTING.md).
+
+**Client tests** live in `client/` and can be run with:
+
+```bash
+cd client
+npx playwright test
+```
+
+We also provide a GitHub Actions workflow to SSH into your server, spin up containers, run migrations, and execute Playwright tests. See [TESTING.md](./TESTING.md) for more information.
 
 ## License
 

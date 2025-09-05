@@ -11,6 +11,7 @@ export class SignalController {
   @IsPublic()
   async getQrCode(@Res() res: Response) {
     const pngBuf = await this.signalService.generateQrCode();
+    res.setHeader('Content-Type', 'image/png');
     return res.send(pngBuf);
   }
 }

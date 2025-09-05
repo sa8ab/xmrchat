@@ -101,6 +101,10 @@ export enum IntegrationConfigType {
   SIMPLEX = 'simplex',
 }
 
+export enum IntegrationConfigMethod {
+  CODE = 'code',
+}
+
 export enum NotificationPreferenceType {
   NEW_TIP = 'new_tip',
   DAILY_SUMMARY = 'daily_summary',
@@ -121,4 +125,10 @@ export enum Action {
   Update = 'update',
   Delete = 'delete',
   Receive = 'receive',
+}
+
+export enum PageRecipientVariant {
+  PAGE = 'page',
+  XMRCHAT = 'xmrchat',
+  RECIPIENT = 'recipient',
 }

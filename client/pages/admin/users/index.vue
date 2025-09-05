@@ -35,6 +35,10 @@ const columns = [
     label: "Email",
   },
   {
+    key: "language",
+    label: "Language",
+  },
+  {
     key: "created-at",
     label: "Created At",
   },
@@ -54,6 +58,9 @@ const columns = [
         td: { base: 'whitespace-normal text-text dark:text-text' },
       }"
     >
+      <template #language-data="{ row }">
+        <LanguageAndFlag :language="row.language" />
+      </template>
       <template #created-at-data="{ row }">
         <span>{{ new Date(row.createdAt).toLocaleString() }}</span>
       </template>

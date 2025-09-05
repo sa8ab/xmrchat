@@ -42,8 +42,12 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "^2.4.1",
+    "@nuxt/test-utils": "^3.19.2",
+    "@playwright/test": "^1.54.1",
     "@types/lodash.debounce": "^4.0.9",
+    "@types/node": "^24.1.0",
     "form-data": "^4.0.1",
+    "playwright-core": "^1.54.1",
     "sass": "^1.75.0"
   }
 }

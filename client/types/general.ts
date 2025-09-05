@@ -6,6 +6,7 @@ import type {
   NotificationPreferenceType,
   PageSettingKey,
   PageStatusEnum,
+  PageRecipientVariant,
   RolesEnum,
   SwapStatusEnum,
   TipDisplayMode,
@@ -28,6 +29,7 @@ export interface User {
   id: string;
   roles: RolesEnum[];
   isPremium: boolean;
+  language?: string;
 }
 
 export interface CreateFormFields {
@@ -58,12 +60,19 @@ export interface SlugReservationResponse {
   reservedUntil: number;
 }
 
+export interface TipRecipient extends PageRecipient {
+  amount: number | string;
+}
+
 export interface TipCreationResponse {
   amount: string;
   id: number;
   paymentAddress: string;
   tip: Tip;
   swap?: Swap;
+
+  tipRecipients: TipRecipient[];
+  url?: string;
 }
 
 export interface StreamerPage {
@@ -80,6 +89,7 @@ export interface StreamerPage {
   twitchChannel?: string;
   minTipAmount?: string;
   isPublic: boolean;
+  isPremium?: boolean;
   tipDisplayMode?: TipDisplayMode;
   fiat?: FiatEnum;
   links?: ContentLink[];
@@ -221,6 +231,14 @@ export interface NotificationPreference {
 
 export interface IntegrationConfig {
   type: IntegrationConfigType;
+  method: string;
   config: any;
   verified: boolean;
+}
+
+export interface PageRecipient {
+  name?: string;
+  address?: string;
+  percentage?: Numberic;
+  variant?: PageRecipientVariant;
 }

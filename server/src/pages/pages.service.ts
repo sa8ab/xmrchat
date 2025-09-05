@@ -279,7 +279,7 @@ export class PagesService {
     path = path.toLowerCase();
     return this.repo.findOne({
       where: { path },
-      relations: { tiers: true, links: true },
+      relations: { tiers: true, links: true, recipients: true },
     });
   }
 
@@ -505,6 +505,16 @@ export class PagesService {
     if (!page) throw new NotFoundException('Page not found');
 
     page.status = status;
+
+    return this.repo.save(page);
+  }
+
+  async changePremiumBySlug(slug: string, isPremium: boolean) {
+    const page = await this.findByPath(slug);
+
+    if (!page) throw new NotFoundException('Page not found');
+
+    page.isPremium = isPremium;
 
     return this.repo.save(page);
   }

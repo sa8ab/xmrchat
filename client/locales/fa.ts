@@ -45,6 +45,7 @@ export default {
   changeEmail: "تغییر ایمیل",
   enterEmailToResetPassword: "برای بازیابی رمز عبور, ایمیل خود را وارد کنید.",
   creatorLogin: "ورود سازنده محتوا",
+  goToHomePage: "رفتن به صفحه اصلی",
   searchCreators: {
     title: "جستجوی سازندگان محتوا",
     description:
@@ -324,6 +325,62 @@ export default {
   autoShowTipsDescription:
     "در صورت فعال بودن، انعام‌ها به طور خودکار در صفحه OBS به مدت 60 ثانیه نمایش داده می‌شوند.",
 
+  // INTEGRATIONS PAGE
+  integrations: "اتصال‌ها",
+  integrationsTitle: "اتصال‌ها",
+  integrationsDes: "مدیریت اتصال‌های شما",
+  notConnected: "متصل نیست.",
+  waitingForVerification: "در انتظار تأیید.",
+  connected: "متصل شد.",
+  connect: "اتصال",
+  disconnect: "قطع اتصال",
+  simplexDescription: "اولین پیام‌رسان بدون شناسه کاربری.",
+  simplexIntegration: "اتصال SimpleX",
+  enterYourSimplexLink:
+    "لینک اتصال SimpleX خود را وارد کرده و روی «اتصال» کلیک کنید. حساب XMRChat یک درخواست اتصال به حساب SimpleX شما ارسال می‌کند. پس از پذیرش درخواست، یک کد دریافت می‌کنید. آن کد را وارد کنید تا اتصال کامل شود.",
+  simplexIsConnectedTo: 'SimpleX به حساب "{name}" متصل است.',
+  acceptRequestInSimplex:
+    "درخواست اتصال را در اپلیکیشن SimpleX بپذیرید و کدی را که دریافت می‌کنید وارد کنید.",
+  confirmCode: "تأیید کد",
+  success: "موفقیت‌آمیز",
+  openSimplexAndAccept:
+    "اپلیکیشن SimpleX را در دستگاه خود باز کرده و اتصال از حساب XMRChat را بپذیرید.",
+  error: "خطا",
+  simplexIsConnected: "SimpleX متصل است.",
+  simplexDisconnected: "اتصال SimpleX قطع شد.",
+  simplexLink: "لینک SimpleX",
+  signalDescription:
+    "به تجربه‌ای متفاوت از پیام‌رسانی سلام کنید. تمرکز غیرمنتظره بر حریم خصوصی همراه با تمام قابلیت‌هایی که انتظار دارید.",
+  signalIsConnected: "Signal متصل است.",
+  signalIsDisconnected: "Signal قطع شد.",
+  signalIntegration: "اتصال Signal",
+  signalIsConnectedTo: "Signal به حساب {number} متصل است.",
+  enterCodeinSignalApp: "کدی که به اپلیکیشن Signal شما ارسال شده را وارد کنید.",
+  enterSignalNumOrId:
+    "شماره تلفن یا شناسه Signal خود را وارد کنید. برای تأیید یک کد به شما ارسال می‌شود.",
+  signalPhoneNumOrId: "شماره تلفن یا شناسه Signal",
+  sendCode: "ارسال کد",
+  code: "کد",
+
+  // NOTIFICATIONS-PREFERENCES PAGE
+  notifications: "اعلان‌ها",
+  manageYourNotifs: "مدیریت اعلان‌های شما",
+  comingSoon: "به‌زودی",
+  featureAvailableSoon: "این قابلیت به‌زودی در دسترس خواهد بود.",
+  minNotifsThreshold: "حداقل مقدار اعلان",
+  minNotifsThresholdHelp:
+    "حداقل مقدار انعام XMR که باعث فعال شدن اعلان می‌شود.",
+  connectInIntegrations: "برای فعال‌سازی، از طریق {integrations} متصل شوید.",
+  dailySummaryTimeHelp: "زمان ارسال اعلان‌های خلاصه روزانه.",
+  notifsPreferencesSaved: "تنظیمات اعلان ذخیره شد.",
+  newTip: "انعام جدید",
+  receiveNotifsWhenTipReceived: "دریافت اعلان هنگام دریافت انعام جدید",
+  dailySummary: "خلاصه روزانه",
+  receiveDailySummary: "دریافت خلاصه روزانه از انعام‌ها",
+  receiveNotifsViaEmail: "دریافت اعلان از طریق ایمیل",
+  receiveNotifsViaSimplex: "دریافت اعلان از طریق SimpleX",
+  receiveNotifsViaSignal: "دریافت اعلان از طریق Signal",
+
   // HEAD
   head: {
     description:
@@ -333,4 +390,7 @@ export default {
     tip: "انعام به {path}",
   },
   moneroSuperchats: "سوپرچت‌های Monero : XMRChat",
+  emailVerification: "تأیید ایمیل",
+  forgotPassword: "رمز عبور را فراموش کرده‌اید؟",
+  signUp: "ثبت‌نام",
 };

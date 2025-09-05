@@ -89,6 +89,8 @@ const executeChangeStatus = async (status: PageStatusEnum) => {
             <h2 class="text-lg">Page Info</h2>
           </template>
           <div class="grid grid-cols-2 gap-2">
+            <div class="text-pale">Signup language</div>
+            <LanguageAndFlag :language="data.user?.language" />
             <div class="text-pale">Tips Count</div>
             <div>{{ data.tipsCount }}</div>
             <div class="text-pale">Total paid amount</div>
@@ -119,9 +121,9 @@ const executeChangeStatus = async (status: PageStatusEnum) => {
             <div class="text-pale">Twitch</div>
             <div>{{ data.twitchChannel || "-" }}</div>
             <div class="text-pale">Min tip amount</div>
-            <div>{{ data.minTipAmount }} XMR</div>
+            <div>{{ data.minTipAmount || "-" }} XMR</div>
             <div class="text-pale">Default tip amount display</div>
-            <div>{{ data.tipDisplayMode?.toUpperCase() }}</div>
+            <div>{{ data.tipDisplayMode?.toUpperCase() || "-" }}</div>
           </div>
         </UCard>
         <!-- <UCard :ui="{ background: 'dark:bg-background-2' }">

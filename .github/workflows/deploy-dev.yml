@@ -19,7 +19,7 @@ jobs:
         with:
           context: ./client
           load: true
-          tags: xmrchat-client:latest
+          tags: xmrchat-nuxt-dev:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -28,32 +28,31 @@ jobs:
         with:
           context: ./server
           load: true
-          tags: xmrchat-server:latest
+          tags: xmrchat-nest-dev:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Save client image
-        run: docker save -o client-image.tar xmrchat-client:latest
+      - name: Save docker images
+        run: |
+          docker save -o xmrchat-nuxt-dev.tar xmrchat-nuxt-dev:latest
+          docker save -o xmrchat-nest-dev.tar xmrchat-nest-dev:latest
 
-      - name: Save server image
-        run: docker save -o server-image.tar xmrchat-server:latest
-
-      - name: Send client image
+      - name: Send nuxt image
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
-          source: client-image.tar
+          source: xmrchat-nuxt-dev.tar
           target: /tmp
 
-      - name: Send server image
+      - name: Send nest image
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
-          source: server-image.tar
+          source: xmrchat-nest-dev.tar
           target: /tmp
 
       - name: Load and run docker
@@ -66,12 +65,12 @@ jobs:
             #!/bin/bash
             set -e
 
-            echo "Loading and deploying client..."
-            docker load < /tmp/client-image.tar
+            echo "Loading and deploying nuxt..."
+            docker load < /tmp/xmrchat-nuxt-dev.tar
             cd /projnew/xmrchat-dev/client
-            docker-compose up -d
+            docker compose -f docker-compose.yml -f docker-compose.action.dev.yml up -d
 
-            echo "Loading and deploying server..."
-            docker load < /tmp/server-image.tar
+            echo "Loading and deploying nest..."
+            docker load < /tmp/xmrchat-nest-dev.tar
             cd /projnew/xmrchat-dev/server
-            docker-compose up -d
+            docker compose -f docker-compose.yml -f docker-compose.action.dev.yml up -d

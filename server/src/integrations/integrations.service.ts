@@ -9,7 +9,10 @@ import { PagesService } from 'src/pages/pages.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IntegrationConfig } from './integration-configs.entity';
 import { In, Repository } from 'typeorm';
-import { IntegrationConfigType } from 'src/shared/constants';
+import {
+  IntegrationConfigMethod,
+  IntegrationConfigType,
+} from 'src/shared/constants';
 import { SimplexService } from './simplex/simplex.service';
 import { ConnectSignalDto } from './dto/connect-signal.dto';
 import { SignalService } from './signal/signal.service';
@@ -40,11 +43,13 @@ export class IntegrationsService {
   async findOrCreateConfigByPageAndType(
     pageId: number,
     type: IntegrationConfigType,
+    method: IntegrationConfigMethod,
   ) {
     let config = await this.icRepo.findOne({
       where: {
         page: { id: pageId },
         type,
+        method,
       },
     });
 
@@ -52,6 +57,7 @@ export class IntegrationsService {
       config = this.icRepo.create({
         page: { id: pageId },
         type,
+        method,
       });
       config = await this.icRepo.save(config);
     }
@@ -88,6 +94,7 @@ export class IntegrationsService {
     const config = await this.findOrCreateConfigByPageAndType(
       page.id,
       IntegrationConfigType.SIMPLEX,
+      IntegrationConfigMethod.CODE,
     );
 
     if (config && config.verified) {
@@ -135,6 +142,7 @@ export class IntegrationsService {
     const config = await this.findOrCreateConfigByPageAndType(
       page.id,
       IntegrationConfigType.SIGNAL,
+      IntegrationConfigMethod.CODE,
     );
 
     if (config && config.verified) {

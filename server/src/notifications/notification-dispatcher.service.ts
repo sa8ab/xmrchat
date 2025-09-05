@@ -51,7 +51,7 @@ export class NotificationDispatcherService {
     if (!page) {
       throw new NotFoundException('Page not found');
     }
-    const ability = this.caslAbility.createForUser(page.user);
+    const ability = await this.caslAbility.createForUser(page.user, page);
     if (!ability.can(Action.Receive, 'notification')) {
       throw new ForbiddenException('User can not receive notifications');
     }
@@ -92,6 +92,7 @@ export class NotificationDispatcherService {
       (p) => p.type === NotificationPreferenceType.NEW_TIP,
     )) {
       if (!meetsThreshold) continue;
+      if (!preference.enabled) continue;
 
       if (preference.channel === NotificationChannelEnum.EMAIL) {
         await this.notifyNewTipEmail(tip, page);

@@ -27,6 +27,7 @@ export const useRouteLocation = () => {
     toStreamerNotificationPreferences: () =>
       localeRoute("/streamer/notification-preferences"),
     toStreamerIntegrations: () => localeRoute("/streamer/integrations"),
+    toStreamerRecipients: () => localeRoute("/streamer/recipients"),
 
     toUsers: () => localeRoute("/admin/users"),
     toPages: () => localeRoute("/admin/pages"),

@@ -3,6 +3,7 @@ const authStore = useAuthStore();
 const { state, logout } = authStore;
 const { isAdmin } = storeToRefs(authStore);
 const { t } = useI18n();
+const config = useRuntimeConfig();
 
 const page = computed(() => state.page);
 const {
@@ -16,6 +17,7 @@ const {
   toPages,
   toStreamerNotificationPreferences,
   toStreamerIntegrations,
+  toStreamerRecipients,
 } = useRouteLocation();
 
 const items = computed(() => {
@@ -66,16 +68,44 @@ const items = computed(() => {
           icon: "i-heroicons-banknotes",
           to: toStreamer(page.value.path),
         },
-        // {
-        //   label: "Notifications",
-        //   icon: "i-heroicons-bell",
-        //   to: toStreamerNotificationPreferences(),
-        // },
-        // {
-        //   label: "Integrations",
-        //   icon: "i-tabler-plug",
-        //   to: toStreamerIntegrations(),
-        // },
+      ]
+    );
+
+    const showTipSplits = config.public.showTipSplits;
+
+    if (showTipSplits) {
+      res.push(
+        ...[
+          {
+            label: "Tip Splits",
+            icon: "i-heroicons-users",
+            to: toStreamerRecipients(),
+          },
+        ]
+      );
+    }
+
+    const showPremiumPages = config.public.showPremiumPages;
+
+    if (showPremiumPages) {
+      res.push(
+        ...[
+          {
+            label: "Notifications",
+            icon: "i-heroicons-bell",
+            to: toStreamerNotificationPreferences(),
+          },
+          {
+            label: "Integrations",
+            icon: "i-tabler-plug",
+            to: toStreamerIntegrations(),
+          },
+        ]
+      );
+    }
+
+    res.push(
+      ...[
         {
           label: t("contentLinks"),
           icon: "i-heroicons-link-20-solid",
@@ -114,8 +144,12 @@ const items = computed(() => {
           :to="item.to"
           :exact="item.exact"
           variant="soft"
-          class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:text-primary transition-all"
-          activeClass="bg-primary text-white dark:text-gray-900 pointer-events-none"
+          :class="[
+            'flex items-center gap-2 px-2 py-1.5 rounded-lg hover:text-primary transition-all',
+            { 'opacity-50 pointer-events-none': item.disabled },
+          ]"
+          activeClass="bg-primary !text-white "
+          :disabled="item.disabled"
         >
           <UIcon v-if="item.icon" :name="item.icon" class="w-5 h-5" />
           <span>

@@ -2,11 +2,10 @@ import { Body, Controller, Get, NotFoundException, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { IsPublic } from './shared/decorators/is-public.decorator';
 import { NotificationsService } from './notifications/notifications.service';
-import { TipsService } from './tips/tips.service';
 import { SimplexService } from './integrations/simplex/simplex.service';
 import { SignalService } from './integrations/signal/signal.service';
 import { NotificationDispatcherService } from './notifications/notification-dispatcher.service';
-
+import { NotificationTestsService } from './notifications/notification-tests.service';
 @Controller()
 export class AppController {
   constructor(
@@ -15,6 +14,7 @@ export class AppController {
     private simplexService: SimplexService,
     private signalService: SignalService,
     private notificationDispatcherService: NotificationDispatcherService,
+    private notificationTestsService: NotificationTestsService,
   ) {}
 
   @Get()
@@ -31,6 +31,7 @@ export class AppController {
   @IsPublic()
   @Get('/test')
   async test() {
+    // return this.notificationTestsService.testSignal();
     // return this.signalService.sendTestMessage();
     // return this.notificationDispatcherService.notifyNewTip(1, 271);
   }

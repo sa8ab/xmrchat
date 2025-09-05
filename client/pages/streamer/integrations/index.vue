@@ -31,25 +31,21 @@ const {
   { server: false }
 );
 
-const simplexConfig = computed(() => {
-  return integrations.value?.integrations.find(
-    (i) => i.type === IntegrationConfigType.SIMPLEX
-  );
+const { simplex: simplexConfig, signal: signalConfig } = useIntegrations({
+  integrations: computed(() => integrations.value?.integrations),
 });
 
-const signalConfig = computed(() => {
-  return integrations.value?.integrations.find(
-    (i) => i.type === IntegrationConfigType.SIGNAL
-  );
-});
-const v = useVuelidate<any>({}, state);
-
-const { getValidationAttrs } = useValidations(v);
+const isPremium = computed(() => authStore.isPremiumOrAdmin);
 </script>
 
 <template>
   <div>
-    <PageTitle title="Integrations" description="Manage your integrations" />
+    <PageTitle
+      :title="$t('integrationsTitle')"
+      :description="$t('integrationsDes')"
+    />
+
+    <PremiumAlert v-if="!isPremium" class="mb-6" />
 
     <ErrorView :error="error" v-if="error" />
     <div

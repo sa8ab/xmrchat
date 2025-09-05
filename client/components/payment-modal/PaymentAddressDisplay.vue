@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 const props = defineProps<{
   address?: string;
+  compact?: boolean;
 }>();
 
 const toast = useToast();
@@ -22,14 +23,14 @@ const copy = () => {
 </script>
 
 <template>
-  <div class="payment-address-input w-full">
+  <div class="payment-address-input w-full" :class="{ compact: compact }">
     <UInput
       disabled
       :modelValue="address"
       class="w-full cursor-none"
-      size="lg"
+      :size="compact ? 'sm' : 'lg'"
     />
-    <UButton class="button" size="sm" @click="copy">{{
+    <UButton class="button" :size="compact ? 'xs' : 'sm'" @click="copy">{{
       t("copyAddress")
     }}</UButton>
   </div>
@@ -40,6 +41,12 @@ const copy = () => {
   @apply flex gap-2;
   input {
     @apply py-5;
+  }
+
+  &.compact {
+    input {
+      @apply py-2;
+    }
   }
 }
 </style>

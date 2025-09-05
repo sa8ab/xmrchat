@@ -34,7 +34,6 @@ services:
 
   redis:
     image: redis/redis-stack:latest
-    restart: unless-stopped
     ports:
       - ${REDIS_PORT}:6379
 
@@ -65,11 +64,10 @@ services:
     image: bbernhard/signal-cli-rest-api
     ports:
       - '8080:8080'
-    restart: unless-stopped
     volumes:
       - ./signal-cli:/home/.local/share/signal-cli
     environment:
-      - MODE=native
+      - MODE=normal
   
   simplex:
     build:
