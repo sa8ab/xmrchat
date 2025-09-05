@@ -135,6 +135,7 @@ const { getValidationAttrs } = useValidations(v);
 </script>
 
 <template>
+  <!-- TODO: Add alert that make sure they don't have previous connection with xmrchat account. -->
   <IntegrationItem
     :integrationType="IntegrationConfigType.SIMPLEX"
     @connect="open = true"
