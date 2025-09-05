@@ -31,7 +31,7 @@ export class AppController {
   @IsPublic()
   @Get('/test')
   async test() {
-    return this.notificationTestsService.testSignal();
+    // return this.notificationTestsService.testSignal();
     // return this.signalService.sendTestMessage();
     // return this.notificationDispatcherService.notifyNewTip(1, 271);
   }
