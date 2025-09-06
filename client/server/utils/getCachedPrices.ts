@@ -1,5 +1,5 @@
 import { H3Event } from "h3";
-import { Prices } from "~/types";
+import type { Prices } from "~/types";
 
 export const getCachedPrices = defineCachedFunction(
   async (event: H3Event) => {

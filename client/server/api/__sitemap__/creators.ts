@@ -1,7 +1,6 @@
 // server/api/__sitemap__/urls.ts
-import { defineSitemapEventHandler } from "#imports";
 import type { SitemapUrlInput } from "#sitemap/types";
-import { StreamerPage } from "~/types";
+import type { StreamerPage } from "~/types";
 
 export default defineSitemapEventHandler(async () => {
   const config = useRuntimeConfig();
