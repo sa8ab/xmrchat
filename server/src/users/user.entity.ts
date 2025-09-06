@@ -29,9 +29,6 @@ export class User {
   })
   roles: RolesEnum[];
 
-  @Column({ type: 'boolean', default: false })
-  isPremium: boolean;
-
   @Column({ default: 'en', length: 2 })
   language: string;
 
