@@ -9,7 +9,9 @@ const route = useRoute();
 const toast = useToast();
 const token = computed(() => route.query.token as string);
 
-const state = reactive({
+const state = reactive<{
+  errorMessage?: string;
+}>({
   errorMessage: undefined,
 });
 

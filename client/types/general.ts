@@ -28,7 +28,6 @@ export interface User {
   email: string;
   id: string;
   roles: RolesEnum[];
-  isPremium: boolean;
   language?: string;
 }
 

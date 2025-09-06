@@ -76,14 +76,4 @@ export class UsersService {
     userFrom.email = emailTo;
     return this.repo.save(userFrom);
   }
-
-  async changePremiumByEmail(email: string, isPremium: boolean) {
-    const user = await this.findByEmail(email);
-
-    if (!user) throw new NotFoundException('User not found');
-
-    user.isPremium = isPremium;
-
-    return this.repo.save(user);
-  }
 }
