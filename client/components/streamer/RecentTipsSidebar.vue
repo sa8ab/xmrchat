@@ -43,6 +43,37 @@ const getComputedPrice = (amount?: string) => {
     : money(fiat.toFixed(2), props.page?.fiat);
 };
 
+const generateLink = (url: string) => {
+  let redirectURL = url;
+  if (
+    !url.startsWith('https') ||
+    !url.startsWith('http') 
+  ) {
+    redirectURL = 'https://' + url;
+  }
+  return `
+    <a
+      class="text-primary hover:text-primary-400 hover:underline hover:underline-offset-4 hover:decoration-primary-400" 
+      href="${redirectURL}" 
+      target="_blank" 
+     >
+      ${url}
+     </a>
+  `;
+}
+
+const checkUrlOnMessage = (message: string): string => {
+  const urlRegex = /\b\n?(?:https?:\/\/)?(?:www\.)?[-a-zA-Z0-9@%._\+~#=]{1,256}\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+~#?&\/\/=]*)/gm;
+  const updatedMessage = message.replace(urlRegex, generateLink);
+  return updatedMessage;
+};
+
+const formattedMessage = (message: string) => {
+  if (!message) return message;
+  const generatedMessage = checkUrlOnMessage(message);
+  return generatedMessage;
+};
+
 const { getFiat } = useConstants();
 const { getDisappearText } = useTip({
   page: computed(() => props.page),
@@ -92,7 +123,7 @@ const { getDisappearText } = useTip({
                 class="pb-1 text-base font-medium"
                 :class="{ 'text-pale': item.private }"
               >
-                {{ item.private ? t("private") : item.name }}
+                {{ item.private ? t("private.title") : item.name }}
               </p>
               <UTooltip
                 v-if="getDisappearText(item.createdAt)"
@@ -105,9 +136,16 @@ const { getDisappearText } = useTip({
             <span class="flex pb-1 font-medium text-primary">
               {{ getComputedPrice(item.payment?.amount) }}
             </span>
-            <p :class="{ 'text-pale': item.private }">
-              {{ item.private ? t("private") : item.message }}
+            <p
+              v-if="item.private"
+              class="text-pale"
+              >
+              {{ t("private.title") }}
             </p>
+            <p
+              v-else
+              v-html="formattedMessage(item.message)"
+           />
           </div>
         </div>
       </template>
