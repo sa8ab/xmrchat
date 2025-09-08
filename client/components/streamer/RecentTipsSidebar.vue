@@ -142,9 +142,9 @@ const { getDisappearText } = useTip({
               >
               {{ t("private.title") }}
             </p>
-            <p
+            <div
               v-else
-              v-html="formattedMessage(item.message)"
+              v-sanitize-html="formattedMessage(item.message)"
            />
           </div>
         </div>
