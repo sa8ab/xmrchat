@@ -29,6 +29,8 @@
     "dayjs": "^1.11.11",
     "dayjs-nuxt": "^2.1.11",
     "gsap": "^3.12.5",
+    "isomorphic-dompurify": "^2.26.0",
+    "linkifyjs": "^4.3.2",
     "lodash.debounce": "^4.0.8",
     "nuxt": "^3.17.4",
     "pinia": "^3.0.2",
