@@ -44,13 +44,7 @@ const getComputedPrice = (amount?: string) => {
 };
 
 const { linkifyAndSanitize } = useLinkify({
-  _tip: computed(() => props.tip),
-  get tip() {
-    return this._tip;
-  },
-  set tip(value) {
-    this._tip = value;
-  },
+  tip: computed(() => props.tip)
 });
 
 const { getFiat } = useConstants();
@@ -115,9 +109,15 @@ const { getDisappearText } = useTip({
             <span class="flex pb-1 font-medium text-primary">
               {{ getComputedPrice(item.payment?.amount) }}
             </span>
-            <span :class="{ 'text-pale': item.private }">
-              {{ item.private ? t("private.title") : linkifyAndSanitize(item.message) }}
-            </span>
+            <p 
+              :class="{ 'text-pale': item.private }"
+              v-if="item.private"
+              v-text="t('private.title')"
+            />
+            <div
+              v-else
+              v-html="linkifyAndSanitize(item.message)"
+            />
           </div>
         </div>
       </template>
