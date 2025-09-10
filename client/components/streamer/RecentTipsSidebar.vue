@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { StreamerPage } from "~/types";
+import type { StreamerPage, Tip } from "~/types";
 import { FiatEnum, TipDisplayMode } from "~/types/enums";
-
 const props = defineProps<{
   slug: string;
   page?: StreamerPage | null;
+  tip?: Tip | null;
 }>();
 
 const { getTips: getTipsApi } = useServices();
@@ -43,40 +43,19 @@ const getComputedPrice = (amount?: string) => {
     : money(fiat.toFixed(2), props.page?.fiat);
 };
 
-const generateLink = (url: string) => {
-  let redirectURL = url;
-  if (
-    !url.startsWith('https') ||
-    !url.startsWith('http') 
-  ) {
-    redirectURL = 'https://' + url;
-  }
-  return `
-    <a
-      class="text-primary hover:text-primary-400 hover:underline hover:underline-offset-4 hover:decoration-primary-400" 
-      href="${redirectURL}" 
-      target="_blank" 
-     >
-      ${url}
-     </a>
-  `;
-}
-
-const checkUrlOnMessage = (message: string): string => {
-  const urlRegex = /\b\n?(?:https?:\/\/)?(?:www\.)?[-a-zA-Z0-9@%._\+~#=]{1,256}\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+~#?&\/\/=]*)/gm;
-  const updatedMessage = message.replace(urlRegex, generateLink);
-  return updatedMessage;
-};
-
-const formattedMessage = (message: string) => {
-  if (!message) return message;
-  const generatedMessage = checkUrlOnMessage(message);
-  return generatedMessage;
-};
+const { linkifyAndSanitize } = useLinkify({
+  _tip: computed(() => props.tip),
+  get tip() {
+    return this._tip;
+  },
+  set tip(value) {
+    this._tip = value;
+  },
+});
 
 const { getFiat } = useConstants();
 const { getDisappearText } = useTip({
-  page: computed(() => props.page),
+  page: computed(() => props.page)
 });
 </script>
 
@@ -136,16 +115,9 @@ const { getDisappearText } = useTip({
             <span class="flex pb-1 font-medium text-primary">
               {{ getComputedPrice(item.payment?.amount) }}
             </span>
-            <p
-              v-if="item.private"
-              class="text-pale"
-              >
-              {{ t("private.title") }}
-            </p>
-            <div
-              v-else
-              v-sanitize-html="formattedMessage(item.message)"
-           />
+            <span :class="{ 'text-pale': item.private }">
+              {{ item.private ? t("private.title") : linkifyAndSanitize(item.message) }}
+            </span>
           </div>
         </div>
       </template>
