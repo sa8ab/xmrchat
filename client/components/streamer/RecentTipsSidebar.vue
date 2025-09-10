@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { StreamerPage, Tip } from "~/types";
+import type { StreamerPage } from "~/types";
 import { FiatEnum, TipDisplayMode } from "~/types/enums";
+import { linkifyAndSanitize } from "~/composables/useLinkify";
 const props = defineProps<{
   slug: string;
   page?: StreamerPage | null;
-  tip?: Tip | null;
 }>();
 
 const { getTips: getTipsApi } = useServices();
@@ -42,10 +42,6 @@ const getComputedPrice = (amount?: string) => {
     ? `${xmr} XMR`
     : money(fiat.toFixed(2), props.page?.fiat);
 };
-
-const { linkifyAndSanitize } = useLinkify({
-  tip: computed(() => props.tip)
-});
 
 const { getFiat } = useConstants();
 const { getDisappearText } = useTip({
