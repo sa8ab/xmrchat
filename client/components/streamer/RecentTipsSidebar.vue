@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { StreamerPage } from "~/types";
 import { FiatEnum, TipDisplayMode } from "~/types/enums";
-import { linkifyAndSanitize } from "~/composables/useLinkify";
 const props = defineProps<{
   slug: string;
   page?: StreamerPage | null;
@@ -14,6 +13,7 @@ const { relativeDate, dayjs } = useDate();
 const { xmrToFiat } = useXmrPrice();
 const { money } = useMoney();
 const { t } = useI18n();
+const { linkifyAndSanitize } = useLinkify();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
   `recent-tips-${props.slug}`,
@@ -111,7 +111,7 @@ const { getDisappearText } = useTip({
             >{{ t('private.title') }}</p>
             <div
               v-else
-              v-html="linkifyAndSanitize(item.message)"
+              v-html="linkifyAndSanitize(item?.message)"
             />
           </div>
         </div>
