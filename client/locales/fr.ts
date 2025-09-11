@@ -168,7 +168,7 @@ export default {
   noRecentTips: "Aucun pourboire récent !",
   pageDeactivatedAlert:
     "Votre page a été désactivée et n'est pas visible publiquement. Veuillez contacter le support pour plus d'informations.",
-
+  tipPrivateMessage: "Message privé",
   tipWalletWarningTitle:
     "Ne donnez pas de pourboire avec le portefeuille du streamer.",
   tipWalletWarningDescription:

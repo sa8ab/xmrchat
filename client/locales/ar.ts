@@ -170,7 +170,7 @@ export default {
   noRecentTips: "لا توجد تبرعات حديثة!",
   pageDeactivatedAlert:
     "تم تعطيل صفحتك وهي غير مرئية للعامة. يرجى الاتصال بالدعم لمزيد من المعلومات",
-
+  tipPrivateMessage: "رسالة خاصة",
   tipWalletWarningTitle: "لا تبرع بمحفظة المبدع",
   tipWalletWarningDescription:
     "يرجى تجنب إرسال التبرعات باستخدام المحفظة المسجلة على الصفحة. التغيير المعاد يزيد من المبلغ الذي نراه مستلم",

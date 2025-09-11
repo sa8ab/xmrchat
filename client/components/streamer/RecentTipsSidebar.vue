@@ -108,7 +108,7 @@ const { getDisappearText } = useTip({
             <p 
               :class="{ 'text-pale': item.private }"
               v-if="item.private"
-            >{{ t('private.title') }}</p>
+            >{{ t('tipPrivateMessage') }}</p>
             <div
               v-else
               v-html="linkifyAndSanitize(item?.message)"
