@@ -22,6 +22,7 @@
     "@nuxtjs/seo": "^3.0.3",
     "@pinia/nuxt": "^0.11.0",
     "@tsparticles/confetti": "^3.5.0",
+    "@types/markdown-it": "^14.1.2",
     "@vuelidate/components": "^1.2.6",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
