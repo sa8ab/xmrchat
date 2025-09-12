@@ -13,7 +13,7 @@ const { relativeDate, dayjs } = useDate();
 const { xmrToFiat } = useXmrPrice();
 const { money } = useMoney();
 const { t } = useI18n();
-const { linkifyAndSanitize } = useMarkdownIt();
+const { markdownAndSanitize } = useMarkdown();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
   `recent-tips-${props.slug}`,
@@ -111,7 +111,7 @@ const { getDisappearText } = useTip({
             >{{ t('tipPrivateMessage') }}</p>
             <div
               v-else
-              v-html="linkifyAndSanitize(item?.message)"
+              v-html="markdownAndSanitize(item?.message)"
             />
           </div>
         </div>
