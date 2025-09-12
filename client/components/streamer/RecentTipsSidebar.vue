@@ -13,7 +13,7 @@ const { relativeDate, dayjs } = useDate();
 const { xmrToFiat } = useXmrPrice();
 const { money } = useMoney();
 const { t } = useI18n();
-const { linkifyAndSanitize } = useLinkify();
+const { linkifyAndSanitize } = useMarkdownIt();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
   `recent-tips-${props.slug}`,
