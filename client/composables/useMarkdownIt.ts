@@ -11,11 +11,14 @@ export const useMarkdownIt = () => {
     const linkifyAndSanitize = (message: string | null) => {
         if (!message) return;
         const md = markdownit({
-            linkify: true
-        });
+            linkify: true,
+            typographer: true
+        })
+        .disable(['image', 'table', 'code', 'fence', 'hr', 'list', 'reference', 'html_block', 'heading', 'lheading'])
+        .enable(['link']);
         md.linkify.tlds('onion', true).add('ftp:', null);
         md.use(mila, { attrs: attrs });
-        
+
         const linkifiedMessage = md.render(message);
         const sanitizedMessage = DOMPurify.sanitize(linkifiedMessage);
         return sanitizedMessage;
