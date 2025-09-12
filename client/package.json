@@ -31,6 +31,7 @@
     "gsap": "^3.12.5",
     "isomorphic-dompurify": "^2.26.0",
     "lodash.debounce": "^4.0.8",
+    "markdown-it": "^14.1.0",
     "nuxt": "^3.17.4",
     "pinia": "^3.0.2",
     "pinia-plugin-persistedstate": "^4.3.0",
