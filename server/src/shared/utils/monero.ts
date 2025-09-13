@@ -75,22 +75,20 @@ export const generateMoneroUri = (
     throw new Error('At least one recipient with a valid address is required');
   }
 
+  // Use the first recipient's address as the main address
+  const mainAddress = validRecipients[0].address;
   const params: string[] = [];
 
-  for (const r of validRecipients) {
-    const addr = String(r.address);
-    const amt = r.amount;
-    const name = r.name ? String(r.name) : '';
+  // Add tx_amount parameter (using the first recipient's amount or 1 as default)
+  const txAmount = validRecipients[0].amount;
+  params.push(`tx_amount=${txAmount}`);
 
-    // encode each field separately so semicolons remain as separators
-    const encodedParts = [
-      encodeURIComponent(addr),
-      encodeURIComponent(amt),
-      encodeURIComponent(name),
-    ];
-
-    params.push(`output=${encodedParts.join(';')}`);
-  }
+  // Add additional recipients as address[1], amount[1], etc.
+  validRecipients.forEach((recipient, index) => {
+    if (index === 0) return;
+    params.push(`address[${index}]=${encodeURIComponent(recipient.address)}`);
+    params.push(`amount[${index}]=${recipient.amount}`);
+  });
 
   if (options.description && options.description.length > 0) {
     params.push(`tx_description=${encodeURIComponent(options.description)}`);
@@ -133,7 +131,7 @@ export const generateMoneroUri = (
   //   uri += `?${queryParams.join('&')}`;
   // }
 
-  return `monero:?${params.join('&')}`;
+  return `monero:${mainAddress}?${params.join('&')}`;
 };
 
 export const generateMoneroUriFromTipRecipients = (
