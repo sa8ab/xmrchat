@@ -21,7 +21,7 @@ export const useMarkdown = () => {
         const sanitizedMessageWithoutMarkdown = useSanitize(message, false);
         if (!sanitizedMessageWithoutMarkdown) return;
 
-        const markdownMessage = md.render(sanitizedMessageWithoutMarkdown);
+        const markdownMessage = md.renderInline(sanitizedMessageWithoutMarkdown);
         const sanitizedMarkdownMessage = useSanitize(markdownMessage, true);
         if (!sanitizedMarkdownMessage) return;
 
