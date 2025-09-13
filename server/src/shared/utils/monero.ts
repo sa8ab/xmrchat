@@ -79,7 +79,7 @@ export const generateMoneroUri = (
   const mainAddress = validRecipients[0].address;
   const params: string[] = [];
 
-  // Add tx_amount parameter (using the first recipient's amount or 1 as default)
+  // Add tx_amount parameter (using the first recipient's amount)
   const txAmount = validRecipients[0].amount;
   params.push(`tx_amount=${txAmount}`);
 
