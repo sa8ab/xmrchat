@@ -18,7 +18,7 @@ const { markdownAndSanitize } = useMarkdown();
 const { data, refresh, pending, error } = useLazyAsyncData(
   `recent-tips-${props.slug}`,
   () => getTipsApi(props.slug),
-  { server: false }
+  { server: false },
 );
 
 const interval = ref<NodeJS.Timeout | undefined>(undefined);
@@ -45,7 +45,7 @@ const getComputedPrice = (amount?: string) => {
 
 const { getFiat } = useConstants();
 const { getDisappearText } = useTip({
-  page: computed(() => props.page)
+  page: computed(() => props.page),
 });
 </script>
 
@@ -105,14 +105,10 @@ const { getDisappearText } = useTip({
             <span class="flex pb-1 font-medium text-primary">
               {{ getComputedPrice(item.payment?.amount) }}
             </span>
-            <p 
-              :class="{ 'text-pale': item.private }"
-              v-if="item.private"
-            >{{ t('tipPrivateMessage') }}</p>
-            <div
-              v-else
-              v-html="markdownAndSanitize(item?.message)"
-            />
+            <p :class="{ 'text-pale': item.private }" v-if="item.private">
+              {{ t("tipPrivateMessage") }}
+            </p>
+            <div v-else v-html="markdownAndSanitize(item?.message)" />
           </div>
         </div>
       </template>
