@@ -86,8 +86,8 @@ export const generateMoneroUri = (
   // Add additional recipients as address[1], amount[1], etc.
   validRecipients.forEach((recipient, index) => {
     if (index === 0) return;
-    params.push(`address[${index}]=${encodeURIComponent(recipient.address)}`);
-    params.push(`amount[${index}]=${recipient.amount}`);
+    params.push(`address=${encodeURIComponent(recipient.address)}`);
+    params.push(`tx_amount=${recipient.amount}`);
   });
 
   if (options.description && options.description.length > 0) {
