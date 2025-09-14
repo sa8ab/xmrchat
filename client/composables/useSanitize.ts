@@ -9,7 +9,10 @@ export const useSanitize = () => {
           ALLOWED_TAGS: ALLOWED_TAGS,
           ALLOWED_ATTR: ALLOWED_ATTR,
         }
-      : {};
+      : {
+        ALLOWED_TAGS: [],
+        ALLOWED_ATTR: []
+      };
     if (!text) return;
     const sanitizedText = DOMPurify.sanitize(text, sanitizeOptions);
     return sanitizedText;
