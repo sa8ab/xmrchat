@@ -1,6 +1,6 @@
 import markdownit from "markdown-it";
 import mila from "markdown-it-link-attributes";
-
+const { sanitize } = useSanitize();
 export const useMarkdown = () => {
     const attributes = { 
         target: "_blank",
@@ -18,15 +18,16 @@ export const useMarkdown = () => {
 
     const markdownAndSanitize = (message: string | null) => {
         if (!message) return;
-        const sanitizedMessageWithoutMarkdown = useSanitize(message, false);
+        const sanitizedMessageWithoutMarkdown = sanitize(message, { isAllowListEnabled: false });
         if (!sanitizedMessageWithoutMarkdown) return;
 
         const markdownMessage = md.renderInline(sanitizedMessageWithoutMarkdown);
-        const sanitizedMarkdownMessage = useSanitize(markdownMessage, true);
+        const sanitizedMarkdownMessage = sanitize(markdownMessage, { isAllowListEnabled: true });
         if (!sanitizedMarkdownMessage) return;
 
         return sanitizedMarkdownMessage;
     }
+    
     return {
         markdownAndSanitize
     }
