@@ -179,7 +179,7 @@ export default {
   noRecentTips: "¡No hay propinas recientes!",
   pageDeactivatedAlert:
     "Tu página ha sido desactivada y no es visible al público. Por favor, contacta con el soporte para más información.",
-
+  tipPrivateMessage: "Mensaje privado",
   tipWalletWarningTitle: "No dé propina con la billetera del streamer.",
   tipWalletWarningDescription:
     "Evite enviar propinas con la billetera registrada en la página. El cambio devuelto infla la cantidad que vemos recibida.",

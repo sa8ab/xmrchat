@@ -173,7 +173,7 @@ export default {
   noRecentTips: "Ei uusia tippejä!",
   pageDeactivatedAlert:
     "Sivusi on poistettu käytöstä eikä se ole julkisesti näkyvissä. Ota yhteyttä tukeen saadaksesi lisätietoja.",
-
+  tipPrivateMessage: "Yksityinen viesti",
   tipWalletWarningTitle: "Älä lähetä tippejä striimaajan lompakosta.",
   tipWalletWarningDescription:
     "Älä käytä rekisteröityä striimaajan lompakkoa – vaihtorahat voivat vääristää näkyvää summaa.",

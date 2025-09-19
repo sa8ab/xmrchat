@@ -178,7 +178,7 @@ export default {
   noRecentTips: "Keine aktuellen Trinkgeld-Transaktionen!",
   pageDeactivatedAlert:
     "Deine Seite wurde deaktiviert und ist nicht öffentlich sichtbar. Bitte kontaktiere den Support für weitere Informationen.",
-
+  tipPrivateMessage: "Private Nachricht",
   tipWalletWarningTitle:
     "Verwende nicht deine Creator-Wallet um Trinkgeld zu verschicken",
   tipWalletWarningDescription:

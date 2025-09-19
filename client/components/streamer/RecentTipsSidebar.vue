@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { StreamerPage } from "~/types";
 import { FiatEnum, TipDisplayMode } from "~/types/enums";
-
 const props = defineProps<{
   slug: string;
   page?: StreamerPage | null;
@@ -14,11 +13,12 @@ const { relativeDate, dayjs } = useDate();
 const { xmrToFiat } = useXmrPrice();
 const { money } = useMoney();
 const { t } = useI18n();
+const { markdownAndSanitize } = useMarkdown();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
   `recent-tips-${props.slug}`,
   () => getTipsApi(props.slug),
-  { server: false }
+  { server: false },
 );
 
 const interval = ref<NodeJS.Timeout | undefined>(undefined);
@@ -92,7 +92,7 @@ const { getDisappearText } = useTip({
                 class="pb-1 text-base font-medium"
                 :class="{ 'text-pale': item.private }"
               >
-                {{ item.private ? t("private") : item.name }}
+                {{ item.private ? t("private.title") : item.name }}
               </p>
               <UTooltip
                 v-if="getDisappearText(item.createdAt)"
@@ -105,9 +105,10 @@ const { getDisappearText } = useTip({
             <span class="flex pb-1 font-medium text-primary">
               {{ getComputedPrice(item.payment?.amount) }}
             </span>
-            <p :class="{ 'text-pale': item.private }">
-              {{ item.private ? t("private") : item.message }}
+            <p :class="{ 'text-pale': item.private }" v-if="item.private">
+              {{ t("tipPrivateMessage") }}
             </p>
+            <div v-else v-html="markdownAndSanitize(item?.message)" />
           </div>
         </div>
       </template>
