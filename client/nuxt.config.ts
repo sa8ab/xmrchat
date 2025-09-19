@@ -101,7 +101,7 @@ export default defineNuxtConfig({
   },
 
   dayjs: {
-    locales: ["en", "fr", "es", "de", "ru", "fi", "ko", "ar",],
+    locales: ["en", "fr", "es", "de", "ru", "fi", "ko", "ar"],
   },
 
   colorMode: {
