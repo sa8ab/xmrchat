@@ -32,8 +32,8 @@ export class PaymentsService {
 
   async updatePaidAmount(
     id: number,
-    newAmount: number | string,
-    minAmount?: number | string,
+    newAmount: number | string, // amount in xmr units
+    minAmount?: number | string, // amount in xmr units
     allowThreshold: number = 0,
   ) {
     const payment = await this.findOneById(id);
