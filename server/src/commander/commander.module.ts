@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ChangeRoleCommand } from './commands/change-role.command';
 import { AuthModule } from 'src/auth/auth.module';
-import { SeedCommand } from './commands/seed.command';
+import { FixtureCommand } from './commands/fixture.command';
 import { UsersModule } from 'src/users/users.module';
 import { ChangeEmailCommand } from './commands/change-email.command';
 import { NotificationsModule } from 'src/notifications/notifications.module';
@@ -21,7 +21,7 @@ import { File } from 'src/files/file.entity';
 @Module({
   providers: [
     ChangeRoleCommand,
-    SeedCommand,
+    FixtureCommand,
     ChangeEmailCommand,
     SendEmailCommand,
     LwsCommand,

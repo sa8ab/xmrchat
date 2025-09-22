@@ -15,11 +15,11 @@ import { MoneroUtils } from 'monero-ts';
 import { randomUUID } from 'node:crypto';
 
 @Command({
-  name: 'seed',
+  name: 'fixture',
   description: 'Adds data to the database.',
 })
-export class SeedCommand extends CommandRunner {
-  private logger = new Logger(SeedCommand.name);
+export class FixtureCommand extends CommandRunner {
+  private logger = new Logger(FixtureCommand.name);
 
   private tips = [
     {
@@ -62,13 +62,13 @@ export class SeedCommand extends CommandRunner {
     // await runSeeders(dataSource);
   }
 
-  @Option({
-    flags: '-r, --reset [reset]',
-    description: 'Reset database before running seeder',
-  })
-  parseReset(val: string) {
-    return Boolean(val);
-  }
+  // @Option({
+  //   flags: '-r, --reset [reset]',
+  //   description: 'Reset database before running seeder',
+  // })
+  // parseReset(val: string) {
+  //   return Boolean(val);
+  // }
 
   async createUser(email: string, password: string) {
     const user = await this.usersRepo.findOne({ where: { email } });
