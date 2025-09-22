@@ -11,6 +11,8 @@ import { User } from 'src/users/user.entity';
 import { createFinalPassword } from 'src/shared/utils';
 import { File } from 'src/files/file.entity';
 import { FileType } from 'src/shared/constants/enum';
+import { MoneroUtils } from 'monero-ts';
+import { randomUUID } from 'node:crypto';
 
 @Command({
   name: 'seed',
@@ -18,6 +20,19 @@ import { FileType } from 'src/shared/constants/enum';
 })
 export class SeedCommand extends CommandRunner {
   private logger = new Logger(SeedCommand.name);
+
+  private tips = [
+    {
+      name: 'Tip 1',
+      message: 'Tip 1 message',
+      amount: String(MoneroUtils.xmrToAtomicUnits(0.01)),
+    },
+    {
+      name: 'Tip 2',
+      message: 'Tip 2 message xmrchat.com',
+      amount: String(MoneroUtils.xmrToAtomicUnits(1)),
+    },
+  ];
 
   constructor(
     @InjectRepository(Page) private readonly pagesRepo: Repository<Page>,
@@ -40,6 +55,7 @@ export class SeedCommand extends CommandRunner {
 
     const user = await this.createUser(email, password);
     const page = await this.createPage({ path: pagePath, user });
+    await this.createTips(page);
 
     // const dataSource = await datasource.initialize();
 
@@ -103,5 +119,39 @@ export class SeedCommand extends CommandRunner {
     const result = await this.pagesRepo.save(created);
     this.logger.log(`New page created. Path: ${path}`);
     return result;
+  }
+
+  async createTips(page: Page) {
+    const [_, count] = await this.tipsRepo.findAndCount({
+      where: { page: { id: page.id } },
+    });
+    if (count) {
+      this.logger.warn(`Tips already exist for page ${page.path}.`);
+      return;
+    }
+
+    const created = this.tips.map((tip) => {
+      return this.tipsRepo.create({
+        name: tip.name,
+        message: tip.message,
+        webhookDeleted: true,
+        page: { id: page.id },
+        private: false,
+      });
+    });
+    const result = await this.tipsRepo.save(created);
+
+    const payments = result.map((tip, index) => {
+      return this.paymentsRepo.create({
+        tip: { id: tip.id },
+        amount: this.tips[index].amount,
+        paidAmount: this.tips[index].amount,
+        paidAt: new Date(),
+        eventId: 'GENERATED_' + randomUUID(),
+      });
+    });
+    await this.paymentsRepo.save(payments);
+
+    this.logger.log(`${this.tips.length} tips created for page ${page.path}.`);
   }
 }
