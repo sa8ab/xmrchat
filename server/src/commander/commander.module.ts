@@ -14,6 +14,9 @@ import { DataMigrationCommand } from './commands/data-migration.command';
 import { Tip } from 'src/tips/tip.entity';
 import { ChangePremiumCommand } from './commands/premium.command';
 import { PagesModule } from 'src/pages/pages.module';
+import { Payment } from 'src/payments/payment.entity';
+import { User } from 'src/users/user.entity';
+import { File } from 'src/files/file.entity';
 
 @Module({
   providers: [
@@ -31,7 +34,7 @@ import { PagesModule } from 'src/pages/pages.module';
     UsersModule,
     NotificationsModule,
     LwsModule,
-    TypeOrmModule.forFeature([Page, Tip]),
+    TypeOrmModule.forFeature([Page, Tip, Payment, User, File]),
   ],
 })
 export class CommanderModule {}
