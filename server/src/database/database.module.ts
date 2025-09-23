@@ -6,6 +6,7 @@ import { File as FileEntity } from 'src/files/file.entity';
 import { IntegrationConfig } from 'src/integrations/integration-configs.entity';
 import { Coin } from 'src/integrations/trocador/coin.entity';
 import { Link } from 'src/links/link.entity';
+import { LiveStream } from 'src/live-streams/live-stream.entity';
 import { NotificationPreference } from 'src/notification-preferences/notification-preferences.entity';
 import { PageRecipient } from 'src/page-recipients/page-recipient.entity';
 import { PageSetting } from 'src/page-settings/page-setting.entity';
@@ -42,6 +43,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
           IntegrationConfig,
           NotificationPreference,
           PageRecipient,
+          LiveStream,
         ],
         namingStrategy: new SnakeNamingStrategy(),
         migrationsRun: process.env.NODE_ENV === 'production',

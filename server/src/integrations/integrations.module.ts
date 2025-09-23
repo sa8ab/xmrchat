@@ -17,7 +17,7 @@ import { YoutubeModule } from './youtube/youtube.module';
     TypeOrmModule.forFeature([IntegrationConfig]),
     YoutubeModule,
   ],
-  exports: [SimplexModule, SignalModule],
+  exports: [SimplexModule, SignalModule, YoutubeModule],
   controllers: [IntegrationsController],
 })
 export class IntegrationsModule {}

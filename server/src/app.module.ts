@@ -47,6 +47,7 @@ import { NotificationPreferencesModule } from './notification-preferences/notifi
 import { CaslModule } from './casl/casl.module';
 import { TestModule } from './test/test.module';
 import { PageRecipientsModule } from './page-recipients/page-recipients.module';
+import { LiveStreamsModule } from './live-streams/live-streams.module';
 
 @Module({
   imports: [
@@ -168,6 +169,7 @@ import { PageRecipientsModule } from './page-recipients/page-recipients.module';
     CaslModule,
     PageRecipientsModule,
     ...(process.env.TEST_ENV === 'true' ? [TestModule] : []),
+    LiveStreamsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
