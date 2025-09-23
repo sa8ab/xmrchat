@@ -4,6 +4,7 @@ import {
   Body,
   Get,
   UnauthorizedException,
+  Query,
 } from '@nestjs/common';
 import { IntegrationsService } from './integrations.service';
 import { ConnectSimplexDto } from './dto/connect-simplex.dto';
@@ -15,13 +16,23 @@ import { ConnectSignalDto } from './dto/connect-signal.dto';
 import { ConfirmDto } from './dto/confirm.dto';
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { Action } from 'src/shared/constants';
+import { YoutubeService } from './youtube/youtube.service';
+import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 
 @Controller('integrations')
 export class IntegrationsController {
   constructor(
     private readonly integrationsService: IntegrationsService,
     private casl: CaslAbilityFactory,
+    private youtubeService: YoutubeService,
   ) {}
+
+  @Get('/youtube/live-stream')
+  @IsPublic()
+  async getYoutubeLiveStream() {
+    const result = await this.youtubeService.getLiveStreams();
+    return { result };
+  }
 
   @Get('/')
   @Serialize(IntegrationsRO)
