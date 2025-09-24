@@ -27,64 +27,89 @@ export class YoutubeService implements OnModuleInit {
     this.youtube = google.youtube({ version: 'v3', auth: apiKey });
   }
 
-  async getLiveStreams(username: string = 'DeepUniverseRadio') {
-    const channelId = await this.getChannelIdByUsername(username);
+  async getLiveStreams(identifier?: string) {
+    let channelId: string;
 
+    if (identifier?.startsWith('@')) {
+      channelId = await this.getChannelIdByUsername(identifier);
+    } else {
+      channelId = identifier;
+    }
     if (!channelId) {
-      throw new NotFoundException(`Channel id not found for ${username}.`);
+      throw new NotFoundException(`Channel id not found for ${identifier}.`);
     }
 
-    this.logger.log(`Getting live stream for channel ${channelId}`);
+    this.logger.log(`Getting live streams for channel ${channelId}`);
 
-    const streams = await this.searchLiveStreams(channelId);
+    const uploads = await this.getUploadActivities(channelId);
 
-    if (!streams?.length) {
+    if (!uploads?.length) {
       return [];
     }
 
-    const videoIds = streams.map((stream) => stream.id.videoId);
-    const result = await this.getVideoDetails(videoIds);
+    const videoIds = uploads.map(
+      (upload) => upload.contentDetails?.upload?.videoId,
+    );
+    const streams = await this.getLiveVideosDetails(videoIds);
 
-    return result || [];
+    return streams || [];
   }
 
-  async searchLiveStreams(channelId: string) {
+  async getUploadActivities(channelId: string) {
     const youtube = this.getYoutube();
 
     try {
-      const { data } = await youtube.search.list({
+      this.logger.log(`youtube: Search uploads`);
+      const { data } = await youtube.activities.list({
         channelId,
-        eventType: 'live',
-        type: ['video'],
-        part: ['snippet'],
+        part: ['snippet', 'contentDetails'],
+        maxResults: 10,
+        // channelId,
+        // eventType: 'live',
+        // type: ['video'],
+        // part: ['snippet'],
+        // maxResults: 1,
       });
 
-      return data.items;
+      const uploadsOnly = data.items.filter(
+        (item) => item.snippet.type === 'upload',
+      );
+      return uploadsOnly;
     } catch (error) {
       console.log(error.response.data.error);
       throw new BadRequestException('Error searching live streams.');
     }
   }
 
-  async getVideoDetails(videoIds: string[]) {
+  async getLiveVideosDetails(videoIds: string[]) {
+    const videos = await this.getVideosDetails(videoIds);
+    return videos.filter(
+      (video) => video.snippet.liveBroadcastContent === 'live',
+    );
+  }
+
+  async getVideosDetails(videoIds: string[]) {
     const youtube = this.getYoutube();
 
     try {
+      this.logger.log(`youtube: Get videos details`);
       const { data } = await youtube.videos.list({
         id: videoIds,
         part: ['snippet', 'liveStreamingDetails', 'statistics'],
       });
-
       return data.items;
     } catch (error) {
       console.log(error.response.data.error);
+
       throw new BadRequestException('Error getting video details.');
     }
   }
 
   async getChannelIdByUsername(username: string) {
     const youtube = this.getYoutube();
+
     try {
+      this.logger.log(`Youtube: Get channel id`);
       const { data } = await youtube.channels.list({
         forHandle: username,
         part: ['id'],

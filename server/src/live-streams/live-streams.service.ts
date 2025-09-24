@@ -56,9 +56,12 @@ export class LiveStreamsService {
   async getYoutubeLiveStreams() {
     const links = await this.getLinksByPlatform(LiveStreamPlatformEnum.YOUTUBE);
 
-    return this.youtubeProvider.getLiveStreams(
-      links.map((link) => ({ username: link.value, pageId: link.page.id })),
-    );
+    const params = links.map((link) => ({
+      username: link.value,
+      pageId: link.page.id,
+    }));
+
+    return this.youtubeProvider.getLiveStreams(params);
   }
 
   async getLinksByPlatform(platform: LiveStreamPlatformEnum) {

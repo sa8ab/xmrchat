@@ -29,6 +29,9 @@ export class Link {
   @Column({ nullable: true })
   value: string;
 
+  @Column({ type: 'jsonb', nullable: true })
+  data?: any;
+
   @ManyToOne(() => Page, { onDelete: 'CASCADE' })
   page: Page;
 

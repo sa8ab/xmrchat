@@ -27,12 +27,12 @@ export class IntegrationsController {
     private youtubeService: YoutubeService,
   ) {}
 
-  @Get('/youtube/live-stream')
-  @IsPublic()
-  async getYoutubeLiveStream() {
-    const result = await this.youtubeService.getLiveStreams();
-    return { result };
-  }
+  // @Get('/youtube/live-stream')
+  // @IsPublic()
+  // async getYoutubeLiveStream() {
+  //   const result = await this.youtubeService.getLiveStreams();
+  //   return { result };
+  // }
 
   @Get('/')
   @Serialize(IntegrationsRO)
