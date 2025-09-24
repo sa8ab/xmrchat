@@ -6,6 +6,7 @@ import { PagesService } from 'src/pages/pages.service';
 import { UpdateLinksDto } from './dto/update-links.dto';
 import { Page } from 'src/pages/page.entity';
 import { contentLinksWithDefaults } from 'src/shared/utils';
+import { LinkPlatformEnum } from 'src/shared/constants';
 
 @Injectable()
 export class LinksService {
@@ -35,6 +36,7 @@ export class LinksService {
         page: { id: page.id },
         platform: l.platform,
         value: l.value,
+        data: null,
       };
     });
 
