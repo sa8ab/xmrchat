@@ -17,29 +17,38 @@ export class YoutubeProvider implements LiveStreamProvider {
     private readonly youtubeService: YoutubeService,
   ) {}
 
+  // TODO: send all video ids on one request
   async getLiveStreams(
     params: LiveStreamProviderParams[],
   ): Promise<CreateLiveStreamDto[]> {
     if (!params.length) return [];
+    const allVideoIds: { pageId: number; videoId: string }[] = [];
 
-    const items = params.map(async (param) => {
-      let streams: any;
+    const getIdsList = params.map(async (param) => {
       try {
         const channelId = await this.getAndSaveChannelId(param);
-        streams = await this.youtubeService.getLiveStreams(channelId);
-      } catch (error) {
-        streams = [];
-      }
+        if (!channelId) return;
 
-      return streams.map((stream) => ({
-        ...stream,
-        pageId: param.pageId,
-      }));
+        const activities =
+          await this.youtubeService.getUploadActivities(channelId);
+
+        const videoIds = activities
+          .map((upload) => upload.contentDetails?.upload?.videoId)
+          .filter(Boolean);
+
+        allVideoIds.push(
+          ...videoIds.map((videoId) => ({ pageId: param.pageId, videoId })),
+        );
+      } catch (error) {}
     });
 
-    const result = await Promise.all(items);
+    await Promise.all(getIdsList);
 
-    const liveStreams: CreateLiveStreamDto[] = result
+    const videos = await this.youtubeService.getLiveVideosDetails(
+      allVideoIds.map((videoId) => videoId.videoId),
+    );
+
+    const liveStreams: CreateLiveStreamDto[] = videos
       .flatMap((item) => item)
       .map((item) => {
         return {
@@ -51,7 +60,8 @@ export class YoutubeProvider implements LiveStreamProvider {
           platform: LiveStreamPlatformEnum.YOUTUBE,
           startedAt: item.liveStreamingDetails?.actualStartTime,
           viewerCount: Number(item.statistics.viewCount),
-          pageId: item.pageId,
+          pageId: allVideoIds.find((videoId) => videoId.videoId === item.id)
+            ?.pageId,
         };
       });
 

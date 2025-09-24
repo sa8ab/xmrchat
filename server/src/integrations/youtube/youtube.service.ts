@@ -59,11 +59,11 @@ export class YoutubeService implements OnModuleInit {
     const youtube = this.getYoutube();
 
     try {
-      this.logger.log(`youtube: Search uploads`);
+      this.logger.log(`Youtube - activities - ${channelId}`);
       const { data } = await youtube.activities.list({
         channelId,
         part: ['snippet', 'contentDetails'],
-        maxResults: 10,
+        maxResults: 5,
         // channelId,
         // eventType: 'live',
         // type: ['video'],
@@ -92,7 +92,7 @@ export class YoutubeService implements OnModuleInit {
     const youtube = this.getYoutube();
 
     try {
-      this.logger.log(`youtube: Get videos details`);
+      this.logger.log(`Youtube - videos details - ${videoIds.length} ids.`);
       const { data } = await youtube.videos.list({
         id: videoIds,
         part: ['snippet', 'liveStreamingDetails', 'statistics'],
@@ -109,7 +109,7 @@ export class YoutubeService implements OnModuleInit {
     const youtube = this.getYoutube();
 
     try {
-      this.logger.log(`Youtube: Get channel id`);
+      this.logger.log(`Youtube - channel id - ${username}`);
       const { data } = await youtube.channels.list({
         forHandle: username,
         part: ['id'],
