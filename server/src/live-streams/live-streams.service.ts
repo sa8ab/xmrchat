@@ -6,12 +6,14 @@ import { IsNull, Not, Repository } from 'typeorm';
 import { YoutubeProvider } from './providers/youtube.provider';
 import { CreateLiveStreamDto } from './dtos/create-live-stream.dto';
 import { LiveStream } from './live-stream.entity';
+import { LinksService } from 'src/links/links.service';
 
 @Injectable()
 export class LiveStreamsService {
   constructor(
     @InjectRepository(Link) private linksRepo: Repository<Link>,
     @InjectRepository(LiveStream) private repo: Repository<LiveStream>,
+    private linksService: LinksService,
     private youtubeProvider: YoutubeProvider,
   ) {}
 
@@ -54,7 +56,9 @@ export class LiveStreamsService {
   }
 
   async getYoutubeLiveStreams() {
-    const links = await this.getLinksByPlatform(LiveStreamPlatformEnum.YOUTUBE);
+    const links = await this.linksService.findByPlatform(
+      LinkPlatformEnum.YOUTUBE,
+    );
 
     const params = links.map((link) => ({
       username: link.value,
@@ -62,14 +66,5 @@ export class LiveStreamsService {
     }));
 
     return this.youtubeProvider.getLiveStreams(params);
-  }
-
-  async getLinksByPlatform(platform: LiveStreamPlatformEnum) {
-    const links = await this.linksRepo.find({
-      where: { platform, value: Not(IsNull()) },
-      relations: { page: true },
-    });
-
-    return links;
   }
 }
