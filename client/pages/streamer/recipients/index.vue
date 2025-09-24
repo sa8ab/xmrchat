@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { type PageRecipient } from "@/types/general";
 import useVuelidate from "@vuelidate/core";
+import { maxLength } from "@vuelidate/validators";
 import { PageRecipientVariant } from "~/types/enums";
 
+// we have two static recipients. XMRChat recipient and creators own recipient.
+// thats means creators can create max 8 recipients.
+const maxRecipientLimit = ref(8);
 const state = reactive<{
   recipients: PageRecipient[];
   page: PageRecipient;
@@ -31,7 +35,7 @@ const pageAddress = computed(() => authStore.state.page?.primaryAddress);
 const { refresh } = useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{ recipients: PageRecipient[] }>(
-      "/page-recipients"
+      "/page-recipients",
     );
 
     // Add page recipient
@@ -41,7 +45,7 @@ const { refresh } = useLazyAsyncData(
     // Add xmrchat recipient
     const xmrchat = getStateRecipient(
       data.recipients,
-      PageRecipientVariant.XMRCHAT
+      PageRecipientVariant.XMRCHAT,
     );
     state.xmrchat.percentage = xmrchat?.percentage ?? 0;
 
@@ -52,12 +56,11 @@ const { refresh } = useLazyAsyncData(
 
     return data.recipients;
   },
-  { server: false }
+  { server: false },
 );
 
 const handleSave = async () => {
   const valid = await v.value.$validate();
-
   if (!valid) return;
   state.loading = true;
 
@@ -112,12 +115,13 @@ const handleReset = async () => {
 
 const getStateRecipient = (
   data: PageRecipient[],
-  variant: PageRecipientVariant
+  variant: PageRecipientVariant,
 ) => {
   return data.find((d) => d.variant === variant) as PageRecipient;
 };
 
 const addRecipient = () => {
+  if (isRecipientLimitReached.value) return;
   state.recipients.push({
     variant: PageRecipientVariant.RECIPIENT,
   });
@@ -139,7 +143,18 @@ const remainingPagePercentage = computed(() => {
   return res ?? 100;
 });
 
-const v = useVuelidate();
+const isRecipientLimitReached = computed(() => {
+  return state.recipients.length >= maxRecipientLimit.value ? true : false;
+});
+
+const rules = computed(() => {
+  return {
+    recipients: {
+      maxLength: maxLength(maxRecipientLimit),
+    },
+  };
+});
+const v = useVuelidate(rules, state);
 </script>
 
 <template>
@@ -177,9 +192,26 @@ const v = useVuelidate();
       <div class="flex gap-2 mt-6 justify-between flex-wrap">
         <div class="flex gap-2">
           <UButton type="submit" :loading="state.loading">Save</UButton>
-          <UButton variant="outline" @click="addRecipient" type="button">
-            Add recipient
-          </UButton>
+          <UTooltip
+            :ui="{ base: '[@media(pointer:coarse)]:!block' }"
+            :prevent="!isRecipientLimitReached"
+          >
+            <template #text>
+              <span class="italic bold"
+                >Recipients must contain no more than
+                {{ maxRecipientLimit + 2 }} elements</span
+              >
+              <!-- TODO: make this part with languages, error messages and other messages can also?  -->
+            </template>
+            <UButton
+              :disabled="isRecipientLimitReached"
+              variant="outline"
+              @click="addRecipient"
+              type="button"
+            >
+              Add recipient
+            </UButton>
+          </UTooltip>
         </div>
         <div>
           <UButton
