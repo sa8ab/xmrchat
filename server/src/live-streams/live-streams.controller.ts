@@ -8,8 +8,14 @@ export class LiveStreamsController {
 
   @Get('/')
   @IsPublic()
+  async getLiveStreams() {
+    const liveStreams = await this.liveStreamsService.findAll();
+    return { liveStreams };
+  }
+
+  @Get('/update')
+  @IsPublic()
   async updateLiveStreams() {
-    // const result = await this.liveStreamsService.findAll();
     const liveStreams = await this.liveStreamsService.getAndUpdateLiveStreams();
     return { liveStreams };
   }
