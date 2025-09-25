@@ -6,7 +6,7 @@ import { PagesService } from 'src/pages/pages.service';
 import { UpdateLinksDto } from './dto/update-links.dto';
 import { Page } from 'src/pages/page.entity';
 import { contentLinksWithDefaults } from 'src/shared/utils';
-import { LinkPlatformEnum } from 'src/shared/constants';
+import { LinkPlatformEnum, PageStatusEnum } from 'src/shared/constants';
 
 @Injectable()
 export class LinksService {
@@ -25,7 +25,11 @@ export class LinksService {
 
   async findByPlatform(platform: LinkPlatformEnum) {
     return this.repo.find({
-      where: { platform, value: Not(IsNull()) },
+      where: {
+        platform,
+        value: Not(IsNull()),
+        page: { status: Not(PageStatusEnum.DEACTIVE), isPublic: true },
+      },
       relations: { page: true },
     });
   }
