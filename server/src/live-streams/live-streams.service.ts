@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Link } from 'src/links/link.entity';
 import { LinkPlatformEnum, LiveStreamPlatformEnum } from 'src/shared/constants';
@@ -7,15 +7,28 @@ import { YoutubeProvider } from './providers/youtube.provider';
 import { CreateLiveStreamDto } from './dtos/create-live-stream.dto';
 import { LiveStream } from './live-stream.entity';
 import { LinksService } from 'src/links/links.service';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class LiveStreamsService {
+export class LiveStreamsService implements OnModuleInit {
   constructor(
     @InjectRepository(Link) private linksRepo: Repository<Link>,
     @InjectRepository(LiveStream) private repo: Repository<LiveStream>,
     private linksService: LinksService,
     private youtubeProvider: YoutubeProvider,
+    @InjectQueue('live-stream') private liveStreamQueue: Queue,
+    private config: ConfigService,
   ) {}
+
+  onModuleInit() {
+    const interval = this.config.get('LIVE_STREAM_INTERVAL') || 5;
+    this.liveStreamQueue.upsertJobScheduler('streams', {
+      // every 5 minutes
+      pattern: `*/${interval} * * * *`,
+    });
+  }
 
   async findAll() {
     return this.repo.find({

@@ -7,14 +7,25 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Link } from 'src/links/link.entity';
 import { LiveStream } from './live-stream.entity';
 import { LinksModule } from 'src/links/links.module';
+import { BullModule } from '@nestjs/bullmq';
+import { BullBoardModule } from '@bull-board/nestjs';
+import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
+import { LiveStreamProcessor } from './live-stream.processor';
 
 @Module({
   imports: [
     YoutubeModule,
     LinksModule,
     TypeOrmModule.forFeature([LiveStream, Link]),
+    BullModule.registerQueue({
+      name: 'live-stream',
+    }),
+    BullBoardModule.forFeature({
+      name: 'live-stream',
+      adapter: BullMQAdapter,
+    }),
   ],
   controllers: [LiveStreamsController],
-  providers: [LiveStreamsService, YoutubeProvider],
+  providers: [LiveStreamsService, YoutubeProvider, LiveStreamProcessor],
 })
 export class LiveStreamsModule {}
