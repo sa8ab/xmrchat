@@ -1,5 +1,6 @@
 import { Expose, Type } from 'class-transformer';
 import { PageDto } from 'src/pages/dtos/page.dto';
+import { LiveStreamPlatformEnum } from 'src/shared/constants';
 
 export class LiveStreamDto {
   @Expose()
@@ -25,6 +26,9 @@ export class LiveStreamDto {
 
   @Expose()
   startedAt: Date;
+
+  @Expose()
+  platform: LiveStreamPlatformEnum;
 
   @Expose()
   @Type(() => PageDto)

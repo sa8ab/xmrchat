@@ -10,6 +10,7 @@ import type {
   RolesEnum,
   SwapStatusEnum,
   TipDisplayMode,
+  LiveStreamPlatformEnum,
 } from "./enums";
 
 export type Numberic = string | number;
@@ -240,4 +241,17 @@ export interface PageRecipient {
   address?: string;
   percentage?: Numberic;
   variant?: PageRecipientVariant;
+}
+
+export interface LiveStream {
+  id: number;
+  title: string;
+  description: string;
+  imageUrl?: string;
+  channelId?: string;
+  channelName?: string;
+  viewerCount?: number;
+  startedAt?: string;
+  platform?: LiveStreamPlatformEnum;
+  page?: StreamerPage;
 }
