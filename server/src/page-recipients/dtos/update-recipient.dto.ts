@@ -38,7 +38,6 @@ export class UpdateRecipientDto {
 export class UpdateRecipientsDto {
   @IsArray()
   @ValidateNested({ each: true })
-  @ArrayMinSize(1)
   @ArrayMaxSize(10)
   @Type(() => UpdateRecipientDto)
   @Validate(IsValidRecipients)

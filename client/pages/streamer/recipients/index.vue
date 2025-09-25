@@ -6,7 +6,7 @@ import { PageRecipientVariant } from "~/types/enums";
 
 // we have two static recipients. XMRChat recipient and creators own recipient.
 // thats means creators can create max 8 recipients.
-const maxRecipientLimit = ref(8);
+const MAX_RECIPIENT_LENGTH = 8;
 const state = reactive<{
   recipients: PageRecipient[];
   page: PageRecipient;
@@ -16,14 +16,14 @@ const state = reactive<{
 }>({
   recipients: [],
   page: {
-    variant: PageRecipientVariant.PAGE,
+    variant: PageRecipientVariant.PAGE
   },
   xmrchat: {
     variant: PageRecipientVariant.XMRCHAT,
     percentage: 0,
   },
   loading: false,
-  loadingReset: false,
+  loadingReset: false
 });
 
 const { axios } = useApp();
@@ -35,7 +35,7 @@ const pageAddress = computed(() => authStore.state.page?.primaryAddress);
 const { refresh } = useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{ recipients: PageRecipient[] }>(
-      "/page-recipients",
+      "/page-recipients"
     );
 
     // Add page recipient
@@ -45,7 +45,7 @@ const { refresh } = useLazyAsyncData(
     // Add xmrchat recipient
     const xmrchat = getStateRecipient(
       data.recipients,
-      PageRecipientVariant.XMRCHAT,
+      PageRecipientVariant.XMRCHAT
     );
     state.xmrchat.percentage = xmrchat?.percentage ?? 0;
 
@@ -68,25 +68,25 @@ const handleSave = async () => {
     const recipients = [...state.recipients];
     recipients.push({
       variant: PageRecipientVariant.PAGE,
-      percentage: remainingPagePercentage.value,
+      percentage: remainingPagePercentage.value
     });
     recipients.push({
       ...state.xmrchat,
       address: undefined,
-      name: undefined,
+      name: undefined
     });
     await axios.post("/page-recipients", {
-      recipients,
+      recipients
     });
     toast.add({
       description: "Recipients updated successfully",
-      color: "green",
+      color: "green"
     });
     await authStore.getMe();
   } catch (error) {
     toast.add({
       description: getErrorMessage(error),
-      color: "red",
+      color: "red"
     });
   } finally {
     state.loading = false;
@@ -99,14 +99,14 @@ const handleReset = async () => {
     await axios.post("/page-recipients/reset");
     toast.add({
       description: "Recipients reset successfully",
-      color: "green",
+      color: "green"
     });
     await refresh();
     await authStore.getMe();
   } catch (error) {
     toast.add({
       description: getErrorMessage(error),
-      color: "red",
+      color: "red"
     });
   } finally {
     state.loadingReset = false;
@@ -115,15 +115,14 @@ const handleReset = async () => {
 
 const getStateRecipient = (
   data: PageRecipient[],
-  variant: PageRecipientVariant,
+  variant: PageRecipientVariant
 ) => {
   return data.find((d) => d.variant === variant) as PageRecipient;
 };
 
 const addRecipient = () => {
-  if (isRecipientLimitReached.value) return;
   state.recipients.push({
-    variant: PageRecipientVariant.RECIPIENT,
+    variant: PageRecipientVariant.RECIPIENT
   });
 };
 
@@ -144,13 +143,13 @@ const remainingPagePercentage = computed(() => {
 });
 
 const isRecipientLimitReached = computed(() => {
-  return state.recipients.length >= maxRecipientLimit.value ? true : false;
+  return state.recipients.length >= MAX_RECIPIENT_LENGTH ? true : false;
 });
 
 const rules = computed(() => {
   return {
     recipients: {
-      maxLength: maxLength(maxRecipientLimit),
+      maxLength: maxLength(MAX_RECIPIENT_LENGTH)
     },
   };
 });
@@ -170,7 +169,7 @@ const v = useVuelidate(rules, state);
             variant: PageRecipientVariant.PAGE,
             name: `${authStore.pageName} address`,
             address: pageAddress,
-            percentage: remainingPagePercentage,
+            percentage: remainingPagePercentage
           }"
           truncateAddress
         />
@@ -199,9 +198,8 @@ const v = useVuelidate(rules, state);
             <template #text>
               <span class="italic bold"
                 >Recipients must contain no more than
-                {{ maxRecipientLimit + 2 }} elements</span
+                {{ MAX_RECIPIENT_LENGTH + 2 }} elements</span
               >
-              <!-- TODO: make this part with languages, error messages and other messages can also?  -->
             </template>
             <UButton
               :disabled="isRecipientLimitReached"
