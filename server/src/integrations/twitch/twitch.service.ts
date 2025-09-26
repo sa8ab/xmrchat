@@ -2,6 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Client, client as tmiClient } from 'tmi.js';
+import { TwitchTokenService } from './twitch-token.service';
 
 @Injectable()
 export class TwitchService {
@@ -16,6 +17,7 @@ export class TwitchService {
   constructor(
     private configService: ConfigService,
     private httpService: HttpService,
+    private twitchTokenService: TwitchTokenService,
   ) {
     this.client = new tmiClient({
       channels: [],
@@ -46,9 +48,8 @@ export class TwitchService {
   }
 
   async channelExists(channel: string) {
-    const accessToken = this.configService.get(
-      'TWITCH_IMPLICIT_FLOW_ACCESS_TOKEN',
-    );
+    const accessToken = await this.twitchTokenService.getClientToken();
+
     const clientId = this.configService.get('TWITCH_CLIENT_ID');
 
     try {
@@ -57,7 +58,6 @@ export class TwitchService {
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            Accept: 'application/vnd.twitchtv.v5+json',
             'Client-ID': clientId,
           },
         },

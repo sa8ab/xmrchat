@@ -17,6 +17,8 @@ import { PagesModule } from 'src/pages/pages.module';
 import { Payment } from 'src/payments/payment.entity';
 import { User } from 'src/users/user.entity';
 import { File } from 'src/files/file.entity';
+import { ConfigCommand } from './commands/config.command';
+import { TwitchModule } from 'src/integrations/twitch/twitch.module';
 
 @Module({
   providers: [
@@ -27,6 +29,7 @@ import { File } from 'src/files/file.entity';
     LwsCommand,
     DataMigrationCommand,
     ChangePremiumCommand,
+    ConfigCommand,
   ],
   imports: [
     AuthModule,
@@ -35,6 +38,7 @@ import { File } from 'src/files/file.entity';
     NotificationsModule,
     LwsModule,
     TypeOrmModule.forFeature([Page, Tip, Payment, User, File]),
+    TwitchModule,
   ],
 })
 export class CommanderModule {}
