@@ -19,6 +19,7 @@ import { Link } from '../links/link.entity';
 import { Tip } from 'src/tips/tip.entity';
 import { PageStatusEnum } from '../shared/constants';
 import { PageRecipient } from 'src/page-recipients/page-recipient.entity';
+import { LiveStream } from '../live-streams/live-stream.entity';
 
 @Entity({ name: 'pages' })
 @Unique(['path'])
@@ -114,6 +115,9 @@ export class Page {
     cascade: true,
   })
   recipients: PageRecipient[];
+
+  @OneToMany(() => LiveStream, (l: LiveStream) => l.page)
+  liveStreams: LiveStream[];
 
   totalTips: number | null;
   tipsCount: number | null;
