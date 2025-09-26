@@ -98,6 +98,7 @@ export interface StreamerPage {
   tipsCount?: number;
   status?: PageStatusEnum;
   expirationMinutes?: number;
+  liveStreams?: LiveStream[];
 }
 
 interface TipPayment {

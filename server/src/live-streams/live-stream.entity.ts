@@ -32,6 +32,9 @@ export class LiveStream {
   @Column({ nullable: true })
   channelName: string;
 
+  // @Column({ nullable: true })
+  // videoId: string;
+
   @Column({ nullable: true, type: 'integer' })
   viewerCount: number;
 
