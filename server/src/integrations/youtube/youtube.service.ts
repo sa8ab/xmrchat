@@ -59,7 +59,7 @@ export class YoutubeService implements OnModuleInit {
     const youtube = this.getYoutube();
 
     try {
-      this.logger.log(`Youtube - activities - ${channelId}`);
+      this.logger.log(`activities - ${channelId}`);
       const { data } = await youtube.activities.list({
         channelId,
         part: ['snippet', 'contentDetails'],
@@ -92,7 +92,7 @@ export class YoutubeService implements OnModuleInit {
     const youtube = this.getYoutube();
 
     try {
-      this.logger.log(`Youtube - videos details - ${videoIds.length} ids.`);
+      this.logger.log(`videos details - ${videoIds.length} ids.`);
       const { data } = await youtube.videos.list({
         id: videoIds,
         part: ['snippet', 'liveStreamingDetails', 'statistics'],
@@ -109,7 +109,7 @@ export class YoutubeService implements OnModuleInit {
     const youtube = this.getYoutube();
 
     try {
-      this.logger.log(`Youtube - channel id - ${username}`);
+      this.logger.log(`channel id - ${username}`);
       const { data } = await youtube.channels.list({
         forHandle: username,
         part: ['id'],
