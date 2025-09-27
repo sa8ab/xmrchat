@@ -15,7 +15,6 @@ export class TwitchProvider implements LiveStreamProvider {
   async getLiveStreams(
     params: LiveStreamProviderParams[],
   ): Promise<CreateLiveStreamDto[]> {
-    this.logger.log(params);
     if (!params.length) return [];
 
     try {

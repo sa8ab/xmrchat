@@ -14,16 +14,26 @@ const props = withDefaults(
     showTitle: true,
   }
 );
+
+const { liveStream } = useLiveStreamPlayer(computed(() => props.liveStreams));
+
+const showLogo = computed(() => !liveStream.value);
 </script>
 
 <template>
   <div class="streamer-header">
-    <div class="banner-container">
+    <LiveStreamPlayer v-if="liveStream" :liveStream="liveStream" />
+    <div v-else class="banner-container">
       <GeneralImage variant="banner" :url="bannerUrl" class="banner" />
     </div>
     <div class="options">
       <div class="logo-and-name">
-        <GeneralImage :url="logoUrl" variant="logo" class="logo" />
+        <GeneralImage
+          v-if="showLogo"
+          :url="logoUrl"
+          variant="logo"
+          class="logo"
+        />
         <div class="name p-2 flex flex-col" v-if="showTitle">
           <span class="text-lg lg:text-2xl font-bold">{{ name }}</span>
           <!-- <span class="text-pale">Streamer name</span> -->
@@ -48,20 +58,11 @@ const props = withDefaults(
   }
   .logo {
     margin-top: calc(var(--logo-size) / 2 * -1);
-    @apply ml-4 w-[var(--logo-size)] h-[var(--logo-size)];
+    @apply ms-4 w-[var(--logo-size)] h-[var(--logo-size)];
   }
 
   @media only screen and (max-width: 760px) {
     --logo-size: 108px;
-    .options {
-      // @apply flex-col items-center;
-    }
-    .logo-and-name {
-      // @apply flex-col items-center;
-    }
-    .logo {
-      // @apply ml-0;
-    }
   }
 }
 </style>

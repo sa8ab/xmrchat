@@ -255,4 +255,5 @@ export interface LiveStream {
   startedAt?: string;
   platform?: LiveStreamPlatformEnum;
   page?: StreamerPage;
+  videoId?: string;
 }

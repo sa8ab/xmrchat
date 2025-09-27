@@ -58,8 +58,10 @@ export class LiveStreamsService implements OnModuleInit {
           imageUrl: stream.imageUrl,
           channelId: stream.channelId,
           channelName: stream.channelName,
+          videoId: stream.videoId,
           viewerCount: stream.viewerCount,
           startedAt: stream.startedAt ? new Date(stream.startedAt) : null,
+          data: stream.data,
           page: { id: stream.pageId },
         });
       });
