@@ -14,21 +14,12 @@ const props = withDefaults(
     showTitle: true,
   }
 );
-
-const streamBannerUrl = computed(() => {
-  return props.liveStreams?.[0]?.imageUrl;
-});
 </script>
 
 <template>
   <div class="streamer-header">
     <div class="banner-container">
-      <GeneralImage
-        variant="banner"
-        :url="streamBannerUrl || bannerUrl"
-        class="banner"
-        :skipBaseUrl="Boolean(streamBannerUrl)"
-      />
+      <GeneralImage variant="banner" :url="bannerUrl" class="banner" />
     </div>
     <div class="options">
       <div class="logo-and-name">
