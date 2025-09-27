@@ -20,7 +20,9 @@ export class TwitchProvider implements LiveStreamProvider {
 
     try {
       const streams = await this.twitchService.getLiveStreams(
-        params.map((param) => param.username),
+        params
+          .filter((param) => Boolean(param.username))
+          .map((param) => param.username),
       );
 
       return streams.map((stream) => ({
