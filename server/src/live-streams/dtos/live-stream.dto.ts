@@ -31,6 +31,9 @@ export class LiveStreamDto {
   platform: LiveStreamPlatformEnum;
 
   @Expose()
+  videoId: string;
+
+  @Expose()
   @Type(() => PageDto)
   page: PageDto;
 }
