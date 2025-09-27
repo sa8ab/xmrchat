@@ -1,4 +1,10 @@
-import { IsDate, IsNumber, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsNumber,
+  IsObject,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 import { IsEnum } from 'class-validator';
 import { LiveStreamPlatformEnum } from 'src/shared/constants';
@@ -21,6 +27,13 @@ export class CreateLiveStreamDto {
 
   @IsString()
   channelName?: string;
+
+  @IsString()
+  videoId?: string;
+
+  @IsObject()
+  @IsOptional()
+  data?: any;
 
   @IsNumber()
   viewerCount?: number;
