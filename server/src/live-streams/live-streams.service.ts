@@ -6,7 +6,7 @@ import {
   LiveStreamPlatformEnum,
   PageStatusEnum,
 } from 'src/shared/constants';
-import { IsNull, Not, Repository } from 'typeorm';
+import { And, IsNull, Not, Repository } from 'typeorm';
 import { YoutubeProvider } from './providers/youtube.provider';
 import { CreateLiveStreamDto } from './dtos/create-live-stream.dto';
 import { LiveStream } from './live-stream.entity';
@@ -80,7 +80,7 @@ export class LiveStreamsService implements OnModuleInit {
   async getTwitchLiveStreams() {
     const pages = await this.pagesRepo.find({
       where: {
-        twitchChannel: Not(IsNull()),
+        twitchChannel: And(Not(IsNull()), Not('')),
         isPublic: true,
         status: Not(PageStatusEnum.DEACTIVE),
       },
