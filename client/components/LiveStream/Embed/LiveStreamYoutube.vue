@@ -5,3 +5,5 @@ const props = defineProps<{
   liveStream?: LiveStream;
 }>();
 </script>
+
+<template></template>

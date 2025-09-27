@@ -32,14 +32,17 @@ export class LiveStream {
   @Column({ nullable: true })
   channelName: string;
 
-  // @Column({ nullable: true })
-  // videoId: string;
+  @Column({ nullable: true })
+  videoId: string;
 
   @Column({ nullable: true, type: 'integer' })
   viewerCount: number;
 
   @Column({ nullable: true, type: 'timestamptz' })
   startedAt: Date;
+
+  @Column({ type: 'jsonb', nullable: true })
+  data: any;
 
   @ManyToOne(() => Page, { onDelete: 'CASCADE' })
   page: Page;
