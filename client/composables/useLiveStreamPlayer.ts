@@ -12,7 +12,14 @@ export const useLiveStreamPlayer = (
     )
   );
 
+  const twitch = computed(() =>
+    streams.value?.find(
+      (stream) => stream.platform === LiveStreamPlatformEnum.TWITCH
+    )
+  );
+
   const liveStreamComputed = computed(() => {
+    if (twitch.value) return twitch.value;
     if (youtube.value) return youtube.value;
   });
   return {

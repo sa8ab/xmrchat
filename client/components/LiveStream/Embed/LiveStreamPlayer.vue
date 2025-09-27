@@ -21,4 +21,10 @@ const type = computed(() => props.liveStream?.platform);
     @play="emit('play')"
     @pause="emit('pause')"
   />
+  <LiveStreamTwitch
+    v-if="type === LiveStreamPlatformEnum.TWITCH"
+    :liveStream="liveStream"
+    @play="emit('play')"
+    @pause="emit('pause')"
+  />
 </template>

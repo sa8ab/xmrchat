@@ -33,6 +33,7 @@ export class TwitchProvider implements LiveStreamProvider {
           .replace('{height}', '225'),
         platform: LiveStreamPlatformEnum.TWITCH,
         viewerCount: stream.viewer_count,
+        videoId: stream.id,
         pageId: params.find((param) => param.username === stream.user_login)
           ?.pageId,
       }));
