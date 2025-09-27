@@ -17,7 +17,6 @@ export class YoutubeProvider implements LiveStreamProvider {
     private readonly youtubeService: YoutubeService,
   ) {}
 
-  // TODO: send all video ids on one request
   async getLiveStreams(
     params: LiveStreamProviderParams[],
   ): Promise<CreateLiveStreamDto[]> {

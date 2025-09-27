@@ -1,18 +1,24 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  OnModuleInit,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Client, client as tmiClient } from 'tmi.js';
 import { TwitchTokenService } from './twitch-token.service';
 
 @Injectable()
-export class TwitchService {
+export class TwitchService implements OnModuleInit {
   private logger = new Logger(TwitchService.name);
-
   public oauthPass = this.configService.get('TWITCH_OAUTH_PASS');
-
   public botName = this.configService.get('TWITCH_BOT_NAME');
-
   private client: Client;
+
+  private clientId = this.configService.get('TWITCH_CLIENT_ID');
+  private clientSecret = this.configService.get('TWITCH_CLIENT_SECRET');
+  private initialized = false;
 
   constructor(
     private configService: ConfigService,
@@ -29,6 +35,28 @@ export class TwitchService {
     });
 
     this.connectToServer();
+  }
+
+  async onModuleInit() {
+    if (!this.clientId || !this.clientSecret) {
+      this.logger.warn(
+        'TWITCH_CLIENT_ID or TWITCH_CLIENT_SECRET are not set. Twitch integrations will not work.',
+      );
+      return;
+    }
+    this.initialized = true;
+  }
+
+  async getTokens() {
+    if (!this.initialized) {
+      throw new InternalServerErrorException(
+        'TWITCH_CLIENT_ID or TWITCH_CLIENT_SECRET are not set.',
+      );
+    }
+
+    const accessToken = await this.twitchTokenService.getClientToken();
+    const clientId = this.configService.get('TWITCH_CLIENT_ID');
+    return { accessToken, clientId };
   }
 
   async connectToServer() {
@@ -48,11 +76,9 @@ export class TwitchService {
   }
 
   async channelExists(channel: string) {
-    const accessToken = await this.twitchTokenService.getClientToken();
-
-    const clientId = this.configService.get('TWITCH_CLIENT_ID');
-
     try {
+      const { accessToken, clientId } = await this.getTokens();
+
       const res = await this.httpService.axiosRef.get(
         `https://api.twitch.tv/helix/users?login=${channel}`,
         {
@@ -75,6 +101,36 @@ export class TwitchService {
       )
         return true;
       return false;
+    }
+  }
+
+  async getLiveStreams(channels: string[]) {
+    const { accessToken, clientId } = await this.getTokens();
+
+    if (!channels.length) return [];
+
+    const params = [];
+
+    channels.forEach((channel) => {
+      params.push(`user_login=${channel}`);
+    });
+
+    try {
+      const { data } = await this.httpService.axiosRef.get(
+        `https://api.twitch.tv/helix/streams?${params.join('&')}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Client-ID': clientId,
+          },
+        },
+      );
+
+      return data.data;
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Failed to get live streams from Twitch',
+      );
     }
   }
 }

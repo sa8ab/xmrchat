@@ -11,12 +11,16 @@ import { BullModule } from '@nestjs/bullmq';
 import { BullBoardModule } from '@bull-board/nestjs';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { LiveStreamProcessor } from './live-stream.processor';
+import { TwitchProvider } from './providers/twitch.provider';
+import { Page } from 'src/pages/page.entity';
+import { TwitchModule } from 'src/integrations/twitch/twitch.module';
 
 @Module({
   imports: [
     YoutubeModule,
+    TwitchModule,
     LinksModule,
-    TypeOrmModule.forFeature([LiveStream, Link]),
+    TypeOrmModule.forFeature([LiveStream, Link, Page]),
     BullModule.registerQueue({
       name: 'live-stream',
     }),
@@ -26,6 +30,11 @@ import { LiveStreamProcessor } from './live-stream.processor';
     }),
   ],
   controllers: [LiveStreamsController],
-  providers: [LiveStreamsService, YoutubeProvider, LiveStreamProcessor],
+  providers: [
+    LiveStreamsService,
+    YoutubeProvider,
+    TwitchProvider,
+    LiveStreamProcessor,
+  ],
 })
 export class LiveStreamsModule {}

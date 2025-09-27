@@ -1,7 +1,11 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Link } from 'src/links/link.entity';
-import { LinkPlatformEnum, LiveStreamPlatformEnum } from 'src/shared/constants';
+import {
+  LinkPlatformEnum,
+  LiveStreamPlatformEnum,
+  PageStatusEnum,
+} from 'src/shared/constants';
 import { IsNull, Not, Repository } from 'typeorm';
 import { YoutubeProvider } from './providers/youtube.provider';
 import { CreateLiveStreamDto } from './dtos/create-live-stream.dto';
@@ -10,14 +14,18 @@ import { LinksService } from 'src/links/links.service';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { ConfigService } from '@nestjs/config';
+import { TwitchProvider } from './providers/twitch.provider';
+import { Page } from 'src/pages/page.entity';
 
 @Injectable()
 export class LiveStreamsService implements OnModuleInit {
   constructor(
     @InjectRepository(Link) private linksRepo: Repository<Link>,
     @InjectRepository(LiveStream) private repo: Repository<LiveStream>,
+    @InjectRepository(Page) private pagesRepo: Repository<Page>,
     private linksService: LinksService,
     private youtubeProvider: YoutubeProvider,
+    private twitchProvider: TwitchProvider,
     @InjectQueue('live-stream') private liveStreamQueue: Queue,
     private config: ConfigService,
   ) {}
@@ -62,10 +70,27 @@ export class LiveStreamsService implements OnModuleInit {
 
   async getAndUpdateLiveStreams() {
     const youtube = await this.getYoutubeLiveStreams();
+    const twitch = await this.getTwitchLiveStreams();
 
-    await this.updateLiveStreams(youtube);
+    await this.updateLiveStreams([...youtube, ...twitch]);
     const result = await this.findAll();
     return result;
+  }
+
+  async getTwitchLiveStreams() {
+    const pages = await this.pagesRepo.find({
+      where: {
+        twitchChannel: Not(IsNull()),
+        isPublic: true,
+        status: Not(PageStatusEnum.DEACTIVE),
+      },
+    });
+
+    const params = pages.map((page) => ({
+      username: page.twitchChannel,
+      pageId: page.id,
+    }));
+    return this.twitchProvider.getLiveStreams(params);
   }
 
   async getYoutubeLiveStreams() {
