@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { TwitchService } from 'src/integrations/twitch/twitch.service';
 import {
   LiveStreamProvider,
@@ -9,11 +9,13 @@ import { LiveStreamPlatformEnum } from 'src/shared/constants';
 
 @Injectable()
 export class TwitchProvider implements LiveStreamProvider {
+  private logger = new Logger(TwitchProvider.name);
   constructor(private readonly twitchService: TwitchService) {}
 
   async getLiveStreams(
     params: LiveStreamProviderParams[],
   ): Promise<CreateLiveStreamDto[]> {
+    this.logger.log(params);
     if (!params.length) return [];
 
     try {
@@ -33,7 +35,12 @@ export class TwitchProvider implements LiveStreamProvider {
         pageId: params.find((param) => param.username === stream.user_login)
           ?.pageId,
       }));
-    } catch (error) {}
+    } catch (error) {
+      this.logger.error(
+        'Failed to get live streams from Twitch',
+        error.response?.data,
+      );
+    }
 
     return [];
   }
