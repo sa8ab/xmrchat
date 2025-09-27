@@ -41,7 +41,7 @@ const { toStreamer } = useRouteLocation();
         <UIcon name="i-heroicons-arrow-top-right-on-square" />
       </span>
       <!-- description -->
-      <p class="text-xs pt-2 truncate w-full">{{ liveStream?.description }}</p>
+      <p class="text-xs pt-2 truncate w-full">{{ liveStream?.description || liveStream?.title }}</p>
     </NuxtLink>
   </div>
 </template>
