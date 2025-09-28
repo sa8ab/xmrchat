@@ -149,6 +149,11 @@ const rules = computed(() => {
     },
   };
 });
+
+const isRecipientLimitReached = computed(() => {
+  return state.recipients.length >= MAX_RECIPIENT_LENGTH ? true : false;
+});
+
 const v = useVuelidate(rules, state);
 </script>
 
@@ -186,19 +191,17 @@ const v = useVuelidate(rules, state);
       </div>
       <div class="flex gap-2 mt-6 justify-between flex-wrap">
         <UAlert
-          v-show="v.recipients.maxLength.$invalid"
+          v-show="isRecipientLimitReached"
           icon="i-heroicons-no-symbol"
-          color="red"
-          variant="soft"
+          variant="outline"
           title="Recipients Limit!"
           :description="`Recipients must contain no more than ${MAX_RECIPIENT_LENGTH + 2} elements`"
         />
         <div class="flex gap-2">
           <UButton type="submit" :loading="state.loading">Save</UButton>
           <UButton
-            :disabled="v.recipients.maxLength.$invalid"
-            :color="v.recipients.maxLength.$invalid ? 'red' : 'primary'"
-            :variant="v.recipients.maxLength.$invalid ? 'solid' : 'outline'"
+            :disabled="isRecipientLimitReached"
+            variant="outline"
             type="button"
             @click="addRecipient"
           >
