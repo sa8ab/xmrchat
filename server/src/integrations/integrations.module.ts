@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { IntegrationConfig } from './integration-configs.entity';
 import { PagesModule } from 'src/pages/pages.module';
 import { YoutubeModule } from './youtube/youtube.module';
+import { RumbleModule } from './rumble/rumble.module';
 
 @Module({
   providers: [IntegrationsService],
@@ -16,6 +17,7 @@ import { YoutubeModule } from './youtube/youtube.module';
     PagesModule,
     TypeOrmModule.forFeature([IntegrationConfig]),
     YoutubeModule,
+    RumbleModule,
   ],
   exports: [SimplexModule, SignalModule, YoutubeModule],
   controllers: [IntegrationsController],

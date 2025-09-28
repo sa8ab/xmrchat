@@ -14,11 +14,14 @@ import { LiveStreamProcessor } from './live-stream.processor';
 import { TwitchProvider } from './providers/twitch.provider';
 import { Page } from 'src/pages/page.entity';
 import { TwitchModule } from 'src/integrations/twitch/twitch.module';
+import { RumbleModule } from 'src/integrations/rumble/rumble.module';
+import { RumbleProvider } from './providers/rumble.provider';
 
 @Module({
   imports: [
     YoutubeModule,
     TwitchModule,
+    RumbleModule,
     LinksModule,
     TypeOrmModule.forFeature([LiveStream, Link, Page]),
     BullModule.registerQueue({
@@ -34,6 +37,7 @@ import { TwitchModule } from 'src/integrations/twitch/twitch.module';
     LiveStreamsService,
     YoutubeProvider,
     TwitchProvider,
+    RumbleProvider,
     LiveStreamProcessor,
   ],
 })
