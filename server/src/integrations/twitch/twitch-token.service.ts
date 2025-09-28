@@ -113,6 +113,10 @@ export class TwitchTokenService implements OnModuleInit {
 
     if (valid) return;
 
-    await this.getAndSaveClientToken();
+    try {
+      await this.getAndSaveClientToken();
+    } catch (error) {
+      this.logger.error('Failed to refresh twitch client credentials token');
+    }
   }
 }

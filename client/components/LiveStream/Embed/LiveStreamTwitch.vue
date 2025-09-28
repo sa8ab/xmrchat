@@ -12,10 +12,10 @@ const emit = defineEmits<{
 
 const requestUrl = useRequestURL();
 
-const videoId = computed(() => props.liveStream?.videoId);
+const channelId = computed(() => props.liveStream?.channelName);
 
 const iframeUrl = computed(() => {
-  return `https://player.twitch.tv/?video=${videoId.value}&parent=${requestUrl.host}`;
+  return `https://player.twitch.tv/?channel=${channelId.value}&parent=${requestUrl.hostname}&autoplay=false`;
 });
 </script>
 
