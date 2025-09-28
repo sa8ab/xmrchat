@@ -3,8 +3,17 @@ defineOptions({
   inheritAttrs: false,
 });
 
+const props = withDefaults(
+  defineProps<{
+    defaultVisible?: boolean;
+  }>(),
+  {
+    defaultVisible: false,
+  }
+);
+
 const model = defineModel<string | number | undefined>();
-const passwordVisible = ref(false);
+const passwordVisible = ref(props.defaultVisible);
 </script>
 
 <template>
