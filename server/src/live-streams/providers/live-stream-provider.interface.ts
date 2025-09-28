@@ -7,6 +7,7 @@ export interface LiveStreamProvider {
 }
 
 export type LiveStreamProviderParams = {
-  username: string;
+  username?: string;
+  url?: string;
   pageId: number;
 };

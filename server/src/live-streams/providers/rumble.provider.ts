@@ -6,7 +6,10 @@ import {
 } from './live-stream-provider.interface';
 import { CreateLiveStreamDto } from '../dtos/create-live-stream.dto';
 import { LiveStreamPlatformEnum } from 'src/shared/constants';
-import { RumbleService } from 'src/integrations/rumble/rumble.service';
+import {
+  RumbleLivestream,
+  RumbleService,
+} from 'src/integrations/rumble/rumble.service';
 import { getAxiosMessage } from 'src/shared/utils/axios';
 
 @Injectable()
@@ -19,22 +22,35 @@ export class RumbleProvider implements LiveStreamProvider {
   ): Promise<CreateLiveStreamDto[]> {
     if (!params.length) return [];
 
+    const requests = params.map(async (param) => {
+      const streams = await this.rumbleService.getLiveStreams(param.url);
+      return { streams, pageId: param.pageId };
+    });
     try {
-      const streams = await this.rumbleService.getLiveStreams('');
+      const res = await Promise.all(requests);
 
-      // return streams.map((stream) => ({
-      //   title: stream.title,
-      //   channelId: stream.user_id,
-      //   channelName: stream.user_name,
-      //   imageUrl: stream.thumbnail_url
-      //     .replace('{width}', '400')
-      //     .replace('{height}', '225'),
-      //   platform: LiveStreamPlatformEnum.TWITCH,
-      //   viewerCount: stream.viewer_count,
-      //   videoId: stream.id,
-      //   pageId: params.find((param) => param.username === stream.user_login)
-      //     ?.pageId,
-      // }));
+      const result: { pageId: number; stream: RumbleLivestream }[] = [];
+      res
+        .filter((r) => r.streams?.length)
+        .forEach((r) => {
+          r.streams.forEach((stream) => {
+            result.push({
+              pageId: r.pageId,
+              stream,
+            });
+          });
+        });
+
+      return result.map(({ pageId, stream }) => ({
+        title: stream.title,
+        // channelId: stream.user_id,
+        // channelName: stream.user_name,
+        // imageUrl: stream.thumbnail_url
+        platform: LiveStreamPlatformEnum.RUMBLE,
+        viewerCount: stream.watching_now,
+        videoId: stream.id,
+        pageId,
+      }));
     } catch (error) {
       this.logger.error(
         `Failed to get live streams from Rumble ${getAxiosMessage(error)}`,

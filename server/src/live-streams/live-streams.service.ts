@@ -16,6 +16,7 @@ import { Queue } from 'bullmq';
 import { ConfigService } from '@nestjs/config';
 import { TwitchProvider } from './providers/twitch.provider';
 import { Page } from 'src/pages/page.entity';
+import { RumbleProvider } from './providers/rumble.provider';
 
 @Injectable()
 export class LiveStreamsService implements OnModuleInit {
@@ -26,6 +27,7 @@ export class LiveStreamsService implements OnModuleInit {
     private linksService: LinksService,
     private youtubeProvider: YoutubeProvider,
     private twitchProvider: TwitchProvider,
+    private rumbleProvider: RumbleProvider,
     @InjectQueue('live-stream') private liveStreamQueue: Queue,
     private config: ConfigService,
   ) {}
@@ -73,8 +75,9 @@ export class LiveStreamsService implements OnModuleInit {
   async getAndUpdateLiveStreams() {
     const youtube = await this.getYoutubeLiveStreams();
     const twitch = await this.getTwitchLiveStreams();
+    const rumble = await this.getRumbleLiveStreams();
 
-    await this.updateLiveStreams([...youtube, ...twitch]);
+    await this.updateLiveStreams([...youtube, ...twitch, ...rumble]);
     const result = await this.findAll();
     return result;
   }
@@ -123,5 +126,21 @@ export class LiveStreamsService implements OnModuleInit {
     }));
 
     return this.youtubeProvider.getLiveStreams(params);
+  }
+
+  async getRumbleLiveStreams() {
+    const links = await this.linksService.findByPlatform(
+      LinkPlatformEnum.RUMBLE,
+    );
+    const linksWithData = links.filter((link) =>
+      Boolean(link.data?.rumbleLiveStreamUrl),
+    );
+
+    const params = linksWithData.map((link) => ({
+      url: link.data?.rumbleLiveStreamUrl,
+      pageId: link.page.id,
+    }));
+
+    return this.rumbleProvider.getLiveStreams(params);
   }
 }

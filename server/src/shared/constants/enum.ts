@@ -137,4 +137,5 @@ export enum LiveStreamPlatformEnum {
   YOUTUBE = 'youtube',
   TWITCH = 'twitch',
   X = 'x',
+  RUMBLE = 'rumble',
 }
