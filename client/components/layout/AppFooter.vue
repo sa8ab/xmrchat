@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { socials } = useAppConfig();
-const currentYear = new Date().getFullYear();
+const currentYear = ref(new Date().getFullYear());
 </script>
 
 <template>
