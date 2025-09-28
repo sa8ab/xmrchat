@@ -80,6 +80,15 @@ export class LiveStreamsService implements OnModuleInit {
   }
 
   async getTwitchLiveStreams() {
+    const links = await this.linksService.findByPlatform(
+      LinkPlatformEnum.TWITCH,
+    );
+
+    const linkParams = links.map((link) => ({
+      username: link.value,
+      pageId: link.page.id,
+    }));
+
     const pages = await this.pagesRepo.find({
       where: {
         twitchChannel: And(Not(IsNull()), Not('')),
@@ -88,10 +97,18 @@ export class LiveStreamsService implements OnModuleInit {
       },
     });
 
-    const params = pages.map((page) => ({
+    const pageParams = pages.map((page) => ({
       username: page.twitchChannel,
       pageId: page.id,
     }));
+
+    const linkPageIds = new Set(linkParams.map((param) => param.pageId));
+    const uniquePageParams = pageParams.filter(
+      (param) => !linkPageIds.has(param.pageId),
+    );
+
+    const params = [...linkParams, ...uniquePageParams];
+
     return this.twitchProvider.getLiveStreams(params);
   }
 
