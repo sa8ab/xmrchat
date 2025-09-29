@@ -257,6 +257,10 @@ export const useConstants = () => {
       name: "X",
       icon: "i-tabler-brand-x",
     },
+    [LiveStreamPlatformEnum.RUMBLE]: {
+      name: "Rumble",
+      icon: "i-tabler-brand-rumble",
+    },
   };
 
   const getLiveStreamPlatform = (v?: LiveStreamPlatformEnum) => {
