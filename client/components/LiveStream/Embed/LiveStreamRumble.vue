@@ -13,7 +13,6 @@ const emit = defineEmits<{
 const videoId = computed(() => props.liveStream?.videoId);
 
 const iframeUrl = computed(() => {
-  return "https://rumble.com/embed/v6xexrq/";
   return `https://rumble.com/embed/${videoId.value}`;
 });
 </script>
