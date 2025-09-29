@@ -27,33 +27,33 @@ export class YoutubeService implements OnModuleInit {
     this.youtube = google.youtube({ version: 'v3', auth: apiKey });
   }
 
-  async getLiveStreams(identifier?: string) {
-    let channelId: string;
+  // async getLiveStreams(identifier?: string) {
+  //   let channelId: string;
 
-    if (identifier?.startsWith('@')) {
-      channelId = await this.getChannelIdByUsername(identifier);
-    } else {
-      channelId = identifier;
-    }
-    if (!channelId) {
-      throw new NotFoundException(`Channel id not found for ${identifier}.`);
-    }
+  //   if (identifier?.startsWith('@')) {
+  //     channelId = await this.getChannelIdByUsername(identifier);
+  //   } else {
+  //     channelId = identifier;
+  //   }
+  //   if (!channelId) {
+  //     throw new NotFoundException(`Channel id not found for ${identifier}.`);
+  //   }
 
-    this.logger.log(`Getting live streams for channel ${channelId}`);
+  //   this.logger.log(`Getting live streams for channel ${channelId}`);
 
-    const uploads = await this.getUploadActivities(channelId);
+  //   const uploads = await this.getUploadActivities(channelId);
 
-    if (!uploads?.length) {
-      return [];
-    }
+  //   if (!uploads?.length) {
+  //     return [];
+  //   }
 
-    const videoIds = uploads.map(
-      (upload) => upload.contentDetails?.upload?.videoId,
-    );
-    const streams = await this.getLiveVideosDetails(videoIds);
+  //   const videoIds = uploads.map(
+  //     (upload) => upload.contentDetails?.upload?.videoId,
+  //   );
+  //   const streams = await this.getLiveVideosDetails(videoIds);
 
-    return streams || [];
-  }
+  //   return streams || [];
+  // }
 
   async getUploadActivities(channelId: string) {
     const youtube = this.getYoutube();

@@ -80,6 +80,8 @@ export class YoutubeProvider implements LiveStreamProvider {
 
     if (link?.data?.youtubeChannelId) return link.data.youtubeChannelId;
 
+    if (!param.username) return undefined;
+
     const channelId = await this.youtubeService.getChannelIdByUsername(
       param.username,
     );
