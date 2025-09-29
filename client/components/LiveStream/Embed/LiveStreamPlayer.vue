@@ -27,4 +27,8 @@ const type = computed(() => props.liveStream?.platform);
     @play="emit('play')"
     @pause="emit('pause')"
   />
+  <LiveStreamRumble
+    v-if="type === LiveStreamPlatformEnum.RUMBLE"
+    :liveStream="liveStream"
+  />
 </template>

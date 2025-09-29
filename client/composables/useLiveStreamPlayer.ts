@@ -18,10 +18,18 @@ export const useLiveStreamPlayer = (
     )
   );
 
+  const rumble = computed(() =>
+    streams.value?.find(
+      (stream) => stream.platform === LiveStreamPlatformEnum.RUMBLE
+    )
+  );
+
   const liveStreamComputed = computed(() => {
     if (twitch.value) return twitch.value;
     if (youtube.value) return youtube.value;
+    if (rumble.value) return rumble.value;
   });
+
   return {
     liveStream: liveStreamComputed,
   };
