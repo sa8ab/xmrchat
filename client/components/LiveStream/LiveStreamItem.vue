@@ -14,6 +14,7 @@ const { toStreamer } = useRouteLocation();
     class="relative h-[180px] flex flex-col justify-end rounded-lg overflow-hidden p-2 ring-gray-400 ring-1"
   >
     <img
+      v-if="liveStream?.imageUrl"
       :src="liveStream?.imageUrl"
       alt=""
       class="absolute top-0 left-0 w-full h-full object-cover z-0 brightness-50"
@@ -41,7 +42,9 @@ const { toStreamer } = useRouteLocation();
         <UIcon name="i-heroicons-arrow-top-right-on-square" />
       </span>
       <!-- description -->
-      <p class="text-xs pt-2 truncate w-full">{{ liveStream?.description || liveStream?.title }}</p>
+      <p class="text-xs pt-2 truncate w-full">
+        {{ liveStream?.description || liveStream?.title }}
+      </p>
     </NuxtLink>
   </div>
 </template>
