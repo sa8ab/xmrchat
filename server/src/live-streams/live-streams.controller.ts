@@ -3,6 +3,8 @@ import { LiveStreamsService } from './live-streams.service';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
 import { LiveStreamListDto } from './dtos/live-stream.dto';
+import { Roles } from 'src/shared/decorators/roles.decorator';
+import { RolesEnum } from '../shared/constants/enum';
 
 @Controller('live-streams')
 export class LiveStreamsController {
@@ -18,6 +20,7 @@ export class LiveStreamsController {
 
   @Get('/update')
   @IsPublic()
+  @Roles(RolesEnum.ADMIN)
   async updateLiveStreams() {
     const liveStreams = await this.liveStreamsService.getAndUpdateLiveStreams();
     return { liveStreams };
