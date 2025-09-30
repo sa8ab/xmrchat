@@ -40,5 +40,6 @@ import { RumbleProvider } from './providers/rumble.provider';
     RumbleProvider,
     LiveStreamProcessor,
   ],
+  exports: [LiveStreamsService],
 })
 export class LiveStreamsModule {}
