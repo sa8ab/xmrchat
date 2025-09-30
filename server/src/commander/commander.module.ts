@@ -19,6 +19,7 @@ import { User } from 'src/users/user.entity';
 import { File } from 'src/files/file.entity';
 import { ConfigCommand } from './commands/config.command';
 import { TwitchModule } from 'src/integrations/twitch/twitch.module';
+import { LiveStreamsModule } from 'src/live-streams/live-streams.module';
 
 @Module({
   providers: [
@@ -39,6 +40,7 @@ import { TwitchModule } from 'src/integrations/twitch/twitch.module';
     LwsModule,
     TypeOrmModule.forFeature([Page, Tip, Payment, User, File]),
     TwitchModule,
+    LiveStreamsModule,
   ],
 })
 export class CommanderModule {}

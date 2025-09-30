@@ -4,6 +4,7 @@ import { Command, CommandRunner, Option } from 'nest-commander';
 import { AuthService } from 'src/auth/auth.service';
 import { IntegrationsService } from 'src/integrations/integrations.service';
 import { TwitchTokenService } from 'src/integrations/twitch/twitch-token.service';
+import { LiveStreamsService } from 'src/live-streams/live-streams.service';
 import { RolesEnum } from 'src/shared/constants';
 
 @Command({
@@ -14,7 +15,10 @@ import { RolesEnum } from 'src/shared/constants';
 export class ConfigCommand extends CommandRunner {
   private logger = new Logger(ConfigCommand.name);
 
-  constructor(private readonly twitchTokenService: TwitchTokenService) {
+  constructor(
+    private twitchTokenService: TwitchTokenService,
+    private liveStreamsService: LiveStreamsService,
+  ) {
     super();
   }
 
@@ -26,13 +30,22 @@ export class ConfigCommand extends CommandRunner {
 
     if (config === 'get-twitch-token') {
       await this.updateTwitchToken();
+      return;
     }
     if (config === 'validate-twitch-token') {
       await this.validateTwitchToken();
+      return;
     }
     if (config === 'refresh-twitch-token') {
       await this.refreshTwitchToken();
+      return;
     }
+    if (config === 'update-live-streams') {
+      await this.updateLiveStreams();
+      return;
+    }
+
+    this.logger.error(`Parameter is invalid: ${config}`);
   }
 
   async updateTwitchToken() {
@@ -48,5 +61,11 @@ export class ConfigCommand extends CommandRunner {
   async refreshTwitchToken() {
     this.logger.log('refreshing twitch token');
     await this.twitchTokenService.refreshToken();
+  }
+
+  async updateLiveStreams() {
+    this.logger.log('updating live streams');
+    await this.liveStreamsService.getAndUpdateLiveStreams();
+    this.logger.log('live streams updated');
   }
 }
