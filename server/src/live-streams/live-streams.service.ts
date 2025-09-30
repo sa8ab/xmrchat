@@ -105,7 +105,6 @@ export class LiveStreamsService implements OnModuleInit {
     );
 
     const params = [...linkParams, ...uniquePageParams];
-    console.log(`getting params for twitch`, params);
 
     return this.twitchProvider.getLiveStreams(params);
   }
