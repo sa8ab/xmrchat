@@ -151,7 +151,7 @@ const rules = computed(() => {
 });
 
 const isRecipientLimitReached = computed(() => {
-  return state.recipients.length >= MAX_RECIPIENT_LENGTH ? true : false;
+  return state.recipients.length >= MAX_RECIPIENT_LENGTH;
 });
 
 const v = useVuelidate(rules, state);
@@ -191,7 +191,7 @@ const v = useVuelidate(rules, state);
       </div>
       <div class="flex gap-2 mt-6 justify-between flex-wrap">
         <UAlert
-          v-show="isRecipientLimitReached"
+          v-if="isRecipientLimitReached"
           icon="i-heroicons-no-symbol"
           variant="outline"
           title="Recipients Limit!"
