@@ -15,7 +15,9 @@ const props = withDefaults(
   }
 );
 
-const { liveStream } = useLiveStreamPlayer(computed(() => props.liveStreams));
+const { liveStream, livePlatforms } = useLiveStreamPlayer(
+  computed(() => props.liveStreams)
+);
 
 const showLogo = computed(() => !liveStream.value);
 </script>
@@ -37,7 +39,11 @@ const showLogo = computed(() => !liveStream.value);
         <div class="name p-2 flex flex-col" v-if="showTitle">
           <span class="text-lg lg:text-2xl font-bold">{{ name }}</span>
           <!-- <span class="text-pale">Streamer name</span> -->
-          <StreamerLinks class="mt-3" :links="links" />
+          <StreamerLinks
+            class="mt-3"
+            :links="links"
+            :livePlatforms="livePlatforms"
+          />
         </div>
       </div>
     </div>

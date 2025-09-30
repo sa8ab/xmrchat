@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import type { ContentLink, ContentLinkFull } from "~/types";
-import { ContentLinkPlatformEnum } from "~/types/enums";
+import { ContentLinkPlatformEnum, LiveStreamPlatformEnum } from "~/types/enums";
 
 const props = defineProps<{
   links?: ContentLink[];
+  livePlatforms?: LiveStreamPlatformEnum[];
 }>();
 
 const { getContentLink } = useConstants();
@@ -35,17 +36,34 @@ const handleLinkClick = (
     nostrActive.value = true;
   }
 };
+
+const isLive = (platform: ContentLinkPlatformEnum) => {
+  return props.livePlatforms?.includes(
+    platform as unknown as LiveStreamPlatformEnum
+  );
+};
+
+const getName = (
+  item: ContentLinkFull & { platform: ContentLinkPlatformEnum }
+) => {
+  const live = isLive(item.platform);
+  return live ? `${item.name} ( Live )` : item.name;
+};
 </script>
 
 <template>
   <div class="flex gap-4 flex-wrap" v-if="links && links.length">
-    <UTooltip v-for="item in linksComputed" :text="item.name">
+    <UTooltip v-for="item in linksComputed" :text="getName(item)">
       <NuxtLink
         v-if="item.linkCreator"
         class="flex flex-col items-center justify-center gap-1"
         :href="item.linkCreator(item.value)"
         target="_blank"
       >
+        <LiveIndicator
+          v-if="isLive(item.platform)"
+          class="absolute top-0 right-0 z-10"
+        />
         <UIcon
           :name="item.icon"
           :class="['w-6 h-6', item.colorClassName, item.iconClassName]"
@@ -60,6 +78,10 @@ const handleLinkClick = (
         variant="link"
         @click="handleLinkClick(item)"
       >
+        <LiveIndicator
+          v-if="isLive(item.platform)"
+          class="absolute top-0 right-0 z-10"
+        />
         <UIcon
           :name="item.icon"
           :class="['w-6 h-6', item.colorClassName, item.iconClassName]"

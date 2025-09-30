@@ -24,6 +24,11 @@ export const useLiveStreamPlayer = (
     )
   );
 
+  const livePlatforms = computed<LiveStreamPlatformEnum[]>(
+    () =>
+      streams.value?.map((stream) => stream.platform).filter((p) => !!p) || []
+  );
+
   const liveStreamComputed = computed(() => {
     if (twitch.value) return twitch.value;
     if (youtube.value) return youtube.value;
@@ -32,5 +37,6 @@ export const useLiveStreamPlayer = (
 
   return {
     liveStream: liveStreamComputed,
+    livePlatforms: livePlatforms,
   };
 };
