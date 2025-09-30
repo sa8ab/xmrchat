@@ -35,10 +35,9 @@ export class YoutubeProvider implements LiveStreamProvider {
           .map((upload) => upload.contentDetails?.upload?.videoId)
           .filter(Boolean);
 
-        const firstVideoId = videoIds[0];
-        if (!firstVideoId) return;
-
-        allVideoIds.push({ pageId: param.pageId, videoId: firstVideoId });
+        allVideoIds.push(
+          ...videoIds.map((videoId) => ({ pageId: param.pageId, videoId })),
+        );
       } catch (error) {}
     });
 
@@ -70,7 +69,15 @@ export class YoutubeProvider implements LiveStreamProvider {
       })
       .filter((stream) => Boolean(stream));
 
-    return liveStreams;
+    // Filter to ensure only one video per page
+    const pageVideoMap = new Map<number, CreateLiveStreamDto>();
+    liveStreams.forEach((stream) => {
+      if (!pageVideoMap.has(stream.pageId)) {
+        pageVideoMap.set(stream.pageId, stream);
+      }
+    });
+
+    return Array.from(pageVideoMap.values());
   }
 
   async getAndSaveChannelId(
