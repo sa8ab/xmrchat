@@ -35,7 +35,7 @@ const pageAddress = computed(() => authStore.state.page?.primaryAddress);
 const { refresh } = useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{ recipients: PageRecipient[] }>(
-      "/page-recipients",
+      "/page-recipients"
     );
 
     // Add page recipient
@@ -45,7 +45,7 @@ const { refresh } = useLazyAsyncData(
     // Add xmrchat recipient
     const xmrchat = getStateRecipient(
       data.recipients,
-      PageRecipientVariant.XMRCHAT,
+      PageRecipientVariant.XMRCHAT
     );
     state.xmrchat.percentage = xmrchat?.percentage ?? 0;
 
@@ -56,7 +56,7 @@ const { refresh } = useLazyAsyncData(
 
     return data.recipients;
   },
-  { server: false },
+  { server: false }
 );
 
 const handleSave = async () => {
@@ -115,7 +115,7 @@ const handleReset = async () => {
 
 const getStateRecipient = (
   data: PageRecipient[],
-  variant: PageRecipientVariant,
+  variant: PageRecipientVariant
 ) => {
   return data.find((d) => d.variant === variant) as PageRecipient;
 };
@@ -195,7 +195,9 @@ const v = useVuelidate(rules, state);
           icon="i-heroicons-no-symbol"
           variant="outline"
           title="Recipients Limit!"
-          :description="`Recipients must contain no more than ${MAX_RECIPIENT_LENGTH + 2} elements`"
+          :description="`Recipients must contain no more than ${
+            MAX_RECIPIENT_LENGTH + 2
+          } elements`"
         />
         <div class="flex gap-2">
           <UButton type="submit" :loading="state.loading">Save</UButton>
