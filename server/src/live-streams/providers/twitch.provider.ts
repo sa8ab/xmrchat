@@ -34,8 +34,10 @@ export class TwitchProvider implements LiveStreamProvider {
         platform: LiveStreamPlatformEnum.TWITCH,
         viewerCount: stream.viewer_count,
         videoId: stream.id,
-        pageId: params.find((param) => param.username === stream.user_login)
-          ?.pageId,
+        pageId: params.find(
+          (param) =>
+            param.username?.toLowerCase() === stream.user_login.toLowerCase(),
+        )?.pageId,
       }));
     } catch (error) {
       this.logger.error(
