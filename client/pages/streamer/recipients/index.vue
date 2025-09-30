@@ -192,12 +192,11 @@ const v = useVuelidate(rules, state);
       <div class="flex gap-2 mt-6 justify-between flex-wrap">
         <UAlert
           v-if="isRecipientLimitReached"
-          icon="i-heroicons-no-symbol"
-          variant="outline"
-          title="Recipients Limit!"
-          :description="`Recipients must contain no more than ${
+          variant="subtle"
+          color="primary"
+          :description="`Max recipients limit ( ${
             MAX_RECIPIENT_LENGTH + 2
-          } elements`"
+          } ) reached.`"
         />
         <div class="flex gap-2">
           <UButton type="submit" :loading="state.loading">Save</UButton>
