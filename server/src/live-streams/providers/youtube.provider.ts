@@ -35,9 +35,10 @@ export class YoutubeProvider implements LiveStreamProvider {
           .map((upload) => upload.contentDetails?.upload?.videoId)
           .filter(Boolean);
 
-        allVideoIds.push(
-          ...videoIds.map((videoId) => ({ pageId: param.pageId, videoId })),
-        );
+        const firstVideoId = videoIds[0];
+        if (!firstVideoId) return;
+
+        allVideoIds.push({ pageId: param.pageId, videoId: firstVideoId });
       } catch (error) {}
     });
 
@@ -46,24 +47,28 @@ export class YoutubeProvider implements LiveStreamProvider {
     const videos = await this.youtubeService.getLiveVideosDetails(
       allVideoIds.map((videoId) => videoId.videoId),
     );
+    const flatVideos = videos.flatMap((item) => item);
 
-    const liveStreams: CreateLiveStreamDto[] = videos
-      .flatMap((item) => item)
-      .map((item) => {
+    const liveStreams: CreateLiveStreamDto[] = allVideoIds
+      .map(({ pageId, videoId }) => {
+        const video = flatVideos.find((video) => video.id === videoId);
+
+        if (!video) return;
+
         return {
-          title: item.snippet.title,
-          description: item.snippet.description,
-          channelId: item.snippet.channelId,
-          channelName: item.snippet.channelTitle,
-          videoId: item.id,
-          imageUrl: item.snippet.thumbnails.standard.url,
+          pageId,
+          title: video.snippet.title,
+          description: video.snippet.description,
+          channelId: video.snippet.channelId,
+          channelName: video.snippet.channelTitle,
+          videoId: video.id,
+          imageUrl: video.snippet.thumbnails.standard.url,
           platform: LiveStreamPlatformEnum.YOUTUBE,
-          startedAt: item.liveStreamingDetails?.actualStartTime,
-          viewerCount: Number(item.statistics.viewCount),
-          pageId: allVideoIds.find((videoId) => videoId.videoId === item.id)
-            ?.pageId,
+          startedAt: video.liveStreamingDetails?.actualStartTime,
+          viewerCount: Number(video.statistics.viewCount),
         };
-      });
+      })
+      .filter((stream) => Boolean(stream));
 
     return liveStreams;
   }
