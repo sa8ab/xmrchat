@@ -1,11 +1,7 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
-import { isEnum } from 'class-validator';
-import { Command, CommandRunner, Option } from 'nest-commander';
-import { AuthService } from 'src/auth/auth.service';
-import { IntegrationsService } from 'src/integrations/integrations.service';
+import { Logger } from '@nestjs/common';
+import { Command, CommandRunner } from 'nest-commander';
 import { TwitchTokenService } from 'src/integrations/twitch/twitch-token.service';
 import { LiveStreamsService } from 'src/live-streams/live-streams.service';
-import { RolesEnum } from 'src/shared/constants';
 
 @Command({
   name: 'config',
