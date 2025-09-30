@@ -24,7 +24,20 @@ export class TwitchProvider implements LiveStreamProvider {
           .map((param) => param.username),
       );
 
-      return streams.map((stream) => ({
+      const paramsWithStreams = params
+        .map((param) => {
+          const stream = streams.find(
+            (stream) =>
+              stream.user_login.toLowerCase() === param.username.toLowerCase(),
+          );
+          return {
+            param,
+            stream,
+          };
+        })
+        .filter((page) => Boolean(page.stream));
+
+      return paramsWithStreams.map(({ stream, param: { pageId } }) => ({
         title: stream.title,
         channelId: stream.user_id,
         channelName: stream.user_name,
@@ -34,10 +47,7 @@ export class TwitchProvider implements LiveStreamProvider {
         platform: LiveStreamPlatformEnum.TWITCH,
         viewerCount: stream.viewer_count,
         videoId: stream.id,
-        pageId: params.find(
-          (param) =>
-            param.username?.toLowerCase() === stream.user_login.toLowerCase(),
-        )?.pageId,
+        pageId,
       }));
     } catch (error) {
       this.logger.error(

@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Link } from './link.entity';
-import { IsNull, Not, Repository } from 'typeorm';
+import { And, IsNull, Not, Repository } from 'typeorm';
 import { PagesService } from 'src/pages/pages.service';
 import { UpdateLinksDto } from './dto/update-links.dto';
 import { Page } from 'src/pages/page.entity';
@@ -27,7 +27,7 @@ export class LinksService {
     return this.repo.find({
       where: {
         platform,
-        value: Not(IsNull()),
+        value: And(Not(IsNull()), Not('')),
         page: { status: Not(PageStatusEnum.DEACTIVE), isPublic: true },
       },
       relations: { page: true },
