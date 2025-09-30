@@ -1,11 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Link } from 'src/links/link.entity';
-import {
-  LinkPlatformEnum,
-  LiveStreamPlatformEnum,
-  PageStatusEnum,
-} from 'src/shared/constants';
+import { LinkPlatformEnum, PageStatusEnum } from 'src/shared/constants';
 import { And, IsNull, Not, Repository } from 'typeorm';
 import { YoutubeProvider } from './providers/youtube.provider';
 import { CreateLiveStreamDto } from './dtos/create-live-stream.dto';
@@ -21,15 +16,14 @@ import { RumbleProvider } from './providers/rumble.provider';
 @Injectable()
 export class LiveStreamsService implements OnModuleInit {
   constructor(
-    @InjectRepository(Link) private linksRepo: Repository<Link>,
-    @InjectRepository(LiveStream) private repo: Repository<LiveStream>,
-    @InjectRepository(Page) private pagesRepo: Repository<Page>,
     private linksService: LinksService,
     private youtubeProvider: YoutubeProvider,
     private twitchProvider: TwitchProvider,
     private rumbleProvider: RumbleProvider,
-    @InjectQueue('live-stream') private liveStreamQueue: Queue,
     private config: ConfigService,
+    @InjectRepository(LiveStream) private repo: Repository<LiveStream>,
+    @InjectRepository(Page) private pagesRepo: Repository<Page>,
+    @InjectQueue('live-stream') private liveStreamQueue: Queue,
   ) {}
 
   onModuleInit() {
