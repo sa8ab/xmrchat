@@ -43,6 +43,7 @@ export class YoutubeProvider implements LiveStreamProvider {
 
     await Promise.all(getIdsList);
 
+    // TODO: Add try catch
     const videos = await this.youtubeService.getLiveVideosDetails(
       allVideoIds.map((videoId) => videoId.videoId),
     );
