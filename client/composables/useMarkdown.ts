@@ -18,7 +18,7 @@ export const useMarkdown = () => {
   md.linkify.tlds("onion", true).add("ftp:", null);
   md.use(mila, { attrs: attributes });
 
-  const markdownAndSanitize = (message: string | null) => {
+  const markdownAndSanitize = (message: string | null | undefined) => {
     if (!message) return;
 
     const sanitizedMessage = sanitize(message, {

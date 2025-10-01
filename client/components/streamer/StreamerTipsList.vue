@@ -124,6 +124,8 @@ const handleRemoveClick = async (row: Tip) => {
     errorHandler(error);
   }
 };
+
+const { markdownAndSanitize } = useMarkdown();
 </script>
 
 <template>
@@ -158,9 +160,10 @@ const handleRemoveClick = async (row: Tip) => {
         </div>
       </template>
       <template #message-data="{ row }">
-        <div class="break-words max-w-[20rem] min-w-[8rem]">
-          {{ row.message }}
-        </div>
+        <div
+          class="break-words max-w-[20rem] min-w-[8rem]"
+          v-html="markdownAndSanitize(row?.message)"
+        />
       </template>
       <template #private-data="{ row }">
         <div class="private">
