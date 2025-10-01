@@ -13,6 +13,7 @@ import { LinksService } from './links.service';
 import { UpdateLinksDto } from './dto/update-links.dto';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
 import { LinkDtoRO } from './dto/link.dto';
+import { LinkPlatformEnum } from 'src/shared/constants';
 
 @Controller('links')
 export class LinksController {
@@ -31,8 +32,16 @@ export class LinksController {
     if (page.userId !== user.id) throw new UnauthorizedException();
 
     const links = await this.linksService.findByPageId(page.id);
+    const rumbleLiveStreamUrl = links.find(
+      (link) => link.platform === LinkPlatformEnum.RUMBLE,
+    )?.data?.rumbleLiveStreamUrl;
 
-    return { links, name: page.name, searchTerms: page.searchTerms };
+    return {
+      links,
+      name: page.name,
+      searchTerms: page.searchTerms,
+      rumbleLiveStreamUrl,
+    };
   }
 
   @Put('/me')

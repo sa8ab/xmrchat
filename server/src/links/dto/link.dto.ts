@@ -16,6 +16,9 @@ export class LinkDtoRO {
   searchTerms: string;
 
   @Expose()
+  rumbleLiveStreamUrl: string;
+
+  @Expose()
   @Type(() => LinkDto)
   links: LinkDto[];
 }
