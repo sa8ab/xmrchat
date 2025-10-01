@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { YoutubeService } from 'src/integrations/youtube/youtube.service';
 import {
   LiveStreamProvider,
@@ -9,9 +9,12 @@ import { LiveStreamPlatformEnum } from 'src/shared/constants';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Link } from 'src/links/link.entity';
 import { Repository } from 'typeorm';
+import { youtube_v3 } from 'googleapis';
 
 @Injectable()
 export class YoutubeProvider implements LiveStreamProvider {
+  private logger = new Logger(YoutubeProvider.name);
+
   constructor(
     @InjectRepository(Link) private linkRepo: Repository<Link>,
     private readonly youtubeService: YoutubeService,
@@ -38,23 +41,28 @@ export class YoutubeProvider implements LiveStreamProvider {
         allVideoIds.push(
           ...videoIds.map((videoId) => ({ pageId: param.pageId, videoId })),
         );
-      } catch (error) {}
+      } catch (error) {
+        this.logger.error(
+          `Error getting upload activities for username ${param.username}: ${error.message}`,
+        );
+      }
     });
 
     await Promise.all(getIdsList);
 
-    // TODO: Add try catch
-    const videos = await this.youtubeService.getLiveVideosDetails(
-      allVideoIds.map((videoId) => videoId.videoId),
-    );
-    const flatVideos = videos.flatMap((item) => item);
+    let videos: youtube_v3.Schema$Video[] = [];
+    try {
+      videos = await this.youtubeService.getLiveVideosDetails(
+        allVideoIds.map((videoId) => videoId.videoId),
+      );
+    } catch (error) {
+      this.logger.error(`Error getting live videos details: ${error.message}`);
+    }
 
     const liveStreams: CreateLiveStreamDto[] = allVideoIds
       .map(({ pageId, videoId }) => {
-        const video = flatVideos.find((video) => video.id === videoId);
-
+        const video = videos.find((video) => video.id === videoId);
         if (!video) return;
-
         return {
           pageId,
           title: video.snippet.title,
