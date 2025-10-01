@@ -30,9 +30,9 @@ export const useLiveStreamPlayer = (
   );
 
   const liveStreamComputed = computed(() => {
-    if (rumble.value) return rumble.value;
     if (twitch.value) return twitch.value;
     if (youtube.value) return youtube.value;
+    if (rumble.value) return rumble.value;
   });
 
   return {
