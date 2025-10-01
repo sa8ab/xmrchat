@@ -13,12 +13,13 @@ const emit = defineEmits<{
 const videoId = computed(() => props.liveStream?.videoId);
 
 const iframeUrl = computed(() => {
-  return `https://rumble.com/embed/${videoId.value}`;
+  return `https://rumble.com/embed/v${videoId.value}`;
 });
 </script>
 
 <template>
   <iframe
+    v-if="iframeUrl"
     :src="iframeUrl"
     allowfullscreen
     class="w-full aspect-[16/9] rounded-md"

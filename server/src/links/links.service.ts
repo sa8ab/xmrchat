@@ -37,7 +37,7 @@ export class LinksService {
   async updateContentLinks(data: UpdateLinksDto, page: Page) {
     if (
       data.rumbleLiveStreamUrl &&
-      !data.links.find((l) => l.platform === LinkPlatformEnum.RUMBLE)
+      !data.links.find((l) => l.platform === LinkPlatformEnum.RUMBLE)?.value
     ) {
       throw new BadRequestException(
         'Add a rumble link to your content links to use live stream URL.',
