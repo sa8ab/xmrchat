@@ -8,6 +8,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { Client, client as tmiClient } from 'tmi.js';
 import { TwitchTokenService } from './twitch-token.service';
+import { getAxiosMessage } from 'src/shared/utils/axios';
 
 @Injectable()
 export class TwitchService implements OnModuleInit {
@@ -107,6 +108,10 @@ export class TwitchService implements OnModuleInit {
   async getLiveStreams(channels: string[]) {
     const { accessToken, clientId } = await this.getTokens();
 
+    channels = channels.filter((channel) => {
+      return channel && /^[a-zA-Z0-9_]+$/.test(channel);
+    });
+
     if (!channels.length) return [];
 
     const params = [];
@@ -129,7 +134,7 @@ export class TwitchService implements OnModuleInit {
       return data.data;
     } catch (error) {
       throw new InternalServerErrorException(
-        'Failed to get live streams from Twitch',
+        `Failed to get live streams from Twitch: ${getAxiosMessage(error)}`,
       );
     }
   }

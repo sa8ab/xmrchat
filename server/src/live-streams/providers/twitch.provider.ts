@@ -51,8 +51,7 @@ export class TwitchProvider implements LiveStreamProvider {
       }));
     } catch (error) {
       this.logger.error(
-        'Failed to get live streams from Twitch',
-        error.response?.data,
+        `Failed to get live streams from Twitch: ${error.message}`,
       );
     }
 
