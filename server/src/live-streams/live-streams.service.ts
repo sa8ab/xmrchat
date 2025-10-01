@@ -1,6 +1,10 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LinkPlatformEnum, PageStatusEnum } from 'src/shared/constants';
+import {
+  LinkPlatformEnum,
+  LiveStreamPlatformEnum,
+  PageStatusEnum,
+} from 'src/shared/constants';
 import { And, IsNull, Not, Repository } from 'typeorm';
 import { YoutubeProvider } from './providers/youtube.provider';
 import { CreateLiveStreamDto } from './dtos/create-live-stream.dto';
@@ -35,9 +39,22 @@ export class LiveStreamsService implements OnModuleInit {
   }
 
   async findAll() {
-    return this.repo.find({
-      relations: { page: true },
-    });
+    return this.repo
+      .createQueryBuilder('liveStream')
+      .leftJoinAndSelect('liveStream.page', 'page')
+      .leftJoinAndSelect('page.logo', 'logo')
+      .distinctOn(['page.id'])
+      .orderBy('page.id', 'ASC')
+      .addOrderBy(
+        `CASE 
+          WHEN liveStream.platform = '${LiveStreamPlatformEnum.TWITCH}' THEN 1
+          WHEN liveStream.platform = '${LiveStreamPlatformEnum.YOUTUBE}' THEN 2
+          WHEN liveStream.platform = '${LiveStreamPlatformEnum.RUMBLE}' THEN 3
+          ELSE 4
+        END`,
+        'ASC',
+      )
+      .getMany();
   }
 
   async updateLiveStreams(dto: CreateLiveStreamDto[]) {
