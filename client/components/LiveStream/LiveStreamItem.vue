@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { LiveStream } from "~/types";
+import { LiveStreamPlatformEnum } from "~/types/enums";
 
 const props = defineProps<{
   liveStream?: LiveStream;
@@ -7,6 +8,9 @@ const props = defineProps<{
 
 const { getLiveStreamPlatform } = useConstants();
 const { toStreamer } = useRouteLocation();
+const liveStreamPlatform = computed(() =>
+  getLiveStreamPlatform(props.liveStream?.platform)
+);
 </script>
 
 <template>
@@ -19,6 +23,17 @@ const { toStreamer } = useRouteLocation();
       alt=""
       class="absolute top-0 left-0 w-full h-full object-cover z-0 brightness-50"
     />
+    <div
+      v-else
+      class="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-background"
+    >
+      <UIcon
+        v-if="liveStreamPlatform"
+        :name="liveStreamPlatform.icon"
+        :class="liveStreamPlatform.colorClassName"
+        size="80"
+      />
+    </div>
     <!-- gradient background -->
     <NuxtLink
       :to="toStreamer(liveStream?.page?.path || '')"
