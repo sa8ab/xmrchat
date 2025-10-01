@@ -248,10 +248,12 @@ export const useConstants = () => {
     [LiveStreamPlatformEnum.YOUTUBE]: {
       name: "YouTube",
       icon: "i-tabler-brand-youtube",
+      colorClassName: "text-[#FF0000]",
     },
     [LiveStreamPlatformEnum.TWITCH]: {
       name: "Twitch",
       icon: "i-tabler-brand-twitch",
+      colorClassName: "text-[#6441a5]",
     },
     [LiveStreamPlatformEnum.X]: {
       name: "X",
@@ -260,6 +262,7 @@ export const useConstants = () => {
     [LiveStreamPlatformEnum.RUMBLE]: {
       name: "Rumble",
       icon: "i-tabler-brand-rumble",
+      colorClassName: "text-[#85c742]",
     },
   };
 
