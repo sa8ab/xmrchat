@@ -59,7 +59,6 @@ export class YoutubeService implements OnModuleInit {
     const youtube = this.getYoutube();
 
     try {
-      this.logger.log(`activities - ${channelId}`);
       const { data } = await youtube.activities.list({
         channelId,
         part: ['snippet', 'contentDetails'],

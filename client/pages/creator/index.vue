@@ -60,7 +60,12 @@ const { status, refresh, error, data } = useLazyAsyncData("creators", () =>
               class="w-[90px] h-[90px]"
             />
             <div class="pt-3 font-medium">{{ item.name || item.path }}</div>
-            <div class="pt-1 text-sm text-pale">{{ item.path }}</div>
+            <LiveStreamIcons
+              v-if="item.liveStreams?.length"
+              class="pt-1"
+              :liveStreams="item.liveStreams"
+            />
+            <div v-else class="pt-1 text-sm text-pale">{{ item.path }}</div>
           </NuxtLink>
         </template>
       </div>

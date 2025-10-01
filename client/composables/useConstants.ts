@@ -258,6 +258,7 @@ export const useConstants = () => {
     [LiveStreamPlatformEnum.X]: {
       name: "X",
       icon: "i-tabler-brand-x",
+      colorClassName: "",
     },
     [LiveStreamPlatformEnum.RUMBLE]: {
       name: "Rumble",
