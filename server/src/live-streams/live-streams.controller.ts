@@ -17,12 +17,4 @@ export class LiveStreamsController {
     const liveStreams = await this.liveStreamsService.findAll();
     return { liveStreams };
   }
-
-  @Get('/update')
-  @IsPublic()
-  @Roles(RolesEnum.ADMIN)
-  async updateLiveStreams() {
-    const liveStreams = await this.liveStreamsService.getAndUpdateLiveStreams();
-    return { liveStreams };
-  }
 }
