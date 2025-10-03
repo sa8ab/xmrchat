@@ -105,7 +105,7 @@ const { getDisappearText } = useTip({
             <span class="flex pb-1 font-medium text-primary">
               {{ getComputedPrice(item.payment?.amount) }}
             </span>
-            <p :class="{ 'text-pale': item.private }" v-if="item.private">
+            <p v-if="item.private" :class="{ 'text-pale': item.private }" >
               {{ t("tipPrivateMessage") }}
             </p>
             <div v-else v-html="markdownAndSanitize(item?.message)" />
