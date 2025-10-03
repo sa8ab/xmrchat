@@ -53,7 +53,7 @@ export class NotificationDispatcherService {
     }
     const ability = await this.caslAbility.createForUser(page.user, page);
     if (!ability.can(Action.Receive, 'notification')) {
-      throw new ForbiddenException('User can not receive notifications');
+      return;
     }
 
     // get tip
