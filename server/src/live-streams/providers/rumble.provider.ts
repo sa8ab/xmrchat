@@ -27,7 +27,20 @@ export class RumbleProvider implements LiveStreamProvider {
       return { streams, pageId: param.pageId };
     });
     try {
-      const res = await Promise.all(requests);
+      const settled = await Promise.allSettled(requests);
+
+      const res = settled
+        .filter((r) => r.status === 'fulfilled')
+        .map((r) => r.value);
+
+      const errors = settled
+        .filter((r) => r.status === 'rejected')
+        .map((r) => r.reason);
+      if (errors.length) {
+        this.logger.error(
+          `Failed to get ${errors.length} live streams from Rumble ${errors.join(', ')}`,
+        );
+      }
 
       const result: { pageId: number; stream: RumbleLivestream }[] = [];
       res
@@ -50,7 +63,7 @@ export class RumbleProvider implements LiveStreamProvider {
       }));
     } catch (error) {
       this.logger.error(
-        `Failed to get live streams from Rumble ${getAxiosMessage(error)}`,
+        `Failed to get live streams from Rumble ${error.message}`,
       );
     }
 
