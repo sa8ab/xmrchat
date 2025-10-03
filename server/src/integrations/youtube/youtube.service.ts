@@ -88,6 +88,9 @@ export class YoutubeService implements OnModuleInit {
   }
 
   async getVideosDetails(videoIds: string[]) {
+    this.logger.log(
+      `Getting video details for ${videoIds.length} videos. ids: ${videoIds.join(', ')}`,
+    );
     const youtube = this.getYoutube();
 
     try {
