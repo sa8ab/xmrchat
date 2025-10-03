@@ -5,11 +5,6 @@ const props = defineProps<{
   liveStream?: LiveStream;
 }>();
 
-const emit = defineEmits<{
-  play: [];
-  pause: [];
-}>();
-
 const requestUrl = useRequestURL();
 
 const channelId = computed(() => props.liveStream?.channelName);
