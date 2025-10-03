@@ -36,9 +36,10 @@ export class RumbleProvider implements LiveStreamProvider {
       const errors = settled
         .filter((r) => r.status === 'rejected')
         .map((r) => r.reason);
+
       if (errors.length) {
-        this.logger.error(
-          `Failed to get ${errors.length} live streams from Rumble ${errors.join(', ')}`,
+        this.logger.warn(
+          `${errors.length} Rumble live streams failed: ${errors.join(', ')}`,
         );
       }
 
