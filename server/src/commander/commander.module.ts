@@ -20,6 +20,7 @@ import { File } from 'src/files/file.entity';
 import { ConfigCommand } from './commands/config.command';
 import { TwitchModule } from 'src/integrations/twitch/twitch.module';
 import { LiveStreamsModule } from 'src/live-streams/live-streams.module';
+import { CliUtilityService } from 'nest-commander';
 
 @Module({
   providers: [
@@ -31,6 +32,7 @@ import { LiveStreamsModule } from 'src/live-streams/live-streams.module';
     DataMigrationCommand,
     ChangePremiumCommand,
     ConfigCommand,
+    CliUtilityService,
   ],
   imports: [
     AuthModule,
