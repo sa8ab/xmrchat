@@ -62,7 +62,7 @@ export class YoutubeService implements OnModuleInit {
       const { data } = await youtube.activities.list({
         channelId,
         part: ['snippet', 'contentDetails'],
-        maxResults: 5,
+        maxResults: 3,
         // channelId,
         // eventType: 'live',
         // type: ['video'],
@@ -88,6 +88,8 @@ export class YoutubeService implements OnModuleInit {
   }
 
   async getVideosDetails(videoIds: string[]) {
+    // max 50 ids
+    videoIds = videoIds.slice(0, 50);
     this.logger.log(
       `Getting video details for ${videoIds.length} videos. ids: ${videoIds.join(', ')}`,
     );
