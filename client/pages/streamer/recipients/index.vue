@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { type PageRecipient } from "@/types/general";
 import useVuelidate from "@vuelidate/core";
+import { maxLength } from "@vuelidate/validators";
 import { PageRecipientVariant } from "~/types/enums";
 
+// we have two static recipients. XMRChat recipient and creators own recipient.
+// thats means creators can create max 8 recipients.
+const MAX_RECIPIENT_LENGTH = 8;
 const state = reactive<{
   recipients: PageRecipient[];
   page: PageRecipient;
@@ -57,7 +61,6 @@ const { refresh } = useLazyAsyncData(
 
 const handleSave = async () => {
   const valid = await v.value.$validate();
-
   if (!valid) return;
   state.loading = true;
 
@@ -139,7 +142,19 @@ const remainingPagePercentage = computed(() => {
   return res ?? 100;
 });
 
-const v = useVuelidate();
+const rules = computed(() => {
+  return {
+    recipients: {
+      maxLength: maxLength(MAX_RECIPIENT_LENGTH),
+    },
+  };
+});
+
+const isRecipientLimitReached = computed(() => {
+  return state.recipients.length >= MAX_RECIPIENT_LENGTH;
+});
+
+const v = useVuelidate(rules, state);
 </script>
 
 <template>
@@ -175,9 +190,22 @@ const v = useVuelidate();
         />
       </div>
       <div class="flex gap-2 mt-6 justify-between flex-wrap">
+        <UAlert
+          v-if="isRecipientLimitReached"
+          variant="subtle"
+          color="primary"
+          :description="`Max recipients limit ( ${
+            MAX_RECIPIENT_LENGTH + 2
+          } ) reached.`"
+        />
         <div class="flex gap-2">
           <UButton type="submit" :loading="state.loading">Save</UButton>
-          <UButton variant="outline" @click="addRecipient" type="button">
+          <UButton
+            :disabled="isRecipientLimitReached"
+            variant="outline"
+            type="button"
+            @click="addRecipient"
+          >
             Add recipient
           </UButton>
         </div>

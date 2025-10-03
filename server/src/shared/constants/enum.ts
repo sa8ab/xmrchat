@@ -132,3 +132,10 @@ export enum PageRecipientVariant {
   XMRCHAT = 'xmrchat',
   RECIPIENT = 'recipient',
 }
+
+export enum LiveStreamPlatformEnum {
+  YOUTUBE = 'youtube',
+  TWITCH = 'twitch',
+  X = 'x',
+  RUMBLE = 'rumble',
+}

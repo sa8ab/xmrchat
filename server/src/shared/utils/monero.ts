@@ -75,44 +75,64 @@ export const generateMoneroUri = (
     throw new Error('At least one recipient with a valid address is required');
   }
 
+  // Use the first recipient's address as the main address
+  const mainAddress = validRecipients[0].address;
+  const params: string[] = [];
+
+  // Add amount parameter (using the first recipient's amount)
+  const txAmount = validRecipients[0].amount;
+  params.push(`version=2.0`);
+  params.push(`amount=${txAmount}`);
+
+  // Add additional recipients as address[1], amount[1], etc.
+  validRecipients.forEach((recipient, index) => {
+    if (index === 0) return;
+    params.push(`address=${encodeURIComponent(recipient.address)}`);
+    params.push(`amount=${recipient.amount}`);
+  });
+
+  if (options.description && options.description.length > 0) {
+    params.push(`tx_description=${encodeURIComponent(options.description)}`);
+  }
+
   // Build the base URI with addresses
-  const addresses = validRecipients
-    .map((recipient) => recipient.address)
-    .join(';');
-  let uri = `monero:${addresses}`;
+  // const addresses = validRecipients
+  //   .map((recipient) => recipient.address)
+  //   .join(';');
+  // let uri = `monero:${addresses}`;
 
-  // Add query parameters
-  const queryParams: string[] = [];
+  // // Add query parameters
+  // const queryParams: string[] = [];
 
-  // Add recipient names if provided
-  const names = validRecipients
-    .map((recipient) => recipient.name || '')
-    .join(';');
-  if (names && names.split(';').some((name) => name.length > 0)) {
-    queryParams.push(`recipient_name=${encodeURIComponent(names)}`);
-  }
+  // // Add recipient names if provided
+  // const names = validRecipients
+  //   .map((recipient) => recipient.name || '')
+  //   .join(';');
+  // if (names && names.split(';').some((name) => name.length > 0)) {
+  //   queryParams.push(`recipient_name=${encodeURIComponent(names)}`);
+  // }
 
-  // Add amounts if provided
-  const amounts = validRecipients
-    .map((recipient) => recipient.amount?.toString() || '')
-    .join(';');
-  if (amounts && amounts.split(';').some((amount) => amount.length > 0)) {
-    queryParams.push(`tx_amount=${encodeURIComponent(amounts)}`);
-  }
+  // // Add amounts if provided
+  // const amounts = validRecipients
+  //   .map((recipient) => recipient.amount?.toString() || '')
+  //   .join(';');
+  // if (amounts && amounts.split(';').some((amount) => amount.length > 0)) {
+  //   queryParams.push(`tx_amount=${encodeURIComponent(amounts)}`);
+  // }
 
-  // Add description if provided
-  if (options.description) {
-    queryParams.push(
-      `tx_description=${encodeURIComponent(options.description)}`,
-    );
-  }
+  // // Add description if provided
+  // if (options.description) {
+  //   queryParams.push(
+  //     `tx_description=${encodeURIComponent(options.description)}`,
+  //   );
+  // }
 
-  // Append query parameters if any exist
-  if (queryParams.length > 0) {
-    uri += `?${queryParams.join('&')}`;
-  }
+  // // Append query parameters if any exist
+  // if (queryParams.length > 0) {
+  //   uri += `?${queryParams.join('&')}`;
+  // }
 
-  return uri;
+  return `monero:${mainAddress}?${params.join('&')}`;
 };
 
 export const generateMoneroUriFromTipRecipients = (

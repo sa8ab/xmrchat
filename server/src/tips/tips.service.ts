@@ -219,7 +219,7 @@ export class TipsService {
     };
   }
 
-  async handleTipPayment(payment: Payment, amount: number | string) {
+  async handleTipPayment(payment: Payment, amount: number) {
     const tip = payment.tip;
 
     if (!tip) {
@@ -238,10 +238,11 @@ export class TipsService {
 
     // handle multi recipients, get page amount from handlePageRecipientsAndAmounts and use
     // that value to mark it as paid or not in payments service
+    const amountInXmr = MoneroUtils.atomicUnitsToXmr(amount.toString());
     const pageAmount = await this.pageRecipientsService.getPageAmount(
       page.id,
       tip.id,
-      amount,
+      amountInXmr,
     );
 
     const pageUnitAmount = MoneroUtils.xmrToAtomicUnits(pageAmount);

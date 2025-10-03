@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ChangeRoleCommand } from './commands/change-role.command';
 import { AuthModule } from 'src/auth/auth.module';
-import { SeedCommand } from './commands/seed.command';
+import { FixtureCommand } from './commands/fixture.command';
 import { UsersModule } from 'src/users/users.module';
 import { ChangeEmailCommand } from './commands/change-email.command';
 import { NotificationsModule } from 'src/notifications/notifications.module';
@@ -14,16 +14,25 @@ import { DataMigrationCommand } from './commands/data-migration.command';
 import { Tip } from 'src/tips/tip.entity';
 import { ChangePremiumCommand } from './commands/premium.command';
 import { PagesModule } from 'src/pages/pages.module';
+import { Payment } from 'src/payments/payment.entity';
+import { User } from 'src/users/user.entity';
+import { File } from 'src/files/file.entity';
+import { ConfigCommand } from './commands/config.command';
+import { TwitchModule } from 'src/integrations/twitch/twitch.module';
+import { LiveStreamsModule } from 'src/live-streams/live-streams.module';
+import { CliUtilityService } from 'nest-commander';
 
 @Module({
   providers: [
     ChangeRoleCommand,
-    SeedCommand,
+    FixtureCommand,
     ChangeEmailCommand,
     SendEmailCommand,
     LwsCommand,
     DataMigrationCommand,
     ChangePremiumCommand,
+    ConfigCommand,
+    CliUtilityService,
   ],
   imports: [
     AuthModule,
@@ -31,7 +40,9 @@ import { PagesModule } from 'src/pages/pages.module';
     UsersModule,
     NotificationsModule,
     LwsModule,
-    TypeOrmModule.forFeature([Page, Tip]),
+    TypeOrmModule.forFeature([Page, Tip, Payment, User, File]),
+    TwitchModule,
+    LiveStreamsModule,
   ],
 })
 export class CommanderModule {}

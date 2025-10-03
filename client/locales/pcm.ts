@@ -174,7 +174,7 @@ export default {
   noRecentTips: "No recent tips!",
   pageDeactivatedAlert:
     "Your page don dey deactivated and e no dey show to di public. Abeg talk to support if you wan know more.",
-
+  tipPrivateMessage: "Private message",
   tipWalletWarningTitle: "No use streamer wallet tip.",
   tipWalletWarningDescription:
     "No use wallet wey you register for dis page send tip. E go make the amount wey we see plenty.",

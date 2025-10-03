@@ -3,6 +3,7 @@ import {
   ContentLinkPlatformEnum,
   FiatEnum,
   IntegrationConfigType,
+  LiveStreamPlatformEnum,
   NotificationChannelEnum,
   NotificationPreferenceType,
 } from "~/types/enums";
@@ -243,6 +244,34 @@ export const useConstants = () => {
     return INTEGRATION_CONFIG_TYPES[v];
   };
 
+  const LIVE_STREAM_PLATFORMS = {
+    [LiveStreamPlatformEnum.YOUTUBE]: {
+      name: "YouTube",
+      icon: "i-tabler-brand-youtube",
+      colorClassName: "text-[#FF0000]",
+    },
+    [LiveStreamPlatformEnum.TWITCH]: {
+      name: "Twitch",
+      icon: "i-tabler-brand-twitch",
+      colorClassName: "text-[#6441a5]",
+    },
+    [LiveStreamPlatformEnum.X]: {
+      name: "X",
+      icon: "i-tabler-brand-x",
+      colorClassName: "",
+    },
+    [LiveStreamPlatformEnum.RUMBLE]: {
+      name: "Rumble",
+      icon: "i-tabler-brand-rumble",
+      colorClassName: "text-[#85c742]",
+    },
+  };
+
+  const getLiveStreamPlatform = (v?: LiveStreamPlatformEnum) => {
+    if (!v) return null;
+    return LIVE_STREAM_PLATFORMS[v];
+  };
+
   return {
     getContentLink,
     CONTENT_LINKS,
@@ -254,5 +283,7 @@ export const useConstants = () => {
     getNotificationType,
     INTEGRATION_CONFIG_TYPES,
     getIntegrationConfigType,
+    LIVE_STREAM_PLATFORMS,
+    getLiveStreamPlatform,
   };
 };

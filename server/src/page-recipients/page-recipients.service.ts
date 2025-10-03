@@ -104,7 +104,7 @@ export class PageRecipientsService {
   async handleRecipientsAndAmounts({
     pageId,
     tipId,
-    amount,
+    amount, // XMR
     integratedAddress,
   }: {
     pageId: number;
@@ -183,11 +183,12 @@ export class PageRecipientsService {
     };
   }
 
-  async getPageAmount(pageId: number, tipId: number, amount: number | string) {
+  // amount in xmr
+  async getPageAmount(pageId: number, tipId: number, amount: number) {
     const { pageTipRecipient } = await this.handleRecipientsAndAmounts({
       pageId,
       tipId,
-      amount: Number(amount),
+      amount,
       integratedAddress: '',
     });
     return pageTipRecipient?.amount || 0;

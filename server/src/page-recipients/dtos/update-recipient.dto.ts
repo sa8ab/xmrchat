@@ -1,5 +1,6 @@
 import { Transform, Type } from 'class-transformer';
 import {
+  ArrayMaxSize,
   IsArray,
   IsEnum,
   IsInt,
@@ -36,6 +37,7 @@ export class UpdateRecipientDto {
 export class UpdateRecipientsDto {
   @IsArray()
   @ValidateNested({ each: true })
+  @ArrayMaxSize(10)
   @Type(() => UpdateRecipientDto)
   @Validate(IsValidRecipients)
   recipients: UpdateRecipientDto[];

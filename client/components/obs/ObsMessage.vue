@@ -6,6 +6,7 @@ const props = defineProps<{
 }>();
 
 const isPrivate = computed(() => props.event?.tip?.private);
+const { markdownAndSanitize } = useMarkdown();
 </script>
 
 <template>
@@ -18,9 +19,10 @@ const isPrivate = computed(() => props.event?.tip?.private);
       :class="{ 'text-pale': isPrivate }"
     >
       <ObsMessageHead :text="isPrivate ? 'Private' : event?.tip?.name" />
-      <div style="word-break: break-word">
-        {{ event?.message }}
-      </div>
+      <div
+        style="word-break: break-word"
+        v-html="markdownAndSanitize(event?.message)"
+      />
     </div>
   </div>
 </template>

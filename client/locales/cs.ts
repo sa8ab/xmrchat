@@ -171,7 +171,7 @@ export default {
   noRecentTips: "Žádné nedávné tipy!",
   pageDeactivatedAlert:
     "Vaše stránka byla deaktivována a není veřejně viditelná. Kontaktujte prosím podporu pro více informací.",
-
+  tipPrivateMessage: "Soukromá zpráva",
   tipWalletWarningTitle: "Neposílejte tip ze streamer peněženky.",
   tipWalletWarningDescription:
     "Vyhněte se prosím odesílání tipů z peněženky registrované na stránce. Vrácené drobné zkreslují přijatou částku.",

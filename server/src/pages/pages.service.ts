@@ -83,6 +83,7 @@ export class PagesService {
       .createQueryBuilder('page')
       .leftJoinAndSelect('page.logo', 'logo')
       .leftJoinAndSelect('page.coverImage', 'cover_image')
+      .leftJoinAndSelect('page.liveStreams', 'live_streams')
       .leftJoin(tipsSubQuery, 'paid_tip', 'paid_tip.page_id = page.id')
       .where('page.isPublic = true')
       .andWhere('page.status != :status', { status: PageStatusEnum.DEACTIVE })
@@ -279,7 +280,12 @@ export class PagesService {
     path = path.toLowerCase();
     return this.repo.findOne({
       where: { path },
-      relations: { tiers: true, links: true, recipients: true },
+      relations: {
+        tiers: true,
+        links: true,
+        recipients: true,
+        liveStreams: true,
+      },
     });
   }
 

@@ -7,6 +7,7 @@ interface State {
   form: {
     name?: string;
     searchTerms?: string;
+    rumbleLiveStreamUrl?: string;
     links: Record<
       ContentLinkPlatformEnum,
       { platform?: ContentLinkPlatformEnum; value?: string }
@@ -17,7 +18,7 @@ interface State {
 }
 
 const { getMyLinks: getMyLinksReq, updateLinks } = useServices();
-const { url, notUrl } = useValidations();
+const { url, notUrl, rumbleApiUrl } = useValidations();
 const toast = useToast();
 const { getContentLink } = useConstants();
 const { t } = useI18n();
@@ -61,6 +62,7 @@ const state = reactive<State>({
     },
     name: undefined,
     searchTerms: undefined,
+    rumbleLiveStreamUrl: undefined,
   },
   saving: false,
   saveError: undefined,
@@ -76,6 +78,7 @@ const save = async () => {
       name: state.form.name,
       searchTerms: state.form.searchTerms,
       links: Object.values(state.form.links),
+      rumbleLiveStreamUrl: state.form.rumbleLiveStreamUrl,
     });
 
     toast.add({
@@ -98,15 +101,18 @@ const rules = computed(() => {
   });
 
   return {
-    [WEBSITE]: { value: { url } },
-    [PODCAST_RSS]: { value: { url } },
-    ...notUrls,
+    links: {
+      [WEBSITE]: { value: { url } },
+      [PODCAST_RSS]: { value: { url } },
+      ...notUrls,
+    },
+    rumbleLiveStreamUrl: { url, rumbleApiUrl },
   };
 });
 
-const v = useVuelidate(
+const v = useVuelidate<any>(
   rules,
-  computed(() => state.form.links)
+  computed(() => state.form)
 );
 
 const { getValidationAttrs } = useValidations(v);
@@ -142,7 +148,7 @@ const { getValidationAttrs } = useValidations(v);
       <UFormGroup
         label="Website"
         v-for="p in CONTENT_LINKS_LIST"
-        :error="getValidationAttrs(`${p}.value`).error"
+        :error="getValidationAttrs(`links.${p}.value`).error"
       >
         <template #label>
           <span class="flex items-center gap-1.5">
@@ -155,10 +161,36 @@ const { getValidationAttrs } = useValidations(v);
         </template>
         <UInput
           v-model="state.form.links[p].value"
-          @blur="getValidationAttrs(`${p}.value`).onBlur"
+          @blur="getValidationAttrs(`links.${p}.value`).onBlur"
         />
       </UFormGroup>
     </div>
+
+    <UFormGroup
+      label="Rumble live stream API"
+      class="mt-4"
+      :error="getValidationAttrs('rumbleLiveStreamUrl').error"
+    >
+      <template #description>
+        Rumble live stream API from
+        <UButton
+          :padded="false"
+          variant="link"
+          target="_blank"
+          external
+          to="https://rumblefaq.groovehq.com/help/how-to-use-rumble-s-live-stream-api"
+        >
+          this guide </UButton
+        >. XMRChat uses this URL for getting current live streams of your
+        channel.
+      </template>
+      <PasswordInput
+        defaultVisible
+        autocomplete="off"
+        @blur="getValidationAttrs('rumbleLiveStreamUrl').onBlur"
+        v-model="state.form.rumbleLiveStreamUrl"
+      />
+    </UFormGroup>
 
     <UAlert
       v-if="state.saveError"

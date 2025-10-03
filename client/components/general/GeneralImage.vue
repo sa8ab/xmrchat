@@ -4,6 +4,7 @@ import type { Numberic } from "~/types";
 const props = withDefaults(
   defineProps<{
     url?: string;
+    skipBaseUrl?: boolean;
     variant?: "logo" | "banner";
   }>(),
   {
@@ -12,12 +13,15 @@ const props = withDefaults(
 );
 
 const config = useRuntimeConfig();
+const baseUrl = computed(() => {
+  return props.skipBaseUrl ? "" : config.public.imageBaseUrl;
+});
 </script>
 
 <template>
   <img
     v-if="url"
-    :src="`${config.public.imageBaseUrl}${url}`"
+    :src="`${baseUrl}${url}`"
     :class="['general-image', `general-image-${variant}`]"
   />
 </template>

@@ -1,5 +1,10 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
-import { Command, CommandRunner, Option } from 'nest-commander';
+import {
+  CliUtilityService,
+  Command,
+  CommandRunner,
+  Option,
+} from 'nest-commander';
 import { PagesService } from 'src/pages/pages.service';
 import { UsersService } from 'src/users/users.service';
 
@@ -11,7 +16,10 @@ import { UsersService } from 'src/users/users.service';
 export class ChangePremiumCommand extends CommandRunner {
   private logger = new Logger(ChangePremiumCommand.name);
 
-  constructor(private readonly pagesService: PagesService) {
+  constructor(
+    private readonly pagesService: PagesService,
+    private utils: CliUtilityService,
+  ) {
     super();
   }
 
@@ -20,17 +28,12 @@ export class ChangePremiumCommand extends CommandRunner {
     options?: Record<string, any>,
   ): Promise<void> {
     const status = passedParams[0];
-    if (status !== 'true' && status !== 'false') {
-      throw new BadRequestException('Status must be "true" or "false"');
-    }
 
-    const isPremium = status === 'true';
+    const isPremium = this.utils.parseBoolean(status);
 
     await this.pagesService.changePremiumBySlug(options.slug, isPremium);
 
-    this.logger.log(
-      `Changed premium status of ${options.slug} to ${isPremium}`,
-    );
+    console.log(`Changed premium status of ${options.slug} to ${isPremium}`);
   }
 
   @Option({

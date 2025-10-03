@@ -1,11 +1,12 @@
 <script setup lang="ts">
 const { socials } = useAppConfig();
+const currentYear = ref(new Date().getFullYear());
 </script>
 
 <template>
   <footer class="relative mt-10 border-t border-border">
     <div class="inner flex justify-center flex-col items-center py-8">
-      <span class="text-sm text-pale">2024 @ XMRChat</span>
+      <span class="text-sm text-pale">{{ currentYear }} @ XMRChat</span>
       <div class="social flex gap-2 mt-3">
         <UButton
           variant="ghost"

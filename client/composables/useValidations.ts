@@ -110,6 +110,16 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     streamerSlugInternalBase
   );
 
+  const rumbleApiUrlBase = (v: any) => {
+    if (!v) return true;
+    return v.startsWith("https://rumble.com/-livestream-api/get-data?key=");
+  };
+
+  const rumbleApiUrl = helpers.withMessage(
+    () => t("validations.rumbleApiUrl"),
+    rumbleApiUrlBase
+  );
+
   const getValidationAttrs = (path: string, v?: MaybeRef<Validation>) => {
     v = unref(v || generalV);
     const instance = getProperty(v, path);
@@ -148,6 +158,7 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     streamerSlug,
     streamerSlugInternal,
     moneroPrimaryAddress,
+    rumbleApiUrl,
     getValidationAttrs,
     validate,
   };

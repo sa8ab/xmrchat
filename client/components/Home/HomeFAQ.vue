@@ -25,7 +25,7 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
 </script>
 
 <template>
-  <div class="mt-7">
+  <div>
     <h3 class="w-full text-center text-4xl font-bold">{{ t("FAQ.title") }}</h3>
     <div class="mt-10 flex justify-center">
       <UAccordion

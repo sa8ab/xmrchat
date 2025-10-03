@@ -1,11 +1,33 @@
 <script lang="ts" setup>
-import type { StreamerPage } from "~/types";
+import type { LiveStream, StreamerPage } from "~/types";
 
 const route = useRoute();
 const { toPage } = useRouteLocation();
 
 const { $axios } = useNuxtApp();
 const { t } = useI18n();
+const toast = useToast();
+
+const pendingLiveStreams = ref(false);
+const updateLiveStreams = async () => {
+  try {
+    pendingLiveStreams.value = true;
+    const { data } = await $axios.post<{ liveStreams: LiveStream[] }>(
+      "/admin/update-live-streams"
+    );
+    const count = data.liveStreams.length;
+    toast.add({
+      title: `${count} Live streams found.`,
+    });
+  } catch (error) {
+    toast.add({
+      title: "Error updating live streams",
+      description: getErrorMessage(error),
+    });
+  } finally {
+    pendingLiveStreams.value = false;
+  }
+};
 
 const { page, offset, limit } = useFilter({
   initialPage: parseInt(route.query.page as string) || 1,
@@ -56,7 +78,13 @@ const columns = [
 </script>
 
 <template>
-  <PageTitle title="Pages"></PageTitle>
+  <PageTitle title="Pages"> </PageTitle>
+
+  <div class="mb-4 flex justify-end">
+    <UButton @click="updateLiveStreams" :loading="pendingLiveStreams">
+      Update live streams
+    </UButton>
+  </div>
   <PendingView :error="error" :pending="pending && !data">
     <UTable
       v-if="data"

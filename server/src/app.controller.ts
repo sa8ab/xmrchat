@@ -6,6 +6,7 @@ import { SimplexService } from './integrations/simplex/simplex.service';
 import { SignalService } from './integrations/signal/signal.service';
 import { NotificationDispatcherService } from './notifications/notification-dispatcher.service';
 import { NotificationTestsService } from './notifications/notification-tests.service';
+import { TwitchService } from './integrations/twitch/twitch.service';
 @Controller()
 export class AppController {
   constructor(
@@ -15,6 +16,7 @@ export class AppController {
     private signalService: SignalService,
     private notificationDispatcherService: NotificationDispatcherService,
     private notificationTestsService: NotificationTestsService,
+    private twitchService: TwitchService,
   ) {}
 
   @Get()
@@ -34,5 +36,6 @@ export class AppController {
     // return this.notificationTestsService.testSignal();
     // return this.signalService.sendTestMessage();
     // return this.notificationDispatcherService.notifyNewTip(1, 271);
+    // return this.twitchService.getLiveStreams([]);
   }
 }

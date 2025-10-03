@@ -30,6 +30,10 @@ export class UpdateLinksDto {
   @IsOptional()
   searchTerms: string;
 
+  @IsString()
+  @IsOptional()
+  rumbleLiveStreamUrl?: string;
+
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => UpdateLinksBaseDto)

@@ -4,6 +4,7 @@ import { TierDto } from './tier/tier.dto';
 import { MoneroUtils } from 'monero-ts';
 import { Link } from 'src/links/link.entity';
 import { LinkDto } from 'src/links/dto/link.dto';
+import { LiveStreamDto } from 'src/live-streams/dtos/live-stream.dto';
 
 export class PageDto {
   @Expose()
@@ -54,4 +55,8 @@ export class PageDto {
   @Expose()
   @Type(() => LinkDto)
   links: LinkDto[];
+
+  @Expose()
+  @Type(() => LiveStreamDto)
+  liveStreams: LiveStreamDto[];
 }

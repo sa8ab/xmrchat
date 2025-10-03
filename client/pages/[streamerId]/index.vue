@@ -55,6 +55,7 @@ useStreamerIdSeoMeta(data);
         <StreamerHeader
           class="pt-2"
           :bannerUrl="data.coverImage.url"
+          :liveStreams="data.liveStreams"
           :logoUrl="data?.logo.url"
           :name="data.name"
           :links="data.links"

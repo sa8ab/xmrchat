@@ -84,3 +84,10 @@ export enum PageRecipientVariant {
   PAGE = "page",
   XMRCHAT = "xmrchat",
 }
+
+export enum LiveStreamPlatformEnum {
+  YOUTUBE = "youtube",
+  TWITCH = "twitch",
+  X = "x",
+  RUMBLE = "rumble",
+}

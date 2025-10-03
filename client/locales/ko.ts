@@ -174,7 +174,7 @@ export default {
   noRecentTips: "최근 팁이 없습니다!",
   pageDeactivatedAlert:
     "페이지가 비활성화되어 공개적으로 표시되지 않습니다. 자세한 내용은 지원팀에 문의하세요.",
-
+  tipPrivateMessage: "비공개 메시지",
   tipWalletWarningTitle: "스트리머 지갑으로 팁을 보내지 마세요.",
   tipWalletWarningDescription:
     "페이지에 등록된 지갑으로 팁을 보내는 것을 피해주세요. 반환되는 잔액으로 인해 수령된 금액이 부풀려집니다.",
