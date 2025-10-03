@@ -100,19 +100,22 @@ export class YoutubeProvider implements LiveStreamProvider {
     });
 
     if (link?.data?.youtubeChannelId) return link.data.youtubeChannelId;
-
-    if (!param.username) return undefined;
+    if (link?.data?.skip || !param.username) return undefined;
 
     const channelId = await this.youtubeService.getChannelIdByUsername(
       param.username,
     );
-    if (!channelId) return undefined;
+    if (!channelId) {
+      // save a item on data not to retry this again
+      await this.saveDataOnLink({ skip: true }, param.pageId);
+      return undefined;
+    }
 
-    await this.saveChannelIdOnLink(channelId, param.pageId);
+    await this.saveDataOnLink({ youtubeChannelId: channelId }, param.pageId);
     return channelId;
   }
 
-  async saveChannelIdOnLink(channelId: string, pageId: number) {
+  async saveDataOnLink(data: any, pageId: number) {
     const link = await this.linkRepo.findOne({
       where: { page: { id: pageId }, platform: LiveStreamPlatformEnum.YOUTUBE },
     });
@@ -120,7 +123,7 @@ export class YoutubeProvider implements LiveStreamProvider {
     if (!link) return;
 
     await this.linkRepo.update(link.id, {
-      data: { youtubeChannelId: channelId } as any,
+      data,
     });
   }
 }

@@ -118,6 +118,7 @@ export class YoutubeService implements OnModuleInit {
 
   async getChannelIdByUsername(username: string) {
     const youtube = this.getYoutube();
+    this.logger.log(`Getting channel id by username ${username}`);
 
     try {
       const { data } = await youtube.channels.list({
