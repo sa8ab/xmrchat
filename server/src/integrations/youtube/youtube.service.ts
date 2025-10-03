@@ -88,24 +88,41 @@ export class YoutubeService implements OnModuleInit {
   }
 
   async getVideosDetails(videoIds: string[]) {
-    // max 50 ids
-    videoIds = videoIds.slice(0, 50);
+    if (!videoIds.length) return [];
+
     this.logger.log(
-      `Getting video details for ${videoIds.length} videos. ids: ${videoIds.join(', ')}`,
+      `Getting video details for ${videoIds.length} videos. Total batches needed: ${Math.ceil(videoIds.length / 50)}`,
     );
+
     const youtube = this.getYoutube();
+    const allVideos: youtube_v3.Schema$Video[] = [];
+    const batchSize = 50;
 
-    try {
-      const { data } = await youtube.videos.list({
-        id: videoIds,
-        part: ['snippet', 'liveStreamingDetails', 'statistics'],
-      });
-      return data.items;
-    } catch (error) {
-      console.log(error.response.data.error);
+    // Process video IDs in batches of 50
+    for (let i = 0; i < videoIds.length; i += batchSize) {
+      const batch = videoIds.slice(i, i + batchSize);
+      this.logger.log(
+        `Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(videoIds.length / batchSize)} with ${batch.length} videos`,
+      );
 
-      throw new BadRequestException('Error getting video details.');
+      try {
+        const { data } = await youtube.videos.list({
+          id: batch,
+          part: ['snippet', 'liveStreamingDetails', 'statistics'],
+        });
+
+        if (data.items) {
+          allVideos.push(...data.items);
+        }
+      } catch (error) {
+        this.logger.error(
+          `Error getting video details for batch ${Math.floor(i / batchSize) + 1}: ${error.response?.data?.error || error.message}`,
+        );
+      }
     }
+
+    this.logger.log(`Successfully retrieved ${allVideos.length} video details`);
+    return allVideos;
   }
 
   async getChannelIdByUsername(username: string) {
