@@ -90,10 +90,6 @@ export class YoutubeService implements OnModuleInit {
   async getVideosDetails(videoIds: string[]) {
     if (!videoIds.length) return [];
 
-    this.logger.log(
-      `Getting video details for ${videoIds.length} videos. Total batches needed: ${Math.ceil(videoIds.length / 50)}`,
-    );
-
     const youtube = this.getYoutube();
     const allVideos: youtube_v3.Schema$Video[] = [];
     const batchSize = 50;
@@ -101,10 +97,6 @@ export class YoutubeService implements OnModuleInit {
     // Process video IDs in batches of 50
     for (let i = 0; i < videoIds.length; i += batchSize) {
       const batch = videoIds.slice(i, i + batchSize);
-      this.logger.log(
-        `Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(videoIds.length / batchSize)} with ${batch.length} videos`,
-      );
-
       try {
         const { data } = await youtube.videos.list({
           id: batch,
@@ -121,7 +113,6 @@ export class YoutubeService implements OnModuleInit {
       }
     }
 
-    this.logger.log(`Successfully retrieved ${allVideos.length} video details`);
     return allVideos;
   }
 
