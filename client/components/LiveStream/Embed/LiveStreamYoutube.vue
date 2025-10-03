@@ -5,11 +5,6 @@ const props = defineProps<{
   liveStream?: LiveStream;
 }>();
 
-const emit = defineEmits<{
-  play: [];
-  pause: [];
-}>();
-
 const videoId = computed(() => props.liveStream?.videoId);
 
 const iframeUrl = computed(() => {

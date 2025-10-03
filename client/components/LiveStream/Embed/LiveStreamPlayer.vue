@@ -6,11 +6,6 @@ const props = defineProps<{
   liveStream?: LiveStream;
 }>();
 
-const emit = defineEmits<{
-  play: [];
-  pause: [];
-}>();
-
 const type = computed(() => props.liveStream?.platform);
 </script>
 
@@ -18,14 +13,10 @@ const type = computed(() => props.liveStream?.platform);
   <LiveStreamYoutube
     v-if="type === LiveStreamPlatformEnum.YOUTUBE"
     :liveStream="liveStream"
-    @play="emit('play')"
-    @pause="emit('pause')"
   />
   <LiveStreamTwitch
     v-if="type === LiveStreamPlatformEnum.TWITCH"
     :liveStream="liveStream"
-    @play="emit('play')"
-    @pause="emit('pause')"
   />
   <LiveStreamRumble
     v-if="type === LiveStreamPlatformEnum.RUMBLE"
