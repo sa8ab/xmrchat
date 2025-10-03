@@ -34,7 +34,6 @@ const liveStreamPlatform = computed(() =>
         size="80"
       />
     </div>
-    <!-- gradient background -->
     <NuxtLink
       :to="toStreamer(liveStream?.page?.path || '')"
       class="relative z-10 bg-background-2/90 p-2 rounded-lg hover:bg-background-2/100 transition-colors ring-1 ring-border"
