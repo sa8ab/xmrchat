@@ -23,29 +23,21 @@ export class RumbleProvider implements LiveStreamProvider {
     if (!params.length) return [];
 
     const requests = params.map(async (param) => {
-      const streams = await this.rumbleService.getLiveStreams(param.url);
-      return { streams, pageId: param.pageId };
-    });
-    try {
-      const settled = await Promise.allSettled(requests);
-
-      const res = settled
-        .filter((r) => r.status === 'fulfilled')
-        .map((r) => r.value);
-
-      const errors = settled
-        .filter((r) => r.status === 'rejected')
-        .map((r) => r.reason);
-
-      if (errors.length) {
-        this.logger.warn(
-          `${errors.length} Rumble live streams failed: ${errors.join(', ')}`,
+      try {
+        const streams = await this.rumbleService.getLiveStreams(param.url);
+        return { streams, pageId: param.pageId };
+      } catch (error) {
+        this.logger.error(
+          `Failed to get live streams for page ${param.pageId}: ${error.message}`,
         );
       }
+    });
+    try {
+      const res = await Promise.all(requests);
 
       const result: { pageId: number; stream: RumbleLivestream }[] = [];
       res
-        .filter((r) => r.streams?.length)
+        .filter((r) => r?.streams?.length)
         .forEach((r) => {
           r.streams.forEach((stream) => {
             result.push({
