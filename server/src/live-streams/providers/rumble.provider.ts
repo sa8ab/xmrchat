@@ -43,9 +43,6 @@ export class RumbleProvider implements LiveStreamProvider {
 
       return result.map(({ pageId, stream }) => ({
         title: stream.title,
-        // channelId: stream.user_id,
-        // channelName: stream.user_name,
-        // imageUrl: stream.thumbnail_url
         platform: LiveStreamPlatformEnum.RUMBLE,
         viewerCount: stream.watching_now,
         videoId: stream.id,
