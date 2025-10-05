@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   LinkPlatformEnum,
@@ -19,6 +19,8 @@ import { RumbleProvider } from './providers/rumble.provider';
 
 @Injectable()
 export class LiveStreamsService implements OnModuleInit {
+  private logger = new Logger(LiveStreamsService.name);
+
   constructor(
     private linksService: LinksService,
     private youtubeProvider: YoutubeProvider,
@@ -93,7 +95,7 @@ export class LiveStreamsService implements OnModuleInit {
     return result;
   }
 
-  async getTwitchLiveStreams() {
+  async getTwitchProviderParams() {
     const links = await this.linksService.findByPlatform(
       LinkPlatformEnum.TWITCH,
     );
@@ -122,7 +124,11 @@ export class LiveStreamsService implements OnModuleInit {
     );
 
     const params = [...linkParams, ...uniquePageParams];
+    return params;
+  }
 
+  async getTwitchLiveStreams() {
+    const params = await this.getTwitchProviderParams();
     return this.twitchProvider.getLiveStreams(params);
   }
 
@@ -136,7 +142,21 @@ export class LiveStreamsService implements OnModuleInit {
       pageId: link.page.id,
     }));
 
-    return this.youtubeProvider.getLiveStreams(params);
+    const twitchParams = await this.getTwitchProviderParams();
+
+    // don't add pages that are already in twitch params
+    const uniqueParams = params.filter(
+      (param) =>
+        !twitchParams.some(
+          (twitchParam) => twitchParam.pageId === param.pageId,
+        ),
+    );
+    this.logger.log(`Youtube params: ${Object.keys(params).length} items`);
+    this.logger.log(
+      `Youtube without twitch params: ${Object.keys(uniqueParams).length} items`,
+    );
+
+    return this.youtubeProvider.getLiveStreams(uniqueParams);
   }
 
   async getRumbleLiveStreams() {
