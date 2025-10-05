@@ -5,7 +5,7 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { getAxiosMessage } from 'src/shared/utils/axios';
+import { getAxiosMessage } from 'src/shared/utils/errors';
 
 export interface RumbleLivestream {
   id: string;

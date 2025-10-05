@@ -8,7 +8,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { Client, client as tmiClient } from 'tmi.js';
 import { TwitchTokenService } from './twitch-token.service';
-import { getAxiosMessage } from 'src/shared/utils/axios';
+import { getAxiosMessage } from 'src/shared/utils/errors';
 
 @Injectable()
 export class TwitchService implements OnModuleInit {

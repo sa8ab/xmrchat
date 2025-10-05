@@ -97,3 +97,79 @@ export function getAxiosMessage(
   // no response -> network / timeout etc
   return err.message ?? fallback;
 }
+
+/**
+ * Generic error message extractor that works with different types of errors.
+ * Uses getAxiosMessage for axios errors, and handles other error types.
+ *
+ * @param error - Any error object
+ * @param fallback - Fallback message if no useful message found
+ * @returns A readable error message
+ */
+export function getErrorMessage(
+  error: unknown,
+  fallback = 'Something went wrong',
+): string {
+  // Handle axios errors using the specialized function
+  if (isAxiosError(error)) {
+    return getAxiosMessage(error, fallback);
+  }
+
+  // Handle standard Error objects
+  if (error instanceof Error) {
+    return error.message || fallback;
+  }
+
+  // Handle string errors
+  if (typeof error === 'string') {
+    return error;
+  }
+
+  // Handle objects with message property
+  if (error && typeof error === 'object' && 'message' in error) {
+    const message = (error as any).message;
+    if (typeof message === 'string' && message.trim()) {
+      return message;
+    }
+  }
+
+  // Handle objects with error property
+  if (error && typeof error === 'object' && 'error' in error) {
+    const errorValue = (error as any).error;
+    if (typeof errorValue === 'string' && errorValue.trim()) {
+      return errorValue;
+    }
+  }
+
+  // Handle objects with detail property
+  if (error && typeof error === 'object' && 'detail' in error) {
+    const detail = (error as any).detail;
+    if (typeof detail === 'string' && detail.trim()) {
+      return detail;
+    }
+  }
+
+  // Try to stringify the error if it's an object
+  if (error && typeof error === 'object') {
+    try {
+      const stringified = JSON.stringify(error);
+      if (stringified && stringified !== '{}' && stringified !== 'null') {
+        return stringified.length <= 200
+          ? stringified
+          : stringified.slice(0, 200) + '...';
+      }
+    } catch {
+      // JSON.stringify failed, continue to fallback
+    }
+  }
+
+  // Handle primitive types
+  if (error !== null && error !== undefined) {
+    const stringified = String(error);
+    if (stringified && stringified !== 'null' && stringified !== 'undefined') {
+      return stringified;
+    }
+  }
+
+  return fallback;
+}

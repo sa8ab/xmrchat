@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { google, youtube_v3 } from 'googleapis';
+import { getErrorMessage } from 'src/shared/utils/errors';
 
 @Injectable()
 export class YoutubeService implements OnModuleInit {
@@ -129,8 +130,10 @@ export class YoutubeService implements OnModuleInit {
       const id = data.items?.[0]?.id;
       return id;
     } catch (error) {
-      console.log(error);
-      throw new BadRequestException('Error getting channel id by username.');
+      throw new BadRequestException(
+        'Error getting channel id by username.',
+        getErrorMessage(error),
+      );
     }
   }
 

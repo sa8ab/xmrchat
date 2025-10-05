@@ -10,7 +10,7 @@ import {
   RumbleLivestream,
   RumbleService,
 } from 'src/integrations/rumble/rumble.service';
-import { getAxiosMessage } from 'src/shared/utils/axios';
+import { getAxiosMessage } from 'src/shared/utils/errors';
 
 @Injectable()
 export class RumbleProvider implements LiveStreamProvider {
