@@ -10,7 +10,7 @@ import {
   RumbleLivestream,
   RumbleService,
 } from 'src/integrations/rumble/rumble.service';
-import { getAxiosMessage } from 'src/shared/utils/errors';
+import { getAxiosMessage, getErrorMessage } from 'src/shared/utils/errors';
 
 @Injectable()
 export class RumbleProvider implements LiveStreamProvider {
@@ -27,39 +27,33 @@ export class RumbleProvider implements LiveStreamProvider {
         const streams = await this.rumbleService.getLiveStreams(param.url);
         return { streams, pageId: param.pageId };
       } catch (error) {
-        this.logger.error(
-          `Failed to get live streams for page ${param.pageId}: ${error.message}`,
+        this.logger.warn(
+          `Failed to get live streams for page ${param.pageId}: ${getErrorMessage(error)}`,
         );
       }
     });
-    try {
-      const res = await Promise.all(requests);
+    const res = await Promise.all(requests);
 
-      const result: { pageId: number; stream: RumbleLivestream }[] = [];
-      res
-        .filter((r) => r?.streams?.length)
-        .forEach((r) => {
-          r.streams.forEach((stream) => {
-            result.push({
-              pageId: r.pageId,
-              stream,
-            });
+    const result: { pageId: number; stream: RumbleLivestream }[] = [];
+    res
+      .filter((r) => r?.streams?.length)
+      .forEach((r) => {
+        r.streams.forEach((stream) => {
+          result.push({
+            pageId: r.pageId,
+            stream,
           });
         });
+      });
 
-      return result.map(({ pageId, stream }) => ({
+    return (
+      result.map(({ pageId, stream }) => ({
         title: stream.title,
         platform: LiveStreamPlatformEnum.RUMBLE,
         viewerCount: stream.watching_now,
         videoId: stream.id,
         pageId,
-      }));
-    } catch (error) {
-      this.logger.error(
-        `Failed to get live streams from Rumble ${error.message}`,
-      );
-    }
-
-    return [];
+      })) || []
+    );
   }
 }
