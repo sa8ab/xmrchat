@@ -401,8 +401,8 @@ const handleBannerUpload = (file: UploadedFile) => {
       <div v-if="editable" class="both">
         <UFormGroup
           size="lg"
-          :label="t('defaultTipAmount')"
-          :help="t('thisIsOnlyForDisplaying')"
+          label="Tip page amount format"
+          help="Determines the default value selected for the amount format on your tip page."
         >
           <TipValueToggle
             v-model="state.form.tipDisplayMode"
@@ -412,8 +412,8 @@ const handleBannerUpload = (file: UploadedFile) => {
         </UFormGroup>
         <UFormGroup
           size="lg"
-          label="Message amount value"
-          help="This will be used to display the tip amount in the Twitch and OBS messages."
+          label="Message amount format"
+          help="Determines the amount format displayed in OBS and Twitch."
         >
           <TipValueToggle
             v-model="state.form.messageTipDisplayMode"
