@@ -40,10 +40,6 @@ export class CreatePageBaseDto {
   @IsOptional()
   expirationMinutes?: number = 90 * 24 * 60;
 
-  @IsEnum(TipDisplayMode)
-  @IsOptional()
-  defaultTipAmountDisplay?: TipDisplayMode;
-
   @IsEnum(FiatEnum)
   @IsOptional()
   fiat?: FiatEnum;
@@ -51,6 +47,10 @@ export class CreatePageBaseDto {
   @IsEnum(TipDisplayMode)
   @IsOptional()
   tipDisplayMode?: TipDisplayMode;
+
+  @IsEnum(TipDisplayMode)
+  @IsOptional()
+  messageTipDisplayMode?: TipDisplayMode;
 
   @IsBoolean()
   isPublic: boolean;

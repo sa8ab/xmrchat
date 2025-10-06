@@ -58,11 +58,15 @@ export class Page {
   @Column({ type: 'bigint', nullable: true })
   minTipAmount: number;
 
+  // deprecated, use tipDisplayMode instead.
   @Column({ nullable: true })
   defaultTipAmountDisplay: string;
 
   @Column({ nullable: true })
   tipDisplayMode: string; // xmr or fiat
+
+  @Column({ nullable: true })
+  messageTipDisplayMode: string; // xmr or fiat
 
   @Column({ nullable: true, default: 'usd' })
   fiat: string;

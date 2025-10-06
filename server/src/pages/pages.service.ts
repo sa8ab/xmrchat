@@ -401,6 +401,7 @@ export class PagesService {
 
     const globalMinTipAmount = BigInt(configMinAmount);
 
+    // FIXME: configMinAmount is alraedy in xmr units, we don't need to convert it to atomic units again.
     const minTipAmount = MoneroUtils.xmrToAtomicUnits(
       attrs.minTipAmount || configMinAmount,
     );
@@ -411,6 +412,7 @@ export class PagesService {
       );
     }
 
+    // TODO: use casl to check if the user can update the page
     if (page.userId !== user.id) {
       throw new UnauthorizedException();
     }
