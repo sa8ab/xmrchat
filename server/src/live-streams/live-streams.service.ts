@@ -151,10 +151,6 @@ export class LiveStreamsService implements OnModuleInit {
           (twitchParam) => twitchParam.pageId === param.pageId,
         ),
     );
-    this.logger.log(`Youtube params: ${Object.keys(params).length} items`);
-    this.logger.log(
-      `Youtube without twitch params: ${Object.keys(uniqueParams).length} items`,
-    );
 
     return this.youtubeProvider.getLiveStreams(uniqueParams);
   }
