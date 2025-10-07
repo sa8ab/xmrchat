@@ -85,7 +85,8 @@ const items = computed(() => {
       );
     }
 
-    const showPremiumPages = config.public.showPremiumPages;
+    const showPremiumPages =
+      config.public.showPremiumPages && authStore.isPremiumOrAdmin;
 
     if (showPremiumPages) {
       res.push(
