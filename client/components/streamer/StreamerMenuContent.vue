@@ -135,6 +135,7 @@ const items = computed(() => {
         class="w-[80px] h-[80px]"
       />
       <span class="font-medium text-lg">{{ page?.path || "-" }}</span>
+      <UBadge v-if="authStore.isPremium">Premium</UBadge>
       <span class="text-pale text-sm">{{ state.user?.email }}</span>
     </div>
     <div class="flex flex-col gap-1 mt-6">
