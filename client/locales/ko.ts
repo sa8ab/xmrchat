@@ -216,9 +216,12 @@ export default {
     "트위치 채널 이름입니다. xmr_chat 트위치 봇을 통해 스트림에 팁을 표시하는 데 사용됩니다.",
   optional: "선택 사항",
   minTipAmount: "최소 팁 금액 (XMR)",
-  defaultTipAmount: "기본 팁 금액",
-  thisIsOnlyForDisplaying:
-    "이 값은 팁 페이지에 표시되는 기본값일 뿐입니다. 시청자가 원하는 대로 변경할 수 있습니다.",
+  tipPageAmountFormat: "팁 페이지 금액 형식",
+  determinesDefaultValue:
+    "팁 페이지의 금액 형식에 대해 선택된 기본값을 결정합니다.",
+  messageAmountFormat: "메시지 금액 형식",
+  determinesAmountInObsAndTwitch:
+    "OBS와 Twitch에서 표시되는 금액 형식을 결정합니다.",
   publicPage: "공개 페이지 (크리에이터 검색 페이지에 표시됨).",
   continue: "계속",
   clickToUpload: "클릭하여 업로드",
@@ -231,6 +234,13 @@ export default {
   unavailable: "사용할 수 없음",
   fiatUnit: "법정 화폐 단위",
   fiatUnitHelp: "팁을 법정 화폐로 표시할 때 사용하는 단위.",
+  never: "안 함",
+  tipExpiration: "팁 만료",
+  tipExpirationHelp: "팁은 지정된 기간이 지나면 자동으로 삭제됩니다.",
+  tipExpirationWarning:
+    "만료 기간을 변경하면 선택한 기간보다 오래된 모든 xmrchat이 삭제됩니다.",
+  xDays: "{count}일 | {count}일",
+  xMonths: "{count}개월 | {count}개월",
   paymentIsExpired:
     "결제 기간이 만료되었습니다. 이미 결제하셨다면 고객 지원에 문의하세요.",
   pageReservationExpired: "페이지 예약이 만료되었습니다.",
@@ -377,4 +387,9 @@ export default {
   emailVerification: "이메일 인증",
   forgotPassword: "비밀번호를 잊으셨나요?",
   signUp: "회원가입",
+
+  // LIVE STREAMS
+  liveNow: "지금 생방송 중",
+  noStreamersLive: "현재 생방송 중인 스트리머가 없습니다.",
+  liveOn: "에서 생방송 중",
 };

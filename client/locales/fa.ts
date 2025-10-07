@@ -219,9 +219,12 @@ export default {
     "نام کانال توییچ شما. برای نمایش انعام‌ها در استریم از طریق ربات توییچ xmr_chat استفاده می‌شود.",
   optional: "اختیاری",
   minTipAmount: "حداقل مبلغ انعام (XMR)",
-  defaultTipAmount: "مقدار پیش‌فرض انعام",
-  thisIsOnlyForDisplaying:
-    "این مورد فقط برای نمایش مقادیر انعام است. بینندگان می‌توانند این مقدار را در صفحه انعام برای خود تغییر دهند.",
+  tipPageAmountFormat: "فرمت مبلغ صفحه انعام",
+  determinesDefaultValue:
+    "مقدار پیش‌فرض انتخاب‌شده برای فرمت مبلغ در صفحه انعام شما را تعیین می‌کند.",
+  messageAmountFormat: "فرمت مبلغ پیام",
+  determinesAmountInObsAndTwitch:
+    "فرمت مبلغ نمایش‌داده‌شده در OBS و Twitch را تعیین می‌کند.",
   publicPage: "صفحه عمومی (در صفحه جستجوی سازندگان نمایش داده می‌شود).",
   continue: "ادامه دادن",
   clickToUpload: "برای آپلود کلیک کنید",
@@ -394,4 +397,9 @@ export default {
   emailVerification: "تأیید ایمیل",
   forgotPassword: "رمز عبور را فراموش کرده‌اید؟",
   signUp: "ثبت‌نام",
+
+  // LIVE STREAM
+  liveNow: "هم‌اکنون زنده",
+  noStreamersLive: "در حال حاضر هیچ استریمری آنلاین نیست.",
+  liveOn: "زنده در",
 };

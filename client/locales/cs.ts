@@ -215,9 +215,12 @@ export default {
     "Název vašeho Twitch kanálu. Používá se k zobrazování tipů na streamu přes bota xmr_chat.",
   optional: "Volitelné",
   minTipAmount: "Min. částka tipu (XMR)",
-  defaultTipAmount: "Výchozí hodnota tipu",
-  thisIsOnlyForDisplaying:
-    "Slouží pouze k zobrazení částky tipu. Diváci si mohou částku upravit sami na stránce s tipem.",
+  tipPageAmountFormat: "Formát částky na stránce s dýškem",
+  determinesDefaultValue:
+    "Určuje výchozí hodnotu zvolenou pro formát částky na vaší stránce s dýškem.",
+  messageAmountFormat: "Formát částky zprávy",
+  determinesAmountInObsAndTwitch:
+    "Určuje formát částky zobrazený v OBS a Twitchi.",
   publicPage: "Veřejná stránka (Zobrazí se ve vyhledávání tvůrců).",
   continue: "Pokračovat",
   clickToUpload: "Klikněte pro nahrání",
@@ -389,4 +392,9 @@ export default {
   emailVerification: "Ověření e-mailu",
   forgotPassword: "Zapomněli jste heslo?",
   signUp: "Zaregistrovat se",
+
+  // LIVE STREAM
+  liveNow: "Živě teď",
+  noStreamersLive: "Žádní streamers nejsou nyní živě.",
+  liveOn: "Živě na",
 };
