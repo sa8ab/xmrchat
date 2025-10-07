@@ -43,6 +43,7 @@ export interface CreateFormFields {
   minTipAmount?: string;
   isPublic?: boolean;
   tipDisplayMode?: TipDisplayMode;
+  messageTipDisplayMode?: TipDisplayMode;
   fiat?: FiatEnum;
   expirationMinutes?: number;
 }
@@ -91,6 +92,7 @@ export interface StreamerPage {
   isPublic: boolean;
   isPremium?: boolean;
   tipDisplayMode?: TipDisplayMode;
+  messageTipDisplayMode?: TipDisplayMode;
   fiat?: FiatEnum;
   links?: ContentLink[];
   user?: User;

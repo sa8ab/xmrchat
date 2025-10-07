@@ -35,13 +35,13 @@ export class PageDto {
   twitchChannel: string;
 
   @Expose()
-  defaultTipAmountDisplay: string;
-
-  @Expose()
   fiat: string;
 
   @Expose()
   tipDisplayMode: string;
+
+  @Expose()
+  messageTipDisplayMode: string;
 
   @Expose()
   expirationMinutes: number;

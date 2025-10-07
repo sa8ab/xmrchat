@@ -166,6 +166,7 @@ const handleSubmit = async () => {
         twitchChannel: state.form.twitchChannel?.toLowerCase(),
         isPublic: state.form.isPublic,
         tipDisplayMode: state.form.tipDisplayMode,
+        messageTipDisplayMode: state.form.messageTipDisplayMode,
         fiat: state.form.fiat,
         minTipAmount: state.form.minTipAmount?.toString() || null,
         expirationMinutes: state.form.expirationMinutes || null,
@@ -226,6 +227,7 @@ const getPage = async () => {
     isPublic: page.isPublic,
     minTipAmount: page.minTipAmount,
     tipDisplayMode: page.tipDisplayMode,
+    messageTipDisplayMode: page.messageTipDisplayMode,
     fiat: page.fiat,
     expirationMinutes: page.expirationMinutes,
     tiers: page.tiers || [],
@@ -396,12 +398,11 @@ const handleBannerUpload = (file: UploadedFile) => {
         </UFormGroup>
       </div>
 
-      <div class="both">
+      <div v-if="editable" class="both">
         <UFormGroup
-          v-if="editable"
           size="lg"
-          :label="t('defaultTipAmount')"
-          :help="t('thisIsOnlyForDisplaying')"
+          label="Tip page amount format"
+          help="Determines the default value selected for the amount format on your tip page."
         >
           <TipValueToggle
             v-model="state.form.tipDisplayMode"
@@ -411,14 +412,25 @@ const handleBannerUpload = (file: UploadedFile) => {
         </UFormGroup>
         <UFormGroup
           size="lg"
+          label="Message amount format"
+          help="Determines the amount format displayed in OBS and Twitch."
+        >
+          <TipValueToggle
+            v-model="state.form.messageTipDisplayMode"
+            class="mt-2"
+            :fiat="state.form.fiat"
+          />
+        </UFormGroup>
+      </div>
+
+      <div class="both" v-if="editable">
+        <UFormGroup
+          size="lg"
           :label="$t('fiatUnit')"
           :help="$t('fiatUnitHelp')"
         >
           <FiatSelect v-model="state.form.fiat" />
         </UFormGroup>
-      </div>
-
-      <div class="both" v-if="editable">
         <div class="grid gap-2">
           <UFormGroup
             size="lg"

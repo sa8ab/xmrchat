@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { MoneroUtils } from 'monero-ts';
 import { Page } from 'src/pages/page.entity';
 import { PricesService } from 'src/prices/prices.service';
-import { FiatEnum } from 'src/shared/constants';
+import { FiatEnum, TipDisplayMode } from 'src/shared/constants';
 import { clearMessage } from 'src/shared/utils';
 import { Tip } from 'src/tips/tip.entity';
 import { Repository } from 'typeorm';
@@ -18,8 +18,8 @@ export class TipMessageService {
     private pricesService: PricesService,
   ) {}
 
-  private privateTemplate = `{{name}} tipped {{fiatValue}}`;
-  private template = `{{name}} tipped {{fiatValue}} {{#if message}}: {{message}} {{/if}}`;
+  private privateTemplate = `{{name}} tipped {{value}}`;
+  private template = `{{name}} tipped {{value}} {{#if message}}: {{message}} {{/if}}`;
 
   async generateMessage(tipId: number, pageId: number) {
     const tip = await this.tipsRepo.findOne({
@@ -34,8 +34,14 @@ export class TipMessageService {
     );
 
     const xmrValue = MoneroUtils.atomicUnitsToXmr(tip.payment.amount);
+    const xmrValueDisplay = `${xmrValue} XMR`;
 
     const fiatValue = `${FIAT_VALUES[page.fiat].symbol}${(xmrValue * fiatPrice).toFixed(2)}`;
+
+    const value =
+      page.messageTipDisplayMode === TipDisplayMode.XMR
+        ? xmrValueDisplay
+        : fiatValue;
 
     const isPrivate = tip.private;
 
@@ -44,7 +50,7 @@ export class TipMessageService {
 
     const result = hbTemplate({
       name: tip.name,
-      fiatValue: fiatValue,
+      value,
       message: message,
     });
 
