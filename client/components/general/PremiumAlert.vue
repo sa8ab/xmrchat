@@ -9,7 +9,7 @@ const { toStreamerRecipients } = useRouteLocation();
         This feature is available for premium streamers only.
       </h2>
     </template>
-    <template #description>
+    <!-- <template #description>
       <p>
         To enable this feature set the percentage of XMRChat tip split to 3% or
         more in
@@ -23,7 +23,7 @@ const { toStreamerRecipients } = useRouteLocation();
         </UButton>
         page.
       </p>
-    </template>
+    </template> -->
   </UAlert>
 </template>
 
