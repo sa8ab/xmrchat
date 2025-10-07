@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   Logger,
   NotFoundException,
   OnModuleInit,
@@ -39,6 +40,13 @@ export class SimplexService implements IIntegrationVerifier {
     setTimeout(() => {
       this.init();
     }, 10_000);
+  }
+
+  getChat() {
+    if (!this.chat) {
+      throw new InternalServerErrorException('Chat not initialized');
+    }
+    return this.chat;
   }
 
   async init() {
@@ -101,9 +109,10 @@ export class SimplexService implements IIntegrationVerifier {
   }
 
   async generateAddress() {
+    const chat = this.getChat();
     try {
       this.logger.log('Getting address...');
-      const res = await this.chat.sendChatCmdStr('/show_address');
+      const res = await chat.sendChatCmdStr('/show_address');
       // @ts-ignore
       const address = res?.contactLink?.connLinkContact?.connFullLink;
       if (address) {
@@ -113,7 +122,7 @@ export class SimplexService implements IIntegrationVerifier {
       this.logger.error('Generating address failed');
     }
     this.logger.log('No address found, creating new one...');
-    const res = await this.chat.sendChatCmdStr('/address');
+    const res = await chat.sendChatCmdStr('/address');
 
     // @ts-ignore
     const address = res?.connLinkContact?.connFullLink;
@@ -143,7 +152,8 @@ export class SimplexService implements IIntegrationVerifier {
   }
 
   async connectContact(link: string) {
-    const res = await this.chat.sendChatCmdStr(`/connect ${link}`);
+    const chat = this.getChat();
+    const res = await chat.sendChatCmdStr(`/connect ${link}`);
     const connId =
       (res as any).connection?.pccAgentConnId ||
       (res as any).connectionPlan?.contactAddressPlan?.contact?.activeConn
@@ -158,7 +168,8 @@ export class SimplexService implements IIntegrationVerifier {
   }
 
   async sendMessage(contactId: number, message: string) {
-    await this.chat.apiSendTextMessage(ChatType.Direct, contactId, message);
+    const chat = this.getChat();
+    await chat.apiSendTextMessage(ChatType.Direct, contactId, message);
   }
 
   async requestVerification(config: IntegrationConfig): Promise<void> {
