@@ -217,9 +217,12 @@ export default {
     "Twitch-kanavasi nimi. Käytetään tippien näyttämiseen streamissä xmr_chat Twitch-botin kautta.",
   optional: "Valinnainen",
   minTipAmount: "Minimi tippi (XMR)",
-  defaultTipAmount: "Oletustippimäärä",
-  thisIsOnlyForDisplaying:
-    "Tämä on vain esitystarkoituksiin. Katsojat voivat muuttaa tätä itse tippejä antaessaan.",
+  tipPageAmountFormat: "Tippisivun summan muoto",
+  determinesDefaultValue:
+    "Määrittää oletusarvon, joka valitaan tippisivun summan muodolle.",
+  messageAmountFormat: "Viestin summan muoto",
+  determinesAmountInObsAndTwitch:
+    "Määrittää summan muodon, joka näytetään OBS:ssä ja Twitchissä.",
   publicPage: "Julkinen sivu (näkyy tekijähakusivulla).",
   continue: "Jatka",
   clickToUpload: "Klikkaa ladataksesi",
@@ -233,6 +236,14 @@ export default {
   fiatUnit: "Fiat-yksikkö",
   fiatUnitHelp:
     "Yksikkö, joka näytetään tippisivun tippien määränä, kun tippienäkymä on fiat.",
+  tipExpiration: "Tipin vanheneminen",
+  tipExpirationHelp:
+    "Tipit poistetaan automaattisesti määritetyn ajan kuluttua.",
+  tipExpirationWarning:
+    "Vanhenemisen muuttaminen poistaa kaikki xmrchatit, jotka ovat vanhempia kuin valittu kesto.",
+  never: "Ei koskaan",
+  xDays: "{count} päivä | {count} päivää",
+  xMonths: "{count} Kuukausi | {count} Kuukautta",
   paymentIsExpired:
     "Maksu on vanhentunut. Jos olet jo maksanut, ota yhteyttä tukeen.",
   pageReservationExpired: "Sivun varaus on vanhentunut.",
@@ -382,4 +393,9 @@ export default {
   emailVerification: "Sähköpostivahvistus",
   forgotPassword: "Unohditko salasanan?",
   signUp: "Rekisteröidy",
+
+  // LIVE STREAMS
+  liveNow: "Lähetys käynnissä nyt",
+  noStreamersLive: "Yhtään striimaajaa ei ole nyt livenä.",
+  liveOn: "Livenä palvelussa",
 };

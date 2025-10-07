@@ -216,9 +216,12 @@ export default {
     "Имя вашего Twitch-канала. Используется для отображения чаевых через xmr_chat Twitch-бота.",
   optional: "Необязательно",
   minTipAmount: "Мин. сумма чаевых (XMR)",
-  defaultTipAmount: "Значение чаевых по умолчанию",
-  thisIsOnlyForDisplaying:
-    "Это только для отображения значений чаевых. Зрители могут изменить их на странице чаевых.",
+  tipPageAmountFormat: "Формат суммы на странице чаевых",
+  determinesDefaultValue:
+    "Определяет значение по умолчанию для формата суммы на вашей странице чаевых.",
+  messageAmountFormat: "Формат суммы сообщения",
+  determinesAmountInObsAndTwitch:
+    "Определяет формат суммы, отображаемой в OBS и Twitch.",
   publicPage: "Публичная страница (отображается в поиске создателей).",
   continue: "Продолжить",
   clickToUpload: "Кликните, чтобы загрузить",
@@ -232,6 +235,14 @@ export default {
   fiatUnit: "Валюта",
   fiatUnitHelp:
     "Валюта, используемая для отображения чаевых при установленном режиме отображения чаевых в валюте.",
+  never: "Никогда",
+  tipExpiration: "Срок действия чаевых",
+  tipExpirationHelp:
+    "Чаевые будут автоматически удалены по истечении указанного срока",
+  tipExpirationWarning:
+    "Изменение срока действия приведет к удалению всех сообщений xmrchat старше выбранного срока",
+  xDays: "{count} День | {count} Дней",
+  xMonths: "{count} Месяц | {count} Месяцев",
   paymentIsExpired:
     "Срок действия платежа истёк. Если вы уже оплатили, пожалуйста, свяжитесь со службой поддержки.",
   pageReservationExpired: "Резервация страницы истекла.",
@@ -382,4 +393,9 @@ export default {
   emailVerification: "Подтверждение электронной почты",
   forgotPassword: "Забыли пароль?",
   signUp: "Зарегистрироваться",
+
+  // LIVE STREAMS
+  liveNow: "Сейчас в эфире",
+  noStreamersLive: "Сейчас никто из стримеров не в эфире.",
+  liveOn: "В эфире на",
 };
