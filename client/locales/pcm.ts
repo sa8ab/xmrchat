@@ -218,9 +218,12 @@ export default {
     "Di name wey dey your Twitch channel. We go use am show tips with xmr_chat Twitch bot.",
   optional: "Optional",
   minTipAmount: "Smallest tip amount (XMR)",
-  defaultTipAmount: "Default tip value",
-  thisIsOnlyForDisplaying:
-    "Na just for display sake. People wey wan tip fi change am for dia page.",
+  tipPageAmountFormat: "How di money go show for tip page",
+  determinesDefaultValue:
+    "E go choose di normal money format wey go show for your tip page.",
+  messageAmountFormat: "How di money go show for message",
+  determinesAmountInObsAndTwitch:
+    "E go decide how di money go show for OBS and Twitch.",
   publicPage: "Public Page (e go show for creator search page).",
   continue: "Continue",
   clickToUpload: "Click make you upload",
@@ -231,6 +234,14 @@ export default {
     "Lowercase letters, numbers, underscores and hyphens na wetin this path fi contain.",
   moneroPrimaryAddressHelp:
     "The primary address no correct. E must begin with the number 4.",
+  never: "Neva",
+  tipExpiration: "Tip don expire time",
+  tipExpirationHelp:
+    "Tip go comot by itself after di time wey you set don reach.",
+  tipExpirationWarning:
+    "If you change di expire time, e go delete all xmrchats wey don old pass di time wey you choose.",
+  xDays: "{count} Day | {count} Days",
+  xMonths: "{count} Month | {count} Months",
   paymentIsExpired:
     "Payment don expire. If you don already pay, abeg contact support.",
   pageReservationExpired: "Di page wey you hold don expire.",
@@ -380,4 +391,9 @@ export default {
   emailVerification: "Email Verification",
   forgotPassword: "Forget Password",
   signUp: "Sign up",
+
+  // LIVE STREAMS
+  liveNow: "Dem dey live now",
+  noStreamersLive: "No streamer dey live right now.",
+  liveOn: "Live for",
 };

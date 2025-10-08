@@ -223,9 +223,12 @@ export default {
     "Nombre de tu canal de Twitch. Se usa para mostrar propinas en Stream con el bot de Twitch xmr_chat.",
   optional: "Opcional",
   minTipAmount: "Monto mínimo de propina (XMR)",
-  defaultTipAmount: "Valor por defecto de la propina",
-  thisIsOnlyForDisplaying:
-    "Esto es solo para mostrar el valor de la propina. Los espectadores pueden cambiarlo en la página de propinas.",
+  tipPageAmountFormat: "Formato de cantidad en la página de propinas",
+  determinesDefaultValue:
+    "Determina el valor predeterminado seleccionado para el formato de cantidad en tu página de propinas.",
+  messageAmountFormat: "Formato de cantidad del mensaje",
+  determinesAmountInObsAndTwitch:
+    "Determina el formato de cantidad mostrado en OBS y Twitch.",
   publicPage: "Página pública (se muestra en la búsqueda de creadores).",
   continue: "Continuar",
   clickToUpload: "Haz clic para subir",
@@ -237,6 +240,14 @@ export default {
   available: "Disponible",
   unavailable: "No disponible",
   fiatUnit: "Unidad de moneda",
+  tipExpiration: "Caducidad de la propina",
+  tipExpirationHelp:
+    "Las propinas se eliminarán automáticamente después del tiempo especificado.",
+  tipExpirationWarning:
+    "Al cambiar la caducidad, se eliminarán todos los xmrchats anteriores a la duración seleccionada.",
+  never: "Nunca",
+  xDays: "{count} Día | {count} Días",
+  xMonths: "{count} Mes | {count} Meses",
   fiatUnitHelp:
     "Unidad de moneda usada para mostrar propinas cuando el modo de visualización de propinas es en moneda.",
   paymentIsExpired:
@@ -391,4 +402,9 @@ export default {
   emailVerification: "Verificación de correo electrónico",
   forgotPassword: "¿Olvidaste tu contraseña?",
   signUp: "Registrarse",
+
+  // LIVE STREAMS
+  liveNow: "En directo ahora",
+  noStreamersLive: "No hay streamers en directo ahora mismo.",
+  liveOn: "En directo en",
 };

@@ -229,9 +229,12 @@ export default {
     "Nom de votre chaîne Twitch. Utilisé pour afficher les pourboires via le bot xmr_chat Twitch.",
   optional: "Optionnel",
   minTipAmount: "Montant minimum du pourboire (XMR)",
-  defaultTipAmount: "Montant par défaut du pourboire",
-  thisIsOnlyForDisplaying:
-    "Ceci est seulement pour afficher les valeurs des pourboires. Les spectateurs peuvent le modifier sur la page de pourboire.",
+  tipPageAmountFormat: "Format du montant sur la page de pourboire",
+  determinesDefaultValue:
+    "Détermine la valeur par défaut sélectionnée pour le format du montant sur votre page de pourboire.",
+  messageAmountFormat: "Format du montant du message",
+  determinesAmountInObsAndTwitch:
+    "Détermine le format du montant affiché dans OBS et Twitch.",
   publicPage: "Page publique (affichée dans la recherche de créateurs).",
   continue: "Continuer",
   clickToUpload: "Cliquez pour télécharger",
@@ -245,6 +248,14 @@ export default {
   fiatUnit: "Unité de monnaie",
   fiatUnitHelp:
     "Unité de monnaie utilisée pour afficher les pourboires lorsque le mode d'affichage des pourboires est en monnaie.",
+  tipExpiration: "Expiration du pourboire",
+  tipExpirationHelp:
+    "Les pourboires seront automatiquement supprimés après la durée spécifiée.",
+  tipExpirationWarning:
+    "Modifier la date d'expiration supprimera tous les xmrchats antérieurs à la durée sélectionnée.",
+  never: "Jamais",
+  xDays: "{count} Jour | {count} Jours",
+  xMonths: "{count} Mois | {count} Mois",
   paymentIsExpired:
     "Le paiement a expiré. Si vous avez déjà effectué le paiement, veuillez contacter le support.",
   pageReservationExpired: "La réservation de la page a expiré.",
@@ -401,4 +412,9 @@ export default {
   emailVerification: "Vérification de l’e-mail",
   forgotPassword: "Mot de passe oublié",
   signUp: "S’inscrire",
+
+  // LIVE STREAMS
+  liveNow: "En direct maintenant",
+  noStreamersLive: "Aucun streamer n'est en direct pour le moment.",
+  liveOn: "En direct sur",
 };

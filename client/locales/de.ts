@@ -223,9 +223,12 @@ export default {
     "Name deines Twitch-Kanals. Wird verwendet, um Trinkgeld-Transaktionen über den xmr_chat Twitch-Bot anzuzeigen.",
   optional: "Optional",
   minTipAmount: "Mindestbetrag (XMR)",
-  defaultTipAmount: "Standardbetrag",
-  thisIsOnlyForDisplaying:
-    "Dies dient nur zur Anzeige des Betrags. Zuschauer können dies auf der Trinkgeldseite selbst ändern.",
+  tipPageAmountFormat: "Trinkgeldseiten-Betragsformat",
+  determinesDefaultValue:
+    "Bestimmt den Standardwert für das Betragsformat auf deiner Trinkgeldseite.",
+  messageAmountFormat: "Nachrichtenbetragsformat",
+  determinesAmountInObsAndTwitch:
+    "Bestimmt das Betragsformat, das in OBS und Twitch angezeigt wird.",
   publicPage: "Öffentliche Seite (wird auf der Creator-Suchseite angezeigt).",
   continue: "Weiter",
   clickToUpload: "Zum Hochladen klicken",
@@ -239,6 +242,13 @@ export default {
   fiatUnit: "Fiat-Einheit",
   fiatUnitHelp:
     "Einheit, die bei der Anzeige von Trinkgeldern verwendet wird, wenn der Trinkgeld-Anzeigemodus auf Fiat gesetzt ist.",
+  tipExpiration: "Vervaldatum tip",
+  tipExpirationHelp: "Tips worden automatisch verwijderd na de opgegeven duur.",
+  tipExpirationWarning:
+    "Als u de vervaldatum wijzigt, worden alle xmrchats verwijderd die ouder zijn dan de geselecteerde duur.",
+  never: "Nooit",
+  xDays: "{count} dag | {count} dagen",
+  xMonths: "{count} maand | {count} maanden",
   paymentIsExpired:
     "Die Zahlung ist abgelaufen. Wenn Sie bereits bezahlt haben, kontaktieren Sie bitte den Support.",
   pageReservationExpired: "Die Seitenreservierung ist abgelaufen.",
@@ -393,4 +403,9 @@ export default {
   emailVerification: "E-Mail-Verifizierung",
   forgotPassword: "Passwort vergessen",
   signUp: "Registrieren",
+
+  // LIVE STREAM
+  liveNow: "Jetzt live",
+  noStreamersLive: "Derzeit sind keine Streamer live.",
+  liveOn: "Live auf",
 };

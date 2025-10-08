@@ -22,7 +22,7 @@ const items = computed(() =>
 
 <template>
   <div class="flex items-center gap-2">
-    <span class="text-sm text-pale">Live on</span>
+    <span class="text-sm text-pale">{{ $t("liveOn") }}</span>
     <div class="flex flex-wrap gap-2">
       <UIcon
         v-for="item in items"

@@ -217,9 +217,12 @@ export default {
     "Name of your twitch channel. Used to display tips on Stream via xmr_chat Twitch bot.",
   optional: "Optional",
   minTipAmount: "Min. tip amount ( XMR )",
-  defaultTipAmount: "Default tip amount value",
-  thisIsOnlyForDisplaying:
-    "This is only for displaying the tip values. Viewers can change this for themselves on tip page.",
+  tipPageAmountFormat: "Tip page amount format",
+  determinesDefaultValue:
+    "Determines the default value selected for the amount format on your tip page.",
+  messageAmountFormat: "Message amount format",
+  determinesAmountInObsAndTwitch:
+    "Determines the amount format displayed in OBS and Twitch.",
   publicPage: "Public Page ( Shown on creator search page ).",
   continue: "Continue",
   clickToUpload: "Click to upload",
@@ -398,4 +401,9 @@ export default {
   emailVerification: "Email Verification",
   forgotPassword: "Forgot Password",
   signUp: "Sign up",
+
+  // LIVE STREAMS
+  liveNow: "Live Now",
+  noStreamersLive: "No streamers are live right now.",
+  liveOn: "Live on",
 };

@@ -83,6 +83,8 @@ export class PageRecipientsService {
   }
 
   async updatePagePremium(pageId: number) {
+    this.logger.warn('Updating page premium is manual. Skipping...');
+    return;
     const page = await this.pageRepo.findOne({ where: { id: pageId } });
     if (!page) throw new NotFoundException('Page not found!');
 

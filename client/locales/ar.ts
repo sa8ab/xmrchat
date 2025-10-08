@@ -212,10 +212,11 @@ export default {
   nameOfYourTwitchChannel:
     "اسم قناة Twitch الخاصة بك. يستخدم لعرض التبرعات على البث عبر روبوت Twitch xmr_chat",
   optional: "اختياري",
-  minTipAmount: "الحد الأدنى لمبلغ التبرع (XMR)",
-  defaultTipAmount: "قيمة مبلغ التبرع الافتراضي",
-  thisIsOnlyForDisplaying:
-    "هذا فقط لعرض قيم التبرعات. يمكن للمشاهدين تغيير هذا لأنفسهم على صفحة التبرع",
+  tipPageAmountFormat: "تنسيق مبلغ صفحة الإكرامية",
+  determinesDefaultValue:
+    "يحدد القيمة الافتراضية المحددة لتنسيق المبلغ في صفحة الإكرامية الخاصة بك.",
+  messageAmountFormat: "تنسيق مبلغ الرسالة",
+  determinesAmountInObsAndTwitch: "يحدد تنسيق المبلغ المعروض في OBS وTwitch.",
   publicPage: "صفحة عامة (تظهر في صفحة البحث عن صانعي المحتوى)",
   continue: "متابعة",
   clickToUpload: "انقر للرفع",
@@ -229,6 +230,13 @@ export default {
   fiatUnit: "وحدة العملة",
   fiatUnitHelp:
     "وحدة العملة المستخدمة لعرض التبرعات عندما يكون جدول التبرعات في العملة",
+  never: "أبدًا",
+  tipExpiration: "انتهاء صلاحية الإكرامية",
+  tipExpirationHelp: "ستُحذف الإكراميات تلقائيًا بعد المدة المحددة",
+  tipExpirationWarning:
+    "سيؤدي تغيير تاريخ انتهاء الصلاحية إلى حذف جميع محادثات xmr الأقدم من المدة المحددة",
+  xDays: "{count} أيام | {count} يوم",
+  xMonths: "{count} شهور | {count} شهر",
   paymentIsExpired:
     "انتهت صلاحية الدفع. إذا كنت قد أتممت الدفع بالفعل، يرجى التواصل مع الدعم.",
   pageReservationExpired: "انتهت صلاحية حجز الصفحة.",
@@ -376,4 +384,9 @@ export default {
   emailVerification: "التحقق من البريد الإلكتروني",
   forgotPassword: "هل نسيت كلمة المرور؟",
   signUp: "إنشاء حساب",
+
+  // LIVE STREAMS
+  liveNow: "مباشر الآن",
+  noStreamersLive: "لا يوجد منشئو بث مباشر الآن.",
+  liveOn: "يبث على",
 };

@@ -137,6 +137,16 @@ const saveSettings = async () => {
           />
         </template>
       </div>
+      <!-- <div class="grid grid-cols-[1fr]">
+        <span class="font-bold cols"> Upload Sound</span>
+        <span></span>
+        <span class="text-pale text-sm">
+          upload custom sound (mp3, wav, ogg)
+        </span>
+        <div class="max-w-[320px] mt-2">
+          <UInput type="file"></UInput>
+        </div>
+      </div> -->
     </div>
     <div class="mt-6">
       <UAlert

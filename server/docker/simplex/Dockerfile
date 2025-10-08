@@ -12,14 +12,10 @@ RUN curl -L -o /usr/local/bin/simplex-chat \
     chmod +x /usr/local/bin/simplex-chat
 
 # Copy setup script to container
-COPY setup.sh /app/setup.sh
+COPY entrypoint.sh /entrypoint.sh
 
-RUN chmod +x /app/setup.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 5225
 
-CMD ["bash", "-c", "\
-    /app/setup.sh && \
-   simplex-chat -p 5226 & \
-   exec socat TCP-LISTEN:5225,fork,reuseaddr TCP:127.0.0.1:5226 \
-"]
+ENTRYPOINT ["/entrypoint.sh"]
