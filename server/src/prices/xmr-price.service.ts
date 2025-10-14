@@ -37,11 +37,11 @@ export class XmrPriceService {
 
   async getFromCake() {
     try {
-      const res =  await this.cakeService.getRate({
+      const res = await this.cakeService.getRate({
         quote: 'USD',
         base: 'XMR',
       });
-      return res
+      return res;
     } catch (error) {
       this.logger.warn('Error getting price from cake');
     }
@@ -84,7 +84,7 @@ export class XmrPriceService {
 
   async getMxnFromCake() {
     try {
-      return this.cakeService.getRate({
+      return await this.cakeService.getRate({
         quote: 'MXN',
         base: 'XMR',
       });
@@ -130,7 +130,7 @@ export class XmrPriceService {
 
   async getEurFromCake() {
     try {
-      return this.cakeService.getRate({
+      return await this.cakeService.getRate({
         quote: 'EUR',
         base: 'XMR',
       });

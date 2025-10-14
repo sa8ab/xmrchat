@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class CakeService {
     } catch (error) {
       console.log('error', error.message);
 
-      throw new BadRequestException(
+      throw new InternalServerErrorException(
         `Cake wallet API failed, make sure you have a valid API key. ${error.message}`,
       );
     }
