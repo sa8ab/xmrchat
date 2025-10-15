@@ -1,3 +1,4 @@
+import { Page } from 'src/pages/page.entity';
 import { RolesEnum } from '../shared/constants';
 import {
   Entity,
@@ -5,6 +6,8 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  RelationId,
 } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -31,6 +34,12 @@ export class User {
 
   @Column({ default: 'en', length: 2 })
   language: string;
+
+  @ManyToOne(() => Page, { nullable: true })
+  cohostPage: Page;
+
+  @RelationId((u: User) => u.cohostPage)
+  cohostPageId: number;
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;

@@ -139,3 +139,9 @@ export enum LiveStreamPlatformEnum {
   X = 'x',
   RUMBLE = 'rumble',
 }
+
+export enum CohostInvitationStatus {
+  PENDING = 'pending',
+  ACCEPTED = 'accepted',
+  EXPIRED = 'expired',
+}
