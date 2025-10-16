@@ -2,6 +2,7 @@
 import useVuelidate from "@vuelidate/core";
 
 const { email, required } = useValidations();
+const { axios } = useApp();
 const toast = useToast();
 
 const state = reactive({
@@ -15,7 +16,20 @@ const sendInvitation = async () => {
 
   state.loading = true;
   try {
+    const {} = await axios.post(`/cohost-invitations`, {
+      email: state.email,
+    });
+    toast.add({
+      title: "Invitation sent",
+      description: "The invitation has been sent to the user.",
+      color: "green",
+    });
   } catch (error) {
+    toast.add({
+      title: "Error",
+      description: getErrorMessage(error),
+      color: "red",
+    });
   } finally {
     state.loading = false;
   }
@@ -53,7 +67,9 @@ const { getValidationAttrs } = useValidations(v);
             />
           </UFormGroup>
           <div>
-            <UButton size="lg">Send Invitation</UButton>
+            <UButton size="lg" :loading="state.loading" @click="sendInvitation">
+              Send Invitation
+            </UButton>
           </div>
         </div>
       </GeneralForm>

@@ -11,8 +11,9 @@ export class CohostInvitationsController {
   constructor(private cohostInvitationsService: CohostInvitationsService) {}
 
   @Post('')
-  inviteCohost(@Body() dto: InviteCohostDto, @CurrentUser() user: User) {
-    return this.cohostInvitationsService.inviteCohost(dto.email, user.id);
+  async inviteCohost(@Body() dto: InviteCohostDto, @CurrentUser() user: User) {
+    await this.cohostInvitationsService.inviteCohost(dto.email, user.id);
+    return { message: 'Invitation sent' };
   }
 
   @Get('')

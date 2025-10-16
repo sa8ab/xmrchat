@@ -35,8 +35,9 @@ import { AuditsModule } from 'src/audits/audits.module';
             adapter: new HandlebarsAdapter({
               translate: (key: string, options: any): string => {
                 const lang = options.hash.lang || 'en';
+                const { lang: _, ...args } = options.hash || {};
 
-                return i18n.translate(key, { lang, args: options.hash.args });
+                return i18n.translate(key, { lang, args });
               },
             }),
             options: {

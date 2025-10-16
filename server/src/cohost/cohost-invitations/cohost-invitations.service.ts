@@ -80,11 +80,11 @@ export class CohostInvitationsService {
     });
     if (!inviteUser)
       throw new NotFoundException(
-        `The user with email ${inviteEmail} is not found.`,
+        `The user is not found. They need to signup before you can invite them as a cohost.`,
       );
 
     // user has verified their email
-    if (inviteUser.isEmailVerified)
+    if (!inviteUser.isEmailVerified)
       throw new BadRequestException('User has not verified their email.');
 
     // user is not a cohost already
@@ -98,7 +98,7 @@ export class CohostInvitationsService {
     );
     if (previousInvitations.length)
       throw new BadRequestException(
-        'User already has a invitations from your page. Ask them to check their email.',
+        'User already has an invitation sent to their email.',
       );
 
     // generate code
@@ -107,7 +107,7 @@ export class CohostInvitationsService {
     // create invitation entity
     const created = this.repo.create({
       page,
-      user,
+      user: inviteUser,
       code,
       // 7 days
       expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
@@ -158,8 +158,8 @@ export class CohostInvitationsService {
   async getValidInvitations(userId: number, pageId: number) {
     return this.repo.find({
       where: {
-        userId,
-        pageId,
+        user: { id: userId },
+        page: { id: pageId },
         status: CohostInvitationStatus.PENDING,
         expiresAt: MoreThanOrEqual(new Date()),
       },
