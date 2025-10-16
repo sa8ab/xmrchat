@@ -9,7 +9,7 @@ import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { Action, CohostInvitationStatus } from 'src/shared/constants';
 import { generateUUID } from 'src/shared/utils';
 import { User } from 'src/users/user.entity';
-import { Repository } from 'typeorm';
+import { MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
 import { CohostInvitation } from './entities/cohost-invitation.entity';
 import { PagesService } from 'src/pages/pages.service';
 import { NotificationsService } from 'src/notifications/notifications.service';
@@ -81,6 +81,16 @@ export class CohostInvitationsService {
     if (inviteUser.cohostPageId)
       throw new BadRequestException('User is already a cohost.');
 
+    // there is no pending invitation for the invite user
+    const previousInvitations = await this.getValidInvitations(
+      inviteUser.id,
+      page.id,
+    );
+    if (previousInvitations.length > 0)
+      throw new BadRequestException(
+        'User already has a invitations from your page. Ask them to check their email.',
+      );
+
     // generate code
     const code = generateUUID();
 
@@ -132,6 +142,18 @@ export class CohostInvitationsService {
       await manager.save(invitation);
       user.cohostPage = invitation.page;
       await manager.save(user);
+    });
+  }
+
+  async getValidInvitations(userId: number, pageId: number) {
+    return this.repo.find({
+      where: {
+        userId,
+        pageId,
+        status: CohostInvitationStatus.PENDING,
+        expiresAt: MoreThanOrEqual(new Date()),
+      },
+      relations: { page: true, user: true },
     });
   }
 }
