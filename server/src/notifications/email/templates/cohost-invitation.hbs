@@ -1,0 +1,14 @@
+{{#>layout title="{{translate 'email.cohostInvitation.title' lang=lang}}" }}
+  <h1 style="padding-bottom: 12px">{{translate "email.cohostInvitation.emailTitle" lang=lang}}</h1>
+  <p style="padding-bottom: 16px">
+    {{translate "email.cohostInvitation.invitationMessage" lang=lang inviterName=inviterName pageName=pageName}}
+  </p>
+  <a href="{{acceptLink}}" target="_blank"
+    style="padding: 12px 24px; margin-bottom: 16px; border-radius: 4px; color: #FFF; background: #ff7f0a; display: inline-flex;">
+    {{translate "email.cohostInvitation.acceptInvitation" lang=lang}}
+  </a>
+
+  <p style="padding-bottom: 16px">{{translate "email.cohostInvitation.ifYouDidNotExpectThisInvitation" lang=lang}}
+  </p>
+  {{>ending}}
+{{/layout}}

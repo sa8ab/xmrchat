@@ -12,7 +12,7 @@ import { Action, RolesEnum } from 'src/shared/constants/enum';
 import { User } from 'src/users/user.entity';
 import { Repository } from 'typeorm';
 
-type Subjects = InferSubjects<typeof User> | 'notification' | 'all';
+type Subjects = InferSubjects<typeof User> | 'notification' | 'cohost' | 'all';
 
 export type AppAbility = MongoAbility<[Action, Subjects]>;
 
@@ -42,6 +42,7 @@ export class CaslAbilityFactory {
       can(Action.Manage, 'notification');
       can(Action.Receive, 'notification');
       can(Action.Manage, 'integration');
+      can(Action.Invite, 'cohost');
     }
 
     return build({

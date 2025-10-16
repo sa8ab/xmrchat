@@ -125,6 +125,7 @@ export enum Action {
   Update = 'update',
   Delete = 'delete',
   Receive = 'receive',
+  Invite = 'invite',
 }
 
 export enum PageRecipientVariant {

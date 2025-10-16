@@ -47,5 +47,13 @@
     "noTipsReceived": "No tips don come for last 24 hours",
     "thankYouForYourContent": "Tainks for your fine content! Continue with your fine work.",
     "visitXMRChat": "Visit XMRChat"
+  },
+  "cohostInvitation": {
+    "subject": "XMRChat Cohost Invitation",
+    "title": "Cohost Invitation",
+    "emailTitle": "Dem don invite you to be cohost!",
+    "invitationMessage": "{inviterName} don invite you to become cohost for their page '{pageName}'.",
+    "acceptInvitation": "Accept di invitation",
+    "ifYouDidNotExpectThisInvitation": "If na no be you expect dis invitation, you fit just ignore dis email."
   }
 }
