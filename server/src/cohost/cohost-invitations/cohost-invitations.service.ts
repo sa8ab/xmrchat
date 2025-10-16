@@ -25,6 +25,16 @@ export class CohostInvitationsService {
     @InjectRepository(User) private userRepo: Repository<User>,
   ) {}
 
+  async findMySentInvitations(user: User) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page not found');
+
+    return this.repo.find({
+      where: { pageId: page.id, status: CohostInvitationStatus.PENDING },
+      relations: { page: true, user: true },
+    });
+  }
+
   async findOne(userId: number, pageId: number) {
     if (userId || pageId) return null;
 
@@ -86,7 +96,7 @@ export class CohostInvitationsService {
       inviteUser.id,
       page.id,
     );
-    if (previousInvitations.length > 0)
+    if (previousInvitations.length)
       throw new BadRequestException(
         'User already has a invitations from your page. Ask them to check their email.',
       );
