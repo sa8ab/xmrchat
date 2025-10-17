@@ -42,7 +42,7 @@ export class CaslAbilityFactory {
       can(Action.Manage, 'notification');
       can(Action.Receive, 'notification');
       can(Action.Manage, 'integration');
-      can(Action.Invite, 'cohost');
+      can(Action.Manage, 'cohost');
     }
 
     return build({
