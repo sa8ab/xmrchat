@@ -18,7 +18,10 @@ export class UsersService {
 
   async findById(id?: number) {
     if (!id) return null;
-    return this.repo.findOneBy({ id });
+    return this.repo.findOne({
+      where: { id },
+      relations: { cohostPage: true },
+    });
   }
 
   async findByEmail(email: string) {
