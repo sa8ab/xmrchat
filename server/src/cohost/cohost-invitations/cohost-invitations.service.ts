@@ -131,7 +131,8 @@ export class CohostInvitationsService {
       relations: { page: true, user: true },
     });
 
-    if (!invitation) throw new NotFoundException('Invitation not found');
+    if (!invitation)
+      throw new NotFoundException('No pending invitations found.');
 
     const user = await this.userRepo.findOneOrFail({
       where: { id: invitation.userId },

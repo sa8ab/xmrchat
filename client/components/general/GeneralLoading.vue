@@ -12,11 +12,10 @@
   border-radius: 4px;
   background: currentColor;
   display: block;
-  margin: -50px auto 0;
+  margin: 0 auto 0;
   position: relative;
   color: #ff7f0a;
-  transform: translateY(30px);
-  transform: translateX(-28px);
+  transform: translateY(30px) translateX(-28px);
   box-sizing: border-box;
   animation: animloader 2s ease infinite;
 }

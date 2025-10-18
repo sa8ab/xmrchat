@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Post,
+} from '@nestjs/common';
 import { InviteCohostDto } from './dtos/invite-cohost.dto';
 import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import { User } from 'src/users/user.entity';
@@ -14,6 +21,12 @@ export class CohostInvitationsController {
   async inviteCohost(@Body() dto: InviteCohostDto, @CurrentUser() user: User) {
     await this.cohostInvitationsService.inviteCohost(dto.email, user.id);
     return { message: 'Invitation sent' };
+  }
+
+  @Post('/accept/:code')
+  async acceptCohostInvitation(@Param('code', ParseUUIDPipe) code: string) {
+    await this.cohostInvitationsService.acceptCohostInvitation(code);
+    return { message: 'Invitation accepted' };
   }
 
   @Get('')

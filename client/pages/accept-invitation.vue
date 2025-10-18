@@ -1,62 +1,45 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const { axios } = useApp();
+const { toIndex } = useRouteLocation();
+const route = useRoute();
+const code = computed(() => route.query.code as string);
+
+const { error, data, pending } = useLazyAsyncData(
+  async () => {
+    await axios.post(`/cohost-invitations/accept/${code.value}`);
+  },
+  { server: false }
+);
+
+const renderTitle = computed(() => {
+  if (pending.value) return "Accepting invitation";
+  if (error.value) return "Invitation failed";
+  if (data.value) return "Invitation accepted";
+  return "Accepting invitation";
+});
+</script>
 
 <template>
-  <div class="flex justify-center">
-    <div class="flex flex-col items-center">
-      <h1 class="text-2xl font-bold pt-10">Accepting invitation</h1>
-      <GeneralLoading />
+  <div class="flex flex-col inner">
+    <h1 class="text-2xl font-bold pt-10 pb-4 text-center">{{ renderTitle }}</h1>
+    <GeneralLoading v-if="pending" />
+    <div v-else-if="error" class="flex flex-col gap-4 items-center">
+      <UAlert
+        class="max-w-[480px]"
+        color="red"
+        :description="getErrorMessage(error)"
+        title="Invitation failed"
+      ></UAlert>
+      <UButton :to="toIndex()">{{ $t("goToHomePage") }}</UButton>
+    </div>
+    <div v-else-if="data" class="flex flex-col gap-4 items-center">
+      <UAlert
+        class="max-w-[480px]"
+        color="green"
+        title="Invitation accepted"
+        description="You are now a cohost of the page."
+      ></UAlert>
+      <UButton :to="toIndex()">{{ $t("goToHomePage") }}</UButton>
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.loader {
-  width: 16px;
-  height: 16px;
-  box-shadow: 0 30px, 0 -30px;
-  border-radius: 4px;
-  background: currentColor;
-  display: block;
-  margin: -50px auto 0;
-  position: relative;
-  color: #ff7f0a;
-  transform: translateY(30px);
-  transform: translateX(-28px);
-  box-sizing: border-box;
-  animation: animloader 2s ease infinite;
-}
-.loader::after,
-.loader::before {
-  content: "";
-  box-sizing: border-box;
-  width: 16px;
-  height: 16px;
-  box-shadow: 0 30px, 0 -30px;
-  border-radius: 4px;
-  background: currentColor;
-  color: #ff7f0a;
-  position: absolute;
-  left: 30px;
-  top: 0;
-  animation: animloader 2s 0.2s ease infinite;
-}
-.loader::before {
-  animation-delay: 0.4s;
-  left: 60px;
-}
-
-@keyframes animloader {
-  0% {
-    top: 0;
-    color: #ff7f0a;
-  }
-  50% {
-    top: 30px;
-    color: rgba(255, 255, 255, 0.2);
-  }
-  100% {
-    top: 0;
-    color: #ff7f0a;
-  }
-}
-</style>
