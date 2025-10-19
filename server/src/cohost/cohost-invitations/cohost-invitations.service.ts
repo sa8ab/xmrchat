@@ -160,7 +160,7 @@ export class CohostInvitationsService {
     if (!id) throw new BadRequestException('Invitation ID is required');
     const invitation = await this.repo.findOne({
       where: { id },
-      relations: { page: { user: true }, user: true },
+      relations: { page: true, user: true },
     });
     if (!invitation) throw new NotFoundException('Invitation not found');
 
@@ -171,6 +171,8 @@ export class CohostInvitationsService {
         'You are not authorized to cancel this invitation',
       );
     }
+
+    await this.repo.delete({ id: invitation.id });
   }
 
   async getValidInvitations(userId: number, pageId: number) {
