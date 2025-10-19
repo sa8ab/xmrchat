@@ -13,6 +13,7 @@ import { MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
 import { CohostInvitation } from './entities/cohost-invitation.entity';
 import { PagesService } from 'src/pages/pages.service';
 import { NotificationsService } from 'src/notifications/notifications.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class CohostInvitationsService {
@@ -20,6 +21,7 @@ export class CohostInvitationsService {
     private casl: CaslAbilityFactory,
     private pagesService: PagesService,
     private notificationsService: NotificationsService,
+    private configService: ConfigService,
     @InjectRepository(CohostInvitation)
     private repo: Repository<CohostInvitation>,
     @InjectRepository(User) private userRepo: Repository<User>,
@@ -59,6 +61,8 @@ export class CohostInvitationsService {
   }
 
   async inviteCohost(inviteEmail: string, userId: number) {
+    const maxInvitations = Number(this.configService.get('MAX_COHOSTS')) || 5;
+
     const user = await this.userRepo.findOneOrFail({
       where: { id: userId },
       relations: { cohostPage: true },
@@ -83,6 +87,9 @@ export class CohostInvitationsService {
         `The user is not found. They need to signup before you can invite them as a cohost.`,
       );
 
+    if (inviteUser.id === user.id)
+      throw new BadRequestException('You cannot invite yourself as a cohost.');
+
     // user has verified their email
     if (!inviteUser.isEmailVerified)
       throw new BadRequestException('User has not verified their email.');
@@ -92,13 +99,20 @@ export class CohostInvitationsService {
       throw new BadRequestException('User is already a cohost.');
 
     // there is no pending invitation for the invite user
-    const previousInvitations = await this.getValidInvitations(
-      inviteUser.id,
+    const previousUserInvitations = await this.getValidInvitations(
       page.id,
+      inviteUser.id,
     );
-    if (previousInvitations.length)
+    if (previousUserInvitations.length)
       throw new BadRequestException(
         'User already has an invitation sent to their email.',
+      );
+
+    // there is no more than max invitations for the page
+    const previousInvitations = await this.getValidInvitations(page.id);
+    if (previousInvitations.length >= maxInvitations)
+      throw new BadRequestException(
+        `You have reached the maximum number of invitations ( ${maxInvitations} ).`,
       );
 
     // generate code
@@ -175,10 +189,10 @@ export class CohostInvitationsService {
     await this.repo.delete({ id: invitation.id });
   }
 
-  async getValidInvitations(userId: number, pageId: number) {
+  async getValidInvitations(pageId: number, userId?: number) {
     return this.repo.find({
       where: {
-        user: { id: userId },
+        user: userId ? { id: userId } : undefined,
         page: { id: pageId },
         status: CohostInvitationStatus.PENDING,
         expiresAt: MoreThanOrEqual(new Date()),

@@ -5,7 +5,6 @@ import type { CohostInvitation } from "~/types";
 const { email, required } = useValidations();
 const { axios } = useApp();
 const toast = useToast();
-const { relativeDate, dayjs } = useDate();
 
 const state = reactive({
   email: "",
@@ -37,6 +36,7 @@ const sendInvitation = async () => {
       color: "green",
     });
     state.email = "";
+    v.value.$reset();
     await refresh();
   } catch (error) {
     toast.add({
