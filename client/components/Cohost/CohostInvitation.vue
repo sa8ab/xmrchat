@@ -5,7 +5,15 @@ const props = defineProps<{
   invitation: CohostInvitation;
 }>();
 
+const emit = defineEmits<{
+  cancel: [];
+}>();
+
 const { dayjs, relativeDate } = useDate();
+
+const pendingCancel = ref(false);
+
+// TODO: Add cancel
 </script>
 
 <template>

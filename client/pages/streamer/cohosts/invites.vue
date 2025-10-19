@@ -12,7 +12,7 @@ const state = reactive({
   loading: false,
 });
 
-const { data, error, pending } = useLazyAsyncData(
+const { data, error, pending, refresh } = useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{ cohostInvitations: CohostInvitation[] }>(
       `/cohost-invitations/pending`
@@ -36,6 +36,8 @@ const sendInvitation = async () => {
       description: "The invitation has been sent to the user.",
       color: "green",
     });
+    state.email = "";
+    await refresh();
   } catch (error) {
     toast.add({
       title: "Error",
