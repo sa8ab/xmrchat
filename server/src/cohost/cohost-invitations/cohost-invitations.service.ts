@@ -63,7 +63,7 @@ export class CohostInvitationsService {
   }
 
   async inviteCohost(inviteEmail: string, userId: number) {
-    const maxInvitations = Number(this.configService.get('MAX_COHOSTS')) || 5;
+    const maxInvitations = this.getMaxCohosts();
 
     const user = await this.userRepo.findOneOrFail({
       where: { id: userId },
