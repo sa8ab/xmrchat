@@ -156,6 +156,23 @@ export class CohostInvitationsService {
     });
   }
 
+  async cancelCohostInvitation(id: number, user: User) {
+    if (!id) throw new BadRequestException('Invitation ID is required');
+    const invitation = await this.repo.findOne({
+      where: { id },
+      relations: { page: { user: true }, user: true },
+    });
+    if (!invitation) throw new NotFoundException('Invitation not found');
+
+    const ability = await this.casl.createForUser(user);
+
+    if (!ability.can(Action.Delete, invitation)) {
+      throw new UnauthorizedException(
+        'You are not authorized to cancel this invitation',
+      );
+    }
+  }
+
   async getValidInvitations(userId: number, pageId: number) {
     return this.repo.find({
       where: {

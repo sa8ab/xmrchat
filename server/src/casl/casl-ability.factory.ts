@@ -4,15 +4,21 @@ import {
   ExtractSubjectType,
   InferSubjects,
   MongoAbility,
+  MongoQuery,
 } from '@casl/ability';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CohostInvitation } from 'src/cohost/cohost-invitations/entities/cohost-invitation.entity';
 import { Page } from 'src/pages/page.entity';
 import { Action, RolesEnum } from 'src/shared/constants/enum';
 import { User } from 'src/users/user.entity';
 import { Repository } from 'typeorm';
 
-type Subjects = InferSubjects<typeof User> | 'notification' | 'cohost' | 'all';
+type Subjects =
+  | InferSubjects<typeof User | typeof CohostInvitation | typeof Page>
+  | 'notification'
+  | 'cohost'
+  | 'all';
 
 export type AppAbility = MongoAbility<[Action, Subjects]>;
 
@@ -43,7 +49,12 @@ export class CaslAbilityFactory {
       can(Action.Receive, 'notification');
       can(Action.Manage, 'integration');
       can(Action.Manage, 'cohost');
+      can(Action.Create, CohostInvitation);
     }
+
+    can(Action.Delete, CohostInvitation, {
+      'page.userId': user.id,
+    } as any);
 
     return build({
       detectSubjectType: (item) =>

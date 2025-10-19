@@ -1,8 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
+  ParseIntPipe,
   ParseUUIDPipe,
   Post,
 } from '@nestjs/common';
@@ -35,5 +37,14 @@ export class CohostInvitationsController {
     const res =
       await this.cohostInvitationsService.findMyPendingInvitations(user);
     return { cohostInvitations: res };
+  }
+
+  @Delete('/:id')
+  async cancelCohostInvitation(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() user: User,
+  ) {
+    await this.cohostInvitationsService.cancelCohostInvitation(id, user);
+    return { message: 'Invitation cancelled' };
   }
 }
