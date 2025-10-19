@@ -5,6 +5,7 @@ import type { CohostInvitation } from "~/types";
 const { email, required } = useValidations();
 const { axios } = useApp();
 const toast = useToast();
+const { relativeDate, dayjs } = useDate();
 
 const state = reactive({
   email: "",
@@ -16,6 +17,7 @@ const { data, error, pending } = useLazyAsyncData(
     const { data } = await axios.get<{ cohostInvitations: CohostInvitation[] }>(
       `/cohost-invitations/pending`
     );
+    return data.cohostInvitations;
   },
   { server: false }
 );
@@ -87,27 +89,11 @@ const { getValidationAttrs } = useValidations(v);
     </div>
     <div class="grid gap-2">
       <h2 class="text-lg font-medium">Pending invitations</h2>
-      <pre>{{ data }}</pre>
       <!-- <div>
         <NoItems />
       </div> -->
       <div class="grid gap-2">
-        <div
-          class="rounded-lg ring-1 ring-border px-6 py-4 flex gap-3 items-center"
-        >
-          <div
-            class="p-2 rounded-full ring-1 ring-border flex items-center justify-center"
-          >
-            <UIcon name="i-heroicons-user" size="20" />
-          </div>
-          <div class="flex-1">
-            <p class="font-medium">email</p>
-            <p class="text-pale text-sm">expires at</p>
-          </div>
-          <div>
-            <!-- actions -->
-          </div>
-        </div>
+        <CohostInvitation v-for="invitation in data" :invitation="invitation" />
       </div>
     </div>
   </div>
