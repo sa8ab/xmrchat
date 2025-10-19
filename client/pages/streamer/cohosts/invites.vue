@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import useVuelidate from "@vuelidate/core";
+import type { CohostInvitation } from "~/types";
 
 const { email, required } = useValidations();
 const { axios } = useApp();
@@ -9,6 +10,15 @@ const state = reactive({
   email: "",
   loading: false,
 });
+
+const { data, error, pending } = useLazyAsyncData(
+  async () => {
+    const { data } = await axios.get<{ cohostInvitations: CohostInvitation[] }>(
+      `/cohost-invitations/pending`
+    );
+  },
+  { server: false }
+);
 
 const sendInvitation = async () => {
   const valid = await v.value.$validate();
@@ -76,7 +86,8 @@ const { getValidationAttrs } = useValidations(v);
       <UDivider class="my-6" />
     </div>
     <div class="grid gap-2">
-      <h2 class="text-lg font-medium">Invitations</h2>
+      <h2 class="text-lg font-medium">Pending invitations</h2>
+      <pre>{{ data }}</pre>
       <!-- <div>
         <NoItems />
       </div> -->

@@ -29,10 +29,11 @@ export class CohostInvitationsController {
     return { message: 'Invitation accepted' };
   }
 
-  @Get('')
+  @Get('/pending')
   @Serialize(CohostInvitationsRO)
-  async findMyInvitations(@CurrentUser() user: User) {
-    const res = await this.cohostInvitationsService.findMySentInvitations(user);
+  async findMyPendingInvitations(@CurrentUser() user: User) {
+    const res =
+      await this.cohostInvitationsService.findMyPendingInvitations(user);
     return { cohostInvitations: res };
   }
 }

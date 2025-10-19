@@ -25,12 +25,12 @@ export class CohostInvitationsService {
     @InjectRepository(User) private userRepo: Repository<User>,
   ) {}
 
-  async findMySentInvitations(user: User) {
+  async findMyPendingInvitations(user: User) {
     const page = await this.pagesService.findMyPage(user);
     if (!page) throw new NotFoundException('Page not found');
 
     return this.repo.find({
-      where: { pageId: page.id, status: CohostInvitationStatus.PENDING },
+      where: { page: { id: page.id }, status: CohostInvitationStatus.PENDING },
       relations: { page: true, user: true },
     });
   }
