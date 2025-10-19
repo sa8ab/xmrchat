@@ -14,6 +14,7 @@ import { CohostInvitation } from './entities/cohost-invitation.entity';
 import { PagesService } from 'src/pages/pages.service';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { ConfigService } from '@nestjs/config';
+import { Page } from 'src/pages/page.entity';
 
 @Injectable()
 export class CohostInvitationsService {
@@ -25,6 +26,7 @@ export class CohostInvitationsService {
     @InjectRepository(CohostInvitation)
     private repo: Repository<CohostInvitation>,
     @InjectRepository(User) private userRepo: Repository<User>,
+    @InjectRepository(Page) private pageRepo: Repository<Page>,
   ) {}
 
   async findMyPendingInvitations(user: User) {
@@ -160,6 +162,21 @@ export class CohostInvitationsService {
     if (user.cohostPageId)
       throw new BadRequestException('You are already a cohost');
 
+    // cohosts count not more than max cohosts
+    const page = await this.pageRepo.findOne({
+      where: { id: invitation.pageId },
+      relations: { cohosts: true },
+    });
+
+    if (!page) throw new NotFoundException('Page not found');
+
+    const maxCohosts = this.getMaxCohosts();
+
+    if (page.cohosts?.length >= maxCohosts)
+      throw new BadRequestException(
+        `The page has reached the maximum number of cohosts.`,
+      );
+
     // update invitation status to accepted
     // add user as cohost to page
     await this.repo.manager.transaction(async (manager) => {
@@ -199,5 +216,10 @@ export class CohostInvitationsService {
       },
       relations: { page: true, user: true },
     });
+  }
+
+  getMaxCohosts() {
+    const maxCohosts = Number(this.configService.get('MAX_COHOSTS')) || 5;
+    return maxCohosts;
   }
 }

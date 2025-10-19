@@ -6,7 +6,10 @@ const code = computed(() => route.query.code as string);
 
 const { error, data, pending } = useLazyAsyncData(
   async () => {
-    await axios.post(`/cohost-invitations/accept/${code.value}`);
+    const { data } = await axios.post(
+      `/cohost-invitations/accept/${code.value}`
+    );
+    return data;
   },
   { server: false }
 );
