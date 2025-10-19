@@ -13,6 +13,7 @@ import { File } from 'src/files/file.entity';
 import { FileType } from 'src/shared/constants/enum';
 import { MoneroUtils } from 'monero-ts';
 import { randomUUID } from 'node:crypto';
+import { isEmail, isString } from 'class-validator';
 
 @Command({
   name: 'fixture',
@@ -49,9 +50,9 @@ export class FixtureCommand extends CommandRunner {
     passedParams: string[],
     options?: Record<string, any>,
   ): Promise<void> {
-    const email = 'dev@dev.com';
+    const email = options.email || 'dev@dev.com';
     const password = 'password';
-    const pagePath = 'dev-page';
+    const pagePath = options.path || 'dev-page';
 
     const user = await this.createUser(email, password);
     const page = await this.createPage({ path: pagePath, user });
@@ -62,13 +63,23 @@ export class FixtureCommand extends CommandRunner {
     // await runSeeders(dataSource);
   }
 
-  // @Option({
-  //   flags: '-r, --reset [reset]',
-  //   description: 'Reset database before running seeder',
-  // })
-  // parseReset(val: string) {
-  //   return Boolean(val);
-  // }
+  @Option({
+    flags: '-e, --email [email]',
+    description: 'Email of the user to create',
+  })
+  parseEmail(val: string) {
+    if (!isEmail(val)) throw new Error('Email is invalid');
+    return val;
+  }
+
+  @Option({
+    flags: '-p, --path [path]',
+    description: 'Path of the page to create',
+  })
+  parsePagePath(val: string) {
+    if (!isString(val)) throw new Error('Page path is invalid');
+    return val;
+  }
 
   async createUser(email: string, password: string) {
     const user = await this.usersRepo.findOne({ where: { email } });
