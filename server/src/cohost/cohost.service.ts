@@ -1,5 +1,10 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Page } from 'src/pages/page.entity';
 import { PagesService } from 'src/pages/pages.service';
 import { User } from 'src/users/user.entity';
 import { Repository } from 'typeorm';
@@ -8,6 +13,7 @@ import { Repository } from 'typeorm';
 export class CohostService {
   constructor(
     @InjectRepository(User) private usersRepo: Repository<User>,
+    @InjectRepository(Page) private pagesRepo: Repository<Page>,
     private pagesService: PagesService,
   ) {}
 
@@ -47,5 +53,18 @@ export class CohostService {
     cohost.cohostPage = null;
 
     await this.usersRepo.save(cohost);
+  }
+
+  // Cohost page
+  async getMyCohostPage(user: User) {
+    if (!user) return null;
+
+    const page = await this.pagesRepo.findOne({
+      where: { id: user.cohostPageId },
+    });
+
+    if (!page) throw new NotFoundException('Page not found');
+
+    return page;
   }
 }
