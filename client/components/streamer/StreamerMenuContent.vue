@@ -19,6 +19,7 @@ const {
   toStreamerIntegrations,
   toStreamerRecipients,
   toStreamerCohosts,
+  toStreamerCohostPage,
 } = useRouteLocation();
 
 const items = computed(() => {
@@ -109,6 +110,14 @@ const items = computed(() => {
           },
         ]
       );
+    }
+
+    if (authStore.isCohost) {
+      res.push({
+        label: "Moderator",
+        icon: "i-heroicons-user-group",
+        to: toStreamerCohostPage(),
+      });
     }
 
     res.push(

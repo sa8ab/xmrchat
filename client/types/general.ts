@@ -31,6 +31,7 @@ export interface User {
   id: string;
   roles: RolesEnum[];
   language?: string;
+  cohostPage?: StreamerPage;
 }
 
 export interface CreateFormFields {

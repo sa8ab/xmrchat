@@ -80,6 +80,7 @@ export const useAuthStore = defineStore(
     const isAdmin = computed(() => state.user?.roles.includes(RolesEnum.ADMIN));
     const isPremium = computed(() => state.page?.isPremium);
     const isPremiumOrAdmin = computed(() => isPremium.value || isAdmin.value);
+    const isCohost = computed(() => state.user?.cohostPage);
     const userEmail = computed(() => state.user?.email);
     const pageName = computed(() => state.page?.name || state.page?.path);
 
@@ -91,6 +92,7 @@ export const useAuthStore = defineStore(
       isAdmin,
       isPremium,
       isPremiumOrAdmin,
+      isCohost,
       getMe,
       login,
       signup,
