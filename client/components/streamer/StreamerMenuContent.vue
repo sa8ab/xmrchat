@@ -114,7 +114,7 @@ const items = computed(() => {
 
     if (authStore.isCohost) {
       res.push({
-        label: "Moderator",
+        label: "Cohost",
         icon: "i-heroicons-user-group",
         to: toStreamerCohostPage(),
       });

@@ -30,7 +30,7 @@ export const useRouteLocation = () => {
     toStreamerRecipients: () => localeRoute("/streamer/recipients"),
     toStreamerCohosts: () => localeRoute("/streamer/cohosts"),
     toStreamerCohostsInvites: () => localeRoute("/streamer/cohosts/invites"),
-    toStreamerCohostPage: () => localeRoute("/streamer/moderator"),
+    toStreamerCohostPage: () => localeRoute("/streamer/cohost"),
 
     toUsers: () => localeRoute("/admin/users"),
     toPages: () => localeRoute("/admin/pages"),
