@@ -26,7 +26,7 @@ const tipValue = ref<TipDisplayMode | undefined>(data.value?.tipDisplayMode);
 <template>
   <div></div>
   <PageTitle
-    title="Page Moderator"
+    title="Cohost Page"
     :description="`Manage ${cohostPage?.path || '-'} xmrchats`"
   />
 
