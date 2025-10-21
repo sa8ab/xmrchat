@@ -2,12 +2,18 @@
 import type { Numberic, ObsTipSocketEvent, StreamerPage, Tip } from "~/types";
 import { FiatEnum, TipDisplayMode } from "~/types/enums";
 
-const props = defineProps<{
-  slug: string;
-  tipValue?: TipDisplayMode;
-  fiat?: FiatEnum;
-  page?: StreamerPage;
-}>();
+const props = withDefaults(
+  defineProps<{
+    slug: string;
+    tipValue?: TipDisplayMode;
+    fiat?: FiatEnum;
+    page?: StreamerPage;
+    showPrivateNameAndMessage?: boolean;
+  }>(),
+  {
+    showPrivateNameAndMessage: true,
+  }
+);
 
 const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
   useServices();
@@ -20,7 +26,6 @@ const { init, disconnect, sendTipToObs, removeTipFromObs } = usePageSocket({
   },
 });
 
-const { errorHandler } = useErrorHandler();
 const { t } = useI18n();
 const { relativeDate, dayjs } = useDate();
 
@@ -86,9 +91,13 @@ const updateTipPrivate = async (id: Numberic, isPrivate: boolean) => {
       title: t("tipUpdated"),
     });
 
-    refresh();
+    await refresh();
   } catch (error) {
-    errorHandler(error);
+    toast.add({
+      title: t("error"),
+      description: getErrorMessage(error),
+      color: "red",
+    });
   }
 };
 
@@ -112,7 +121,11 @@ const handleSendClick = async (row: Tip) => {
     await sendTipToObs(props.slug, row.id);
     tipEvents.value.push({ tip: row, message: "", autoRemove: false });
   } catch (error) {
-    errorHandler(error);
+    toast.add({
+      title: t("error"),
+      description: getErrorMessage(error),
+      color: "red",
+    });
   }
 };
 
@@ -121,7 +134,11 @@ const handleRemoveClick = async (row: Tip) => {
     await removeTipFromObs(props.slug, row.id);
     tipEvents.value = tipEvents.value.filter(({ tip }) => tip?.id !== row.id);
   } catch (error) {
-    errorHandler(error);
+    toast.add({
+      title: t("error"),
+      description: getErrorMessage(error),
+      color: "red",
+    });
   }
 };
 
@@ -159,8 +176,21 @@ const { markdownAndSanitize } = useMarkdown();
           <span>{{ new Date(row.payment.paidAt).toLocaleTimeString() }}</span>
         </div>
       </template>
+
+      <template #name-data="{ row }">
+        <div v-if="row.private && !showPrivateNameAndMessage">
+          <p class="text-pale">{{ t("private.title") }}</p>
+        </div>
+        <div v-else>
+          {{ row.name }}
+        </div>
+      </template>
       <template #message-data="{ row }">
+        <div v-if="row.private && !showPrivateNameAndMessage">
+          <p class="text-pale">{{ t("tipPrivateMessage") }}</p>
+        </div>
         <div
+          v-else
           class="break-words max-w-[20rem] min-w-[8rem]"
           v-html="markdownAndSanitize(row?.message)"
         />

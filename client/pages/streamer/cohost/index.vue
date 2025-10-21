@@ -67,6 +67,7 @@ const tipValue = ref<TipDisplayMode | undefined>(data.value?.tipDisplayMode);
       :tipValue="tipValue"
       :fiat="data.fiat"
       :page="data"
+      :showPrivateNameAndMessage="false"
     />
   </div>
 </template>
