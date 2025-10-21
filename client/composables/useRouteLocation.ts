@@ -19,7 +19,7 @@ export const useRouteLocation = () => {
     toStreamerCreate: () => localeRoute("/streamer/create"),
     toStreamerOBS: () => localeRoute("/streamer/obs"),
     toStreamerContentLinks: () => localeRoute("/streamer/content-links"),
-    toStreamerAccount: () => localeRoute("/streamer/account"),
+    toStreamerAccount: () => localeRoute("/streamer/accounts"),
     toContact: () => localeRoute("/contact"),
     toStreamer: (id: Numberic) => localeRoute(`/${id}`),
     toCreators: () => localeRoute(`/creator`),
@@ -29,7 +29,8 @@ export const useRouteLocation = () => {
     toStreamerIntegrations: () => localeRoute("/streamer/integrations"),
     toStreamerRecipients: () => localeRoute("/streamer/recipients"),
     toStreamerCohosts: () => localeRoute("/streamer/cohosts"),
-    toStreamerCohostsInvites: () => localeRoute("/streamer/cohosts/invites"),
+    toStreamerCohostsInvites: () =>
+      localeRoute("/streamer/accounts/cohost-invites"),
     toStreamerCohostPage: () => localeRoute("/streamer/cohost"),
 
     toUsers: () => localeRoute("/admin/users"),
