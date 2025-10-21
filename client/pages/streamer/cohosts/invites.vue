@@ -91,10 +91,21 @@ const { getValidationAttrs } = useValidations(v);
     </div>
     <div class="grid gap-2">
       <h2 class="text-lg font-medium">Pending invitations</h2>
-      <!-- <div>
+      <div v-if="pending">
+        <!-- TODO: Add skeleton -->
+      </div>
+      <div v-else-if="error">
+        <UAlert
+          :description="getErrorMessage(error)"
+          title="Error"
+          color="red"
+          variant="subtle"
+        ></UAlert>
+      </div>
+      <div v-else-if="!data?.length">
         <NoItems />
-      </div> -->
-      <div class="grid gap-2">
+      </div>
+      <div v-else class="grid gap-2">
         <CohostInvitation v-for="invitation in data" :invitation="invitation" />
       </div>
     </div>
