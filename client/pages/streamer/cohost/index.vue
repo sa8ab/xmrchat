@@ -32,6 +32,7 @@ const tipValue = ref<TipDisplayMode | undefined>(data.value?.tipDisplayMode);
 
   <div v-if="pending">pending</div>
   <div v-else-if="error || !data">
+    <!-- TODO: user UAlert component -->
     <span class="text-red-500">{{ getErrorMessage(error) }}</span>
   </div>
   <div v-else>

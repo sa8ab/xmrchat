@@ -69,16 +69,16 @@ export class TipsService {
       .orderBy('tip.created_at', 'DESC')
       .getMany();
 
-    const privateFiltered = result.map(({ name, message, ...rest }) => {
-      const hidePrivate = !isStreamer && rest.private;
-      return {
-        ...rest,
-        name: hidePrivate ? '' : name,
-        message: hidePrivate ? '' : message,
-      };
-    });
+    // const privateFiltered = result.map(({ name, message, ...rest }) => {
+    //   const hidePrivate = !isStreamer && rest.private;
+    //   return {
+    //     ...rest,
+    //     name: hidePrivate ? '' : name,
+    //     message: hidePrivate ? '' : message,
+    //   };
+    // });
 
-    return privateFiltered;
+    return { tips: result, page };
   }
 
   async updateTipByStreamer(id: number, payload: UpdateTipDto, user: User) {
