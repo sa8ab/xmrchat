@@ -2,7 +2,10 @@
 import { ConfirmModal } from "#components";
 
 const { axios } = useApp();
+const { toStreamerDisplay } = useRouteLocation();
 const loadingRemove = ref(false);
+const authStore = useAuthStore();
+const toast = useToast();
 
 const modal = useModal();
 
@@ -15,11 +18,25 @@ const handleRemoveClick = () => {
   });
 };
 
-// TODO: add api request to /cohosts/remove-my-cohost
-// navigate to streamer index after success
-// update auth store state
-
-const handleRemove = () => {};
+const handleRemove = async () => {
+  loadingRemove.value = true;
+  try {
+    await axios.delete("/cohosts/remove-my-cohost");
+    await navigateTo(toStreamerDisplay()?.path);
+    await authStore.getMe();
+    toast.add({
+      description: "You have been removed from the cohost of the page.",
+      color: "green",
+    });
+  } catch (error) {
+    toast.add({
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+    loadingRemove.value = false;
+  }
+};
 </script>
 
 <template>
