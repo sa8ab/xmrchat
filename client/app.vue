@@ -33,7 +33,7 @@ defineOgImage({
       <NuxtPage />
     </NuxtLayout>
     <UNotifications />
-    <ConfirmModal />
+    <UModals />
   </div>
 </template>
 

@@ -1,24 +1,37 @@
 <script lang="ts" setup>
-const { state, hide } = useConfirmModal();
-
+const props = defineProps<{
+  title?: string;
+  text?: string;
+  color?: string;
+}>();
 const handleAccept = () => {
-  state.value.onConfirm?.();
+  emit("confirm");
   hide();
+};
+
+const modal = useModal();
+
+const emit = defineEmits<{
+  confirm: [];
+}>();
+
+const hide = () => {
+  modal.close();
 };
 </script>
 
 <template>
-  <UModal v-model="state.active">
+  <UModal>
     <UCard>
-      <template #header v-if="state.title">
-        <h2 class="text-xl font-medium">{{ state.title }}</h2>
+      <template #header v-if="title">
+        <h2 class="text-xl font-medium">{{ title }}</h2>
       </template>
       <div>
-        {{ state.text }}
+        {{ text }}
       </div>
       <template #footer>
         <div class="flex gap-2 justify-end">
-          <UButton :color="state.color as any || 'red'" @click="handleAccept">{{
+          <UButton :color="color as any || 'red'" @click="handleAccept">{{
             $t("confirm")
           }}</UButton>
           <UButton variant="ghost" @click="hide">{{ $t("cancel") }}</UButton>

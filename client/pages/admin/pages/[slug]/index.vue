@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+import { ConfirmModal } from "#components";
 import type { StreamerPage } from "~/types";
 import { PageStatusEnum } from "~/types/enums";
 
 const { $axios } = useNuxtApp();
 const route = useRoute();
-const confirmModal = useConfirmModal();
+const modal = useModal();
 const { toStreamer } = useRouteLocation();
 const toast = useToast();
 const loadingStatusChange = ref(false);
@@ -22,9 +23,7 @@ const { data, error, pending, refresh } = useLazyAsyncData(
 );
 
 const changeStatus = (status: PageStatusEnum) => {
-  console.log("Change status call");
-
-  confirmModal.show({
+  modal.open(ConfirmModal, {
     title: "Warning",
     text: `Are you sure you want change status of page ${data.value?.name} to ${PAGE_STATUS[status].subjectTitle}?`,
     onConfirm: () => executeChangeStatus(status),

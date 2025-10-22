@@ -30,6 +30,16 @@ const tipValue = ref<TipDisplayMode | undefined>(data.value?.tipDisplayMode);
     :description="`Manage ${cohostPage?.path || '-'} xmrchats`"
   />
 
+  <div class="flex justify-end pb-2">
+    <UButton
+      color="red"
+      variant="ghost"
+      trailingIcon="i-heroicons-arrow-right-on-rectangle"
+    >
+      Remove from Cohost
+    </UButton>
+  </div>
+
   <div v-if="pending">pending</div>
   <div v-else-if="error || !data">
     <!-- TODO: user UAlert component -->
