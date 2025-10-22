@@ -101,7 +101,7 @@ export class TipsService {
       : Action.MakeTipPublic;
     if (!ability.can(action, page)) {
       throw new UnauthorizedException(
-        'You are not authorized to update this tip',
+        `You are not authorized to make this tip ${payload.private ? 'private' : 'public'}.`,
       );
     }
 
