@@ -127,6 +127,8 @@ export enum Action {
   Receive = 'receive',
   Invite = 'invite',
   SendObsMessage = 'send-obs-message',
+  MakeTipPrivate = 'make-tip-private',
+  MakeTipPublic = 'make-tip-public',
 }
 
 export enum PageRecipientVariant {

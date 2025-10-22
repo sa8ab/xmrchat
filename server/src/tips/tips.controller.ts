@@ -40,7 +40,7 @@ export class TipsController {
     @Body() body: UpdateTipDto,
     @Param('id') id: number,
   ) {
-    return this.tipsService.updateTipByStreamer(id, body, user);
+    return this.tipsService.updateTip(id, body, user);
   }
 
   @Get('/test/test')

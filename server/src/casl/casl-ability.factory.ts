@@ -11,11 +11,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CohostInvitation } from 'src/cohost/cohost-invitations/entities/cohost-invitation.entity';
 import { Page } from 'src/pages/page.entity';
 import { Action, RolesEnum } from 'src/shared/constants/enum';
+import { Tip } from 'src/tips/tip.entity';
 import { User } from 'src/users/user.entity';
 import { Repository } from 'typeorm';
 
 type Subjects =
-  | InferSubjects<typeof User | typeof CohostInvitation | typeof Page>
+  | InferSubjects<
+      typeof User | typeof CohostInvitation | typeof Page | typeof Tip
+    >
   | 'notification'
   | 'cohost'
   | 'all';
@@ -52,6 +55,7 @@ export class CaslAbilityFactory {
       can(Action.Create, CohostInvitation);
     }
 
+    // OBS ACTIONS
     // Send obs message when streamer or cohost of the page is the user
     can(Action.SendObsMessage, Page, { userId: user.id });
 
@@ -61,9 +65,16 @@ export class CaslAbilityFactory {
       });
     }
 
+    // COHOST ACTIONS
     can(Action.Delete, CohostInvitation, {
       'page.userId': user.id,
     } as any);
+
+    // TIPS ACTIONS
+    can(Action.MakeTipPrivate, Page, { userId: user.id });
+    can(Action.MakeTipPublic, Page, { userId: user.id });
+    // Only make private if cohost
+    can(Action.MakeTipPrivate, Page, { id: user.cohostPageId });
 
     return build({
       detectSubjectType: (item) =>
