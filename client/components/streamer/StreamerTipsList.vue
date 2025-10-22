@@ -143,6 +143,10 @@ const handleRemoveClick = async (row: Tip) => {
 };
 
 const { markdownAndSanitize } = useMarkdown();
+
+const makePublicAbility = computed(() => props.page?.ability?.makeTipPublic);
+const getPrivateDisabled = (privateValue: boolean) =>
+  privateValue && !makePublicAbility.value;
 </script>
 
 <template>
@@ -198,6 +202,7 @@ const { markdownAndSanitize } = useMarkdown();
       <template #private-data="{ row }">
         <div class="private">
           <UCheckbox
+            :disabled="getPrivateDisabled(row.private)"
             :modelValue="row.private"
             @change="updateTipPrivate(row.id, $event)"
           ></UCheckbox>
