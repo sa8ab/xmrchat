@@ -30,7 +30,7 @@ const handleRemove = () => {};
     :loading="loadingRemove"
     @click="handleRemoveClick"
   >
-    Remove from Cohost
+    Remove from cohost
   </UButton>
 </template>
 
