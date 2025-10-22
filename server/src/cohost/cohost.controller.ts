@@ -7,6 +7,7 @@ import { PagesService } from 'src/pages/pages.service';
 import { CohostsRO } from './dtos/cohost.dto';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
 import { CohostPageRO } from './dtos/cohost-page.dto';
+import { Action } from 'src/shared/constants';
 
 @Controller('cohosts')
 export class CohostController {
@@ -31,6 +32,13 @@ export class CohostController {
   @Serialize(CohostPageRO)
   async getMyCohostPage(@CurrentUser() user: User) {
     const page = await this.cohostService.getMyCohostPage(user);
+
+    const ability = await this.casl.createForUser(user);
+    const abilityResult = {
+      makeTipPrivate: ability.can(Action.MakeTipPrivate, page),
+      makeTipPublic: ability.can(Action.MakeTipPublic, page),
+    };
+    Object.assign(page, { ability: abilityResult });
 
     return {
       cohostPage: page,

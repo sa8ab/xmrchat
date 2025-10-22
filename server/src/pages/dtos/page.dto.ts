@@ -59,4 +59,7 @@ export class PageDto {
   @Expose()
   @Type(() => LiveStreamDto)
   liveStreams: LiveStreamDto[];
+
+  @Expose()
+  ability?: any;
 }
