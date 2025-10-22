@@ -35,6 +35,7 @@ const { data, pending, error } = useLazyAsyncData(
     </div>
     <div v-else class="grid gap-2">
       <pre>{{ data }}</pre>
+      <!-- <CohostItem v-for="cohost in data" :cohost="cohost" /> -->
     </div>
   </div>
 </template>

@@ -10,6 +10,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Cache } from 'cache-manager';
+import { getErrorMessage } from 'src/shared/utils/errors';
 
 @Injectable()
 export class TwitchTokenService implements OnModuleInit {
@@ -24,7 +25,11 @@ export class TwitchTokenService implements OnModuleInit {
   async onModuleInit() {
     const token = await this.getClientToken();
     if (token) return;
-    await this.getAndSaveClientToken();
+    try {
+      await this.getAndSaveClientToken();
+    } catch (error) {
+      this.logger.error(`On module init: ${getErrorMessage(error)}`);
+    }
   }
 
   // Used for getting client credentials token
