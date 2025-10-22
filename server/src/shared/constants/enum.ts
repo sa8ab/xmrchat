@@ -126,6 +126,7 @@ export enum Action {
   Delete = 'delete',
   Receive = 'receive',
   Invite = 'invite',
+  SendObsMessage = 'send-obs-message',
 }
 
 export enum PageRecipientVariant {

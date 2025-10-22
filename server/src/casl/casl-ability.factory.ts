@@ -52,6 +52,15 @@ export class CaslAbilityFactory {
       can(Action.Create, CohostInvitation);
     }
 
+    // Send obs message when streamer or cohost of the page is the user
+    can(Action.SendObsMessage, Page, { userId: user.id });
+
+    if (user.cohostPageId) {
+      can(Action.SendObsMessage, Page, {
+        id: user.cohostPageId,
+      });
+    }
+
     can(Action.Delete, CohostInvitation, {
       'page.userId': user.id,
     } as any);

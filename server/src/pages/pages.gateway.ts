@@ -20,12 +20,15 @@ import { PricesService } from 'src/prices/prices.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { TipMessageService } from 'src/tip-message/tip-message.service';
+import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
+import { Action } from 'src/shared/constants';
 
 @WebSocketGateway({ namespace: '/pages', cors: { origin: true } })
 export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private logger = new Logger(PagesGateway.name);
 
   constructor(
+    private casl: CaslAbilityFactory,
     @Inject(forwardRef(() => PagesService)) private pagesService: PagesService,
     @InjectRepository(Tip) private tipsRepo: Repository<Tip>,
     private pricesService: PricesService,
@@ -98,7 +101,10 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const page = await this.pagesService.findByPath(slug);
     if (!page) return { error: 'Page not found' };
 
-    if (page.userId !== user.id) return { error: 'Unauthorized' };
+    const ability = await this.casl.createForUser(user);
+
+    if (!ability.can(Action.SendObsMessage, page))
+      return { error: 'Unauthorized' };
 
     let tip = await this.tipsRepo.findOne({
       where: { id: tipId },
@@ -136,14 +142,14 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const user = (client as any).user;
 
     const page = await this.pagesService.findByPath(slug);
-    if (!page) throw new WsException('Page not found');
+    if (!page) return { error: 'Page not found' };
 
-    if (page.userId !== user.id) throw new WsException('Unauthorized');
+    const ability = await this.casl.createForUser(user);
+    if (!ability.can(Action.SendObsMessage, page))
+      return { error: 'Unauthorized' };
 
     this.server.to(`page-${slug}`).emit('obsTipRemove', { tipId });
-
     await this.removeTipFromObsCache(slug, tipId);
-
     return { message: 'Tip is removed from the OBS page.' };
   }
 
