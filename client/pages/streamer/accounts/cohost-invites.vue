@@ -106,7 +106,11 @@ const { getValidationAttrs } = useValidations(v);
         <NoItems />
       </div>
       <div v-else class="grid gap-2">
-        <CohostInvitation v-for="invitation in data" :invitation="invitation" />
+        <CohostInvitation
+          v-for="invitation in data"
+          :invitation="invitation"
+          @cancel="refresh"
+        />
       </div>
     </div>
   </div>

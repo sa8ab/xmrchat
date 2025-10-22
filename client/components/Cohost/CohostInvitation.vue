@@ -10,10 +10,30 @@ const emit = defineEmits<{
 }>();
 
 const { dayjs, relativeDate } = useDate();
+const { axios } = useApp();
+const toast = useToast();
 
-const pendingCancel = ref(false);
+const loadingCancel = ref(false);
 
 // TODO: Add cancel
+const handleCancelClick = async () => {
+  loadingCancel.value = true;
+  try {
+    await axios.delete(`/cohost-invitations/${props.invitation.id}`);
+    toast.add({
+      description: "Invitation cancelled",
+      color: "green",
+    });
+    emit("cancel");
+  } catch (error) {
+    toast.add({
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+    loadingCancel.value = false;
+  }
+};
 </script>
 
 <template>
@@ -36,8 +56,13 @@ const pendingCancel = ref(false);
         </p>
       </div>
       <div>
-        <UButton color="red">Cancel</UButton>
-        <!-- actions -->
+        <UButton
+          color="red"
+          :loading="loadingCancel"
+          @click="handleCancelClick"
+        >
+          Cancel
+        </UButton>
       </div>
     </div>
   </div>
