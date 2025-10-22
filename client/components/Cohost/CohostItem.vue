@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ConfirmModal } from "#components";
 import type { User } from "~/types";
 
 const props = defineProps<{
@@ -10,10 +11,40 @@ const emit = defineEmits<{
 }>();
 
 const { dayjs, relativeDate } = useDate();
+const { axios } = useApp();
+const toast = useToast();
+const modal = useModal();
 
-const pendingRemove = ref(false);
+const loadingRemove = ref(false);
 
 // TODO: Add remove
+const handleRemoveClick = () => {
+  modal.open(ConfirmModal, {
+    title: "Remove cohost",
+    text: "Are you sure you want to remove this cohost?",
+    color: "red",
+    onConfirm: () => handleRemove(),
+  });
+};
+
+const handleRemove = async () => {
+  loadingRemove.value = true;
+  try {
+    await axios.delete(`/cohosts/${props.cohost.id}`);
+    toast.add({
+      description: "Cohost removed",
+      color: "green",
+    });
+    emit("remove");
+  } catch (error) {
+    toast.add({
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+    loadingRemove.value = false;
+  }
+};
 </script>
 
 <template>
@@ -30,7 +61,13 @@ const pendingRemove = ref(false);
         <p class="font-medium">email</p>
       </div>
       <div>
-        <UButton color="red" variant="ghost">Remove</UButton>
+        <UButton
+          color="red"
+          variant="ghost"
+          :loading="loadingRemove"
+          @click="handleRemoveClick"
+          >Remove</UButton
+        >
       </div>
     </div>
   </div>

@@ -1,4 +1,11 @@
-import { Controller, Delete, Get } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { CohostService } from './cohost.service';
 import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import { User } from 'src/users/user.entity';
@@ -26,6 +33,18 @@ export class CohostController {
     return {
       cohosts: res,
     };
+  }
+
+  @Delete('/:id')
+  async removeCohost(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() user: User,
+  ) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page not found');
+
+    await this.cohostService.removeCohost(page.id, id);
+    return { message: 'Cohost removed' };
   }
 
   @Get('my-page')

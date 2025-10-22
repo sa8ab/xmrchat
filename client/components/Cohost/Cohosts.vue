@@ -4,7 +4,7 @@ const { toStreamerCohostsInvites } = useRouteLocation();
 
 const { axios } = useApp();
 
-const { data, pending, error } = useLazyAsyncData(
+const { data, pending, error, refresh } = useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{ cohosts: User[] }>("/cohosts");
     return data.cohosts;
@@ -35,7 +35,7 @@ const { data, pending, error } = useLazyAsyncData(
     </div>
     <div v-else class="grid gap-2">
       <pre>{{ data }}</pre>
-      <!-- <CohostItem v-for="cohost in data" :cohost="cohost" /> -->
+      <CohostItem v-for="cohost in data" :cohost="cohost" @remove="refresh" />
     </div>
   </div>
 </template>
