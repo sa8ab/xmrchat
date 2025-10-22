@@ -42,10 +42,14 @@ export class CohostService {
   }
 
   async removeMyCohost(userId: number) {
-    const cohost = await this.usersRepo.findOneOrFail({
+    if (!userId) throw new BadRequestException('id is required');
+
+    const cohost = await this.usersRepo.findOne({
       where: { id: userId },
       relations: { cohostPage: true },
     });
+
+    if (!cohost) throw new NotFoundException('Cohost not found');
 
     if (!cohost.cohostPage)
       throw new BadRequestException('You are not a cohost.');

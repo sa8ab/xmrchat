@@ -35,19 +35,7 @@ export class CohostController {
     };
   }
 
-  @Delete('/:id')
-  async removeCohost(
-    @Param('id', ParseIntPipe) id: number,
-    @CurrentUser() user: User,
-  ) {
-    const page = await this.pagesService.findMyPage(user);
-    if (!page) throw new NotFoundException('Page not found');
-
-    await this.cohostService.removeCohost(page.id, id);
-    return { message: 'Cohost removed' };
-  }
-
-  @Get('my-page')
+  @Get('/my-page')
   @Serialize(CohostPageRO)
   async getMyCohostPage(@CurrentUser() user: User) {
     const page = await this.cohostService.getMyCohostPage(user);
@@ -68,5 +56,17 @@ export class CohostController {
   async removeMyCohost(@CurrentUser() user: User) {
     await this.cohostService.removeMyCohost(user.id);
     return { message: 'You are removed from the cohost.' };
+  }
+
+  @Delete('/:id')
+  async removeCohost(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() user: User,
+  ) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page not found');
+
+    await this.cohostService.removeCohost(page.id, id);
+    return { message: 'Cohost removed' };
   }
 }

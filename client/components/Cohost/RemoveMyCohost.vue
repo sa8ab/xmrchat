@@ -29,6 +29,8 @@ const handleRemove = async () => {
       color: "green",
     });
   } catch (error) {
+    console.log((error as any)?.response);
+
     toast.add({
       description: getErrorMessage(error),
       color: "red",
