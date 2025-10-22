@@ -52,7 +52,7 @@
     "subject": "XMRChat Co-Host Einladung",
     "title": "Co-Host Einladung",
     "emailTitle": "Sie wurden als Co-Host eingeladen!",
-    "invitationMessage": "{inviterName} hat Sie eingeladen, Co-Host auf ihrer Seite '{pageName}' zu werden.",
+    "invitationMessage": "Sie wurden als Co-Host auf {pageName} Seite eingeladen.",
     "acceptInvitation": "Einladung annehmen",
     "ifYouDidNotExpectThisInvitation": "Wenn Sie diese Einladung nicht erwartet haben, können Sie diese E-Mail ignorieren."
   }

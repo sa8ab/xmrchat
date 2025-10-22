@@ -135,7 +135,6 @@ export class CohostInvitationsService {
     await this.notificationsService.sendCohostInvitation({
       to: inviteUser.email,
       code: invitation.code,
-      inviterName: user.email,
       pageName: page.name,
       lang: inviteUser.language,
     });

@@ -52,7 +52,7 @@
     "subject": "XMRChat Cohost Invitation",
     "title": "Cohost Invitation",
     "emailTitle": "Dem don invite you to be cohost!",
-    "invitationMessage": "{inviterName} don invite you to become cohost for their page '{pageName}'.",
+    "invitationMessage": "Dem don invite you to become cohost for {pageName} page.",
     "acceptInvitation": "Accept di invitation",
     "ifYouDidNotExpectThisInvitation": "If na no be you expect dis invitation, you fit just ignore dis email."
   }

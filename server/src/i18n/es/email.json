@@ -52,7 +52,7 @@
     "subject": "Invitación de Co-anfitrión XMRChat",
     "title": "Invitación de Co-anfitrión",
     "emailTitle": "¡Has sido invitado a ser co-anfitrión!",
-    "invitationMessage": "{inviterName} te ha invitado a ser co-anfitrión en su página '{pageName}'.",
+    "invitationMessage": "Te has invitado a ser co-anfitrión en {pageName} página.",
     "acceptInvitation": "Aceptar Invitación",
     "ifYouDidNotExpectThisInvitation": "Si no esperabas esta invitación, puedes ignorar este correo electrónico."
   }

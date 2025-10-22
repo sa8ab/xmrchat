@@ -52,7 +52,7 @@
     "subject": "دعوت نامه همکار XMRChat",
     "title": "دعوت نامه همکار",
     "emailTitle": "شما برای همکاری دعوت شده‌اید!",
-    "invitationMessage": "{inviterName} شما را برای همکاری در صفحه '{pageName}' دعوت کرده است.",
+    "invitationMessage": "شما برای همکاری در {pageName} صفحه دعوت شده‌اید.",
     "acceptInvitation": "پذیرش دعوت",
     "ifYouDidNotExpectThisInvitation": "اگر این دعوت را انتظار نداشتید، می‌توانید این ایمیل را نادیده بگیرید."
   }

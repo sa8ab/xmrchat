@@ -52,7 +52,7 @@
     "subject": "XMRChat Co-isäntä kutsu",
     "title": "Co-isäntä kutsu",
     "emailTitle": "Sinut on kutsuttu co-isännäksi!",
-    "invitationMessage": "{inviterName} on kutsunut sinut co-isännäksi heidän sivulleen '{pageName}'.",
+    "invitationMessage": "Sinut on kutsuttu co-isännäksi {pageName} sivulle.",
     "acceptInvitation": "Hyväksy kutsu",
     "ifYouDidNotExpectThisInvitation": "Jos et odottanut tätä kutsu, voit jättää tämän viestin huomiotta."
   }

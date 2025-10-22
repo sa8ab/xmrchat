@@ -52,7 +52,7 @@
     "subject": "XMRChat 공동 호스트 초대",
     "title": "공동 호스트 초대",
     "emailTitle": "공동 호스트로 초대되었습니다!",
-    "invitationMessage": "{inviterName}님이 '{pageName}' 페이지의 공동 호스트로 초대했습니다.",
+    "invitationMessage": "{pageName} 페이지의 공동 호스트로 초대되었습니다.",
     "acceptInvitation": "초대 수락",
     "ifYouDidNotExpectThisInvitation": "이 초대를 예상하지 않으셨다면 이 이메일을 무시하셔도 됩니다."
   }

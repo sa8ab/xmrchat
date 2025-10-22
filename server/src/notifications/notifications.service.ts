@@ -152,7 +152,6 @@ export class NotificationsService {
     to: string;
     lang: string;
     code: string;
-    inviterName: string;
     pageName: string;
   }) {
     const acceptLink = `${this.config.get('CLIENT_BASE_URL')}/accept-invitation?code=${options.code}`;

@@ -52,7 +52,7 @@
     "subject": "Pozvánka na spolupráci XMRChat",
     "title": "Pozvánka na spolupráci",
     "emailTitle": "Byli jste pozváni k spolupráci!",
-    "invitationMessage": "{inviterName} vás pozval k spolupráci na jejich stránce '{pageName}'.",
+    "invitationMessage": "Byli jste pozváni k spolupráci na {pageName} stránce.",
     "acceptInvitation": "Přijmout pozvánku",
     "ifYouDidNotExpectThisInvitation": "Pokud jste neočekávali tuto pozvánku, můžete tento e-mail ignorovat."
   }

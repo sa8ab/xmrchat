@@ -52,7 +52,7 @@
     "subject": "دعوة مشارك في XMRChat",
     "title": "دعوة مشارك",
     "emailTitle": "تم دعوتك لتكون مشاركاً!",
-    "invitationMessage": "{inviterName} دعاك لتكون مشاركاً في صفحتهم '{pageName}'.",
+    "invitationMessage": "تم دعوتك لتكون مشاركاً في {pageName} صفحة.",
     "acceptInvitation": "قبول الدعوة",
     "ifYouDidNotExpectThisInvitation": "إذا لم تكن تتوقع هذه الدعوة، يمكنك تجاهل هذا البريد الإلكتروني."
   }

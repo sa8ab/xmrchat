@@ -52,7 +52,7 @@
     "subject": "Приглашение в соавторы XMRChat",
     "title": "Приглашение в соавторы",
     "emailTitle": "Вас пригласили стать соавтором!",
-    "invitationMessage": "{inviterName} пригласил вас стать соавтором на их странице '{pageName}'.",
+    "invitationMessage": "Вас пригласили стать соавтором на {pageName} странице.",
     "acceptInvitation": "Принять приглашение",
     "ifYouDidNotExpectThisInvitation": "Если вы не ожидали этого приглашения, можете проигнорировать это письмо."
   }
