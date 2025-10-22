@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Delete, Get } from '@nestjs/common';
 import { CohostService } from './cohost.service';
 import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import { User } from 'src/users/user.entity';
@@ -35,5 +35,11 @@ export class CohostController {
     return {
       cohostPage: page,
     };
+  }
+
+  @Delete('/remove-my-cohost')
+  async removeMyCohost(@CurrentUser() user: User) {
+    await this.cohostService.removeMyCohost(user.id);
+    return { message: 'You are removed from the cohost.' };
   }
 }

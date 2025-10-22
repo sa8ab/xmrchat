@@ -31,13 +31,7 @@ const tipValue = ref<TipDisplayMode | undefined>(data.value?.tipDisplayMode);
   />
 
   <div class="flex justify-end pb-2">
-    <UButton
-      color="red"
-      variant="ghost"
-      trailingIcon="i-heroicons-arrow-right-on-rectangle"
-    >
-      Remove from Cohost
-    </UButton>
+    <RemoveMyCohost />
   </div>
 
   <div v-if="pending">pending</div>
@@ -46,8 +40,6 @@ const tipValue = ref<TipDisplayMode | undefined>(data.value?.tipDisplayMode);
     <span class="text-red-500">{{ getErrorMessage(error) }}</span>
   </div>
   <div v-else>
-    <!-- <pre>{{ data }}</pre> -->
-
     <StreamerHeader
       :logoUrl="data.logo.url"
       :bannerUrl="data.coverImage.url"
