@@ -58,6 +58,8 @@ export class CohostService {
   // Cohost page
   async getMyCohostPage(user: User) {
     if (!user) return null;
+    if (!user.cohostPageId)
+      throw new BadRequestException('You are not a cohost.');
 
     const page = await this.pagesRepo.findOne({
       where: { id: user.cohostPageId },
