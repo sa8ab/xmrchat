@@ -16,7 +16,9 @@ const { data, pending, error, refresh } = useLazyAsyncData(
 <template>
   <div>
     <!-- TODO: Add button to invites page -->
-    <UButton :to="toStreamerCohostsInvites()">Invite Cohosts</UButton>
+    <div class="flex justify-end mb-4">
+      <UButton :to="toStreamerCohostsInvites()">Invite Cohosts</UButton>
+    </div>
 
     <div v-if="pending">
       pending
@@ -34,7 +36,6 @@ const { data, pending, error, refresh } = useLazyAsyncData(
       <NoCohosts />
     </div>
     <div v-else class="grid gap-2">
-      <pre>{{ data }}</pre>
       <CohostItem v-for="cohost in data" :cohost="cohost" @remove="refresh" />
     </div>
   </div>
