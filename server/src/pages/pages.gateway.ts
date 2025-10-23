@@ -7,7 +7,6 @@ import {
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
-  WsException,
 } from '@nestjs/websockets';
 import { Namespace, Socket } from 'socket.io';
 import { WsAuthGuard } from 'src/auth/guards/ws-auth.guard';
@@ -16,7 +15,6 @@ import { Tip } from 'src/tips/tip.entity';
 import { PagesService } from './pages.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { PricesService } from 'src/prices/prices.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { TipMessageService } from 'src/tip-message/tip-message.service';
@@ -31,7 +29,6 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     private casl: CaslAbilityFactory,
     @Inject(forwardRef(() => PagesService)) private pagesService: PagesService,
     @InjectRepository(Tip) private tipsRepo: Repository<Tip>,
-    private pricesService: PricesService,
     @Inject(CACHE_MANAGER) private cache: Cache,
     private tipMessageService: TipMessageService,
   ) {}
@@ -54,9 +51,7 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     await client.join(`page-${slug}`);
   }
 
-  handleDisconnect(client: Socket) {
-    // this.logger.log(`Client ${client.id} disconnected`);
-  }
+  handleDisconnect() {}
 
   @SubscribeMessage('join')
   async handleJoin(
