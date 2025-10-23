@@ -37,16 +37,16 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   server: Namespace;
 
   async handleConnection(client: Socket) {
-    const slug = client.handshake.auth.slug;
-
-    if (!slug) {
-      return;
-    }
-
-    this.logger.log(`Client ${client.id} connected to page - Slug: ${slug}`);
-
     // This is used to trigger the connection recovery
     client.emit('dummyEvent');
+
+    const slug = client.handshake.auth.slug;
+
+    if (!slug) return;
+
+    this.logger.log(
+      `Client ${client.id.slice(0, 8)}... connected to page - Slug: ${slug}`,
+    );
 
     await client.join(`page-${slug}`);
   }
@@ -67,7 +67,9 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     }
 
     await client.join(`page-${slug}`);
-    this.logger.log(`Client ${client.id} joined room - Slug: ${slug}`);
+    this.logger.log(
+      `Client ${client.id.slice(0, 8)}... joined room - Slug: ${slug}`,
+    );
 
     const activeTipIds = await this.getActiveTipIds(slug);
     if (activeTipIds.length) {
