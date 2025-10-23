@@ -21,6 +21,13 @@ import { TipMessageService } from 'src/tip-message/tip-message.service';
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { Action } from 'src/shared/constants';
 
+/**
+ * @description Gateway for pages.
+ * @emits obsTip - When a tip is added to the OBS page.
+ * @emits obsTipRemove - When a tip is removed from the OBS page.
+ * @emits payment - When a payment is made for a page.
+ * @emits tip - When a tip is added to the page.
+ */
 @WebSocketGateway({ namespace: '/pages', cors: { origin: true } })
 export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private logger = new Logger(PagesGateway.name);
@@ -163,7 +170,8 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     if (!tip) return;
 
     const eventPayload = await this.generateEventPayload(tip, true);
-    return this.server.to(`page-${slug}`).emit('obsTip', eventPayload);
+    this.server.to(`page-${slug}`).emit('obsTip', eventPayload);
+    this.server.to(`page-${slug}`).emit('tip', eventPayload);
   }
 
   async addTipToObsCache(slug: string, tipId: number) {
