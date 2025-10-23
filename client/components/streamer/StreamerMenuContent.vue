@@ -57,6 +57,14 @@ const items = computed(() => {
     ]
   );
 
+  if (authStore.isCohost) {
+    res.push({
+      label: "Cohost",
+      icon: "i-heroicons-user-group",
+      to: toStreamerCohostPage(),
+    });
+  }
+
   if (page.value) {
     res.push(
       ...[
@@ -105,14 +113,6 @@ const items = computed(() => {
           },
         ]
       );
-    }
-
-    if (authStore.isCohost) {
-      res.push({
-        label: "Cohost",
-        icon: "i-heroicons-user-group",
-        to: toStreamerCohostPage(),
-      });
     }
 
     res.push(
