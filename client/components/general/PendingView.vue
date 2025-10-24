@@ -2,6 +2,7 @@
 const props = defineProps<{
   error?: any;
   pending?: boolean | null;
+  showBackToHome?: boolean;
 }>();
 </script>
 
@@ -11,6 +12,7 @@ const props = defineProps<{
     :error="error"
     v-if="error"
     :defaultMessage="$t('somethingWentWrong')"
+    :showBackToHome="showBackToHome"
   />
   <slot v-else />
 </template>
