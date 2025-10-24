@@ -1,9 +1,14 @@
 <script lang="ts" setup>
-const props = defineProps<{
-  error?: any;
-  pending?: boolean | null;
-  showBackToHome?: boolean;
-}>();
+const props = withDefaults(
+  defineProps<{
+    error?: any;
+    pending?: boolean | null;
+    showBackToHome?: boolean;
+  }>(),
+  {
+    showBackToHome: true,
+  }
+);
 </script>
 
 <template>
