@@ -24,6 +24,10 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
   }
 );
 
+if (error.value) {
+  throw createError(error.value);
+}
+
 const createdTip = ref<TipCreationResponse | undefined>(undefined);
 const paymentModalActive = ref(false);
 
