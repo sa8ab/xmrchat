@@ -11,6 +11,7 @@ export const getErrorMessage = (error: any): string | undefined => {
   if (!error) return undefined;
 
   if (error.cause && isNuxtError(error)) {
+    error = error.cause;
   }
 
   if (isAxiosError(error)) {
@@ -27,7 +28,7 @@ export const getErrorMessage = (error: any): string | undefined => {
     return (error as AxiosError).message;
   }
 
-  if (error instanceof Error) {
+  if (error instanceof Error || error.message) {
     return error.message;
   }
 
