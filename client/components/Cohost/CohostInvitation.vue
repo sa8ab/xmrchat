@@ -47,7 +47,7 @@ const handleCancelClick = async () => {
         <UIcon name="i-heroicons-user" size="20" />
       </div>
       <div class="flex-1">
-        <p class="font-medium">email</p>
+        <p class="font-medium">{{ invitation.user.email }}</p>
         <p class="text-pale text-sm">
           <span v-if="dayjs(invitation.expiresAt).isBefore(dayjs())">
             Expired

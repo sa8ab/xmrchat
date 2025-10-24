@@ -17,7 +17,6 @@ const modal = useModal();
 
 const loadingRemove = ref(false);
 
-// TODO: Add remove
 const handleRemoveClick = () => {
   modal.open(ConfirmModal, {
     title: "Remove cohost",
@@ -58,7 +57,7 @@ const handleRemove = async () => {
         <UIcon name="i-heroicons-user" size="20" />
       </div>
       <div class="flex-1">
-        <p class="font-medium">email</p>
+        <p class="font-medium">{{ cohost.email }}</p>
       </div>
       <div>
         <UButton

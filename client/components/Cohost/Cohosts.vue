@@ -15,7 +15,6 @@ const { data, pending, error, refresh } = useLazyAsyncData(
 
 <template>
   <div>
-    <!-- TODO: Add button to invites page -->
     <div class="flex justify-end mb-4">
       <UButton :to="toStreamerCohostsInvites()">Invite Cohosts</UButton>
     </div>

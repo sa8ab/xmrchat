@@ -81,7 +81,12 @@ const { getValidationAttrs } = useValidations(v);
             />
           </UFormGroup>
           <div>
-            <UButton size="lg" :loading="state.loading" @click="sendInvitation">
+            <UButton
+              size="lg"
+              :loading="state.loading"
+              @click="sendInvitation"
+              type="submit"
+            >
               Send Invitation
             </UButton>
           </div>
