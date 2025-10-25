@@ -4,6 +4,10 @@ import { FiatEnum, TipDisplayMode } from "~/types/enums";
 
 const authStore = useAuthStore();
 const { axios } = useApp();
+const { copy } = useCopy();
+const url = useRequestURL();
+
+const { getFiat } = useConstants();
 
 const cohostPage = computed(() => authStore.state.user?.cohostPage);
 
@@ -18,9 +22,12 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
   { server: false }
 );
 
-const { getFiat } = useConstants();
-
 const tipValue = ref<TipDisplayMode | undefined>(data.value?.tipDisplayMode);
+
+const copyLink = () => {
+  if (!cohostPage.value) return;
+  copy(`${url.origin}/${cohostPage.value.path}/obs`);
+};
 </script>
 
 <template>
@@ -47,7 +54,15 @@ const tipValue = ref<TipDisplayMode | undefined>(data.value?.tipDisplayMode);
       class="mb-10"
     />
 
-    <div class="flex justify-end mb-2">
+    <div class="flex justify-between mb-2 gap-2 flex-wrap">
+      <UButton
+        icon="i-heroicons-document-duplicate"
+        @click="copyLink"
+        variant="outline"
+        size="sm"
+      >
+        {{ $t("copyOBSLink") }}
+      </UButton>
       <UTooltip
         :text="
           $t('tipDisplayValueTooltip', {
