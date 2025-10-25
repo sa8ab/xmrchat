@@ -20,6 +20,8 @@ import { Cache } from 'cache-manager';
 import { TipMessageService } from 'src/tip-message/tip-message.service';
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { Action } from 'src/shared/constants';
+import { serializer } from 'src/shared/interceptors/serialize.interceptor';
+import { TipDto } from 'src/tips/dtos/tip.dto';
 
 /**
  * @description Gateway for pages.
@@ -170,6 +172,7 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     if (!tip) return;
 
     const eventPayload = await this.generateEventPayload(tip, true);
+
     this.server.to(`page-${slug}`).emit('obsTip', eventPayload);
     this.server.to(`page-${slug}`).emit('tip', eventPayload);
   }
@@ -196,22 +199,13 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     return (await this.cache.get<number[]>(`obs-tips:${slug}`)) || [];
   }
 
-  hidePrivateTipFields(tip: Tip) {
-    if (tip.private) {
-      tip.name = '';
-      tip.message = '';
-    }
-
-    return tip;
-  }
-
   async generateEventPayload(tip: Tip, autoRemove: boolean = false) {
     const message = await this.tipMessageService.generateMessage(
       tip.id,
       tip.page.id,
     );
     // const message = await this.getTipMessage(tip);
-    const t = this.hidePrivateTipFields(tip);
+    const t = serializer(TipDto, tip);
 
     return { tip: t, message, autoRemove };
   }

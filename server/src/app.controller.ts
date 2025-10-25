@@ -7,17 +7,10 @@ import { SignalService } from './integrations/signal/signal.service';
 import { NotificationDispatcherService } from './notifications/notification-dispatcher.service';
 import { NotificationTestsService } from './notifications/notification-tests.service';
 import { TwitchService } from './integrations/twitch/twitch.service';
+import { PagesGateway } from './pages/pages.gateway';
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    private notificationsService: NotificationsService,
-    private simplexService: SimplexService,
-    private signalService: SignalService,
-    private notificationDispatcherService: NotificationDispatcherService,
-    private notificationTestsService: NotificationTestsService,
-    private twitchService: TwitchService,
-  ) {}
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   getHello(): string {
@@ -33,6 +26,8 @@ export class AppController {
   @IsPublic()
   @Get('/test')
   async test() {
+    console.log('test');
+    // return this.pagesGateway.notifyNewTip('dinasore', 318);
     // return this.notificationTestsService.testSignal();
     // return this.signalService.sendTestMessage();
     // return this.notificationDispatcherService.notifyNewTip(1, 271);

@@ -9,6 +9,7 @@ const props = withDefaults(
     fiat?: FiatEnum;
     page?: StreamerPage;
     showPrivateNameAndMessage?: boolean;
+    playSound?: boolean;
   }>(),
   {
     showPrivateNameAndMessage: true,
@@ -24,10 +25,14 @@ const { init, disconnect, sendTipToObs, removeTipFromObs } = usePageSocket({
   handleInitialObsTipsEvent: (payloads) => {
     tipEvents.value = payloads;
   },
+  handleTipEvent: () => {
+    if (!props.playSound) return;
+    const audio = new Audio("/sounds/obs-sound-1.mp3");
+    audio.play();
+  },
 });
 
 const { t } = useI18n();
-const { relativeDate, dayjs } = useDate();
 
 const toast = useToast();
 

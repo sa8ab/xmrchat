@@ -8,7 +8,7 @@ export class BaseTipDto {
 
   @Expose()
   @Transform(({ value, obj, options }) => {
-    if (options.groups.includes('streamer')) return value;
+    if (options.groups?.includes('streamer')) return value;
     if (obj.private) return '';
     return value;
   })
@@ -16,7 +16,7 @@ export class BaseTipDto {
 
   @Expose()
   @Transform(({ value, obj, options }) => {
-    if (options.groups.includes('streamer')) return value;
+    if (options.groups?.includes('streamer')) return value;
     if (obj.private) return '';
     return value;
   })
