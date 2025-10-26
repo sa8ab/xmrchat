@@ -19,9 +19,8 @@ const { data, pending, error, refresh } = useLazyAsyncData(
       <UButton :to="toStreamerCohostsInvites()">Invite Cohosts</UButton>
     </div>
 
-    <div v-if="pending">
-      pending
-      <!-- TODO: Add skeleton -->
+    <div v-if="pending" class="grid gap-2">
+      <CohostSkeleton v-for="x in 3" />
     </div>
     <div v-else-if="error">
       <UAlert
