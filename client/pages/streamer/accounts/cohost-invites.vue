@@ -96,8 +96,8 @@ const { getValidationAttrs } = useValidations(v);
     </div>
     <div class="grid gap-2">
       <h2 class="text-lg font-medium">Pending invitations</h2>
-      <div v-if="pending">
-        <!-- TODO: Add skeleton -->
+      <div v-if="pending" class="grid gap-2">
+        <CohostInvitationSkeleton v-for="x in 3" />
       </div>
       <div v-else-if="error">
         <UAlert
