@@ -23,10 +23,9 @@ export class TwitchTokenService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    const token = await this.getClientToken();
-    if (token) return;
     try {
-      await this.getAndSaveClientToken();
+      const token = await this.getClientToken();
+      if (token) return;
     } catch (error) {
       this.logger.error(`On module init: ${getErrorMessage(error)}`);
     }
