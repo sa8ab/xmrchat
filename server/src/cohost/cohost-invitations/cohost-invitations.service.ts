@@ -154,7 +154,6 @@ export class CohostInvitationsService {
       relations: { cohostPage: true },
     });
 
-    // FIXME: check type of expires at is date
     if (invitation.expiresAt < new Date())
       throw new BadRequestException('Invitation has expired');
 
