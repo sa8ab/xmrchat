@@ -15,7 +15,6 @@ const toast = useToast();
 
 const loadingCancel = ref(false);
 
-// TODO: Add cancel
 const handleCancelClick = async () => {
   loadingCancel.value = true;
   try {
