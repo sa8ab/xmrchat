@@ -9,6 +9,8 @@ const { toStreamerCohostsInvites } = useRouteLocation();
       <p>Cohosts are users who can help you manage your xmrchats.</p>
       <p>You can invite cohosts using the button bellow.</p>
     </div>
-    <UButton :to="toStreamerCohostsInvites()">Invite Cohosts</UButton>
+    <UButton :to="toStreamerCohostsInvites()" variant="soft">
+      Invite Cohosts
+    </UButton>
   </div>
 </template>
