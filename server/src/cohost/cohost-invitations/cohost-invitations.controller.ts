@@ -14,6 +14,7 @@ import { User } from 'src/users/user.entity';
 import { CohostInvitationsService } from './cohost-invitations.service';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
 import { CohostInvitationsRO } from './dtos/cohost-invitation.dto';
+import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 
 @Controller('cohost-invitations')
 export class CohostInvitationsController {
@@ -25,6 +26,7 @@ export class CohostInvitationsController {
     return { message: 'Invitation sent' };
   }
 
+  @IsPublic()
   @Post('/accept/:code')
   async acceptCohostInvitation(@Param('code', ParseUUIDPipe) code: string) {
     await this.cohostInvitationsService.acceptCohostInvitation(code);
