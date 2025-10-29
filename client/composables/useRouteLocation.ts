@@ -28,7 +28,6 @@ export const useRouteLocation = () => {
       localeRoute("/streamer/notification-preferences"),
     toStreamerIntegrations: () => localeRoute("/streamer/integrations"),
     toStreamerRecipients: () => localeRoute("/streamer/recipients"),
-    toStreamerCohosts: () => localeRoute("/streamer/cohosts"),
     toStreamerCohostsInvites: () =>
       localeRoute("/streamer/accounts/cohost-invites"),
     toStreamerCohostPage: () => localeRoute("/streamer/cohost"),

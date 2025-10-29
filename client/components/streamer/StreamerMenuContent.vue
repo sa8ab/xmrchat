@@ -18,7 +18,6 @@ const {
   toStreamerNotificationPreferences,
   toStreamerIntegrations,
   toStreamerRecipients,
-  toStreamerCohosts,
   toStreamerCohostPage,
 } = useRouteLocation();
 
