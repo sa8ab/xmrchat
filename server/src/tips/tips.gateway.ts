@@ -24,7 +24,6 @@ export class TipsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     if (client.recovered) {
       this.logger.log(`Client ${client.id} recovered`);
     }
-    // this.logger.log(`Client ${client.id} connected - TipId: ${tipId}`);
 
     // This is used to trigger the connection recovery
     client.emit('dummyEvent');
@@ -32,9 +31,7 @@ export class TipsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     await client.join(`tip-${tipId}`);
   }
 
-  handleDisconnect(client: any) {
-    // this.logger.log(`Client ${client.id} disconnected`);
-  }
+  handleDisconnect() {}
 
   notifyTipPayment(tipId: number, payment: Payment) {
     return this.server.to(`tip-${tipId}`).emit('tip', payment);

@@ -47,5 +47,13 @@
     "noTipsReceived": "Žádné spropitné nebylo obdrženo za posledních 24 hodin",
     "thankYouForYourContent": "Děkujeme za váš skvělý obsah! Pokračujte v úžasné práci.",
     "visitXMRChat": "Navštívit XMRChat"
+  },
+  "cohostInvitation": {
+    "subject": "Pozvánka na spolupráci XMRChat",
+    "title": "Pozvánka na spolupráci",
+    "emailTitle": "Byli jste pozváni k spolupráci!",
+    "invitationMessage": "Byli jste pozváni k spolupráci na {pageName} stránce.",
+    "acceptInvitation": "Přijmout pozvánku",
+    "ifYouDidNotExpectThisInvitation": "Pokud jste neočekávali tuto pozvánku, můžete tento e-mail ignorovat."
   }
 }

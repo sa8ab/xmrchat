@@ -2,12 +2,19 @@
 import type { Numberic, ObsTipSocketEvent, StreamerPage, Tip } from "~/types";
 import { FiatEnum, TipDisplayMode } from "~/types/enums";
 
-const props = defineProps<{
-  slug: string;
-  tipValue?: TipDisplayMode;
-  fiat?: FiatEnum;
-  page?: StreamerPage;
-}>();
+const props = withDefaults(
+  defineProps<{
+    slug: string;
+    tipValue?: TipDisplayMode;
+    fiat?: FiatEnum;
+    page?: StreamerPage;
+    showPrivateNameAndMessage?: boolean;
+    playSound?: boolean;
+  }>(),
+  {
+    showPrivateNameAndMessage: true,
+  }
+);
 
 const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
   useServices();
@@ -18,11 +25,14 @@ const { init, disconnect, sendTipToObs, removeTipFromObs } = usePageSocket({
   handleInitialObsTipsEvent: (payloads) => {
     tipEvents.value = payloads;
   },
+  handleTipEvent: () => {
+    if (!props.playSound) return;
+    const audio = new Audio("/sounds/obs-sound-1.mp3");
+    audio.play();
+  },
 });
 
-const { errorHandler } = useErrorHandler();
 const { t } = useI18n();
-const { relativeDate, dayjs } = useDate();
 
 const toast = useToast();
 
@@ -86,9 +96,13 @@ const updateTipPrivate = async (id: Numberic, isPrivate: boolean) => {
       title: t("tipUpdated"),
     });
 
-    refresh();
+    await refresh();
   } catch (error) {
-    errorHandler(error);
+    toast.add({
+      title: t("error"),
+      description: getErrorMessage(error),
+      color: "red",
+    });
   }
 };
 
@@ -112,7 +126,11 @@ const handleSendClick = async (row: Tip) => {
     await sendTipToObs(props.slug, row.id);
     tipEvents.value.push({ tip: row, message: "", autoRemove: false });
   } catch (error) {
-    errorHandler(error);
+    toast.add({
+      title: t("error"),
+      description: getErrorMessage(error),
+      color: "red",
+    });
   }
 };
 
@@ -121,11 +139,19 @@ const handleRemoveClick = async (row: Tip) => {
     await removeTipFromObs(props.slug, row.id);
     tipEvents.value = tipEvents.value.filter(({ tip }) => tip?.id !== row.id);
   } catch (error) {
-    errorHandler(error);
+    toast.add({
+      title: t("error"),
+      description: getErrorMessage(error),
+      color: "red",
+    });
   }
 };
 
 const { markdownAndSanitize } = useMarkdown();
+
+const makePublicAbility = computed(() => props.page?.ability?.makeTipPublic);
+const getPrivateDisabled = (privateValue: boolean) =>
+  privateValue && !makePublicAbility.value;
 </script>
 
 <template>
@@ -159,8 +185,21 @@ const { markdownAndSanitize } = useMarkdown();
           <span>{{ new Date(row.payment.paidAt).toLocaleTimeString() }}</span>
         </div>
       </template>
+
+      <template #name-data="{ row }">
+        <div v-if="row.private && !showPrivateNameAndMessage">
+          <p class="text-pale">{{ t("private.title") }}</p>
+        </div>
+        <div v-else>
+          {{ row.name }}
+        </div>
+      </template>
       <template #message-data="{ row }">
+        <div v-if="row.private && !showPrivateNameAndMessage">
+          <p class="text-pale">{{ t("tipPrivateMessage") }}</p>
+        </div>
         <div
+          v-else
           class="break-words max-w-[20rem] min-w-[8rem]"
           v-html="markdownAndSanitize(row?.message)"
         />
@@ -168,6 +207,7 @@ const { markdownAndSanitize } = useMarkdown();
       <template #private-data="{ row }">
         <div class="private">
           <UCheckbox
+            :disabled="getPrivateDisabled(row.private)"
             :modelValue="row.private"
             @change="updateTipPrivate(row.id, $event)"
           ></UCheckbox>

@@ -5,9 +5,11 @@ const props = withDefaults(
   defineProps<{
     error?: any;
     defaultMessage?: string;
+    showBackToHome?: boolean;
   }>(),
   {
     defaultMessage: "Something went wrong!",
+    showBackToHome: true,
   }
 );
 const renderMessage = computed(() => {
@@ -20,7 +22,7 @@ const renderMessage = computed(() => {
   <div class="error">
     <div class="message text-center py-10">
       <p class="pb-4 text-xl">{{ renderMessage }}</p>
-      <div class="flex gap-3 justify-center">
+      <div v-if="showBackToHome" class="flex gap-3 justify-center">
         <UButton :to="toIndex()">{{ $t("backToHome") }}</UButton>
       </div>
     </div>

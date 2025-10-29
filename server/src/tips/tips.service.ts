@@ -29,6 +29,8 @@ import { TipMessageService } from 'src/tip-message/tip-message.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Page } from 'src/pages/page.entity';
 import { PageRecipientsService } from 'src/page-recipients/page-recipients.service';
+import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
+import { Action } from 'src/shared/constants';
 
 @Injectable()
 export class TipsService {
@@ -44,6 +46,7 @@ export class TipsService {
     private swapsService: SwapsService,
     private tipMessageService: TipMessageService,
     private pageRecipientsService: PageRecipientsService,
+    private casl: CaslAbilityFactory,
     @InjectRepository(Tip) private repo: Repository<Tip>,
   ) {}
 
@@ -69,19 +72,19 @@ export class TipsService {
       .orderBy('tip.created_at', 'DESC')
       .getMany();
 
-    const privateFiltered = result.map(({ name, message, ...rest }) => {
-      const hidePrivate = !isStreamer && rest.private;
-      return {
-        ...rest,
-        name: hidePrivate ? '' : name,
-        message: hidePrivate ? '' : message,
-      };
-    });
+    // const privateFiltered = result.map(({ name, message, ...rest }) => {
+    //   const hidePrivate = !isStreamer && rest.private;
+    //   return {
+    //     ...rest,
+    //     name: hidePrivate ? '' : name,
+    //     message: hidePrivate ? '' : message,
+    //   };
+    // });
 
-    return privateFiltered;
+    return { tips: result, page };
   }
 
-  async updateTipByStreamer(id: number, payload: UpdateTipDto, user: User) {
+  async updateTip(id: number, payload: UpdateTipDto, user: User) {
     const tip = await this.findOneById(id);
     if (!tip) throw new NotFoundException('Tip not found');
 
@@ -91,8 +94,15 @@ export class TipsService {
       throw new NotFoundException('Page not found');
     }
 
-    if (page.userId != user.id) {
-      throw new UnauthorizedException();
+    const ability = await this.casl.createForUser(user);
+
+    const action = payload.private
+      ? Action.MakeTipPrivate
+      : Action.MakeTipPublic;
+    if (!ability.can(action, page)) {
+      throw new UnauthorizedException(
+        `You are not authorized to make this tip ${payload.private ? 'private' : 'public'}.`,
+      );
     }
 
     const savedTip = Object.assign(tip, payload);

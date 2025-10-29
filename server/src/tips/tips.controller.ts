@@ -2,7 +2,10 @@ import { Controller, Post, Body, Get, Param, Put } from '@nestjs/common';
 import { CreateTipDto } from './dtos/create-tip.dto';
 import { TipsService } from './tips.service';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
-import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
+import {
+  Serialize,
+  serializer,
+} from 'src/shared/interceptors/serialize.interceptor';
 import { TipDto, TipDtoRO } from './dtos/tip.dto';
 import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import { User } from 'src/users/user.entity';
@@ -21,9 +24,14 @@ export class TipsController {
 
   @Get('/page/:slug')
   @IsPublic()
-  @Serialize(TipDto)
-  getPageTips(@Param('slug') slug: string, @CurrentUser() user: User) {
-    return this.tipsService.getTipsByPageSlug(slug, user);
+  async getPageTips(@Param('slug') slug: string, @CurrentUser() user: User) {
+    const { tips, page } = await this.tipsService.getTipsByPageSlug(slug, user);
+    const isStreamer = page.userId == user?.id;
+    const serialized = serializer(TipDto, tips, {
+      groups: isStreamer ? ['streamer'] : [],
+    });
+
+    return serialized;
   }
 
   @Put('/:id')
@@ -32,7 +40,7 @@ export class TipsController {
     @Body() body: UpdateTipDto,
     @Param('id') id: number,
   ) {
-    return this.tipsService.updateTipByStreamer(id, body, user);
+    return this.tipsService.updateTip(id, body, user);
   }
 
   @Get('/test/test')

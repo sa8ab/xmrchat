@@ -1,4 +1,5 @@
 import { Expose, Type } from 'class-transformer';
+import { PageDto } from 'src/pages/dtos/page.dto';
 import { RolesEnum } from 'src/shared/constants';
 
 export class UserDto {
@@ -19,4 +20,8 @@ export class UserDto {
 
   @Expose()
   roles: RolesEnum[];
+
+  @Expose()
+  @Type(() => PageDto)
+  cohostPage?: PageDto;
 }

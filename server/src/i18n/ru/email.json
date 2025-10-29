@@ -47,5 +47,13 @@
     "noTipsReceived": "Чаевые за последние 24 часа не получены",
     "thankYouForYourContent": "Спасибо за ваш отличный контент! Продолжайте в том же духе.",
     "visitXMRChat": "Посетить XMRChat"
+  },
+  "cohostInvitation": {
+    "subject": "Приглашение в соавторы XMRChat",
+    "title": "Приглашение в соавторы",
+    "emailTitle": "Вас пригласили стать соавтором!",
+    "invitationMessage": "Вас пригласили стать соавтором на {pageName} странице.",
+    "acceptInvitation": "Принять приглашение",
+    "ifYouDidNotExpectThisInvitation": "Если вы не ожидали этого приглашения, можете проигнорировать это письмо."
   }
 }

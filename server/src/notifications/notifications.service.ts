@@ -147,4 +147,26 @@ export class NotificationsService {
       this.logger.error(`Error notifying new tip: ${error}`);
     }
   }
+
+  async sendCohostInvitation(options: {
+    to: string;
+    lang: string;
+    code: string;
+    pageName: string;
+  }) {
+    const acceptLink = `${this.config.get('CLIENT_BASE_URL')}/accept-invitation?code=${options.code}`;
+
+    return this.emailQueue.add('send-email', {
+      to: options.to,
+      options: {
+        subject: this.i18n.t('email.cohostInvitation.subject'),
+        text: acceptLink,
+        template: 'cohost-invitation.hbs',
+        context: {
+          ...options,
+          acceptLink,
+        },
+      },
+    });
+  }
 }

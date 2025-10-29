@@ -7,7 +7,6 @@ import {
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
-  WsException,
 } from '@nestjs/websockets';
 import { Namespace, Socket } from 'socket.io';
 import { WsAuthGuard } from 'src/auth/guards/ws-auth.guard';
@@ -16,19 +15,29 @@ import { Tip } from 'src/tips/tip.entity';
 import { PagesService } from './pages.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { PricesService } from 'src/prices/prices.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { TipMessageService } from 'src/tip-message/tip-message.service';
+import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
+import { Action } from 'src/shared/constants';
+import { serializer } from 'src/shared/interceptors/serialize.interceptor';
+import { TipDto } from 'src/tips/dtos/tip.dto';
 
+/**
+ * @description Gateway for pages.
+ * @emits obsTip - When a tip is added to the OBS page.
+ * @emits obsTipRemove - When a tip is removed from the OBS page.
+ * @emits payment - When a payment is made for a page.
+ * @emits tip - When a tip is added to the page.
+ */
 @WebSocketGateway({ namespace: '/pages', cors: { origin: true } })
 export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private logger = new Logger(PagesGateway.name);
 
   constructor(
+    private casl: CaslAbilityFactory,
     @Inject(forwardRef(() => PagesService)) private pagesService: PagesService,
     @InjectRepository(Tip) private tipsRepo: Repository<Tip>,
-    private pricesService: PricesService,
     @Inject(CACHE_MANAGER) private cache: Cache,
     private tipMessageService: TipMessageService,
   ) {}
@@ -37,23 +46,21 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   server: Namespace;
 
   async handleConnection(client: Socket) {
-    const slug = client.handshake.auth.slug;
-
-    if (!slug) {
-      return;
-    }
-
-    this.logger.log(`Client ${client.id} connected to page - Slug: ${slug}`);
-
     // This is used to trigger the connection recovery
     client.emit('dummyEvent');
+
+    const slug = client.handshake.auth.slug;
+
+    if (!slug) return;
+
+    this.logger.log(
+      `Client ${client.id.slice(0, 8)}... connected to page - Slug: ${slug}`,
+    );
 
     await client.join(`page-${slug}`);
   }
 
-  handleDisconnect(client: Socket) {
-    // this.logger.log(`Client ${client.id} disconnected`);
-  }
+  handleDisconnect() {}
 
   @SubscribeMessage('join')
   async handleJoin(
@@ -69,7 +76,9 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     }
 
     await client.join(`page-${slug}`);
-    this.logger.log(`Client ${client.id} joined room - Slug: ${slug}`);
+    this.logger.log(
+      `Client ${client.id.slice(0, 8)}... joined room - Slug: ${slug}`,
+    );
 
     const activeTipIds = await this.getActiveTipIds(slug);
     if (activeTipIds.length) {
@@ -98,7 +107,10 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const page = await this.pagesService.findByPath(slug);
     if (!page) return { error: 'Page not found' };
 
-    if (page.userId !== user.id) return { error: 'Unauthorized' };
+    const ability = await this.casl.createForUser(user);
+
+    if (!ability.can(Action.SendObsMessage, page))
+      return { error: 'Unauthorized' };
 
     let tip = await this.tipsRepo.findOne({
       where: { id: tipId },
@@ -136,14 +148,14 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const user = (client as any).user;
 
     const page = await this.pagesService.findByPath(slug);
-    if (!page) throw new WsException('Page not found');
+    if (!page) return { error: 'Page not found' };
 
-    if (page.userId !== user.id) throw new WsException('Unauthorized');
+    const ability = await this.casl.createForUser(user);
+    if (!ability.can(Action.SendObsMessage, page))
+      return { error: 'Unauthorized' };
 
     this.server.to(`page-${slug}`).emit('obsTipRemove', { tipId });
-
     await this.removeTipFromObsCache(slug, tipId);
-
     return { message: 'Tip is removed from the OBS page.' };
   }
 
@@ -160,7 +172,9 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     if (!tip) return;
 
     const eventPayload = await this.generateEventPayload(tip, true);
-    return this.server.to(`page-${slug}`).emit('obsTip', eventPayload);
+
+    this.server.to(`page-${slug}`).emit('obsTip', eventPayload);
+    this.server.to(`page-${slug}`).emit('tip', eventPayload);
   }
 
   async addTipToObsCache(slug: string, tipId: number) {
@@ -185,22 +199,13 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     return (await this.cache.get<number[]>(`obs-tips:${slug}`)) || [];
   }
 
-  hidePrivateTipFields(tip: Tip) {
-    if (tip.private) {
-      tip.name = '';
-      tip.message = '';
-    }
-
-    return tip;
-  }
-
   async generateEventPayload(tip: Tip, autoRemove: boolean = false) {
     const message = await this.tipMessageService.generateMessage(
       tip.id,
       tip.page.id,
     );
     // const message = await this.getTipMessage(tip);
-    const t = this.hidePrivateTipFields(tip);
+    const t = serializer(TipDto, tip);
 
     return { tip: t, message, autoRemove };
   }

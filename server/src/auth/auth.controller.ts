@@ -13,7 +13,6 @@ import { AuthDto } from './dtos/auth.dto';
 import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import { User } from 'src/users/user.entity';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
-import { UserDto } from 'src/users/dtos/user.dto';
 import { ForgotPasswordDto } from './dtos/forgot-password.dto';
 import { ResetPasswordDto } from './dtos/reset-password.dto';
 import { PagesService } from 'src/pages/pages.service';

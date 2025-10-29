@@ -123,6 +123,9 @@ export class Page {
   @OneToMany(() => LiveStream, (l: LiveStream) => l.page)
   liveStreams: LiveStream[];
 
+  @OneToMany(() => User, (u: User) => u.cohostPage)
+  cohosts: User[];
+
   totalTips: number | null;
   tipsCount: number | null;
 }

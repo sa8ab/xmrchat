@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserToken } from 'src/auth/user-tokens/user-token.entity';
+import { CohostInvitation } from 'src/cohost/cohost-invitations/entities/cohost-invitation.entity';
 import { File as FileEntity } from 'src/files/file.entity';
 import { IntegrationConfig } from 'src/integrations/integration-configs.entity';
 import { Coin } from 'src/integrations/trocador/coin.entity';
@@ -44,6 +45,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
           NotificationPreference,
           PageRecipient,
           LiveStream,
+          CohostInvitation,
         ],
         namingStrategy: new SnakeNamingStrategy(),
         migrationsRun: process.env.NODE_ENV === 'production',

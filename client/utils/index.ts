@@ -28,7 +28,7 @@ export const getErrorMessage = (error: any): string | undefined => {
     return (error as AxiosError).message;
   }
 
-  if (error instanceof Error) {
+  if (error instanceof Error || error.message) {
     return error.message;
   }
 

@@ -48,6 +48,7 @@ import { CaslModule } from './casl/casl.module';
 import { TestModule } from './test/test.module';
 import { PageRecipientsModule } from './page-recipients/page-recipients.module';
 import { LiveStreamsModule } from './live-streams/live-streams.module';
+import { CohostModule } from './cohost/cohost.module';
 
 @Module({
   imports: [
@@ -170,6 +171,7 @@ import { LiveStreamsModule } from './live-streams/live-streams.module';
     PageRecipientsModule,
     ...(process.env.TEST_ENV === 'true' ? [TestModule] : []),
     LiveStreamsModule,
+    CohostModule,
   ],
   controllers: [AppController],
   providers: [AppService],

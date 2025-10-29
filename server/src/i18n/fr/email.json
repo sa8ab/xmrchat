@@ -47,5 +47,13 @@
     "noTipsReceived": "Aucun pourboire reçu dans les dernières 24 heures",
     "thankYouForYourContent": "Merci pour votre excellent contenu ! Continuez votre travail incroyable.",
     "visitXMRChat": "Visiter XMRChat"
+  },
+  "cohostInvitation": {
+    "subject": "Invitation Co-hôte XMRChat",
+    "title": "Invitation Co-hôte",
+    "emailTitle": "Vous avez été invité à être co-hôte !",
+    "invitationMessage": "Vous avez été invité à devenir co-hôte sur {pageName} page.",
+    "acceptInvitation": "Accepter l'invitation",
+    "ifYouDidNotExpectThisInvitation": "Si vous ne vous attendiez pas à cette invitation, vous pouvez ignorer cet email."
   }
 }

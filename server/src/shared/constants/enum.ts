@@ -125,6 +125,10 @@ export enum Action {
   Update = 'update',
   Delete = 'delete',
   Receive = 'receive',
+  Invite = 'invite',
+  SendObsMessage = 'send-obs-message',
+  MakeTipPrivate = 'make-tip-private',
+  MakeTipPublic = 'make-tip-public',
 }
 
 export enum PageRecipientVariant {
@@ -138,4 +142,10 @@ export enum LiveStreamPlatformEnum {
   TWITCH = 'twitch',
   X = 'x',
   RUMBLE = 'rumble',
+}
+
+export enum CohostInvitationStatus {
+  PENDING = 'pending',
+  ACCEPTED = 'accepted',
+  EXPIRED = 'expired',
 }

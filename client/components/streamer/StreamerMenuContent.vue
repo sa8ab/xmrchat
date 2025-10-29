@@ -18,6 +18,7 @@ const {
   toStreamerNotificationPreferences,
   toStreamerIntegrations,
   toStreamerRecipients,
+  toStreamerCohostPage,
 } = useRouteLocation();
 
 const items = computed(() => {
@@ -48,12 +49,20 @@ const items = computed(() => {
         exact: true,
       },
       {
-        label: t("account"),
+        label: "Accounts",
         icon: "i-heroicons-user",
         to: toStreamerAccount(),
       },
     ]
   );
+
+  if (authStore.isCohost) {
+    res.push({
+      label: "Cohost",
+      icon: "i-heroicons-user-group",
+      to: toStreamerCohostPage(),
+    });
+  }
 
   if (page.value) {
     res.push(

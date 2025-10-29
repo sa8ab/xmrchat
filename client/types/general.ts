@@ -11,6 +11,7 @@ import type {
   SwapStatusEnum,
   TipDisplayMode,
   LiveStreamPlatformEnum,
+  CohostInvitationStatusEnum,
 } from "./enums";
 
 export type Numberic = string | number;
@@ -30,6 +31,7 @@ export interface User {
   id: string;
   roles: RolesEnum[];
   language?: string;
+  cohostPage?: StreamerPage;
 }
 
 export interface CreateFormFields {
@@ -101,6 +103,7 @@ export interface StreamerPage {
   status?: PageStatusEnum;
   expirationMinutes?: number;
   liveStreams?: LiveStream[];
+  ability?: any;
 }
 
 interface TipPayment {
@@ -258,4 +261,14 @@ export interface LiveStream {
   platform?: LiveStreamPlatformEnum;
   page?: StreamerPage;
   videoId?: string;
+}
+
+export interface CohostInvitation {
+  id: number;
+  user: User;
+  page: StreamerPage;
+  status: CohostInvitationStatusEnum;
+  expiresAt: string;
+  createdAt: string;
+  updatedAt: string;
 }

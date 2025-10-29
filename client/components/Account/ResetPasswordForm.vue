@@ -54,10 +54,6 @@ const { getValidationAttrs } = useValidations(v);
 
 <template>
   <div>
-    <PageTitle
-      :title="t('changePassword')"
-      :description="t('updateYourLoginPassword')"
-    ></PageTitle>
     <GeneralForm @submit="handleSubmit">
       <div class="flex flex-col gap-2 w-full max-w-[400px] m-auto">
         <UFormGroup

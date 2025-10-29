@@ -20,13 +20,15 @@ import { StreamerPageDto, StreamerPageRO } from './dtos/streamer-page.dto';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 import { CheckSlugDto } from './dtos/check-slug.dto';
 import { ConfigService } from '@nestjs/config';
-import { PageStatusEnum } from 'src/shared/constants';
+import { Action, PageStatusEnum } from 'src/shared/constants';
+import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 
 @Controller('pages')
 export class PagesController {
   constructor(
     private pagesService: PagesService,
     private configService: ConfigService,
+    private casl: CaslAbilityFactory,
   ) {}
 
   @Post('/check-slug')
@@ -78,6 +80,12 @@ export class PagesController {
   @Serialize(StreamerPageRO)
   async getMyPage(@CurrentUser() user: User) {
     const page = await this.pagesService.findMyPage(user);
+    const ability = await this.casl.createForUser(user);
+    const abilityResult = {
+      makeTipPrivate: ability.can(Action.MakeTipPrivate, page),
+      makeTipPublic: ability.can(Action.MakeTipPublic, page),
+    };
+    Object.assign(page, { ability: abilityResult });
 
     return { page };
   }

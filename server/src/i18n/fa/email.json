@@ -47,5 +47,13 @@
     "noTipsReceived": "در 24 ساعت گذشته پولی ها دریافت نشده اند",
     "thankYouForYourContent": "با تشکر از محتوای خوب شما! ادامه به خوبی کار خود را ادامه دهید.",
     "visitXMRChat": "بازدید از XMRChat"
+  },
+  "cohostInvitation": {
+    "subject": "دعوت نامه همکار XMRChat",
+    "title": "دعوت نامه همکار",
+    "emailTitle": "شما برای همکاری دعوت شده‌اید!",
+    "invitationMessage": "شما برای همکاری در {pageName} صفحه دعوت شده‌اید.",
+    "acceptInvitation": "پذیرش دعوت",
+    "ifYouDidNotExpectThisInvitation": "اگر این دعوت را انتظار نداشتید، می‌توانید این ایمیل را نادیده بگیرید."
   }
 }

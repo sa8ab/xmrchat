@@ -15,9 +15,14 @@ export const useDate = () => {
     return dayjs(v).fromNow();
   };
 
+  const remainingDate = (v: string) => {
+    return dayjs(v).toNow();
+  };
+
   return {
     formatTime,
     relativeDate,
+    remainingDate,
     dayjs,
   };
 };

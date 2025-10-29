@@ -47,5 +47,13 @@
     "noTipsReceived": "Keine Trinkgelder in den letzten 24 Stunden erhalten",
     "thankYouForYourContent": "Vielen Dank für Ihren großartigen Inhalt! Machen Sie weiter so.",
     "visitXMRChat": "XMRChat besuchen"
+  },
+  "cohostInvitation": {
+    "subject": "XMRChat Co-Host Einladung",
+    "title": "Co-Host Einladung",
+    "emailTitle": "Sie wurden als Co-Host eingeladen!",
+    "invitationMessage": "Sie wurden als Co-Host auf {pageName} Seite eingeladen.",
+    "acceptInvitation": "Einladung annehmen",
+    "ifYouDidNotExpectThisInvitation": "Wenn Sie diese Einladung nicht erwartet haben, können Sie diese E-Mail ignorieren."
   }
 }

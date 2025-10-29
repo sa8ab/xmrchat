@@ -7,6 +7,11 @@ interface PageSocketOptions {
     autoRemove: boolean;
     message: string;
   }) => void;
+  handleTipEvent?: (data: {
+    tip: Tip;
+    autoRemove: boolean;
+    message: string;
+  }) => void;
   handleObsTipRemovalEvent?: (args0: { tipId: number }) => void;
   handleInitialObsTipsEvent?: (payloads: ObsTipSocketEvent[]) => void;
 }
@@ -44,6 +49,11 @@ export const usePageSocket = (options?: PageSocketOptions) => {
     );
     socket.value.on("obsTipRemove", (args0: { tipId: number }) =>
       options?.handleObsTipRemovalEvent?.(args0)
+    );
+    socket.value.on(
+      "tip",
+      (data: { tip: Tip; autoRemove: boolean; message: string }) =>
+        options?.handleTipEvent?.(data)
     );
   };
 
