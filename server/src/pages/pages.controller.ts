@@ -81,14 +81,13 @@ export class PagesController {
   async getMyPage(@CurrentUser() user: User) {
     const page = await this.pagesService.findMyPage(user);
 
-    if (!page) return { page: null };
-
     const ability = await this.casl.createForUser(user);
     const abilityResult = {
       makeTipPrivate: ability.can(Action.MakeTipPrivate, page),
       makeTipPublic: ability.can(Action.MakeTipPublic, page),
     };
-    Object.assign(page, { ability: abilityResult });
+
+    if (page) Object.assign(page, { ability: abilityResult });
 
     return { page };
   }
