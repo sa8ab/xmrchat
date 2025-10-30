@@ -15,7 +15,7 @@ const { data, pending, error, refresh } = useLazyAsyncData(
 
 <template>
   <div>
-    <div class="flex justify-end mb-4">
+    <div v-if="data?.length" class="flex justify-end mb-4">
       <UButton :to="toStreamerCohostsInvites()">Invite Cohosts</UButton>
     </div>
 
