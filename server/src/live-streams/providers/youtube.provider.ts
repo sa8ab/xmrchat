@@ -70,7 +70,7 @@ export class YoutubeProvider implements LiveStreamProvider {
           channelId: video.snippet.channelId,
           channelName: video.snippet.channelTitle,
           videoId: video.id,
-          imageUrl: video.snippet.thumbnails.standard.url,
+          imageUrl: video.snippet.thumbnails.standard?.url,
           platform: LiveStreamPlatformEnum.YOUTUBE,
           startedAt: video.liveStreamingDetails?.actualStartTime,
           viewerCount: Number(video.statistics.viewCount),
