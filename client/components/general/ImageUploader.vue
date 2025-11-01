@@ -29,7 +29,9 @@ const handleChange = async (e: Event) => {
   const formData = new FormData();
 
   const file = files[0];
-  formData.append("image", file);
+  Array.from(files).forEach((file) => {
+    formData.append("files", file);
+  });
 
   staged.value = URL.createObjectURL(file);
 
@@ -45,7 +47,7 @@ const handleChange = async (e: Event) => {
     });
     console.log(res);
 
-    emit("upload", res.file);
+    emit("upload", res.files[0]);
   } catch (e) {
     console.log(e);
   } finally {

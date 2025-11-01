@@ -33,12 +33,7 @@ export class MinioStorage {
       const generateThumbnail = config.generateThumbnail;
 
       const stream = file.stream;
-      let buffer: Buffer;
-      try {
-        buffer = await this.streamToBuffer(stream);
-      } catch (error) {
-        console.log('buffer error', error);
-      }
+      const buffer = await this.streamToBuffer(stream);
 
       await this.minioService.uploadFile(buffer, bucket, name);
 
