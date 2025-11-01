@@ -32,6 +32,7 @@ export class FilesInterceptor implements NestInterceptor {
       storage: this.minioStorage,
       limits: {
         fileSize: config.maxSize,
+        files: config.maxCount,
       },
 
       fileFilter: (req, file, cb) => {
@@ -47,6 +48,6 @@ export class FilesInterceptor implements NestInterceptor {
 
     const interceptor = new InterceptorMixin();
 
-    return await interceptor.intercept(context, next);
+    return interceptor.intercept(context, next);
   }
 }

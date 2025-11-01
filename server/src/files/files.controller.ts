@@ -17,6 +17,7 @@ import { Express } from 'express';
 import sharp from 'sharp';
 import { promises as fs } from 'fs';
 import { FilesInterceptor } from 'src/shared/interceptors/files.interceptor';
+import { CreateFileDto } from './dtos/create-file.dto';
 
 @Controller('upload')
 export class FilesController {
@@ -75,7 +76,11 @@ export class FilesController {
   @Post('/:type')
   @IsPublic()
   @UseInterceptors(FilesInterceptor)
-  async uploadFile(@UploadedFiles() files: Express.Multer.File[]) {
-    console.log('uploaded fiels', files);
+  async uploadFile(
+    @UploadedFiles() files: CreateFileDto[],
+    @Param('type', new ParseEnumPipe(FileType)) type: FileType,
+  ) {
+    const result = await this.filesService.createMultipleFiles(files);
+    return { files: result };
   }
 }

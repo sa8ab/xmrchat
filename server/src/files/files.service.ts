@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FileType } from 'src/shared/constants/enum';
+import { FileType, MinioBucket } from 'src/shared/constants/enum';
 import { File as FileEntity } from './file.entity';
 import { Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { Page } from 'src/pages/page.entity';
 import { MinioService } from './minio.service';
 import sharp from 'sharp';
+import { CreateFileDto } from './dtos/create-file.dto';
 
 @Injectable()
 export class FilesService {
@@ -15,6 +16,12 @@ export class FilesService {
     private minioService: MinioService,
     private configService: ConfigService,
   ) {}
+
+  async createMultipleFiles(dto: CreateFileDto[]) {
+    const files = await this.repo.save(dto);
+
+    return files;
+  }
 
   async createFile(payload: {
     filename: string;
@@ -26,6 +33,15 @@ export class FilesService {
     const entity = this.repo.create(payload);
 
     return this.repo.save(entity);
+  }
+
+  getFileUrl(params: {
+    name: string;
+    bucket: MinioBucket;
+    isThumbnail?: boolean;
+  }) {
+    const bucket = params.isThumbnail ? MinioBucket.THUMBNAILS : params.bucket;
+    return `/${bucket}/${params.name}`;
   }
 
   getImageUrl(name: string, { isThumbnail } = { isThumbnail: false }) {
