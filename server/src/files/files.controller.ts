@@ -5,6 +5,8 @@ import {
   Param,
   ParseEnumPipe,
   BadRequestException,
+  UseInterceptors,
+  UploadedFiles,
 } from '@nestjs/common';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 import { ImageUploadInterceptor } from 'src/shared/interceptors/image-upload.interceptor';
@@ -14,6 +16,7 @@ import { MinioService } from './minio.service';
 import { Express } from 'express';
 import sharp from 'sharp';
 import { promises as fs } from 'fs';
+import { FilesInterceptor } from 'src/shared/interceptors/files.interceptor';
 
 @Controller('upload')
 export class FilesController {
@@ -67,5 +70,12 @@ export class FilesController {
   createThumbnails() {
     throw new BadRequestException('This request should no longer be used.');
     return this.filesService.generateThumbnailsForCurrentLogos();
+  }
+
+  @Post('/:type')
+  @IsPublic()
+  @UseInterceptors(FilesInterceptor)
+  async uploadFile(@UploadedFiles() files: Express.Multer.File[]) {
+    console.log('uploaded fiels', files);
   }
 }

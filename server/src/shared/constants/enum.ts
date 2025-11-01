@@ -5,6 +5,14 @@ export enum UserTokenType {
 
 export enum FileType {
   PAGE_LOGO = 'page-logo',
+  PAGE_BANNER = 'page-banner',
+  OBS_SOUND = 'obs-sound',
+}
+
+export enum MinioBucket {
+  MEDIA = 'media',
+  IMAGES = 'images',
+  THUMBNAILS = 'thumbnails',
 }
 
 export enum PageSettingCategory {

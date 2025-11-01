@@ -3,6 +3,7 @@ import { createReadStream } from 'fs';
 import { Client } from 'minio';
 import { Express } from 'express';
 import { ConfigService } from '@nestjs/config';
+import { Readable } from 'form-data';
 
 @Injectable()
 export class MinioService {
@@ -19,10 +20,14 @@ export class MinioService {
     });
   }
 
-  async uploadFile(file: Buffer, bucketName: string, name: string) {
+  async uploadFile(file: Buffer | Readable, bucketName: string, name: string) {
     await this.createBucket(bucketName);
 
     return this.minioClient.putObject(bucketName, name, file);
+  }
+
+  async removeFile(bucket: string, name: string) {
+    return this.minioClient.removeObject(bucket, name);
   }
 
   async createBucket(bucketName: string) {
