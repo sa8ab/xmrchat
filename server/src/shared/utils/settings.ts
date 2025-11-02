@@ -21,6 +21,10 @@ export const PAGE_SETTINGS = {
     category: PageSettingCategory.OBS,
     type: PageSettingValueType.BOOLEAN,
   },
+  [PageSettingKey.OBS_SOUND]: {
+    category: PageSettingCategory.OBS,
+    type: PageSettingValueType.NUMBER,
+  },
   [PageSettingKey.MIN_NOTIFICATION_THRESHOLD]: {
     category: PageSettingCategory.NOTIFICATIONS,
     type: PageSettingValueType.NUMBER,

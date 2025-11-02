@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { PageSettingField } from "~/types";
-import { PageSettingKey } from "~/types/enums";
+import type { PageSettingField, UploadedFile } from "~/types";
+import { PageSettingKey, UploadSlug } from "~/types/enums";
 
 const url = useRequestURL();
 const { state: authState } = useAuthStore();
@@ -18,8 +18,9 @@ const copyLink = () => {
   copy(`${url.origin}/${authState.page?.path}/obs`);
 };
 
-const { data, pending } = useLazyAsyncData(() => getPageSettingsApi(), {
-  transform: (res) => {
+const { data, pending } = useLazyAsyncData(
+  async () => {
+    const res = await getPageSettingsApi();
     const settings = res.settings;
 
     const keepMessages =
@@ -31,19 +32,40 @@ const { data, pending } = useLazyAsyncData(() => getPageSettingsApi(), {
     const autoShowTips =
       settings.find(({ key }) => key === PageSettingKey.OBS_AUTO_SHOW_TIPS)
         ?.value ?? false;
+    const obsSound =
+      settings.find(({ key }) => key === PageSettingKey.OBS_SOUND)?.value ??
+      null;
 
-    return {
+    state.form = {
       keepMessages,
       playSound,
       autoShowTips,
+      obsSound,
     };
   },
-  server: false,
-});
+  {
+    server: false,
+  }
+);
 
-const state: { saving: boolean; saveError: string | undefined } = reactive({
+const state: {
+  saving: boolean;
+  saveError: string | undefined;
+  form: {
+    keepMessages: boolean;
+    playSound: boolean;
+    autoShowTips: boolean;
+    obsSound?: number;
+  };
+} = reactive({
   saving: false,
   saveError: undefined,
+  form: {
+    keepMessages: false,
+    playSound: false,
+    autoShowTips: false,
+    obsSound: undefined,
+  },
 });
 
 const saveSettings = async () => {
@@ -59,9 +81,10 @@ const saveSettings = async () => {
         },
         {
           key: PageSettingKey.OBS_AUTO_SHOW_TIPS,
-          value: data.value?.autoShowTips,
+          value: state.form.autoShowTips,
         },
-        { key: PageSettingKey.OBS_PLAY_SOUND, value: data.value?.playSound },
+        { key: PageSettingKey.OBS_PLAY_SOUND, value: state.form.playSound },
+        { key: PageSettingKey.OBS_SOUND, value: state.form.obsSound },
       ] as PageSettingField[],
     });
 
@@ -73,6 +96,16 @@ const saveSettings = async () => {
   } finally {
     state.saving = false;
   }
+};
+
+const clearSound = () => {
+  state.form.obsSound = undefined;
+  saveSettings();
+};
+
+const handleUploadSound = (file: UploadedFile) => {
+  state.form.obsSound = file.id;
+  saveSettings();
 };
 </script>
 
@@ -106,10 +139,13 @@ const saveSettings = async () => {
       </div>
     </div>
 
-    <div v-else-if="data" class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4">
       <div class="grid grid-cols-[auto_1fr] gap-x-2">
         <div>
-          <UToggle v-model="data.autoShowTips" @change="saveSettings"></UToggle>
+          <UToggle
+            v-model="state.form.autoShowTips"
+            @change="saveSettings"
+          ></UToggle>
         </div>
         <span class="font-bold cols"> {{ t("autoShowTips") }}</span>
         <span></span>
@@ -119,14 +155,17 @@ const saveSettings = async () => {
       </div>
       <div class="grid grid-cols-[auto_1fr] gap-x-2">
         <div>
-          <UToggle v-model="data.playSound" @change="saveSettings"></UToggle>
+          <UToggle
+            v-model="state.form.playSound"
+            @change="saveSettings"
+          ></UToggle>
         </div>
         <span class="font-bold cols">{{ t("playSound") }}</span>
         <span></span>
         <span class="text-pale text-sm">
           {{ t("playSoundDescription") }}
         </span>
-        <template v-if="data.playSound">
+        <template v-if="state.form.playSound">
           <span></span>
           <UAlert
             :ui="{ description: 'text-xs' }"
@@ -137,16 +176,23 @@ const saveSettings = async () => {
           />
         </template>
       </div>
-      <!-- <div class="grid grid-cols-[1fr]">
-        <span class="font-bold cols"> Upload Sound</span>
-        <span></span>
-        <span class="text-pale text-sm">
-          upload custom sound (mp3, wav, ogg)
-        </span>
-        <div class="max-w-[320px] mt-2">
-          <UInput type="file"></UInput>
-        </div>
-      </div> -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-2">
+        <UFormGroup
+          label="Upload Sound"
+          description="Custom sound to play on OBS page."
+        >
+          <FileUploader
+            :slug="UploadSlug.OBS_SOUND"
+            accept="audio/*"
+            @upload="handleUploadSound"
+          />
+          <div class="flex justify-end mt-2">
+            <UButton variant="soft" color="red" @click="clearSound">
+              Clear
+            </UButton>
+          </div>
+        </UFormGroup>
+      </div>
     </div>
     <div class="mt-6">
       <UAlert

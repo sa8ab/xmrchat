@@ -16,7 +16,7 @@ export const FILE_CONFIGS = {
     generateThumbnail: true,
   },
   [FileType.OBS_SOUND]: {
-    types: ['mp3', 'wav', 'ogg'],
+    types: ['mp3', 'mpeg', 'wav', 'ogg'],
     maxSize: 10 * 1024 * 1024,
     maxCount: 1,
     bucket: MinioBucket.MEDIA,
