@@ -41,7 +41,8 @@ export class FilesService {
     isThumbnail?: boolean;
   }) {
     const bucket = params.isThumbnail ? MinioBucket.THUMBNAILS : params.bucket;
-    return `/${bucket}/${params.name}`;
+    const name = params.isThumbnail ? `thumbnail-${params.name}` : params.name;
+    return `/${bucket}/${name}`;
   }
 
   getImageUrl(name: string, { isThumbnail } = { isThumbnail: false }) {

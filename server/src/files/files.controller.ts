@@ -74,7 +74,6 @@ export class FilesController {
   }
 
   @Post('/:type')
-  @IsPublic()
   @UseInterceptors(FilesInterceptor)
   async uploadFile(
     @UploadedFiles() files: CreateFileDto[],

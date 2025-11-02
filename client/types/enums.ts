@@ -1,5 +1,6 @@
 export enum UploadSlug {
   PAGE_LOGO = "page-logo",
+  OBS_SOUND = "obs-sound",
 }
 
 export enum PageSettingKey {
