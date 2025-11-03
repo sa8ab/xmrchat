@@ -195,9 +195,11 @@ const handleUploadSound = (file: UploadedFile) => {
         class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-2"
       >
         <UFormGroup
-          label="Upload Sound"
           description="Custom sound to play on OBS page ( mp3, wav, ogg )."
         >
+          <template #label>
+            <span class="font-bold text-text text-base">Upload Sound</span>
+          </template>
           <FileUploader
             :slug="UploadSlug.OBS_SOUND"
             accept="audio/*"
