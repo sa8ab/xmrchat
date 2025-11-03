@@ -26,6 +26,9 @@ export class PageSettingDto {
 
   @Expose()
   updatedAt: Date;
+
+  @Expose()
+  data: any;
 }
 
 export class PageSettingRO {

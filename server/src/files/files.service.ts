@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FileType, MinioBucket } from 'src/shared/constants/enum';
 import { File as FileEntity } from './file.entity';

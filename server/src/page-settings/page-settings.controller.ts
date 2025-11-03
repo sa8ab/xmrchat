@@ -5,6 +5,7 @@ import {
   Get,
   NotFoundException,
   Param,
+  ParseIntPipe,
   Put,
   Query,
   UnauthorizedException,
@@ -60,12 +61,10 @@ export class PageSettingsController {
 
   @Put('/:pageId')
   async upsert(
-    @Param('pageId') pageId: number,
+    @Param('pageId', ParseIntPipe) pageId: number,
     @CurrentUser() user: User,
     @Body() body: UpdatePageSettingDto,
   ) {
-    if (!pageId) throw new BadRequestException('Page id is required');
-
     const page = await this.pagesService.findById(pageId);
 
     if (!page) throw new NotFoundException('Page not found.');

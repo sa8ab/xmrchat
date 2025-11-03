@@ -36,12 +36,17 @@ const { data, pending } = useLazyAsyncData(
       settings.find(({ key }) => key === PageSettingKey.OBS_SOUND)?.value ??
       null;
 
+    const uploadedSound = settings.find(
+      ({ key }) => key === PageSettingKey.OBS_SOUND
+    )?.data as UploadedFile;
+
     state.form = {
       keepMessages,
       playSound,
       autoShowTips,
       obsSound,
     };
+    state.uploadedSound = uploadedSound;
   },
   {
     server: false,
@@ -57,6 +62,7 @@ const state: {
     autoShowTips: boolean;
     obsSound?: number;
   };
+  uploadedSound?: UploadedFile;
 } = reactive({
   saving: false,
   saveError: undefined,
@@ -66,6 +72,7 @@ const state: {
     autoShowTips: false,
     obsSound: undefined,
   },
+  uploadedSound: undefined,
 });
 
 const saveSettings = async () => {
