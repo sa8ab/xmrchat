@@ -17,7 +17,7 @@ import { UpdatePageSettingDto } from './dto/update-page-setting.dto';
 import { PagesService } from 'src/pages/pages.service';
 import { PageSettingCategory } from 'src/shared/constants';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
-import { PageSettingDto, PageSettingRO } from './dto/page-setting.dto';
+import { PageSettingRO } from './dto/page-setting.dto';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 
 @Controller('page-settings')
@@ -72,6 +72,6 @@ export class PageSettingsController {
     if (page.userId != user.id)
       throw new UnauthorizedException('Unauthorized.');
 
-    return this.pageSettings.upsert(pageId, body.settings);
+    return this.pageSettings.upsert(pageId, body.settings, user);
   }
 }

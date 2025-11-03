@@ -3,7 +3,8 @@ import type { PageSettingField, UploadedFile } from "~/types";
 import { PageSettingKey, UploadSlug } from "~/types/enums";
 
 const url = useRequestURL();
-const { state: authState } = useAuthStore();
+const authStore = useAuthStore();
+const { state: authState } = authStore;
 const { t } = useI18n();
 
 const { copy } = useCopy();
@@ -93,7 +94,10 @@ const saveSettings = async () => {
           value: state.form.autoShowTips,
         },
         { key: PageSettingKey.OBS_PLAY_SOUND, value: state.form.playSound },
-        { key: PageSettingKey.OBS_SOUND, value: state.form.obsSound },
+        {
+          key: PageSettingKey.OBS_SOUND,
+          value: state.form.obsSound ? Number(state.form.obsSound) : null,
+        },
       ] as PageSettingField[],
     });
 
@@ -186,7 +190,10 @@ const handleUploadSound = (file: UploadedFile) => {
           />
         </template>
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-2">
+      <div
+        v-if="authStore.isPremiumOrAdmin || state.uploadedSound"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-2"
+      >
         <UFormGroup
           label="Upload Sound"
           description="Custom sound to play on OBS page ( mp3, wav, ogg )."
