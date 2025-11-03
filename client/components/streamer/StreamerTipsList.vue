@@ -1,6 +1,12 @@
 <script lang="ts" setup>
-import type { Numberic, ObsTipSocketEvent, StreamerPage, Tip } from "~/types";
-import { FiatEnum, TipDisplayMode } from "~/types/enums";
+import type {
+  Numberic,
+  ObsTipSocketEvent,
+  PageSetting,
+  StreamerPage,
+  Tip,
+} from "~/types";
+import { FiatEnum, PageSettingKey, TipDisplayMode } from "~/types/enums";
 
 const props = withDefaults(
   defineProps<{
@@ -16,6 +22,8 @@ const props = withDefaults(
   }
 );
 
+const { axios } = useApp();
+const config = useRuntimeConfig();
 const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
   useServices();
 
@@ -27,7 +35,7 @@ const { init, disconnect, sendTipToObs, removeTipFromObs } = usePageSocket({
   },
   handleTipEvent: () => {
     if (!props.playSound) return;
-    const audio = new Audio("/sounds/obs-sound-1.mp3");
+    const audio = new Audio(soundUrl.value);
     audio.play();
   },
 });
@@ -40,6 +48,28 @@ const { data, refresh, pending, error } = useLazyAsyncData(
   `recent-tips-${props.slug}`,
   () => getTipsApi(props.slug)
 );
+const { data: obsSettings } = useLazyAsyncData(
+  async () => {
+    const { data } = await axios.get<{ settings: PageSetting[] }>(
+      `/page-settings/${props.slug}/obs`
+    );
+
+    const obsSound = data.settings.find(
+      ({ key }) => key === PageSettingKey.OBS_SOUND
+    )?.data;
+
+    return {
+      obsSound,
+    };
+  },
+  { server: false }
+);
+
+const soundUrl = computed(() => {
+  if (!obsSettings.value?.obsSound) return "/sounds/obs-sound-1.mp3";
+  return `${config.public.imageBaseUrl}${obsSettings.value.obsSound.url}`;
+});
+
 const interval = ref<NodeJS.Timeout | undefined>(undefined);
 
 onMounted(() => {
