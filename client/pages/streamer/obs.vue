@@ -18,7 +18,7 @@ const copyLink = () => {
   copy(`${url.origin}/${authState.page?.path}/obs`);
 };
 
-const { data, pending } = useLazyAsyncData(
+const { data, pending, refresh } = useLazyAsyncData(
   async () => {
     const res = await getPageSettingsApi();
     const settings = res.settings;
@@ -47,6 +47,8 @@ const { data, pending } = useLazyAsyncData(
       obsSound,
     };
     state.uploadedSound = uploadedSound;
+
+    return {};
   },
   {
     server: false,
@@ -98,6 +100,7 @@ const saveSettings = async () => {
     toast.add({
       title: t("settingsAreUpdated"),
     });
+    await refresh();
   } catch (error) {
     state.saveError = getErrorMessage(error);
   } finally {
@@ -131,7 +134,7 @@ const handleUploadSound = (file: UploadedFile) => {
     <UDivider class="my-6" />
     <div class="font-bold text-lg mb-4">{{ t("obsPageSettings") }}</div>
 
-    <div v-if="pending" class="flex flex-col gap-4">
+    <div v-if="pending && !data" class="flex flex-col gap-4">
       <div class="grid grid-cols-[auto_1fr] gap-x-2" v-for="x in 2">
         <div>
           <USkeleton class="h-4 w-[38px]" />
@@ -146,7 +149,7 @@ const handleUploadSound = (file: UploadedFile) => {
       </div>
     </div>
 
-    <div class="flex flex-col gap-4">
+    <div v-else-if="data" class="flex flex-col gap-4">
       <div class="grid grid-cols-[auto_1fr] gap-x-2">
         <div>
           <UToggle
@@ -186,13 +189,21 @@ const handleUploadSound = (file: UploadedFile) => {
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-2">
         <UFormGroup
           label="Upload Sound"
-          description="Custom sound to play on OBS page."
+          description="Custom sound to play on OBS page ( mp3, wav, ogg )."
         >
           <FileUploader
             :slug="UploadSlug.OBS_SOUND"
             accept="audio/*"
             @upload="handleUploadSound"
           />
+          <div
+            v-if="state.uploadedSound"
+            class="text-pale truncate max-w-[240px]"
+          >
+            <span class="text-xs">
+              Uploaded: {{ state.uploadedSound?.originalName || "-" }}
+            </span>
+          </div>
           <div class="flex justify-end mt-2">
             <UButton variant="soft" color="red" @click="clearSound">
               Clear
