@@ -8,6 +8,7 @@ import { FileType, MinioBucket } from 'src/shared/constants';
 import { CreateFileDto } from './dtos/create-file.dto';
 import sharp from 'sharp';
 import { FilesService } from './files.service';
+import { Express } from 'express';
 
 @Injectable()
 export class MinioStorage {
