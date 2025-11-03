@@ -52,11 +52,6 @@ export class CaslAbilityFactory {
       can(Action.Manage, 'all');
     }
 
-    can(Action.Update, PageSetting);
-    cannot(Action.Update, PageSetting, {
-      key: PageSettingKey.OBS_SOUND,
-      value: { $ne: null },
-    });
     if (pageResult?.isPremium) {
       can(Action.Manage, 'notification');
       can(Action.Receive, 'notification');
@@ -75,6 +70,15 @@ export class CaslAbilityFactory {
         id: user.cohostPageId,
       });
     }
+
+    // PAGE SETTINGS
+    // Update page settings but only can reset the obs sound.
+    can(Action.Update, PageSetting);
+    cannot(Action.Update, PageSetting, {
+      key: PageSettingKey.OBS_SOUND,
+      value: { $ne: null },
+    });
+    if (pageResult?.isPremium) can(Action.Update, PageSetting);
 
     // COHOST ACTIONS
     can(Action.Delete, CohostInvitation, {
