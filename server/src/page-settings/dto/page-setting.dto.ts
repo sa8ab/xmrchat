@@ -1,4 +1,5 @@
 import { Expose, Transform, Type } from 'class-transformer';
+import { FileDto } from 'src/files/dtos/file.dto';
 import {
   PageSettingCategory,
   PageSettingKey,
@@ -28,6 +29,10 @@ export class PageSettingDto {
   updatedAt: Date;
 
   @Expose()
+  @Type((options) => {
+    if (options.object.key === PageSettingKey.OBS_SOUND) return FileDto;
+    return undefined;
+  })
   data: any;
 }
 

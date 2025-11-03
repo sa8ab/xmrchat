@@ -73,8 +73,7 @@ export class PageSettingsService {
       const file = await this.filesRepo.findOne({
         where: { id: Number(value) },
       });
-      const serialized = serializer(FileDto, file);
-      return serialized as unknown as FileDto;
+      return file;
     }
 
     return null;
