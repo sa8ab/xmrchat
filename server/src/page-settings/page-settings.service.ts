@@ -43,10 +43,20 @@ export class PageSettingsService {
   async getByPageSlug(slug: string, category?: PageSettingCategory) {
     if (!slug) return null;
     const page = await this.pagesService.findByPath(slug);
-    return this.repo.findBy({
+    const result = await this.repo.findBy({
       page: { id: page.id },
       category,
     });
+
+    const resultWithData = result.map(async (setting) => {
+      const data = await this.getSettingData(setting.key, setting.value);
+      return {
+        ...setting,
+        data,
+      };
+    });
+
+    return await Promise.all(resultWithData);
   }
 
   async upsert(pageId: number, settings: UpdatePageSettingBaseDto[]) {
