@@ -195,7 +195,7 @@ const handleUploadSound = (file: UploadedFile) => {
         class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-2"
       >
         <UFormGroup
-          description="Custom sound to play on OBS page ( mp3, wav, ogg )."
+          description="Custom sound to play on OBS and Cohost pages ( mp3, wav, ogg )."
         >
           <template #label>
             <span class="font-bold text-text text-base">Upload Sound</span>
