@@ -26,6 +26,7 @@ type Subjects =
     >
   | 'notification'
   | 'cohost'
+  | 'integration'
   | 'all';
 
 export type AppAbility = MongoAbility<[Action, Subjects]>;
@@ -73,12 +74,11 @@ export class CaslAbilityFactory {
 
     // PAGE SETTINGS
     // Update page settings but only can reset the obs sound.
-    can(Action.Update, PageSetting);
     cannot(Action.Update, PageSetting, {
       key: PageSettingKey.OBS_SOUND,
       value: { $ne: null },
     });
-    if (pageResult?.isPremium) can(Action.Update, PageSetting);
+    if (pageResult?.isPremium || isAdmin) can(Action.Update, PageSetting);
 
     // COHOST ACTIONS
     can(Action.Delete, CohostInvitation, {
