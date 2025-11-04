@@ -59,7 +59,6 @@ export class CaslAbilityFactory {
       can(Action.Manage, 'integration');
       can(Action.Manage, 'cohost');
       can(Action.Create, CohostInvitation);
-      can(Action.Update, PageSetting);
     }
 
     // OBS ACTIONS
@@ -74,6 +73,7 @@ export class CaslAbilityFactory {
 
     // PAGE SETTINGS
     // Update page settings but only can reset the obs sound.
+    can(Action.Update, PageSetting);
     cannot(Action.Update, PageSetting, {
       key: PageSettingKey.OBS_SOUND,
       value: { $ne: null },
