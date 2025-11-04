@@ -69,18 +69,22 @@ export class NotificationPreferencesController {
 
     const page = await this.pagesService.findMyPage(user);
 
-    await this.pageSettingsService.upsert(page.id, [
-      {
-        key: PageSettingKey.MIN_NOTIFICATION_THRESHOLD,
-        value: dto.minNotificationThreshold
-          ? MoneroUtils.xmrToAtomicUnits(dto.minNotificationThreshold)
-          : null,
-      },
-      {
-        key: PageSettingKey.DAILY_SUMMARY_NOTIFICATION_TIME,
-        value: dto.dailySummaryTime,
-      },
-    ]);
+    await this.pageSettingsService.upsert(
+      page.id,
+      [
+        {
+          key: PageSettingKey.MIN_NOTIFICATION_THRESHOLD,
+          value: dto.minNotificationThreshold
+            ? MoneroUtils.xmrToAtomicUnits(dto.minNotificationThreshold)
+            : null,
+        },
+        {
+          key: PageSettingKey.DAILY_SUMMARY_NOTIFICATION_TIME,
+          value: dto.dailySummaryTime,
+        },
+      ],
+      user,
+    );
 
     await this.notificationPreferencesService.updateNotificationPreferences(
       page.id,

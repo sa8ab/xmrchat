@@ -9,18 +9,24 @@ import {
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CohostInvitation } from 'src/cohost/cohost-invitations/entities/cohost-invitation.entity';
+import { PageSetting } from 'src/page-settings/page-setting.entity';
 import { Page } from 'src/pages/page.entity';
-import { Action, RolesEnum } from 'src/shared/constants/enum';
+import { Action, PageSettingKey, RolesEnum } from 'src/shared/constants/enum';
 import { Tip } from 'src/tips/tip.entity';
 import { User } from 'src/users/user.entity';
 import { Repository } from 'typeorm';
 
 type Subjects =
   | InferSubjects<
-      typeof User | typeof CohostInvitation | typeof Page | typeof Tip
+      | typeof User
+      | typeof CohostInvitation
+      | typeof Page
+      | typeof Tip
+      | typeof PageSetting
     >
   | 'notification'
   | 'cohost'
+  | 'integration'
   | 'all';
 
 export type AppAbility = MongoAbility<[Action, Subjects]>;
@@ -64,6 +70,15 @@ export class CaslAbilityFactory {
         id: user.cohostPageId,
       });
     }
+
+    // PAGE SETTINGS
+    // Update page settings but only can reset the obs sound.
+    can(Action.Update, PageSetting);
+    cannot(Action.Update, PageSetting, {
+      key: PageSettingKey.OBS_SOUND,
+      value: { $ne: null },
+    });
+    if (pageResult?.isPremium || isAdmin) can(Action.Update, PageSetting);
 
     // COHOST ACTIONS
     can(Action.Delete, CohostInvitation, {

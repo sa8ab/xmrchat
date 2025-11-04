@@ -75,8 +75,8 @@ export const useServices = () => {
     slug: UploadSlug = UploadSlug.PAGE_LOGO,
     config?: AxiosRequestConfig
   ) => {
-    const res = await axios.post<{ file: UploadedFile }>(
-      `/upload/image/${slug}`,
+    const res = await axios.post<{ files: UploadedFile[] }>(
+      `/upload/${slug}`,
       params,
       config
     );

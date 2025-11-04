@@ -5,6 +5,14 @@ export enum UserTokenType {
 
 export enum FileType {
   PAGE_LOGO = 'page-logo',
+  PAGE_BANNER = 'page-banner',
+  OBS_SOUND = 'obs-sound',
+}
+
+export enum MinioBucket {
+  MEDIA = 'media',
+  IMAGES = 'images',
+  THUMBNAILS = 'thumbnails',
 }
 
 export enum PageSettingCategory {
@@ -18,6 +26,7 @@ export enum PageSettingKey {
   OBS_KEEP_MESSAGES = 'obs-keep-messages',
   OBS_PLAY_SOUND = 'obs-play-sound',
   OBS_AUTO_SHOW_TIPS = 'obs-auto-show-tips',
+  OBS_SOUND = 'obs-sound',
   MIN_NOTIFICATION_THRESHOLD = 'min-notification-threshold',
   DAILY_SUMMARY_NOTIFICATION_TIME = 'daily-summary-notification-time',
 }

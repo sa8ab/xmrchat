@@ -1,5 +1,6 @@
 export enum UploadSlug {
   PAGE_LOGO = "page-logo",
+  OBS_SOUND = "obs-sound",
 }
 
 export enum PageSettingKey {
@@ -7,6 +8,7 @@ export enum PageSettingKey {
   OBS_KEEP_MESSAGES = "obs-keep-messages",
   OBS_PLAY_SOUND = "obs-play-sound",
   OBS_AUTO_SHOW_TIPS = "obs-auto-show-tips",
+  OBS_SOUND = "obs-sound",
 }
 
 export enum ContentLinkPlatformEnum {

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ObsTipSocketEvent, Tip } from "~/types";
+import type { ObsTipSocketEvent, Tip, UploadedFile } from "~/types";
 import gsap from "gsap";
 import { PageSettingKey } from "~/types/enums";
 
@@ -11,6 +11,7 @@ const route = useRoute();
 const slug = computed(() => route.params.streamerId as string);
 
 const { getPageOBSSettings: getSettings } = useServices();
+const config = useRuntimeConfig();
 
 const { data, pending } = useLazyAsyncData(
   `obs-settings-${slug.value}`,
@@ -26,9 +27,14 @@ const { data, pending } = useLazyAsyncData(
         settings.find(({ key }) => key === PageSettingKey.OBS_PLAY_SOUND)
           ?.value ?? false;
 
+      const obsSound = settings.find(
+        ({ key }) => key === PageSettingKey.OBS_SOUND
+      )?.data as UploadedFile;
+
       return {
         autoShowTips,
         playSound,
+        obsSound,
       };
     },
     server: false,
@@ -90,10 +96,15 @@ const removeTip = (id: number) => {
   tips.value = tips.value.filter((t) => t.tip?.id !== id);
 };
 
+const soundUrl = computed(() => {
+  if (!data.value?.obsSound) return "/sounds/obs-sound-1.mp3";
+  return `${config.public.imageBaseUrl}${data.value.obsSound.url}`;
+});
+
 const playSound = () => {
   if (!data.value?.playSound) return;
 
-  const audio = new Audio("/sounds/obs-sound-1.mp3");
+  const audio = new Audio(soundUrl.value);
 
   audio.play();
 };

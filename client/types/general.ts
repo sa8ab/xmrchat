@@ -169,6 +169,7 @@ export interface PageSetting {
   key: PageSettingKey;
   value?: any;
   category: string;
+  data?: any;
 }
 
 export interface PageSettingField {
