@@ -20,7 +20,9 @@ export class SwapsController {
           (c.network === 'Mainnet' && c.ticker === 'ltc') || // Litecoin
           (c.network === 'Mainnet' && c.ticker === 'btc') || // Bitcoin
           (c.network === 'Mainnet' && c.ticker === 'bch') || // Bitcoin Cash
-          (c.network === 'SOL' && c.ticker === 'usdc'), // USDC
+          (c.network === 'SOL' &&
+            c.ticker === 'usdc' &&
+            c.name === 'USDC (SOL)'), // USDC
       ),
     };
   }
