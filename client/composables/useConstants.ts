@@ -272,6 +272,8 @@ export const useConstants = () => {
     return LIVE_STREAM_PLATFORMS[v];
   };
 
+  const PAGE_TIER_COLORS = [];
+
   return {
     getContentLink,
     CONTENT_LINKS,
