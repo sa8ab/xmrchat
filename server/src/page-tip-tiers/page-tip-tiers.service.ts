@@ -23,9 +23,12 @@ export class PageTipTiersService {
     @InjectRepository(File) private filesRepo: Repository<File>,
   ) {}
 
-  async findAll(pageId: number) {
+  async findAll(user: User) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page is not found');
+
     const tiers = await this.repo.find({
-      where: { page: { id: pageId } },
+      where: { page: { id: page.id } },
       relations: { sound: true },
     });
     return tiers;

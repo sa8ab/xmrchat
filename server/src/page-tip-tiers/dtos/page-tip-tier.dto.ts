@@ -1,4 +1,5 @@
-import { Expose, Type } from 'class-transformer';
+import { Expose, Transform, Type } from 'class-transformer';
+import { MoneroUtils } from 'monero-ts';
 import { FileDto } from 'src/files/dtos/file.dto';
 
 export class PageTipTierDto {
@@ -12,10 +13,12 @@ export class PageTipTierDto {
   description?: string;
 
   @Expose()
-  minAmount?: string;
+  @Transform(({ value }) => value && MoneroUtils.atomicUnitsToXmr(value))
+  minAmount?: number;
 
   @Expose()
-  maxAmount?: string;
+  @Transform(({ value }) => value && MoneroUtils.atomicUnitsToXmr(value))
+  maxAmount?: number;
 
   @Expose()
   color?: string;

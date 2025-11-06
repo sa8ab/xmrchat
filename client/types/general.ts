@@ -273,3 +273,12 @@ export interface CohostInvitation {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface PageTipTier {
+  id: number;
+  name: string;
+  description?: string;
+  minAmount?: number;
+  color?: string;
+  sound?: File;
+}
