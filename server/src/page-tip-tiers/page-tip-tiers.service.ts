@@ -2,17 +2,23 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PageTipTier } from './page-tip-tier.entity';
 import { Repository } from 'typeorm';
 import { CreatePageTipTierDto } from './dtos/create-page-tip-tier.dto';
 import { File } from 'src/files/file.entity';
-import { FileType } from 'src/shared/constants';
+import { Action, FileType } from 'src/shared/constants';
+import { User } from 'src/users/user.entity';
+import { PagesService } from 'src/pages/pages.service';
+import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 
 @Injectable()
 export class PageTipTiersService {
   constructor(
+    private pagesService: PagesService,
+    private casl: CaslAbilityFactory,
     @InjectRepository(PageTipTier) private repo: Repository<PageTipTier>,
     @InjectRepository(File) private filesRepo: Repository<File>,
   ) {}
@@ -25,7 +31,16 @@ export class PageTipTiersService {
     return tiers;
   }
 
-  async create(pageId: number, dto: CreatePageTipTierDto) {
+  async create(dto: CreatePageTipTierDto, user: User) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page is not found');
+
+    const ability = await this.casl.createForUser(user);
+    if (!ability.can(Action.Create, PageTipTier))
+      throw new UnauthorizedException(
+        'You are not authorized to create a page tip tier.',
+      );
+
     let sound: File | undefined;
     if (dto.soundId) {
       sound = await this.filesRepo.findOneBy({ id: dto.soundId });
@@ -41,7 +56,7 @@ export class PageTipTiersService {
       maxAmount: dto.maxAmount,
       color: dto.color,
       sound,
-      page: { id: pageId },
+      page: { id: page.id },
     });
 
     const tier = await this.repo.save(created);

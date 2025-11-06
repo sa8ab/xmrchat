@@ -10,6 +10,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CohostInvitation } from 'src/cohost/cohost-invitations/entities/cohost-invitation.entity';
 import { PageSetting } from 'src/page-settings/page-setting.entity';
+import { PageTipTier } from 'src/page-tip-tiers/page-tip-tier.entity';
 import { Page } from 'src/pages/page.entity';
 import { Action, PageSettingKey, RolesEnum } from 'src/shared/constants/enum';
 import { Tip } from 'src/tips/tip.entity';
@@ -23,6 +24,7 @@ type Subjects =
       | typeof Page
       | typeof Tip
       | typeof PageSetting
+      | typeof PageTipTier
     >
   | 'notification'
   | 'cohost'
@@ -59,6 +61,7 @@ export class CaslAbilityFactory {
       can(Action.Manage, 'integration');
       can(Action.Manage, 'cohost');
       can(Action.Create, CohostInvitation);
+      can(Action.Manage, PageTipTier);
     }
 
     // OBS ACTIONS

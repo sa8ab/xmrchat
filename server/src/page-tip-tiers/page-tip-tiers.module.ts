@@ -4,9 +4,10 @@ import { PageTipTiersController } from './page-tip-tiers.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PageTipTier } from './page-tip-tier.entity';
 import { File } from 'src/files/file.entity';
+import { PagesModule } from 'src/pages/pages.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([PageTipTier, File])],
+  imports: [PagesModule, TypeOrmModule.forFeature([PageTipTier, File])],
   providers: [PageTipTiersService],
   controllers: [PageTipTiersController],
 })
