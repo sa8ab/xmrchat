@@ -39,6 +39,7 @@ const state: State = reactive({
 
 useLazyAsyncData(
   async () => {
+    if (!id.value) return;
     const { data } = await axios.get<{ pageTipTier: PageTipTier }>(
       `/page-tip-tiers/${id.value}`
     );
