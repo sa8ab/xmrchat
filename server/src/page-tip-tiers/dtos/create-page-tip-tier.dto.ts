@@ -34,8 +34,12 @@ export class CreatePageTipTierDto {
 
   @IsNumber()
   @IsOptional()
-  @Transform(({ value }) =>
-    MoneroUtils.xmrToAtomicUnits(value ?? '').toString(),
+  @Transform(
+    ({ value }) => {
+      if (value === null || value === '') return null;
+      return MoneroUtils.xmrToAtomicUnits(value).toString();
+    },
+    { toClassOnly: true },
   )
   maxAmount?: string;
 
