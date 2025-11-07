@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { UFormGroup } from "#components";
+import useVuelidate from "@vuelidate/core";
 import type { UploadedFile } from "~/types";
 import { UploadSlug } from "~/types/enums";
 
@@ -40,6 +41,16 @@ const handleClearSound = () => {
   state.form.soundId = undefined;
   state.sound = undefined;
 };
+
+const v = useVuelidate<any>(
+  {
+    name: { required, maxLength: maxLength(40) },
+    minAmount: { numberic },
+  },
+  computed(() => state.form)
+);
+
+const { getValidationAttrs } = useValidations(v);
 </script>
 
 <template>
@@ -48,11 +59,20 @@ const handleClearSound = () => {
       @submit="handleSubmit"
       class="flex gap-4 flex-col w-full max-w-[600px]"
     >
-      <UFormGroup label="Name">
-        <UInput v-model="state.form.name" />
+      <UFormGroup label="Name" :error="getValidationAttrs('name').error">
+        <UInput
+          v-model="state.form.name"
+          @blur="getValidationAttrs('name').onBlur"
+        />
       </UFormGroup>
-      <UFormGroup label="Min. amount ( XMR )">
-        <UInput v-model="state.form.name" />
+      <UFormGroup
+        label="Min. amount ( XMR )"
+        :error="getValidationAttrs('minAmount').error"
+      >
+        <UInput
+          v-model="state.form.name"
+          @blur="getValidationAttrs('minAmount').onBlur"
+        />
       </UFormGroup>
       <UFormGroup label="Sound ( OBS )">
         <FileUploader
@@ -83,7 +103,7 @@ const handleClearSound = () => {
             inputClass="hidden"
             :ui="{ inner: 'ms-0', label: 'flex' }"
           >
-            <template #label="labelProps">
+            <template #label>
               <span
                 :class="[
                   'w-6 h-6 rounded-full inline-flex items-center justify-center ring-2 ring-border',
