@@ -60,8 +60,8 @@ const columns = computed(() => [
       <template #color-data="{ row }">
         <div
           v-if="row.color"
-          class="w-4 h-4 rounded-full"
-          :style="{ backgroundColor: `#${row.color}` }"
+          class="w-6 h-6 rounded-full ring-2 ring-border"
+          :style="{ backgroundColor: row.color }"
         ></div>
         <div v-else>-</div>
       </template>

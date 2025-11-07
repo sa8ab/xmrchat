@@ -92,7 +92,7 @@ export class PageTipTiersService {
       );
 
     let sound: File | undefined = tier.sound;
-    if (dto.soundId && dto.soundId !== tier.sound.id) {
+    if (dto.soundId && dto.soundId !== tier.sound?.id) {
       sound = await this.filesRepo.findOneBy({ id: dto.soundId });
       if (!sound) throw new NotFoundException('Sound is not found');
       if (sound.type !== FileType.OBS_SOUND)

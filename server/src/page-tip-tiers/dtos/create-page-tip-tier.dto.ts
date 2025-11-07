@@ -43,7 +43,6 @@ export class CreatePageTipTierDto {
   )
   maxAmount?: string;
 
-  @IsString()
   @IsRgbColor()
   @IsOptional()
   color?: string;

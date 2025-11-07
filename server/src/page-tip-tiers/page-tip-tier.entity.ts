@@ -25,7 +25,7 @@ export class PageTipTier {
   @Column({ type: 'bigint', nullable: true })
   maxAmount?: string;
 
-  @Column({ length: 7, nullable: true })
+  @Column({ nullable: true })
   color?: string;
 
   @ManyToOne(() => File, { onDelete: 'SET NULL', nullable: true })

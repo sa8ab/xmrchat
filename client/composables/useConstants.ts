@@ -273,10 +273,10 @@ export const useConstants = () => {
   };
 
   const PAGE_TIER_COLORS = [
-    `rgb(0, 0, 255)`,
-    `rgb(0, 128, 0)`,
-    `rgb(255, 69, 0)`,
-    `rgb(255, 0, 0)`,
+    `rgb(0,0,255)`,
+    `rgb(0,128,0)`,
+    `rgb(255,69,0)`,
+    `rgb(255,0,0)`,
   ];
 
   const getPageTierColor = (v?: number) => {
