@@ -24,6 +24,8 @@ export class PageTipTiersService {
     @InjectRepository(File) private filesRepo: Repository<File>,
   ) {}
 
+  private MAX_PAGE_TIP_TIERS = 5;
+
   async findAll(user: User) {
     const page = await this.pagesService.findMyPage(user);
     if (!page) throw new NotFoundException('Page is not found');
@@ -53,6 +55,15 @@ export class PageTipTiersService {
     if (!ability.can(Action.Create, PageTipTier))
       throw new UnauthorizedException(
         'You are not authorized to create a page tip tier.',
+      );
+
+    const tiers = await this.repo.find({
+      where: { page: { id: page.id } },
+    });
+
+    if (tiers.length >= this.MAX_PAGE_TIP_TIERS)
+      throw new BadRequestException(
+        `You have reached the maximum number of page tip tiers (${this.MAX_PAGE_TIP_TIERS}).`,
       );
 
     let sound: File | undefined;
