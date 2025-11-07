@@ -13,6 +13,7 @@ import { Action, FileType } from 'src/shared/constants';
 import { User } from 'src/users/user.entity';
 import { PagesService } from 'src/pages/pages.service';
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
+import { UpdatePageTipTierDto } from './dtos/update-page-tip-tier.dto';
 
 @Injectable()
 export class PageTipTiersService {
@@ -65,5 +66,53 @@ export class PageTipTiersService {
     const tier = await this.repo.save(created);
 
     return tier;
+  }
+
+  async update(id: number, dto: UpdatePageTipTierDto, user: User) {
+    const tier = await this.repo.findOne({
+      where: { id },
+      relations: { sound: true },
+    });
+    if (!tier) throw new NotFoundException('Tier is not found');
+
+    const ability = await this.casl.createForUser(user);
+    if (!ability.can(Action.Update, PageTipTier))
+      throw new UnauthorizedException(
+        'You are not authorized to update a page tip tier.',
+      );
+
+    let sound: File | undefined = tier.sound;
+    if (dto.soundId && dto.soundId !== tier.sound.id) {
+      sound = await this.filesRepo.findOneBy({ id: dto.soundId });
+      if (!sound) throw new NotFoundException('Sound is not found');
+      if (sound.type !== FileType.OBS_SOUND)
+        throw new BadRequestException('Sound is not a valid OBS sound');
+    }
+
+    tier.name = dto.name;
+    tier.description = dto.description;
+    tier.minAmount = dto.minAmount;
+    tier.maxAmount = dto.maxAmount;
+    tier.color = dto.color;
+    tier.sound = sound;
+
+    const updated = await this.repo.save(tier);
+    return updated;
+  }
+
+  async delete(id: number, user: User) {
+    const tier = await this.repo.findOne({
+      where: { id },
+      relations: { sound: true },
+    });
+    if (!tier) throw new NotFoundException('Tier is not found');
+
+    const ability = await this.casl.createForUser(user);
+    if (!ability.can(Action.Delete, PageTipTier))
+      throw new UnauthorizedException(
+        'You are not authorized to delete a page tip tier.',
+      );
+
+    await this.repo.remove(tier);
   }
 }

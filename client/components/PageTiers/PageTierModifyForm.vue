@@ -13,10 +13,14 @@ interface State {
     soundId?: number;
   };
   sound?: UploadedFile;
+  loading: boolean;
 }
 
 const { PAGE_TIER_COLORS } = useConstants();
 const { required, maxLength, numberic } = useValidations();
+const { axios } = useApp();
+const route = useRoute();
+const id = computed(() => route.params.id as string);
 
 const state: State = reactive({
   form: {
@@ -28,9 +32,20 @@ const state: State = reactive({
     soundId: undefined,
   },
   sound: undefined,
+  loading: false,
 });
 
-const handleSubmit = () => {};
+const handleSubmit = async () => {
+  const valid = await v.value.$validate();
+  if (!valid) return;
+
+  state.loading = true;
+  try {
+  } catch (error) {
+  } finally {
+    state.loading = false;
+  }
+};
 
 const handleSoundUpload = (file: UploadedFile) => {
   state.form.soundId = file.id;
