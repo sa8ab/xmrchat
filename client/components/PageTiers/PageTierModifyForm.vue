@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { UFormGroup } from "#components";
 import type { UploadedFile } from "~/types";
+import { UploadSlug } from "~/types/enums";
 
 interface State {
   form: {
@@ -8,11 +9,12 @@ interface State {
     description?: string;
     minAmount?: number;
     color?: string;
-    soundId?: string;
+    soundId?: number;
   };
   sound?: UploadedFile;
 }
 
+const { PAGE_TIER_COLORS } = useConstants();
 const { required, maxLength, numberic } = useValidations();
 
 const state: State = reactive({
@@ -28,6 +30,16 @@ const state: State = reactive({
 });
 
 const handleSubmit = () => {};
+
+const handleSoundUpload = (file: UploadedFile) => {
+  state.form.soundId = file.id;
+  state.sound = file;
+};
+
+const handleClearSound = () => {
+  state.form.soundId = undefined;
+  state.sound = undefined;
+};
 </script>
 
 <template>
@@ -39,9 +51,61 @@ const handleSubmit = () => {};
       <UFormGroup label="Name">
         <UInput v-model="state.form.name" />
       </UFormGroup>
-      <UFormGroup label="Min. amount ( XMR ) ">
+      <UFormGroup label="Min. amount ( XMR )">
         <UInput v-model="state.form.name" />
       </UFormGroup>
+      <UFormGroup label="Sound ( OBS )">
+        <FileUploader
+          :slug="UploadSlug.OBS_SOUND"
+          accept="audio/*"
+          @upload="handleSoundUpload"
+        />
+        <div v-if="state.sound" class="flex gap-2 items-center pt-2">
+          <span class="text-pale text-xs truncate max-w-[240px]">
+            Uploaded: {{ state.sound.originalName }}
+          </span>
+          <UButton
+            variant="soft"
+            color="red"
+            size="xs"
+            @click="handleClearSound"
+          >
+            Clear
+          </UButton>
+        </div>
+      </UFormGroup>
+      <UFormGroup label="Color">
+        <div class="flex gap-2 flex-wrap">
+          <URadio
+            v-for="item in PAGE_TIER_COLORS"
+            :value="item"
+            v-model="state.form.color"
+            inputClass="hidden"
+            :ui="{ inner: 'ms-0', label: 'flex' }"
+          >
+            <template #label="labelProps">
+              <span
+                :class="[
+                  'w-6 h-6 rounded-full inline-flex items-center justify-center ring-2 ring-border',
+                  getForegroundColor(`rgb(${item})`) === 'white'
+                    ? 'text-white'
+                    : 'text-black',
+                ]"
+                :style="{ backgroundColor: `rgb(${item})` }"
+              >
+                <UIcon
+                  v-if="state.form.color === item"
+                  name="i-heroicons-check"
+                  size="20"
+                />
+              </span>
+            </template>
+          </URadio>
+        </div>
+      </UFormGroup>
+      <div class="mt-4">
+        <UButton type="submit">Save</UButton>
+      </div>
     </GeneralForm>
   </div>
 </template>

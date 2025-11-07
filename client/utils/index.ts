@@ -113,3 +113,14 @@ export const truncateMiddle = (
 
   return `${start}...${end}`;
 };
+
+export const getForegroundColor = (rgb: string): "white" | "black" => {
+  if (rgb.startsWith("rgb(") && rgb.endsWith(")")) {
+    rgb = rgb.slice(4, -1).trim();
+  }
+  const [r, g, b] = rgb.split(",").map((v) => parseInt(v.trim(), 10));
+
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+  return luminance > 0.5 ? "black" : "white";
+};
