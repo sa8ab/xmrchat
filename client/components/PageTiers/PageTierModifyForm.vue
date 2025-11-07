@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { UFormGroup } from "#components";
 import useVuelidate from "@vuelidate/core";
-import type { UploadedFile } from "~/types";
+import type { PageTipTier, UploadedFile } from "~/types";
 import { UploadSlug } from "~/types/enums";
 
 interface State {
@@ -18,9 +18,11 @@ interface State {
 
 const { PAGE_TIER_COLORS } = useConstants();
 const { required, maxLength, numberic } = useValidations();
+const { toStreamerPageTiers } = useRouteLocation();
 const { axios } = useApp();
 const route = useRoute();
 const id = computed(() => route.params.id as string);
+const toast = useToast();
 
 const state: State = reactive({
   form: {
@@ -35,13 +37,40 @@ const state: State = reactive({
   loading: false,
 });
 
+useLazyAsyncData(
+  async () => {
+    const { data } = await axios.get<{ pageTipTier: PageTipTier }>(
+      `/page-tip-tiers/${id.value}`
+    );
+    state.form.name = data.pageTipTier.name;
+    state.form.description = data.pageTipTier.description;
+    state.form.minAmount = data.pageTipTier.minAmount;
+    state.form.color = data.pageTipTier.color;
+    state.form.soundId = data.pageTipTier.sound?.id;
+    state.sound = data.pageTipTier.sound;
+  },
+  { server: false }
+);
+
 const handleSubmit = async () => {
   const valid = await v.value.$validate();
   if (!valid) return;
 
   state.loading = true;
   try {
+    const request = id.value
+      ? axios.put(`/page-tip-tiers/${id.value}`, state.form)
+      : axios.post(`/page-tip-tiers`, state.form);
+
+    await request;
+    toast.add({
+      description: id.value ? "Page tier updated." : "Page tier created.",
+    });
+    await navigateTo(toStreamerPageTiers());
   } catch (error) {
+    toast.add({
+      description: getErrorMessage(error),
+    });
   } finally {
     state.loading = false;
   }
@@ -69,11 +98,8 @@ const { getValidationAttrs } = useValidations(v);
 </script>
 
 <template>
-  <div class="flex justify-center">
-    <GeneralForm
-      @submit="handleSubmit"
-      class="flex gap-4 flex-col w-full max-w-[600px]"
-    >
+  <GeneralForm @submit="handleSubmit">
+    <div class="flex gap-4 flex-col w-full max-w-[600px] m-auto">
       <UFormGroup label="Name" :error="getValidationAttrs('name').error">
         <UInput
           v-model="state.form.name"
@@ -85,7 +111,7 @@ const { getValidationAttrs } = useValidations(v);
         :error="getValidationAttrs('minAmount').error"
       >
         <UInput
-          v-model="state.form.name"
+          v-model="state.form.minAmount"
           @blur="getValidationAttrs('minAmount').onBlur"
         />
       </UFormGroup>
@@ -122,11 +148,11 @@ const { getValidationAttrs } = useValidations(v);
               <span
                 :class="[
                   'w-6 h-6 rounded-full inline-flex items-center justify-center ring-2 ring-border',
-                  getForegroundColor(`rgb(${item})`) === 'white'
+                  getForegroundColor(item) === 'white'
                     ? 'text-white'
                     : 'text-black',
                 ]"
-                :style="{ backgroundColor: `rgb(${item})` }"
+                :style="{ backgroundColor: item }"
               >
                 <UIcon
                   v-if="state.form.color === item"
@@ -139,10 +165,10 @@ const { getValidationAttrs } = useValidations(v);
         </div>
       </UFormGroup>
       <div class="mt-4">
-        <UButton type="submit">Save</UButton>
+        <UButton type="submit" :loading="state.loading">Save</UButton>
       </div>
-    </GeneralForm>
-  </div>
+    </div>
+  </GeneralForm>
 </template>
 
 <style scoped></style>

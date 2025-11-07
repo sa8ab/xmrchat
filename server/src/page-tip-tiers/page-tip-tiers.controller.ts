@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -13,7 +14,7 @@ import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import { User } from 'src/users/user.entity';
 import { PageTipTiersService } from './page-tip-tiers.service';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
-import { PageTipTiersRO } from './dtos/page-tip-tier.dto';
+import { PageTipTierRO, PageTipTiersRO } from './dtos/page-tip-tier.dto';
 import { UpdatePageTipTierDto } from './dtos/update-page-tip-tier.dto';
 
 @Controller('page-tip-tiers')
@@ -25,6 +26,13 @@ export class PageTipTiersController {
   async findAll(@CurrentUser() user: User) {
     const pageTipTiers = await this.pageTipTiersService.findAll(user);
     return { pageTipTiers };
+  }
+
+  @Get('/:id')
+  @Serialize(PageTipTierRO)
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const pageTipTier = await this.pageTipTiersService.findOneById(id);
+    return { pageTipTier };
   }
 
   @Post('/')

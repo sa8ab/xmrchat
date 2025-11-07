@@ -2,7 +2,8 @@
 
 <template>
   <div>
-    Page: page-tiers/[id]/edit
+    <PageTitle title="Edit Tier" description="Edit the tier details" />
+    <PageTierModifyForm />
   </div>
 </template>
 

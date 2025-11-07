@@ -2,6 +2,7 @@ import { Transform } from 'class-transformer';
 import {
   IsHexColor,
   IsNumber,
+  IsNumberString,
   IsOptional,
   IsRgbColor,
   IsString,
@@ -20,14 +21,22 @@ export class CreatePageTipTierDto {
   description?: string;
 
   // gets xmr, converts to atomic units
-  @IsNumber()
   @IsOptional()
-  @Transform(({ value }) => MoneroUtils.xmrToAtomicUnits(value).toString())
+  @IsNumberString()
+  @Transform(
+    ({ value }) => {
+      if (value === null || value === '') return null;
+      return MoneroUtils.xmrToAtomicUnits(value).toString();
+    },
+    { toClassOnly: true },
+  )
   minAmount?: string;
 
   @IsNumber()
   @IsOptional()
-  @Transform(({ value }) => MoneroUtils.xmrToAtomicUnits(value).toString())
+  @Transform(({ value }) =>
+    MoneroUtils.xmrToAtomicUnits(value ?? '').toString(),
+  )
   maxAmount?: string;
 
   @IsString()

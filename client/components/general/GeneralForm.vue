@@ -5,7 +5,7 @@ defineOptions({
 </script>
 
 <template>
-  <form @submit.prevent="$emit('submit')" v-bind="$attrs">
+  <form @submit.prevent="$emit('submit')">
     <slot />
   </form>
 </template>

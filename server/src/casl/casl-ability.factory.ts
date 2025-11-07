@@ -61,7 +61,7 @@ export class CaslAbilityFactory {
       can(Action.Manage, 'integration');
       can(Action.Manage, 'cohost');
       can(Action.Create, CohostInvitation);
-      can(Action.Manage, PageTipTier);
+      can(Action.Manage, PageTipTier, { pageId: pageResult?.id });
     }
 
     // OBS ACTIONS

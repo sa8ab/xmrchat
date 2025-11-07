@@ -35,6 +35,16 @@ export class PageTipTiersService {
     return tiers;
   }
 
+  async findOneById(id: number) {
+    if (!id) return null;
+    const tier = await this.repo.findOne({
+      where: { id },
+      relations: { sound: true },
+    });
+    if (!tier) throw new NotFoundException('Tier is not found');
+    return tier;
+  }
+
   async create(dto: CreatePageTipTierDto, user: User) {
     const page = await this.pagesService.findMyPage(user);
     if (!page) throw new NotFoundException('Page is not found');
@@ -76,7 +86,7 @@ export class PageTipTiersService {
     if (!tier) throw new NotFoundException('Tier is not found');
 
     const ability = await this.casl.createForUser(user);
-    if (!ability.can(Action.Update, PageTipTier))
+    if (!ability.can(Action.Update, tier))
       throw new UnauthorizedException(
         'You are not authorized to update a page tip tier.',
       );
@@ -108,7 +118,7 @@ export class PageTipTiersService {
     if (!tier) throw new NotFoundException('Tier is not found');
 
     const ability = await this.casl.createForUser(user);
-    if (!ability.can(Action.Delete, PageTipTier))
+    if (!ability.can(Action.Delete, tier))
       throw new UnauthorizedException(
         'You are not authorized to delete a page tip tier.',
       );

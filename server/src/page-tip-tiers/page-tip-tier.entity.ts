@@ -1,6 +1,12 @@
 import { File } from 'src/files/file.entity';
 import { Page } from 'src/pages/page.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  RelationId,
+} from 'typeorm';
 
 @Entity({ name: 'page_tip_tiers' })
 export class PageTipTier {
@@ -27,4 +33,7 @@ export class PageTipTier {
 
   @ManyToOne(() => Page, { onDelete: 'CASCADE' })
   page: Page;
+
+  @RelationId((pt: PageTipTier) => pt.page)
+  pageId: number;
 }

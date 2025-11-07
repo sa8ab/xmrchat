@@ -28,6 +28,12 @@ export class PageTipTierDto {
   sound?: FileDto;
 }
 
+export class PageTipTierRO {
+  @Expose()
+  @Type(() => PageTipTierDto)
+  pageTipTier: PageTipTierDto;
+}
+
 export class PageTipTiersRO {
   @Expose()
   @Type(() => PageTipTierDto)

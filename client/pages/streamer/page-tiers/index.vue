@@ -1,15 +1,38 @@
 <script setup lang="ts">
-const { toCreateStreamerPageTier } = useRouteLocation();
+import type { PageTipTier } from "~/types";
+
+const { toCreateStreamerPageTier, toEditStreamerPageTier } = useRouteLocation();
 const { axios } = useApp();
 
 const { data, pending, error } = useLazyAsyncData(
   async () => {
-    const { data } = await axios.get(`/page-tip-tiers`);
+    const { data } = await axios.get<{ pageTipTiers: PageTipTier[] }>(
+      `/page-tip-tiers`
+    );
+    return data.pageTipTiers;
   },
   {
     server: false,
   }
 );
+
+const columns = computed(() => [
+  {
+    key: "name",
+    label: "Name",
+  },
+  {
+    key: "minAmount",
+    label: "Min. ( XMR )",
+  },
+  {
+    key: "color",
+    label: "Color",
+  },
+  {
+    key: "actions",
+  },
+]);
 </script>
 
 <template>
@@ -18,6 +41,43 @@ const { data, pending, error } = useLazyAsyncData(
     <div class="flex justify-end mb-4">
       <UButton :to="toCreateStreamerPageTier()">Create Tier</UButton>
     </div>
+    <UProgress
+      v-if="pending"
+      animation="carousel"
+      class="max-w-[280px] m-auto mb-4"
+    />
+    <UTable
+      :rows="data || []"
+      :columns="columns"
+      class="border border-border rounded-md"
+      :ui="{
+        td: { base: 'whitespace-normal text-text dark:text-text' },
+      }"
+    >
+      <template #minAmount-data="{ row }">
+        <span>{{ row.minAmount ? `${row.minAmount} XMR` : "-" }}</span>
+      </template>
+      <template #color-data="{ row }">
+        <div
+          v-if="row.color"
+          class="w-4 h-4 rounded-full"
+          :style="{ backgroundColor: `#${row.color}` }"
+        ></div>
+        <div v-else>-</div>
+      </template>
+      <template #actions-data="{ row }">
+        <UButton
+          variant="ghost"
+          color="primary"
+          :to="toEditStreamerPageTier(row.id)"
+        >
+          Edit
+        </UButton>
+      </template>
+      <template #empty-state>
+        <NoItems />
+      </template>
+    </UTable>
   </div>
 </template>
 

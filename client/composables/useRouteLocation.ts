@@ -39,6 +39,6 @@ export const useRouteLocation = () => {
     toStreamerPageTiers: () => localeRoute("/streamer/page-tiers"),
     toCreateStreamerPageTier: () => localeRoute("/streamer/page-tiers/create"),
     toEditStreamerPageTier: (id: Numberic) =>
-      localeRoute(`/streamer/page-tiers/${id}`),
+      localeRoute(`/streamer/page-tiers/${id}/edit`),
   };
 };
