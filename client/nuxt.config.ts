@@ -89,7 +89,6 @@ export default defineNuxtConfig({
     defaultLocale: "en",
     vueI18n: "./i18n.config.ts",
     restructureDir: false,
-    baseUrl: "http://localhost:3000",
   },
 
   ui: {},
@@ -132,6 +131,7 @@ export default defineNuxtConfig({
 
   site: {
     name: "XMRChat",
+    url: "https://xmrchat.com",
   },
 
   seo: {
