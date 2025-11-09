@@ -103,12 +103,14 @@ export class PageTipTiersService {
         'You are not authorized to update a page tip tier.',
       );
 
-    let sound: File | undefined = tier.sound;
+    let sound: File | null | undefined = tier.sound;
     if (dto.soundId && dto.soundId !== tier.sound?.id) {
       sound = await this.filesRepo.findOneBy({ id: dto.soundId });
       if (!sound) throw new NotFoundException('Sound is not found');
       if (sound.type !== FileType.OBS_SOUND)
         throw new BadRequestException('Sound is not a valid OBS sound');
+    } else if (!dto.soundId) {
+      sound = null;
     }
 
     tier.name = dto.name;
