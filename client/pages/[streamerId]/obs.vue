@@ -50,7 +50,11 @@ const { init, disconnect } = usePageSocket({
       tips.value.unshift(event);
     }
 
-    handleAfterTip({ id: event.tip.id, autoRemove: event.autoRemove });
+    handleAfterTip({
+      id: event.tip.id,
+      autoRemove: event.autoRemove,
+      tip: event.tip,
+    });
   },
   handleObsTipRemovalEvent: (data) => {
     removeTip(data.tipId);
@@ -84,9 +88,13 @@ const simulateTip = () => {
   handleAfterTip({ id, autoRemove: true });
 };
 
-const handleAfterTip = (params: { id: number; autoRemove?: boolean }) => {
+const handleAfterTip = (params: {
+  id: number;
+  autoRemove?: boolean;
+  tip?: Tip;
+}) => {
   if (!params.autoRemove) return;
-  playSound();
+  playSound(params.tip);
   setTimeout(() => {
     removeTip(params.id);
   }, 60 * 1000);
@@ -96,15 +104,21 @@ const removeTip = (id: number) => {
   tips.value = tips.value.filter((t) => t.tip?.id !== id);
 };
 
+const getSoundUrl = (tip?: Tip) => {
+  if (!tip?.pageTipTier?.sound?.url) return soundUrl.value;
+  return `${config.public.imageBaseUrl}${tip.pageTipTier.sound.url}`;
+};
+
 const soundUrl = computed(() => {
   if (!data.value?.obsSound) return "/sounds/obs-sound-1.mp3";
   return `${config.public.imageBaseUrl}${data.value.obsSound.url}`;
 });
 
-const playSound = () => {
+const playSound = (tip?: Tip) => {
   if (!data.value?.playSound) return;
+  const url = getSoundUrl(tip);
 
-  const audio = new Audio(soundUrl.value);
+  const audio = new Audio(url);
 
   audio.play();
 };
