@@ -26,7 +26,6 @@ const headingStyle = computed(() => {
   return {
     backgroundColor: getPageTierColor(tierColor.value)?.headerColor,
     padding: "8px",
-    borderRadius: "6px 6px 0 0",
   };
 });
 
@@ -35,7 +34,6 @@ const messageStyle = computed(() => {
   return {
     backgroundColor: tierColor.value,
     padding: "8px",
-    borderRadius: "0 0 6px 6px",
   };
 });
 
@@ -46,12 +44,15 @@ const amountClass = computed(() => {
 
 <template>
   <div class="px-3">
-    <div :style="['overflow-wrap: break-word rounded-md', itemStyle]">
+    <div
+      class="rounded-md overflow-hidden"
+      :style="[itemStyle, 'overflow-wrap: break-word']"
+    >
       <div :style="headingStyle">
         <div class="flex justify-between items-center">
           <p
             class="pb-1 text-base font-medium"
-            :class="{ 'text-pale': item.private }"
+            :class="{ 'opacity-80': item.private }"
           >
             {{ item.private ? $t("private.title") : item.name }}
           </p>
@@ -60,7 +61,7 @@ const amountClass = computed(() => {
             :popper="{ placement: 'top' }"
             :text="disappearText"
           >
-            <UIcon name="i-heroicons-clock" class="text-pale" />
+            <UIcon name="i-heroicons-clock" class="opacity-80" />
           </UTooltip>
         </div>
         <span :class="['flex pb-1 font-medium ', amountClass]">
@@ -68,8 +69,8 @@ const amountClass = computed(() => {
         </span>
       </div>
 
-      <div :style="messageStyle">
-        <p v-if="item.private" :class="'text-pale'">
+      <div :style="messageStyle" v-if="message || item.private">
+        <p v-if="item.private" class="opacity-80">
           {{ $t("tipPrivateMessage") }}
         </p>
         <div v-else v-html="message" />
