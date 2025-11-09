@@ -124,3 +124,11 @@ export const getForegroundColor = (rgb: string): "white" | "black" => {
 
   return luminance > 0.5 ? "black" : "white";
 };
+
+export const getColorWithOpacity = (color: string, opacity: number) => {
+  if (color.startsWith("rgb(") && color.endsWith(")")) {
+    color = color.slice(4, -1).trim();
+  }
+  const [r, g, b] = color.split(",").map((v) => parseInt(v.trim(), 10));
+  return `rgba(${r},${g},${b},${opacity})`;
+};

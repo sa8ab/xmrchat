@@ -123,6 +123,7 @@ export interface Tip {
   expiresAt?: string;
   swap?: Swap;
   createdAt?: string;
+  pageTipTier?: PageTipTier;
 }
 
 export interface TipTier {
