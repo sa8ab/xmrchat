@@ -272,16 +272,11 @@ export const useConstants = () => {
     return LIVE_STREAM_PLATFORMS[v];
   };
 
-  const PAGE_TIER_COLORS = [
-    `rgb(21,101,192)`,
-    `rgb(15,157,88)`,
-    `rgb(255,202,40)`,
-    `rgb(245,124,0)`,
-    `rgb(233,30,99)`,
-    `rgb(230,33,23)`,
-  ];
+  const getPageTierColorsList = () => {
+    return Object.values(PAGE_TIER_COLORS);
+  };
 
-  const getPageTierColor = (v?: number) => {
+  const getPageTierColor = (v?: string) => {
     if (!v) return null;
     return PAGE_TIER_COLORS[v];
   };
@@ -299,7 +294,7 @@ export const useConstants = () => {
     getIntegrationConfigType,
     LIVE_STREAM_PLATFORMS,
     getLiveStreamPlatform,
-    PAGE_TIER_COLORS,
+    getPageTierColorsList,
     getPageTierColor,
   };
 };

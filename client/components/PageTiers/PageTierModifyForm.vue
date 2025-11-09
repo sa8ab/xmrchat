@@ -16,7 +16,7 @@ interface State {
   loading: boolean;
 }
 
-const { PAGE_TIER_COLORS } = useConstants();
+const { getPageTierColorsList } = useConstants();
 const { required, maxLength, numberic } = useValidations();
 const { toStreamerPageTiers } = useRouteLocation();
 const { axios } = useApp();
@@ -139,8 +139,8 @@ const { getValidationAttrs } = useValidations(v);
       <UFormGroup label="Color">
         <div class="flex gap-2 flex-wrap">
           <URadio
-            v-for="item in PAGE_TIER_COLORS"
-            :value="item"
+            v-for="item in getPageTierColorsList()"
+            :value="item.color"
             v-model="state.form.color"
             inputClass="hidden"
             :ui="{ inner: 'ms-0', label: 'flex' }"
@@ -149,14 +149,14 @@ const { getValidationAttrs } = useValidations(v);
               <span
                 :class="[
                   'w-6 h-6 rounded-full inline-flex items-center justify-center ring-2 ring-border',
-                  getForegroundColor(item) === 'white'
+                  getForegroundColor(item.color) === 'white'
                     ? 'text-white'
                     : 'text-black',
                 ]"
-                :style="{ backgroundColor: item }"
+                :style="{ backgroundColor: item.color }"
               >
                 <UIcon
-                  v-if="state.form.color === item"
+                  v-if="state.form.color === item.color"
                   name="i-heroicons-check"
                   size="20"
                 />
