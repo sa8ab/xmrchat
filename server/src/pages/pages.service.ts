@@ -285,6 +285,7 @@ export class PagesService {
         links: true,
         recipients: true,
         liveStreams: true,
+        pageTipTiers: true,
       },
     });
   }

@@ -31,7 +31,7 @@ export class PageTipTier {
   @ManyToOne(() => File, { onDelete: 'SET NULL', nullable: true })
   sound: File;
 
-  @ManyToOne(() => Page, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Page, (p: Page) => p.pageTipTiers, { onDelete: 'CASCADE' })
   page: Page;
 
   @RelationId((pt: PageTipTier) => pt.page)
