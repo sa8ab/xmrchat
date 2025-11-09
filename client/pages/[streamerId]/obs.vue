@@ -41,6 +41,10 @@ const { data, pending } = useLazyAsyncData(
   }
 );
 
+const { getSoundUrl } = useTip({
+  soundUrl: computed(() => data.value?.obsSound.url),
+});
+
 const { init, disconnect } = usePageSocket({
   handleObsTipEvent: (event) => {
     if (tips.value.some((t) => t.tip?.id === event.tip.id)) return;
@@ -103,16 +107,6 @@ const handleAfterTip = (params: {
 const removeTip = (id: number) => {
   tips.value = tips.value.filter((t) => t.tip?.id !== id);
 };
-
-const getSoundUrl = (tip?: Tip) => {
-  if (!tip?.pageTipTier?.sound?.url) return soundUrl.value;
-  return `${config.public.imageBaseUrl}${tip.pageTipTier.sound.url}`;
-};
-
-const soundUrl = computed(() => {
-  if (!data.value?.obsSound) return "/sounds/obs-sound-1.mp3";
-  return `${config.public.imageBaseUrl}${data.value.obsSound.url}`;
-});
 
 const playSound = (tip?: Tip) => {
   if (!data.value?.playSound) return;

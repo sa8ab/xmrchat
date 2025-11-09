@@ -29,10 +29,9 @@ const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
 
 const tipEvents = ref<ObsTipSocketEvent[]>([]);
 
-const getSoundUrl = (tip?: Tip) => {
-  if (!tip?.pageTipTier?.sound?.url) return soundUrl.value;
-  return `${config.public.imageBaseUrl}${tip.pageTipTier.sound.url}`;
-};
+const { getSoundUrl } = useTip({
+  soundUrl: computed(() => obsSettings.value?.obsSound.url),
+});
 
 const { init, disconnect, sendTipToObs, removeTipFromObs } = usePageSocket({
   handleInitialObsTipsEvent: (payloads) => {
@@ -69,11 +68,6 @@ const { data: obsSettings } = useLazyAsyncData(
   },
   { server: false }
 );
-
-const soundUrl = computed(() => {
-  if (!obsSettings.value?.obsSound) return "/sounds/obs-sound-1.mp3";
-  return `${config.public.imageBaseUrl}${obsSettings.value.obsSound.url}`;
-});
 
 const interval = ref<NodeJS.Timeout | undefined>(undefined);
 
