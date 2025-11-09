@@ -29,13 +29,18 @@ const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
 
 const tipEvents = ref<ObsTipSocketEvent[]>([]);
 
+const getSoundUrl = (tip?: Tip) => {
+  if (!tip?.pageTipTier?.sound?.url) return soundUrl.value;
+  return `${config.public.imageBaseUrl}${tip.pageTipTier.sound.url}`;
+};
+
 const { init, disconnect, sendTipToObs, removeTipFromObs } = usePageSocket({
   handleInitialObsTipsEvent: (payloads) => {
     tipEvents.value = payloads;
   },
-  handleTipEvent: () => {
+  handleTipEvent: (event) => {
     if (!props.playSound) return;
-    const audio = new Audio(soundUrl.value);
+    const audio = new Audio(getSoundUrl(event.tip));
     audio.play();
   },
 });
