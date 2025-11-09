@@ -33,6 +33,7 @@ export class PageTipTiersService {
     const tiers = await this.repo.find({
       where: { page: { id: page.id } },
       relations: { sound: true },
+      order: { minAmount: { direction: 'DESC', nulls: 'LAST' } },
     });
     return tiers;
   }
