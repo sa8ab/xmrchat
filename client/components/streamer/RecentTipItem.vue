@@ -45,7 +45,7 @@ const amountClass = computed(() => {
 <template>
   <div class="px-3">
     <div
-      class="rounded-md overflow-hidden"
+      :class="['rounded-md overflow-hidden', { 'has-tier-color': tierColor }]"
       :style="[itemStyle, 'overflow-wrap: break-word']"
     >
       <div :style="headingStyle">
@@ -79,4 +79,11 @@ const amountClass = computed(() => {
   </div>
 </template>
 
-<style scoped></style>
+<style lang="scss">
+.has-tier-color {
+  a {
+    color: inherit !important;
+    text-decoration-color: inherit !important;
+  }
+}
+</style>
