@@ -87,6 +87,10 @@ const handleClearSound = () => {
   state.sound = undefined;
 };
 
+const resetColor = () => {
+  // @ts-ignore
+  state.form.color = null;
+};
 const v = useVuelidate<any>(
   {
     name: { required, maxLength: maxLength(20) },
@@ -147,12 +151,13 @@ const { getValidationAttrs } = useValidations(v);
         </div>
       </UFormGroup>
       <UFormGroup label="Color">
-        <div class="flex gap-2 flex-wrap">
+        <div class="flex gap-2 flex-wrap items-center">
           <URadio
             v-for="item in getPageTierColorsList()"
             :value="item.color"
             v-model="state.form.color"
-            inputClass="hidden"
+            inputClass="w-0 h-0 opacity-0"
+            name="color"
             :ui="{ inner: 'ms-0', label: 'flex' }"
           >
             <template #label>
@@ -173,6 +178,15 @@ const { getValidationAttrs } = useValidations(v);
               </span>
             </template>
           </URadio>
+          <UButton
+            variant="ghost"
+            color="red"
+            class="p-1 rounded-full"
+            square
+            @click="resetColor"
+          >
+            <UIcon name="i-heroicons-x-mark-solid" size="20" />
+          </UButton>
         </div>
       </UFormGroup>
       <div class="mt-4">
