@@ -8,7 +8,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  select: [number];
+  select: [string];
 }>();
 
 const { xmrToFiat } = useXmrPrice();
@@ -34,7 +34,7 @@ const handleItemClick = (item: PageTipTier) => {
 
   if (!value) return;
 
-  emit("select", value);
+  emit("select", String(value));
 };
 </script>
 
