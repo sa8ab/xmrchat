@@ -41,7 +41,7 @@ const modalRef = ref(false);
       <div class="grid gap-4">
         <div v-for="item in tiers" class="flex items-center gap-2">
           <div
-            class="w-2 h-full rounded-full"
+            class="w-1.5 h-full rounded-full"
             :style="{ background: item.color }"
           ></div>
           <div class="flex flex-col gap-1">

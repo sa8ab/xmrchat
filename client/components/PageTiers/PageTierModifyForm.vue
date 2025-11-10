@@ -89,8 +89,9 @@ const handleClearSound = () => {
 
 const v = useVuelidate<any>(
   {
-    name: { required, maxLength: maxLength(40) },
-    minAmount: { numberic },
+    name: { required, maxLength: maxLength(20) },
+    description: { maxLength: maxLength(255) },
+    minAmount: { numberic, required },
   },
   computed(() => state.form)
 );
@@ -114,6 +115,15 @@ const { getValidationAttrs } = useValidations(v);
         <UInput
           v-model="state.form.minAmount"
           @blur="getValidationAttrs('minAmount').onBlur"
+        />
+      </UFormGroup>
+      <UFormGroup
+        label="Description"
+        :error="getValidationAttrs('description').error"
+      >
+        <UTextarea
+          v-model="state.form.description"
+          @blur="getValidationAttrs('description').onBlur"
         />
       </UFormGroup>
       <UFormGroup label="Sound ( OBS )">

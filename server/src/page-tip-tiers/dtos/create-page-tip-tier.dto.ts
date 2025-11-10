@@ -21,7 +21,6 @@ export class CreatePageTipTierDto {
   description?: string;
 
   // gets xmr, converts to atomic units
-  @IsOptional()
   @IsNumberString()
   @Transform(
     ({ value }) => {
