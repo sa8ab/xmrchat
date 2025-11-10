@@ -12,11 +12,11 @@ import { MoneroUtils } from 'monero-ts';
 
 export class CreatePageTipTierDto {
   @IsString()
-  @MaxLength(40)
+  @MaxLength(20)
   name: string;
 
   @IsString()
-  @MaxLength(400)
+  @MaxLength(255)
   @IsOptional()
   description?: string;
 

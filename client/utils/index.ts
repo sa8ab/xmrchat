@@ -114,7 +114,10 @@ export const truncateMiddle = (
   return `${start}...${end}`;
 };
 
-export const getForegroundColor = (rgb: string): "white" | "black" => {
+export const getForegroundColor = (
+  rgb?: string
+): "white" | "black" | undefined => {
+  if (!rgb) return undefined;
   if (rgb.startsWith("rgb(") && rgb.endsWith(")")) {
     rgb = rgb.slice(4, -1).trim();
   }
@@ -126,6 +129,7 @@ export const getForegroundColor = (rgb: string): "white" | "black" => {
 };
 
 export const getColorWithOpacity = (color: string, opacity: number) => {
+  if (!color) return undefined;
   if (color.startsWith("rgb(") && color.endsWith(")")) {
     color = color.slice(4, -1).trim();
   }

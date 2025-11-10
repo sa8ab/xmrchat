@@ -189,6 +189,10 @@ const renderInputPadding = computed(
                 </span>
               </template>
             </UInput>
+            <PageTipTiers
+              v-if="streamerPage?.pageTipTiers?.length"
+              :tiers="streamerPage.pageTipTiers"
+            />
             <!-- <TipTiers
               :tiers="streamerPage?.tiers"
               @select="state.form.amount = $event"
