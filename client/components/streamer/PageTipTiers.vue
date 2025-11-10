@@ -19,6 +19,11 @@ const isXmrDisplay = computed(
   () => generalState.tipDisplayValue === TipDisplayMode.XMR
 );
 
+const getFiatAmount = (amount?: number) => {
+  const fiat = xmrToFiat(amount, props.fiat);
+  return money(fiat.toFixed(2), props.fiat);
+};
+
 const getComputedAmount = (amount?: number) => {
   if (isXmrDisplay.value) return `${amount} XMR`;
   const fiat = xmrToFiat(amount, props.fiat);
@@ -78,7 +83,8 @@ const handleItemClick = (item: PageTipTier) => {
             <div class="text-lg font-medium">{{ item.name }}</div>
             <div>
               <span class="text-pale text-sm">Min. amount: </span>
-              <span>{{ item.minAmount }} XMR</span>
+              <span>{{ item.minAmount }} XMR </span>
+              <span>( {{ getFiatAmount(item.minAmount) }} )</span>
             </div>
             <div v-if="item.description">{{ item.description }}</div>
           </div>
