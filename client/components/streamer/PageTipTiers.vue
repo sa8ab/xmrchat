@@ -78,7 +78,7 @@ const handleItemClick = (item: PageTipTier) => {
             <div class="text-lg font-medium">{{ item.name }}</div>
             <div>
               <span class="text-pale text-sm">Min. amount: </span>
-              <span>{{ item.minAmount }}</span>
+              <span>{{ item.minAmount }} XMR</span>
             </div>
             <div v-if="item.description">{{ item.description }}</div>
           </div>
