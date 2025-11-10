@@ -61,7 +61,7 @@ export const PAGE_TIER_COLORS: Record<
 > = {
   "rgb(21,101,192)": {
     color: "rgb(21,101,192)",
-    headerColor: "rgb(21,101,192)",
+    headerColor: "rgb(17,83,157)",
   },
   "rgb(0,229,255)": {
     color: "rgb(0,229,255)",
