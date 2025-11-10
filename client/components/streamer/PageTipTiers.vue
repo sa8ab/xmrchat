@@ -11,10 +11,10 @@ const modalRef = ref(false);
 
 <template>
   <div class="flex flex-wrap gap-1 mt-1">
-    <div v-for="item in tiers" class="flex items-center gap-1">
+    <div v-for="item in tiers" class="flex items-center">
       <button
         type="button"
-        class="text-xs px-2 py-1 rounded-full flex flex-col items-center cursor-pointer hover:opacity-90 transition-opacity"
+        class="text-xs px-2 py-1 ring-1 ring-border rounded-full flex flex-col items-center cursor-pointer hover:opacity-90 transition-opacity"
         :style="{
           background: item.color,
           color: getForegroundColor(item.color),
