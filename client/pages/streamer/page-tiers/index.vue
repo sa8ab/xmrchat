@@ -30,6 +30,10 @@ const columns = computed(() => [
     label: "Color",
   },
   {
+    key: "sound",
+    label: "Sound",
+  },
+  {
     key: "actions",
   },
 ]);
@@ -64,6 +68,14 @@ const columns = computed(() => [
           :style="{ backgroundColor: row.color }"
         ></div>
         <div v-else>-</div>
+      </template>
+      <template #sound-data="{ row }">
+        <div class="max-w-[120px] truncate text-sm">
+          <span v-if="row.sound">
+            {{ row.sound.originalName }}
+          </span>
+          <span v-else>-</span>
+        </div>
       </template>
       <template #actions-data="{ row }">
         <UButton
