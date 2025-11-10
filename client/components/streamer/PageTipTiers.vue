@@ -13,6 +13,7 @@ const modalRef = ref(false);
   <div class="flex flex-wrap gap-1 mt-1">
     <div v-for="item in tiers" class="flex items-center gap-1">
       <button
+        type="button"
         class="text-xs px-2 py-1 rounded-full flex flex-col items-center cursor-pointer hover:opacity-90 transition-opacity"
         :style="{
           background: item.color,
