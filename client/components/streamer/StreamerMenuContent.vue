@@ -103,8 +103,7 @@ const items = computed(() => {
         ...[
           {
             label: "Tip Tiers",
-            // TODO: change icon
-            icon: "i-heroicons-banknotes",
+            icon: "i-heroicons-numbered-list-20-solid",
             to: toStreamerPageTiers(),
           },
           {
