@@ -1,12 +1,41 @@
 <script setup lang="ts">
 import type { PageTipTier } from "~/types";
+import { TipDisplayMode, type FiatEnum } from "~/types/enums";
 
 const props = defineProps<{
   tiers?: PageTipTier[];
+  fiat?: FiatEnum;
 }>();
 
-const { getPageTierColor } = useConstants();
+const emit = defineEmits<{
+  select: [number];
+}>();
+
+const { xmrToFiat } = useXmrPrice();
+const { state: generalState } = useGeneralStore();
+const { money } = useMoney();
+
+const isXmrDisplay = computed(
+  () => generalState.tipDisplayValue === TipDisplayMode.XMR
+);
+
+const getComputedAmount = (amount?: number) => {
+  if (isXmrDisplay.value) return `${amount} XMR`;
+  const fiat = xmrToFiat(amount, props.fiat);
+  return money(fiat.toFixed(2), props.fiat);
+};
+
 const modalRef = ref(false);
+
+const handleItemClick = (item: PageTipTier) => {
+  let value: number | undefined;
+  if (isXmrDisplay.value) value = item.minAmount;
+  else value = xmrToFiat(item.minAmount, props.fiat);
+
+  if (!value) return;
+
+  emit("select", value);
+};
 </script>
 
 <template>
@@ -19,8 +48,9 @@ const modalRef = ref(false);
           background: item.color,
           color: getForegroundColor(item.color),
         }"
+        @click="handleItemClick(item)"
       >
-        <span> {{ item.minAmount }} </span>
+        <span> {{ getComputedAmount(item.minAmount) }} </span>
       </button>
     </div>
 
