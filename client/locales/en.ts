@@ -49,7 +49,7 @@ export default {
   goToHomePage: "Go To Home Page",
   searchCreators: {
     title: "Search Creators",
-    description: "Search creators with public pages on xmrchat.",
+    description: "Search creators with public pages on XMRChat.",
   },
   typePageName: "Type page name...",
   contactUs: "Contact Us",
@@ -214,7 +214,7 @@ export default {
   whereToFindViewKey: "Where to find view key?",
   twitchChannelName: "Twitch channel name",
   nameOfYourTwitchChannel:
-    "Name of your twitch channel. Used to display tips on Stream via xmr_chat Twitch bot.",
+    "Name of your Twitch channel. Used to display tips on stream via xmr_chat Twitch bot.",
   optional: "Optional",
   minTipAmount: "Min. tip amount ( XMR )",
   tipPageAmountFormat: "Tip page amount format",
