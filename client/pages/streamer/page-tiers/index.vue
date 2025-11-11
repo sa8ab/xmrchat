@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { ConfirmModal } from "#components";
 import type { PageTipTier } from "~/types";
 
 const { toCreateStreamerPageTier, toEditStreamerPageTier } = useRouteLocation();
 const { axios } = useApp();
+const modal = useModal();
+const toast = useToast();
 
-const { data, pending, error } = useLazyAsyncData(
+const { data, pending, error, refresh } = useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{ pageTipTiers: PageTipTier[] }>(
       `/page-tip-tiers`
@@ -37,6 +40,31 @@ const columns = computed(() => [
     key: "actions",
   },
 ]);
+
+const handleDeleteClick = async (id: number) => {
+  modal.open(ConfirmModal, {
+    color: "red",
+    text: "Are you sure you want to delete this tier?",
+    title: "Delete tier",
+    onConfirm: () => handleDelete(id),
+  });
+};
+
+const handleDelete = async (id: number) => {
+  try {
+    await axios.delete(`/page-tip-tiers/${id}`);
+    toast.add({
+      description: "Tier deleted",
+      color: "green",
+    });
+    await refresh();
+  } catch (error) {
+    toast.add({
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  }
+};
 </script>
 
 <template>
@@ -84,6 +112,9 @@ const columns = computed(() => [
           :to="toEditStreamerPageTier(row.id)"
         >
           Edit
+        </UButton>
+        <UButton variant="ghost" color="red" @click="handleDeleteClick(row.id)">
+          Delete
         </UButton>
       </template>
       <template #empty-state>
