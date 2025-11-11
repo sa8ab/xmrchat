@@ -42,7 +42,7 @@ const { data, pending } = useLazyAsyncData(
 );
 
 const { getSoundUrl } = useTip({
-  soundUrl: computed(() => data.value?.obsSound.url),
+  soundUrl: computed(() => data.value?.obsSound?.url),
 });
 
 const { init, disconnect } = usePageSocket({
