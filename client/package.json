@@ -19,7 +19,7 @@
     "@nuxt/fonts": "^0.10.3",
     "@nuxt/ui": "^2.22.0",
     "@nuxtjs/i18n": "^9.5.5",
-    "@nuxtjs/seo": "^3.0.2",
+    "@nuxtjs/seo": "^3.0.3",
     "@pinia/nuxt": "^0.11.0",
     "@tsparticles/confetti": "^3.5.0",
     "@types/markdown-it": "^14.1.2",
