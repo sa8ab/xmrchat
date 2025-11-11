@@ -30,7 +30,7 @@ const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
 const tipEvents = ref<ObsTipSocketEvent[]>([]);
 
 const { getSoundUrl } = useTip({
-  soundUrl: computed(() => obsSettings.value?.obsSound.url),
+  soundUrl: computed(() => obsSettings.value?.obsSound?.url),
 });
 
 const { init, disconnect, sendTipToObs, removeTipFromObs } = usePageSocket({
