@@ -69,7 +69,7 @@ const handleDelete = async (id: number) => {
 
 <template>
   <div>
-    <PageTitle title="Tip tiers" description="Manage your tip tiers" />
+    <PageTitle title="Tip Tiers" description="Manage your tip tiers" />
     <div class="flex justify-end mb-4">
       <UButton :to="toCreateStreamerPageTier()">Create Tier</UButton>
     </div>
