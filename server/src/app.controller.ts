@@ -29,8 +29,8 @@ export class AppController {
   @IsPublic()
   @Get('/test')
   async test() {
-    console.log('test');
-    return this.pagesGateway.notifyNewTip('dinasore', 318);
+    // console.log('test');
+    // return this.pagesGateway.notifyNewTip('dinasore', 318);
     // return this.notificationTestsService.testSignal();
     // return this.signalService.sendTestMessage();
     // return this.notificationDispatcherService.notifyNewTip(1, 271);
