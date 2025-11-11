@@ -131,7 +131,6 @@ export default defineNuxtConfig({
 
   site: {
     name: "XMRChat",
-    url: "https://xmrchat.com",
   },
 
   seo: {
