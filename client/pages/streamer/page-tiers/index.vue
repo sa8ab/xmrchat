@@ -106,16 +106,22 @@ const handleDelete = async (id: number) => {
         </div>
       </template>
       <template #actions-data="{ row }">
-        <UButton
-          variant="ghost"
-          color="primary"
-          :to="toEditStreamerPageTier(row.id)"
-        >
-          Edit
-        </UButton>
-        <UButton variant="ghost" color="red" @click="handleDeleteClick(row.id)">
-          Delete
-        </UButton>
+        <div class="flex gap-2 justify-end">
+          <UButton
+            variant="ghost"
+            color="primary"
+            :to="toEditStreamerPageTier(row.id)"
+          >
+            Edit
+          </UButton>
+          <UButton
+            variant="ghost"
+            color="red"
+            @click="handleDeleteClick(row.id)"
+          >
+            Delete
+          </UButton>
+        </div>
       </template>
       <template #empty-state>
         <NoItems />
