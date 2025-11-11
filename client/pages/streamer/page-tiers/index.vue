@@ -23,7 +23,7 @@ const columns = computed(() => [
   },
   {
     key: "minAmount",
-    label: "Min. ( XMR )",
+    label: "Min. (XMR)",
   },
   {
     key: "color",
