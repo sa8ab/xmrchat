@@ -32,6 +32,7 @@ import { PageRecipientsService } from 'src/page-recipients/page-recipients.servi
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { Action } from 'src/shared/constants';
 import { PageTipTier } from 'src/page-tip-tiers/page-tip-tier.entity';
+import { getTipTier } from 'src/shared/utils';
 
 @Injectable()
 export class TipsService {
@@ -71,13 +72,13 @@ export class TipsService {
       .orderBy('tip.created_at', 'DESC')
       .getMany();
 
-    const withTiers = result.map((tip) => {
-      const tier = this.getTipTier(tip.payment.amount, page.pageTipTiers);
+    const tips = result.map((tip) => {
+      const tier = getTipTier(tip.payment.amount, page.pageTipTiers);
 
       return { ...tip, pageTipTier: tier };
     });
 
-    return { tips: withTiers, page };
+    return { tips, page };
   }
 
   async updateTip(id: number, payload: UpdateTipDto, user: User) {
@@ -292,26 +293,6 @@ export class TipsService {
     try {
       await this.lwsService.deleteWebhook(payment.eventId);
     } catch (error) {}
-  }
-
-  getTipTier(amount: string, pageTipTiers: PageTipTier[]) {
-    if (!amount || !pageTipTiers.length) return null;
-
-    const amountBig = BigInt(amount);
-    const tiers = pageTipTiers.filter((tier) => {
-      const minAmountBig = tier.minAmount ? BigInt(tier.minAmount) : BigInt(0);
-      return amountBig >= minAmountBig;
-    });
-
-    if (!tiers.length) return null;
-
-    const matches = tiers.sort((a: PageTipTier, b: PageTipTier) => {
-      const minAmountA = a.minAmount ? BigInt(a.minAmount) : BigInt(0);
-      const minAmountB = b.minAmount ? BigInt(b.minAmount) : BigInt(0);
-      return Number(minAmountB - minAmountA);
-    });
-
-    return matches[0];
   }
 
   @Cron(CronExpression.EVERY_MINUTE)
