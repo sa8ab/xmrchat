@@ -86,30 +86,13 @@ const { getDisappearText } = useTip({
       </div>
       <template v-else>
         <div class="messages">
-          <div class="item" v-for="item in data">
-            <div class="flex justify-between items-center">
-              <p
-                class="pb-1 text-base font-medium"
-                :class="{ 'text-pale': item.private }"
-              >
-                {{ item.private ? t("private.title") : item.name }}
-              </p>
-              <UTooltip
-                v-if="getDisappearText(item.createdAt)"
-                :popper="{ placement: 'top' }"
-                :text="getDisappearText(item.createdAt)"
-              >
-                <UIcon name="i-heroicons-clock" class="text-pale" />
-              </UTooltip>
-            </div>
-            <span class="flex pb-1 font-medium text-primary">
-              {{ getComputedPrice(item.payment?.amount) }}
-            </span>
-            <p v-if="item.private" :class="{ 'text-pale': item.private }">
-              {{ t("tipPrivateMessage") }}
-            </p>
-            <div v-else v-html="markdownAndSanitize(item?.message)" />
-          </div>
+          <RecentTipItem
+            v-for="item in data"
+            :item="item"
+            :disappearText="getDisappearText(item.createdAt)"
+            :computedPrice="getComputedPrice(item.payment?.amount)"
+            :message="markdownAndSanitize(item?.message)"
+          />
         </div>
       </template>
     </PendingView>

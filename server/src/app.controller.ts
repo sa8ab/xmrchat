@@ -10,7 +10,10 @@ import { TwitchService } from './integrations/twitch/twitch.service';
 import { PagesGateway } from './pages/pages.gateway';
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly pagesGateway: PagesGateway,
+  ) {}
 
   @Get()
   getHello(): string {
@@ -26,7 +29,7 @@ export class AppController {
   @IsPublic()
   @Get('/test')
   async test() {
-    console.log('test');
+    // console.log('test');
     // return this.pagesGateway.notifyNewTip('dinasore', 318);
     // return this.notificationTestsService.testSignal();
     // return this.signalService.sendTestMessage();

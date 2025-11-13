@@ -272,6 +272,15 @@ export const useConstants = () => {
     return LIVE_STREAM_PLATFORMS[v];
   };
 
+  const getPageTierColorsList = () => {
+    return Object.values(PAGE_TIER_COLORS);
+  };
+
+  const getPageTierColor = (v?: string) => {
+    if (!v) return null;
+    return PAGE_TIER_COLORS[v];
+  };
+
   return {
     getContentLink,
     CONTENT_LINKS,
@@ -285,5 +294,7 @@ export const useConstants = () => {
     getIntegrationConfigType,
     LIVE_STREAM_PLATFORMS,
     getLiveStreamPlatform,
+    getPageTierColorsList,
+    getPageTierColor,
   };
 };

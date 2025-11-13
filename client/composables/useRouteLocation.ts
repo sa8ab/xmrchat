@@ -35,5 +35,10 @@ export const useRouteLocation = () => {
     toUsers: () => localeRoute("/admin/users"),
     toPages: () => localeRoute("/admin/pages"),
     toPage: (slug: string) => localeRoute(`/admin/pages/${slug}`),
+
+    toStreamerPageTiers: () => localeRoute("/streamer/page-tiers"),
+    toCreateStreamerPageTier: () => localeRoute("/streamer/page-tiers/create"),
+    toEditStreamerPageTier: (id: Numberic) =>
+      localeRoute(`/streamer/page-tiers/${id}/edit`),
   };
 };

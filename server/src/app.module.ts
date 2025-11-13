@@ -49,6 +49,7 @@ import { TestModule } from './test/test.module';
 import { PageRecipientsModule } from './page-recipients/page-recipients.module';
 import { LiveStreamsModule } from './live-streams/live-streams.module';
 import { CohostModule } from './cohost/cohost.module';
+import { PageTipTiersModule } from './page-tip-tiers/page-tip-tiers.module';
 
 @Module({
   imports: [
@@ -172,6 +173,7 @@ import { CohostModule } from './cohost/cohost.module';
     ...(process.env.TEST_ENV === 'true' ? [TestModule] : []),
     LiveStreamsModule,
     CohostModule,
+    PageTipTiersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

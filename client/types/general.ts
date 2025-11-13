@@ -103,6 +103,7 @@ export interface StreamerPage {
   status?: PageStatusEnum;
   expirationMinutes?: number;
   liveStreams?: LiveStream[];
+  pageTipTiers?: PageTipTier[];
   ability?: any;
 }
 
@@ -123,6 +124,7 @@ export interface Tip {
   expiresAt?: string;
   swap?: Swap;
   createdAt?: string;
+  pageTipTier?: PageTipTier;
 }
 
 export interface TipTier {
@@ -272,4 +274,13 @@ export interface CohostInvitation {
   expiresAt: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface PageTipTier {
+  id: number;
+  name: string;
+  description?: string;
+  minAmount?: number;
+  color?: string;
+  sound?: UploadedFile;
 }

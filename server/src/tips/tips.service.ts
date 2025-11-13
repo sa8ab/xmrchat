@@ -31,6 +31,8 @@ import { Page } from 'src/pages/page.entity';
 import { PageRecipientsService } from 'src/page-recipients/page-recipients.service';
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { Action } from 'src/shared/constants';
+import { PageTipTier } from 'src/page-tip-tiers/page-tip-tier.entity';
+import { getTipTier } from 'src/shared/utils';
 
 @Injectable()
 export class TipsService {
@@ -60,8 +62,6 @@ export class TipsService {
 
     if (!page) throw new NotFoundException('Page is not found');
 
-    const isStreamer = page.userId == user?.id;
-
     const result = await this.repo
       .createQueryBuilder('tip')
       .leftJoinAndSelect('tip.payment', 'payment')
@@ -72,16 +72,13 @@ export class TipsService {
       .orderBy('tip.created_at', 'DESC')
       .getMany();
 
-    // const privateFiltered = result.map(({ name, message, ...rest }) => {
-    //   const hidePrivate = !isStreamer && rest.private;
-    //   return {
-    //     ...rest,
-    //     name: hidePrivate ? '' : name,
-    //     message: hidePrivate ? '' : message,
-    //   };
-    // });
+    const tips = result.map((tip) => {
+      const tier = getTipTier(tip.payment.amount, page.pageTipTiers);
 
-    return { tips: result, page };
+      return { ...tip, pageTipTier: tier };
+    });
+
+    return { tips, page };
   }
 
   async updateTip(id: number, payload: UpdateTipDto, user: User) {

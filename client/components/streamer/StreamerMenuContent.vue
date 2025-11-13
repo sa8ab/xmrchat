@@ -19,6 +19,7 @@ const {
   toStreamerIntegrations,
   toStreamerRecipients,
   toStreamerCohostPage,
+  toStreamerPageTiers,
 } = useRouteLocation();
 
 const items = computed(() => {
@@ -100,6 +101,11 @@ const items = computed(() => {
     if (showPremiumPages) {
       res.push(
         ...[
+          {
+            label: "Tip Tiers",
+            icon: "i-heroicons-numbered-list-20-solid",
+            to: toStreamerPageTiers(),
+          },
           {
             label: "Notifications",
             icon: "i-heroicons-bell",

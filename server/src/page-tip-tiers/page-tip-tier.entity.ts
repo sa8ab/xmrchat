@@ -1,0 +1,39 @@
+import { File } from 'src/files/file.entity';
+import { Page } from 'src/pages/page.entity';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  RelationId,
+} from 'typeorm';
+
+@Entity({ name: 'page_tip_tiers' })
+export class PageTipTier {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @Column({ nullable: true })
+  description?: string;
+
+  @Column({ type: 'bigint', nullable: true })
+  minAmount?: string;
+
+  @Column({ type: 'bigint', nullable: true })
+  maxAmount?: string;
+
+  @Column({ nullable: true })
+  color?: string;
+
+  @ManyToOne(() => File, { onDelete: 'SET NULL', nullable: true })
+  sound: File;
+
+  @ManyToOne(() => Page, (p: Page) => p.pageTipTiers, { onDelete: 'CASCADE' })
+  page: Page;
+
+  @RelationId((pt: PageTipTier) => pt.page)
+  pageId: number;
+}

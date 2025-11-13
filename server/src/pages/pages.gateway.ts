@@ -22,6 +22,8 @@ import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { Action } from 'src/shared/constants';
 import { serializer } from 'src/shared/interceptors/serialize.interceptor';
 import { TipDto } from 'src/tips/dtos/tip.dto';
+import { PageTipTier } from 'src/page-tip-tiers/page-tip-tier.entity';
+import { getTipTier } from 'src/shared/utils';
 
 /**
  * @description Gateway for pages.
@@ -88,7 +90,7 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
       });
 
       const payloads = await Promise.all(
-        tips.map((tip) => this.generateEventPayload(tip, true)),
+        tips.map((tip) => this.generateEventPayload({ tip, autoRemove: true })),
       );
 
       return payloads;
@@ -125,7 +127,10 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
       tip: t,
       message,
       autoRemove,
-    } = await this.generateEventPayload(tip);
+    } = await this.generateEventPayload({
+      tip,
+      pageTipTiers: page.pageTipTiers,
+    });
 
     this.server
       .to(`page-${slug}`)
@@ -166,12 +171,16 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   async notifyNewTip(slug: string, tipId: number) {
     const tip = await this.tipsRepo.findOne({
       where: { id: tipId },
-      relations: { page: true, payment: true },
+      relations: { page: { pageTipTiers: { sound: true } }, payment: true },
     });
 
     if (!tip) return;
 
-    const eventPayload = await this.generateEventPayload(tip, true);
+    const eventPayload = await this.generateEventPayload({
+      tip,
+      autoRemove: true,
+      pageTipTiers: tip.page.pageTipTiers,
+    });
 
     this.server.to(`page-${slug}`).emit('obsTip', eventPayload);
     this.server.to(`page-${slug}`).emit('tip', eventPayload);
@@ -199,12 +208,24 @@ export class PagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
     return (await this.cache.get<number[]>(`obs-tips:${slug}`)) || [];
   }
 
-  async generateEventPayload(tip: Tip, autoRemove: boolean = false) {
+  async generateEventPayload({
+    tip,
+    autoRemove = false,
+    pageTipTiers,
+  }: {
+    tip: Tip;
+    autoRemove?: boolean;
+    pageTipTiers?: PageTipTier[];
+  }) {
+    const tier = getTipTier(tip.payment.amount, pageTipTiers);
+
     const message = await this.tipMessageService.generateMessage(
       tip.id,
       tip.page.id,
     );
-    // const message = await this.getTipMessage(tip);
+
+    tip = Object.assign({}, tip, { pageTipTier: tier });
+
     const t = serializer(TipDto, tip);
 
     return { tip: t, message, autoRemove };

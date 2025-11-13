@@ -113,3 +113,26 @@ export const truncateMiddle = (
 
   return `${start}...${end}`;
 };
+
+export const getForegroundColor = (
+  rgb?: string
+): "white" | "black" | undefined => {
+  if (!rgb) return undefined;
+  if (rgb.startsWith("rgb(") && rgb.endsWith(")")) {
+    rgb = rgb.slice(4, -1).trim();
+  }
+  const [r, g, b] = rgb.split(",").map((v) => parseInt(v.trim(), 10));
+
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+  return luminance > 0.5 ? "black" : "white";
+};
+
+export const getColorWithOpacity = (color: string, opacity: number) => {
+  if (!color) return undefined;
+  if (color.startsWith("rgb(") && color.endsWith(")")) {
+    color = color.slice(4, -1).trim();
+  }
+  const [r, g, b] = color.split(",").map((v) => parseInt(v.trim(), 10));
+  return `rgba(${r},${g},${b},${opacity})`;
+};

@@ -11,6 +11,7 @@ import { LiveStream } from 'src/live-streams/live-stream.entity';
 import { NotificationPreference } from 'src/notification-preferences/notification-preferences.entity';
 import { PageRecipient } from 'src/page-recipients/page-recipient.entity';
 import { PageSetting } from 'src/page-settings/page-setting.entity';
+import { PageTipTier } from 'src/page-tip-tiers/page-tip-tier.entity';
 import { Page } from 'src/pages/page.entity';
 import { Tier } from 'src/pages/tier.entity';
 import { Payment } from 'src/payments/payment.entity';
@@ -46,6 +47,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
           PageRecipient,
           LiveStream,
           CohostInvitation,
+          PageTipTier,
         ],
         namingStrategy: new SnakeNamingStrategy(),
         migrationsRun: process.env.NODE_ENV === 'production',

@@ -285,6 +285,10 @@ export class PagesService {
         links: true,
         recipients: true,
         liveStreams: true,
+        pageTipTiers: { sound: true },
+      },
+      order: {
+        pageTipTiers: { minAmount: { direction: 'ASC', nulls: 'LAST' } },
       },
     });
   }

@@ -20,6 +20,7 @@ import { Tip } from 'src/tips/tip.entity';
 import { PageStatusEnum } from '../shared/constants';
 import { PageRecipient } from 'src/page-recipients/page-recipient.entity';
 import { LiveStream } from '../live-streams/live-stream.entity';
+import { PageTipTier } from 'src/page-tip-tiers/page-tip-tier.entity';
 
 @Entity({ name: 'pages' })
 @Unique(['path'])
@@ -122,6 +123,9 @@ export class Page {
 
   @OneToMany(() => LiveStream, (l: LiveStream) => l.page)
   liveStreams: LiveStream[];
+
+  @OneToMany(() => PageTipTier, (p: PageTipTier) => p.page)
+  pageTipTiers: PageTipTier[];
 
   @OneToMany(() => User, (u: User) => u.cohostPage)
   cohosts: User[];
