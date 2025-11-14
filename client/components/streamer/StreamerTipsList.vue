@@ -196,7 +196,21 @@ const getPrivateDisabled = (privateValue: boolean) =>
       }"
     >
       <template #amount-data="{ row }">
-        {{ getComputedPrice(row.payment.amount) }}
+        <div class="inline-flex items-start gap-2">
+          <span>
+            {{ getComputedPrice(row.payment.amount) }}
+          </span>
+          <span
+            v-if="row.pageTipTier"
+            class="text-xs px-1.5 py-0.5 rounded-full ring-1 ring-border"
+            :style="{
+              background: row.pageTipTier.color,
+              color: getForegroundColor(row.pageTipTier.color),
+            }"
+          >
+            {{ row.pageTipTier?.name }}
+          </span>
+        </div>
       </template>
       <template #paidAt-data="{ row }">
         <div class="flex flex-col text-xs">
