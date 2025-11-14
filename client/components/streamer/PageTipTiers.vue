@@ -38,8 +38,7 @@ const handleItemClick = (item: PageTipTier) => {
   else value = xmrToFiat(item.minAmount, props.fiat);
 
   if (!value) return;
-
-  emit("select", String(value));
+  emit("select", String(value.toFixed(2)));
 };
 </script>
 
