@@ -26,6 +26,7 @@ const { axios } = useApp();
 const config = useRuntimeConfig();
 const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
   useServices();
+const { dayjs } = useDate();
 
 const tipEvents = ref<ObsTipSocketEvent[]>([]);
 
@@ -201,7 +202,7 @@ const getPrivateDisabled = (privateValue: boolean) =>
         <div class="flex flex-col text-xs">
           <span class="flex items-center gap-1">
             <span>
-              {{ new Date(row.payment.paidAt).toLocaleDateString() }}
+              {{ dayjs(row.payment.paidAt).format("L") }}
             </span>
             <UTooltip
               v-if="getDisappearText(row.createdAt)"
@@ -211,7 +212,7 @@ const getPrivateDisabled = (privateValue: boolean) =>
               <UIcon name="i-heroicons-clock" class="text-pale" />
             </UTooltip>
           </span>
-          <span>{{ new Date(row.payment.paidAt).toLocaleTimeString() }}</span>
+          <span>{{ dayjs(row.payment.paidAt).format("LTS") }}</span>
         </div>
       </template>
 

@@ -99,6 +99,7 @@ export default defineNuxtConfig({
   },
 
   dayjs: {
+    plugins: ["localizedFormat"],
     locales: ["en", "fr", "es", "de", "ru", "fi", "ko", "ar"],
   },
 
