@@ -14,13 +14,14 @@ const { dayjs, relativeDate } = useDate();
 const { axios } = useApp();
 const toast = useToast();
 const modal = useModal();
+const { t } = useI18n();
 
 const loadingRemove = ref(false);
 
 const handleRemoveClick = () => {
   modal.open(ConfirmModal, {
-    title: "Remove cohost",
-    text: "Are you sure you want to remove this cohost?",
+    title: t("removeCohost"),
+    text: t("removeThisCohost"),
     color: "red",
     onConfirm: () => handleRemove(),
   });
@@ -31,7 +32,7 @@ const handleRemove = async () => {
   try {
     await axios.delete(`/cohosts/${props.cohost.id}`);
     toast.add({
-      description: "Cohost removed",
+      description: t("cohostRemoved"),
       color: "green",
     });
     emit("remove");
@@ -65,7 +66,7 @@ const handleRemove = async () => {
           variant="ghost"
           :loading="loadingRemove"
           @click="handleRemoveClick"
-          >Remove</UButton
+          >{{ $t("remove") }}</UButton
         >
       </div>
     </div>

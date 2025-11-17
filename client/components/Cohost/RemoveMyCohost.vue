@@ -6,13 +6,14 @@ const { toStreamerDisplay } = useRouteLocation();
 const loadingRemove = ref(false);
 const authStore = useAuthStore();
 const toast = useToast();
+const { t } = useI18n();
 
 const modal = useModal();
 
 const handleRemoveClick = () => {
   modal.open(ConfirmModal, {
-    title: "Remove from cohost",
-    text: "Are you sure you want to remove yourself from the cohost of the page? You should be invited again to be able to cohost the page again.",
+    title: t("removeFromCohost"),
+    text: t("removeYourselfFromCohost"),
     color: "red",
     onConfirm: () => handleRemove(),
   });
@@ -25,7 +26,7 @@ const handleRemove = async () => {
     await navigateTo(toStreamerDisplay()?.path);
     await authStore.getMe();
     toast.add({
-      description: "You have been removed from the cohost of the page.",
+      description: t("youRemovedFromCohost"),
       color: "green",
     });
   } catch (error) {
@@ -47,7 +48,7 @@ const handleRemove = async () => {
     :loading="loadingRemove"
     @click="handleRemoveClick"
   >
-    Remove from cohost
+    {{ $t("removeFromCohost") }}
   </UButton>
 </template>
 

@@ -408,4 +408,54 @@ export default {
   liveNow: "Jetzt live",
   noStreamersLive: "Derzeit sind keine Streamer live.",
   liveOn: "Live auf",
+
+  // COHOSTS
+
+  cohost: "Co-Host",
+  cohostPage: "Co-Host-Seite",
+  cohostDes: "Verwalte {path} xmrchats",
+  inviteCohosts: "Co-Hosts einladen",
+  noCohosts: "Du hast noch keine Co-Hosts",
+  cohostsCanHelpYou:
+    "Co-Hosts sind Benutzer, die dir helfen können, deine xmrchats zu verwalten.",
+  youCanInviteCohosts:
+    "Du kannst Co-Hosts über die Schaltfläche unten einladen.",
+  removeYourselfFromCohost:
+    "Bist du sicher, dass du dich selbst als Co-Host dieser Seite entfernen möchtest? Du musst erneut eingeladen werden, um wieder Co-Host der Seite zu werden.",
+  youRemovedFromCohost: "Du wurdest als Co-Host der Seite entfernt.",
+  removeFromCohost: "Vom Co-Host entfernen",
+  removeCohost: "Co-Host entfernen",
+  removeThisCohost:
+    "Bist du sicher, dass du diesen Co-Host entfernen möchtest?",
+  cohostRemoved: "Co-Host entfernt",
+  invitationCancelled: "Einladung abgebrochen",
+  expired: "Abgelaufen",
+  expires: "läuft ab",
+  pending: "ausstehend",
+
+  // TIP TIERS
+  tipTiers: "Tipp-Stufen",
+  minAmount: "Mindestbetrag:",
+  close: "Schließen",
+  minXMR: "Mind. (XMR)",
+  color: "Farbe",
+  sound: "Ton",
+  wantToDeleteTier: "Bist du sicher, dass du diese Stufe löschen möchtest?",
+  deleteTier: "Stufe löschen",
+  tierDeleted: "Stufe gelöscht",
+  createTier: "Stufe erstellen",
+  createNewTier: "Neue Stufe erstellen",
+  edit: "Bearbeiten",
+  delete: "Löschen",
+  pageTierUpdated: "Seitenstufe aktualisiert.",
+  pageTierCreated: "Seitenstufe erstellt.",
+  minAmountXMR: "Mindestbetrag (XMR)",
+  description: "Beschreibung",
+  soundOBS: "Ton (OBS)",
+  uploaded: "Hochgeladen:",
+  clear: "Leeren",
+  save: "Speichern",
+  editTier: "Stufe bearbeiten",
+  editTierDetails: "Stufendetails bearbeiten",
+  manageYourTipTiers: "Verwalte deine Tipp-Stufen",
 };

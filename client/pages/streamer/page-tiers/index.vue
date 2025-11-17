@@ -6,6 +6,7 @@ const { toCreateStreamerPageTier, toEditStreamerPageTier } = useRouteLocation();
 const { axios } = useApp();
 const modal = useModal();
 const toast = useToast();
+const { t } = useI18n();
 
 const { data, pending, error, refresh } = useLazyAsyncData(
   async () => {
@@ -22,19 +23,19 @@ const { data, pending, error, refresh } = useLazyAsyncData(
 const columns = computed(() => [
   {
     key: "name",
-    label: "Name",
+    label: t("name"),
   },
   {
     key: "minAmount",
-    label: "Min. (XMR)",
+    label: t("minXMR"),
   },
   {
     key: "color",
-    label: "Color",
+    label: t("color"),
   },
   {
     key: "sound",
-    label: "Sound",
+    label: t("sound"),
   },
   {
     key: "actions",
@@ -44,8 +45,8 @@ const columns = computed(() => [
 const handleDeleteClick = async (id: number) => {
   modal.open(ConfirmModal, {
     color: "red",
-    text: "Are you sure you want to delete this tier?",
-    title: "Delete tier",
+    text: t("wantToDeleteTier"),
+    title: t("deleteTier"),
     onConfirm: () => handleDelete(id),
   });
 };
@@ -54,7 +55,7 @@ const handleDelete = async (id: number) => {
   try {
     await axios.delete(`/page-tip-tiers/${id}`);
     toast.add({
-      description: "Tier deleted",
+      description: t("tierDeleted"),
       color: "green",
     });
     await refresh();
@@ -69,9 +70,12 @@ const handleDelete = async (id: number) => {
 
 <template>
   <div>
-    <PageTitle title="Tip Tiers" description="Manage your tip tiers" />
+    <PageTitle
+      :title="$t('tipTiers')"
+      :description="$t('manageYourTipTiers')"
+    />
     <div class="flex justify-end mb-4">
-      <UButton :to="toCreateStreamerPageTier()">Create Tier</UButton>
+      <UButton :to="toCreateStreamerPageTier()">{{ $t("createTier") }}</UButton>
     </div>
     <UProgress
       v-if="pending"
@@ -112,14 +116,14 @@ const handleDelete = async (id: number) => {
             color="primary"
             :to="toEditStreamerPageTier(row.id)"
           >
-            Edit
+            {{ $t("edit") }}
           </UButton>
           <UButton
             variant="ghost"
             color="red"
             @click="handleDeleteClick(row.id)"
           >
-            Delete
+            {{ $t("delete") }}
           </UButton>
         </div>
       </template>

@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <PageTitle title="Create Tier" description="Create a new tier" />
+    <PageTitle :title="$t('createTier')" :description="$t('createNewTier')" />
     <PageTierModifyForm />
   </div>
 </template>

@@ -12,6 +12,7 @@ const emit = defineEmits<{
 const { dayjs, relativeDate } = useDate();
 const { axios } = useApp();
 const toast = useToast();
+const { t } = useI18n();
 
 const loadingCancel = ref(false);
 
@@ -20,7 +21,7 @@ const handleCancelClick = async () => {
   try {
     await axios.delete(`/cohost-invitations/${props.invitation.id}`);
     toast.add({
-      description: "Invitation cancelled",
+      description: t("invitationCancelled"),
       color: "green",
     });
     emit("cancel");
@@ -49,9 +50,11 @@ const handleCancelClick = async () => {
         <p class="font-medium">{{ invitation.user.email }}</p>
         <p class="text-pale text-sm">
           <span v-if="dayjs(invitation.expiresAt).isBefore(dayjs())">
-            Expired
+            {{ $t("expired") }}
           </span>
-          <span v-else> expires {{ relativeDate(invitation.expiresAt) }} </span>
+          <span v-else>
+            {{ $t("expires") }} {{ relativeDate(invitation.expiresAt) }}
+          </span>
         </p>
       </div>
       <div>
@@ -60,7 +63,7 @@ const handleCancelClick = async () => {
           :loading="loadingCancel"
           @click="handleCancelClick"
         >
-          Cancel
+          {{ $t("cancel") }}
         </UButton>
       </div>
     </div>

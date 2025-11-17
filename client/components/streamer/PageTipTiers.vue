@@ -70,7 +70,7 @@ const handleItemClick = (item: PageTipTier) => {
   <UModal v-model="modalRef">
     <UCard>
       <template #header>
-        <h2 class="text-lg font-medium">Tip Tiers</h2>
+        <h2 class="text-lg font-medium">{{ $t("tipTiers") }}</h2>
       </template>
       <div class="grid gap-4">
         <div v-for="item in tiers" class="flex items-center gap-2">
@@ -81,7 +81,7 @@ const handleItemClick = (item: PageTipTier) => {
           <div class="flex flex-col gap-1">
             <div class="text-lg font-medium">{{ item.name }}</div>
             <div>
-              <span class="text-pale text-sm">Min. amount: </span>
+              <span class="text-pale text-sm">{{ $t("minAmount") }} </span>
               <span>{{ item.minAmount }} XMR </span>
               <span>( {{ getFiatAmount(item.minAmount) }} )</span>
             </div>
@@ -91,7 +91,9 @@ const handleItemClick = (item: PageTipTier) => {
       </div>
 
       <template #footer>
-        <UButton variant="soft" @click="modalRef = false">Close</UButton>
+        <UButton variant="soft" @click="modalRef = false">{{
+          $t("close")
+        }}</UButton>
       </template>
     </UCard>
   </UModal>

@@ -23,6 +23,7 @@ const { axios } = useApp();
 const route = useRoute();
 const id = computed(() => route.params.id as string);
 const toast = useToast();
+const { t } = useI18n();
 
 const state: State = reactive({
   form: {
@@ -65,7 +66,7 @@ const handleSubmit = async () => {
 
     await request;
     toast.add({
-      description: id.value ? "Page tier updated." : "Page tier created.",
+      description: id.value ? t("pageTierUpdated") : t("pageTierCreated"),
     });
     await navigateTo(toStreamerPageTiers());
   } catch (error) {
@@ -106,14 +107,14 @@ const { getValidationAttrs } = useValidations(v);
 <template>
   <GeneralForm @submit="handleSubmit">
     <div class="flex gap-4 flex-col w-full max-w-[600px] m-auto">
-      <UFormGroup label="Name" :error="getValidationAttrs('name').error">
+      <UFormGroup :label="$t('name')" :error="getValidationAttrs('name').error">
         <UInput
           v-model="state.form.name"
           @blur="getValidationAttrs('name').onBlur"
         />
       </UFormGroup>
       <UFormGroup
-        label="Min. amount ( XMR )"
+        :label="$t('minAmountXMR')"
         :error="getValidationAttrs('minAmount').error"
       >
         <UInput
@@ -122,7 +123,7 @@ const { getValidationAttrs } = useValidations(v);
         />
       </UFormGroup>
       <UFormGroup
-        label="Description"
+        :label="$t('description')"
         :error="getValidationAttrs('description').error"
       >
         <UTextarea
@@ -130,7 +131,7 @@ const { getValidationAttrs } = useValidations(v);
           @blur="getValidationAttrs('description').onBlur"
         />
       </UFormGroup>
-      <UFormGroup label="Sound ( OBS )">
+      <UFormGroup :label="$t('soundOBS')">
         <FileUploader
           :slug="UploadSlug.OBS_SOUND"
           accept="audio/*"
@@ -138,7 +139,7 @@ const { getValidationAttrs } = useValidations(v);
         />
         <div v-if="state.sound" class="flex gap-2 items-center pt-2">
           <span class="text-pale text-xs truncate max-w-[240px]">
-            Uploaded: {{ state.sound.originalName }}
+            {{ $t("uploaded") }} {{ state.sound.originalName }}
           </span>
           <UButton
             variant="soft"
@@ -146,11 +147,11 @@ const { getValidationAttrs } = useValidations(v);
             size="xs"
             @click="handleClearSound"
           >
-            Clear
+            {{ $t("clear") }}
           </UButton>
         </div>
       </UFormGroup>
-      <UFormGroup label="Color">
+      <UFormGroup :label="$t('color')">
         <div class="flex gap-2 flex-wrap items-center">
           <URadio
             v-for="item in getPageTierColorsList()"
@@ -190,7 +191,9 @@ const { getValidationAttrs } = useValidations(v);
         </div>
       </UFormGroup>
       <div class="mt-4">
-        <UButton type="submit" :loading="state.loading">Save</UButton>
+        <UButton type="submit" :loading="state.loading">{{
+          $t("save")
+        }}</UButton>
       </div>
     </div>
   </GeneralForm>
