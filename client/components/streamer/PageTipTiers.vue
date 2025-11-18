@@ -33,12 +33,12 @@ const getComputedAmount = (amount?: number) => {
 const modalRef = ref(false);
 
 const handleItemClick = (item: PageTipTier) => {
-  let value: number | undefined;
-  if (isXmrDisplay.value) value = item.minAmount;
-  else value = xmrToFiat(item.minAmount, props.fiat);
+  let value: string | undefined;
+  if (isXmrDisplay.value) value = String(item.minAmount);
+  else value = xmrToFiat(item.minAmount, props.fiat).toFixed(2);
 
   if (!value) return;
-  emit("select", String(value.toFixed(2)));
+  emit("select", value);
 };
 </script>
 
