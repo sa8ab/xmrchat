@@ -50,6 +50,7 @@ import { PageRecipientsModule } from './page-recipients/page-recipients.module';
 import { LiveStreamsModule } from './live-streams/live-streams.module';
 import { CohostModule } from './cohost/cohost.module';
 import { PageTipTiersModule } from './page-tip-tiers/page-tip-tiers.module';
+import { SuperDmModule } from './super-dm/super-dm.module';
 
 @Module({
   imports: [
@@ -174,6 +175,7 @@ import { PageTipTiersModule } from './page-tip-tiers/page-tip-tiers.module';
     LiveStreamsModule,
     CohostModule,
     PageTipTiersModule,
+    SuperDmModule,
   ],
   controllers: [AppController],
   providers: [AppService],
