@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { toStreamerSuperDmSettings } = useRouteLocation();
+</script>
 
 <template>
   <div class="flex flex-col items-center mt-6">
@@ -12,6 +14,9 @@
       (not even us!). Notifications need to be enabled for this feature so you
       are notified when a SuperDM arrives. Please respond quickly to your fans.
     </p>
+    <div class="mt-4">
+      <UButton :to="toStreamerSuperDmSettings()"> Configure Super DMs </UButton>
+    </div>
   </div>
 </template>
 
