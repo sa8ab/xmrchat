@@ -20,6 +20,7 @@ const {
   toStreamerRecipients,
   toStreamerCohostPage,
   toStreamerPageTiers,
+  toStreamerSuperDm,
 } = useRouteLocation();
 
 const items = computed(() => {
@@ -105,6 +106,11 @@ const items = computed(() => {
             label: "Tip Tiers",
             icon: "i-heroicons-numbered-list-20-solid",
             to: toStreamerPageTiers(),
+          },
+          {
+            label: "Super DMs",
+            icon: "i-heroicons-chat-bubble-left-right",
+            to: toStreamerSuperDm(),
           },
           {
             label: "Notifications",
