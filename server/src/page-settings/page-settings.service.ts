@@ -18,11 +18,8 @@ import {
   getPageSettingType,
 } from 'src/shared/utils/settings';
 import { File } from 'src/files/file.entity';
-import { serializer } from 'src/shared/interceptors/serialize.interceptor';
-import { FileDto } from 'src/files/dtos/file.dto';
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { User } from 'src/users/user.entity';
-import { subject } from '@casl/ability';
 
 @Injectable()
 export class PageSettingsService {
