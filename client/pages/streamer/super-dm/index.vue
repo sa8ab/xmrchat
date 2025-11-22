@@ -2,7 +2,12 @@
 
 <template>
   <div>
-    Page: streamer/super-dm/index
+    <PageTitle
+      title="Super DMs"
+      description="Manage your Super DMs"
+    ></PageTitle>
+
+    <SuperDmDisabled />
   </div>
 </template>
 
