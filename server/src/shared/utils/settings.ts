@@ -33,6 +33,14 @@ export const PAGE_SETTINGS = {
     category: PageSettingCategory.NOTIFICATIONS,
     type: PageSettingValueType.STRING,
   },
+  [PageSettingKey.SUPER_DM_MIN_AMOUNT]: {
+    category: PageSettingCategory.SUPER_DM,
+    type: PageSettingValueType.STRING,
+  },
+  [PageSettingKey.SUPER_DM_PUBLIC_KEY]: {
+    category: PageSettingCategory.SUPER_DM,
+    type: PageSettingValueType.STRING,
+  },
 };
 
 export const getPageSettingCategory = (key: PageSettingKey) =>

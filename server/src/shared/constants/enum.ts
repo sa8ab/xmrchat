@@ -19,6 +19,7 @@ export enum PageSettingCategory {
   OBS = 'obs',
   STREAMING = 'streaming',
   NOTIFICATIONS = 'notifications',
+  SUPER_DM = 'super-dm',
 }
 
 export enum PageSettingKey {
@@ -29,6 +30,8 @@ export enum PageSettingKey {
   OBS_SOUND = 'obs-sound',
   MIN_NOTIFICATION_THRESHOLD = 'min-notification-threshold',
   DAILY_SUMMARY_NOTIFICATION_TIME = 'daily-summary-notification-time',
+  SUPER_DM_MIN_AMOUNT = 'super-dm-min-amount',
+  SUPER_DM_PUBLIC_KEY = 'super-dm-public-key',
 }
 
 export enum TipDisplayMode {
