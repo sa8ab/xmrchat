@@ -63,9 +63,7 @@ const { getValidationAttrs } = useValidations(v);
           >
           </UInput>
         </UFormGroup>
-        <UFormGroup label="Encryption Key">
-          <UButton @click="generateEncryptionKey">Generate</UButton>
-        </UFormGroup>
+        <SuperDmKeysSetting class="col-span-full" />
       </div>
     </GeneralForm>
   </div>
