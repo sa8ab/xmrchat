@@ -37,7 +37,7 @@ export const useSuperDm = () => {
   };
 
   const getSavedKey = async () => {
-    return await idb.get<string>("super-dm-private-key");
+    return await idb.get<GeneratedKeys>("super-dm-keys");
   };
 
   // Saves keys to idb

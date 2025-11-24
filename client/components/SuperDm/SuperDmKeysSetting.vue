@@ -6,28 +6,28 @@ const toast = useToast();
 
 interface State {
   code?: string;
-  mode: "result" | "recovery";
   generateModal: boolean;
   loadingGenerate: boolean;
+  generatedResult: any;
 }
 
 const state = reactive<State>({
   code: undefined,
-
-  mode: "recovery",
-
   generateModal: false,
   loadingGenerate: false,
+
+  generatedResult: undefined,
 });
 
 const {
-  data: savedKey,
+  data: savedKeys,
   pending,
   error,
+  refresh,
 } = useLazyAsyncData(
   async () => {
-    const key = await getSavedKey();
-    return key;
+    const keys = await getSavedKey();
+    return keys;
   },
   { server: false }
 );
@@ -42,9 +42,11 @@ const handleGenerate = async () => {
   try {
     const keys = await generateAndSaveKeys();
 
-    // save to idb
-
     // send public key to server
+
+    // refresh();
+
+    state.generatedResult = keys;
 
     console.log({ keys });
   } catch (error) {
@@ -52,6 +54,11 @@ const handleGenerate = async () => {
   } finally {
     state.loadingGenerate = false;
   }
+};
+
+const handleSaveRecoveryCode = async () => {
+  await refresh();
+  state.generatedResult = undefined;
 };
 </script>
 
@@ -62,15 +69,15 @@ const handleGenerate = async () => {
     <div v-else-if="error">{{ getErrorMessage(error) }}</div>
 
     <template v-else>
-      <div v-if="savedKey">
-        <p>Backup your recovery code</p>
+      <div v-if="savedKeys" class="flex flex-col gap-2">
+        <h3 class="font-medium">Backup your recovery code</h3>
         <p>
           XMRChat only stores your public key. Your recovery code remains on
           your device.
         </p>
-        <UInput :modelValue="savedKey || ''" readonly />
+        <UInput :modelValue="savedKeys?.mnemonic" readonly />
       </div>
-      <div v-else-if="state.mode === 'recovery'">
+      <div v-else-if="!state.generatedResult">
         <UFormGroup label="Recovery Code">
           <template #description>
             <p>
@@ -91,7 +98,23 @@ const handleGenerate = async () => {
           </UButton>
         </div>
       </div>
-      <div v-else class="">Show new keys ask to save the recovery code.</div>
+      <div v-else class="grid gap-2">
+        <p>
+          Please save your recovery code. You will need the recovery code to
+          access your encrypted messages. If you clear cache or use different
+          device you will need to enter the recovery code.
+        </p>
+        <UInput
+          :modelValue="state.generatedResult?.mnemonic"
+          readonly
+          size="lg"
+        />
+        <div>
+          <UButton @click="handleSaveRecoveryCode">
+            I saved the recovery code
+          </UButton>
+        </div>
+      </div>
     </template>
 
     <UModal v-model="state.generateModal">
