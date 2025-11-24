@@ -1,22 +1,26 @@
 <script setup lang="ts">
 import { UAlert, UFormGroup } from "#components";
 
-const { getSavedKey, generateAndSaveKeys } = useSuperDm();
+const { getSavedKey, generateAndSaveKeys, recoverKeys } = useSuperDm();
 const toast = useToast();
 
 interface State {
-  code?: string;
+  recoveryCode?: string;
   generateModal: boolean;
-  loadingGenerate: boolean;
   generatedResult: any;
+
+  loadingGenerate: boolean;
+  loadingRecover: boolean;
 }
 
 const state = reactive<State>({
-  code: undefined,
-  generateModal: false,
-  loadingGenerate: false,
+  recoveryCode: undefined,
 
+  generateModal: false,
   generatedResult: undefined,
+
+  loadingGenerate: false,
+  loadingRecover: false,
 });
 
 const {
@@ -60,6 +64,22 @@ const handleSaveRecoveryCode = async () => {
   await refresh();
   state.generatedResult = undefined;
 };
+
+const handleRecoverClick = async () => {
+  try {
+    state.loadingRecover = true;
+    if (!state.recoveryCode) return;
+    const keys = recoverKeys(state.recoveryCode);
+
+    // verify public key with server
+
+    // refresh
+  } catch (error) {
+    toast.add({ description: getErrorMessage(error) });
+  } finally {
+    state.loadingRecover = false;
+  }
+};
 </script>
 
 <template>
@@ -85,10 +105,10 @@ const handleSaveRecoveryCode = async () => {
               to decrypt your previous messages after generating new keys.
             </p>
           </template>
-          <UInput v-model="state.code" />
+          <UInput v-model="state.recoveryCode" />
         </UFormGroup>
         <div class="flex gap-2 pt-2">
-          <UButton>Done</UButton>
+          <UButton @click="handleRecoverClick">Recover</UButton>
           <UButton
             variant="ghost"
             @click="handleGenerateClick"

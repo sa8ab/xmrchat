@@ -26,7 +26,7 @@ export const useSuperDm = () => {
     };
   };
 
-  const recoverPrivateKey = (mnemonic: string) => {
+  const recoverKeys = (mnemonic: string) => {
     const recoveredSeed = mnemonicToEntropy(mnemonic, wordlist);
     const keys = pgp(recoveredSeed, "");
 
@@ -58,7 +58,7 @@ export const useSuperDm = () => {
 
   return {
     generateKeys,
-    recoverPrivateKey,
+    recoverKeys,
     getSavedKey,
     saveKeys,
     generateAndSaveKeys,
