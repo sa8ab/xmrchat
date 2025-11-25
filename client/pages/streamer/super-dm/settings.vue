@@ -65,6 +65,9 @@ const { getValidationAttrs } = useValidations(v);
         </UFormGroup>
         <SuperDmKeysSetting class="col-span-full" />
       </div>
+      <div class="flex pt-6">
+        <UButton>Save</UButton>
+      </div>
     </GeneralForm>
   </div>
 </template>

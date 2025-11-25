@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { UAlert, UFormGroup } from "#components";
+import useVuelidate from "@vuelidate/core";
 
 const { getSavedKey, generateAndSaveKeys, recoverKeys } = useSuperDm();
 const toast = useToast();
+const { required } = useValidations();
 
 interface State {
   recoveryCode?: string;
@@ -66,10 +68,11 @@ const handleSaveRecoveryCode = async () => {
 };
 
 const handleRecoverClick = async () => {
+  const valid = await v.value.$validate();
+  if (!valid) return;
   try {
     state.loadingRecover = true;
-    if (!state.recoveryCode) return;
-    const keys = recoverKeys(state.recoveryCode);
+    const keys = recoverKeys(state.recoveryCode || "");
 
     // verify public key with server
 
@@ -80,6 +83,15 @@ const handleRecoverClick = async () => {
     state.loadingRecover = false;
   }
 };
+
+const v = useVuelidate<State>(
+  {
+    recoveryCode: { required },
+  },
+  computed(() => state)
+);
+
+const { getValidationAttrs } = useValidations(v);
 </script>
 
 <template>
@@ -98,17 +110,25 @@ const handleRecoverClick = async () => {
         <UInput :modelValue="savedKeys?.mnemonic" readonly />
       </div>
       <div v-else-if="!state.generatedResult">
-        <UFormGroup label="Recovery Code">
+        <UFormGroup
+          label="Recovery Code"
+          :error="getValidationAttrs('recoveryCode').error"
+        >
           <template #description>
             <p>
               Enter your recovery code or generate new keys. You won't be able
               to decrypt your previous messages after generating new keys.
             </p>
           </template>
-          <UInput v-model="state.recoveryCode" />
+          <UInput
+            v-model="state.recoveryCode"
+            @blur="getValidationAttrs('recoveryCode').onBlur"
+          />
         </UFormGroup>
         <div class="flex gap-2 pt-2">
-          <UButton @click="handleRecoverClick">Recover</UButton>
+          <UButton variant="soft" @click="handleRecoverClick">
+            Recover
+          </UButton>
           <UButton
             variant="ghost"
             @click="handleGenerateClick"
