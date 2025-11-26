@@ -5,25 +5,38 @@ import type { Numberic } from "~/types";
 interface State {
   form: {
     minSuperDmAmount?: Numberic;
-    enabled?: boolean;
+    active?: boolean;
   };
+  loadingSave: boolean;
 }
+
+const { required, numberic } = useValidations();
+const { axios } = useApp();
+const toast = useToast();
 
 const state = reactive<State>({
   form: {
     minSuperDmAmount: undefined,
-    enabled: undefined,
+    active: undefined,
   },
+  loadingSave: false,
 });
 
-const { generateKeys } = useSuperDm();
+const handleSubmit = async () => {
+  const valid = await v.value.$validate();
 
-const generateEncryptionKey = async () => {
-  const result = generateKeys();
-  console.log({ result });
+  if (!valid) return;
+
+  try {
+    state.loadingSave = true;
+    await axios.put("/super-dm/settings", state.form);
+    toast.add({ description: "Super DM settings updated" });
+  } catch (error) {
+    toast.add({ description: getErrorMessage(error) });
+  } finally {
+    state.loadingSave = false;
+  }
 };
-
-const { required, numberic } = useValidations();
 
 const v = useVuelidate<State["form"]>(
   computed(() => ({
@@ -45,11 +58,11 @@ const { getValidationAttrs } = useValidations(v);
     <GeneralForm>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <UFormGroup
-          label="Super DMs"
-          name="enabled"
-          description="Enable or disable Super DMs."
+          label="Super DM activation"
+          name="active"
+          description="Activate or deactivate Super DMs."
         >
-          <UToggle v-model="state.form.enabled" size="lg" />
+          <UToggle v-model="state.form.active" size="lg" />
         </UFormGroup>
         <UFormGroup
           label="Min. Super DM amount ( XMR )"
@@ -66,7 +79,9 @@ const { getValidationAttrs } = useValidations(v);
         <SuperDmKeysSetting class="col-span-full" />
       </div>
       <div class="flex pt-6">
-        <UButton>Save</UButton>
+        <UButton :loading="state.loadingSave" @click="handleSubmit">
+          Save
+        </UButton>
       </div>
     </GeneralForm>
   </div>

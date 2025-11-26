@@ -41,6 +41,10 @@ export const PAGE_SETTINGS = {
     category: PageSettingCategory.SUPER_DM,
     type: PageSettingValueType.STRING,
   },
+  [PageSettingKey.SUPERDM_ACTIVE]: {
+    category: PageSettingCategory.SUPER_DM,
+    type: PageSettingValueType.BOOLEAN,
+  },
 };
 
 export const getPageSettingCategory = (key: PageSettingKey) =>

@@ -85,10 +85,11 @@ const handleRecoverClick = async () => {
 };
 
 const v = useVuelidate<State>(
-  {
+  computed(() => ({
     recoveryCode: { required },
-  },
-  computed(() => state)
+  })),
+  computed(() => state),
+  { $stopPropagation: true }
 );
 
 const { getValidationAttrs } = useValidations(v);
