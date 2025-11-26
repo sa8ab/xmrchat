@@ -88,8 +88,7 @@ const v = useVuelidate<State>(
   computed(() => ({
     recoveryCode: { required },
   })),
-  computed(() => state),
-  { $stopPropagation: true }
+  computed(() => state)
 );
 
 const { getValidationAttrs } = useValidations(v);
