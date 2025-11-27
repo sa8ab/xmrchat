@@ -5,7 +5,7 @@ import type { Numberic } from "~/types";
 interface State {
   form: {
     minSuperDmAmount?: Numberic;
-    active?: boolean;
+    superDmActive?: boolean;
   };
   loadingSave: boolean;
 }
@@ -17,7 +17,7 @@ const toast = useToast();
 const state = reactive<State>({
   form: {
     minSuperDmAmount: undefined,
-    active: undefined,
+    superDmActive: false,
   },
   loadingSave: false,
 });
@@ -50,19 +50,14 @@ const { getValidationAttrs } = useValidations(v);
 
 <template>
   <div>
-    <PageTitle
-      title="Super DM Settings"
-      description="Configure your Super DM settings"
-    ></PageTitle>
-
     <GeneralForm>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <UFormGroup
           label="Super DM activation"
-          name="active"
+          name="superDmActive"
           description="Activate or deactivate Super DMs."
         >
-          <UToggle v-model="state.form.active" size="lg" />
+          <UToggle v-model="state.form.superDmActive" size="lg" />
         </UFormGroup>
         <UFormGroup
           label="Min. Super DM amount ( XMR )"
