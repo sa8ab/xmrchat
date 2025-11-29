@@ -1,9 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PageSettingsService } from 'src/page-settings/page-settings.service';
 import { PagesService } from 'src/pages/pages.service';
-import { UpdateSuperDmSettingDto } from './dto/update-super-dm-setting.dto';
-import { User } from 'src/users/user.entity';
-import { PageSettingCategory, PageSettingKey } from 'src/shared/constants';
 
 @Injectable()
 export class SuperDmService {
