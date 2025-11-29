@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import useVuelidate from "@vuelidate/core";
-import type { Numberic } from "~/types";
+import type { Numberic, PageSetting } from "~/types";
+import { PageSettingKey } from "~/types/enums";
 
 interface State {
   form: {
@@ -21,6 +22,24 @@ const state = reactive<State>({
   },
   loadingSave: false,
 });
+
+useLazyAsyncData(
+  async () => {
+    const { data } = await axios.get<{ settings: PageSetting[] }>(
+      `/super-dm/settings`
+    );
+    const active = data.settings.find(
+      (s) => s.key === PageSettingKey.SUPERDM_ACTIVE
+    )?.value;
+    const minAmount = data.settings.find(
+      (s) => s.key === PageSettingKey.SUPER_DM_MIN_AMOUNT
+    )?.value;
+
+    state.form.superDmActive = active;
+    state.form.minSuperDmAmount = minAmount;
+  },
+  { server: false }
+);
 
 const handleSubmit = async () => {
   const valid = await v.value.$validate();

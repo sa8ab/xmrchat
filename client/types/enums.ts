@@ -9,6 +9,10 @@ export enum PageSettingKey {
   OBS_PLAY_SOUND = "obs-play-sound",
   OBS_AUTO_SHOW_TIPS = "obs-auto-show-tips",
   OBS_SOUND = "obs-sound",
+
+  SUPER_DM_MIN_AMOUNT = "super-dm-min-amount",
+  SUPER_DM_PUBLIC_KEY = "super-dm-public-key",
+  SUPERDM_ACTIVE = "superdm-active",
 }
 
 export enum ContentLinkPlatformEnum {

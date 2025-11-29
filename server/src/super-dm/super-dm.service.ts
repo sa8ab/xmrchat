@@ -3,7 +3,7 @@ import { PageSettingsService } from 'src/page-settings/page-settings.service';
 import { PagesService } from 'src/pages/pages.service';
 import { UpdateSuperDmSettingDto } from './dto/update-super-dm-setting.dto';
 import { User } from 'src/users/user.entity';
-import { PageSettingKey } from 'src/shared/constants';
+import { PageSettingCategory, PageSettingKey } from 'src/shared/constants';
 
 @Injectable()
 export class SuperDmService {
@@ -32,6 +32,17 @@ export class SuperDmService {
       ],
       user,
     );
+  }
+
+  async getSettings(user: User) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page not found');
+
+    const settings = await this.pageSettingsService.getByPageId(
+      page.id,
+      PageSettingCategory.SUPER_DM,
+    );
+    return settings;
   }
 
   // verify signature
