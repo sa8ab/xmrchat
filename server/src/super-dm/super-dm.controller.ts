@@ -8,12 +8,13 @@ import { PageSettingsService } from 'src/page-settings/page-settings.service';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
 import { PageSettingRO } from 'src/page-settings/dto/page-setting.dto';
 import { UpdatePublicKeyDto } from './dto/update-public-key.dto';
+import { SuperDmSettingsService } from './super-dm-settings.service';
 
 @Controller('super-dm')
 export class SuperDmController {
   constructor(
     private superDmService: SuperDmService,
-    private pageSettingsService: PageSettingsService,
+    private superDmSettingsService: SuperDmSettingsService,
   ) {}
 
   // update super dm settings
@@ -22,14 +23,14 @@ export class SuperDmController {
     @Body() dto: UpdateSuperDmSettingDto,
     @CurrentUser() user: User,
   ) {
-    await this.superDmService.updateSettings(dto, user);
+    await this.superDmSettingsService.updateSettings(dto, user);
     return { message: 'Super DM settings updated' };
   }
 
   @Get('/settings')
   @Serialize(PageSettingRO)
   async getSettings(@CurrentUser() user: User) {
-    const settings = await this.superDmService.getSettings(user);
+    const settings = await this.superDmSettingsService.getSettings(user);
     return { settings };
   }
 
