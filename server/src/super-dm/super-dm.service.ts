@@ -12,10 +12,6 @@ export class SuperDmService {
     private pagesService: PagesService,
   ) {}
 
-  // verify signature
-
-  // reset public key
-
   // get list of super dms for page - needs signature
   // get a super dm by id
   // end super dm
