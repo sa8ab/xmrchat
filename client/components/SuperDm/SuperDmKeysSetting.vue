@@ -3,6 +3,7 @@ import { UAlert, UFormGroup } from "#components";
 import useVuelidate from "@vuelidate/core";
 
 const { getSavedKey, generateAndSaveKeys, recoverKeys } = useSuperDm();
+const { axios } = useApp();
 const toast = useToast();
 const { required } = useValidations();
 
@@ -49,6 +50,9 @@ const handleGenerate = async () => {
     const keys = await generateAndSaveKeys();
 
     // send public key to server
+    await axios.put(`/super-dm/public-key`, {
+      publicKey: keys.publicKeyArmored,
+    });
 
     // refresh();
 

@@ -52,7 +52,7 @@ export const useSuperDm = () => {
   // Generates new keys and saves them to idb
   const generateAndSaveKeys = async () => {
     const keys = generateKeys();
-    await saveKeys(keys);
+    // await saveKeys(keys);
     return keys;
   };
 

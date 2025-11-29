@@ -7,6 +7,7 @@ import { User } from 'src/users/user.entity';
 import { PageSettingsService } from 'src/page-settings/page-settings.service';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
 import { PageSettingRO } from 'src/page-settings/dto/page-setting.dto';
+import { UpdatePublicKeyDto } from './dto/update-public-key.dto';
 
 @Controller('super-dm')
 export class SuperDmController {
@@ -30,5 +31,13 @@ export class SuperDmController {
   async getSettings(@CurrentUser() user: User) {
     const settings = await this.superDmService.getSettings(user);
     return { settings };
+  }
+
+  @Put('/public-key')
+  async updatePublicKey(
+    @Body() dto: UpdatePublicKeyDto,
+    @CurrentUser() user: User,
+  ) {
+    return {};
   }
 }
