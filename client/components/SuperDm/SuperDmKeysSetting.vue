@@ -98,14 +98,14 @@ const handleRecoverClick = async () => {
 
     const publicKey = await openpgp.readKey({ armoredKey: publicKeySetting });
 
-    console.log({ serverFingerprint: publicKey.getFingerprint() });
-    console.log({ clientFingerprint: fingerprint });
+    const savedFingerprint = publicKey.getFingerprint();
 
-    // verify public key with server
+    if (savedFingerprint !== fingerprint)
+      throw createError("Invalid recovery code");
 
     // refresh
   } catch (error) {
-    toast.add({ description: getErrorMessage(error) });
+    toast.add({ description: getErrorMessage(error), color: "red" });
   } finally {
     state.loadingRecover = false;
   }
