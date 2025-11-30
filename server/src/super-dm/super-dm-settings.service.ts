@@ -25,10 +25,21 @@ export class SuperDmSettingsService {
           value: dto.minSuperDmAmount,
         },
         {
-          key: PageSettingKey.SUPERDM_ACTIVE,
+          key: PageSettingKey.SUPER_DM_ACTIVE,
           value: dto.superDmActive,
         },
       ],
+      user,
+    );
+  }
+
+  async updatePublicKey(publicKey: string, user: User) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page not found');
+
+    await this.pageSettingsService.upsert(
+      page.id,
+      [{ key: PageSettingKey.SUPER_DM_PUBLIC_KEY, value: publicKey }],
       user,
     );
   }

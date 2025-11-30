@@ -39,6 +39,7 @@ export class SuperDmController {
     @Body() dto: UpdatePublicKeyDto,
     @CurrentUser() user: User,
   ) {
-    return {};
+    await this.superDmSettingsService.updatePublicKey(dto.publicKey, user);
+    return { message: 'Public key updated' };
   }
 }

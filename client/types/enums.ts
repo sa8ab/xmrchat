@@ -12,7 +12,7 @@ export enum PageSettingKey {
 
   SUPER_DM_MIN_AMOUNT = "super-dm-min-amount",
   SUPER_DM_PUBLIC_KEY = "super-dm-public-key",
-  SUPERDM_ACTIVE = "superdm-active",
+  SUPER_DM_ACTIVE = "super-dm-active",
 }
 
 export enum ContentLinkPlatformEnum {

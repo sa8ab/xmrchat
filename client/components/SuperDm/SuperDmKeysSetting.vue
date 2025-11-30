@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { UAlert, UFormGroup } from "#components";
 import useVuelidate from "@vuelidate/core";
+import type { PageSetting } from "~/types";
+import { PageSettingKey } from "~/types/enums";
+import * as openpgp from "openpgp";
 
 const { getSavedKey, generateAndSaveKeys, recoverKeys } = useSuperDm();
 const { axios } = useApp();
@@ -38,6 +41,14 @@ const {
   },
   { server: false }
 );
+
+const getPublicKeySettings = async () => {
+  const { data } = await axios.get<{ settings: PageSetting[] }>(
+    `/super-dm/settings`
+  );
+  return data.settings.find((s) => s.key === PageSettingKey.SUPER_DM_PUBLIC_KEY)
+    ?.value;
+};
 
 const handleGenerateClick = () => {
   state.generateModal = true;
@@ -77,6 +88,18 @@ const handleRecoverClick = async () => {
   try {
     state.loadingRecover = true;
     const keys = recoverKeys(state.recoveryCode || "");
+    const fingerprint = keys.fingerprint;
+
+    const publicKeySetting = await getPublicKeySettings();
+    if (!publicKeySetting) {
+      toast.add({ description: "Public key not found" });
+      return;
+    }
+
+    const publicKey = await openpgp.readKey({ armoredKey: publicKeySetting });
+
+    console.log({ serverFingerprint: publicKey.getFingerprint() });
+    console.log({ clientFingerprint: fingerprint });
 
     // verify public key with server
 
@@ -130,7 +153,11 @@ const { getValidationAttrs } = useValidations(v);
           />
         </UFormGroup>
         <div class="flex gap-2 pt-2">
-          <UButton variant="soft" @click="handleRecoverClick">
+          <UButton
+            variant="soft"
+            :loading="state.loadingRecover"
+            @click="handleRecoverClick"
+          >
             Recover
           </UButton>
           <UButton

@@ -29,7 +29,7 @@ useLazyAsyncData(
       `/super-dm/settings`
     );
     const active = data.settings.find(
-      (s) => s.key === PageSettingKey.SUPERDM_ACTIVE
+      (s) => s.key === PageSettingKey.SUPER_DM_ACTIVE
     )?.value;
     const minAmount = data.settings.find(
       (s) => s.key === PageSettingKey.SUPER_DM_MIN_AMOUNT

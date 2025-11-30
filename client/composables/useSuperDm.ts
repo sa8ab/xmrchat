@@ -31,6 +31,7 @@ export const useSuperDm = () => {
     const keys = pgp(recoveredSeed, "");
 
     return {
+      fingerprint: keys.fingerprint,
       privateKeyArmored: keys.privateKey,
       publicKeyArmored: keys.publicKey,
     };

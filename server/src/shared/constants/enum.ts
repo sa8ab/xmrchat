@@ -32,7 +32,7 @@ export enum PageSettingKey {
   DAILY_SUMMARY_NOTIFICATION_TIME = 'daily-summary-notification-time',
   SUPER_DM_MIN_AMOUNT = 'super-dm-min-amount',
   SUPER_DM_PUBLIC_KEY = 'super-dm-public-key',
-  SUPERDM_ACTIVE = 'superdm-active',
+  SUPER_DM_ACTIVE = 'super-dm-active',
 }
 
 export enum TipDisplayMode {

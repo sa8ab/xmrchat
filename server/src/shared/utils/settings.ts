@@ -41,7 +41,7 @@ export const PAGE_SETTINGS = {
     category: PageSettingCategory.SUPER_DM,
     type: PageSettingValueType.STRING,
   },
-  [PageSettingKey.SUPERDM_ACTIVE]: {
+  [PageSettingKey.SUPER_DM_ACTIVE]: {
     category: PageSettingCategory.SUPER_DM,
     type: PageSettingValueType.BOOLEAN,
   },
