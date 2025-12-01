@@ -5,7 +5,13 @@ import type { PageSetting } from "~/types";
 import { PageSettingKey } from "~/types/enums";
 import * as openpgp from "openpgp";
 
-const { getSavedKey, generateAndSaveKeys, recoverKeys } = useSuperDm();
+const {
+  getSavedKey,
+  generateAndSaveKeys,
+  recoverKeys,
+  validateSamePrivateKeys,
+  saveKeys,
+} = useSuperDm();
 const { axios } = useApp();
 const toast = useToast();
 const { required } = useValidations();
@@ -87,23 +93,27 @@ const handleRecoverClick = async () => {
   if (!valid) return;
   try {
     state.loadingRecover = true;
-    const keys = recoverKeys(state.recoveryCode || "");
-    const fingerprint = keys.fingerprint;
 
     const publicKeySetting = await getPublicKeySettings();
     if (!publicKeySetting) {
-      toast.add({ description: "Public key not found" });
+      toast.add({
+        description: "Public key not found. Try generating new keys.",
+        color: "red",
+      });
       return;
     }
 
-    const publicKey = await openpgp.readKey({ armoredKey: publicKeySetting });
+    const keys = recoverKeys(state.recoveryCode || "");
 
-    const savedFingerprint = publicKey.getFingerprint();
+    const samePrivateKeys = await validateSamePrivateKeys(
+      keys.publicKeyArmored,
+      publicKeySetting
+    );
+    if (!samePrivateKeys) throw createError("Invalid recovery code");
 
-    if (savedFingerprint !== fingerprint)
-      throw createError("Invalid recovery code");
+    await saveKeys(keys);
 
-    // refresh
+    await refresh();
   } catch (error) {
     toast.add({ description: getErrorMessage(error), color: "red" });
   } finally {

@@ -2,6 +2,7 @@ import pgp from "micro-key-producer/pgp.js";
 import { randomBytes } from "micro-key-producer/utils.js";
 import { entropyToMnemonic, mnemonicToEntropy } from "@scure/bip39";
 import { wordlist } from "@scure/bip39/wordlists/english.js";
+import * as openpgp from "openpgp";
 
 interface GeneratedKeys {
   mnemonic: string;
@@ -26,12 +27,13 @@ export const useSuperDm = () => {
     };
   };
 
+  // Recovers keys from mnemonic
   const recoverKeys = (mnemonic: string) => {
     const recoveredSeed = mnemonicToEntropy(mnemonic, wordlist);
     const keys = pgp(recoveredSeed, "");
 
     return {
-      fingerprint: keys.fingerprint,
+      mnemonic,
       privateKeyArmored: keys.privateKey,
       publicKeyArmored: keys.publicKey,
     };
@@ -53,8 +55,23 @@ export const useSuperDm = () => {
   // Generates new keys and saves them to idb
   const generateAndSaveKeys = async () => {
     const keys = generateKeys();
-    // await saveKeys(keys);
+    await saveKeys(keys);
     return keys;
+  };
+
+  const validateSamePrivateKeys = async (
+    publicKeyArmored: string,
+    savedPublicKeyArmored: string
+  ) => {
+    const key = await openpgp.readKey({ armoredKey: publicKeyArmored });
+    const savedKey = await openpgp.readKey({
+      armoredKey: savedPublicKeyArmored,
+    });
+
+    const fingerprint = key.getFingerprint();
+    const savedFingerprint = savedKey.getFingerprint();
+
+    return fingerprint === savedFingerprint;
   };
 
   return {
@@ -63,5 +80,6 @@ export const useSuperDm = () => {
     getSavedKey,
     saveKeys,
     generateAndSaveKeys,
+    validateSamePrivateKeys,
   };
 };
