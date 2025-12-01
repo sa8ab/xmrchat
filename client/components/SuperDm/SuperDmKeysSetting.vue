@@ -66,16 +66,11 @@ const handleGenerate = async () => {
   try {
     const keys = await generateAndSaveKeys();
 
-    // send public key to server
     await axios.put(`/super-dm/public-key`, {
       publicKey: keys.publicKeyArmored,
     });
 
-    // refresh();
-
     state.generatedResult = keys;
-
-    console.log({ keys });
   } catch (error) {
     toast.add({ description: getErrorMessage(error) });
   } finally {
