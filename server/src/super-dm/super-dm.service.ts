@@ -9,6 +9,8 @@ export class SuperDmService {
     private pagesService: PagesService,
   ) {}
 
+  async createSuperDm() {}
+
   // get list of super dms for page - needs signature
   // get a super dm by id
   // end super dm
