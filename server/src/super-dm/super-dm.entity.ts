@@ -6,10 +6,12 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   RelationId,
 } from 'typeorm';
 import { SuperDmMessage } from './super-sm-message.entity';
+import { Payment } from 'src/payments/payment.entity';
 
 @Entity({ name: 'super_dms' })
 export class SuperDm {
@@ -27,6 +29,9 @@ export class SuperDm {
 
   @Column({ nullable: false })
   publicKey: string;
+
+  @OneToOne(() => Payment, (p) => p.superDm)
+  payment: Payment;
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;

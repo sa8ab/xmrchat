@@ -13,6 +13,7 @@ import { SwapsModule } from 'src/swaps/swaps.module';
 import { PageSettingsModule } from 'src/page-settings/page-settings.module';
 import { TipMessageModule } from 'src/tip-message/tip-message.module';
 import { PageRecipientsModule } from 'src/page-recipients/page-recipients.module';
+import { PaymentFlowModule } from 'src/payment-flow/payment-flow.module';
 
 @Module({
   controllers: [TipsController],
@@ -28,6 +29,7 @@ import { PageRecipientsModule } from 'src/page-recipients/page-recipients.module
     PageSettingsModule,
     TipMessageModule,
     PageRecipientsModule,
+    PaymentFlowModule,
   ],
   exports: [TipsService, TipsGateway],
 })

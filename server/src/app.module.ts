@@ -51,6 +51,7 @@ import { LiveStreamsModule } from './live-streams/live-streams.module';
 import { CohostModule } from './cohost/cohost.module';
 import { PageTipTiersModule } from './page-tip-tiers/page-tip-tiers.module';
 import { SuperDmModule } from './super-dm/super-dm.module';
+import { PaymentFlowModule } from './payment-flow/payment-flow.module';
 
 @Module({
   imports: [
@@ -176,6 +177,7 @@ import { SuperDmModule } from './super-dm/super-dm.module';
     CohostModule,
     PageTipTiersModule,
     SuperDmModule,
+    PaymentFlowModule,
   ],
   controllers: [AppController],
   providers: [AppService],
