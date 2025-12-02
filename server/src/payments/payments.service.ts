@@ -11,6 +11,7 @@ export class PaymentsService {
     amount: string;
     pageSlug?: string;
     tip?: { id: number };
+    superDm?: { id: string };
     eventId: string;
   }) {
     const created = this.repo.create(payload);

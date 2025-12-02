@@ -13,7 +13,6 @@ import { makeIntegratedAddress } from 'src/shared/utils/monero';
 import { SwapsService } from 'src/swaps/swaps.service';
 
 interface CreatePaymentFlowParams {
-  pagePath: string;
   coinId?: number;
   amount: string;
   page: Page;

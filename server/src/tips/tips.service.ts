@@ -132,7 +132,6 @@ export class TipsService {
 
     const { baseSwap, eventId, inputCoin, integratedAddress } =
       await this.paymentFlowService.create({
-        pagePath: payload.path,
         coinId: payload.coinId,
         amount: payload.amount,
         page,

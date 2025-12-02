@@ -12,6 +12,7 @@ import {
 } from 'typeorm';
 import { SuperDmMessage } from './super-sm-message.entity';
 import { Payment } from 'src/payments/payment.entity';
+import { Swap } from 'src/swaps/swap.entity';
 
 @Entity({ name: 'super_dms' })
 export class SuperDm {
@@ -29,6 +30,9 @@ export class SuperDm {
 
   @Column({ nullable: false })
   publicKey: string;
+
+  @OneToOne(() => Swap, (s) => s.superDm)
+  swap: Swap;
 
   @OneToOne(() => Payment, (p) => p.superDm)
   payment: Payment;

@@ -1,4 +1,5 @@
 import {
+  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
@@ -7,7 +8,11 @@ import {
 } from 'class-validator';
 import { XmrToAtomicTransform } from 'src/shared/decorators/xmr-to-atomic-transform.decorator';
 
-export class CreateSuperDm {
+export class CreateSuperDmDto {
+  @IsString()
+  @IsNotEmpty()
+  path: string;
+
   @IsString()
   @MinLength(2)
   @MaxLength(28)
