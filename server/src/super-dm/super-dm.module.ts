@@ -9,6 +9,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SuperDm } from './super-dm.entity';
 import { PaymentsService } from 'src/payments/payments.service';
 import { PaymentsModule } from 'src/payments/payments.module';
+import { SwapsModule } from 'src/swaps/swaps.module';
+import { PageRecipientsModule } from 'src/page-recipients/page-recipients.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { PaymentsModule } from 'src/payments/payments.module';
     PageSettingsModule,
     PaymentsModule,
     PaymentFlowModule,
+    SwapsModule,
+    PageRecipientsModule,
     TypeOrmModule.forFeature([SuperDm]),
   ],
   providers: [SuperDmService, SuperDmSettingsService],

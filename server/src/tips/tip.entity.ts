@@ -52,6 +52,9 @@ export class Tip {
   @OneToOne(() => Swap, (s: Swap) => s.tip, { eager: true })
   swap: Swap;
 
+  @RelationId((t: Tip) => t.swap)
+  swapId: number;
+
   get clearedMessage() {
     return '';
   }

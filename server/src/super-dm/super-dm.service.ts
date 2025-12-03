@@ -14,6 +14,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { SuperDm } from './super-dm.entity';
 import { Repository } from 'typeorm';
 import { PaymentsService } from 'src/payments/payments.service';
+import { Swap } from 'src/swaps/swap.entity';
+import { SwapsService } from 'src/swaps/swaps.service';
+import { PageRecipientsService } from 'src/page-recipients/page-recipients.service';
 
 @Injectable()
 export class SuperDmService {
@@ -23,6 +26,8 @@ export class SuperDmService {
     private configService: ConfigService,
     private paymentFlowService: PaymentFlowService,
     private paymentsService: PaymentsService,
+    private swapsService: SwapsService,
+    private pageRecipientsService: PageRecipientsService,
     @InjectRepository(SuperDm) private repo: Repository<SuperDm>,
   ) {}
 
@@ -50,6 +55,33 @@ export class SuperDmService {
       eventId: eventId,
       superDm: { id: superDm.id },
     });
+
+    // Save swap
+    let swap: Swap | undefined;
+    if (baseSwap) {
+      swap = await this.swapsService.saveSwap({
+        baseSwap,
+        coin: inputCoin,
+        superDm,
+      });
+    }
+
+    const { recipients, url } =
+      await this.pageRecipientsService.handleRecipientsAndAmounts({
+        pageId: page.id,
+        swapId: swap?.id,
+        amount: MoneroUtils.atomicUnitsToXmr(dto.amount),
+        integratedAddress,
+      });
+
+    return {
+      amount: dto.amount,
+      paymentAddress: integratedAddress,
+      superDm,
+      swap,
+      recipients,
+      url,
+    };
   }
 
   async validateMinSuperDmAmount(pagePath: string, dtoAmount: string) {

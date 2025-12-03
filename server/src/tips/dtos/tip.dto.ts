@@ -3,6 +3,7 @@ import { PaymentDto } from 'src/payments/dtos/payment.dto';
 import { SwapDto } from 'src/swaps/dtos/swap.dto';
 import { TipRecipientDto } from './tip-recipient.dto';
 import { BaseTipDto } from './base-tip.dto';
+import { PageRecipientShareDto } from 'src/page-recipients/dtos/recipient.dto';
 
 export class TipDto extends BaseTipDto {}
 
@@ -25,8 +26,8 @@ export class TipDtoRO {
   swap: SwapDto;
 
   @Expose()
-  @Type(() => TipRecipientDto)
-  tipRecipients: TipRecipientDto[];
+  @Type(() => PageRecipientShareDto)
+  recipients: PageRecipientShareDto[];
 
   @Expose()
   url?: string;

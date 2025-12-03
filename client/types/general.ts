@@ -74,7 +74,7 @@ export interface TipCreationResponse {
   tip: Tip;
   swap?: Swap;
 
-  tipRecipients: TipRecipient[];
+  recipients: TipRecipient[];
   url?: string;
 }
 

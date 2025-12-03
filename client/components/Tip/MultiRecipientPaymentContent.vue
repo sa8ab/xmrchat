@@ -18,7 +18,7 @@ const emit = defineEmits<{
 const { expired, remaining, initialize } = usePaymentExpiration();
 
 const sortedRecipients = computed(() => {
-  return props.createdTip?.tipRecipients.sort(
+  return props.createdTip?.recipients.sort(
     (a, b) => Number(b.percentage) - Number(a.percentage)
   );
 });

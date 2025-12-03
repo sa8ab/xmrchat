@@ -214,10 +214,10 @@ export class TipsService {
     }
 
     // Tip recipients
-    const { tipRecipients, recipientsActive, url } =
+    const { recipients, recipientsActive, url } =
       await this.pageRecipientsService.handleRecipientsAndAmounts({
         pageId: page.id,
-        tipId: tip.id,
+        swapId: swap?.id,
         amount: parseFloat(payload.amount),
         integratedAddress,
       });
@@ -230,7 +230,7 @@ export class TipsService {
       swap,
 
       // Multi recipients
-      tipRecipients: recipientsActive ? tipRecipients : [],
+      recipients: recipientsActive ? recipients : [],
       url,
     };
   }
@@ -255,11 +255,11 @@ export class TipsService {
     // handle multi recipients, get page amount from handlePageRecipientsAndAmounts and use
     // that value to mark it as paid or not in payments service
     const amountInXmr = MoneroUtils.atomicUnitsToXmr(amount.toString());
-    const pageAmount = await this.pageRecipientsService.getPageAmount(
-      page.id,
-      tip.id,
-      amountInXmr,
-    );
+    const pageAmount = await this.pageRecipientsService.getPageAmount({
+      pageId: page.id,
+      swapId: tip.swapId,
+      amount: amountInXmr,
+    });
 
     const pageUnitAmount = MoneroUtils.xmrToAtomicUnits(pageAmount);
 

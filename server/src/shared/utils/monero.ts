@@ -1,7 +1,7 @@
 import { base58xmr } from '@scure/base';
 import { keccak_256 } from '@noble/hashes/sha3';
 import { bytesToHex, randomBytes, hexToBytes } from '@noble/hashes/utils';
-import { TipRecipientDto } from 'src/tips/dtos/tip-recipient.dto';
+import { PageRecipientShareDto } from 'src/page-recipients/dtos/recipient.dto';
 
 function keccak(bytes: any) {
   var h = keccak_256.create();
@@ -136,7 +136,7 @@ export const generateMoneroUri = (
 };
 
 export const generateMoneroUriFromTipRecipients = (
-  tipRecipients: TipRecipientDto[],
+  tipRecipients: PageRecipientShareDto[],
 ): string => {
   const recipients: MoneroUriRecipient[] = tipRecipients.map((recipient) => ({
     address: recipient.address,
