@@ -67,6 +67,10 @@ export interface TipRecipient extends PageRecipient {
   amount: number | string;
 }
 
+export interface PageRecipientShare extends PageRecipient {
+  amount: number | string;
+}
+
 export interface TipCreationResponse {
   amount: string;
   id: number;
@@ -112,6 +116,8 @@ interface TipPayment {
   id: number;
   paidAmount: string;
 }
+
+export interface Payment extends TipPayment {}
 
 export interface Tip {
   id: number;
@@ -283,4 +289,22 @@ export interface PageTipTier {
   minAmount?: number;
   color?: string;
   sound?: UploadedFile;
+}
+
+export interface SuperDm {
+  amount: number;
+  paymentAddress: string;
+  publicKey: string;
+  swap?: Swap;
+  payment?: Payment;
+  createdAt: string;
+}
+
+export interface SuperDmResponse {
+  amount: string;
+  paymentAddress: string;
+  superDm: SuperDm;
+  swap: Swap;
+  recipients: PageRecipientShare[];
+  url: string;
 }
