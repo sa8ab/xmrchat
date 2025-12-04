@@ -27,7 +27,6 @@ export const useSuperDm = () => {
     };
   };
 
-  // Recovers keys from mnemonic
   const recoverKeys = (mnemonic: string) => {
     const recoveredSeed = mnemonicToEntropy(mnemonic, wordlist);
     const keys = pgp(recoveredSeed, "");
@@ -37,26 +36,6 @@ export const useSuperDm = () => {
       privateKeyArmored: keys.privateKey,
       publicKeyArmored: keys.publicKey,
     };
-  };
-
-  const getSavedKey = async () => {
-    return await idb.get<GeneratedKeys>("super-dm-keys");
-  };
-
-  // Saves keys to idb
-  const saveKeys = async (params: GeneratedKeys) => {
-    await idb.set("super-dm-keys", {
-      mnemonic: params.mnemonic,
-      privateKeyArmored: params.privateKeyArmored,
-      publicKeyArmored: params.publicKeyArmored,
-    });
-  };
-
-  // Generates new keys and saves them to idb
-  const generateAndSaveKeys = async () => {
-    const keys = generateKeys();
-    await saveKeys(keys);
-    return keys;
   };
 
   const validateSamePrivateKeys = async (
@@ -74,12 +53,33 @@ export const useSuperDm = () => {
     return fingerprint === savedFingerprint;
   };
 
+  // STREAMER
+  const getStreamerSavedKey = async () => {
+    return await idb.get<GeneratedKeys>("super-dm-keys");
+  };
+
+  const saveStreamerKeys = async (params: GeneratedKeys) => {
+    await idb.set("super-dm-keys", {
+      mnemonic: params.mnemonic,
+      privateKeyArmored: params.privateKeyArmored,
+      publicKeyArmored: params.publicKeyArmored,
+    });
+  };
+
+  const generateAndSaveStreamerKeys = async () => {
+    const keys = generateKeys();
+    await saveStreamerKeys(keys);
+    return keys;
+  };
+
+  // VIEWER
+
   return {
     generateKeys,
     recoverKeys,
-    getSavedKey,
-    saveKeys,
-    generateAndSaveKeys,
+    getSavedKey: getStreamerSavedKey,
+    saveKeys: saveStreamerKeys,
+    generateAndSaveKeys: generateAndSaveStreamerKeys,
     validateSamePrivateKeys,
   };
 };
