@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Put } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { SuperDmService } from './super-dm.service';
 import { UpdatePageSettingDto } from 'src/page-settings/dto/update-page-setting.dto';
 import { UpdateSuperDmSettingDto } from './dto/update-super-dm-setting.dto';
@@ -9,6 +9,7 @@ import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
 import { PageSettingRO } from 'src/page-settings/dto/page-setting.dto';
 import { UpdatePublicKeyDto } from './dto/update-public-key.dto';
 import { SuperDmSettingsService } from './super-dm-settings.service';
+import { CreateSuperDmDto } from './dto/create-super-dm.dto';
 
 @Controller('super-dm')
 export class SuperDmController {
@@ -41,5 +42,11 @@ export class SuperDmController {
   ) {
     await this.superDmSettingsService.updatePublicKey(dto.publicKey, user);
     return { message: 'Public key updated' };
+  }
+
+  // create super dm
+  @Post('/')
+  async create(@Body() dto: CreateSuperDmDto) {
+    return await this.superDmService.createSuperDm(dto);
   }
 }

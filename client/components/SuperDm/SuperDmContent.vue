@@ -17,6 +17,7 @@ const swapActive = useState<boolean>("swapActive");
 const { t } = useI18n();
 const { state: generalState } = useGeneralStore();
 const { required, minLength, maxLength, minValue } = useValidations();
+const { axios } = useApp();
 
 const { minFiatAmount, price, minSwapFiatAmount, minXmr, minSwapXMR } =
   useMinSuperDmAmount({
@@ -104,12 +105,42 @@ const renderInputPadding = computed(
   () => `${renderInputPrefix.value.length * 0.6 + 2}rem`
 );
 
-const handleSubmit = async () => {};
+const handleSubmit = async () => {
+  const valid = await v.value.$validate();
+  if (!valid) return;
+  state.errorMessage = undefined;
+
+  try {
+    state.loading = true;
+
+    let xmrAmount;
+    if (generalState.tipDisplayValue === TipDisplayMode.XMR) {
+      xmrAmount = state.form.amount;
+    } else {
+      xmrAmount = (Number(state.form.amount) / (price.value as number)).toFixed(
+        8
+      );
+    }
+
+    const { data } = await axios.post<SuperDmResponse>(`/super-dm`, {
+      name: state.form.name,
+      amount: xmrAmount,
+      coinId: state.selectedCoin,
+      path: props.streamerPage?.path,
+    });
+
+    emit("done", data);
+  } catch (error) {
+    state.errorMessage = getErrorMessage(error);
+  } finally {
+    state.loading = false;
+  }
+};
 </script>
 
 <template>
   <div class="pt-5 md:pt-10">
-    <GeneralForm>
+    <GeneralForm @submit="handleSubmit">
       <div class="grid gap-6">
         <div class="both">
           <UFormGroup
