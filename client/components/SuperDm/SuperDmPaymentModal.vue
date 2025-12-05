@@ -88,7 +88,7 @@ const showKeys = ref(true);
       <div class="flex mb-2" v-if="!showKeys">
         <UButton variant="link" :padded="false" @click="showKeys = true">
           <DirectionalArrow direction="backward" />
-          Show keys again
+          Show keys
         </UButton>
       </div>
 
