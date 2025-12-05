@@ -39,7 +39,7 @@ export class SuperDmService {
 
     const { baseSwap, eventId, inputCoin, integratedAddress } =
       await this.paymentFlowService.create({
-        amount: dto.amount,
+        amount: String(MoneroUtils.atomicUnitsToXmr(dto.amount)),
         page,
         coinId: dto.coinId,
       });
