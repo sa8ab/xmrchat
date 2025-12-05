@@ -323,6 +323,7 @@ export interface BasePaymentData {
   recipients?: PageRecipientShare[];
   url?: string;
   expiresAt?: string;
+  swap?: Swap;
 }
 
 export interface GeneratedKeys {

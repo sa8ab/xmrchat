@@ -79,6 +79,7 @@ const basePaymentData = computed(() => ({
   recipients: created.value?.recipients,
   url: created.value?.url,
   expiresAt: created.value?.superDm.expiresAt,
+  swap: created.value?.swap,
 }));
 
 const showKeys = ref(true);
@@ -106,11 +107,12 @@ const showKeys = ref(true);
           v-if="created?.swap"
           @retry="handleRetry"
           @cancel="cancelPayment"
-          :data="data"
+          :data="basePaymentData"
           :connectionStatus="connectionStatus"
         >
         </SwapBasePaymentContent>
         <BasePaymentContent
+          v-else
           :data="basePaymentData"
           :connectionStatus="connectionStatus"
           :slug="slug"
