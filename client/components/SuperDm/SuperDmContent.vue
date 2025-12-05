@@ -13,7 +13,7 @@ const props = defineProps<{
   streamerPage?: StreamerPage | null;
 }>();
 const emit = defineEmits<{
-  done: [{ superDm: SuperDmResponse; keys: GeneratedKeys }];
+  done: [{ created: SuperDmResponse; keys: GeneratedKeys }];
 }>();
 
 const coins = useState<Coin[]>("coins");
@@ -138,7 +138,7 @@ const handleSubmit = async () => {
       publicKey: keys.publicKeyArmored,
     });
 
-    emit("done", { superDm: data, keys });
+    emit("done", { created: data, keys });
   } catch (error) {
     state.errorMessage = getErrorMessage(error);
   } finally {

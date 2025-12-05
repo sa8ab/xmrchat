@@ -19,10 +19,10 @@ const emit = defineEmits<{
 const authStore = useAuthStore();
 
 const remainingAmount = computed(() => {
-  if (!props.data?.superDm?.amount) return 0;
+  if (!props.data?.created?.amount) return 0;
   if (!props.partialPaymentAmount) return 0;
 
-  const amount = parseFloat(props.data?.superDm?.amount); // value is in XMR
+  const amount = parseFloat(props.data?.created?.amount); // value is in XMR
   const paidAmount = unitsToXmr(props.partialPaymentAmount); // value is in XMR units
 
   if (!amount || !paidAmount) return 0;
@@ -63,12 +63,30 @@ const showWalletWarning = computed(
         </template>
       </UAlert>
 
+      <div class="grid gap-2 mb-4">
+        <UAlert color="primary" variant="subtle">
+          <template #title> Save Super DM id and Recovery key </template>
+          <template #description>
+            Please save Super DM id and Recovery key. The keys can not be
+            reused. You will not be able to recover/decrypt the messages without
+            them. XMRChat will not store your recovery keys.
+          </template>
+        </UAlert>
+
+        <UFormGroup label="Super DM id">
+          <UInput readonly :modelValue="data?.created?.superDm.id" />
+        </UFormGroup>
+        <UFormGroup label="Recovery key">
+          <UInput readonly :modelValue="data?.keys?.mnemonic" />
+        </UFormGroup>
+      </div>
+
       <UAlert v-if="data" color="emerald" variant="subtle">
         <template #description>
           <p class="text-base">
             <I18nT keypath="tipWalletMinimum" scope="global">
               <template #minimumAmount>
-                <span class="font-bold">{{ data.superDm.amount }}</span>
+                <span class="font-bold">{{ data.created.amount }}</span>
               </template>
             </I18nT>
           </p>

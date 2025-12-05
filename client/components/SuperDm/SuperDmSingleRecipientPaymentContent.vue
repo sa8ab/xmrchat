@@ -16,13 +16,13 @@ const emit = defineEmits<{
 
 const { expired, remaining, initialize } = usePaymentExpiration();
 
-const superDm = computed(() => props.data?.superDm);
+const created = computed(() => props.data?.created);
 
 const remainingAmount = computed(() => {
-  if (!superDm.value?.amount) return 0;
+  if (!created.value?.amount) return 0;
   if (!props.partialPaymentAmount) return 0;
 
-  const amount = parseFloat(superDm.value?.amount); // value is in XMR
+  const amount = parseFloat(created.value?.amount); // value is in XMR
   const paidAmount = unitsToXmr(props.partialPaymentAmount); // value is in XMR units
 
   if (!amount || !paidAmount) return 0;
@@ -30,11 +30,11 @@ const remainingAmount = computed(() => {
   return amount - paidAmount;
 });
 
-const hasMultiRecipients = computed(() => superDm.value?.recipients?.length);
+const hasMultiRecipients = computed(() => created.value?.recipients?.length);
 
 // Using watch cause we are not sure if when component mounts the props are passed to it.
 watch(
-  () => superDm.value?.superDm?.expiresAt,
+  () => created.value?.superDm?.expiresAt,
   (v) => {
     if (v) initialize(v);
   },
@@ -44,7 +44,7 @@ watch(
 
 <template>
   <TipPaymentViewContainer :title="$t('sendTip')" @cancel="emit('cancel')">
-    <SharedPaymentContent
+    <SuperDmSharedPaymentContent
       :data="data"
       :connectionStatus="connectionStatus"
       :partialPaymentAmount="partialPaymentAmount"
@@ -55,14 +55,14 @@ watch(
       @expired="expired = true"
     >
       <PaymentQRCode
-        :address="superDm?.paymentAddress"
-        :amount="remainingAmount || superDm?.amount"
+        :address="created?.paymentAddress"
+        :amount="remainingAmount || created?.amount"
         :ticker="'xmr'"
       />
 
       <UDivider label="OR" class="mb-3" />
 
-      <PaymentAddressDisplay :address="superDm?.paymentAddress" class="mb-4" />
+      <PaymentAddressDisplay :address="created?.paymentAddress" class="mb-4" />
 
       <!-- Multi-recipient toggle button -->
       <div class="flex justify-center">
@@ -76,6 +76,6 @@ watch(
           {{ $t("splitPaymentToMultipleRecipients") }}
         </UButton>
       </div>
-    </SharedPaymentContent>
+    </SuperDmSharedPaymentContent>
   </TipPaymentViewContainer>
 </template>

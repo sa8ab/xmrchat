@@ -2,7 +2,7 @@
 import type { SuperDmContentData, TipEventData } from "~/types";
 
 const props = defineProps<{
-  created?: SuperDmContentData;
+  data?: SuperDmContentData;
   slug?: string;
 }>();
 
@@ -21,7 +21,7 @@ const showWalletWarning = computed(
   () => authStore.state.page?.path === props.slug
 );
 
-const superDm = computed(() => props.created?.superDm);
+const created = computed(() => props.data?.created);
 
 const toast = useToast();
 const { t } = useI18n();
@@ -44,9 +44,9 @@ const { init, disconnect, reconnect, connectionStatus } =
 
     onSwapStatusChangeEvent: (swap) => {
       console.log(swap);
-      if (superDm.value?.swap) {
-        superDm.value.swap.status = swap.status;
-        superDm.value.swap.statusMessage = swap.statusMessage;
+      if (created.value?.swap) {
+        created.value.swap.status = swap.status;
+        created.value.swap.statusMessage = swap.statusMessage;
       }
     },
   });
@@ -65,7 +65,7 @@ const initSocket = () => {
   paymentError.value = false;
   init({
     path: "tips",
-    query: { tipId: superDm.value?.id },
+    query: { tipId: created.value?.id },
   });
 };
 
@@ -91,7 +91,7 @@ onBeforeUnmount(() => disconnect());
     >
     </SuperDmSwapPaymentContent> -->
     <SuperDmPaymentContent
-      :createdTip="superDm"
+      :data="data"
       :connectionStatus="connectionStatus"
       :slug="slug"
       :partialPaymentAmount="partialPaymentAmount"

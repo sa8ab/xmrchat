@@ -75,7 +75,7 @@ useStreamerIdSeoMeta(data);
       />
 
       <SuperDmPaymentModal
-        :created="created"
+        :data="created"
         :slug="streamerId"
         v-model:active="paymentModalActive"
         @cancel="cancelPayment"

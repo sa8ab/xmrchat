@@ -313,7 +313,7 @@ export interface SuperDmResponse {
 }
 
 export interface SuperDmContentData {
-  superDm: SuperDmResponse;
+  created: SuperDmResponse;
   keys: GeneratedKeys;
 }
 

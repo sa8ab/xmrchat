@@ -10,6 +10,7 @@ import { PageSettingRO } from 'src/page-settings/dto/page-setting.dto';
 import { UpdatePublicKeyDto } from './dto/update-public-key.dto';
 import { SuperDmSettingsService } from './super-dm-settings.service';
 import { CreateSuperDmDto } from './dto/create-super-dm.dto';
+import { SuperDmRo } from './dto/super-dm.dto';
 
 @Controller('super-dm')
 export class SuperDmController {
@@ -46,6 +47,7 @@ export class SuperDmController {
 
   // create super dm
   @Post('/')
+  @Serialize(SuperDmRo)
   async create(@Body() dto: CreateSuperDmDto) {
     return await this.superDmService.createSuperDm(dto);
   }
