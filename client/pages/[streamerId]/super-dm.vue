@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { SuperDmContent } from "#components";
-import type { SuperDmResponse } from "~/types";
+import type { GeneratedKeys, SuperDmContentData } from "~/types";
 import { TipDisplayMode } from "~/types/enums";
 
 definePageMeta({
@@ -29,10 +29,10 @@ if (error.value) {
   throw createError(error.value);
 }
 
-const created = ref<SuperDmResponse | undefined>(undefined);
+const created = ref<SuperDmContentData | undefined>(undefined);
 const paymentModalActive = ref(false);
 
-const handlePayment = (data: SuperDmResponse) => {
+const handlePayment = (data: SuperDmContentData) => {
   paymentModalActive.value = true;
   created.value = data;
 };
@@ -72,6 +72,14 @@ useStreamerIdSeoMeta(data);
         :streamerId="streamerId"
         :streamerPage="data"
         @done="handlePayment"
+      />
+
+      <SuperDmPaymentModal
+        :created="created"
+        :slug="streamerId"
+        v-model:active="paymentModalActive"
+        @cancel="cancelPayment"
+        @paid="handlePaid"
       />
     </template>
   </div>

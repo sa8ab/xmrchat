@@ -292,19 +292,33 @@ export interface PageTipTier {
 }
 
 export interface SuperDm {
+  id: string;
   amount: number;
   paymentAddress: string;
   publicKey: string;
   swap?: Swap;
   payment?: Payment;
   createdAt: string;
+  expiresAt?: string;
 }
 
 export interface SuperDmResponse {
+  id: string;
   amount: string;
   paymentAddress: string;
   superDm: SuperDm;
   swap: Swap;
   recipients: PageRecipientShare[];
   url: string;
+}
+
+export interface SuperDmContentData {
+  superDm: SuperDmResponse;
+  keys: GeneratedKeys;
+}
+
+export interface GeneratedKeys {
+  mnemonic: string;
+  privateKeyArmored: string;
+  publicKeyArmored: string;
 }

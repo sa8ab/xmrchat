@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import useVuelidate from "@vuelidate/core";
-import type { Coin, StreamerPage, SuperDmResponse } from "~/types";
+import type {
+  Coin,
+  GeneratedKeys,
+  StreamerPage,
+  SuperDmResponse,
+} from "~/types";
 import { FiatEnum, TipDisplayMode } from "~/types/enums";
 
 const props = defineProps<{
@@ -8,7 +13,7 @@ const props = defineProps<{
   streamerPage?: StreamerPage | null;
 }>();
 const emit = defineEmits<{
-  done: [SuperDmResponse];
+  done: [{ superDm: SuperDmResponse; keys: GeneratedKeys }];
 }>();
 
 const coins = useState<Coin[]>("coins");
@@ -17,6 +22,7 @@ const swapActive = useState<boolean>("swapActive");
 const { t } = useI18n();
 const { state: generalState } = useGeneralStore();
 const { required, minLength, maxLength, minValue } = useValidations();
+const { generateKeys } = useSuperDm();
 const { axios } = useApp();
 
 const { minFiatAmount, price, minSwapFiatAmount, minXmr, minSwapXMR } =
@@ -70,7 +76,7 @@ const { getValidationAttrs } = useValidations(v);
 
 defineExpose({
   reset: () => {
-    // v.value.$reset();
+    v.value.$reset();
     state.form = {
       amount: undefined,
       name: undefined,
@@ -122,14 +128,17 @@ const handleSubmit = async () => {
       );
     }
 
+    const keys = generateKeys();
+
     const { data } = await axios.post<SuperDmResponse>(`/super-dm`, {
       name: state.form.name,
       amount: xmrAmount,
       coinId: state.selectedCoin,
       path: props.streamerPage?.path,
+      publicKey: keys.publicKeyArmored,
     });
 
-    emit("done", data);
+    emit("done", { superDm: data, keys });
   } catch (error) {
     state.errorMessage = getErrorMessage(error);
   } finally {

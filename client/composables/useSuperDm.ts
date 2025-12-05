@@ -3,12 +3,7 @@ import { randomBytes } from "micro-key-producer/utils.js";
 import { entropyToMnemonic, mnemonicToEntropy } from "@scure/bip39";
 import { wordlist } from "@scure/bip39/wordlists/english.js";
 import * as openpgp from "openpgp";
-
-interface GeneratedKeys {
-  mnemonic: string;
-  privateKeyArmored: string;
-  publicKeyArmored: string;
-}
+import type { GeneratedKeys } from "~/types";
 
 export const useSuperDm = () => {
   const idb = useIdb();
