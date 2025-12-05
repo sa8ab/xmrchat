@@ -78,11 +78,29 @@ watch(active, (currentActive) => {
 });
 
 onBeforeUnmount(() => disconnect());
+
+const showKeys = ref(true);
 </script>
 
 <template>
   <UModal v-model="active" preventClose>
-    <!-- <SuperDmSwapPaymentContent
+    <BasePaymentCard title="Start Super DM" @cancel="emit('cancel')">
+      <div class="flex mb-2" v-if="!showKeys">
+        <UButton variant="link" :padded="false" @click="showKeys = true">
+          <DirectionalArrow direction="backward" />
+          Show keys again
+        </UButton>
+      </div>
+
+      <SuperDmIdAndKey
+        v-if="showKeys"
+        :superDmId="created?.superDm.id"
+        :recoveryKey="data?.keys?.mnemonic"
+        @saved="showKeys = false"
+      />
+
+      <template v-else>
+        <!-- <SuperDmSwapPaymentContent
       v-if="superDm?.swap"
       @retry="handleRetry"
       @cancel="cancelPayment"t
@@ -90,15 +108,17 @@ onBeforeUnmount(() => disconnect());
       :connectionStatus="connectionStatus"
     >
     </SuperDmSwapPaymentContent> -->
-    <SuperDmPaymentContent
-      :data="data"
-      :connectionStatus="connectionStatus"
-      :slug="slug"
-      :partialPaymentAmount="partialPaymentAmount"
-      @cancel="cancelPayment"
-      @retry="handleRetry"
-    >
-    </SuperDmPaymentContent>
+        <SuperDmPaymentContent
+          :data="data"
+          :connectionStatus="connectionStatus"
+          :slug="slug"
+          :partialPaymentAmount="partialPaymentAmount"
+          @cancel="cancelPayment"
+          @retry="handleRetry"
+        >
+        </SuperDmPaymentContent>
+      </template>
+    </BasePaymentCard>
   </UModal>
 </template>
 
