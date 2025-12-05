@@ -31,11 +31,12 @@ const remainingAmount = computed(() => {
 });
 
 const hasMultiRecipients = computed(() => created.value?.recipients?.length);
+const keysSaved = ref(false);
 
 // Using watch cause we are not sure if when component mounts the props are passed to it.
 watch(
-  () => created.value?.superDm?.expiresAt,
-  (v) => {
+  [() => created.value?.superDm?.expiresAt, () => keysSaved.value],
+  ([v]) => {
     if (v) initialize(v);
   },
   { immediate: true }
@@ -43,9 +44,11 @@ watch(
 </script>
 
 <template>
-  <TipPaymentViewContainer :title="$t('sendTip')" @cancel="emit('cancel')">
-    <SuperDmSharedPaymentContent
-      :data="data"
+  <BasePaymentCard title="Start Super DM" @cancel="emit('cancel')">
+    <SharedBasePaymentContent
+      v-if="keysSaved"
+      :amount="created?.amount"
+      :remainingAmount="remainingAmount"
       :connectionStatus="connectionStatus"
       :partialPaymentAmount="partialPaymentAmount"
       :slug="slug"
@@ -54,6 +57,15 @@ watch(
       @retry="emit('retry')"
       @expired="expired = true"
     >
+      <template #before-content>
+        <div class="flex mb-2">
+          <UButton variant="link" :padded="false" @click="keysSaved = false">
+            <DirectionalArrow direction="backward" />
+            Show keys again
+          </UButton>
+        </div>
+      </template>
+
       <PaymentQRCode
         :address="created?.paymentAddress"
         :amount="remainingAmount || created?.amount"
@@ -65,9 +77,8 @@ watch(
       <PaymentAddressDisplay :address="created?.paymentAddress" class="mb-4" />
 
       <!-- Multi-recipient toggle button -->
-      <div class="flex justify-center">
+      <div v-if="hasMultiRecipients" class="flex justify-center">
         <UButton
-          v-if="hasMultiRecipients"
           variant="outline"
           @click="emit('showMultiRecipient')"
           class="mb-4"
@@ -76,6 +87,13 @@ watch(
           {{ $t("splitPaymentToMultipleRecipients") }}
         </UButton>
       </div>
-    </SuperDmSharedPaymentContent>
-  </TipPaymentViewContainer>
+    </SharedBasePaymentContent>
+
+    <SuperDmIdAndKey
+      v-else
+      :superDmId="created?.superDm.id"
+      :recoveryKey="data?.keys?.mnemonic"
+      @saved="keysSaved = true"
+    />
+  </BasePaymentCard>
 </template>

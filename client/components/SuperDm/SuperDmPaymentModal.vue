@@ -85,7 +85,7 @@ onBeforeUnmount(() => disconnect());
     <!-- <SuperDmSwapPaymentContent
       v-if="superDm?.swap"
       @retry="handleRetry"
-      @cancel="cancelPayment"
+      @cancel="cancelPayment"t
       :createdTip="superDm"
       :connectionStatus="connectionStatus"
     >
@@ -99,54 +99,6 @@ onBeforeUnmount(() => disconnect());
       @retry="handleRetry"
     >
     </SuperDmPaymentContent>
-    <!-- <PaymentModalContent
-      v-else
-      :title="t('sendTip')"
-      :qrCode="{
-        address: createdTip?.paymentAddress,
-        amount: createdTip?.amount,
-        ticker: 'xmr',
-      }"
-      :connectionStatus="connectionStatus"
-      :expiresAt="createdTip?.tip.expiresAt"
-      @cancel="cancelPayment"
-      @retry="handleRetry"
-    >
-      <UAlert
-        v-if="showWalletWarning"
-        color="orange"
-        variant="subtle"
-        class="mb-2"
-      >
-        <template #title>
-          <span>
-            {{ t("tipWalletWarningTitle") }}
-          </span>
-        </template>
-        <template #description>
-          {{ t("tipWalletWarningDescription") }}
-        </template>
-        <template #icon>
-          <UIcon
-            name="i-heroicons-exclamation-triangle"
-            class="w-[24px] h-[24px]"
-          />
-        </template>
-      </UAlert>
-      <template v-if="createdTip">
-        <UAlert color="emerald" variant="subtle">
-          <template #description>
-            <p class="text-base">
-              <I18nT keypath="tipWalletMinimum">
-                <template #minimumAmount>
-                  <span class="font-bold">{{ createdTip.amount }}</span>
-                </template>
-              </I18nT>
-            </p>
-          </template>
-        </UAlert>
-      </template>
-    </PaymentModalContent> -->
   </UModal>
 </template>
 

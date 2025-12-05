@@ -1,14 +1,15 @@
 <script lang="ts" setup>
-import type { SuperDmContentData } from "~/types";
+import type { TipCreationResponse } from "~/types";
 import VueCountdown from "@chenfengyuan/vue-countdown";
 
 const props = defineProps<{
-  data?: SuperDmContentData;
+  amount?: string | number;
   connectionStatus?: string;
   partialPaymentAmount?: string;
   slug?: string;
   expired?: boolean;
   remaining?: number;
+  remainingAmount?: number;
 }>();
 
 const emit = defineEmits<{
@@ -17,18 +18,6 @@ const emit = defineEmits<{
 }>();
 
 const authStore = useAuthStore();
-
-const remainingAmount = computed(() => {
-  if (!props.data?.created?.amount) return 0;
-  if (!props.partialPaymentAmount) return 0;
-
-  const amount = parseFloat(props.data?.created?.amount); // value is in XMR
-  const paidAmount = unitsToXmr(props.partialPaymentAmount); // value is in XMR units
-
-  if (!amount || !paidAmount) return 0;
-
-  return amount - paidAmount;
-});
 
 const showWalletWarning = computed(
   () => authStore.state.page?.path === props.slug
@@ -41,6 +30,8 @@ const showWalletWarning = computed(
       {{ $t("paymentIsExpired") }}
     </p>
     <template v-else>
+      <slot name="before-content" />
+
       <UAlert
         v-if="showWalletWarning"
         color="orange"
@@ -63,12 +54,12 @@ const showWalletWarning = computed(
         </template>
       </UAlert>
 
-      <UAlert v-if="data" color="emerald" variant="subtle">
+      <UAlert v-if="amount" color="emerald" variant="subtle">
         <template #description>
           <p class="text-base">
             <I18nT keypath="tipWalletMinimum" scope="global">
               <template #minimumAmount>
-                <span class="font-bold">{{ data.created.amount }}</span>
+                <span class="font-bold">{{ amount }}</span>
               </template>
             </I18nT>
           </p>

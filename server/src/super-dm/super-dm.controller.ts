@@ -11,6 +11,7 @@ import { UpdatePublicKeyDto } from './dto/update-public-key.dto';
 import { SuperDmSettingsService } from './super-dm-settings.service';
 import { CreateSuperDmDto } from './dto/create-super-dm.dto';
 import { SuperDmRo } from './dto/super-dm.dto';
+import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 
 @Controller('super-dm')
 export class SuperDmController {
@@ -47,6 +48,7 @@ export class SuperDmController {
 
   // create super dm
   @Post('/')
+  @IsPublic()
   @Serialize(SuperDmRo)
   async create(@Body() dto: CreateSuperDmDto) {
     return await this.superDmService.createSuperDm(dto);
