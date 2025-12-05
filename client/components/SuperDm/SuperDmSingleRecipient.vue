@@ -9,7 +9,6 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  cancel: [];
   retry: [];
   showMultiRecipient: [];
 }>();

@@ -9,7 +9,6 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  cancel: [];
   retry: [];
 }>();
 
@@ -25,7 +24,6 @@ const showMultiRecipient = ref(false);
     :connectionStatus="connectionStatus"
     :partialPaymentAmount="partialPaymentAmount"
     :slug="slug"
-    @cancel="emit('cancel')"
     @retry="emit('retry')"
     @back="showMultiRecipient = false"
   />
@@ -37,7 +35,6 @@ const showMultiRecipient = ref(false);
     :connectionStatus="connectionStatus"
     :partialPaymentAmount="partialPaymentAmount"
     :slug="slug"
-    @cancel="emit('cancel')"
     @retry="emit('retry')"
     @showMultiRecipient="showMultiRecipient = true"
   />
