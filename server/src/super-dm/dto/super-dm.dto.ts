@@ -23,6 +23,9 @@ export class SuperDmDto {
   payment: PaymentDto;
 
   @Expose()
+  expiresAt: Date;
+
+  @Expose()
   createdAt: string;
 
   // TODO: add messages
