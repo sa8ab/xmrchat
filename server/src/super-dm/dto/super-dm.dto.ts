@@ -19,7 +19,7 @@ export class SuperDmDto {
   swap: SwapDto;
 
   @Expose()
-  @Type(() => SwapDto)
+  @Type(() => PaymentDto)
   payment: PaymentDto;
 
   @Expose()
