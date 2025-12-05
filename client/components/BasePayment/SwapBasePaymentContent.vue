@@ -78,12 +78,6 @@ const renderMessage = computed(() => {
   return undefined;
 });
 
-const renderCancelText = computed(() => {
-  const status = props.data?.swap?.status!;
-  if (status !== SwapStatusEnum.WAITING) return "Close";
-  return "Cancel";
-});
-
 const showETA = computed(() => {
   const status = props.data?.swap?.status!;
   return [SwapStatusEnum.WAITING, SwapStatusEnum.CONFIRMING].includes(status);

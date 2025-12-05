@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { SuperDmContentData, TipEventData } from "~/types";
+import { SwapStatusEnum } from "~/types/enums";
 
 const props = defineProps<{
   data?: SuperDmContentData;
@@ -82,12 +83,23 @@ const basePaymentData = computed(() => ({
   swap: created.value?.swap,
 }));
 
+const renderCancelText = computed(() => {
+  if (!created.value?.swap) return undefined;
+  const status = created.value?.swap?.status!;
+  if (status !== SwapStatusEnum.WAITING) return "Close";
+  return "Cancel";
+});
+
 const showKeys = ref(true);
 </script>
 
 <template>
   <UModal v-model="active" preventClose>
-    <BasePaymentCard title="Start Super DM" @cancel="emit('cancel')">
+    <BasePaymentCard
+      title="Start Super DM"
+      @cancel="emit('cancel')"
+      :cancelText="renderCancelText"
+    >
       <div class="flex mb-2" v-if="!showKeys">
         <UButton variant="link" :padded="false" @click="showKeys = true">
           <DirectionalArrow direction="backward" />
