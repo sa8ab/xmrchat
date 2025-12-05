@@ -19,19 +19,20 @@ const showMultiRecipient = ref(false);
 
 <template>
   <!-- Multi-recipient payment view -->
-  <!-- <MultiRecipientPaymentContent
+  <SuperDmMultiRecipient
     v-if="showMultiRecipient"
-    :createdTip="createdTip"
+    :data="data"
     :connectionStatus="connectionStatus"
     :partialPaymentAmount="partialPaymentAmount"
     :slug="slug"
     @cancel="emit('cancel')"
     @retry="emit('retry')"
     @back="showMultiRecipient = false"
-  /> -->
+  />
 
   <!-- Single recipient payment view -->
-  <SuperDmSingleRecipientPaymentContent
+  <SuperDmSingleRecipient
+    v-else
     :data="data"
     :connectionStatus="connectionStatus"
     :partialPaymentAmount="partialPaymentAmount"

@@ -129,12 +129,10 @@ export class PageRecipientsService {
 
     if (!page) throw new NotFoundException('Page not found!');
 
-    const swap = await this.swapRepo.findOne({ where: { id: swapId } });
-
     const recipients = page.recipients;
     const isRecipientsActive = this.getIsRecipientsActive(page.recipients);
 
-    if (!isRecipientsActive || swap) return { recipients: [] };
+    if (!isRecipientsActive || swapId) return { recipients: [] };
 
     const xmrchatAddress = this.configService.get('XMRCHAT_WALLET_ADDRESS');
     const xmrchatRecipient = recipients.find(
