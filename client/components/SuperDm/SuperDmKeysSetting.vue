@@ -6,11 +6,11 @@ import { PageSettingKey } from "~/types/enums";
 import * as openpgp from "openpgp";
 
 const {
-  getSavedKey,
-  generateAndSaveKeys,
+  getStreamerSavedKey: getSavedKey,
+  generateAndSaveStreamerKeys: generateAndSaveKeys,
   recoverKeys,
   validateSamePrivateKeys,
-  saveKeys,
+  saveStreamerKeys: saveKeys,
 } = useSuperDm();
 const { axios } = useApp();
 const toast = useToast();

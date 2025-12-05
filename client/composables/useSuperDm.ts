@@ -77,9 +77,9 @@ export const useSuperDm = () => {
   return {
     generateKeys,
     recoverKeys,
-    getSavedKey: getStreamerSavedKey,
-    saveKeys: saveStreamerKeys,
-    generateAndSaveKeys: generateAndSaveStreamerKeys,
+    getStreamerSavedKey,
+    saveStreamerKeys,
+    generateAndSaveStreamerKeys,
     validateSamePrivateKeys,
   };
 };
