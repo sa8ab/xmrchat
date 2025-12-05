@@ -18,8 +18,6 @@ export class EncryptionPublicKeyValidator
     try {
       const key = await openpgp.readKey({ armoredKey: value });
     } catch (error) {
-      console.log(getErrorMessage(error));
-
       return false;
     }
 

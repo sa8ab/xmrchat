@@ -7,6 +7,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { XmrToAtomicTransform } from 'src/shared/decorators/xmr-to-atomic-transform.decorator';
+import { IsEncryptionPublicKey } from 'src/shared/validations/encryption-public-key.validator';
 
 export class CreateSuperDmDto {
   @IsString()
@@ -25,4 +26,7 @@ export class CreateSuperDmDto {
   @IsOptional()
   @IsNumber()
   coinId?: number;
+
+  @IsEncryptionPublicKey()
+  publicKey: string;
 }

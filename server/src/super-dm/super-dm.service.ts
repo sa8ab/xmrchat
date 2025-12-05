@@ -46,6 +46,7 @@ export class SuperDmService {
 
     const created = this.repo.create({
       name: dto.name,
+      publicKey: dto.publicKey,
       page: { id: page.id },
     });
     const superDm = await this.repo.save(created);
