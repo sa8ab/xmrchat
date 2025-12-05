@@ -317,6 +317,14 @@ export interface SuperDmContentData {
   keys: GeneratedKeys;
 }
 
+export interface BasePaymentData {
+  amount?: string;
+  paymentAddress?: string;
+  recipients?: PageRecipientShare[];
+  url?: string;
+  expiresAt?: string;
+}
+
 export interface GeneratedKeys {
   mnemonic: string;
   privateKeyArmored: string;

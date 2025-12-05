@@ -15,12 +15,6 @@ const active = defineModel<boolean>("active");
 const paymentError = ref(false);
 const partialPaymentAmount = ref<string | undefined>(undefined);
 
-const authStore = useAuthStore();
-
-const showWalletWarning = computed(
-  () => authStore.state.page?.path === props.slug
-);
-
 const created = computed(() => props.data?.created);
 
 const toast = useToast();
@@ -79,6 +73,14 @@ watch(active, (currentActive) => {
 
 onBeforeUnmount(() => disconnect());
 
+const basePaymentData = computed(() => ({
+  amount: created.value?.amount,
+  paymentAddress: created.value?.paymentAddress,
+  recipients: created.value?.recipients,
+  url: created.value?.url,
+  expiresAt: created.value?.superDm.expiresAt,
+}));
+
 const showKeys = ref(true);
 </script>
 
@@ -100,23 +102,23 @@ const showKeys = ref(true);
       />
 
       <template v-else>
-        <!-- <SuperDmSwapPaymentContent
-      v-if="superDm?.swap"
-      @retry="handleRetry"
-      @cancel="cancelPayment"t
-      :createdTip="superDm"
-      :connectionStatus="connectionStatus"
-    >
-    </SuperDmSwapPaymentContent> -->
-        <SuperDmPaymentContent
+        <SwapBasePaymentContent
+          v-if="created?.swap"
+          @retry="handleRetry"
+          @cancel="cancelPayment"
           :data="data"
+          :connectionStatus="connectionStatus"
+        >
+        </SwapBasePaymentContent>
+        <BasePaymentContent
+          :data="basePaymentData"
           :connectionStatus="connectionStatus"
           :slug="slug"
           :partialPaymentAmount="partialPaymentAmount"
           @cancel="cancelPayment"
           @retry="handleRetry"
         >
-        </SuperDmPaymentContent>
+        </BasePaymentContent>
       </template>
     </BasePaymentCard>
   </UModal>
