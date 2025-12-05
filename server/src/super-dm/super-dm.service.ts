@@ -47,6 +47,8 @@ export class SuperDmService {
     const created = this.repo.create({
       name: dto.name,
       publicKey: dto.publicKey,
+      expiresAt:
+        baseSwap?.details?.expiresAt || new Date(Date.now() + 60 * 60 * 1000),
       page: { id: page.id },
     });
     const superDm = await this.repo.save(created);

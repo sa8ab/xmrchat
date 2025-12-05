@@ -34,6 +34,9 @@ export class SuperDm {
   @Column({ nullable: false })
   publicKey: string;
 
+  @Column({ type: 'timestamptz', nullable: true })
+  expiresAt?: Date;
+
   @OneToOne(() => Swap, (s) => s.superDm)
   swap: Swap;
 
