@@ -130,7 +130,7 @@ const handleSubmit = async () => {
 
     const keys = generateKeys();
 
-    const { data } = await axios.post<SuperDmResponse>(`/super-dm`, {
+    const { data } = await axios.post<SuperDmResponse>(`/super-dms`, {
       name: state.form.name,
       amount: xmrAmount,
       coinId: state.selectedCoin,
