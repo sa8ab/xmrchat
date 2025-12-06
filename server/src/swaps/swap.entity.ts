@@ -11,7 +11,7 @@ import {
   RelationId,
   UpdateDateColumn,
 } from 'typeorm';
-import { SuperDm } from 'src/super-dm/super-dm.entity';
+import { SuperDm } from 'src/super-dms/super-dm.entity';
 
 @Entity()
 export class Swap {

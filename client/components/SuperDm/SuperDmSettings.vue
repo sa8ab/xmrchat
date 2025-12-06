@@ -26,7 +26,7 @@ const state = reactive<State>({
 useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{ settings: PageSetting[] }>(
-      `/super-dm/settings`
+      `/super-dms/settings`
     );
     const active = data.settings.find(
       (s) => s.key === PageSettingKey.SUPER_DM_ACTIVE
@@ -48,7 +48,7 @@ const handleSubmit = async () => {
 
   try {
     state.loadingSave = true;
-    await axios.put("/super-dm/settings", state.form);
+    await axios.put("/super-dms/settings", state.form);
     toast.add({ description: "Super DM settings updated" });
   } catch (error) {
     toast.add({ description: getErrorMessage(error) });

@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Put } from '@nestjs/common';
-import { SuperDmService } from './super-dm.service';
+import { SuperDmsService } from './super-dms.service';
 import { UpdatePageSettingDto } from 'src/page-settings/dto/update-page-setting.dto';
 import { UpdateSuperDmSettingDto } from './dto/update-super-dm-setting.dto';
 import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
@@ -13,10 +13,10 @@ import { CreateSuperDmDto } from './dto/create-super-dm.dto';
 import { SuperDmRo } from './dto/super-dm.dto';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 
-@Controller('super-dm')
-export class SuperDmController {
+@Controller('super-dms')
+export class SuperDmsController {
   constructor(
-    private superDmService: SuperDmService,
+    private SuperDmsService: SuperDmsService,
     private superDmSettingsService: SuperDmSettingsService,
   ) {}
 
@@ -51,6 +51,6 @@ export class SuperDmController {
   @IsPublic()
   @Serialize(SuperDmRo)
   async create(@Body() dto: CreateSuperDmDto) {
-    return await this.superDmService.createSuperDm(dto);
+    return await this.SuperDmsService.createSuperDm(dto);
   }
 }

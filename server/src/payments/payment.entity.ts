@@ -9,7 +9,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { SuperDm } from 'src/super-dm/super-dm.entity';
+import { SuperDm } from 'src/super-dms/super-dm.entity';
 
 @Entity({ name: 'payments' })
 export class Payment {

@@ -40,7 +40,8 @@ export const useRouteLocation = () => {
     toCreateStreamerPageTier: () => localeRoute("/streamer/page-tiers/create"),
     toEditStreamerPageTier: (id: Numberic) =>
       localeRoute(`/streamer/page-tiers/${id}/edit`),
-    toStreamerSuperDm: () => localeRoute("/streamer/super-dm"),
-    toStreamerSuperDmSettings: () => localeRoute("/streamer/super-dm/settings"),
+    toStreamerSuperDm: () => localeRoute("/streamer/super-dms"),
+    toStreamerSuperDmSettings: () =>
+      localeRoute("/streamer/super-dms/settings"),
   };
 };

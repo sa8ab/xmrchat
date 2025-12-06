@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { SuperDmService } from './super-dm.service';
-import { SuperDmController } from './super-dm.controller';
+import { SuperDmsService } from './super-dms.service';
+import { SuperDmsController } from './super-dms.controller';
 import { PageSettingsModule } from 'src/page-settings/page-settings.module';
 import { PagesModule } from 'src/pages/pages.module';
 import { SuperDmSettingsService } from './super-dm-settings.service';
@@ -23,7 +23,7 @@ import { PageRecipientsModule } from 'src/page-recipients/page-recipients.module
     PageRecipientsModule,
     TypeOrmModule.forFeature([SuperDm]),
   ],
-  providers: [SuperDmService, SuperDmSettingsService],
-  controllers: [SuperDmController],
+  providers: [SuperDmsService, SuperDmSettingsService],
+  controllers: [SuperDmsController],
 })
-export class SuperDmModule {}
+export class SuperDmsModule {}

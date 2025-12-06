@@ -50,7 +50,7 @@ const {
 
 const getPublicKeySettings = async () => {
   const { data } = await axios.get<{ settings: PageSetting[] }>(
-    `/super-dm/settings`
+    `/super-dms/settings`
   );
   return data.settings.find((s) => s.key === PageSettingKey.SUPER_DM_PUBLIC_KEY)
     ?.value;
@@ -66,7 +66,7 @@ const handleGenerate = async () => {
   try {
     const keys = await generateAndSaveKeys();
 
-    await axios.put(`/super-dm/public-key`, {
+    await axios.put(`/super-dms/public-key`, {
       publicKey: keys.publicKeyArmored,
     });
 

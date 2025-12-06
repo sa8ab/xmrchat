@@ -21,8 +21,8 @@ import { PageRecipientsService } from 'src/page-recipients/page-recipients.servi
 import { Payment } from 'src/payments/payment.entity';
 
 @Injectable()
-export class SuperDmService {
-  private logger = new Logger(SuperDmService.name);
+export class SuperDmsService {
+  private logger = new Logger(SuperDmsService.name);
 
   constructor(
     private pageSettingsService: PageSettingsService,

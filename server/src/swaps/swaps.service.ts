@@ -18,7 +18,7 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { NotificationsService } from 'src/notifications/notifications.service';
-import { SuperDm } from 'src/super-dm/super-dm.entity';
+import { SuperDm } from 'src/super-dms/super-dm.entity';
 
 @Injectable()
 export class SwapsService {
