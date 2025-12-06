@@ -59,8 +59,8 @@ const cancelPayment = () => {
 const initSocket = () => {
   paymentError.value = false;
   init({
-    path: "tips",
-    query: { tipId: created.value?.id },
+    path: "super-dms",
+    query: { superDmId: created.value?.id },
   });
 };
 
