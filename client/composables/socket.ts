@@ -61,7 +61,6 @@ export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
   >(undefined);
 
   const init = (params?: TipPaymentInitParams) => {
-    // const url = `${config.public.apiBaseUrl}/v1/pages/${params.slug}/ws/tips/${params.tipId}`;
     const url = `${config.public.apiBaseUrl}/${params?.path}`;
 
     console.log("creating socket-io with url", url);
