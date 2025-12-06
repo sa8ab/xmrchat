@@ -40,6 +40,9 @@ export class SuperDm {
   @OneToOne(() => Swap, (s) => s.superDm)
   swap: Swap;
 
+  @RelationId((s: SuperDm) => s.swap)
+  swapId: number;
+
   @OneToOne(() => Payment, (p) => p.superDm)
   payment: Payment;
 

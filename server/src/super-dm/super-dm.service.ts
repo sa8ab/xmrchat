@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { PageSettingsService } from 'src/page-settings/page-settings.service';
@@ -17,9 +18,12 @@ import { PaymentsService } from 'src/payments/payments.service';
 import { Swap } from 'src/swaps/swap.entity';
 import { SwapsService } from 'src/swaps/swaps.service';
 import { PageRecipientsService } from 'src/page-recipients/page-recipients.service';
+import { Payment } from 'src/payments/payment.entity';
 
 @Injectable()
 export class SuperDmService {
+  private logger = new Logger(SuperDmService.name);
+
   constructor(
     private pageSettingsService: PageSettingsService,
     private pagesService: PagesService,
@@ -101,6 +105,49 @@ export class SuperDmService {
       throw new BadRequestException(
         `Amount must be greater than ${MoneroUtils.atomicUnitsToXmr(min)} XMR.`,
       );
+  }
+
+  async handleSuperDmPayment(payment: Payment, amount: number) {
+    const superDm = payment.superDm;
+
+    if (!superDm) {
+      this.logger.warn(
+        `Super DM is not found on the payment with event id of ${payment.eventId}`,
+      );
+      return;
+    }
+
+    const page = await this.pagesService.findById(superDm.pageId);
+
+    if (!page) {
+      this.logger.warn(`Page is not found on super dm with id: ${superDm.id}`);
+      return;
+    }
+    const amountInXmr = MoneroUtils.atomicUnitsToXmr(amount.toString());
+    const pageAmount = await this.pageRecipientsService.getPageAmount({
+      pageId: page.id,
+      swapId: superDm.swapId,
+      amount: amountInXmr,
+    });
+
+    const pageUnitAmount = MoneroUtils.xmrToAtomicUnits(pageAmount);
+
+    const savedPayment = await this.paymentsService.updatePaidAmount(
+      payment.id,
+      amount,
+      pageUnitAmount ? pageUnitAmount.toString() : undefined,
+      // tip.swap ? 0.1 : 0, // threshold - accepts payment if paid amount has 0.1 less.
+    );
+
+    if (!savedPayment.isPaid()) {
+      this.logger.log(
+        `Super DM transaction is received but is lower than expected amount ${savedPayment.amount} - Current paid amount: ${savedPayment.paidAmount} - isPaid: ${savedPayment.isPaid()}`,
+      );
+      this.logger.log(
+        `Sending partial super dm socket event. Super DM Id ${superDm.id}`,
+      );
+      return;
+    }
   }
 
   // get list of super dms for page - needs signature
