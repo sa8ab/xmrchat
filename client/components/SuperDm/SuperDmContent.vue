@@ -3,15 +3,16 @@ import useVuelidate from "@vuelidate/core";
 import type {
   Coin,
   GeneratedKeys,
+  PageSetting,
   StreamerPage,
   SuperDmResponse,
 } from "~/types";
-import { FiatEnum, TipDisplayMode } from "~/types/enums";
+import { FiatEnum, PageSettingKey, TipDisplayMode } from "~/types/enums";
 
 const props = defineProps<{
   streamerId: string;
   streamerPage?: StreamerPage | null;
-  settings?: Record<string, string> | null;
+  settings?: PageSetting[] | null;
 }>();
 const emit = defineEmits<{
   done: [{ created: SuperDmResponse; keys: GeneratedKeys }];
@@ -26,9 +27,15 @@ const { required, minLength, maxLength, minValue } = useValidations();
 const { generateKeys } = useSuperDm();
 const { axios } = useApp();
 
+const minSuperDmAmount = computed(
+  () =>
+    props.settings?.find((s) => s.key === PageSettingKey.SUPER_DM_MIN_AMOUNT)
+      ?.value
+);
+
 const { minFiatAmount, price, minSwapFiatAmount, minXmr, minSwapXMR } =
   useMinSuperDmAmount({
-    pageMinXmr: computed(() => props.settings?.minSuperDmAmount),
+    pageMinXmr: computed(() => minSuperDmAmount.value),
     pageFiat: computed(() => props.streamerPage?.fiat),
   });
 
@@ -184,9 +191,10 @@ const handleSubmit = async () => {
               </template>
             </UInput>
             <template #hint>
-              <TipInputHint
+              <BasePaymentInputHint
                 :selectedCoin="state.selectedCoin"
-                :page="streamerPage"
+                :minAmount="minSuperDmAmount"
+                :fiat="streamerPage?.fiat"
               />
             </template>
           </UFormGroup>

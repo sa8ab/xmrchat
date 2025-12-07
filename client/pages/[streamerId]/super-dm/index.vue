@@ -17,10 +17,24 @@ const { state: generalState } = useGeneralStore();
 
 const { data, pending, refresh, error } = await useLazyAsyncData(
   `streamer-${streamerId.value}`,
-  () => getStreamerPage(streamerId.value),
+  async () => {
+    const pageRequest = getStreamerPage(streamerId.value);
+    const superDmSettingsRequest = axios.get<{ settings: PageSetting[] }>(
+      `/page-settings/${streamerId.value}/super-dm`
+    );
+    const [page, { data: superDmSettings }] = await Promise.all([
+      pageRequest,
+      superDmSettingsRequest,
+    ]);
+    return {
+      page,
+      superDmSettings: superDmSettings.settings,
+    };
+  },
   {
     transform: (v) => {
-      generalState.tipDisplayValue = v.tipDisplayMode || TipDisplayMode.FIAT;
+      generalState.tipDisplayValue =
+        v.page.tipDisplayMode || TipDisplayMode.FIAT;
       return v;
     },
   }
@@ -50,7 +64,7 @@ const handlePaid = () => {
 };
 
 defineOgImage(false);
-useStreamerIdSeoMeta(data);
+useStreamerIdSeoMeta(computed(() => data.value?.page));
 </script>
 
 <template>
@@ -62,16 +76,17 @@ useStreamerIdSeoMeta(data);
     <template v-else-if="data">
       <StreamerHeader
         class="pt-2"
-        :bannerUrl="data.coverImage.url"
-        :liveStreams="data.liveStreams"
-        :logoUrl="data?.logo.url"
-        :name="data.name"
-        :links="data.links"
+        :bannerUrl="data.page.coverImage.url"
+        :liveStreams="data.page.liveStreams"
+        :logoUrl="data.page.logo.url"
+        :name="data.page.name"
+        :links="data.page.links"
       />
       <SuperDmContent
         ref="contentRef"
         :streamerId="streamerId"
-        :streamerPage="data"
+        :streamerPage="data.page"
+        :settings="data.superDmSettings"
         @done="handlePayment"
       />
 
