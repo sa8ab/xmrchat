@@ -8,6 +8,8 @@ const { getViewerSavedKey } = useSuperDm();
 const superDmId = computed(() => route.params.id as string);
 const pagePath = computed(() => route.params.streamerId as string);
 
+const message = ref<string>();
+
 const { data, error, pending } = await useLazyAsyncData(
   async () => {
     // get super dm
@@ -19,16 +21,9 @@ const { data, error, pending } = await useLazyAsyncData(
 
     const [superDm, page] = await Promise.all([superDmRequest, pageRequest]);
 
-    // get keys for super dm
-    const keys = await getViewerSavedKey({
-      pagePath: pagePath.value,
-      superDmId: superDmId.value,
-    });
-
     return {
       superDm: superDm.data.superDm,
       page: page.data,
-      keys,
     };
   },
   {
@@ -39,6 +34,17 @@ const { data, error, pending } = await useLazyAsyncData(
 if (error.value) {
   throw createError(error.value);
 }
+
+const { data: keys, refresh: refreshKeys } = useLazyAsyncData(
+  async () => {
+    const keys = await getViewerSavedKey({
+      pagePath: pagePath.value,
+      superDmId: superDmId.value,
+    });
+    return keys;
+  },
+  { server: false }
+);
 </script>
 
 <template>
@@ -55,7 +61,18 @@ if (error.value) {
         :title="`Super DM - ${data?.superDm.name}`"
         description="Send super DM to the streamer"
       />
-      <div class="flex justify-center h-screen max-h-[calc(100vh-300px)]">
+      <div v-if="!keys">
+        <SuperDmKeysRecovery
+          :superDmId="data?.superDm.id"
+          :pagePath="pagePath"
+          @recovered="refreshKeys"
+        />
+      </div>
+
+      <div
+        v-else
+        class="flex justify-center h-screen max-h-[calc(100vh-300px)]"
+      >
         <div
           class="grid grid-rows-[1fr_auto] w-full max-w-[600px] ring-1 ring-border rounded-md"
         >
@@ -67,7 +84,7 @@ if (error.value) {
             />
           </div>
           <div>
-            <SuperDmMessageField />
+            <SuperDmMessageField v-model="message" />
           </div>
         </div>
       </div>
