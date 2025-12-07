@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import type { SuperDmContent } from "#components";
-import type { GeneratedKeys, SuperDmContentData } from "~/types";
-import { TipDisplayMode } from "~/types/enums";
+import type { GeneratedKeys, PageSetting, SuperDmContentData } from "~/types";
+import { PageSettingKey, TipDisplayMode } from "~/types/enums";
 
 definePageMeta({
   hideHeaderLogin: true,
 });
 
 const route = useRoute();
+const { axios } = useApp();
 const streamerId = computed(() => route.params.streamerId as string);
 const { getStreamerPage } = useServices();
 const contentRef = ref<InstanceType<typeof SuperDmContent> | undefined>();

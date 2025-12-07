@@ -8,7 +8,7 @@ interface Options {
 
 export const useMinSuperDmAmount = ({ pageMinXmr, pageFiat }: Options = {}) => {
   const { minXMRPayAmount } = useAppConfig();
-  const { xmrToFiat, prices } = useXmrPrice();
+  const { prices } = useXmrPrice();
 
   const minSwapState = useState<string | undefined>("minSwap");
 

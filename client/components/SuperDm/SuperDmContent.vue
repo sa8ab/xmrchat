@@ -11,6 +11,7 @@ import { FiatEnum, TipDisplayMode } from "~/types/enums";
 const props = defineProps<{
   streamerId: string;
   streamerPage?: StreamerPage | null;
+  settings?: Record<string, string> | null;
 }>();
 const emit = defineEmits<{
   done: [{ created: SuperDmResponse; keys: GeneratedKeys }];
@@ -27,7 +28,7 @@ const { axios } = useApp();
 
 const { minFiatAmount, price, minSwapFiatAmount, minXmr, minSwapXMR } =
   useMinSuperDmAmount({
-    pageMinXmr: computed(() => props.streamerPage?.minTipAmount),
+    pageMinXmr: computed(() => props.settings?.minSuperDmAmount),
     pageFiat: computed(() => props.streamerPage?.fiat),
   });
 
