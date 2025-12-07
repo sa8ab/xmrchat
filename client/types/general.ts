@@ -293,6 +293,7 @@ export interface PageTipTier {
 
 export interface SuperDm {
   id: string;
+  name: string;
   amount: number;
   paymentAddress: string;
   publicKey: string;

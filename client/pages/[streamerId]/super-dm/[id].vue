@@ -1,13 +1,29 @@
 <script setup lang="ts">
+import type { SuperDm } from "~/types";
+
 const route = useRoute();
 const { axios } = useApp();
-const {} = useSuperDm();
+const { getViewerSavedKey } = useSuperDm();
 
 const superDmId = computed(() => route.params.id as string);
+const pagePath = computed(() => route.params.streamerId as string);
 
 const { data, error, pending } = await useLazyAsyncData(async () => {
-  const { data } = await axios.get(`/super-dms/${superDmId.value}`);
-  return data.superDm;
+  // get super dm
+  const { data } = await axios.get<{ superDm: SuperDm }>(
+    `/super-dms/${superDmId.value}`
+  );
+
+  // get keys for super dm
+  const keys = await getViewerSavedKey({
+    pagePath: pagePath.value,
+    superDmId: superDmId.value,
+  });
+
+  return {
+    superDm: data.superDm,
+    keys,
+  };
 });
 
 if (error.value) {
@@ -26,7 +42,7 @@ if (error.value) {
     </template>
     <template v-else>
       <PageTitle
-        :title="`Super DM - ${data.name}`"
+        :title="`Super DM - ${data?.superDm.name}`"
         description="Send super DM to the streamer"
       />
       <div></div>

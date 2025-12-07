@@ -70,10 +70,10 @@ export const useSuperDm = () => {
   // VIEWER
   const saveViewerKeys = async (params: {
     superDmId: string;
-    pageId: string;
+    pagePath: string;
     generatedKeys: GeneratedKeys;
   }) => {
-    let savedPageKeys = await idb.get(`super-dm-${params.pageId}`);
+    let savedPageKeys = await idb.get(`super-dm-${params.pagePath}`);
     savedPageKeys = savedPageKeys || [];
 
     savedPageKeys.push({
@@ -83,19 +83,21 @@ export const useSuperDm = () => {
       publicKeyArmored: params.generatedKeys.publicKeyArmored,
     });
 
-    await idb.set(`super-dm-${params.pageId}`, savedPageKeys);
+    await idb.set(`super-dm-${params.pagePath}`, savedPageKeys);
   };
 
-  const getViewerSavedKeys = async (params: { pageId: string }) => {
-    return await idb.get<SavedViewerSuperDmKeys[]>(`super-dm-${params.pageId}`);
+  const getViewerSavedKeys = async (params: { pagePath: string }) => {
+    return await idb.get<SavedViewerSuperDmKeys[]>(
+      `super-dm-${params.pagePath}`
+    );
   };
 
   const getViewerSavedKey = async (params: {
-    pageId: string;
+    pagePath: string;
     superDmId: string;
   }) => {
     const savedKeys = await idb.get<SavedViewerSuperDmKeys[]>(
-      `super-dm-${params.pageId}`
+      `super-dm-${params.pagePath}`
     );
     return savedKeys?.find((k) => k.superDmId === params.superDmId);
   };
