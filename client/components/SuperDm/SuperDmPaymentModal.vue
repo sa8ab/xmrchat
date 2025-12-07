@@ -23,7 +23,7 @@ const { t } = useI18n();
 
 const { init, disconnect, reconnect, connectionStatus } =
   usePaymentSocket<TipEventData>({
-    onTipEvent: (data) => {
+    onSuperDmPaymentEvent: (data) => {
       if (!data.paidAt) {
         partialPaymentAmount.value = data.paidAmount;
         return;
@@ -31,7 +31,7 @@ const { init, disconnect, reconnect, connectionStatus } =
 
       partialPaymentAmount.value = undefined;
       toast.add({
-        title: "Tip received successfully!",
+        title: "Super DM received successfully!",
       });
       disconnect();
       emit("paid");
