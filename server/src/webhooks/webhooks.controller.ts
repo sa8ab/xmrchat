@@ -115,6 +115,7 @@ export class WebhooksController {
     );
 
     this.tipsGateway.notifySwapStatusChange(swap.tipId, newSwap);
+    // TODO: Add super dm swap status change event
 
     return swap;
   }
