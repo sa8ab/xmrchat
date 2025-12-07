@@ -12,6 +12,7 @@ import { PaymentsModule } from 'src/payments/payments.module';
 import { SwapsModule } from 'src/swaps/swaps.module';
 import { PageRecipientsModule } from 'src/page-recipients/page-recipients.module';
 import { SuperDmsGateway } from './super-dms.gateway';
+import { LwsModule } from 'src/lws/lws.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { SuperDmsGateway } from './super-dms.gateway';
     PaymentFlowModule,
     SwapsModule,
     PageRecipientsModule,
+    LwsModule,
     TypeOrmModule.forFeature([SuperDm]),
   ],
   providers: [SuperDmsService, SuperDmSettingsService, SuperDmsGateway],

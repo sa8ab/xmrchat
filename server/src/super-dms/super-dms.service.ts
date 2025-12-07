@@ -19,6 +19,8 @@ import { Swap } from 'src/swaps/swap.entity';
 import { SwapsService } from 'src/swaps/swaps.service';
 import { PageRecipientsService } from 'src/page-recipients/page-recipients.service';
 import { Payment } from 'src/payments/payment.entity';
+import { SuperDmsGateway } from './super-dms.gateway';
+import { LwsService } from 'src/lws/lws.service';
 
 @Injectable()
 export class SuperDmsService {
@@ -32,6 +34,8 @@ export class SuperDmsService {
     private paymentsService: PaymentsService,
     private swapsService: SwapsService,
     private pageRecipientsService: PageRecipientsService,
+    private superDmsGateway: SuperDmsGateway,
+    private lwsService: LwsService,
     @InjectRepository(SuperDm) private repo: Repository<SuperDm>,
   ) {}
 
@@ -146,8 +150,17 @@ export class SuperDmsService {
       this.logger.log(
         `Sending partial super dm socket event. Super DM Id ${superDm.id}`,
       );
+
+      this.superDmsGateway.notifyPayment(superDm.id, savedPayment);
       return;
     }
+
+    this.logger.log(`Sending super dm socket event. Super DM Id ${superDm.id}`);
+    this.superDmsGateway.notifyPayment(superDm.id, savedPayment);
+
+    try {
+      await this.lwsService.deleteWebhook(payment.eventId);
+    } catch (error) {}
   }
 
   // get list of super dms for page - needs signature
