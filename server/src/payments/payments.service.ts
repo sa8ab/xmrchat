@@ -22,7 +22,7 @@ export class PaymentsService {
     if (!eventId) return;
     return this.repo.findOne({
       where: { eventId },
-      relations: { tip: true },
+      relations: { tip: true, superDm: true },
     });
   }
 

@@ -19,6 +19,7 @@ import { LwsWebhookEvent } from 'src/shared/types';
 import { SwapsService } from 'src/swaps/swaps.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { SuperDmsService } from 'src/super-dms/super-dms.service';
 
 @Controller('webhooks')
 export class WebhooksController {
@@ -31,6 +32,7 @@ export class WebhooksController {
     private pagesService: PagesService,
     private tipsGateway: TipsGateway,
     private swapsService: SwapsService,
+    private superDmsService: SuperDmsService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
@@ -85,8 +87,10 @@ export class WebhooksController {
 
     if (payment.pageSlug)
       return this.pagesService.handlePagePayment(payment, amount);
-
-    return this.tipsService.handleTipPayment(payment, amount);
+    else if (payment.tip)
+      return this.tipsService.handleTipPayment(payment, amount);
+    else if (payment.superDm)
+      return this.superDmsService.handleSuperDmPayment(payment, amount);
   }
 
   @IsPublic()

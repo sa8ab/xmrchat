@@ -28,5 +28,6 @@ import { LwsModule } from 'src/lws/lws.module';
   ],
   providers: [SuperDmsService, SuperDmSettingsService, SuperDmsGateway],
   controllers: [SuperDmsController],
+  exports: [SuperDmsService, SuperDmsGateway],
 })
 export class SuperDmsModule {}
