@@ -39,6 +39,22 @@ export class SuperDmsService {
     @InjectRepository(SuperDm) private repo: Repository<SuperDm>,
   ) {}
 
+  async findById(id: string) {
+    if (!id) throw new BadRequestException('Super DM id is required.');
+
+    const superDm = await this.repo.findOne({
+      where: { id },
+      relations: { payment: true },
+    });
+
+    if (!superDm) throw new NotFoundException('Super DM is not found.');
+
+    if (!superDm.payment.isPaid())
+      throw new NotFoundException('Super DM is not completed.');
+
+    return superDm;
+  }
+
   async createSuperDm(dto: CreateSuperDmDto) {
     const page = await this.pagesService.findByPath(dto.path);
     if (!page) throw new NotFoundException('Page is not found.');

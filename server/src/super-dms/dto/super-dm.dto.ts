@@ -1,7 +1,5 @@
 import { Expose, Type } from 'class-transformer';
-import { PageRecipientShareDto } from 'src/page-recipients/dtos/recipient.dto';
 import { PaymentDto } from 'src/payments/dtos/payment.dto';
-import { AtomicToXmrTransform } from 'src/shared/decorators/atomic-to-xmr-transform.decorator';
 import { SwapDto } from 'src/swaps/dtos/swap.dto';
 
 export class SuperDmDto {
@@ -31,26 +29,8 @@ export class SuperDmDto {
   // TODO: add messages
 }
 
-export class SuperDmRo {
-  @Expose()
-  @AtomicToXmrTransform()
-  amount: number;
-
-  @Expose()
-  paymentAddress: string;
-
+export class SuperDmRO {
   @Expose()
   @Type(() => SuperDmDto)
   superDm: SuperDmDto;
-
-  @Expose()
-  @Type(() => SwapDto)
-  swap: SwapDto;
-
-  @Expose()
-  @Type(() => PageRecipientShareDto)
-  recipients: PageRecipientShareDto[];
-
-  @Expose()
-  url: string;
 }

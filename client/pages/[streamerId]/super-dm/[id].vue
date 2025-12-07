@@ -1,3 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const route = useRoute();
+const { axios } = useApp();
+const superDmId = computed(() => route.params.id as string);
+</script>
 
-<template></template>
+<template>
+  <div class="inner"></div>
+</template>
