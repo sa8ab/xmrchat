@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SuperDm } from "~/types";
+import type { StreamerPage, SuperDm } from "~/types";
 
 const route = useRoute();
 const { axios } = useApp();
@@ -8,23 +8,33 @@ const { getViewerSavedKey } = useSuperDm();
 const superDmId = computed(() => route.params.id as string);
 const pagePath = computed(() => route.params.streamerId as string);
 
-const { data, error, pending } = await useLazyAsyncData(async () => {
-  // get super dm
-  const { data } = await axios.get<{ superDm: SuperDm }>(
-    `/super-dms/${superDmId.value}`
-  );
+const { data, error, pending } = await useLazyAsyncData(
+  async () => {
+    // get super dm
+    const superDmRequest = axios.get<{ superDm: SuperDm }>(
+      `/super-dms/${superDmId.value}`
+    );
 
-  // get keys for super dm
-  const keys = await getViewerSavedKey({
-    pagePath: pagePath.value,
-    superDmId: superDmId.value,
-  });
+    const pageRequest = axios.get<StreamerPage>(`/pages/${pagePath.value}`);
 
-  return {
-    superDm: data.superDm,
-    keys,
-  };
-});
+    const [superDm, page] = await Promise.all([superDmRequest, pageRequest]);
+
+    // get keys for super dm
+    const keys = await getViewerSavedKey({
+      pagePath: pagePath.value,
+      superDmId: superDmId.value,
+    });
+
+    return {
+      superDm: superDm.data.superDm,
+      page: page.data,
+      keys,
+    };
+  },
+  {
+    server: false,
+  }
+);
 
 if (error.value) {
   throw createError(error.value);
@@ -45,7 +55,22 @@ if (error.value) {
         :title="`Super DM - ${data?.superDm.name}`"
         description="Send super DM to the streamer"
       />
-      <div></div>
+      <div class="flex justify-center h-screen max-h-[calc(100vh-300px)]">
+        <div
+          class="grid grid-rows-[1fr_auto] w-full max-w-[600px] ring-1 ring-border rounded-md"
+        >
+          <div class="flex flex-col gap-4 flex-grow p-6 overflow-y-auto">
+            <SuperDmMessage
+              v-for="x in 4"
+              :side="x % 2 === 0 ? 'start' : 'end'"
+              :showUser="x % 2 === 0"
+            />
+          </div>
+          <div>
+            <SuperDmMessageField />
+          </div>
+        </div>
+      </div>
     </template>
   </div>
 </template>

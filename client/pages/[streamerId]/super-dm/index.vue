@@ -60,7 +60,7 @@ const cancelPayment = () => {
 
 const handlePaid = async () => {
   await saveViewerKeys({
-    superDmId: created.value?.created.id as string,
+    superDmId: created.value?.created.superDm.id as string,
     pagePath: streamerId.value,
     generatedKeys: created.value?.keys as GeneratedKeys,
   });
