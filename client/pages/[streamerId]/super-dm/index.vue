@@ -60,7 +60,7 @@ const cancelPayment = () => {
 const handlePaid = () => {
   paymentModalActive.value = false;
   created.value = undefined;
-  // contentRef.value?.reset();
+  contentRef.value?.reset();
 };
 
 defineOgImage(false);
