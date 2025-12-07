@@ -3,14 +3,14 @@ import { FiatEnum, TipDisplayMode } from "~/types/enums";
 
 const props = defineProps<{
   selectedCoin?: number;
-  minAmount?: string;
+  minAmount?: string | number;
   fiat?: FiatEnum;
 }>();
 
 const { state: generalState } = useGeneralStore();
 const { minFiatAmount, minXmr, minSwapXMR, minSwapFiatAmount } =
   useMinTipAmount({
-    pageMinXmr: computed(() => props.minAmount),
+    pageMinXmr: computed(() => String(props.minAmount)),
     pageFiat: computed(() => props.fiat),
   });
 
