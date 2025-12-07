@@ -68,6 +68,7 @@ export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
 
     socket.value = io(url, {
       auth: params?.query,
+      query: params?.query,
     });
     runEvents();
   };

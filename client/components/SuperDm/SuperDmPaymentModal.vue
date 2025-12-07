@@ -60,7 +60,7 @@ const initSocket = () => {
   paymentError.value = false;
   init({
     path: "super-dms",
-    query: { superDmId: created.value?.id },
+    query: { superDmId: created.value?.superDm?.id },
   });
 };
 
