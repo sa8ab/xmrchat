@@ -3,7 +3,7 @@ import { randomBytes } from "micro-key-producer/utils.js";
 import { entropyToMnemonic, mnemonicToEntropy } from "@scure/bip39";
 import { wordlist } from "@scure/bip39/wordlists/english.js";
 import * as openpgp from "openpgp";
-import type { GeneratedKeys } from "~/types";
+import type { GeneratedKeys, SavedViewerSuperDmKeys } from "~/types";
 
 export const useSuperDm = () => {
   const idb = useIdb();
@@ -68,6 +68,37 @@ export const useSuperDm = () => {
   };
 
   // VIEWER
+  const saveViewerKeys = async (params: {
+    superDmId: string;
+    pageId: string;
+    generatedKeys: GeneratedKeys;
+  }) => {
+    let savedPageKeys = await idb.get(`super-dm-${params.pageId}`);
+    savedPageKeys = savedPageKeys || [];
+
+    savedPageKeys.push({
+      superDmId: params.superDmId,
+      recoveryKey: params.generatedKeys.mnemonic,
+      privateKeyArmored: params.generatedKeys.privateKeyArmored,
+      publicKeyArmored: params.generatedKeys.publicKeyArmored,
+    });
+
+    await idb.set(`super-dm-${params.pageId}`, savedPageKeys);
+  };
+
+  const getViewerSavedKeys = async (params: { pageId: string }) => {
+    return await idb.get<SavedViewerSuperDmKeys[]>(`super-dm-${params.pageId}`);
+  };
+
+  const getViewerSavedKey = async (params: {
+    pageId: string;
+    superDmId: string;
+  }) => {
+    const savedKeys = await idb.get<SavedViewerSuperDmKeys[]>(
+      `super-dm-${params.pageId}`
+    );
+    return savedKeys?.find((k) => k.superDmId === params.superDmId);
+  };
 
   return {
     generateKeys,
@@ -76,5 +107,8 @@ export const useSuperDm = () => {
     saveStreamerKeys,
     generateAndSaveStreamerKeys,
     validateSamePrivateKeys,
+    saveViewerKeys,
+    getViewerSavedKeys,
+    getViewerSavedKey,
   };
 };

@@ -331,3 +331,7 @@ export interface GeneratedKeys {
   privateKeyArmored: string;
   publicKeyArmored: string;
 }
+
+export interface SavedViewerSuperDmKeys extends GeneratedKeys {
+  superDmId: string;
+}
