@@ -9,7 +9,7 @@ import { SuperDm } from './super-dm.entity';
 
 @Entity({ name: 'super_dm_messages' })
 export class SuperDmMessage {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: number;
 
   @ManyToOne(() => SuperDm, (s: SuperDm) => s.messages, {

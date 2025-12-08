@@ -17,11 +17,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SuperDm } from './super-dm.entity';
 import * as openpgp from 'openpgp';
+import { SuperDmMessage } from './super-sm-message.entity';
 
 /**
  * @description Gateway for super DMs.
  * @emits super-dm-payment - When a payment is made for a super DM.
  * @emits swap-status-change - When a swap status changes.
+ * @emits super-dm-message - When a message is sent to a super DM.
  **/
 @WebSocketGateway({
   namespace: '/super-dms',
@@ -31,7 +33,11 @@ export class SuperDmsGateway
 {
   private logger = new Logger(SuperDmsGateway.name);
 
-  constructor(@InjectRepository(SuperDm) private repo: Repository<SuperDm>) {}
+  constructor(
+    @InjectRepository(SuperDm) private repo: Repository<SuperDm>,
+    @InjectRepository(SuperDmMessage)
+    private messagesRepo: Repository<SuperDmMessage>,
+  ) {}
 
   @WebSocketServer()
   server: Namespace;
@@ -74,19 +80,40 @@ export class SuperDmsGateway
       armoredKey: superDm.publicKey,
     });
 
-    const messageToVerify = `${body.content}|${body.date}`;
-    const verified = await openpgp.verify({
+    const messageToVerify = JSON.stringify({
+      armoredMessage: body.content,
+      date: body.date,
+    });
+    const signature = await openpgp.readSignature({
+      armoredSignature: body.signature,
+    });
+
+    const verifyResult = await openpgp.verify({
       message: await openpgp.createMessage({ text: messageToVerify }),
+      signature,
       verificationKeys: [superDmPublicKey],
     });
     try {
-      await verified.signatures[0].verified;
+      await verifyResult.signatures[0].verified;
     } catch (error) {
       return { error: 'Message is not verified' };
     }
 
-    // TODO validate timestamp
+    // time is not older than 1 minute
+    if (new Date(body.date) < new Date(Date.now() - 60 * 1000)) {
+      return { error: 'Message is too old' };
+    }
 
     // TODO: save message
+
+    const created = this.messagesRepo.create({
+      content: body.content,
+      superDm: { id: superDm.id },
+    });
+    await this.messagesRepo.save(created);
+
+    this.server
+      .to(`super-dm-${superDm.id}`)
+      .emit('super-dm-message', { superDmMessage: created });
   }
 }

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import type { StreamerPage, SuperDm } from "~/types";
+import type { PageSetting, StreamerPage, SuperDm } from "~/types";
+import * as openpgp from "openpgp";
+import { PageSettingKey } from "~/types/enums";
 
 const route = useRoute();
 const { axios } = useApp();
@@ -9,6 +11,7 @@ const superDmId = computed(() => route.params.id as string);
 const pagePath = computed(() => route.params.streamerId as string);
 
 const message = ref<string>();
+const loadingSendMessage = ref(false);
 
 const { data, error, pending } = await useLazyAsyncData(
   async () => {
@@ -19,11 +22,19 @@ const { data, error, pending } = await useLazyAsyncData(
 
     const pageRequest = axios.get<StreamerPage>(`/pages/${pagePath.value}`);
 
+    const settingsRequest = await axios.get<{ settings: PageSetting[] }>(
+      `/page-settings/${pagePath.value}/super-dm`
+    );
+    const publicKey = settingsRequest.data.settings.find(
+      (s) => s.key === PageSettingKey.SUPER_DM_PUBLIC_KEY
+    )?.value;
+
     const [superDm, page] = await Promise.all([superDmRequest, pageRequest]);
 
     return {
       superDm: superDm.data.superDm,
       page: page.data,
+      settings: { publicKey },
     };
   },
   {
@@ -35,7 +46,7 @@ if (error.value) {
   throw createError(error.value);
 }
 
-const { data: keys, refresh: refreshKeys } = useLazyAsyncData(
+const { data: keys, refresh: refreshKeys } = await useLazyAsyncData(
   async () => {
     const keys = await getViewerSavedKey({
       pagePath: pagePath.value,
@@ -45,6 +56,70 @@ const { data: keys, refresh: refreshKeys } = useLazyAsyncData(
   },
   { server: false }
 );
+
+const { init, sendMessage } = useSuperDmSocket();
+
+const initSocket = () => {
+  if (!data.value?.superDm || !keys.value) return;
+  init(superDmId.value);
+};
+
+watch(
+  [data, keys],
+  () => {
+    initSocket();
+  },
+  { immediate: true }
+);
+
+const handleSendMessage = async () => {
+  loadingSendMessage.value = true;
+  try {
+    if (!keys.value?.publicKeyArmored || !data.value?.settings.publicKey)
+      return;
+
+    const superDmPublicKey = await openpgp.readKey({
+      armoredKey: keys.value?.publicKeyArmored,
+    });
+    const streamerPublicKey = await openpgp.readKey({
+      armoredKey: data.value?.settings.publicKey,
+    });
+    const superDmPrivateKey = await openpgp.readPrivateKey({
+      armoredKey: keys.value?.privateKeyArmored,
+    });
+
+    const createdMessage = await openpgp.createMessage({ text: message.value });
+    const date = new Date().toISOString();
+
+    const encryptedMessageArmored = await openpgp.encrypt({
+      message: createdMessage,
+      encryptionKeys: [superDmPublicKey, streamerPublicKey],
+    });
+
+    const signatureObject = { armoredMessage: encryptedMessageArmored, date };
+    const signatureText = JSON.stringify(signatureObject);
+    const signatureMessage = await openpgp.createMessage({
+      text: signatureText,
+    });
+
+    const signature = await openpgp.sign({
+      message: signatureMessage,
+      signingKeys: [superDmPrivateKey],
+      detached: true,
+    });
+
+    await sendMessage({
+      content: encryptedMessageArmored,
+      date,
+      signature,
+      superDmId: superDmId.value,
+    });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    loadingSendMessage.value = false;
+  }
+};
 </script>
 
 <template>
@@ -95,7 +170,7 @@ const { data: keys, refresh: refreshKeys } = useLazyAsyncData(
             />
           </div>
           <div>
-            <SuperDmMessageField v-model="message" />
+            <SuperDmMessageField v-model="message" @send="handleSendMessage" />
           </div>
         </div>
       </div>
