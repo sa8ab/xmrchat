@@ -105,8 +105,6 @@ export class SuperDmsGateway
       return { error: 'Message is too old' };
     }
 
-    // TODO: save message
-
     const created = this.messagesRepo.create({
       content: body.content,
       superDm: { id: superDm.id },

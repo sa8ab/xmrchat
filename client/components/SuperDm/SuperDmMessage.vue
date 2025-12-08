@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import type { SuperDmMessage } from "~/types";
+import type { StreamerPage, SuperDmMessage } from "~/types";
 import { SuperDmMessageSenderTypeEnum } from "~/types/enums";
+import * as openpgp from "openpgp";
 
 const props = withDefaults(
   defineProps<{
     message?: SuperDmMessage;
+    page?: StreamerPage;
+    privateKey?: string;
   }>(),
   {}
 );
@@ -29,7 +32,37 @@ const colorClass = computed(() => {
   return side.value === "start" ? undefined : "bg-background-2";
 });
 
-const decryptContent = () => {};
+const {
+  data: decryptedContent,
+  error,
+  pending,
+} = useLazyAsyncData(
+  `super-dm-message-${props.message?.id}`,
+  async () => {
+    const content = props.message?.content;
+    if (!content || !props.privateKey)
+      throw createError("Content or private key is missing");
+    return await decryptContent(content, props.privateKey);
+  },
+  { server: false }
+);
+
+const decryptContent = async (content: string, privateKeyArmored: string) => {
+  const message = await openpgp.readMessage({
+    armoredMessage: content,
+  });
+
+  const privateKey = await openpgp.readPrivateKey({
+    armoredKey: privateKeyArmored,
+  });
+
+  const decryptedContent = await openpgp.decrypt({
+    message,
+    decryptionKeys: privateKey,
+  });
+
+  return decryptedContent.data;
+};
 </script>
 
 <template>
@@ -47,10 +80,19 @@ const decryptContent = () => {};
         colorClass,
       ]"
     >
-      <p class="">{{ message?.content }}</p>
+      <div class="break-words">
+        <div v-if="pending && !decryptedContent">Pending...</div>
+        <div v-else>
+          {{ decryptedContent || props.message?.content }}
+        </div>
+
+        <div v-if="error" class="text-red-500 pt-2">
+          {{ getErrorMessage(error) }}
+        </div>
+      </div>
       <div :class="['flex pt-2 justify-end']">
         <span class="text-xs text-pale">{{
-          dayjs(message?.createdAt).format("L")
+          dayjs(message?.createdAt).format("L LT")
         }}</span>
       </div>
     </div>

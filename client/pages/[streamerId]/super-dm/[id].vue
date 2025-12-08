@@ -11,7 +11,7 @@ const superDmId = computed(() => route.params.id as string);
 const pagePath = computed(() => route.params.streamerId as string);
 const toast = useToast();
 
-const message = ref<string>();
+const messageRef = ref<string>();
 const loadingSendMessage = ref(false);
 
 const { data, error, pending } = await useLazyAsyncData(
@@ -89,7 +89,9 @@ const handleSendMessage = async () => {
       armoredKey: keys.value?.privateKeyArmored,
     });
 
-    const createdMessage = await openpgp.createMessage({ text: message.value });
+    const createdMessage = await openpgp.createMessage({
+      text: messageRef.value,
+    });
     const date = new Date().toISOString();
 
     const encryptedMessageArmored = await openpgp.encrypt({
@@ -109,6 +111,8 @@ const handleSendMessage = async () => {
       detached: true,
     });
 
+    console.log(messageRef.value);
+
     await sendMessage({
       content: encryptedMessageArmored,
       date,
@@ -116,7 +120,7 @@ const handleSendMessage = async () => {
       superDmId: superDmId.value,
     });
 
-    message.value = undefined;
+    messageRef.value = undefined;
   } catch (error) {
     toast.add({ description: getErrorMessage(error), color: "red" });
   } finally {
@@ -168,10 +172,15 @@ const handleSendMessage = async () => {
             <SuperDmMessage
               v-for="message in data?.superDm.messages"
               :message="message"
+              :page="data?.page"
+              :privateKey="keys?.privateKeyArmored"
             />
           </div>
           <div>
-            <SuperDmMessageField v-model="message" @send="handleSendMessage" />
+            <SuperDmMessageField
+              v-model="messageRef"
+              @send="handleSendMessage"
+            />
           </div>
         </div>
       </div>
