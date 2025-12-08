@@ -18,6 +18,7 @@ import { Repository } from 'typeorm';
 import { SuperDm } from './super-dm.entity';
 import * as openpgp from 'openpgp';
 import { SuperDmMessage } from './super-sm-message.entity';
+import { SuperDmMessageSenderType } from 'src/shared/constants';
 
 /**
  * @description Gateway for super DMs.
@@ -109,6 +110,7 @@ export class SuperDmsGateway
     const created = this.messagesRepo.create({
       content: body.content,
       superDm: { id: superDm.id },
+      senderType: SuperDmMessageSenderType.VIEWER,
     });
     await this.messagesRepo.save(created);
 

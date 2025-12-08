@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { SuperDm } from './super-dm.entity';
+import { SuperDmMessageSenderType } from 'src/shared/constants';
 
 @Entity({ name: 'super_dm_messages' })
 export class SuperDmMessage {
@@ -17,6 +18,9 @@ export class SuperDmMessage {
     nullable: false,
   })
   superDm: SuperDm;
+
+  @Column({ default: SuperDmMessageSenderType.CREATOR })
+  senderType: SuperDmMessageSenderType;
 
   @Column()
   content: string;

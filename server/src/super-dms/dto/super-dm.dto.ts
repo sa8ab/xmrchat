@@ -1,6 +1,7 @@
 import { Expose, Type } from 'class-transformer';
 import { PaymentDto } from 'src/payments/dtos/payment.dto';
 import { SwapDto } from 'src/swaps/dtos/swap.dto';
+import { SuperDmMessageDto } from './super-dm-message.dto';
 
 export class SuperDmDto {
   @Expose()
@@ -26,7 +27,9 @@ export class SuperDmDto {
   @Expose()
   createdAt: string;
 
-  // TODO: add messages
+  @Expose()
+  @Type(() => SuperDmMessageDto)
+  messages: SuperDmMessageDto[];
 }
 
 export class SuperDmRO {

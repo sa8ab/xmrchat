@@ -162,3 +162,8 @@ export enum CohostInvitationStatus {
   ACCEPTED = 'accepted',
   EXPIRED = 'expired',
 }
+
+export enum SuperDmMessageSenderType {
+  CREATOR = 'creator',
+  VIEWER = 'viewer',
+}

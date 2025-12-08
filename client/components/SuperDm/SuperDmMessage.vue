@@ -1,23 +1,35 @@
 <script setup lang="ts">
+import type { SuperDmMessage } from "~/types";
+import { SuperDmMessageSenderTypeEnum } from "~/types/enums";
+
 const props = withDefaults(
   defineProps<{
-    message?: any;
-    side?: "start" | "end";
-    showUser?: boolean;
+    message?: SuperDmMessage;
   }>(),
-  {
-    side: "start",
-    showUser: true,
-  }
+  {}
 );
 
+const { dayjs } = useDate();
+
+const side = computed(() => {
+  return props.message?.senderType === SuperDmMessageSenderTypeEnum.CREATOR
+    ? "start"
+    : "end";
+});
+
+const showUser = computed(() => {
+  return props.message?.senderType === SuperDmMessageSenderTypeEnum.CREATOR;
+});
+
 const wrapperClass = computed(() => {
-  return props.side === "start" ? "flex-row" : "flex-row-reverse";
+  return side.value === "start" ? "flex-row" : "flex-row-reverse";
 });
 
 const colorClass = computed(() => {
-  return props.side === "start" ? undefined : "bg-background-2";
+  return side.value === "start" ? undefined : "bg-background-2";
 });
+
+const decryptContent = () => {};
 </script>
 
 <template>
@@ -35,9 +47,11 @@ const colorClass = computed(() => {
         colorClass,
       ]"
     >
-      <p class="">Some message text here...</p>
+      <p class="">{{ message?.content }}</p>
       <div :class="['flex pt-2 justify-end']">
-        <span class="text-xs text-pale">local date</span>
+        <span class="text-xs text-pale">{{
+          dayjs(message?.createdAt).format("L")
+        }}</span>
       </div>
     </div>
   </div>

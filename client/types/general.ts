@@ -12,6 +12,7 @@ import type {
   TipDisplayMode,
   LiveStreamPlatformEnum,
   CohostInvitationStatusEnum,
+  SuperDmMessageSenderTypeEnum,
 } from "./enums";
 
 export type Numberic = string | number;
@@ -291,6 +292,14 @@ export interface PageTipTier {
   sound?: UploadedFile;
 }
 
+export interface SuperDmMessage {
+  id: number;
+  senderType: SuperDmMessageSenderTypeEnum;
+  content: string;
+  read: boolean;
+  createdAt: string;
+}
+
 export interface SuperDm {
   id: string;
   name: string;
@@ -301,6 +310,7 @@ export interface SuperDm {
   payment?: Payment;
   createdAt: string;
   expiresAt?: string;
+  messages?: SuperDmMessage[];
 }
 
 export interface SuperDmResponse {

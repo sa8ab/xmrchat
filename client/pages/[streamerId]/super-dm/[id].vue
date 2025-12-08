@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PageSetting, StreamerPage, SuperDm } from "~/types";
 import * as openpgp from "openpgp";
-import { PageSettingKey } from "~/types/enums";
+import { PageSettingKey, SuperDmMessageSenderTypeEnum } from "~/types/enums";
 
 const route = useRoute();
 const { axios } = useApp();
@@ -131,7 +131,7 @@ const handleSendMessage = async () => {
       <SuperDmSkeleton />
     </template>
     <template v-else-if="error">
-      <ErrorView :error="error" :showBackToHome="false" />z
+      <ErrorView :error="error" :showBackToHome="false" />
     </template>
     <template v-else>
       <PageTitle
@@ -166,9 +166,8 @@ const handleSendMessage = async () => {
           </div>
           <div class="flex flex-col gap-4 flex-grow p-6 overflow-y-auto">
             <SuperDmMessage
-              v-for="x in 4"
-              :side="x % 2 === 0 ? 'start' : 'end'"
-              :showUser="x % 2 === 0"
+              v-for="message in data?.superDm.messages"
+              :message="message"
             />
           </div>
           <div>
