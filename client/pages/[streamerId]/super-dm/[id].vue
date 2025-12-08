@@ -9,6 +9,7 @@ const { getViewerSavedKey } = useSuperDm();
 
 const superDmId = computed(() => route.params.id as string);
 const pagePath = computed(() => route.params.streamerId as string);
+const toast = useToast();
 
 const message = ref<string>();
 const loadingSendMessage = ref(false);
@@ -115,7 +116,7 @@ const handleSendMessage = async () => {
       superDmId: superDmId.value,
     });
   } catch (error) {
-    console.log(error);
+    toast.add({ description: getErrorMessage(error), color: "red" });
   } finally {
     loadingSendMessage.value = false;
   }
