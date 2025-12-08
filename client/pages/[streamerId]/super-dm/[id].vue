@@ -54,7 +54,7 @@ const { data: keys, refresh: refreshKeys } = useLazyAsyncData(
       Pending
     </template>
     <template v-else-if="error">
-      <ErrorView :error="error" :showBackToHome="false" />
+      <ErrorView :error="error" :showBackToHome="false" />z
     </template>
     <template v-else>
       <PageTitle
@@ -74,8 +74,19 @@ const { data: keys, refresh: refreshKeys } = useLazyAsyncData(
         class="flex justify-center h-screen max-h-[calc(100vh-300px)]"
       >
         <div
-          class="grid grid-rows-[1fr_auto] w-full max-w-[600px] ring-1 ring-border rounded-md"
+          class="grid grid-rows-[auto_1fr_auto] w-full max-w-[600px] ring-1 ring-border rounded-md"
         >
+          <div class="flex gap-2 p-2 border-b border-border">
+            <GeneralImage
+              :url="data?.page.logo.url"
+              variant="logo"
+              class="w-10 h-10"
+            />
+            <div class="flex flex-col flex-1">
+              <span>{{ data?.page.name || data?.page.path }}</span>
+              <span class="text-sm text-pale">{{ data?.page.path }}</span>
+            </div>
+          </div>
           <div class="flex flex-col gap-4 flex-grow p-6 overflow-y-auto">
             <SuperDmMessage
               v-for="x in 4"
