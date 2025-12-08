@@ -115,6 +115,8 @@ const handleSendMessage = async () => {
       signature,
       superDmId: superDmId.value,
     });
+
+    message.value = undefined;
   } catch (error) {
     toast.add({ description: getErrorMessage(error), color: "red" });
   } finally {
@@ -126,8 +128,7 @@ const handleSendMessage = async () => {
 <template>
   <div class="inner pt-4 pb-10">
     <template v-if="pending && !data">
-      <!-- <SuperDmSkeleton /> -->
-      Pending
+      <SuperDmSkeleton />
     </template>
     <template v-else-if="error">
       <ErrorView :error="error" :showBackToHome="false" />z

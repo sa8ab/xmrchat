@@ -115,5 +115,7 @@ export class SuperDmsGateway
     this.server
       .to(`super-dm-${superDm.id}`)
       .emit('super-dm-message', { superDmMessage: created });
+
+    return { message: 'message send', superDmMessage: created };
   }
 }
