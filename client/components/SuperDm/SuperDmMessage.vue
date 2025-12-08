@@ -68,11 +68,7 @@ const decryptContent = async (content: string, privateKeyArmored: string) => {
 <template>
   <div :class="['flex items-start gap-2.5', wrapperClass]">
     <div v-if="showUser">
-      <img
-        class="w-8 h-8 rounded-full object-cover ring-1 ring-border"
-        src="/images/xmrchat-logo.png"
-        alt="Jese image"
-      />
+      <GeneralImage class="w-8 h-8" :url="page?.logo.url" variant="logo" />
     </div>
     <div
       :class="[
