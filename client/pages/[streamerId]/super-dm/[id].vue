@@ -58,7 +58,13 @@ const { data: keys, refresh: refreshKeys } = await useLazyAsyncData(
   { server: false }
 );
 
-const { init, sendMessage } = useSuperDmSocket();
+const { init, sendMessage } = useSuperDmSocket({
+  handleSuperDmMessageEvent: (superDmMessage) => {
+    if (data.value?.superDm.messages?.find((m) => m.id === superDmMessage.id))
+      return;
+    data.value?.superDm.messages?.push(superDmMessage);
+  },
+});
 
 const initSocket = () => {
   if (!data.value?.superDm || !keys.value) return;
@@ -77,7 +83,7 @@ const handleSendMessage = async () => {
   loadingSendMessage.value = true;
   try {
     if (!keys.value?.publicKeyArmored || !data.value?.settings.publicKey)
-      return;
+      throw createError("Keys are not found or invalid");
 
     const superDmPublicKey = await openpgp.readKey({
       armoredKey: keys.value?.publicKeyArmored,
@@ -111,9 +117,7 @@ const handleSendMessage = async () => {
       detached: true,
     });
 
-    console.log(messageRef.value);
-
-    await sendMessage({
+    const res = await sendMessage({
       content: encryptedMessageArmored,
       date,
       signature,

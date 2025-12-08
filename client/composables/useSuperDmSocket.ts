@@ -1,6 +1,9 @@
 import { io } from "socket.io-client";
+import type { SuperDmMessage } from "~/types";
 
-interface SuperDmSocketOptions {}
+interface SuperDmSocketOptions {
+  handleSuperDmMessageEvent?: (superDmMessage: SuperDmMessage) => void;
+}
 
 export const useSuperDmSocket = (options?: SuperDmSocketOptions) => {
   const { socket, connectionStatus, disconnect, runConnectEvents } =
@@ -23,6 +26,13 @@ export const useSuperDmSocket = (options?: SuperDmSocketOptions) => {
   const runEvents = () => {
     if (!socket.value) return;
     runConnectEvents();
+
+    socket.value.on(
+      "super-dm-message",
+      (data: { superDmMessage: SuperDmMessage }) => {
+        options?.handleSuperDmMessageEvent?.(data.superDmMessage);
+      }
+    );
   };
 
   const sendMessage = (params: {
@@ -31,13 +41,15 @@ export const useSuperDmSocket = (options?: SuperDmSocketOptions) => {
     signature: string;
     superDmId: string;
   }) => {
-    return new Promise((resolve, reject) => {
-      socket.value?.emit("send-message", params, (res: any) => {
-        if (res.error) reject(res.error);
-        else resolve(res);
-        console.log("Send message", res);
-      });
-    });
+    return new Promise<{ superDmMessage: SuperDmMessage }>(
+      (resolve, reject) => {
+        socket.value?.emit("send-message", params, (res: any) => {
+          if (res.error) reject(res.error);
+          else resolve(res);
+          console.log("Send message", res);
+        });
+      }
+    );
   };
 
   return {
