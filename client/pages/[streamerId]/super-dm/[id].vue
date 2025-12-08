@@ -117,7 +117,7 @@ const handleSendMessage = async () => {
       detached: true,
     });
 
-    const res = await sendMessage({
+    await sendMessage({
       content: encryptedMessageArmored,
       date,
       signature,
