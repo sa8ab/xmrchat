@@ -29,13 +29,6 @@ export class SuperDmsController {
     private superDmSettingsService: SuperDmSettingsService,
   ) {}
 
-  @Get('/:id')
-  @Serialize(SuperDmRO)
-  async findById(@Param('id', ParseUUIDPipe) id: string) {
-    const superDm = await this.SuperDmsService.findById(id);
-    return { superDm };
-  }
-
   // update super dm settings
   @Put('/settings')
   async updateSettings(
@@ -68,5 +61,12 @@ export class SuperDmsController {
   @Serialize(SuperDmCreateRO)
   async create(@Body() dto: CreateSuperDmDto) {
     return await this.SuperDmsService.createSuperDm(dto);
+  }
+
+  @Get('/:id')
+  @Serialize(SuperDmRO)
+  async findById(@Param('id', ParseUUIDPipe) id: string) {
+    const superDm = await this.SuperDmsService.findById(id);
+    return { superDm };
   }
 }

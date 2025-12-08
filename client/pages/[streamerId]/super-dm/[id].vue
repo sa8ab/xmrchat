@@ -58,7 +58,7 @@ const { data: keys, refresh: refreshKeys } = await useLazyAsyncData(
   { server: false }
 );
 
-const { init, sendMessage } = useSuperDmSocket({
+const { init, sendMessage, disconnect } = useSuperDmSocket({
   handleSuperDmMessageEvent: (superDmMessage) => {
     if (data.value?.superDm.messages?.find((m) => m.id === superDmMessage.id))
       return;
@@ -78,6 +78,10 @@ watch(
   },
   { immediate: true }
 );
+
+onBeforeUnmount(() => {
+  disconnect();
+});
 
 const handleSendMessage = async () => {
   loadingSendMessage.value = true;
