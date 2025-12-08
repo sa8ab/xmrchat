@@ -76,7 +76,7 @@ const { data: keys, refresh: refreshKeys } = useLazyAsyncData(
         <div
           class="grid grid-rows-[auto_1fr_auto] w-full max-w-[600px] ring-1 ring-border rounded-md"
         >
-          <div class="flex gap-2 p-2 border-b border-border">
+          <div class="flex gap-2 py-2 px-4 border-b border-border">
             <GeneralImage
               :url="data?.page.logo.url"
               variant="logo"
