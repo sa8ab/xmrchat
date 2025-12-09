@@ -64,6 +64,7 @@ export class SuperDmsController {
   }
 
   @Get('/:id')
+  @IsPublic()
   @Serialize(SuperDmRO)
   async findById(@Param('id', ParseUUIDPipe) id: string) {
     const superDm = await this.SuperDmsService.findById(id);

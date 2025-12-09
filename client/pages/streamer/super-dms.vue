@@ -65,7 +65,7 @@ const hideSuperDmLayout = computed<boolean | undefined>(
         </div>
       </div>
 
-      <div class="">
+      <div class="md:ps-2">
         <NuxtPage />
       </div>
     </div>
