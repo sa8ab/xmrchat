@@ -20,7 +20,7 @@ const {
   toStreamerRecipients,
   toStreamerCohostPage,
   toStreamerPageTiers,
-  toStreamerSuperDm,
+  toStreamerSuperDms,
 } = useRouteLocation();
 
 const items = computed(() => {
@@ -110,7 +110,7 @@ const items = computed(() => {
           {
             label: "Super DMs",
             icon: "i-heroicons-chat-bubble-left-right",
-            to: toStreamerSuperDm(),
+            to: toStreamerSuperDms(),
           },
           {
             label: "Notifications",

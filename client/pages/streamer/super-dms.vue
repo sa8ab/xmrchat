@@ -29,7 +29,11 @@ const { data, error, pending } = await useLazyAsyncData(
       <template v-if="data">
         <SuperDmDisabled v-if="!data?.settingsConfigured" />
         <div v-else class="grid grid-cols-[250px_1fr]">
-          <div>super dms list</div>
+          <div class="border-e border-border pe-2">
+            <div class="flex flex-col gap-1">
+              <SuperDmItem v-for="item in data.superDms" :superDm="item" />
+            </div>
+          </div>
           <NuxtPage />
         </div>
       </template>
