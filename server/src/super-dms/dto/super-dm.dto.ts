@@ -42,4 +42,7 @@ export class SuperDmsRO {
   @Expose()
   @Type(() => SuperDmDto)
   superDms: SuperDmDto[];
+
+  @Expose()
+  settingsConfigured: boolean;
 }

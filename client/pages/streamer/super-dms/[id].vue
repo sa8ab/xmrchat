@@ -1,7 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>Index</div>
+  <div>
+    Page: streamer/super-dms/[id]
+  </div>
 </template>
 
 <style scoped></style>

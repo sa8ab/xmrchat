@@ -5,7 +5,7 @@ const { toStreamerSuperDmSettings } = useRouteLocation();
 <template>
   <div class="flex flex-col items-center mt-6">
     <h3 class="text-lg font-medium text-center">
-      Super DM settings are not enabled.
+      Super DM settings are not configured.
     </h3>
     <p class="text-pale text-center pt-2">
       Enabling SuperDMs will allow fans to pay you an amount you choose for the

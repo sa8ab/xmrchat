@@ -74,6 +74,9 @@ export class SuperDmsController {
   @Serialize(SuperDmsRO)
   async findAll(@CurrentUser() user: User) {
     const superDms = await this.SuperDmsService.findAll(user);
-    return { superDms };
+    const settingsConfigured =
+      await this.superDmSettingsService.settingsConfigured(user);
+
+    return { superDms, settingsConfigured };
   }
 }
