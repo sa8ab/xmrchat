@@ -54,4 +54,27 @@ export class SuperDmSettingsService {
     );
     return settings;
   }
+
+  async settingsConfigured(user: User) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page not found');
+
+    const publicKey = await this.pageSettingsService.getSettingValue(
+      page.path,
+      PageSettingKey.SUPER_DM_PUBLIC_KEY,
+    );
+    return Boolean(publicKey);
+  }
+
+  async isSuperDmActive(user: User) {
+    const settingsConfigured = await this.settingsConfigured(user);
+    if (!settingsConfigured) return false;
+
+    const page = await this.pagesService.findMyPage(user);
+    const active = await this.pageSettingsService.getSettingValue(
+      page.path,
+      PageSettingKey.SUPER_DM_ACTIVE,
+    );
+    return active === 'true';
+  }
 }

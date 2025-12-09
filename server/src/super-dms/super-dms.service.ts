@@ -13,7 +13,7 @@ import { MoneroUtils } from 'monero-ts';
 import { PaymentFlowService } from 'src/payment-flow/payment-flow.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SuperDm } from './super-dm.entity';
-import { Repository } from 'typeorm';
+import { IsNull, Not, Repository } from 'typeorm';
 import { PaymentsService } from 'src/payments/payments.service';
 import { Swap } from 'src/swaps/swap.entity';
 import { SwapsService } from 'src/swaps/swaps.service';
@@ -21,6 +21,7 @@ import { PageRecipientsService } from 'src/page-recipients/page-recipients.servi
 import { Payment } from 'src/payments/payment.entity';
 import { SuperDmsGateway } from './super-dms.gateway';
 import { LwsService } from 'src/lws/lws.service';
+import { User } from 'src/users/user.entity';
 
 @Injectable()
 export class SuperDmsService {
@@ -38,6 +39,18 @@ export class SuperDmsService {
     private lwsService: LwsService,
     @InjectRepository(SuperDm) private repo: Repository<SuperDm>,
   ) {}
+
+  async findAll(user: User) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page is not found.');
+
+    const superDms = await this.repo.find({
+      where: { page: { id: page.id }, payment: { paidAt: Not(IsNull()) } },
+      relations: { payment: true, messages: true },
+    });
+
+    return superDms;
+  }
 
   async findById(id: string) {
     if (!id) throw new BadRequestException('Super DM id is required.');

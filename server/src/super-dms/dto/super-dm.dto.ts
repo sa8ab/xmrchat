@@ -37,3 +37,9 @@ export class SuperDmRO {
   @Type(() => SuperDmDto)
   superDm: SuperDmDto;
 }
+
+export class SuperDmsRO {
+  @Expose()
+  @Type(() => SuperDmDto)
+  superDms: SuperDmDto[];
+}

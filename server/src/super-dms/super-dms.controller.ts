@@ -20,7 +20,7 @@ import { SuperDmSettingsService } from './super-dm-settings.service';
 import { CreateSuperDmDto } from './dto/create-super-dm.dto';
 import { SuperDmCreateRO } from './dto/create-super-dm.dto';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
-import { SuperDmRO } from './dto/super-dm.dto';
+import { SuperDmRO, SuperDmsRO } from './dto/super-dm.dto';
 
 @Controller('super-dms')
 export class SuperDmsController {
@@ -68,5 +68,12 @@ export class SuperDmsController {
   async findById(@Param('id', ParseUUIDPipe) id: string) {
     const superDm = await this.SuperDmsService.findById(id);
     return { superDm };
+  }
+
+  @Get('/')
+  @Serialize(SuperDmsRO)
+  async findAll(@CurrentUser() user: User) {
+    const superDms = await this.SuperDmsService.findAll(user);
+    return { superDms };
   }
 }
