@@ -47,6 +47,7 @@ export class SuperDmsService {
     const superDms = await this.repo.find({
       where: { page: { id: page.id }, payment: { paidAt: Not(IsNull()) } },
       relations: { payment: true, messages: true },
+      order: { createdAt: 'DESC' },
     });
 
     return superDms;
