@@ -18,11 +18,11 @@ const { toStreamerSuperDm } = useRouteLocation();
     <div
       class="w-8 h-8 rounded-full ring-1 ring-border flex items-center justify-center"
     >
-      <UIcon name="i-heroicons-user" />
+      <UAvatar :alt="superDm.name" />
     </div>
     <div>
       <p class="font-medium">{{ superDm.name }}</p>
-      <p class="text-text/80 text-sm">
+      <p class="opacity-80 text-xs">
         {{ dayjs(superDm.createdAt).format("L LT") }}
       </p>
     </div>

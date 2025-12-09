@@ -2,6 +2,7 @@
 import type { SuperDm } from "~/types";
 
 const { axios } = useApp();
+const route = useRoute();
 
 const { data, error, pending } = await useLazyAsyncData(
   async () => {
@@ -16,6 +17,10 @@ const { data, error, pending } = await useLazyAsyncData(
     server: false,
   }
 );
+
+const hideSuperDmList = computed<boolean | undefined>(
+  () => route.meta.hideSuperDmList as boolean
+);
 </script>
 
 <template>
@@ -28,13 +33,21 @@ const { data, error, pending } = await useLazyAsyncData(
     <PendingView :pending="pending" :error="error">
       <template v-if="data">
         <SuperDmDisabled v-if="!data?.settingsConfigured" />
-        <div v-else class="grid grid-cols-[250px_1fr]">
-          <div class="border-e border-border pe-2">
+        <div v-else :class="['grid grid-cols-1 md:grid-cols-[250px_1fr]']">
+          <div
+            :class="[
+              'md:border-e md:border-border md:pe-2',
+              { 'hidden md:block': hideSuperDmList },
+            ]"
+          >
             <div class="flex flex-col gap-1">
               <SuperDmItem v-for="item in data.superDms" :superDm="item" />
             </div>
           </div>
-          <NuxtPage />
+
+          <div class="">
+            <NuxtPage />
+          </div>
         </div>
       </template>
     </PendingView>
