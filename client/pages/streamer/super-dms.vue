@@ -5,7 +5,8 @@ const { axios } = useApp();
 const route = useRoute();
 const { toStreamerSuperDmSettings } = useRouteLocation();
 
-const { data, error, pending } = await useLazyAsyncData(
+const { data, error, pending } = useLazyAsyncData(
+  "super-dms",
   async () => {
     const { data } = await axios.get<{
       superDms: SuperDm[];
@@ -14,9 +15,7 @@ const { data, error, pending } = await useLazyAsyncData(
 
     return data;
   },
-  {
-    server: false,
-  }
+  { server: false }
 );
 
 const hideSuperDmList = computed<boolean | undefined>(
@@ -34,11 +33,18 @@ const hideSuperDmLayout = computed<boolean | undefined>(
       description="Manage your Super DMs"
     ></PageTitle>
 
-    <div class="flex justify-end mb-6" v-if="!hideSuperDmLayout">
-      <UButton :to="toStreamerSuperDmSettings()" variant="soft">
-        Super DMs Settings
-      </UButton>
-    </div>
+    <template v-if="!hideSuperDmLayout">
+      <SuperDmDisabled
+        v-if="!data?.settingsConfigured && !pending"
+        class="mb-6"
+      />
+
+      <div class="flex justify-end mb-6">
+        <UButton :to="toStreamerSuperDmSettings()" variant="soft">
+          Super DMs Settings
+        </UButton>
+      </div>
+    </template>
 
     <NuxtPage v-if="hideSuperDmLayout" />
 
@@ -50,7 +56,7 @@ const hideSuperDmLayout = computed<boolean | undefined>(
         ]"
       >
         <div class="flex flex-col gap-1">
-          <template v-if="pending">
+          <template v-if="pending && !data">
             <SuperDmItemSkeleton v-for="x in 4" />
           </template>
           <template v-else>
