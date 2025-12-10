@@ -14,6 +14,7 @@ import { PageRecipientsModule } from 'src/page-recipients/page-recipients.module
 import { SuperDmsGateway } from './super-dms.gateway';
 import { LwsModule } from 'src/lws/lws.module';
 import { SuperDmMessage } from './super-sm-message.entity';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { SuperDmMessage } from './super-sm-message.entity';
     SwapsModule,
     PageRecipientsModule,
     LwsModule,
+    UsersModule,
     TypeOrmModule.forFeature([SuperDm, SuperDmMessage]),
   ],
   providers: [SuperDmsService, SuperDmSettingsService, SuperDmsGateway],
