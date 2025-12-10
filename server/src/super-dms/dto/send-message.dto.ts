@@ -1,6 +1,6 @@
 export class SendMessageDto {
   content: string;
-  date: number;
+  date: string;
   superDmId: string;
   signature: string;
 }

@@ -21,6 +21,7 @@ import { SuperDmMessage } from './super-sm-message.entity';
 import { PageSettingKey, SuperDmMessageSenderType } from 'src/shared/constants';
 import { WsAuthGuard } from 'src/auth/guards/ws-auth.guard';
 import { PageSettingsService } from 'src/page-settings/page-settings.service';
+import { getErrorMessage } from 'src/shared/utils/errors';
 
 /**
  * @description Gateway for super DMs.
@@ -82,32 +83,15 @@ export class SuperDmsGateway
 
     if (!superDm) return { error: 'Super DM is not found' };
 
-    const superDmPublicKey = await openpgp.readKey({
-      armoredKey: superDm.publicKey,
-    });
-
-    const messageToVerify = JSON.stringify({
-      armoredMessage: body.content,
-      date: body.date,
-    });
-    const signature = await openpgp.readSignature({
-      armoredSignature: body.signature,
-    });
-
-    const verifyResult = await openpgp.verify({
-      message: await openpgp.createMessage({ text: messageToVerify }),
-      signature,
-      verificationKeys: [superDmPublicKey],
-    });
     try {
-      await verifyResult.signatures[0].verified;
+      await this.verifyMessage({
+        message: body.content,
+        signature: body.signature,
+        publicKeyArmored: superDm.publicKey,
+        date: body.date,
+      });
     } catch (error) {
-      return { error: 'Message is not verified' };
-    }
-
-    // time is not older than 1 minute
-    if (new Date(body.date) < new Date(Date.now() - 60 * 1000)) {
-      return { error: 'Message is too old' };
+      return { error: getErrorMessage(error, 'Message is not verified') };
     }
 
     const created = this.messagesRepo.create({
@@ -117,9 +101,7 @@ export class SuperDmsGateway
     });
     await this.messagesRepo.save(created);
 
-    this.server
-      .to(`super-dm-${superDm.id}`)
-      .emit('super-dm-message', { superDmMessage: created });
+    this.handleMessageCreated(created);
 
     return { message: 'message send', superDmMessage: created };
   }
@@ -142,33 +124,15 @@ export class SuperDmsGateway
     if (!pagePublicKeyArmored)
       return { error: 'Page public key is not configured' };
 
-    const pagePublicKey = await openpgp.readKey({
-      armoredKey: pagePublicKeyArmored,
-    });
-
-    const messageToVerify = JSON.stringify({
-      armoredMessage: body.content,
-      date: body.date,
-    });
-    const signature = await openpgp.readSignature({
-      armoredSignature: body.signature,
-    });
-
-    const verifyResult = await openpgp.verify({
-      message: await openpgp.createMessage({ text: messageToVerify }),
-      signature,
-      verificationKeys: [pagePublicKey],
-    });
-
     try {
-      await verifyResult.signatures[0].verified;
+      await this.verifyMessage({
+        message: body.content,
+        signature: body.signature,
+        publicKeyArmored: pagePublicKeyArmored,
+        date: body.date,
+      });
     } catch (error) {
-      return { error: 'Message is not verified' };
-    }
-
-    // time is not older than 1 minute
-    if (new Date(body.date) < new Date(Date.now() - 60 * 1000)) {
-      return { error: 'Message is too old' };
+      return { error: getErrorMessage(error, 'Message is not verified') };
     }
 
     const created = this.messagesRepo.create({
@@ -178,10 +142,44 @@ export class SuperDmsGateway
     });
     await this.messagesRepo.save(created);
 
-    this.server
-      .to(`super-dm-${superDm.id}`)
-      .emit('super-dm-message', { superDmMessage: created });
+    this.handleMessageCreated(created);
 
     return { message: 'message send', superDmMessage: created };
+  }
+
+  async verifyMessage(params: {
+    message: string;
+    signature: string;
+    publicKeyArmored: string;
+    date: string;
+  }) {
+    const messageToVerify = JSON.stringify({
+      armoredMessage: params.message,
+      date: params.date,
+    });
+    const signature = await openpgp.readSignature({
+      armoredSignature: params.signature,
+    });
+    const publicKey = await openpgp.readKey({
+      armoredKey: params.publicKeyArmored,
+    });
+    const verifyResult = await openpgp.verify({
+      message: await openpgp.createMessage({ text: messageToVerify }),
+      signature,
+      verificationKeys: [publicKey],
+    });
+
+    await verifyResult.signatures[0].verified;
+
+    // time is not older than 1 minute
+    if (new Date(params.date) < new Date(Date.now() - 60 * 1000)) {
+      throw new WsException('Message is too old');
+    }
+  }
+
+  async handleMessageCreated(superDmMessage: SuperDmMessage) {
+    this.server
+      .to(`super-dm-${superDmMessage.superDm.id}`)
+      .emit('super-dm-message', { superDmMessage });
   }
 }
