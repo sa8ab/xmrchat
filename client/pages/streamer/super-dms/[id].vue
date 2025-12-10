@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { SuperDm } from "~/types";
+import { SuperDmMessageSenderTypeEnum } from "~/types/enums";
 
 definePageMeta({
   hideSuperDmList: true,
@@ -66,6 +67,7 @@ const { data: keys, refresh: refreshKeys } = await useLazyAsyncData(
               v-for="message in data?.superDm.messages"
               :message="message"
               :privateKey="keys?.privateKeyArmored"
+              :type="SuperDmMessageSenderTypeEnum.CREATOR"
             />
           </div>
           <div>

@@ -8,16 +8,18 @@ const props = withDefaults(
     message?: SuperDmMessage;
     page?: StreamerPage;
     privateKey?: string;
+    type?: SuperDmMessageSenderTypeEnum;
   }>(),
-  {}
+  {
+    type: SuperDmMessageSenderTypeEnum.VIEWER,
+  }
 );
 
 const { dayjs } = useDate();
 
 const side = computed(() => {
-  return props.message?.senderType === SuperDmMessageSenderTypeEnum.CREATOR
-    ? "start"
-    : "end";
+  if (props.type === props.message?.senderType) return "end";
+  else return "start";
 });
 
 const showUser = computed(() => {
@@ -29,7 +31,7 @@ const wrapperClass = computed(() => {
 });
 
 const colorClass = computed(() => {
-  return side.value === "start" ? undefined : "bg-background-2";
+  return side.value === "start" ? undefined : "bg-background-2/60";
 });
 
 const {
