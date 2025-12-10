@@ -11,7 +11,7 @@ const route = useRoute();
 const { axios } = useApp();
 const toast = useToast();
 
-const { getStreamerSavedKey } = useSuperDm();
+const { getStreamerSavedKey, generateMessage } = useSuperDm();
 
 const messageRef = ref<string>();
 const loadingSendMessage = ref(false);
@@ -70,50 +70,17 @@ const handleSendMessage = async () => {
   const streamerPrivateKeyArmored = keys.value?.privateKeyArmored;
 
   try {
-    if (
-      !superDmPublicKeyArmored ||
-      !streamerPublicKeyArmored ||
-      !streamerPrivateKeyArmored
-    )
-      throw createError("Keys are not found or invalid");
-
-    const superDmPublicKey = await openpgp.readKey({
-      armoredKey: superDmPublicKeyArmored,
-    });
-    const streamerPublicKey = await openpgp.readKey({
-      armoredKey: streamerPublicKeyArmored,
-    });
-    const streamerPrivateKey = await openpgp.readPrivateKey({
-      armoredKey: streamerPrivateKeyArmored,
-    });
-
-    const createdMessage = await openpgp.createMessage({
-      text: messageRef.value,
-    });
-
-    const date = new Date().toISOString();
-
-    const encryptedMessageArmored = await openpgp.encrypt({
-      message: createdMessage,
-      encryptionKeys: [superDmPublicKey, streamerPublicKey],
-    });
-
-    const signatureObject = { armoredMessage: encryptedMessageArmored, date };
-    const signatureText = JSON.stringify(signatureObject);
-    const signatureMessage = await openpgp.createMessage({
-      text: signatureText,
-    });
-
-    const signature = await openpgp.sign({
-      message: signatureMessage,
-      signingKeys: [streamerPrivateKey],
-      detached: true,
+    const message = await generateMessage({
+      streamerPublicKeyArmored,
+      superDmPublicKeyArmored,
+      privateKeyArmored: streamerPrivateKeyArmored,
+      message: messageRef.value,
     });
 
     await streamerSendMessage({
-      content: encryptedMessageArmored,
-      date,
-      signature,
+      content: message.content,
+      date: message.date,
+      signature: message.signature,
       superDmId: superDmId.value,
     });
 

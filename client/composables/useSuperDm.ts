@@ -102,6 +102,60 @@ export const useSuperDm = () => {
     return savedKeys?.find((k) => k.superDmId === params.superDmId);
   };
 
+  // GENERAL
+  const generateMessage = async (params: {
+    streamerPublicKeyArmored?: string;
+    superDmPublicKeyArmored?: string;
+    privateKeyArmored?: string;
+    message?: string;
+  }) => {
+    if (
+      !params.streamerPublicKeyArmored ||
+      !params.superDmPublicKeyArmored ||
+      !params.privateKeyArmored ||
+      !params.message
+    )
+      throw createError("Keys are not found or invalid");
+
+    const streamerPublicKey = await openpgp.readKey({
+      armoredKey: params.streamerPublicKeyArmored,
+    });
+    const superDmPublicKey = await openpgp.readKey({
+      armoredKey: params.superDmPublicKeyArmored,
+    });
+    const privateKey = await openpgp.readPrivateKey({
+      armoredKey: params.privateKeyArmored,
+    });
+
+    const createdMessage = await openpgp.createMessage({
+      text: params.message,
+    });
+    const date = new Date().toISOString();
+
+    const encryptedMessageArmored = await openpgp.encrypt({
+      message: createdMessage,
+      encryptionKeys: [superDmPublicKey, streamerPublicKey],
+    });
+
+    const signatureObject = { armoredMessage: encryptedMessageArmored, date };
+    const signatureText = JSON.stringify(signatureObject);
+    const signatureMessage = await openpgp.createMessage({
+      text: signatureText,
+    });
+
+    const signature = await openpgp.sign({
+      message: signatureMessage,
+      signingKeys: [privateKey],
+      detached: true,
+    });
+
+    return {
+      content: encryptedMessageArmored,
+      date,
+      signature,
+    };
+  };
+
   return {
     generateKeys,
     recoverKeys,
@@ -112,5 +166,6 @@ export const useSuperDm = () => {
     saveViewerKeys,
     getViewerSavedKeys,
     getViewerSavedKey,
+    generateMessage,
   };
 };
