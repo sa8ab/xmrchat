@@ -8,6 +8,7 @@ definePageMeta({
 const route = useRoute();
 const { axios } = useApp();
 const toast = useToast();
+const { dayjs } = useDate();
 
 const { getStreamerSavedKey } = useSuperDm();
 
@@ -51,12 +52,13 @@ const { data: keys, refresh: refreshKeys } = await useLazyAsyncData(
           class="grid grid-rows-[auto_1fr_auto] w-full ring-1 ring-border rounded-md"
         >
           <div class="flex gap-2 py-2 px-4 border-b border-border">
-            image
             <div class="flex flex-col flex-1">
-              <span>{{ data?.superDm.name }}</span>
-              <span class="text-sm text-pale"
-                >{{ unitsToXmr(data?.superDm.payment?.amount) }} XMR</span
-              >
+              <span class="inline-flex gap-1 items-center">
+                <span>{{ data?.superDm.name }}</span>
+              </span>
+              <span class="text-xs text-pale">
+                {{ unitsToXmr(data?.superDm.payment?.amount) }} XMR
+              </span>
             </div>
           </div>
           <div class="flex flex-col gap-4 flex-grow p-6 overflow-y-auto">
