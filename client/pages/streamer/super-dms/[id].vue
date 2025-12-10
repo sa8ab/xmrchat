@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { SuperDm } from "~/types";
 import { SuperDmMessageSenderTypeEnum } from "~/types/enums";
+import * as openpgp from "openpgp";
 
 definePageMeta({
   hideSuperDmList: true,
@@ -9,7 +10,6 @@ definePageMeta({
 const route = useRoute();
 const { axios } = useApp();
 const toast = useToast();
-const { dayjs } = useDate();
 
 const { getStreamerSavedKey } = useSuperDm();
 
@@ -24,19 +24,106 @@ const { data, error, pending } = useLazyAsyncData(
     const { data } = await axios.get<{ superDm: SuperDm }>(
       `/super-dms/${superDmId.value}`
     );
-
     return data;
   },
   { server: false }
 );
 
-const { data: keys, refresh: refreshKeys } = await useLazyAsyncData(
+const { data: keys } = await useLazyAsyncData(
   `streamer-super-dm-keys`,
   async () => {
     return await getStreamerSavedKey();
   },
   { server: false }
 );
+
+const { init, streamerSendMessage, disconnect } = useSuperDmSocket({
+  handleSuperDmMessageEvent: (superDmMessage) => {
+    if (data.value?.superDm.messages?.find((m) => m.id === superDmMessage.id))
+      return;
+    data.value?.superDm.messages?.push(superDmMessage);
+  },
+});
+
+const initSocket = () => {
+  if (!data.value?.superDm || !keys.value) return;
+  init(superDmId.value);
+};
+
+watch(
+  [data, keys],
+  () => {
+    initSocket();
+  },
+  { immediate: true }
+);
+
+onBeforeUnmount(() => {
+  disconnect();
+});
+
+const handleSendMessage = async () => {
+  loadingSendMessage.value = true;
+  const superDmPublicKeyArmored = data.value?.superDm.publicKey;
+
+  const streamerPublicKeyArmored = keys.value?.publicKeyArmored;
+  const streamerPrivateKeyArmored = keys.value?.privateKeyArmored;
+
+  try {
+    if (
+      !superDmPublicKeyArmored ||
+      !streamerPublicKeyArmored ||
+      !streamerPrivateKeyArmored
+    )
+      throw createError("Keys are not found or invalid");
+
+    const superDmPublicKey = await openpgp.readKey({
+      armoredKey: superDmPublicKeyArmored,
+    });
+    const streamerPublicKey = await openpgp.readKey({
+      armoredKey: streamerPublicKeyArmored,
+    });
+    const streamerPrivateKey = await openpgp.readPrivateKey({
+      armoredKey: streamerPrivateKeyArmored,
+    });
+
+    const createdMessage = await openpgp.createMessage({
+      text: messageRef.value,
+    });
+
+    const date = new Date().toISOString();
+
+    const encryptedMessageArmored = await openpgp.encrypt({
+      message: createdMessage,
+      encryptionKeys: [superDmPublicKey, streamerPublicKey],
+    });
+
+    const signatureObject = { armoredMessage: encryptedMessageArmored, date };
+    const signatureText = JSON.stringify(signatureObject);
+    const signatureMessage = await openpgp.createMessage({
+      text: signatureText,
+    });
+
+    const signature = await openpgp.sign({
+      message: signatureMessage,
+      signingKeys: [streamerPrivateKey],
+      detached: true,
+    });
+
+    await streamerSendMessage({
+      content: encryptedMessageArmored,
+      date,
+      signature,
+      superDmId: superDmId.value,
+    });
+
+    messageRef.value = undefined;
+  } catch (error) {
+    toast.add({ description: getErrorMessage(error), color: "red" });
+  } finally {
+    loadingSendMessage.value = false;
+  }
+};
 </script>
 
 <template>
@@ -71,7 +158,10 @@ const { data: keys, refresh: refreshKeys } = await useLazyAsyncData(
             />
           </div>
           <div>
-            <SuperDmMessageField v-model="messageRef" />
+            <SuperDmMessageField
+              v-model="messageRef"
+              @send="handleSendMessage"
+            />
           </div>
         </div>
       </div>

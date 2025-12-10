@@ -35,15 +35,18 @@ export const useSuperDmSocket = (options?: SuperDmSocketOptions) => {
     );
   };
 
-  const sendMessage = (params: {
-    content: string;
-    date: string;
-    signature: string;
-    superDmId: string;
-  }) => {
+  const sentMessageBase = (
+    params: {
+      content: string;
+      date: string;
+      signature: string;
+      superDmId: string;
+    },
+    event: "send-message" | "streamer-send-message" = "send-message"
+  ) => {
     return new Promise<{ superDmMessage: SuperDmMessage }>(
       (resolve, reject) => {
-        socket.value?.emit("send-message", params, (res: any) => {
+        socket.value?.emit(event, params, (res: any) => {
           if (res.error) reject(res.error);
           else resolve(res);
           console.log("Send message", res);
@@ -52,9 +55,28 @@ export const useSuperDmSocket = (options?: SuperDmSocketOptions) => {
     );
   };
 
+  const sendMessage = (params: {
+    content: string;
+    date: string;
+    signature: string;
+    superDmId: string;
+  }) => {
+    return sentMessageBase(params, "send-message");
+  };
+
+  const streamerSendMessage = (params: {
+    content: string;
+    date: string;
+    signature: string;
+    superDmId: string;
+  }) => {
+    return sentMessageBase(params, "streamer-send-message");
+  };
+
   return {
     init,
     disconnect,
     sendMessage,
+    streamerSendMessage,
   };
 };
