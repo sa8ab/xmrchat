@@ -14,7 +14,7 @@ const toast = useToast();
 const messageRef = ref<string>();
 const loadingSendMessage = ref(false);
 
-const { data, error, pending } = await useLazyAsyncData(
+const { data, error, pending, refresh } = await useLazyAsyncData(
   async () => {
     // get super dm
     const superDmRequest = axios.get<{ superDm: SuperDm }>(
@@ -142,15 +142,27 @@ const handleSendMessage = async () => {
         <div
           class="grid grid-rows-[auto_1fr_auto] w-full max-w-[600px] ring-1 ring-border rounded-md"
         >
-          <div class="flex gap-2 py-2 px-4 border-b border-border">
-            <GeneralImage
-              :url="data?.page.logo.url"
-              variant="logo"
-              class="w-10 h-10"
-            />
-            <div class="flex flex-col flex-1">
-              <span>{{ data?.page.name || data?.page.path }}</span>
-              <span class="text-sm text-pale">{{ data?.page.path }}</span>
+          <div
+            class="flex gap-2 flex-wrap justify-between py-2 px-4 border-b border-border"
+          >
+            <div class="flex items-center gap-2">
+              <GeneralImage
+                :url="data?.page.logo.url"
+                variant="logo"
+                class="w-10 h-10"
+              />
+              <div class="flex flex-col flex-1">
+                <span>{{ data?.page.name || data?.page.path }}</span>
+                <span class="text-sm text-pale">{{ data?.page.path }}</span>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <SuperDmEnd
+                :superDm="data?.superDm"
+                :privateKeyArmored="keys?.privateKeyArmored"
+                :endedByType="SuperDmMessageSenderTypeEnum.VIEWER"
+                @ended="refresh"
+              />
             </div>
           </div>
           <div class="flex flex-col gap-4 flex-grow p-6 overflow-y-auto">

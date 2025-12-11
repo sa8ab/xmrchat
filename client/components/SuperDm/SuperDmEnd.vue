@@ -4,10 +4,16 @@ import type { SuperDm } from "~/types";
 import { SuperDmMessageSenderTypeEnum } from "~/types/enums";
 import * as openpgp from "openpgp";
 
-const props = defineProps<{
-  superDm?: SuperDm;
-  privateKeyArmored?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    superDm?: SuperDm;
+    privateKeyArmored?: string;
+    endedByType?: SuperDmMessageSenderTypeEnum;
+  }>(),
+  {
+    endedByType: SuperDmMessageSenderTypeEnum.CREATOR,
+  }
+);
 
 const emit = defineEmits<{
   ended: [];
@@ -56,7 +62,7 @@ const handleEndSuperDm = async () => {
     });
 
     await axios.put(`/super-dms/${props.superDm?.id}/end`, {
-      endedByType: SuperDmMessageSenderTypeEnum.CREATOR,
+      endedByType: props.endedByType,
       date,
       signature,
     });
