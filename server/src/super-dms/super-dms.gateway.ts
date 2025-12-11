@@ -84,6 +84,8 @@ export class SuperDmsGateway
 
     if (!superDm) return { error: 'Super DM is not found' };
 
+    if (superDm.endedAt) return { error: 'Super DM is ended.' };
+
     try {
       await this.verifyMessage({
         message: body.content,
@@ -117,6 +119,8 @@ export class SuperDmsGateway
       relations: { page: true },
     });
     if (!superDm) return { error: 'Super DM is not found' };
+
+    if (superDm.endedAt) return { error: 'Super DM is ended.' };
 
     const pagePublicKeyArmored = await this.pageSettingsService.getSettingValue(
       superDm.page.path,
