@@ -30,7 +30,6 @@ export class SuperDmsController {
     private superDmSettingsService: SuperDmSettingsService,
   ) {}
 
-  // update super dm settings
   @Put('/settings')
   async updateSettings(
     @Body() dto: UpdateSuperDmSettingDto,
@@ -47,7 +46,7 @@ export class SuperDmsController {
     return { settings };
   }
 
-  @Put('/public-key')
+  @Put('/settings/public-key')
   async updatePublicKey(
     @Body() dto: UpdatePublicKeyDto,
     @CurrentUser() user: User,
@@ -56,20 +55,10 @@ export class SuperDmsController {
     return { message: 'Public key updated' };
   }
 
-  // create super dm
-  @Post('/')
-  @IsPublic()
-  @Serialize(SuperDmCreateRO)
-  async create(@Body() dto: CreateSuperDmDto) {
-    return await this.SuperDmsService.createSuperDm(dto);
-  }
-
-  @Get('/:id')
-  @IsPublic()
-  @Serialize(SuperDmRO)
-  async findById(@Param('id', ParseUUIDPipe) id: string) {
-    const superDm = await this.SuperDmsService.findById(id);
-    return { superDm };
+  @Get('/settings/active')
+  async settingsActive(@CurrentUser() user: User) {
+    const active = await this.superDmSettingsService.isSuperDmActive(user);
+    return { active };
   }
 
   @Get('/')
@@ -80,6 +69,21 @@ export class SuperDmsController {
       await this.superDmSettingsService.settingsConfigured(user);
 
     return { superDms, settingsConfigured };
+  }
+
+  @Get('/:id')
+  @IsPublic()
+  @Serialize(SuperDmRO)
+  async findById(@Param('id', ParseUUIDPipe) id: string) {
+    const superDm = await this.SuperDmsService.findById(id);
+    return { superDm };
+  }
+
+  @Post('/')
+  @IsPublic()
+  @Serialize(SuperDmCreateRO)
+  async create(@Body() dto: CreateSuperDmDto) {
+    return await this.SuperDmsService.createSuperDm(dto);
   }
 
   @Put('/:id/end')

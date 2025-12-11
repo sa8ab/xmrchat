@@ -66,7 +66,7 @@ const handleGenerate = async () => {
   try {
     const keys = await generateAndSaveKeys();
 
-    await axios.put(`/super-dms/public-key`, {
+    await axios.put(`/super-dms/settings/public-key`, {
       publicKey: keys.publicKeyArmored,
     });
 
