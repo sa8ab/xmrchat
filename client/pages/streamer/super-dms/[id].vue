@@ -99,7 +99,7 @@ const handleSendMessage = async () => {
 <template>
   <div>
     <template v-if="pending && !data">
-      <SuperDmSkeleton />
+      <SuperDmMessagesSkeleton />
     </template>
     <template v-else-if="error">
       <ErrorView :error="error" :showBackToHome="false" />
