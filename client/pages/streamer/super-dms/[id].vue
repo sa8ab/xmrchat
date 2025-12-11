@@ -138,6 +138,7 @@ const handleSendMessage = async () => {
             <SuperDmMessageField
               v-model="messageRef"
               @send="handleSendMessage"
+              :endedAt="data?.superDm.endedAt"
             />
           </div>
         </div>

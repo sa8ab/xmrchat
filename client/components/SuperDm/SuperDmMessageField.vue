@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import useVuelidate from "@vuelidate/core";
 
+const props = defineProps<{
+  endedAt?: string;
+}>();
+
 const emit = defineEmits<{
   send: [];
 }>();
 
 const { required } = useValidations();
-
+const { dayjs } = useDate();
 const model = defineModel<string | undefined>();
 
 const handleSend = async () => {
@@ -28,20 +32,28 @@ const { getValidationAttrs } = useValidations(v);
 
 <template>
   <div class="flex gap-2 p-4 border-t border-border items-start">
-    <UInput
-      v-model="model"
-      placeholder="Send a message..."
-      class="flex-grow"
-      size="lg"
-      @blur="getValidationAttrs('message').onBlur"
-    />
-    <UButton
-      size="lg"
-      icon="heroicons:paper-airplane-20-solid"
-      square
-      @click="handleSend"
-    >
-    </UButton>
+    <div v-if="endedAt" class="flex flex-col items-center text-center flex-1">
+      <p class="font-medium">Super DM is ended.</p>
+      <p class="text-pale text-xs">
+        Super DM is ended at {{ dayjs(endedAt).format("L LT") }}.
+      </p>
+    </div>
+    <template v-else>
+      <UInput
+        v-model="model"
+        placeholder="Send a message..."
+        class="flex-grow"
+        size="lg"
+        @blur="getValidationAttrs('message').onBlur"
+      />
+      <UButton
+        size="lg"
+        icon="heroicons:paper-airplane-20-solid"
+        square
+        @click="handleSend"
+      >
+      </UButton>
+    </template>
   </div>
 </template>
 
