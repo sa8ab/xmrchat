@@ -75,34 +75,32 @@ useStreamerIdSeoMeta(computed(() => data.value?.page));
 
 <template>
   <div class="inner pt-4">
-    <div v-if="pending && !data">Pending</div>
+    <PendingView :pending="pending" :error="error">
+      <template v-if="data">
+        <StreamerHeader
+          class="pt-2"
+          :bannerUrl="data.page.coverImage.url"
+          :liveStreams="data.page.liveStreams"
+          :logoUrl="data.page.logo.url"
+          :name="data.page.name"
+          :links="data.page.links"
+        />
+        <SuperDmContent
+          ref="contentRef"
+          :streamerId="streamerId"
+          :streamerPage="data.page"
+          :settings="data.superDmSettings"
+          @done="handlePayment"
+        />
 
-    <div v-else-if="error">{{ getErrorMessage(error) }}</div>
-
-    <template v-else-if="data">
-      <StreamerHeader
-        class="pt-2"
-        :bannerUrl="data.page.coverImage.url"
-        :liveStreams="data.page.liveStreams"
-        :logoUrl="data.page.logo.url"
-        :name="data.page.name"
-        :links="data.page.links"
-      />
-      <SuperDmContent
-        ref="contentRef"
-        :streamerId="streamerId"
-        :streamerPage="data.page"
-        :settings="data.superDmSettings"
-        @done="handlePayment"
-      />
-
-      <SuperDmPaymentModal
-        :data="created"
-        :slug="streamerId"
-        v-model:active="paymentModalActive"
-        @cancel="cancelPayment"
-        @paid="handlePaid"
-      />
-    </template>
+        <SuperDmPaymentModal
+          :data="created"
+          :slug="streamerId"
+          v-model:active="paymentModalActive"
+          @cancel="cancelPayment"
+          @paid="handlePaid"
+        />
+      </template>
+    </PendingView>
   </div>
 </template>
