@@ -8,7 +8,7 @@ import { PageSettingsService } from 'src/page-settings/page-settings.service';
 import { PagesService } from 'src/pages/pages.service';
 import { CreateSuperDmDto } from './dto/create-super-dm.dto';
 import { ConfigService } from '@nestjs/config';
-import { PageSettingKey } from 'src/shared/constants';
+import { PageSettingKey, SuperDmMessageSenderType } from 'src/shared/constants';
 import { MoneroUtils } from 'monero-ts';
 import { PaymentFlowService } from 'src/payment-flow/payment-flow.service';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -22,6 +22,8 @@ import { Payment } from 'src/payments/payment.entity';
 import { SuperDmsGateway } from './super-dms.gateway';
 import { LwsService } from 'src/lws/lws.service';
 import { User } from 'src/users/user.entity';
+import { EndSuperDmDto } from './dto/end-super-dm.dto';
+import { verifySignature } from 'src/shared/utils/encryption';
 
 @Injectable()
 export class SuperDmsService {
@@ -193,7 +195,64 @@ export class SuperDmsService {
     } catch (error) {}
   }
 
-  // get list of super dms for page - needs signature
-  // get a super dm by id
-  // end super dm
+  async endSuperDm(superDmId: string, dto: EndSuperDmDto) {
+    const superDm = await this.findById(superDmId);
+
+    const endedByType = dto.endedByType;
+
+    let publicKeyArmored: string | undefined;
+
+    if (endedByType === SuperDmMessageSenderType.CREATOR) {
+      publicKeyArmored = superDm.publicKey;
+    } else {
+      publicKeyArmored = await this.pageSettingsService.getSettingValue(
+        superDm.page.path,
+        PageSettingKey.SUPER_DM_PUBLIC_KEY,
+      );
+    }
+
+    if (!publicKeyArmored)
+      throw new BadRequestException('Public key is not found.');
+
+    const messageToVerify = JSON.stringify({
+      date: dto.date,
+    });
+
+    try {
+      await verifySignature({
+        message: messageToVerify,
+        signature: dto.signature,
+        publicKeyArmored,
+        date: dto.date,
+      });
+    } catch (error) {
+      throw new BadRequestException('Signature is not valid.');
+    }
+
+    if (new Date(dto.date) < new Date(Date.now() - 60 * 1000)) {
+      throw new BadRequestException('Message is too old.');
+    }
+
+    // both viewer and creator have at least on message
+
+    const messages = superDm.messages;
+    const viewerMessages = messages.filter(
+      (m) => m.senderType === SuperDmMessageSenderType.VIEWER,
+    );
+    const creatorMessages = messages.filter(
+      (m) => m.senderType === SuperDmMessageSenderType.CREATOR,
+    );
+
+    if (!viewerMessages.length || !creatorMessages.length) {
+      throw new BadRequestException(
+        'Both viewer and creator must have at least one message.',
+      );
+    }
+
+    superDm.endedAt = new Date();
+    superDm.endedByType = endedByType;
+    await this.repo.save(superDm);
+
+    return { message: 'Super DM ended successfully' };
+  }
 }

@@ -13,6 +13,7 @@ import {
 import { SuperDmMessage } from './super-sm-message.entity';
 import { Payment } from 'src/payments/payment.entity';
 import { Swap } from 'src/swaps/swap.entity';
+import { SuperDmMessageSenderType } from 'src/shared/constants';
 
 @Entity({ name: 'super_dms' })
 export class SuperDm {
@@ -51,4 +52,10 @@ export class SuperDm {
 
   @OneToMany(() => SuperDmMessage, (m: SuperDmMessage) => m.superDm)
   messages: SuperDmMessage[];
+
+  @Column({ type: 'timestamptz', nullable: true })
+  endedAt?: Date;
+
+  @Column({ default: SuperDmMessageSenderType.CREATOR })
+  endedByType: SuperDmMessageSenderType;
 }

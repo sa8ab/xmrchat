@@ -22,6 +22,7 @@ import { PageSettingKey, SuperDmMessageSenderType } from 'src/shared/constants';
 import { WsAuthGuard } from 'src/auth/guards/ws-auth.guard';
 import { PageSettingsService } from 'src/page-settings/page-settings.service';
 import { getErrorMessage } from 'src/shared/utils/errors';
+import { verifySignature } from 'src/shared/utils/encryption';
 
 /**
  * @description Gateway for super DMs.
@@ -157,19 +158,13 @@ export class SuperDmsGateway
       armoredMessage: params.message,
       date: params.date,
     });
-    const signature = await openpgp.readSignature({
-      armoredSignature: params.signature,
-    });
-    const publicKey = await openpgp.readKey({
-      armoredKey: params.publicKeyArmored,
-    });
-    const verifyResult = await openpgp.verify({
-      message: await openpgp.createMessage({ text: messageToVerify }),
-      signature,
-      verificationKeys: [publicKey],
-    });
 
-    await verifyResult.signatures[0].verified;
+    await verifySignature({
+      message: messageToVerify,
+      signature: params.signature,
+      publicKeyArmored: params.publicKeyArmored,
+      date: params.date,
+    });
 
     // time is not older than 1 minute
     if (new Date(params.date) < new Date(Date.now() - 60 * 1000)) {
