@@ -25,7 +25,6 @@ const handleRecover = async () => {
 
   try {
     const keys = recoverKeys(state.recoveryKey);
-    console.log(keys);
     if (!props.superDmId || !props.pagePath) {
       throw createError("Super DM id and page path are required");
     }
