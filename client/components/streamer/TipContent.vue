@@ -296,6 +296,7 @@ const renderInputPadding = computed(
             size="lg"
             type="button"
             variant="ghost"
+            icon="i-heroicons-chat-bubble-left-right"
           >
             Start Super DM
           </UButton>
