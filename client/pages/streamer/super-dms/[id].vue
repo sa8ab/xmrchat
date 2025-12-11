@@ -2,6 +2,7 @@
 import type { SuperDm } from "~/types";
 import { SuperDmMessageSenderTypeEnum } from "~/types/enums";
 import * as openpgp from "openpgp";
+import { ConfirmModal } from "#components";
 
 definePageMeta({
   hideSuperDmList: true,
@@ -10,15 +11,17 @@ definePageMeta({
 const route = useRoute();
 const { axios } = useApp();
 const toast = useToast();
+const modal = useModal();
 
 const { getStreamerSavedKey, generateMessage } = useSuperDm();
 
 const messageRef = ref<string>();
 const loadingSendMessage = ref(false);
+const loadingEndSuperDm = ref(false);
 
 const superDmId = computed(() => route.params.id as string);
 
-const { data, error, pending } = useLazyAsyncData(
+const { data, error, pending, refresh } = useLazyAsyncData(
   `super-dm-${superDmId.value}`,
   async () => {
     const { data } = await axios.get<{ superDm: SuperDm }>(
@@ -114,6 +117,13 @@ const handleSendMessage = async () => {
               <span class="text-xs text-pale">
                 {{ unitsToXmr(data?.superDm.payment?.amount) }} XMR
               </span>
+            </div>
+            <div class="flex items-center">
+              <SuperDmEnd
+                :superDm="data?.superDm"
+                :privateKeyArmored="keys?.privateKeyArmored"
+                @ended="refresh"
+              />
             </div>
           </div>
           <div class="flex flex-col gap-4 flex-grow p-6 overflow-y-auto">

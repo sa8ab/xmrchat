@@ -60,7 +60,7 @@ export class SuperDmsService {
 
     const superDm = await this.repo.findOne({
       where: { id },
-      relations: { payment: true, messages: true },
+      relations: { payment: true, messages: true, page: true },
     });
 
     if (!superDm) throw new NotFoundException('Super DM is not found.');
@@ -203,12 +203,12 @@ export class SuperDmsService {
     let publicKeyArmored: string | undefined;
 
     if (endedByType === SuperDmMessageSenderType.CREATOR) {
-      publicKeyArmored = superDm.publicKey;
-    } else {
       publicKeyArmored = await this.pageSettingsService.getSettingValue(
         superDm.page.path,
         PageSettingKey.SUPER_DM_PUBLIC_KEY,
       );
+    } else {
+      publicKeyArmored = superDm.publicKey;
     }
 
     if (!publicKeyArmored)

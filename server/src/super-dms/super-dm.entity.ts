@@ -56,6 +56,6 @@ export class SuperDm {
   @Column({ type: 'timestamptz', nullable: true })
   endedAt?: Date;
 
-  @Column({ default: SuperDmMessageSenderType.CREATOR })
-  endedByType: SuperDmMessageSenderType;
+  @Column({ nullable: true })
+  endedByType?: SuperDmMessageSenderType;
 }

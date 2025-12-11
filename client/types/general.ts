@@ -311,6 +311,8 @@ export interface SuperDm {
   createdAt: string;
   expiresAt?: string;
   messages?: SuperDmMessage[];
+  endedAt?: string;
+  endedByType?: SuperDmMessageSenderTypeEnum;
 }
 
 export interface SuperDmResponse {

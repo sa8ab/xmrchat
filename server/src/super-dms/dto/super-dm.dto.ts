@@ -28,6 +28,12 @@ export class SuperDmDto {
   createdAt: string;
 
   @Expose()
+  endedAt: Date;
+
+  @Expose()
+  endedByType: string;
+
+  @Expose()
   @Type(() => SuperDmMessageDto)
   messages: SuperDmMessageDto[];
 }
