@@ -81,6 +81,9 @@ export class SuperDmsService {
     if (!isActive)
       throw new BadRequestException('Super DM is not active for this page.');
 
+    if (!page.isPremium)
+      throw new BadRequestException('Super DM is not available for this page.');
+
     await this.validateMinSuperDmAmount(page.path, dto.amount);
 
     const { baseSwap, eventId, inputCoin, integratedAddress } =
