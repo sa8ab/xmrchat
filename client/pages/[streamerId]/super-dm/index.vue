@@ -17,7 +17,7 @@ const contentRef = ref<InstanceType<typeof SuperDmContent> | undefined>();
 const { state: generalState } = useGeneralStore();
 
 const { data, pending, refresh, error } = await useLazyAsyncData(
-  `streamer-${streamerId.value}`,
+  `streamer-${streamerId.value}-super-dm`,
   async () => {
     const pageRequest = getStreamerPage(streamerId.value);
     const superDmSettingsRequest = axios.get<{ settings: PageSetting[] }>(
