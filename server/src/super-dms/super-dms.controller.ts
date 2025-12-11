@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  NotFoundException,
   Param,
   ParseUUIDPipe,
   Post,
@@ -22,12 +23,14 @@ import { SuperDmCreateRO } from './dto/create-super-dm.dto';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 import { SuperDmRO, SuperDmsRO } from './dto/super-dm.dto';
 import { EndSuperDmDto } from './dto/end-super-dm.dto';
+import { PagesService } from 'src/pages/pages.service';
 
 @Controller('super-dms')
 export class SuperDmsController {
   constructor(
-    private SuperDmsService: SuperDmsService,
+    private superDmsService: SuperDmsService,
     private superDmSettingsService: SuperDmSettingsService,
+    private pagesService: PagesService,
   ) {}
 
   @Put('/settings')
@@ -57,16 +60,22 @@ export class SuperDmsController {
 
   @Get('/settings/active')
   async settingsActive(@CurrentUser() user: User) {
-    const active = await this.superDmSettingsService.isSuperDmActive(user);
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page not found');
+
+    const active = await this.superDmSettingsService.isSuperDmActive(page);
     return { active };
   }
 
   @Get('/')
   @Serialize(SuperDmsRO)
   async findAll(@CurrentUser() user: User) {
-    const superDms = await this.SuperDmsService.findAll(user);
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page not found');
+
+    const superDms = await this.superDmsService.findAll(user);
     const settingsConfigured =
-      await this.superDmSettingsService.settingsConfigured(user);
+      await this.superDmSettingsService.settingsConfigured(page);
 
     return { superDms, settingsConfigured };
   }
@@ -75,7 +84,7 @@ export class SuperDmsController {
   @IsPublic()
   @Serialize(SuperDmRO)
   async findById(@Param('id', ParseUUIDPipe) id: string) {
-    const superDm = await this.SuperDmsService.findById(id);
+    const superDm = await this.superDmsService.findById(id);
     return { superDm };
   }
 
@@ -83,7 +92,7 @@ export class SuperDmsController {
   @IsPublic()
   @Serialize(SuperDmCreateRO)
   async create(@Body() dto: CreateSuperDmDto) {
-    return await this.SuperDmsService.createSuperDm(dto);
+    return await this.superDmsService.createSuperDm(dto);
   }
 
   @Put('/:id/end')
@@ -93,7 +102,7 @@ export class SuperDmsController {
     @Body() dto: EndSuperDmDto,
     @CurrentUser() user: User,
   ) {
-    await this.SuperDmsService.endSuperDm(id, dto);
+    await this.superDmsService.endSuperDm(id, dto);
     return { message: 'Super DM ended successfully' };
   }
 }

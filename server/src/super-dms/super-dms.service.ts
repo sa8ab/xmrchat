@@ -24,6 +24,7 @@ import { LwsService } from 'src/lws/lws.service';
 import { User } from 'src/users/user.entity';
 import { EndSuperDmDto } from './dto/end-super-dm.dto';
 import { verifySignature } from 'src/shared/utils/encryption';
+import { SuperDmSettingsService } from './super-dm-settings.service';
 
 @Injectable()
 export class SuperDmsService {
@@ -39,6 +40,7 @@ export class SuperDmsService {
     private pageRecipientsService: PageRecipientsService,
     private superDmsGateway: SuperDmsGateway,
     private lwsService: LwsService,
+    private superDmSettingsService: SuperDmSettingsService,
     @InjectRepository(SuperDm) private repo: Repository<SuperDm>,
   ) {}
 
@@ -74,6 +76,10 @@ export class SuperDmsService {
   async createSuperDm(dto: CreateSuperDmDto) {
     const page = await this.pagesService.findByPath(dto.path);
     if (!page) throw new NotFoundException('Page is not found.');
+
+    const isActive = await this.superDmSettingsService.isSuperDmActive(page);
+    if (!isActive)
+      throw new BadRequestException('Super DM is not active for this page.');
 
     await this.validateMinSuperDmAmount(page.path, dto.amount);
 

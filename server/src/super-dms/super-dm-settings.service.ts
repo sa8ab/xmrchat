@@ -4,6 +4,7 @@ import { User } from 'src/users/user.entity';
 import { UpdateSuperDmSettingDto } from './dto/update-super-dm-setting.dto';
 import { PageSettingsService } from 'src/page-settings/page-settings.service';
 import { PageSettingCategory, PageSettingKey } from 'src/shared/constants';
+import { Page } from 'src/pages/page.entity';
 
 @Injectable()
 export class SuperDmSettingsService {
@@ -11,7 +12,6 @@ export class SuperDmSettingsService {
     private pagesService: PagesService,
     private pageSettingsService: PageSettingsService,
   ) {}
-  // updateSuperDm - gets min amount in xmr units. Save in page entity or page setting entity.
 
   async updateSettings(dto: UpdateSuperDmSettingDto, user: User) {
     const page = await this.pagesService.findMyPage(user);
@@ -55,10 +55,7 @@ export class SuperDmSettingsService {
     return settings;
   }
 
-  async settingsConfigured(user: User) {
-    const page = await this.pagesService.findMyPage(user);
-    if (!page) throw new NotFoundException('Page not found');
-
+  async settingsConfigured(page: Page) {
     const publicKey = await this.pageSettingsService.getSettingValue(
       page.path,
       PageSettingKey.SUPER_DM_PUBLIC_KEY,
@@ -66,11 +63,10 @@ export class SuperDmSettingsService {
     return Boolean(publicKey);
   }
 
-  async isSuperDmActive(user: User) {
-    const settingsConfigured = await this.settingsConfigured(user);
+  async isSuperDmActive(page: Page) {
+    const settingsConfigured = await this.settingsConfigured(page);
     if (!settingsConfigured) return false;
 
-    const page = await this.pagesService.findMyPage(user);
     const active = await this.pageSettingsService.getSettingValue(
       page.path,
       PageSettingKey.SUPER_DM_ACTIVE,
