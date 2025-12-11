@@ -21,6 +21,7 @@ import { CreateSuperDmDto } from './dto/create-super-dm.dto';
 import { SuperDmCreateRO } from './dto/create-super-dm.dto';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 import { SuperDmRO, SuperDmsRO } from './dto/super-dm.dto';
+import { EndSuperDmDto } from './dto/end-super-dm.dto';
 
 @Controller('super-dms')
 export class SuperDmsController {
@@ -79,5 +80,16 @@ export class SuperDmsController {
       await this.superDmSettingsService.settingsConfigured(user);
 
     return { superDms, settingsConfigured };
+  }
+
+  @Put('/:id/end')
+  @IsPublic()
+  async endSuperDm(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: EndSuperDmDto,
+    @CurrentUser() user: User,
+  ) {
+    await this.SuperDmsService.endSuperDm(id, dto);
+    return { message: 'Super DM ended successfully' };
   }
 }
