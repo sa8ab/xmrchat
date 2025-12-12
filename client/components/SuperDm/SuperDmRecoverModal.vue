@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import useVuelidate from "@vuelidate/core";
-import type { SuperDm } from "~/types";
+import type { SavedViewerSuperDmKeys, SuperDm } from "~/types";
 
 const props = defineProps<{
   pagePath?: string;
@@ -10,7 +10,12 @@ const model = defineModel<boolean>();
 const { axios } = useApp();
 const { required } = useValidations();
 const toast = useToast();
-const { validateSamePrivateKeys, saveViewerKeys, recoverKeys } = useSuperDm();
+const {
+  validateSamePrivateKeys,
+  saveViewerKeys,
+  recoverKeys,
+  getViewerSavedKeys,
+} = useSuperDm();
 const { toSuperDm } = useRouteLocation();
 
 const state = reactive({
@@ -19,6 +24,14 @@ const state = reactive({
 
   loading: false,
 });
+
+const savedKeys = ref<SavedViewerSuperDmKeys[] | undefined>([]);
+
+const getSavedkeys = async () => {
+  if (!props.pagePath) return;
+  const keys = await getViewerSavedKeys({ pagePath: props.pagePath });
+  savedKeys.value = keys;
+};
 
 const handleHide = () => {
   model.value = false;
@@ -77,6 +90,12 @@ const v = useVuelidate<any>(
 );
 
 const { getValidationAttrs } = useValidations(v);
+
+watch(model, () => {
+  if (model.value) {
+    getSavedkeys();
+  }
+});
 </script>
 
 <template>
@@ -109,13 +128,36 @@ const { getValidationAttrs } = useValidations(v);
             @blur="getValidationAttrs('recoveryCode').onBlur"
           />
         </UFormGroup>
+
+        <div v-if="savedKeys?.length" class="pt-2">
+          <UDivider />
+          <p class="pt-2">Saved keys for the page in this browser</p>
+          <div class="pt-2 grid gap-2">
+            <div v-for="item in [...savedKeys, ...savedKeys]" class="">
+              <div class="inline-flex gap-2">
+                <span class="font-medium">Super DM id</span>
+                <span>{{ item.superDmId }}</span>
+              </div>
+              <div class="flex justify-end">
+                <UButton
+                  :to="toSuperDm(props.pagePath!, item.superDmId)"
+                  variant="ghost"
+                  >Use <DirectionalArrow
+                /></UButton>
+              </div>
+              <!-- <div class="inline-flex gap-2">
+                <span class="font-medium">Recovery code</span>
+              </div> -->
+            </div>
+          </div>
+        </div>
       </div>
       <template #footer>
         <div class="flex gap-2 justify-end">
           <UButton variant="ghost" @click="handleHide">Cancel</UButton>
-          <UButton @click="handleRecover" :loading="state.loading"
-            >Recover</UButton
-          >
+          <UButton @click="handleRecover" :loading="state.loading">
+            Recover
+          </UButton>
         </div>
       </template>
     </UCard>

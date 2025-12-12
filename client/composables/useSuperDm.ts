@@ -87,7 +87,7 @@ export const useSuperDm = () => {
 
     savedPageKeys.push({
       superDmId: params.superDmId,
-      recoveryKey: params.generatedKeys.mnemonic,
+      mnemonic: params.generatedKeys.mnemonic,
       privateKeyArmored: params.generatedKeys.privateKeyArmored,
       publicKeyArmored: params.generatedKeys.publicKeyArmored,
     });
