@@ -1,8 +1,4 @@
-import {
-  ForbiddenException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SuperDmMessage } from './super-sm-message.entity';
 import { Repository } from 'typeorm';
@@ -15,18 +11,24 @@ export class SuperDmMessagesService {
     private superDmMessagesRepo: Repository<SuperDmMessage>,
   ) {}
 
-  async readMessages(superDmId: string) {
+  async readMessages(
+    superDmId: string,
+    senderType: SuperDmMessageSenderType = SuperDmMessageSenderType.VIEWER,
+  ) {
     const unreadMessages = await this.superDmMessagesRepo.find({
       where: {
         superDm: { id: superDmId },
         read: false,
-        senderType: SuperDmMessageSenderType.VIEWER,
+        senderType,
       },
     });
 
-    unreadMessages.map((message) => (message.read = true));
-    await this.superDmMessagesRepo.save(unreadMessages);
+    unreadMessages.forEach((message) => {
+      message.read = true;
+    });
 
-    return { message: 'Messages read updated successfully.' };
+    const messages = await this.superDmMessagesRepo.save(unreadMessages);
+
+    return messages;
   }
 }

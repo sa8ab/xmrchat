@@ -31,6 +31,9 @@ import { verifySignature } from 'src/shared/utils/encryption';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { SuperDmMessagesService } from './super-dm-messages.service';
+import { ReadMessagesDto } from './dto/read-messages.dto';
+import { serializer } from 'src/shared/interceptors/serialize.interceptor';
+import { SuperDmMessageDto } from './dto/super-dm-message.dto';
 
 /**
  * @description Gateway for super DMs.
@@ -179,30 +182,61 @@ export class SuperDmsGateway
   }
 
   @SubscribeMessage('read-messages')
-  @UseGuards(WsAuthGuard)
   async readMessages(
-    @MessageBody() body: { superDmId: string },
+    @MessageBody() body: ReadMessagesDto,
     @ConnectedSocket() client: Socket,
   ) {
-    const user = (client as any).user;
+    if (!body.superDmId) return { error: 'Super DM id is required' };
+    if (!body.senderType) return { error: 'Sender type is required' };
+    if (!body.signature) return { error: 'Signature is required' };
+    if (!body.date) return { error: 'Date is required' };
 
     const superDm = await this.repo.findOne({
       where: { id: body.superDmId },
-      relations: { page: true },
     });
     if (!superDm) return { error: 'Super DM is not found' };
 
-    const ability = await this.casl.createForUser(user);
-    if (!ability.can(Action.ReadSuperDmMessages, superDm))
-      return { error: 'Unauthorized' };
+    let publicKeyArmored: string;
+    if (body.senderType === SuperDmMessageSenderType.VIEWER) {
+      publicKeyArmored = superDm.publicKey;
+    } else {
+      publicKeyArmored = await this.pageSettingsService.getSettingValue(
+        superDm.page.path,
+        PageSettingKey.SUPER_DM_PUBLIC_KEY,
+      );
+    }
+
+    if (!publicKeyArmored) return { error: 'Public key is not found' };
 
     try {
-      await this.superDmMessagesService.readMessages(superDm.id);
+      await this.verifyMessage({
+        message: JSON.stringify({ date: body.date }),
+        signature: body.signature,
+        publicKeyArmored,
+        date: body.date,
+      });
+    } catch (error) {
+      return { error: getErrorMessage(error, 'Message is not verified') };
+    }
+
+    let messages: SuperDmMessage[] = [];
+    try {
+      messages = await this.superDmMessagesService.readMessages(
+        superDm.id,
+        body.senderType === SuperDmMessageSenderType.VIEWER
+          ? SuperDmMessageSenderType.CREATOR
+          : SuperDmMessageSenderType.VIEWER,
+      );
     } catch (error) {
       return { error: getErrorMessage(error, 'Failed to read messages') };
     }
 
-    return { message: 'Messages read successfully' };
+    const messagesDto = messages.map((message) =>
+      serializer(SuperDmMessageDto, message),
+    );
+    this.server
+      .to(`super-dm-${superDm.id}`)
+      .emit('read-messages-updated', messagesDto);
   }
 
   async verifyMessage(params: {
