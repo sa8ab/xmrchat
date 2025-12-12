@@ -1,8 +1,10 @@
 import { io } from "socket.io-client";
 import type { SuperDmMessage } from "~/types";
+import type { SuperDmMessageSenderTypeEnum } from "~/types/enums";
 
 interface SuperDmSocketOptions {
   handleSuperDmMessageEvent?: (superDmMessage: SuperDmMessage) => void;
+  handleReadMessagesUpdatedEvent?: (messages: SuperDmMessage[]) => void;
 }
 
 export const useSuperDmSocket = (options?: SuperDmSocketOptions) => {
@@ -31,6 +33,13 @@ export const useSuperDmSocket = (options?: SuperDmSocketOptions) => {
       "super-dm-message",
       (data: { superDmMessage: SuperDmMessage }) => {
         options?.handleSuperDmMessageEvent?.(data.superDmMessage);
+      }
+    );
+
+    socket.value.on(
+      "read-messages-updated",
+      (data: { messages: SuperDmMessage[] }) => {
+        options?.handleReadMessagesUpdatedEvent?.(data.messages);
       }
     );
   };
@@ -73,10 +82,25 @@ export const useSuperDmSocket = (options?: SuperDmSocketOptions) => {
     return sentMessageBase(params, "streamer-send-message");
   };
 
+  const readMessages = (params: {
+    superDmId: string;
+    senderType: SuperDmMessageSenderTypeEnum;
+    signature: string;
+    date: string;
+  }) => {
+    return new Promise<{ messages: SuperDmMessage[] }>((resolve, reject) => {
+      socket.value?.emit("read-messages", params, (res: any) => {
+        if (res.error) reject(res.error);
+        else resolve(res);
+        console.log("Read messages", res);
+      });
+    });
+  };
   return {
     init,
     disconnect,
     sendMessage,
     streamerSendMessage,
+    readMessages,
   };
 };

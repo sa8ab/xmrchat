@@ -156,6 +156,31 @@ export const useSuperDm = () => {
     };
   };
 
+  const generateDateSignature = async (params: {
+    privateKeyArmored?: string;
+  }) => {
+    if (!params.privateKeyArmored)
+      throw createError("Private key is not found");
+
+    const privateKey = await openpgp.readPrivateKey({
+      armoredKey: params.privateKeyArmored,
+    });
+
+    const date = new Date().toISOString();
+
+    const signatureMessage = await openpgp.createMessage({
+      text: JSON.stringify({ date }),
+    });
+
+    const signature = await openpgp.sign({
+      message: signatureMessage,
+      signingKeys: [privateKey],
+      detached: true,
+    });
+
+    return { date, signature };
+  };
+
   return {
     generateKeys,
     recoverKeys,
@@ -167,5 +192,6 @@ export const useSuperDm = () => {
     getViewerSavedKeys,
     getViewerSavedKey,
     generateMessage,
+    generateDateSignature,
   };
 };

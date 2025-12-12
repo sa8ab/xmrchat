@@ -186,6 +186,8 @@ export class SuperDmsGateway
     @MessageBody() body: ReadMessagesDto,
     @ConnectedSocket() client: Socket,
   ) {
+    console.log('read-messages', body);
+
     if (!body.superDmId) return { error: 'Super DM id is required' };
     if (!body.senderType) return { error: 'Sender type is required' };
     if (!body.signature) return { error: 'Signature is required' };
@@ -193,6 +195,7 @@ export class SuperDmsGateway
 
     const superDm = await this.repo.findOne({
       where: { id: body.superDmId },
+      relations: { page: true },
     });
     if (!superDm) return { error: 'Super DM is not found' };
 
@@ -209,7 +212,7 @@ export class SuperDmsGateway
     if (!publicKeyArmored) return { error: 'Public key is not found' };
 
     try {
-      await this.verifyMessage({
+      await verifySignature({
         message: JSON.stringify({ date: body.date }),
         signature: body.signature,
         publicKeyArmored,
@@ -217,6 +220,10 @@ export class SuperDmsGateway
       });
     } catch (error) {
       return { error: getErrorMessage(error, 'Message is not verified') };
+    }
+
+    if (new Date(body.date) < new Date(Date.now() - 60 * 1000)) {
+      return { error: 'Message is too old' };
     }
 
     let messages: SuperDmMessage[] = [];

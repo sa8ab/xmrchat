@@ -13,7 +13,8 @@ const { axios } = useApp();
 const toast = useToast();
 const modal = useModal();
 
-const { getStreamerSavedKey, generateMessage } = useSuperDm();
+const { getStreamerSavedKey, generateMessage, generateDateSignature } =
+  useSuperDm();
 
 const messageRef = ref<string>();
 const loadingSendMessage = ref(false);
@@ -40,17 +41,35 @@ const { data: keys } = await useLazyAsyncData(
   { server: false }
 );
 
-const { init, streamerSendMessage, disconnect } = useSuperDmSocket({
-  handleSuperDmMessageEvent: (superDmMessage) => {
-    if (data.value?.superDm.messages?.find((m) => m.id === superDmMessage.id))
-      return;
-    data.value?.superDm.messages?.push(superDmMessage);
-  },
-});
+const { init, streamerSendMessage, disconnect, readMessages } =
+  useSuperDmSocket({
+    handleSuperDmMessageEvent: (superDmMessage) => {
+      if (data.value?.superDm.messages?.find((m) => m.id === superDmMessage.id))
+        return;
+      data.value?.superDm.messages?.push(superDmMessage);
+    },
+  });
 
 const initSocket = () => {
   if (!data.value?.superDm || !keys.value) return;
   init(superDmId.value);
+  handleReadMessages();
+};
+
+const handleReadMessages = async () => {
+  try {
+    const { date, signature } = await generateDateSignature({
+      privateKeyArmored: keys.value?.privateKeyArmored,
+    });
+    await readMessages({
+      superDmId: superDmId.value,
+      senderType: SuperDmMessageSenderTypeEnum.CREATOR,
+      signature: signature,
+      date: date,
+    });
+  } catch (error) {
+    toast.add({ description: getErrorMessage(error), color: "red" });
+  }
 };
 
 watch(
