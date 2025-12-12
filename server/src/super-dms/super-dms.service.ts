@@ -70,6 +70,7 @@ export class SuperDmsService {
     const superDm = await this.repo.findOne({
       where: { id },
       relations: { payment: true, messages: true, page: true },
+      order: { messages: { createdAt: 'ASC' } },
     });
 
     if (!superDm) throw new NotFoundException('Super DM is not found.');

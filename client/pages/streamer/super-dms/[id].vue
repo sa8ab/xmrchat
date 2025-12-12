@@ -13,8 +13,16 @@ const { axios } = useApp();
 const toast = useToast();
 const modal = useModal();
 
+const bottomOfMessagesRef = ref<HTMLElement>();
+const messagesContainerRef = ref<HTMLElement>();
+
 const { getStreamerSavedKey, generateMessage, generateDateSignature } =
   useSuperDm();
+
+const { scrollToBottom } = useSuperDmScroll({
+  bottomOfMessagesRef: bottomOfMessagesRef,
+  messagesContainerRef: messagesContainerRef,
+});
 
 const messageRef = ref<string>();
 const loadingSendMessage = ref(false);
@@ -48,6 +56,7 @@ const { init, streamerSendMessage, disconnect, readMessages } =
         return;
       data.value?.superDm.messages?.push(superDmMessage);
       handleReadMessages();
+      scrollToBottom();
     },
     handleReadMessagesUpdatedEvent: (messages) => {
       data.value?.superDm.messages?.forEach((message) => {
@@ -59,10 +68,11 @@ const { init, streamerSendMessage, disconnect, readMessages } =
     },
   });
 
-const initSocket = () => {
+const initSocket = async () => {
   if (!data.value?.superDm || !keys.value) return;
   init(superDmId.value);
   handleReadMessages();
+  scrollToBottom({ ignoreBottom: true, behavior: "instant" });
 };
 
 const handleReadMessages = async () => {
@@ -83,7 +93,7 @@ const handleReadMessages = async () => {
 
 watch(
   [data, keys],
-  () => {
+  ([newData, oldData], [newKeys, oldKeys]) => {
     initSocket();
   },
   { immediate: true }
@@ -154,14 +164,21 @@ const handleSendMessage = async () => {
               />
             </div>
           </div>
-          <div class="flex flex-col gap-4 flex-grow p-6 overflow-y-auto">
-            <SuperDmMessage
-              v-for="message in data?.superDm.messages"
-              :message="message"
-              :privateKey="keys?.privateKeyArmored"
-              :type="SuperDmMessageSenderTypeEnum.CREATOR"
-            />
+          <div
+            ref="messagesContainerRef"
+            class="overflow-y-auto flex flex-1 flex-col"
+          >
+            <div class="flex flex-col gap-4 p-6">
+              <SuperDmMessage
+                v-for="message in data?.superDm.messages"
+                :message="message"
+                :privateKey="keys?.privateKeyArmored"
+                :type="SuperDmMessageSenderTypeEnum.CREATOR"
+              />
+            </div>
+            <div ref="bottomOfMessagesRef"></div>
           </div>
+
           <div>
             <SuperDmMessageField
               v-model="messageRef"

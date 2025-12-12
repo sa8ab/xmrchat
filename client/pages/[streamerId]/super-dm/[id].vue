@@ -8,6 +8,14 @@ const { axios } = useApp();
 const { getViewerSavedKey, generateMessage, generateDateSignature } =
   useSuperDm();
 
+const bottomOfMessagesRef = ref<HTMLElement>();
+const messagesContainerRef = ref<HTMLElement>();
+
+const { scrollToBottom } = useSuperDmScroll({
+  bottomOfMessagesRef: bottomOfMessagesRef,
+  messagesContainerRef: messagesContainerRef,
+});
+
 const superDmId = computed(() => route.params.id as string);
 const pagePath = computed(() => route.params.streamerId as string);
 const toast = useToast();
@@ -65,6 +73,7 @@ const { init, sendMessage, readMessages, disconnect } = useSuperDmSocket({
       return;
     data.value?.superDm.messages?.push(superDmMessage);
     handleReadMessages();
+    scrollToBottom();
   },
 
   handleReadMessagesUpdatedEvent: (messages) => {
@@ -81,6 +90,7 @@ const initSocket = () => {
   if (!data.value?.superDm || !keys.value) return;
   init(superDmId.value);
   handleReadMessages();
+  scrollToBottom({ ignoreBottom: true, behavior: "instant" });
 };
 
 watch(
@@ -193,13 +203,20 @@ const handleSendMessage = async () => {
               />
             </div>
           </div>
-          <div class="flex flex-col gap-4 flex-grow p-6 overflow-y-auto">
-            <SuperDmMessage
-              v-for="message in data?.superDm.messages"
-              :message="message"
-              :page="data?.page"
-              :privateKey="keys?.privateKeyArmored"
-            />
+          <div
+            ref="messagesContainerRef"
+            class="overflow-y-auto flex flex-1 flex-col"
+          >
+            <div class="flex flex-col gap-4 p-6">
+              <SuperDmMessage
+                v-for="message in data?.superDm.messages"
+                :message="message"
+                :page="data?.page"
+                :privateKey="keys?.privateKeyArmored"
+              />
+            </div>
+
+            <div ref="bottomOfMessagesRef"></div>
           </div>
           <div>
             <SuperDmMessageField
