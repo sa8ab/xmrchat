@@ -263,7 +263,10 @@ const handleSubmit = async () => {
         </div>
       </div>
     </GeneralForm>
-    <SuperDmRecoverModal v-model="state.superDmRecoverModalActive" />
+    <SuperDmRecoverModal
+      v-model="state.superDmRecoverModalActive"
+      :pagePath="streamerPage?.path"
+    />
   </div>
 </template>
 

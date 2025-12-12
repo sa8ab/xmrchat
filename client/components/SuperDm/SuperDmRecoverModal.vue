@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import useVuelidate from "@vuelidate/core";
+import type { SuperDm } from "~/types";
 
 const props = defineProps<{
   pagePath?: string;
@@ -9,11 +10,13 @@ const model = defineModel<boolean>();
 const { axios } = useApp();
 const { required } = useValidations();
 const toast = useToast();
-const { validateSamePrivateKeys, saveViewerKeys } = useSuperDm();
+const { validateSamePrivateKeys, saveViewerKeys, recoverKeys } = useSuperDm();
 
 const state = reactive({
   superDmId: "",
   recoveryCode: "",
+
+  loading: false,
 });
 
 const handleHide = () => {
@@ -25,14 +28,21 @@ const handleRecover = async () => {
   if (!valid) return;
 
   try {
-    const { data } = await axios.get(`/super-dms/${state.superDmId}`);
+    state.loading = true;
+    const { data } = await axios.get<{ superDm: SuperDm }>(
+      `/super-dms/${state.superDmId}`
+    );
     if (!data.superDm) {
       throw createError("Super DM not found");
     }
+
+    const keys = recoverKeys(state.recoveryCode);
+
     const samePrivateKeys = await validateSamePrivateKeys(
       data.superDm.publicKey,
-      state.recoveryCode
+      keys.publicKeyArmored
     );
+
     if (!samePrivateKeys) {
       throw createError("Invalid recovery code");
     }
@@ -41,13 +51,17 @@ const handleRecover = async () => {
       throw createError("Page path is required");
     }
 
+    console.log("rgferds");
+
     await saveViewerKeys({
       superDmId: state.superDmId,
       pagePath: props.pagePath,
-      generatedKeys: data.superDm.keys,
+      generatedKeys: keys,
     });
   } catch (error) {
     toast.add({ description: getErrorMessage(error), color: "red" });
+  } finally {
+    state.loading = false;
   }
 };
 
@@ -96,7 +110,9 @@ const { getValidationAttrs } = useValidations(v);
       <template #footer>
         <div class="flex gap-2 justify-end">
           <UButton variant="ghost" @click="handleHide">Cancel</UButton>
-          <UButton @click="handleRecover">Recover</UButton>
+          <UButton @click="handleRecover" :loading="state.loading"
+            >Recover</UButton
+          >
         </div>
       </template>
     </UCard>
