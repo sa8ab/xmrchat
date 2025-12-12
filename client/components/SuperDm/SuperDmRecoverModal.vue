@@ -129,26 +129,38 @@ watch(model, () => {
           />
         </UFormGroup>
 
-        <div v-if="savedKeys?.length" class="pt-2">
+        <div v-if="savedKeys?.length" class="pt-4">
           <UDivider />
-          <p class="pt-2">Saved keys for the page in this browser</p>
-          <div class="pt-2 grid gap-2">
-            <div v-for="item in [...savedKeys, ...savedKeys]" class="">
-              <div class="inline-flex gap-2">
-                <span class="font-medium">Super DM id</span>
-                <span>{{ item.superDmId }}</span>
+          <div class="flex flex-col items-center pt-4">
+            <h3 class="font-medium">Saved keys</h3>
+            <p class="text-sm text-pale text-center">
+              You can use the saved keys to recover the Super DM messages.
+            </p>
+          </div>
+          <div class="pt-6 grid gap-2">
+            <UCard
+              v-for="item in savedKeys"
+              :ui="{
+                body: {
+                  padding: '!p-4',
+                },
+              }"
+            >
+              <div class="flex flex-col">
+                <span class="font-medium whitespace-nowrap">Super DM id:</span>
+                <span class="truncate min-w-0 max-w-[200px]">{{
+                  item.superDmId
+                }}</span>
               </div>
-              <div class="flex justify-end">
+              <div class="flex justify-end pt-2">
                 <UButton
                   :to="toSuperDm(props.pagePath!, item.superDmId)"
                   variant="ghost"
-                  >Use <DirectionalArrow
+                >
+                  Use <DirectionalArrow
                 /></UButton>
               </div>
-              <!-- <div class="inline-flex gap-2">
-                <span class="font-medium">Recovery code</span>
-              </div> -->
-            </div>
+            </UCard>
           </div>
         </div>
       </div>
