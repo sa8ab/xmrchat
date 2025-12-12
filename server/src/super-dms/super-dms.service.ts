@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   Logger,
   NotFoundException,
@@ -8,7 +9,11 @@ import { PageSettingsService } from 'src/page-settings/page-settings.service';
 import { PagesService } from 'src/pages/pages.service';
 import { CreateSuperDmDto } from './dto/create-super-dm.dto';
 import { ConfigService } from '@nestjs/config';
-import { PageSettingKey, SuperDmMessageSenderType } from 'src/shared/constants';
+import {
+  Action,
+  PageSettingKey,
+  SuperDmMessageSenderType,
+} from 'src/shared/constants';
 import { MoneroUtils } from 'monero-ts';
 import { PaymentFlowService } from 'src/payment-flow/payment-flow.service';
 import { InjectRepository } from '@nestjs/typeorm';

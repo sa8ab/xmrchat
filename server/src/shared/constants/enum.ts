@@ -144,6 +144,7 @@ export enum Action {
   MakeTipPrivate = 'make-tip-private',
   MakeTipPublic = 'make-tip-public',
   SendSuperDmMessage = 'send-super-dm-message',
+  ReadSuperDmMessages = 'read-super-dm-messages',
 }
 
 export enum PageRecipientVariant {

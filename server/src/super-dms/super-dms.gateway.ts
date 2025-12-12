@@ -30,6 +30,7 @@ import { getErrorMessage } from 'src/shared/utils/errors';
 import { verifySignature } from 'src/shared/utils/encryption';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
+import { SuperDmMessagesService } from './super-dm-messages.service';
 
 /**
  * @description Gateway for super DMs.
@@ -51,6 +52,7 @@ export class SuperDmsGateway
     private messagesRepo: Repository<SuperDmMessage>,
     private pageSettingsService: PageSettingsService,
     private notificationsService: NotificationsService,
+    private superDmMessagesService: SuperDmMessagesService,
     private casl: CaslAbilityFactory,
   ) {}
 
@@ -174,6 +176,33 @@ export class SuperDmsGateway
     this.handleMessageCreated(created);
 
     return { message: 'message send', superDmMessage: created };
+  }
+
+  @SubscribeMessage('read-messages')
+  @UseGuards(WsAuthGuard)
+  async readMessages(
+    @MessageBody() body: { superDmId: string },
+    @ConnectedSocket() client: Socket,
+  ) {
+    const user = (client as any).user;
+
+    const superDm = await this.repo.findOne({
+      where: { id: body.superDmId },
+      relations: { page: true },
+    });
+    if (!superDm) return { error: 'Super DM is not found' };
+
+    const ability = await this.casl.createForUser(user);
+    if (!ability.can(Action.ReadSuperDmMessages, superDm))
+      return { error: 'Unauthorized' };
+
+    try {
+      await this.superDmMessagesService.readMessages(superDm.id);
+    } catch (error) {
+      return { error: getErrorMessage(error, 'Failed to read messages') };
+    }
+
+    return { message: 'Messages read successfully' };
   }
 
   async verifyMessage(params: {

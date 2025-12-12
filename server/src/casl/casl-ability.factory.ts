@@ -97,6 +97,7 @@ export class CaslAbilityFactory {
 
     // SUPER DM ACTIONS
     can(Action.SendSuperDmMessage, SuperDm, { page: { userId: user.id } });
+    can(Action.ReadSuperDmMessages, SuperDm, { page: { userId: user.id } });
 
     return build({
       detectSubjectType: (item) =>
