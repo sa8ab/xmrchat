@@ -96,8 +96,8 @@ const decryptContent = async (content: string, privateKeyArmored: string) => {
         <span class="text-xs text-pale">{{
           dayjs(message?.createdAt).format("L LT")
         }}</span>
-        <span v-if="showReadIcon">
-          <UIcon name="heroicons:check-circle" />
+        <span v-if="showReadIcon" class="inline-flex">
+          <UIcon name="heroicons:check-20-solid" />
         </span>
       </div>
     </div>
