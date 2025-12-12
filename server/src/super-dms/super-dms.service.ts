@@ -25,6 +25,7 @@ import { User } from 'src/users/user.entity';
 import { EndSuperDmDto } from './dto/end-super-dm.dto';
 import { verifySignature } from 'src/shared/utils/encryption';
 import { SuperDmSettingsService } from './super-dm-settings.service';
+import { NotificationsService } from 'src/notifications/notifications.service';
 
 @Injectable()
 export class SuperDmsService {
@@ -41,6 +42,7 @@ export class SuperDmsService {
     private superDmsGateway: SuperDmsGateway,
     private lwsService: LwsService,
     private superDmSettingsService: SuperDmSettingsService,
+    private notificationsService: NotificationsService,
     @InjectRepository(SuperDm) private repo: Repository<SuperDm>,
   ) {}
 
@@ -198,6 +200,8 @@ export class SuperDmsService {
 
     this.logger.log(`Sending super dm socket event. Super DM Id ${superDm.id}`);
     this.superDmsGateway.notifyPayment(superDm.id, savedPayment);
+
+    await this.notificationsService.handleNewSuperDm(page.id, superDm.id);
 
     try {
       await this.lwsService.deleteWebhook(payment.eventId);

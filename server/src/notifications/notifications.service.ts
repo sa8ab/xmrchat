@@ -34,21 +34,6 @@ export class NotificationsService {
         },
       },
     });
-
-    // return this.emailService.sendEmail(['bwsaeed8@gmail.com'], {
-    //   subject: 'XMRChat new page report',
-    //   text: 'The text',
-    //   template: 'page-report.hbs',
-    //   context: {
-    //     pageId: 10,
-    //     price: '0.001',
-    //     slug: 'slug-of-page',
-    //     userId: '10',
-    //     userName: '',
-    //     time: 'date here',
-    //     lang,
-    //   },
-    // });
   }
 
   sendVerificationEmail(to: string, otp: string) {
@@ -145,6 +130,33 @@ export class NotificationsService {
       await this.notificationDispatcherService.notifyNewTip(pageId, tipId);
     } catch (error) {
       this.logger.error(`Error notifying new tip: ${error}`);
+    }
+  }
+
+  async handleNewSuperDm(pageId: number, superDmId: string) {
+    try {
+      await this.notificationDispatcherService.notifyNewSuperDm(
+        pageId,
+        superDmId,
+      );
+    } catch (error) {
+      this.logger.error(`Error notifying new super DM: ${error}`);
+    }
+  }
+
+  async handleSuperDmMessage(
+    pageId: number,
+    superDmId: string,
+    messageId: number,
+  ) {
+    try {
+      await this.notificationDispatcherService.notifySuperDmMessage(
+        pageId,
+        superDmId,
+        messageId,
+      );
+    } catch (error) {
+      this.logger.error(`Error notifying super DM message: ${error}`);
     }
   }
 

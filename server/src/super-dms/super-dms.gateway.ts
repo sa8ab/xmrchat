@@ -23,6 +23,7 @@ import { WsAuthGuard } from 'src/auth/guards/ws-auth.guard';
 import { PageSettingsService } from 'src/page-settings/page-settings.service';
 import { getErrorMessage } from 'src/shared/utils/errors';
 import { verifySignature } from 'src/shared/utils/encryption';
+import { NotificationsService } from 'src/notifications/notifications.service';
 
 /**
  * @description Gateway for super DMs.
@@ -43,6 +44,7 @@ export class SuperDmsGateway
     @InjectRepository(SuperDmMessage)
     private messagesRepo: Repository<SuperDmMessage>,
     private pageSettingsService: PageSettingsService,
+    private notificationsService: NotificationsService,
   ) {}
 
   @WebSocketServer()
@@ -105,6 +107,12 @@ export class SuperDmsGateway
     await this.messagesRepo.save(created);
 
     this.handleMessageCreated(created);
+
+    await this.notificationsService.handleSuperDmMessage(
+      superDm.pageId,
+      superDm.id,
+      created.id,
+    );
 
     return { message: 'message send', superDmMessage: created };
   }

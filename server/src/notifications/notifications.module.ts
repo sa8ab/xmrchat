@@ -16,6 +16,8 @@ import { TipMessageModule } from 'src/tip-message/tip-message.module';
 import { SignalModule } from './signal/signal.module';
 import { NotificationTestsService } from './notification-tests.service';
 import { QueuesModule } from 'src/queues/queues.module';
+import { SuperDm } from 'src/super-dms/super-dm.entity';
+import { SuperDmMessage } from 'src/super-dms/super-sm-message.entity';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { QueuesModule } from 'src/queues/queues.module';
       Page,
       User,
       Tip,
+      SuperDm,
+      SuperDmMessage,
       NotificationPreference,
       PageSetting,
       IntegrationConfig,

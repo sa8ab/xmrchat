@@ -16,6 +16,7 @@ import { LwsModule } from 'src/lws/lws.module';
 import { SuperDmMessage } from './super-sm-message.entity';
 import { UsersModule } from 'src/users/users.module';
 import { NotificationPreferencesModule } from 'src/notification-preferences/notification-preferences.module';
+import { NotificationsModule } from 'src/notifications/notifications.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { NotificationPreferencesModule } from 'src/notification-preferences/noti
     LwsModule,
     NotificationPreferencesModule,
     UsersModule,
+    NotificationsModule,
     TypeOrmModule.forFeature([SuperDm, SuperDmMessage]),
   ],
   providers: [SuperDmsService, SuperDmSettingsService, SuperDmsGateway],
