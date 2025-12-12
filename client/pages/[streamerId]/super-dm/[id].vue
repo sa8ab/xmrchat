@@ -5,7 +5,8 @@ import { PageSettingKey, SuperDmMessageSenderTypeEnum } from "~/types/enums";
 
 const route = useRoute();
 const { axios } = useApp();
-const { getViewerSavedKey, generateMessage } = useSuperDm();
+const { getViewerSavedKey, generateMessage, generateDateSignature } =
+  useSuperDm();
 
 const superDmId = computed(() => route.params.id as string);
 const pagePath = computed(() => route.params.streamerId as string);
@@ -58,7 +59,7 @@ const { data: keys, refresh: refreshKeys } = await useLazyAsyncData(
   { server: false }
 );
 
-const { init, sendMessage, disconnect } = useSuperDmSocket({
+const { init, sendMessage, readMessages, disconnect } = useSuperDmSocket({
   handleSuperDmMessageEvent: (superDmMessage) => {
     if (data.value?.superDm.messages?.find((m) => m.id === superDmMessage.id))
       return;
@@ -69,6 +70,7 @@ const { init, sendMessage, disconnect } = useSuperDmSocket({
 const initSocket = () => {
   if (!data.value?.superDm || !keys.value) return;
   init(superDmId.value);
+  handleReadMessages();
 };
 
 watch(
@@ -78,6 +80,22 @@ watch(
   },
   { immediate: true }
 );
+
+const handleReadMessages = async () => {
+  try {
+    const { date, signature } = await generateDateSignature({
+      privateKeyArmored: keys.value?.privateKeyArmored,
+    });
+    await readMessages({
+      superDmId: superDmId.value,
+      senderType: SuperDmMessageSenderTypeEnum.VIEWER,
+      signature: signature,
+      date: date,
+    });
+  } catch (error) {
+    toast.add({ description: getErrorMessage(error), color: "red" });
+  }
+};
 
 onBeforeUnmount(() => {
   disconnect();
