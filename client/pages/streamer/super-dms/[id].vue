@@ -47,6 +47,7 @@ const { init, streamerSendMessage, disconnect, readMessages } =
       if (data.value?.superDm.messages?.find((m) => m.id === superDmMessage.id))
         return;
       data.value?.superDm.messages?.push(superDmMessage);
+      handleReadMessages();
     },
     handleReadMessagesUpdatedEvent: (messages) => {
       data.value?.superDm.messages?.forEach((message) => {

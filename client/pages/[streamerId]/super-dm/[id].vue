@@ -64,6 +64,7 @@ const { init, sendMessage, readMessages, disconnect } = useSuperDmSocket({
     if (data.value?.superDm.messages?.find((m) => m.id === superDmMessage.id))
       return;
     data.value?.superDm.messages?.push(superDmMessage);
+    handleReadMessages();
   },
 
   handleReadMessagesUpdatedEvent: (messages) => {
