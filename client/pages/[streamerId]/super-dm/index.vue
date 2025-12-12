@@ -15,6 +15,8 @@ const { saveViewerKeys } = useSuperDm();
 const { toSuperDm } = useRouteLocation();
 const contentRef = ref<InstanceType<typeof SuperDmContent> | undefined>();
 
+const superDmRecoverModalActive = ref(false);
+
 const { state: generalState } = useGeneralStore();
 
 const { data, pending, refresh, error } = await useLazyAsyncData(
@@ -74,6 +76,10 @@ const handlePaid = async () => {
   contentRef.value?.reset();
 };
 
+const handleRecover = () => {
+  superDmRecoverModalActive.value = true;
+};
+
 defineOgImage(false);
 useStreamerIdSeoMeta(computed(() => data.value?.page));
 </script>
@@ -96,6 +102,7 @@ useStreamerIdSeoMeta(computed(() => data.value?.page));
           :streamerPage="data.page"
           :settings="data.superDmSettings"
           @done="handlePayment"
+          @recover="handleRecover"
         />
 
         <SuperDmPaymentModal
@@ -106,6 +113,11 @@ useStreamerIdSeoMeta(computed(() => data.value?.page));
           @paid="handlePaid"
         />
       </template>
+
+      <SuperDmRecoverModal
+        v-model="superDmRecoverModalActive"
+        :pagePath="data?.page.path"
+      />
     </PendingView>
   </div>
 </template>

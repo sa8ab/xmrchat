@@ -16,6 +16,7 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{
   done: [{ created: SuperDmResponse; keys: GeneratedKeys }];
+  recover: [];
 }>();
 
 const coins = useState<Coin[]>("coins");
@@ -47,7 +48,6 @@ interface State {
   loading: boolean;
   errorMessage?: string;
   selectedCoin?: number;
-  superDmRecoverModalActive: boolean;
 }
 
 const state = reactive<State>({
@@ -58,7 +58,6 @@ const state = reactive<State>({
   loading: false,
   errorMessage: undefined,
   selectedCoin: undefined,
-  superDmRecoverModalActive: false,
 });
 
 const v = useVuelidate<State["form"]>(
@@ -253,20 +252,12 @@ const handleSubmit = async () => {
           >
             Start Super DM
           </UButton>
-          <UButton
-            variant="ghost"
-            size="lg"
-            @click="state.superDmRecoverModalActive = true"
-          >
+          <UButton variant="ghost" size="lg" @click="emit('recover')">
             Open Super DM
           </UButton>
         </div>
       </div>
     </GeneralForm>
-    <SuperDmRecoverModal
-      v-model="state.superDmRecoverModalActive"
-      :pagePath="streamerPage?.path"
-    />
   </div>
 </template>
 
