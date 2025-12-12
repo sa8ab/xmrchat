@@ -11,6 +11,7 @@ const { axios } = useApp();
 const { required } = useValidations();
 const toast = useToast();
 const { validateSamePrivateKeys, saveViewerKeys, recoverKeys } = useSuperDm();
+const { toSuperDm } = useRouteLocation();
 
 const state = reactive({
   superDmId: "",
@@ -58,6 +59,8 @@ const handleRecover = async () => {
       pagePath: props.pagePath,
       generatedKeys: keys,
     });
+
+    await navigateTo(toSuperDm(props.pagePath, data.superDm.id));
   } catch (error) {
     toast.add({ description: getErrorMessage(error), color: "red" });
   } finally {
