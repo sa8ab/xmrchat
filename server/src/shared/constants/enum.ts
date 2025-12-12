@@ -121,6 +121,7 @@ export enum IntegrationConfigMethod {
 export enum NotificationPreferenceType {
   NEW_TIP = 'new_tip',
   DAILY_SUMMARY = 'daily_summary',
+  SUPER_DM = 'super_dm',
 }
 
 export enum NotificationChannelEnum {

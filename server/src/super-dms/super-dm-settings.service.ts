@@ -3,14 +3,20 @@ import { PagesService } from 'src/pages/pages.service';
 import { User } from 'src/users/user.entity';
 import { UpdateSuperDmSettingDto } from './dto/update-super-dm-setting.dto';
 import { PageSettingsService } from 'src/page-settings/page-settings.service';
-import { PageSettingCategory, PageSettingKey } from 'src/shared/constants';
+import {
+  NotificationPreferenceType,
+  PageSettingCategory,
+  PageSettingKey,
+} from 'src/shared/constants';
 import { Page } from 'src/pages/page.entity';
+import { NotificationPreferencesService } from 'src/notification-preferences/notification-preferences.service';
 
 @Injectable()
 export class SuperDmSettingsService {
   constructor(
     private pagesService: PagesService,
     private pageSettingsService: PageSettingsService,
+    private notificationPreferencesService: NotificationPreferencesService,
   ) {}
 
   async updateSettings(dto: UpdateSuperDmSettingDto, user: User) {
@@ -63,9 +69,28 @@ export class SuperDmSettingsService {
     return Boolean(publicKey);
   }
 
+  async notificationsActive(page: Page) {
+    const preferences =
+      await this.notificationPreferencesService.getNotificationPreferences(
+        page.id,
+      );
+    const superDmPreferences = preferences?.filter(
+      (preference) => preference.type === NotificationPreferenceType.SUPER_DM,
+    );
+
+    const enabledPreferences = superDmPreferences?.filter(
+      (preference) => preference.enabled,
+    );
+
+    return Boolean(enabledPreferences.length);
+  }
+
   async isSuperDmActive(page: Page) {
     const settingsConfigured = await this.settingsConfigured(page);
     if (!settingsConfigured) return false;
+
+    const notificationsActive = await this.notificationsActive(page);
+    if (!notificationsActive) return false;
 
     const active = await this.pageSettingsService.getSettingValue(
       page.path,

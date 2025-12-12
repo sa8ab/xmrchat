@@ -76,8 +76,10 @@ export class SuperDmsController {
     const superDms = await this.superDmsService.findAll(user);
     const settingsConfigured =
       await this.superDmSettingsService.settingsConfigured(page);
+    const notificationsActive =
+      await this.superDmSettingsService.notificationsActive(page);
 
-    return { superDms, settingsConfigured };
+    return { superDms, settingsConfigured, notificationsActive };
   }
 
   @Get('/:id')
