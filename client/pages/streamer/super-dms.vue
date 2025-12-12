@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SuperDmNotConfigured from "~/components/SuperDm/SuperDmNotConfigured.vue";
 import type { SuperDm } from "~/types";
 
 const { axios } = useApp();
@@ -11,6 +12,7 @@ const { data, error, pending } = useLazyAsyncData(
     const { data } = await axios.get<{
       superDms: SuperDm[];
       settingsConfigured: boolean;
+      notificationsActive: boolean;
     }>("/super-dms");
 
     return data;
@@ -34,8 +36,12 @@ const hideSuperDmLayout = computed<boolean | undefined>(
     ></PageTitle>
 
     <template v-if="!hideSuperDmLayout">
-      <SuperDmDisabled
-        v-if="!data?.settingsConfigured && !pending"
+      <SuperDmNotConfigured
+        v-if="
+          (!data?.settingsConfigured || !data?.notificationsActive) && !pending
+        "
+        :settingsConfigured="data?.settingsConfigured"
+        :notificationsActive="data?.notificationsActive"
         class="mb-6"
       />
 

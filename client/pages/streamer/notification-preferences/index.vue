@@ -165,13 +165,6 @@ const isPremium = computed(() => authStore.isPremiumOrAdmin);
 
     <PremiumAlert v-if="!isPremium" class="mb-6" />
 
-    <!-- <div class="text-center" v-if="!isPremium">
-      <p class="text-2xl font-bold">{{ $t("comingSoon") }}</p>
-      <p class="mt-2">
-        {{ $t("featureAvailableSoon") }}
-      </p>
-    </div> -->
-
     <ErrorView :error="error" v-if="error" />
 
     <GeneralForm @submit="handleSave" v-else>
