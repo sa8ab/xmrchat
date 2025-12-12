@@ -3,9 +3,12 @@ const props = withDefaults(
   defineProps<{
     text?: string;
     showIcon?: boolean;
+    size?: string;
+    buttonVariant?: any;
   }>(),
   {
     showIcon: true,
+    size: "lg",
   }
 );
 
@@ -28,14 +31,15 @@ const copy = () => {
 
 <template>
   <div class="payment-address-input flex items-center gap-1 w-full">
-    <UInput disabled :modelValue="text" class="w-full cursor-none" size="lg">
+    <UInput readonly :modelValue="text" class="w-full cursor-none" size="lg">
     </UInput>
     <UButton
       class="button"
-      size="sm"
+      size="lg"
       @click="copy"
       :square="showIcon"
       :icon="showIcon ? 'i-heroicons-clipboard' : undefined"
+      :variant="buttonVariant"
     >
       {{ showIcon ? "" : "Copy Text" }}
     </UButton>

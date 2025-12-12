@@ -21,10 +21,10 @@ const emit = defineEmits<{
     </UAlert>
 
     <UFormGroup label="Super DM id">
-      <UInput readonly :modelValue="superDmId" />
+      <CopyInput :text="superDmId" :showIcon="false" buttonVariant="soft" />
     </UFormGroup>
     <UFormGroup label="Recovery key">
-      <UInput readonly :modelValue="recoveryKey" />
+      <CopyInput :text="recoveryKey" :showIcon="false" buttonVariant="soft" />
     </UFormGroup>
     <div class="flex justify-center">
       <UButton @click="emit('saved')" size="lg">
