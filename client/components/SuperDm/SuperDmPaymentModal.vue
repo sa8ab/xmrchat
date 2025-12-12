@@ -91,6 +91,10 @@ const renderCancelText = computed(() => {
 });
 
 const showKeys = ref(true);
+
+provide("paymentModalProvideKey", {
+  minMinAmountKey: "superDmWalletMinimum",
+});
 </script>
 
 <template>

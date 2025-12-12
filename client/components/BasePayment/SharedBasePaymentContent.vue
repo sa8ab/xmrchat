@@ -17,6 +17,10 @@ const emit = defineEmits<{
   expired: [];
 }>();
 
+const paymentModalInject = inject<{ minMinAmountKey?: string }>(
+  "paymentModalProvideKey"
+);
+
 const authStore = useAuthStore();
 
 const showWalletWarning = computed(
@@ -57,7 +61,12 @@ const showWalletWarning = computed(
       <UAlert v-if="amount" color="emerald" variant="subtle">
         <template #description>
           <p class="text-base">
-            <I18nT keypath="tipWalletMinimum" scope="global">
+            <I18nT
+              :keypath="
+                paymentModalInject?.minMinAmountKey || 'tipWalletMinimum'
+              "
+              scope="global"
+            >
               <template #minimumAmount>
                 <span class="font-bold">{{ amount }}</span>
               </template>
