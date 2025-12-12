@@ -195,7 +195,11 @@ const handleSendMessage = async () => {
                 <span class="text-sm text-pale">{{ data?.page.path }}</span>
               </div>
             </div>
-            <div class="flex items-center">
+            <div class="flex items-center gap-1 ms-auto">
+              <SuperDmShowRecovery
+                :pagePath="pagePath"
+                :superDmId="data?.superDm.id"
+              />
               <SuperDmEnd
                 :superDm="data?.superDm"
                 :privateKeyArmored="keys?.privateKeyArmored"
