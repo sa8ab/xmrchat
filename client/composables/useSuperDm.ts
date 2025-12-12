@@ -75,6 +75,15 @@ export const useSuperDm = () => {
   }) => {
     let savedPageKeys = await idb.get(`super-dm-${params.pagePath}`);
     savedPageKeys = savedPageKeys || [];
+    const existingKey = savedPageKeys.find(
+      (key: SavedViewerSuperDmKeys) => key.superDmId === params.superDmId
+    );
+
+    if (existingKey) {
+      savedPageKeys = savedPageKeys.filter(
+        (key: SavedViewerSuperDmKeys) => key.superDmId !== existingKey.superDmId
+      );
+    }
 
     savedPageKeys.push({
       superDmId: params.superDmId,
