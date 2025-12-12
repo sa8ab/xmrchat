@@ -182,12 +182,7 @@ export class SuperDmsGateway
   }
 
   @SubscribeMessage('read-messages')
-  async readMessages(
-    @MessageBody() body: ReadMessagesDto,
-    @ConnectedSocket() client: Socket,
-  ) {
-    console.log('read-messages', body);
-
+  async readMessages(@MessageBody() body: ReadMessagesDto) {
     if (!body.superDmId) return { error: 'Super DM id is required' };
     if (!body.senderType) return { error: 'Sender type is required' };
     if (!body.signature) return { error: 'Signature is required' };
@@ -241,9 +236,12 @@ export class SuperDmsGateway
     const messagesDto = messages.map((message) =>
       serializer(SuperDmMessageDto, message),
     );
-    this.server
-      .to(`super-dm-${superDm.id}`)
-      .emit('read-messages-updated', messagesDto);
+
+    if (messagesDto.length) {
+      this.server
+        .to(`super-dm-${superDm.id}`)
+        .emit('read-messages-updated', { messages: messagesDto });
+    }
   }
 
   async verifyMessage(params: {

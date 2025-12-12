@@ -48,6 +48,14 @@ const { init, streamerSendMessage, disconnect, readMessages } =
         return;
       data.value?.superDm.messages?.push(superDmMessage);
     },
+    handleReadMessagesUpdatedEvent: (messages) => {
+      data.value?.superDm.messages?.forEach((message) => {
+        const updatedMessage = messages?.find((m) => m.id === message.id);
+        if (updatedMessage) {
+          message.read = updatedMessage.read;
+        }
+      });
+    },
   });
 
 const initSocket = () => {

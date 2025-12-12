@@ -26,6 +26,10 @@ const showUser = computed(() => {
   return props.message?.senderType === SuperDmMessageSenderTypeEnum.CREATOR;
 });
 
+const showReadIcon = computed(() => {
+  return props.message?.read && props.type === props.message?.senderType;
+});
+
 const wrapperClass = computed(() => {
   return side.value === "start" ? "flex-row" : "flex-row-reverse";
 });
@@ -88,10 +92,13 @@ const decryptContent = async (content: string, privateKeyArmored: string) => {
           {{ getErrorMessage(error) }}
         </div>
       </div>
-      <div :class="['flex pt-2 justify-end']">
+      <div :class="['flex pt-2 justify-end items-center gap-1']">
         <span class="text-xs text-pale">{{
           dayjs(message?.createdAt).format("L LT")
         }}</span>
+        <span v-if="showReadIcon">
+          <UIcon name="heroicons:check-circle" />
+        </span>
       </div>
     </div>
   </div>
