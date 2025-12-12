@@ -12,6 +12,7 @@ const { axios } = useApp();
 const streamerId = computed(() => route.params.streamerId as string);
 const { getStreamerPage } = useServices();
 const { saveViewerKeys } = useSuperDm();
+const { toSuperDm } = useRouteLocation();
 const contentRef = ref<InstanceType<typeof SuperDmContent> | undefined>();
 
 const { state: generalState } = useGeneralStore();
@@ -64,7 +65,11 @@ const handlePaid = async () => {
     pagePath: streamerId.value,
     generatedKeys: created.value?.keys as GeneratedKeys,
   });
+
   paymentModalActive.value = false;
+  await navigateTo(
+    toSuperDm(streamerId.value, created.value?.created.superDm.id as string)
+  );
   created.value = undefined;
   contentRef.value?.reset();
 };
