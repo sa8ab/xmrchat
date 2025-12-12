@@ -52,6 +52,7 @@ const handleRetry = () => {
 
 const cancelPayment = () => {
   disconnect();
+  showKeys.value = true;
   partialPaymentAmount.value = undefined;
   emit("cancel");
 };
@@ -101,7 +102,7 @@ provide("paymentModalProvideKey", {
   <UModal v-model="active" preventClose>
     <BasePaymentCard
       title="Start Super DM"
-      @cancel="emit('cancel')"
+      @cancel="cancelPayment"
       :cancelText="renderCancelText"
     >
       <div class="flex mb-2" v-if="!showKeys">
@@ -122,7 +123,6 @@ provide("paymentModalProvideKey", {
         <SwapBasePaymentContent
           v-if="created?.swap"
           @retry="handleRetry"
-          @cancel="cancelPayment"
           :data="basePaymentData"
           :connectionStatus="connectionStatus"
         >
@@ -133,7 +133,6 @@ provide("paymentModalProvideKey", {
           :connectionStatus="connectionStatus"
           :slug="slug"
           :partialPaymentAmount="partialPaymentAmount"
-          @cancel="cancelPayment"
           @retry="handleRetry"
         >
         </BasePaymentContent>
