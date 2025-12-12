@@ -13,6 +13,7 @@ import { PageSetting } from 'src/page-settings/page-setting.entity';
 import { PageTipTier } from 'src/page-tip-tiers/page-tip-tier.entity';
 import { Page } from 'src/pages/page.entity';
 import { Action, PageSettingKey, RolesEnum } from 'src/shared/constants/enum';
+import { SuperDm } from 'src/super-dms/super-dm.entity';
 import { Tip } from 'src/tips/tip.entity';
 import { User } from 'src/users/user.entity';
 import { Repository } from 'typeorm';
@@ -93,6 +94,9 @@ export class CaslAbilityFactory {
     can(Action.MakeTipPublic, Page, { userId: user.id });
     // Only make private if cohost
     can(Action.MakeTipPrivate, Page, { id: user.cohostPageId });
+
+    // SUPER DM ACTIONS
+    can(Action.SendSuperDmMessage, SuperDm, { page: { userId: user.id } });
 
     return build({
       detectSubjectType: (item) =>

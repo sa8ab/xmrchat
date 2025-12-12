@@ -1,5 +1,6 @@
 import { Logger, UseGuards } from '@nestjs/common';
 import {
+  ConnectedSocket,
   MessageBody,
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -18,12 +19,17 @@ import { Repository } from 'typeorm';
 import { SuperDm } from './super-dm.entity';
 import * as openpgp from 'openpgp';
 import { SuperDmMessage } from './super-sm-message.entity';
-import { PageSettingKey, SuperDmMessageSenderType } from 'src/shared/constants';
+import {
+  Action,
+  PageSettingKey,
+  SuperDmMessageSenderType,
+} from 'src/shared/constants';
 import { WsAuthGuard } from 'src/auth/guards/ws-auth.guard';
 import { PageSettingsService } from 'src/page-settings/page-settings.service';
 import { getErrorMessage } from 'src/shared/utils/errors';
 import { verifySignature } from 'src/shared/utils/encryption';
 import { NotificationsService } from 'src/notifications/notifications.service';
+import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 
 /**
  * @description Gateway for super DMs.
@@ -45,6 +51,7 @@ export class SuperDmsGateway
     private messagesRepo: Repository<SuperDmMessage>,
     private pageSettingsService: PageSettingsService,
     private notificationsService: NotificationsService,
+    private casl: CaslAbilityFactory,
   ) {}
 
   @WebSocketServer()
@@ -119,7 +126,10 @@ export class SuperDmsGateway
 
   @SubscribeMessage('streamer-send-message')
   @UseGuards(WsAuthGuard)
-  async streamerSendMessage(@MessageBody() body: SendMessageDto) {
+  async streamerSendMessage(
+    @MessageBody() body: SendMessageDto,
+    @ConnectedSocket() client: Socket,
+  ) {
     if (!body.superDmId) return { error: 'Super DM id is required' };
 
     const superDm = await this.repo.findOne({
@@ -129,6 +139,12 @@ export class SuperDmsGateway
     if (!superDm) return { error: 'Super DM is not found' };
 
     if (superDm.endedAt) return { error: 'Super DM is ended.' };
+
+    const user = (client as any).user;
+    const ability = await this.casl.createForUser(user);
+
+    if (!ability.can(Action.SendSuperDmMessage, superDm))
+      return { error: 'Unauthorized' };
 
     const pagePublicKeyArmored = await this.pageSettingsService.getSettingValue(
       superDm.page.path,

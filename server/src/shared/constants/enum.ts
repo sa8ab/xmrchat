@@ -143,6 +143,7 @@ export enum Action {
   SendObsMessage = 'send-obs-message',
   MakeTipPrivate = 'make-tip-private',
   MakeTipPublic = 'make-tip-public',
+  SendSuperDmMessage = 'send-super-dm-message',
 }
 
 export enum PageRecipientVariant {
