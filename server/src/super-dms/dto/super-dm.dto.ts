@@ -51,4 +51,7 @@ export class SuperDmsRO {
 
   @Expose()
   settingsConfigured: boolean;
+
+  @Expose()
+  notificationsActive: boolean;
 }
