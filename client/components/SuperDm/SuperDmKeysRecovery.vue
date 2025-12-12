@@ -4,6 +4,7 @@ import useVuelidate from "@vuelidate/core";
 const props = defineProps<{
   superDmId?: string;
   pagePath?: string;
+  superDmPublicKeyArmored?: string;
 }>();
 
 const emit = defineEmits<{
@@ -14,7 +15,7 @@ const state = reactive({
   recoveryKey: "",
 });
 
-const { recoverKeys, saveViewerKeys } = useSuperDm();
+const { recoverKeys, saveViewerKeys, validateSamePrivateKeys } = useSuperDm();
 
 const { required } = useValidations();
 const toast = useToast();
@@ -25,9 +26,16 @@ const handleRecover = async () => {
 
   try {
     const keys = recoverKeys(state.recoveryKey);
-    if (!props.superDmId || !props.pagePath) {
+    if (!props.superDmId || !props.pagePath || !props.superDmPublicKeyArmored) {
       throw createError("Super DM id and page path are required");
     }
+    const samePrivateKeys = await validateSamePrivateKeys(
+      keys.publicKeyArmored,
+      props.superDmPublicKeyArmored
+    );
+
+    if (!samePrivateKeys) throw createError("Invalid recovery code");
+
     await saveViewerKeys({
       superDmId: props.superDmId,
       pagePath: props.pagePath,

@@ -168,6 +168,7 @@ const handleSendMessage = async () => {
       <div v-if="!keys">
         <SuperDmKeysRecovery
           :superDmId="data?.superDm.id"
+          :superDmPublicKeyArmored="data?.superDm.publicKey"
           :pagePath="pagePath"
           @recovered="refreshKeys"
         />
