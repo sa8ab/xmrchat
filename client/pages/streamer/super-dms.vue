@@ -65,6 +65,9 @@ const hideSuperDmLayout = computed<boolean | undefined>(
           <template v-if="pending && !data">
             <SuperDmItemSkeleton v-for="x in 4" />
           </template>
+          <template v-else-if="!data?.superDms.length">
+            <NoItems text="No Super DMs yet." />
+          </template>
           <template v-else>
             <SuperDmItem v-for="item in data?.superDms" :superDm="item" />
           </template>
