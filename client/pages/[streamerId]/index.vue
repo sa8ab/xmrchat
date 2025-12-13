@@ -18,17 +18,17 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
   `streamer-${streamerId.value}`,
   async () => {
     const pageR = getStreamerPage(streamerId.value);
-    const superDmActiveR = axios.get<{ active: boolean }>(
-      `/super-dms/${streamerId.value}/settings/active`
+    const superDmStateR = axios.get<{ active: boolean; configured: boolean }>(
+      `/super-dms/${streamerId.value}/settings/state`
     );
 
-    const [page, { data: superDmActive }] = await Promise.all([
+    const [page, { data: superDmState }] = await Promise.all([
       pageR,
-      superDmActiveR,
+      superDmStateR,
     ]);
     return {
       page,
-      superDmActive,
+      superDmState,
     };
   },
   {
@@ -84,7 +84,7 @@ useStreamerIdSeoMeta(computed(() => data.value?.page));
           ref="contentRef"
           :streamerId="streamerId"
           :streamerPage="data.page"
-          :superDmActive="data.superDmActive.active"
+          :superDmActive="data.superDmState.active"
           @done="handlePayment"
         />
         <TipPaymentModal

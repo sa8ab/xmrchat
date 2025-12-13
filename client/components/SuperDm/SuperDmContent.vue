@@ -13,6 +13,7 @@ const props = defineProps<{
   streamerId: string;
   streamerPage?: StreamerPage | null;
   settings?: PageSetting[] | null;
+  superDmConfigured?: boolean;
 }>();
 const emit = defineEmits<{
   done: [{ created: SuperDmResponse; keys: GeneratedKeys }];
@@ -252,7 +253,12 @@ const handleSubmit = async () => {
           >
             Start Super DM
           </UButton>
-          <UButton variant="ghost" size="lg" @click="emit('recover')">
+          <UButton
+            v-if="superDmConfigured"
+            variant="ghost"
+            size="lg"
+            @click="emit('recover')"
+          >
             Open Super DM
           </UButton>
         </div>

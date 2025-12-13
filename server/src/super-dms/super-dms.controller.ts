@@ -58,14 +58,19 @@ export class SuperDmsController {
     return { message: 'Public key updated' };
   }
 
-  @Get('/:pageSlug/settings/active')
+  @Get('/:pageSlug/settings/state')
   @IsPublic()
-  async settingsActive(@Param('pageSlug') pageSlug: string) {
+  async settingsState(@Param('pageSlug') pageSlug: string) {
     const page = await this.pagesService.findByPath(pageSlug);
     if (!page) throw new NotFoundException('Page not found');
 
     const active = await this.superDmSettingsService.isSuperDmActive(page);
-    return { active };
+    const settingsConfigured =
+      await this.superDmSettingsService.settingsConfigured(page);
+    const notificationsActive =
+      await this.superDmSettingsService.notificationsActive(page);
+
+    return { active, configured: notificationsActive && settingsConfigured };
   }
 
   @Get('/')

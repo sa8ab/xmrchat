@@ -26,13 +26,20 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
     const superDmSettingsRequest = axios.get<{ settings: PageSetting[] }>(
       `/page-settings/${streamerId.value}/super-dm`
     );
-    const [page, { data: superDmSettings }] = await Promise.all([
-      pageRequest,
-      superDmSettingsRequest,
-    ]);
+    const superDmStateRequest = axios.get<{
+      active: boolean;
+      configured: boolean;
+    }>(`/super-dms/${streamerId.value}/settings/state`);
+    const [page, { data: superDmSettings }, { data: superDmState }] =
+      await Promise.all([
+        pageRequest,
+        superDmSettingsRequest,
+        superDmStateRequest,
+      ]);
     return {
       page,
       superDmSettings: superDmSettings.settings,
+      superDmState,
     };
   },
   {
@@ -101,6 +108,7 @@ useStreamerIdSeoMeta(computed(() => data.value?.page));
           :streamerId="streamerId"
           :streamerPage="data.page"
           :settings="data.superDmSettings"
+          :superDmConfigured="data.superDmState.configured"
           @done="handlePayment"
           @recover="handleRecover"
         />
