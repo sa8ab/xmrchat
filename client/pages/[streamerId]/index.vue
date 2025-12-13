@@ -19,7 +19,7 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
   async () => {
     const pageR = getStreamerPage(streamerId.value);
     const superDmActiveR = axios.get<{ active: boolean }>(
-      `/super-dms/settings/active`
+      `/super-dms/${streamerId.value}/settings/active`
     );
 
     const [page, { data: superDmActive }] = await Promise.all([
