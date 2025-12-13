@@ -72,7 +72,7 @@ const hideSuperDmLayout = computed<boolean | undefined>(
       </div>
 
       <div class="md:ps-2">
-        <NuxtPage />
+        <NuxtPage :superDmsCount="data?.superDms.length" :pending="pending" />
       </div>
     </div>
   </div>
