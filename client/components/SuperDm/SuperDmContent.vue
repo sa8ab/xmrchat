@@ -158,7 +158,7 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div class="pt-5 md:pt-10">
+  <div class="pt-2 md:pt-5">
     <GeneralForm @submit="handleSubmit">
       <div class="grid gap-6">
         <div class="both">

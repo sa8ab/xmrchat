@@ -89,20 +89,29 @@ const handleRecover = () => {
 
 defineOgImage(false);
 useStreamerIdSeoMeta(computed(() => data.value?.page));
+
+const pageName = computed(() => data.value?.page.name || data.value?.page.path);
 </script>
 
 <template>
-  <div class="inner pt-4">
+  <div class="inner pt-4 !max-w-[800px]">
     <PendingView :pending="pending" :error="error">
       <template v-if="data">
-        <StreamerHeader
-          class="pt-2"
-          :bannerUrl="data.page.coverImage.url"
-          :liveStreams="data.page.liveStreams"
-          :logoUrl="data.page.logo.url"
-          :name="data.page.name"
-          :links="data.page.links"
-        />
+        <div class="flex items-center gap-2 pt-6">
+          <GeneralImage
+            :url="data.page.logo.url"
+            variant="logo"
+            class="logo w-20 h-20"
+          />
+          <span class="text-lg lg:text-2xl font-bold">{{ pageName }}</span>
+        </div>
+
+        <p class="text-sm text-pale pt-6 max-w-[400px]">
+          Start or continue your SuperDM private conversation with
+          {{ pageName }}. The conversation is fully end to end encrypted. After
+          starting a SuperDM, you'll need the SuperDM ID and recovery code, or
+          the saved key in your browser to return to it.
+        </p>
         <SuperDmContent
           ref="contentRef"
           :streamerId="streamerId"

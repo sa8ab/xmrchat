@@ -298,7 +298,7 @@ const renderInputPadding = computed(
             variant="ghost"
             icon="i-heroicons-chat-bubble-left-right"
           >
-            Start Super DM
+            SuperDM
           </UButton>
         </div>
       </UForm>
