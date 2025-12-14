@@ -47,7 +47,7 @@ const {
   async () => {
     const content = props.message?.content;
     if (!content || !props.privateKey)
-      throw createError("Content or private key is missing");
+      throw createError("Content or private key is missing. Enter your recovery code in SuperDM settings to see messages.");
     return await decryptContent(content, props.privateKey);
   },
   { server: false }
