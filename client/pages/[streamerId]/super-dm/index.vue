@@ -106,7 +106,7 @@ const pageName = computed(() => data.value?.page.name || data.value?.page.path);
           <span class="text-lg lg:text-2xl font-bold">{{ pageName }}</span>
         </div>
 
-        <p class="text-sm text-pale pt-6 max-w-[400px]">
+        <p class="text-sm text-pale pt-6">
           Start or continue your SuperDM private conversation with
           {{ pageName }}. The conversation is fully end to end encrypted. After
           starting a SuperDM, you'll need the SuperDM ID and recovery code, or
