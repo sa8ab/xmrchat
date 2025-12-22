@@ -290,7 +290,7 @@ const renderInputPadding = computed(
             {{ $t("sendTip") }}
             <DirectionalArrow />
           </UButton>
-          <UButton
+          <!-- <UButton
             v-if="superDmActive"
             :to="toSuperDmCreate(streamerId)"
             size="lg"
@@ -299,7 +299,7 @@ const renderInputPadding = computed(
             icon="i-heroicons-chat-bubble-left-right"
           >
             SuperDM
-          </UButton>
+          </UButton> -->
         </div>
       </UForm>
     </div>

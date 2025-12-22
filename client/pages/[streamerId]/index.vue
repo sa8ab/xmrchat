@@ -79,6 +79,8 @@ useStreamerIdSeoMeta(computed(() => data.value?.page));
           :logoUrl="data.page.logo.url"
           :name="data.page.name"
           :links="data.page.links"
+          :superDmActive="data.superDmState.active"
+          :streamerId="streamerId"
         />
         <TipContent
           ref="contentRef"
