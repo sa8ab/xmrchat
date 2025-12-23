@@ -102,13 +102,45 @@ watch(model, () => {
   <UModal v-model="model">
     <UCard>
       <template #header>
-        <h2 class="text-lg font-medium">Recover Super DM</h2>
+        <h2 class="text-lg font-medium">Continue SuperDM</h2>
       </template>
       <div class="grid gap-2">
-        <p>
-          Enter the Super DM id and recovery code of the Super DM you want to
-          recover.
-        </p>
+        <div v-if="savedKeys?.length">
+          <div class="flex flex-col items-center">
+            <h3 class="font-medium">Saved keys</h3>
+            <p class="text-sm text-pale text-center">
+              You can use the saved keys to continue the Super DM messages.
+            </p>
+          </div>
+          <div class="pt-6 grid gap-2">
+            <UCard
+              v-for="item in savedKeys"
+              class="min-w-0"
+              :ui="{
+                body: {
+                  padding: '!p-4',
+                },
+              }"
+            >
+              <div class="flex flex-col">
+                <span class="font-medium whitespace-nowrap">Super DM id:</span>
+                <span class="truncate">{{ item.superDmId }}</span>
+              </div>
+              <div class="flex justify-end pt-2">
+                <UButton
+                  :to="toSuperDm(props.pagePath!, item.superDmId)"
+                  variant="ghost"
+                >
+                  Use <DirectionalArrow
+                /></UButton>
+              </div>
+            </UCard>
+          </div>
+
+          <UDivider class="my-4" label="OR" />
+        </div>
+
+        <p class="text-center">Enter the Super DM id and recovery code.</p>
 
         <UFormGroup
           label="Super DM id"
@@ -128,47 +160,12 @@ watch(model, () => {
             @blur="getValidationAttrs('recoveryCode').onBlur"
           />
         </UFormGroup>
-
-        <div v-if="savedKeys?.length" class="pt-4">
-          <UDivider />
-          <div class="flex flex-col items-center pt-4">
-            <h3 class="font-medium">Saved keys</h3>
-            <p class="text-sm text-pale text-center">
-              You can use the saved keys to recover the Super DM messages.
-            </p>
-          </div>
-          <div class="pt-6 grid gap-2">
-            <UCard
-              v-for="item in savedKeys"
-              :ui="{
-                body: {
-                  padding: '!p-4',
-                },
-              }"
-            >
-              <div class="flex flex-col">
-                <span class="font-medium whitespace-nowrap">Super DM id:</span>
-                <span class="truncate min-w-0 max-w-[200px]">{{
-                  item.superDmId
-                }}</span>
-              </div>
-              <div class="flex justify-end pt-2">
-                <UButton
-                  :to="toSuperDm(props.pagePath!, item.superDmId)"
-                  variant="ghost"
-                >
-                  Use <DirectionalArrow
-                /></UButton>
-              </div>
-            </UCard>
-          </div>
-        </div>
       </div>
       <template #footer>
         <div class="flex gap-2 justify-end">
           <UButton variant="ghost" @click="handleHide">Cancel</UButton>
           <UButton @click="handleRecover" :loading="state.loading">
-            Recover
+            Continue
           </UButton>
         </div>
       </template>
