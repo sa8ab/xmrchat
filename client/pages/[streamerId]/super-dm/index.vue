@@ -109,8 +109,9 @@ const pageName = computed(() => data.value?.page.name || data.value?.page.path);
         <p class="text-sm text-pale pt-6">
           Start or continue your SuperDM private conversation with
           {{ pageName }}. The conversation is fully end to end encrypted. After
-          starting a SuperDM, you'll need the SuperDM ID and recovery code, or
-          the saved key in your browser to return to it.
+          starting a SuperDM, you can return to it with the key saved in your
+          browser. Or if trying to access your SuperDM from a different browser,
+          you can enter the SuperDM ID and recovery code.
         </p>
         <SuperDmContent
           ref="contentRef"

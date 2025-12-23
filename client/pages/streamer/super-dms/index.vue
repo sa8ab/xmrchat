@@ -12,8 +12,8 @@ const props = defineProps<{
       <USkeleton class="h-4 w-[300px]" />
     </template>
     <template v-else-if="superDmsCount">
-      <p class="font-medium text-lg">No Super DMs selected.</p>
-      <p class="text-pale text-sm">Select a super dm to view messages.</p>
+      <p class="font-medium text-lg">No SuperDMs selected.</p>
+      <p class="text-pale text-sm">Select a to view messages.</p>
     </template>
     <template v-else>
       <p class="font-medium text-lg">No SuperDMs received yet.</p>

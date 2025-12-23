@@ -28,8 +28,8 @@ const loading = ref(false);
 
 const handleEndSuperDmClick = async () => {
   const confirmModal = modal.open(ConfirmModal, {
-    title: "End Super DM",
-    text: "The messages can not be sent in super dm after it is ended.",
+    title: "End SuperDM",
+    text: "Messages can no longer be sent in this SuperDM after it is ended.",
     color: "red",
     onConfirm: () => {
       handleEndSuperDm();
@@ -68,7 +68,7 @@ const handleEndSuperDm = async () => {
     });
     emit("ended");
 
-    toast.add({ description: "Super DM ended successfully", color: "green" });
+    toast.add({ description: "SuperDM ended successfully", color: "green" });
   } catch (error) {
     toast.add({ description: getErrorMessage(error), color: "red" });
   } finally {
@@ -95,7 +95,7 @@ const handleEndSuperDm = async () => {
     :loading="loading"
     @click="handleEndSuperDmClick"
   >
-    End Super DM
+    End SuperDM
   </UButton>
 </template>
 

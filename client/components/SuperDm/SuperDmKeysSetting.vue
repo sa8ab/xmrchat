@@ -208,9 +208,9 @@ const { getValidationAttrs } = useValidations(v);
         <div class="grid gap-2 mt-6">
           <p>
             If you forgot your recovery code or it is your first time using
-            Super DM, you can generate new encryption keys.
+            SuperDM, you can generate new encryption keys.
           </p>
-          <p>Click generate keys to setup the Super DM encryption.</p>
+          <p>Click generate keys to setup the SuperDM encryption.</p>
           <p class="pt-4 text-sm text-pale">
             Please be ready to save your recovery code.
           </p>

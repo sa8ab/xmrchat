@@ -47,7 +47,7 @@ const handleRecover = async () => {
       `/super-dms/${state.superDmId}`
     );
     if (!data.superDm) {
-      throw createError("Super DM not found");
+      throw createError("SuperDM not found");
     }
 
     const keys = recoverKeys(state.recoveryCode);
@@ -109,7 +109,7 @@ watch(model, () => {
           <div class="flex flex-col items-center">
             <h3 class="font-medium">Saved keys</h3>
             <p class="text-sm text-pale text-center">
-              You can use the saved keys to continue the Super DM messages.
+              You can use the saved keys to continue the SuperDM messages.
             </p>
           </div>
           <div class="pt-6 grid gap-2">
@@ -123,7 +123,7 @@ watch(model, () => {
               }"
             >
               <div class="flex flex-col">
-                <span class="font-medium whitespace-nowrap">Super DM id:</span>
+                <span class="font-medium whitespace-nowrap">SuperDM id:</span>
                 <span class="truncate">{{ item.superDmId }}</span>
               </div>
               <div class="flex justify-end pt-2">
@@ -140,10 +140,10 @@ watch(model, () => {
           <UDivider class="my-4" label="OR" />
         </div>
 
-        <p class="text-center">Enter the Super DM id and recovery code.</p>
+        <p class="text-center">Enter the SuperDM id and recovery code.</p>
 
         <UFormGroup
-          label="Super DM id"
+          label="SuperDM id"
           :error="getValidationAttrs('superDmId').error"
         >
           <UInput

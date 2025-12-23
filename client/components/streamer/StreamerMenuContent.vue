@@ -108,7 +108,7 @@ const items = computed(() => {
             to: toStreamerPageTiers(),
           },
           {
-            label: "Super DMs",
+            label: "SuperDMs",
             icon: "i-heroicons-chat-bubble-left-right",
             to: toStreamerSuperDms(),
           },

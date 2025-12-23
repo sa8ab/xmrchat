@@ -18,6 +18,7 @@ const { scrollToBottom } = useSuperDmScroll({
 
 const superDmId = computed(() => route.params.id as string);
 const pagePath = computed(() => route.params.streamerId as string);
+const pageName = computed(() => data.value?.page.name || data.value?.page.path);
 const toast = useToast();
 
 const messageRef = ref<string>();
@@ -162,8 +163,8 @@ const handleSendMessage = async () => {
     </template>
     <template v-else>
       <PageTitle
-        :title="`Super DM - ${data?.superDm.name}`"
-        description="Send super DM to the streamer"
+        :title="`SuperDM - ${data?.superDm.name}`"
+        :description="`Your private conversation with ${pageName} will continue until you or they end it by clicking End SuperDM.`"
       />
       <div v-if="!keys">
         <SuperDmKeysRecovery

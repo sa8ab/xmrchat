@@ -27,7 +27,7 @@ const handleRecover = async () => {
   try {
     const keys = recoverKeys(state.recoveryKey);
     if (!props.superDmId || !props.pagePath || !props.superDmPublicKeyArmored) {
-      throw createError("Super DM id and page path are required");
+      throw createError("SuperDM id and page path are required");
     }
     const samePrivateKeys = await validateSamePrivateKeys(
       keys.publicKeyArmored,
@@ -62,10 +62,10 @@ const { getValidationAttrs } = useValidations(v);
   <div class="max-w-[600px] mx-auto grid gap-4">
     <p class="">
       The recovery keys are not saved on this browser. Please enter the mnemonic
-      phrase for this Super DM to recover super dm messages.
+      phrase for this SuperDM to recover the messages.
     </p>
     <p class="">
-      <span class="font-medium">Super DM id: </span>
+      <span class="font-medium">SuperDM id: </span>
       <span class="">{{ superDmId }}</span>
     </p>
     <GeneralForm>

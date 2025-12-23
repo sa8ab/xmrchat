@@ -33,9 +33,9 @@ const { getValidationAttrs } = useValidations(v);
 <template>
   <div class="flex gap-2 p-4 border-t border-border items-start">
     <div v-if="endedAt" class="flex flex-col items-center text-center flex-1">
-      <p class="font-medium">Super DM is ended.</p>
+      <p class="font-medium">SuperDM is ended.</p>
       <p class="text-pale text-xs">
-        Super DM is ended at {{ dayjs(endedAt).format("L LT") }}.
+        SuperDM is ended at {{ dayjs(endedAt).format("L LT") }}.
       </p>
     </div>
     <template v-else>

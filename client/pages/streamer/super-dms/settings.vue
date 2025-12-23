@@ -7,8 +7,8 @@ definePageMeta({
 <template>
   <div>
     <PageTitle
-      title="Super DM Settings"
-      description="Configure your Super DM settings"
+      title="SuperDM Settings"
+      description="Configure your SuperDM settings"
     ></PageTitle>
 
     <SuperDmSettings />

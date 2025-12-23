@@ -231,7 +231,7 @@ export class NotificationDispatcherService {
     await this.emailQueue.add('send-email', {
       to: page.user.email,
       options: {
-        subject: 'New Super DM',
+        subject: 'New SuperDM',
         template: 'new-super-dm.hbs',
         context: {
           name: superDm.name,
@@ -245,14 +245,14 @@ export class NotificationDispatcherService {
     const config = await this.getSimplexConfig(page.id);
     if (!config?.valid) {
       this.logger.error(
-        `Simplex config not set for page ${page.path} but settings are enabled for new super DM.`,
+        `Simplex config not set for page ${page.path} but settings are enabled for new SuperDM.`,
       );
       return;
     }
 
     await this.simplexQueue.add('send-message', {
       contactId: config.config.contactId,
-      message: `New Super DM from ${superDm.name}\nAmount: ${MoneroUtils.atomicUnitsToXmr(superDm.payment.amount)} XMR`,
+      message: `New SuperDM from ${superDm.name}\nAmount: ${MoneroUtils.atomicUnitsToXmr(superDm.payment.amount)} XMR`,
     });
   }
 
@@ -260,14 +260,14 @@ export class NotificationDispatcherService {
     const config = await this.getSignalConfig(page.id);
     if (!config?.valid) {
       this.logger.error(
-        `Signal config not set for page ${page.path} but settings are enabled for new super DM.`,
+        `Signal config not set for page ${page.path} but settings are enabled for new SuperDM.`,
       );
       return;
     }
 
     await this.signalQueue.add('send-message', {
       account: config.config.number,
-      message: `New Super DM from ${superDm.name}\nAmount: ${MoneroUtils.atomicUnitsToXmr(superDm.payment.amount)} XMR`,
+      message: `New SuperDM from ${superDm.name}\nAmount: ${MoneroUtils.atomicUnitsToXmr(superDm.payment.amount)} XMR`,
     });
   }
 
@@ -296,7 +296,7 @@ export class NotificationDispatcherService {
     });
 
     if (!superDm) {
-      throw new NotFoundException('Super DM not found');
+      throw new NotFoundException('SuperDM not found');
     }
 
     // get message
@@ -305,7 +305,7 @@ export class NotificationDispatcherService {
     });
 
     if (!message) {
-      throw new NotFoundException('Super DM message not found');
+      throw new NotFoundException('SuperDM message not found');
     }
 
     // get notification preferences
@@ -341,7 +341,7 @@ export class NotificationDispatcherService {
     await this.emailQueue.add('send-email', {
       to: page.user.email,
       options: {
-        subject: 'New Super DM Message',
+        subject: 'New SuperDM Message',
         template: 'super-dm-message.hbs',
         context: {
           name: superDm.name,
@@ -358,14 +358,14 @@ export class NotificationDispatcherService {
     const config = await this.getSimplexConfig(page.id);
     if (!config?.valid) {
       this.logger.error(
-        `Simplex config not set for page ${page.path} but settings are enabled for super DM message.`,
+        `Simplex config not set for page ${page.path} but settings are enabled for SuperDM message.`,
       );
       return;
     }
 
     await this.simplexQueue.add('send-message', {
       contactId: config.config.contactId,
-      message: `New message in Super DM from ${superDm.name}`,
+      message: `New message in SuperDM from ${superDm.name}`,
     });
   }
 
@@ -377,14 +377,14 @@ export class NotificationDispatcherService {
     const config = await this.getSignalConfig(page.id);
     if (!config?.valid) {
       this.logger.error(
-        `Signal config not set for page ${page.path} but settings are enabled for super DM message.`,
+        `Signal config not set for page ${page.path} but settings are enabled for SuperDM message.`,
       );
       return;
     }
 
     await this.signalQueue.add('send-message', {
       account: config.config.number,
-      message: `New message in Super DM from ${superDm.name}`,
+      message: `New message in SuperDM from ${superDm.name}`,
     });
   }
 }

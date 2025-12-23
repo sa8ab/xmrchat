@@ -30,10 +30,7 @@ const hideSuperDmLayout = computed<boolean | undefined>(
 
 <template>
   <div>
-    <PageTitle
-      title="Super DMs"
-      description="Manage your Super DMs"
-    ></PageTitle>
+    <PageTitle title="SuperDMs" description="Manage your SuperDMs"></PageTitle>
 
     <template v-if="!hideSuperDmLayout">
       <SuperDmNotConfigured
@@ -47,7 +44,7 @@ const hideSuperDmLayout = computed<boolean | undefined>(
 
       <div class="flex justify-end mb-6">
         <UButton :to="toStreamerSuperDmSettings()" variant="soft">
-          Super DMs Settings
+          SuperDMs Settings
         </UButton>
       </div>
     </template>
@@ -66,7 +63,7 @@ const hideSuperDmLayout = computed<boolean | undefined>(
             <SuperDmItemSkeleton v-for="x in 4" />
           </template>
           <template v-else-if="!data?.superDms.length">
-            <NoItems text="No Super DMs yet." />
+            <NoItems text="No SuperDMs yet." />
           </template>
           <template v-else>
             <SuperDmItem v-for="item in data?.superDms" :superDm="item" />

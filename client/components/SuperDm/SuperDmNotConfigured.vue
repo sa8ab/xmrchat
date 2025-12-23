@@ -12,7 +12,7 @@ const { toStreamerSuperDmSettings, toStreamerNotificationPreferences } =
   <div class="flex flex-col items-center mt-6">
     <h3 class="text-lg font-medium text-center inline-flex items-center gap-2">
       <UIcon name="i-heroicons-exclamation-triangle" size="22px" />
-      <span> Super DMs are not configured. </span>
+      <span> SuperDMs are not configured. </span>
     </h3>
     <p class="text-pale text-center pt-2">
       Enabling SuperDMs will allow fans to pay you an amount you choose for the
@@ -23,7 +23,7 @@ const { toStreamerSuperDmSettings, toStreamerNotificationPreferences } =
     </p>
     <div class="mt-4 flex gap-2 flex-wrap">
       <UButton v-if="!settingsConfigured" :to="toStreamerSuperDmSettings()">
-        Configure Super DMs
+        Configure SuperDMs
       </UButton>
       <UButton
         v-if="!notificationsActive"

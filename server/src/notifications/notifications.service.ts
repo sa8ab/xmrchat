@@ -140,7 +140,7 @@ export class NotificationsService {
         superDmId,
       );
     } catch (error) {
-      this.logger.error(`Error notifying new super DM: ${error}`);
+      this.logger.error(`Error notifying new SuperDM: ${error}`);
     }
   }
 
@@ -156,7 +156,7 @@ export class NotificationsService {
         messageId,
       );
     } catch (error) {
-      this.logger.error(`Error notifying super DM message: ${error}`);
+      this.logger.error(`Error notifying SuperDM message: ${error}`);
     }
   }
 

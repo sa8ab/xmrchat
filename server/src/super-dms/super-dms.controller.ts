@@ -39,7 +39,7 @@ export class SuperDmsController {
     @CurrentUser() user: User,
   ) {
     await this.superDmSettingsService.updateSettings(dto, user);
-    return { message: 'Super DM settings updated' };
+    return { message: 'SuperDM settings updated' };
   }
 
   @Get('/settings')
@@ -111,6 +111,6 @@ export class SuperDmsController {
     @CurrentUser() user: User,
   ) {
     await this.superDmsService.endSuperDm(id, dto);
-    return { message: 'Super DM ended successfully' };
+    return { message: 'SuperDM ended successfully' };
   }
 }

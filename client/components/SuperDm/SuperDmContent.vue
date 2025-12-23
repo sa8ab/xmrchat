@@ -237,7 +237,7 @@ const handleSubmit = async () => {
           <UAlert
             color="red"
             :description="state.errorMessage"
-            title="Super DM could not be started"
+            title="SuperDM could not be started"
           >
           </UAlert>
         </div>
@@ -251,7 +251,7 @@ const handleSubmit = async () => {
             :loading="state.loading"
             class="flex items-center gap-2 w-fit"
           >
-            Start Super DM
+            Start SuperDM
           </UButton>
           <UButton
             v-if="superDmConfigured"
@@ -259,7 +259,7 @@ const handleSubmit = async () => {
             size="lg"
             @click="emit('recover')"
           >
-            Open Super DM
+            Open SuperDM
           </UButton>
         </div>
       </div>

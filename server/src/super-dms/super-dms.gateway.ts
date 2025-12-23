@@ -92,13 +92,13 @@ export class SuperDmsGateway
   ) {
     // TODO: Validate body
 
-    if (!body.superDmId) return { error: 'Super DM id is required' };
+    if (!body.superDmId) return { error: 'SuperDM id is required' };
 
     const superDm = await this.repo.findOne({ where: { id: body.superDmId } });
 
-    if (!superDm) return { error: 'Super DM is not found' };
+    if (!superDm) return { error: 'SuperDM is not found' };
 
-    if (superDm.endedAt) return { error: 'Super DM is ended.' };
+    if (superDm.endedAt) return { error: 'SuperDM is ended.' };
 
     try {
       await this.verifyMessage({
@@ -135,15 +135,15 @@ export class SuperDmsGateway
     @MessageBody() body: SendMessageDto,
     @ConnectedSocket() client: Socket,
   ) {
-    if (!body.superDmId) return { error: 'Super DM id is required' };
+    if (!body.superDmId) return { error: 'SuperDM id is required' };
 
     const superDm = await this.repo.findOne({
       where: { id: body.superDmId },
       relations: { page: true },
     });
-    if (!superDm) return { error: 'Super DM is not found' };
+    if (!superDm) return { error: 'SuperDM is not found' };
 
-    if (superDm.endedAt) return { error: 'Super DM is ended.' };
+    if (superDm.endedAt) return { error: 'SuperDM is ended.' };
 
     const user = (client as any).user;
     const ability = await this.casl.createForUser(user);
@@ -183,7 +183,7 @@ export class SuperDmsGateway
 
   @SubscribeMessage('read-messages')
   async readMessages(@MessageBody() body: ReadMessagesDto) {
-    if (!body.superDmId) return { error: 'Super DM id is required' };
+    if (!body.superDmId) return { error: 'SuperDM id is required' };
     if (!body.senderType) return { error: 'Sender type is required' };
     if (!body.signature) return { error: 'Signature is required' };
     if (!body.date) return { error: 'Date is required' };
@@ -192,7 +192,7 @@ export class SuperDmsGateway
       where: { id: body.superDmId },
       relations: { page: true },
     });
-    if (!superDm) return { error: 'Super DM is not found' };
+    if (!superDm) return { error: 'SuperDM is not found' };
 
     let publicKeyArmored: string;
     if (body.senderType === SuperDmMessageSenderType.VIEWER) {

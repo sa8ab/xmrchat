@@ -65,7 +65,7 @@ export class SuperDmsService {
   }
 
   async findById(id: string) {
-    if (!id) throw new BadRequestException('Super DM id is required.');
+    if (!id) throw new BadRequestException('SuperDM id is required.');
 
     const superDm = await this.repo.findOne({
       where: { id },
@@ -73,10 +73,10 @@ export class SuperDmsService {
       order: { messages: { createdAt: 'ASC' } },
     });
 
-    if (!superDm) throw new NotFoundException('Super DM is not found.');
+    if (!superDm) throw new NotFoundException('SuperDM is not found.');
 
     if (!superDm.payment.isPaid())
-      throw new NotFoundException('Super DM is not completed.');
+      throw new NotFoundException('SuperDM is not completed.');
 
     return superDm;
   }
@@ -87,10 +87,10 @@ export class SuperDmsService {
 
     const isActive = await this.superDmSettingsService.isSuperDmActive(page);
     if (!isActive)
-      throw new BadRequestException('Super DM is not active for this page.');
+      throw new BadRequestException('SuperDM is not active for this page.');
 
     if (!page.isPremium)
-      throw new BadRequestException('Super DM is not available for this page.');
+      throw new BadRequestException('SuperDM is not available for this page.');
 
     await this.validateMinSuperDmAmount(page.path, dto.amount);
 
@@ -165,7 +165,7 @@ export class SuperDmsService {
 
     if (!superDm) {
       this.logger.warn(
-        `Super DM is not found on the payment with event id of ${payment.eventId}`,
+        `SuperDM is not found on the payment with event id of ${payment.eventId}`,
       );
       return;
     }
@@ -173,7 +173,7 @@ export class SuperDmsService {
     const page = await this.pagesService.findById(superDm.pageId);
 
     if (!page) {
-      this.logger.warn(`Page is not found on super dm with id: ${superDm.id}`);
+      this.logger.warn(`Page is not found on SuperDM with id: ${superDm.id}`);
       return;
     }
     const amountInXmr = MoneroUtils.atomicUnitsToXmr(amount.toString());
@@ -194,17 +194,17 @@ export class SuperDmsService {
 
     if (!savedPayment.isPaid()) {
       this.logger.log(
-        `Super DM transaction is received but is lower than expected amount ${savedPayment.amount} - Current paid amount: ${savedPayment.paidAmount} - isPaid: ${savedPayment.isPaid()}`,
+        `SuperDM transaction is received but is lower than expected amount ${savedPayment.amount} - Current paid amount: ${savedPayment.paidAmount} - isPaid: ${savedPayment.isPaid()}`,
       );
       this.logger.log(
-        `Sending partial super dm socket event. Super DM Id ${superDm.id}`,
+        `Sending partial SuperDM socket event. SuperDM Id ${superDm.id}`,
       );
 
       this.superDmsGateway.notifyPayment(superDm.id, savedPayment);
       return;
     }
 
-    this.logger.log(`Sending super dm socket event. Super DM Id ${superDm.id}`);
+    this.logger.log(`Sending SuperDM socket event. SuperDM Id ${superDm.id}`);
     this.superDmsGateway.notifyPayment(superDm.id, savedPayment);
 
     await this.notificationsService.handleNewSuperDm(page.id, superDm.id);
@@ -272,6 +272,6 @@ export class SuperDmsService {
     superDm.endedByType = endedByType;
     await this.repo.save(superDm);
 
-    return { message: 'Super DM ended successfully' };
+    return { message: 'SuperDM ended successfully' };
   }
 }

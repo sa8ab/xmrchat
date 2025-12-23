@@ -49,7 +49,7 @@ const handleSubmit = async () => {
   try {
     state.loadingSave = true;
     await axios.put("/super-dms/settings", state.form);
-    toast.add({ description: "Super DM settings updated" });
+    toast.add({ description: "SuperDM settings updated" });
   } catch (error) {
     toast.add({ description: getErrorMessage(error) });
   } finally {
@@ -72,17 +72,17 @@ const { getValidationAttrs } = useValidations(v);
     <GeneralForm>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <UFormGroup
-          label="Super DM activation"
+          label="SuperDM activation"
           name="superDmActive"
-          description="Activate or deactivate Super DMs."
+          description="Activate or deactivate SuperDMs."
         >
           <UToggle v-model="state.form.superDmActive" size="lg" />
         </UFormGroup>
         <UFormGroup
-          label="Min. Super DM amount ( XMR )"
+          label="Min. SuperDM amount ( XMR )"
           name="minSuperDmAmount"
           :error="getValidationAttrs('minSuperDmAmount').error"
-          help="The minimum amount a fan needs to send to you to start a Super DM."
+          help="The minimum amount a fan needs to send to you to start a SuperDM."
         >
           <UInput
             v-model="state.form.minSuperDmAmount"

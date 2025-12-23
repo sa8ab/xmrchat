@@ -31,7 +31,7 @@ const { init, disconnect, reconnect, connectionStatus } =
 
       partialPaymentAmount.value = undefined;
       toast.add({
-        title: "Super DM received successfully!",
+        title: "SuperDM received successfully!",
       });
       disconnect();
       emit("paid");
@@ -101,7 +101,7 @@ provide("paymentModalProvideKey", {
 <template>
   <UModal v-model="active" preventClose>
     <BasePaymentCard
-      title="Start Super DM"
+      title="Start SuperDM"
       @cancel="cancelPayment"
       :cancelText="renderCancelText"
     >
