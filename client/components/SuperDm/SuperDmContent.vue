@@ -159,6 +159,20 @@ const handleSubmit = async () => {
 
 <template>
   <div class="pt-2 md:pt-5">
+    <div class="flex justify-end mb-2">
+      <UTooltip
+        :text="`Show amount in ${
+          getFiat(streamerPage?.fiat || FiatEnum.USD).name
+        } or XMR.`"
+        :popper="{ placement: 'top' }"
+      >
+        <TipValueToggle
+          v-model="generalState.tipDisplayValue"
+          :fiat="streamerPage?.fiat"
+        />
+      </UTooltip>
+    </div>
+
     <GeneralForm @submit="handleSubmit">
       <div class="grid gap-6">
         <div class="both">
