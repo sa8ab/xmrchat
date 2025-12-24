@@ -15,7 +15,7 @@ import { Swap } from 'src/swaps/swap.entity';
 import { SendMessageDto } from './dto/send-message.dto';
 import { SuperDmsService } from './super-dms.service';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { IsNull, Not, Repository } from 'typeorm';
 import { SuperDm } from './super-dm.entity';
 import * as openpgp from 'openpgp';
 import { SuperDmMessage } from './super-dm-message.entity';
@@ -94,7 +94,9 @@ export class SuperDmsGateway
 
     if (!body.superDmId) return { error: 'SuperDM id is required' };
 
-    const superDm = await this.repo.findOne({ where: { id: body.superDmId } });
+    const superDm = await this.repo.findOne({
+      where: { id: body.superDmId, payment: { paidAt: Not(IsNull()) } },
+    });
 
     if (!superDm) return { error: 'SuperDM is not found' };
 
@@ -138,7 +140,7 @@ export class SuperDmsGateway
     if (!body.superDmId) return { error: 'SuperDM id is required' };
 
     const superDm = await this.repo.findOne({
-      where: { id: body.superDmId },
+      where: { id: body.superDmId, payment: { paidAt: Not(IsNull()) } },
       relations: { page: true },
     });
     if (!superDm) return { error: 'SuperDM is not found' };
