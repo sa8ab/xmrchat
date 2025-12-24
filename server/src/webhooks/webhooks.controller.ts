@@ -20,6 +20,7 @@ import { SwapsService } from 'src/swaps/swaps.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { SuperDmsService } from 'src/super-dms/super-dms.service';
+import { SuperDmsGateway } from 'src/super-dms/super-dms.gateway';
 
 @Controller('webhooks')
 export class WebhooksController {
@@ -33,6 +34,7 @@ export class WebhooksController {
     private tipsGateway: TipsGateway,
     private swapsService: SwapsService,
     private superDmsService: SuperDmsService,
+    private superDmsGateway: SuperDmsGateway,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
@@ -115,7 +117,7 @@ export class WebhooksController {
     );
 
     this.tipsGateway.notifySwapStatusChange(swap.tipId, newSwap);
-    // TODO: Add super dm swap status change event
+    this.superDmsGateway.notifySwapStatusChange(swap.superDmId, newSwap);
 
     return swap;
   }
