@@ -121,6 +121,10 @@ export class WebhooksController {
     if (swap.superDmId)
       this.superDmsGateway.notifySwapStatusChange(swap.superDmId, newSwap);
 
+    if (!swap.tipId && !swap.superDmId) {
+      this.logger.warn('Swap has no tip or super dm');
+    }
+
     return swap;
   }
 
