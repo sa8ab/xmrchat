@@ -13,7 +13,7 @@ import { SwapsModule } from 'src/swaps/swaps.module';
 import { PageRecipientsModule } from 'src/page-recipients/page-recipients.module';
 import { SuperDmsGateway } from './super-dms.gateway';
 import { LwsModule } from 'src/lws/lws.module';
-import { SuperDmMessage } from './super-sm-message.entity';
+import { SuperDmMessage } from './super-dm-message.entity';
 import { UsersModule } from 'src/users/users.module';
 import { NotificationPreferencesModule } from 'src/notification-preferences/notification-preferences.module';
 import { NotificationsModule } from 'src/notifications/notifications.module';

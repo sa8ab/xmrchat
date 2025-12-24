@@ -16,7 +16,7 @@ import { Page } from 'src/pages/page.entity';
 import { Tier } from 'src/pages/tier.entity';
 import { Payment } from 'src/payments/payment.entity';
 import { SuperDm } from 'src/super-dms/super-dm.entity';
-import { SuperDmMessage } from 'src/super-dms/super-sm-message.entity';
+import { SuperDmMessage } from 'src/super-dms/super-dm-message.entity';
 import { Swap } from 'src/swaps/swap.entity';
 import { Tip } from 'src/tips/tip.entity';
 import { User } from 'src/users/user.entity';

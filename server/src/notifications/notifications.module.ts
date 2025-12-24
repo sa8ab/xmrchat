@@ -17,7 +17,7 @@ import { SignalModule } from './signal/signal.module';
 import { NotificationTestsService } from './notification-tests.service';
 import { QueuesModule } from 'src/queues/queues.module';
 import { SuperDm } from 'src/super-dms/super-dm.entity';
-import { SuperDmMessage } from 'src/super-dms/super-sm-message.entity';
+import { SuperDmMessage } from 'src/super-dms/super-dm-message.entity';
 
 @Module({
   imports: [

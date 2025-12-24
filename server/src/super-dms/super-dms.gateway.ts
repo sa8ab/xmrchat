@@ -18,7 +18,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SuperDm } from './super-dm.entity';
 import * as openpgp from 'openpgp';
-import { SuperDmMessage } from './super-sm-message.entity';
+import { SuperDmMessage } from './super-dm-message.entity';
 import {
   Action,
   PageSettingKey,

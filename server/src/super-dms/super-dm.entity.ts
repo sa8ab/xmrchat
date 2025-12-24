@@ -10,7 +10,7 @@ import {
   PrimaryGeneratedColumn,
   RelationId,
 } from 'typeorm';
-import { SuperDmMessage } from './super-sm-message.entity';
+import { SuperDmMessage } from './super-dm-message.entity';
 import { Payment } from 'src/payments/payment.entity';
 import { Swap } from 'src/swaps/swap.entity';
 import { SuperDmMessageSenderType } from 'src/shared/constants';

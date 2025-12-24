@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SuperDmMessage } from './super-sm-message.entity';
+import { SuperDmMessage } from './super-dm-message.entity';
 import { Repository } from 'typeorm';
 import { SuperDmMessageSenderType } from 'src/shared/constants';
 

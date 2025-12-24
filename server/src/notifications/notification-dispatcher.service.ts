@@ -23,7 +23,7 @@ import { PageSetting } from 'src/page-settings/page-setting.entity';
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { IntegrationConfig } from 'src/integrations/integration-configs.entity';
 import { SuperDm } from 'src/super-dms/super-dm.entity';
-import { SuperDmMessage } from 'src/super-dms/super-sm-message.entity';
+import { SuperDmMessage } from 'src/super-dms/super-dm-message.entity';
 
 @Injectable()
 export class NotificationDispatcherService {
