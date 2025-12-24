@@ -116,8 +116,10 @@ export class WebhooksController {
       `Sending swap status change event - tip ${swap.tipId} - status ${newSwap.status}`,
     );
 
-    this.tipsGateway.notifySwapStatusChange(swap.tipId, newSwap);
-    this.superDmsGateway.notifySwapStatusChange(swap.superDmId, newSwap);
+    if (swap.tipId)
+      this.tipsGateway.notifySwapStatusChange(swap.tipId, newSwap);
+    if (swap.superDmId)
+      this.superDmsGateway.notifySwapStatusChange(swap.superDmId, newSwap);
 
     return swap;
   }
