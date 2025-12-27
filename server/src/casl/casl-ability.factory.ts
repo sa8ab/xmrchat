@@ -96,8 +96,8 @@ export class CaslAbilityFactory {
     can(Action.MakeTipPrivate, Page, { id: user.cohostPageId });
 
     // SUPER DM ACTIONS
-    can(Action.SendSuperDmMessage, SuperDm, { page: { userId: user.id } });
-    can(Action.ReadSuperDmMessages, SuperDm, { page: { userId: user.id } });
+    can(Action.SendSuperDmMessage, SuperDm, { 'page.userId': user.id } as any);
+    can(Action.ReadSuperDmMessages, SuperDm, { 'page.userId': user.id } as any);
 
     return build({
       detectSubjectType: (item) =>
