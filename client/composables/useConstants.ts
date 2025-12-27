@@ -199,6 +199,12 @@ export const useConstants = () => {
       description: t("receiveDailySummary"),
       icon: "i-heroicons-sparkles",
     },
+    [NotificationPreferenceType.SUPER_DM]: {
+      name: "SuperDM",
+      description:
+        "Receive notifications when a SuperDM arrives or new messages are sent.",
+      icon: "i-heroicons-chat-bubble-left-right",
+    },
   };
 
   const getNotificationType = (v: NotificationPreferenceType) => {

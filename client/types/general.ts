@@ -12,6 +12,7 @@ import type {
   TipDisplayMode,
   LiveStreamPlatformEnum,
   CohostInvitationStatusEnum,
+  SuperDmMessageSenderTypeEnum,
 } from "./enums";
 
 export type Numberic = string | number;
@@ -67,6 +68,10 @@ export interface TipRecipient extends PageRecipient {
   amount: number | string;
 }
 
+export interface PageRecipientShare extends PageRecipient {
+  amount: number | string;
+}
+
 export interface TipCreationResponse {
   amount: string;
   id: number;
@@ -74,7 +79,7 @@ export interface TipCreationResponse {
   tip: Tip;
   swap?: Swap;
 
-  tipRecipients: TipRecipient[];
+  recipients: TipRecipient[];
   url?: string;
 }
 
@@ -112,6 +117,8 @@ interface TipPayment {
   id: number;
   paidAmount: string;
 }
+
+export interface Payment extends TipPayment {}
 
 export interface Tip {
   id: number;
@@ -283,4 +290,61 @@ export interface PageTipTier {
   minAmount?: number;
   color?: string;
   sound?: UploadedFile;
+}
+
+export interface SuperDmMessage {
+  id: number;
+  senderType: SuperDmMessageSenderTypeEnum;
+  content: string;
+  read: boolean;
+  createdAt: string;
+}
+
+export interface SuperDm {
+  id: string;
+  name: string;
+  amount: number;
+  paymentAddress: string;
+  publicKey: string;
+  swap?: Swap;
+  payment?: Payment;
+  createdAt: string;
+  expiresAt?: string;
+  messages?: SuperDmMessage[];
+  endedAt?: string;
+  endedByType?: SuperDmMessageSenderTypeEnum;
+}
+
+export interface SuperDmResponse {
+  id: string;
+  amount: string;
+  paymentAddress: string;
+  superDm: SuperDm;
+  swap: Swap;
+  recipients: PageRecipientShare[];
+  url: string;
+}
+
+export interface SuperDmContentData {
+  created: SuperDmResponse;
+  keys: GeneratedKeys;
+}
+
+export interface BasePaymentData {
+  amount?: string;
+  paymentAddress?: string;
+  recipients?: PageRecipientShare[];
+  url?: string;
+  expiresAt?: string;
+  swap?: Swap;
+}
+
+export interface GeneratedKeys {
+  mnemonic: string;
+  privateKeyArmored: string;
+  publicKeyArmored: string;
+}
+
+export interface SavedViewerSuperDmKeys extends GeneratedKeys {
+  superDmId: string;
 }

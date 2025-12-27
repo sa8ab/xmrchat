@@ -8,6 +8,7 @@ definePageMeta({
 });
 
 const route = useRoute();
+const { axios } = useApp();
 const streamerId = computed(() => route.params.streamerId as string);
 const { getStreamerPage } = useServices();
 const { state: generalState } = useGeneralStore();
@@ -15,10 +16,25 @@ const contentRef = ref<InstanceType<typeof TipContent> | undefined>();
 
 const { data, pending, refresh, error } = await useLazyAsyncData(
   `streamer-${streamerId.value}`,
-  () => getStreamerPage(streamerId.value),
+  async () => {
+    const pageR = getStreamerPage(streamerId.value);
+    const superDmStateR = axios.get<{ active: boolean; configured: boolean }>(
+      `/super-dms/${streamerId.value}/settings/state`
+    );
+
+    const [page, { data: superDmState }] = await Promise.all([
+      pageR,
+      superDmStateR,
+    ]);
+    return {
+      page,
+      superDmState,
+    };
+  },
   {
     transform: (v) => {
-      generalState.tipDisplayValue = v.tipDisplayMode || TipDisplayMode.FIAT;
+      generalState.tipDisplayValue =
+        v.page.tipDisplayMode || TipDisplayMode.FIAT;
       return v;
     },
   }
@@ -49,7 +65,7 @@ const handlePaid = () => {
 
 const { t } = useI18n();
 defineOgImage(false);
-useStreamerIdSeoMeta(data);
+useStreamerIdSeoMeta(computed(() => data.value?.page));
 </script>
 
 <template>
@@ -58,16 +74,19 @@ useStreamerIdSeoMeta(data);
       <template v-if="data">
         <StreamerHeader
           class="pt-2"
-          :bannerUrl="data.coverImage.url"
-          :liveStreams="data.liveStreams"
-          :logoUrl="data?.logo.url"
-          :name="data.name"
-          :links="data.links"
+          :bannerUrl="data.page.coverImage.url"
+          :liveStreams="data.page.liveStreams"
+          :logoUrl="data.page.logo.url"
+          :name="data.page.name"
+          :links="data.page.links"
+          :superDmActive="data.superDmState.active"
+          :streamerId="streamerId"
         />
         <TipContent
           ref="contentRef"
           :streamerId="streamerId"
-          :streamerPage="data"
+          :streamerPage="data.page"
+          :superDmActive="data.superDmState.active"
           @done="handlePayment"
         />
         <TipPaymentModal

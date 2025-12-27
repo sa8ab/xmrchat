@@ -9,6 +9,10 @@ export enum PageSettingKey {
   OBS_PLAY_SOUND = "obs-play-sound",
   OBS_AUTO_SHOW_TIPS = "obs-auto-show-tips",
   OBS_SOUND = "obs-sound",
+
+  SUPER_DM_MIN_AMOUNT = "super-dm-min-amount",
+  SUPER_DM_PUBLIC_KEY = "super-dm-public-key",
+  SUPER_DM_ACTIVE = "super-dm-active",
 }
 
 export enum ContentLinkPlatformEnum {
@@ -65,6 +69,7 @@ export enum PageStatusEnum {
 export enum NotificationPreferenceType {
   NEW_TIP = "new_tip",
   DAILY_SUMMARY = "daily_summary",
+  SUPER_DM = "super_dm",
 }
 
 export enum NotificationChannelEnum {
@@ -98,4 +103,9 @@ export enum CohostInvitationStatusEnum {
   PENDING = "pending",
   ACCEPTED = "accepted",
   EXPIRED = "expired",
+}
+
+export enum SuperDmMessageSenderTypeEnum {
+  CREATOR = "creator",
+  VIEWER = "viewer",
 }

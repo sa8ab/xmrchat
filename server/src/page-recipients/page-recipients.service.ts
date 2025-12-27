@@ -17,6 +17,7 @@ import { ConfigService } from '@nestjs/config';
 import { generateMoneroUriFromTipRecipients } from 'src/shared/utils/monero';
 import { MoneroUtils } from 'monero-ts';
 import { Swap } from 'src/swaps/swap.entity';
+import { PageRecipientShareDto } from './dtos/recipient.dto';
 
 @Injectable()
 export class PageRecipientsService {
@@ -105,17 +106,17 @@ export class PageRecipientsService {
 
   async handleRecipientsAndAmounts({
     pageId,
-    tipId,
     amount, // XMR
     integratedAddress,
+    swapId,
   }: {
     pageId: number;
-    tipId: number;
     amount: number;
     integratedAddress: string;
+    swapId?: number;
   }): Promise<{
-    pageTipRecipient?: TipRecipientDto;
-    tipRecipients: TipRecipientDto[];
+    pageTipRecipient?: PageRecipientShareDto;
+    recipients: PageRecipientShareDto[];
     recipientsActive?: boolean;
     url?: string;
   }> {
@@ -128,12 +129,10 @@ export class PageRecipientsService {
 
     if (!page) throw new NotFoundException('Page not found!');
 
-    const swap = await this.swapRepo.findOne({ where: { tip: { id: tipId } } });
-
     const recipients = page.recipients;
     const isRecipientsActive = this.getIsRecipientsActive(page.recipients);
 
-    if (!isRecipientsActive || swap) return { tipRecipients: [] };
+    if (!isRecipientsActive || swapId) return { recipients: [] };
 
     const xmrchatAddress = this.configService.get('XMRCHAT_WALLET_ADDRESS');
     const xmrchatRecipient = recipients.find(
@@ -159,7 +158,7 @@ export class PageRecipientsService {
     const amountUnits = MoneroUtils.xmrToAtomicUnits(amount);
     const fullPercentageBig = BigInt(100);
 
-    const tipRecipients = recipients
+    const recipientsWithAmount = recipients
       .filter((recipient) => Boolean(recipient.percentage))
       .map((recipient) => {
         const percentageBig = BigInt(recipient.percentage || 0);
@@ -171,25 +170,33 @@ export class PageRecipientsService {
         };
       });
 
-    const pageTipRecipient = tipRecipients.find(
+    const pageTipRecipient = recipientsWithAmount.find(
       (recipient) => recipient.variant === PageRecipientVariant.PAGE,
     );
 
-    const url = generateMoneroUriFromTipRecipients(tipRecipients);
+    const url = generateMoneroUriFromTipRecipients(recipientsWithAmount);
 
     return {
       pageTipRecipient,
-      tipRecipients,
+      recipients: recipientsWithAmount,
       recipientsActive: isRecipientsActive,
       url,
     };
   }
 
   // amount in xmr
-  async getPageAmount(pageId: number, tipId: number, amount: number) {
+  async getPageAmount({
+    pageId,
+    swapId,
+    amount,
+  }: {
+    pageId: number;
+    swapId?: number;
+    amount: number;
+  }) {
     const { pageTipRecipient } = await this.handleRecipientsAndAmounts({
       pageId,
-      tipId,
+      swapId,
       amount,
       integratedAddress: '',
     });

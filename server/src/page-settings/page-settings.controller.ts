@@ -59,6 +59,20 @@ export class PageSettingsController {
     return { settings };
   }
 
+  @Get('/:slug/super-dm')
+  @Serialize(PageSettingRO)
+  @IsPublic()
+  async getSuperDmSettingsBySlug(@Param('slug') slug: string) {
+    const page = await this.pagesService.findByPath(slug);
+    if (!page) throw new NotFoundException('Page not found.');
+
+    const settings = await this.pageSettings.getByPageSlug(
+      page.path,
+      PageSettingCategory.SUPER_DM,
+    );
+    return { settings };
+  }
+
   @Put('/:pageId')
   async upsert(
     @Param('pageId', ParseIntPipe) pageId: number,

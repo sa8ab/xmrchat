@@ -179,6 +179,8 @@ export default {
     "Please avoid sending tips with wallet registered on the page. The change returned inflates the amount we see received.",
   tipWalletMinimum:
     "Please send a minimum {minimumAmount} XMR to the following address for your xmrchat to be displayed.",
+  superDmWalletMinimum:
+    "Please send a minimum {minimumAmount} XMR to the following address for your SuperDM to be started.",
   partialAmountReceived:
     "{partialAmount} received so far, please send remaining {remainingAmount}.",
   openInMyWallet: "Open in My Wallet",

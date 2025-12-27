@@ -28,9 +28,7 @@ const remainingAmount = computed(() => {
   return amount - paidAmount;
 });
 
-const hasMultiRecipients = computed(
-  () => props.createdTip?.tipRecipients?.length
-);
+const hasMultiRecipients = computed(() => props.createdTip?.recipients?.length);
 
 // Using watch cause we are not sure if when component mounts the props are passed to it.
 watch(

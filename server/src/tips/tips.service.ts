@@ -33,6 +33,7 @@ import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { Action } from 'src/shared/constants';
 import { PageTipTier } from 'src/page-tip-tiers/page-tip-tier.entity';
 import { getTipTier } from 'src/shared/utils';
+import { PaymentFlowService } from 'src/payment-flow/payment-flow.service';
 
 @Injectable()
 export class TipsService {
@@ -49,6 +50,7 @@ export class TipsService {
     private tipMessageService: TipMessageService,
     private pageRecipientsService: PageRecipientsService,
     private casl: CaslAbilityFactory,
+    private paymentFlowService: PaymentFlowService,
     @InjectRepository(Tip) private repo: Repository<Tip>,
   ) {}
 
@@ -128,52 +130,59 @@ export class TipsService {
         `Tip amount must be more than or equal to ${minTipAmountXmr} XMR.`,
       );
 
+    const { baseSwap, eventId, inputCoin, integratedAddress } =
+      await this.paymentFlowService.create({
+        coinId: payload.coinId,
+        amount: payload.amount,
+        page,
+      });
+
     // Validate coin minimum
-    if (payload.coinId) {
-      const { coin, valid } = await this.swapsService.validateXmrAmount(
-        parseFloat(payload.amount),
-      );
-      if (!valid)
-        throw new BadRequestException(
-          `The amount for tipping this coin should be more than ${coin.minimum} XMR.`,
-        );
-    }
+    // if (payload.coinId) {
+    //   const { coin, valid } = await this.swapsService.validateXmrAmount(
+    //     parseFloat(payload.amount),
+    //   );
+    //   if (!valid)
+    //     throw new BadRequestException(
+    //       `The amount for tipping this coin should be more than ${coin.minimum} XMR.`,
+    //     );
+    // }
 
-    const { integratedAddress, paymentId } = makeIntegratedAddress(
-      page.primaryAddress,
-    );
+    // const { integratedAddress, paymentId } = makeIntegratedAddress(
+    //   page.primaryAddress,
+    // );
 
-    this.logger.log(
-      `Tip address ${integratedAddress} - payment id: ${paymentId}`,
-    );
+    // this.logger.log(
+    //   `Tip address ${integratedAddress} - payment id: ${paymentId}`,
+    // );
 
     // Add listener webhook on lws
-    let eventId = '';
-    try {
-      const webhook = await this.lwsService.addWebhook({
-        type: 'tx-confirmation',
-        address: page.primaryAddress,
-        paymentId: paymentId,
-        token: '',
-      });
-      eventId = webhook.event_id;
-    } catch (error) {
-      throw new BadRequestException('The page has not setup tipping yet.');
-    }
+    // let eventId = '';
+    // try {
+    //   const webhook = await this.lwsService.addWebhook({
+    //     type: 'tx-confirmation',
+    //     address: page.primaryAddress,
+    //     paymentId: paymentId,
+    //     token: '',
+    //   });
+    //   eventId = webhook.event_id;
+    // } catch (error) {
+    //   throw new BadRequestException('The page has not setup tipping yet.');
+    // }
 
     // If coin, initiate a swap
 
-    let baseSwap: TrocadorTrade | undefined;
-    let inputCoin: Coin | undefined;
-    if (payload.coinId) {
-      const res = await this.swapsService.initSwap({
-        address: integratedAddress,
-        amountTo: parseFloat(payload.amount),
-        coinId: payload.coinId,
-      });
-      baseSwap = res.baseSwap;
-      inputCoin = res.coin;
-    }
+    // let baseSwap: TrocadorTrade | undefined;
+    // let inputCoin: Coin | undefined;
+    // if (payload.coinId) {
+    //   const res = await this.swapsService.initSwap({
+    //     address: integratedAddress,
+    //     amountTo: parseFloat(payload.amount),
+    //     coinId: payload.coinId,
+    //   });
+    //   baseSwap = res.baseSwap;
+    //   inputCoin = res.coin;
+    // }
 
     // Create and save tip record
     const createdTip = this.repo.create({
@@ -205,10 +214,10 @@ export class TipsService {
     }
 
     // Tip recipients
-    const { tipRecipients, recipientsActive, url } =
+    const { recipients, recipientsActive, url } =
       await this.pageRecipientsService.handleRecipientsAndAmounts({
         pageId: page.id,
-        tipId: tip.id,
+        swapId: swap?.id,
         amount: parseFloat(payload.amount),
         integratedAddress,
       });
@@ -221,7 +230,7 @@ export class TipsService {
       swap,
 
       // Multi recipients
-      tipRecipients: recipientsActive ? tipRecipients : [],
+      recipients: recipientsActive ? recipients : [],
       url,
     };
   }
@@ -246,11 +255,11 @@ export class TipsService {
     // handle multi recipients, get page amount from handlePageRecipientsAndAmounts and use
     // that value to mark it as paid or not in payments service
     const amountInXmr = MoneroUtils.atomicUnitsToXmr(amount.toString());
-    const pageAmount = await this.pageRecipientsService.getPageAmount(
-      page.id,
-      tip.id,
-      amountInXmr,
-    );
+    const pageAmount = await this.pageRecipientsService.getPageAmount({
+      pageId: page.id,
+      swapId: tip.swapId,
+      amount: amountInXmr,
+    });
 
     const pageUnitAmount = MoneroUtils.xmrToAtomicUnits(pageAmount);
 

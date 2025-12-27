@@ -18,6 +18,7 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { NotificationsService } from 'src/notifications/notifications.service';
+import { SuperDm } from 'src/super-dms/super-dm.entity';
 
 @Injectable()
 export class SwapsService {
@@ -65,10 +66,12 @@ export class SwapsService {
     baseSwap,
     coin,
     tip,
+    superDm,
   }: {
     baseSwap: TrocadorTrade; // TODO: Abstract trade type
     coin: Coin;
-    tip: Tip;
+    tip?: Tip;
+    superDm?: SuperDm;
   }) {
     const created = this.repo.create({
       context: baseSwap,
@@ -77,7 +80,8 @@ export class SwapsService {
       swapAddress: baseSwap.address_provider,
       swapId: baseSwap.trade_id,
       eta: baseSwap.details.original_eta,
-      tip: { id: tip.id },
+      tip: tip ? { id: tip.id } : undefined,
+      superDm: superDm ? { id: superDm.id } : undefined,
       status: SwapStatusEnum.WAITING,
     });
 

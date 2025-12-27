@@ -19,6 +19,8 @@ import { LwsWebhookEvent } from 'src/shared/types';
 import { SwapsService } from 'src/swaps/swaps.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { SuperDmsService } from 'src/super-dms/super-dms.service';
+import { SuperDmsGateway } from 'src/super-dms/super-dms.gateway';
 
 @Controller('webhooks')
 export class WebhooksController {
@@ -31,6 +33,8 @@ export class WebhooksController {
     private pagesService: PagesService,
     private tipsGateway: TipsGateway,
     private swapsService: SwapsService,
+    private superDmsService: SuperDmsService,
+    private superDmsGateway: SuperDmsGateway,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
@@ -85,8 +89,10 @@ export class WebhooksController {
 
     if (payment.pageSlug)
       return this.pagesService.handlePagePayment(payment, amount);
-
-    return this.tipsService.handleTipPayment(payment, amount);
+    else if (payment.tip)
+      return this.tipsService.handleTipPayment(payment, amount);
+    else if (payment.superDm)
+      return this.superDmsService.handleSuperDmPayment(payment, amount);
   }
 
   @IsPublic()
@@ -110,7 +116,14 @@ export class WebhooksController {
       `Sending swap status change event - tip ${swap.tipId} - status ${newSwap.status}`,
     );
 
-    this.tipsGateway.notifySwapStatusChange(swap.tipId, newSwap);
+    if (swap.tipId)
+      this.tipsGateway.notifySwapStatusChange(swap.tipId, newSwap);
+    if (swap.superDmId)
+      this.superDmsGateway.notifySwapStatusChange(swap.superDmId, newSwap);
+
+    if (!swap.tipId && !swap.superDmId) {
+      this.logger.warn('Swap has no tip or super dm');
+    }
 
     return swap;
   }

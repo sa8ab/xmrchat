@@ -11,9 +11,11 @@ import { FiatEnum, TipDisplayMode } from "~/types/enums";
 const props = defineProps<{
   streamerId: string;
   streamerPage?: StreamerPage | null;
+  superDmActive?: boolean;
 }>();
 
 const { required, minLength, maxLength, minValue } = useValidations();
+const { toSuperDmCreate } = useRouteLocation();
 const { sendTipToStreamer: sendTipToStreamerApi } = useServices();
 const coins = useState<Coin[]>("coins");
 const swapActive = useState<boolean>("swapActive");
@@ -278,15 +280,27 @@ const renderInputPadding = computed(
           </UAlert>
         </div>
 
-        <UButton
-          size="lg"
-          type="submit"
-          :loading="state.loading"
-          class="flex items-center gap-2 w-fit"
-        >
-          {{ $t("sendTip") }}
-          <DirectionalArrow />
-        </UButton>
+        <div class="flex gap-2">
+          <UButton
+            size="lg"
+            type="submit"
+            :loading="state.loading"
+            class="flex items-center gap-2 w-fit"
+          >
+            {{ $t("sendTip") }}
+            <DirectionalArrow />
+          </UButton>
+          <!-- <UButton
+            v-if="superDmActive"
+            :to="toSuperDmCreate(streamerId)"
+            size="lg"
+            type="button"
+            variant="ghost"
+            icon="i-heroicons-chat-bubble-left-right"
+          >
+            SuperDM
+          </UButton> -->
+        </div>
       </UForm>
     </div>
     <div class="tip-side">

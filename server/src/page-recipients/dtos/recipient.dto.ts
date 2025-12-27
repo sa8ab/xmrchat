@@ -18,6 +18,11 @@ export class PageRecipientDto {
   variant: PageRecipientVariant;
 }
 
+export class PageRecipientShareDto extends PageRecipientDto {
+  @Expose()
+  amount: number;
+}
+
 export class PageRecipientsDto {
   @Expose()
   @Type(() => PageRecipientDto)

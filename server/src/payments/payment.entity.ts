@@ -9,6 +9,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { SuperDm } from 'src/super-dms/super-dm.entity';
 
 @Entity({ name: 'payments' })
 export class Payment {
@@ -36,6 +37,13 @@ export class Payment {
   })
   @JoinColumn({ foreignKeyConstraintName: 'payments_page_id_fkey' })
   page?: Page;
+
+  @OneToOne(() => SuperDm, (s) => s.payment, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn()
+  superDm?: SuperDm;
 
   @Column({ type: 'varchar', length: 32 })
   amount: string;

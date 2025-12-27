@@ -90,6 +90,34 @@ const isVerified = computed(() => props.configVerified);
           />
         </div>
       </div>
+
+      <div class="grid grid-cols-[auto_1fr_auto] gap-2 items-center">
+        <div>
+          <UIcon
+            :name="
+              getNotificationType(NotificationPreferenceType.SUPER_DM).icon
+            "
+            size="20px"
+          />
+        </div>
+        <div class="flex-grow">
+          <span>
+            {{ getNotificationType(NotificationPreferenceType.SUPER_DM).name }}
+          </span>
+          <p class="text-pale text-xs">
+            {{
+              getNotificationType(NotificationPreferenceType.SUPER_DM)
+                .description
+            }}
+          </p>
+        </div>
+        <div>
+          <UToggle
+            v-model="model[NotificationPreferenceType.SUPER_DM]"
+            :disabled="!isVerified"
+          />
+        </div>
+      </div>
       <div
         v-if="showDailySummaryTime"
         class="grid grid-cols-[auto_1fr_auto] gap-2 items-center"

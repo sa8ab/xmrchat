@@ -1,11 +1,12 @@
 import { type Socket, io } from "socket.io-client";
-import type { Swap } from "~/types";
+import type { SuperDm, Swap } from "~/types";
 
 interface PaymentSocketOptions<T> {
   onTipEvent?: (...args: [T]) => any;
   onPaymentEvent?: (...args: [T]) => any;
   onPageTipEvent?: (...args: [T]) => any;
   onSwapStatusChangeEvent?: (...args: [Swap]) => any;
+  onSuperDmPaymentEvent?: (...args: [T]) => any;
 }
 
 interface TipPaymentInitParams {
@@ -61,7 +62,6 @@ export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
   >(undefined);
 
   const init = (params?: TipPaymentInitParams) => {
-    // const url = `${config.public.apiBaseUrl}/v1/pages/${params.slug}/ws/tips/${params.tipId}`;
     const url = `${config.public.apiBaseUrl}/${params?.path}`;
 
     console.log("creating socket-io with url", url);
@@ -69,6 +69,7 @@ export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
 
     socket.value = io(url, {
       auth: params?.query,
+      query: params?.query,
     });
     runEvents();
   };
@@ -85,6 +86,8 @@ export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
     socket.value.on("newTip", handlePageTipEvent);
 
     socket.value.on("swap-status-change", handleSwapStatusChange);
+
+    socket.value.on("super-dm-payment", handleSuperDmPaymentEvent);
   };
 
   const handleConnect = () => {
@@ -110,6 +113,10 @@ export const usePaymentSocket = <T>(options?: PaymentSocketOptions<T>) => {
 
   const handleSwapStatusChange = (v: any) => {
     options?.onSwapStatusChangeEvent?.(v);
+  };
+
+  const handleSuperDmPaymentEvent = (v: any) => {
+    options?.onSuperDmPaymentEvent?.(v);
   };
 
   const disconnect = () => {

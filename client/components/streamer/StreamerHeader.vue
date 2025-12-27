@@ -9,12 +9,15 @@ const props = withDefaults(
     showTitle?: boolean;
     name?: string;
     links?: ContentLink[];
+    streamerId?: string;
+    superDmActive?: boolean;
   }>(),
   {
     showTitle: true,
   }
 );
 
+const { toSuperDmCreate } = useRouteLocation();
 const { liveStream, livePlatforms } = useLiveStreamPlayer(
   computed(() => props.liveStreams)
 );
@@ -30,13 +33,30 @@ const showLogo = computed(() => !liveStream.value);
     </div>
     <div class="options">
       <div class="logo-and-name">
-        <GeneralImage
-          v-if="showLogo"
-          :url="logoUrl"
-          variant="logo"
-          class="logo"
-        />
-        <div class="name p-2 flex flex-col" v-if="showTitle">
+        <div class="flex flex-col gap-4 items-center ms-4">
+          <GeneralImage
+            v-if="showLogo"
+            :url="logoUrl"
+            variant="logo"
+            class="logo"
+          />
+
+          <div v-if="superDmActive" class="relative">
+            <!-- <UBadge class="absolute -top-2 right-0 text-xs" size="xs">
+              NEW
+            </UBadge> -->
+            <UButton
+              :to="toSuperDmCreate(String(streamerId))"
+              size="sm"
+              type="button"
+              variant="outline"
+              icon="i-heroicons-chat-bubble-left-right"
+            >
+              SuperDM
+            </UButton>
+          </div>
+        </div>
+        <div class="name p-2 flex flex-col flex-1" v-if="showTitle">
           <span class="text-lg lg:text-2xl font-bold">{{ name }}</span>
           <!-- <span class="text-pale">Streamer name</span> -->
           <StreamerLinks
@@ -64,7 +84,7 @@ const showLogo = computed(() => !liveStream.value);
   }
   .logo {
     margin-top: calc(var(--logo-size) / 2 * -1);
-    @apply ms-4 w-[var(--logo-size)] h-[var(--logo-size)];
+    @apply w-[var(--logo-size)] h-[var(--logo-size)];
   }
 
   @media only screen and (max-width: 760px) {

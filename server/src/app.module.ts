@@ -50,6 +50,8 @@ import { PageRecipientsModule } from './page-recipients/page-recipients.module';
 import { LiveStreamsModule } from './live-streams/live-streams.module';
 import { CohostModule } from './cohost/cohost.module';
 import { PageTipTiersModule } from './page-tip-tiers/page-tip-tiers.module';
+import { SuperDmsModule } from './super-dms/super-dms.module';
+import { PaymentFlowModule } from './payment-flow/payment-flow.module';
 
 @Module({
   imports: [
@@ -174,6 +176,8 @@ import { PageTipTiersModule } from './page-tip-tiers/page-tip-tiers.module';
     LiveStreamsModule,
     CohostModule,
     PageTipTiersModule,
+    SuperDmsModule,
+    PaymentFlowModule,
   ],
   controllers: [AppController],
   providers: [AppService],

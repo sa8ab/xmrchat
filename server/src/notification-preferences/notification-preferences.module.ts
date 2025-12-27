@@ -5,9 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { NotificationPreference } from './notification-preferences.entity';
 import { PagesModule } from 'src/pages/pages.module';
 import { PageSettingsModule } from 'src/page-settings/page-settings.module';
-import { BullModule } from '@nestjs/bullmq';
-import { BullBoardModule } from '@bull-board/nestjs';
-import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { QueuesModule } from 'src/queues/queues.module';
 
 @Module({
@@ -19,5 +16,6 @@ import { QueuesModule } from 'src/queues/queues.module';
   ],
   providers: [NotificationPreferencesService],
   controllers: [NotificationPreferencesController],
+  exports: [NotificationPreferencesService],
 })
 export class NotificationPreferencesModule {}

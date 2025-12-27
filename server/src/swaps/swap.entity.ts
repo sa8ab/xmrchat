@@ -11,6 +11,7 @@ import {
   RelationId,
   UpdateDateColumn,
 } from 'typeorm';
+import { SuperDm } from 'src/super-dms/super-dm.entity';
 
 @Entity()
 export class Swap {
@@ -41,6 +42,13 @@ export class Swap {
 
   @RelationId((s: Swap) => s.tip)
   tipId: number;
+
+  @OneToOne(() => SuperDm, (s) => s.swap, { onDelete: 'CASCADE' })
+  @JoinColumn()
+  superDm: SuperDm;
+
+  @RelationId((s: Swap) => s.superDm)
+  superDmId: string;
 
   @Column({ type: 'jsonb' })
   context: Object;

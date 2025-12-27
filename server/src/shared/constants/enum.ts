@@ -19,6 +19,7 @@ export enum PageSettingCategory {
   OBS = 'obs',
   STREAMING = 'streaming',
   NOTIFICATIONS = 'notifications',
+  SUPER_DM = 'super-dm',
 }
 
 export enum PageSettingKey {
@@ -29,6 +30,9 @@ export enum PageSettingKey {
   OBS_SOUND = 'obs-sound',
   MIN_NOTIFICATION_THRESHOLD = 'min-notification-threshold',
   DAILY_SUMMARY_NOTIFICATION_TIME = 'daily-summary-notification-time',
+  SUPER_DM_MIN_AMOUNT = 'super-dm-min-amount',
+  SUPER_DM_PUBLIC_KEY = 'super-dm-public-key',
+  SUPER_DM_ACTIVE = 'super-dm-active',
 }
 
 export enum TipDisplayMode {
@@ -117,6 +121,7 @@ export enum IntegrationConfigMethod {
 export enum NotificationPreferenceType {
   NEW_TIP = 'new_tip',
   DAILY_SUMMARY = 'daily_summary',
+  SUPER_DM = 'super_dm',
 }
 
 export enum NotificationChannelEnum {
@@ -138,6 +143,8 @@ export enum Action {
   SendObsMessage = 'send-obs-message',
   MakeTipPrivate = 'make-tip-private',
   MakeTipPublic = 'make-tip-public',
+  SendSuperDmMessage = 'send-super-dm-message',
+  ReadSuperDmMessages = 'read-super-dm-messages',
 }
 
 export enum PageRecipientVariant {
@@ -157,4 +164,9 @@ export enum CohostInvitationStatus {
   PENDING = 'pending',
   ACCEPTED = 'accepted',
   EXPIRED = 'expired',
+}
+
+export enum SuperDmMessageSenderType {
+  CREATOR = 'creator',
+  VIEWER = 'viewer',
 }
