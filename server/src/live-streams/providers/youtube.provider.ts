@@ -10,6 +10,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Link } from 'src/links/link.entity';
 import { Repository } from 'typeorm';
 import { youtube_v3 } from 'googleapis';
+import { getErrorMessage } from 'src/shared/utils/errors';
 
 @Injectable()
 export class YoutubeProvider implements LiveStreamProvider {
@@ -43,7 +44,7 @@ export class YoutubeProvider implements LiveStreamProvider {
         );
       } catch (error) {
         this.logger.error(
-          `Error getting upload activities for username ${param.username}: ${error.message}`,
+          `Error getting upload activities for username ${param.username}: ${getErrorMessage(error)}`,
         );
       }
     });

@@ -76,8 +76,7 @@ export class YoutubeService implements OnModuleInit {
       );
       return uploadsOnly;
     } catch (error) {
-      console.log(error.response.data.error);
-      throw new BadRequestException('Error searching upload activities.');
+      throw new BadRequestException(getErrorMessage(error));
     }
   }
 
