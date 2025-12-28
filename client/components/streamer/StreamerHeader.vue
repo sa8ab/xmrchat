@@ -33,7 +33,7 @@ const showLogo = computed(() => !liveStream.value);
     </div>
     <div class="options">
       <div class="logo-and-name">
-        <div class="flex flex-col gap-4 items-center ms-4">
+        <div class="flex flex-col items-center ms-4">
           <GeneralImage
             v-if="showLogo"
             :url="logoUrl"
@@ -41,7 +41,7 @@ const showLogo = computed(() => !liveStream.value);
             class="logo"
           />
 
-          <div v-if="superDmActive" class="relative">
+          <div v-if="superDmActive" class="relative mt-4">
             <!-- <UBadge class="absolute -top-2 right-0 text-xs" size="xs">
               NEW
             </UBadge> -->
