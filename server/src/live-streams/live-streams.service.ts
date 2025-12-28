@@ -16,6 +16,8 @@ import { ConfigService } from '@nestjs/config';
 import { TwitchProvider } from './providers/twitch.provider';
 import { Page } from 'src/pages/page.entity';
 import { RumbleProvider } from './providers/rumble.provider';
+import { Link } from 'src/links/link.entity';
+import { Tip } from 'src/tips/tip.entity';
 
 @Injectable()
 export class LiveStreamsService implements OnModuleInit {
@@ -29,6 +31,7 @@ export class LiveStreamsService implements OnModuleInit {
     private config: ConfigService,
     @InjectRepository(LiveStream) private repo: Repository<LiveStream>,
     @InjectRepository(Page) private pagesRepo: Repository<Page>,
+    @InjectRepository(Link) private linkRepo: Repository<Link>,
     @InjectQueue('live-stream') private liveStreamQueue: Queue,
   ) {}
 
@@ -133,8 +136,37 @@ export class LiveStreamsService implements OnModuleInit {
   }
 
   async getYoutubeLiveStreams() {
-    const links = await this.linksService.findByPlatform(
+    const query = this.linkRepo
+      .createQueryBuilder('link')
+      .leftJoinAndSelect('link.page', 'page')
+      .where('link.platform = :platform', {
+        platform: LiveStreamPlatformEnum.YOUTUBE,
+      })
+      .andWhere('link.value IS NOT NULL')
+      .andWhere(`link.value <> ''`)
+      .andWhere(
+        (qb) => {
+          const subQuery = qb
+            .subQuery()
+            .select('COALESCE(SUM(payment.amount::BIGINT / 1e12), 0)')
+            .from(Tip, 'tip')
+            .leftJoin('tip.payment', 'payment')
+            .where('tip.page_id = page.id')
+            .andWhere('payment.paid_at IS NOT NULL')
+            .getQuery();
+          return `(${subQuery}) >= :minAmount`;
+        },
+        { minAmount: 0.025 },
+      );
+
+    const links = await query.getMany();
+
+    const allLinks = await this.linksService.findByPlatform(
       LinkPlatformEnum.YOUTUBE,
+    );
+
+    console.log(
+      `Youtube filtered links: ${links.length}, all links: ${allLinks.length}`,
     );
 
     const params = links.map((link) => ({

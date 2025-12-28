@@ -41,6 +41,11 @@ export class ConfigCommand extends CommandRunner {
       return;
     }
 
+    if (config === 'update-youtube-live-streams') {
+      await this.updateYoutubeLiveStreams();
+      return;
+    }
+
     this.logger.error(`Parameter is invalid: ${config}`);
   }
 
@@ -63,5 +68,10 @@ export class ConfigCommand extends CommandRunner {
     this.logger.log('updating live streams');
     await this.liveStreamsService.getAndUpdateLiveStreams();
     this.logger.log('live streams updated');
+  }
+
+  async updateYoutubeLiveStreams() {
+    this.logger.log('updating youtube live streams');
+    await this.liveStreamsService.getYoutubeLiveStreams();
   }
 }
