@@ -24,12 +24,12 @@ const { getFiat } = useConstants();
     <PendingView :pending="pending">
       <div v-if="!pending">
         <div v-if="data?.page">
-          <StreamerHeader
+          <!-- <StreamerHeader
             :logoUrl="data.page.logo.url"
             :bannerUrl="data.page.coverImage.url"
             :showTitle="false"
             class="mb-10"
-          />
+          /> -->
 
           <UAlert
             v-if="data.page.status === PageStatusEnum.DEACTIVE"
