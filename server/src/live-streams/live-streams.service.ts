@@ -165,10 +165,6 @@ export class LiveStreamsService implements OnModuleInit {
       LinkPlatformEnum.YOUTUBE,
     );
 
-    console.log(
-      `Youtube filtered links: ${links.length}, all links: ${allLinks.length}`,
-    );
-
     const params = links.map((link) => ({
       username: link.value,
       pageId: link.page.id,
