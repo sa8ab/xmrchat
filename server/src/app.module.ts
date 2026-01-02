@@ -52,6 +52,7 @@ import { CohostModule } from './cohost/cohost.module';
 import { PageTipTiersModule } from './page-tip-tiers/page-tip-tiers.module';
 import { SuperDmsModule } from './super-dms/super-dms.module';
 import { PaymentFlowModule } from './payment-flow/payment-flow.module';
+import { PageVerificationModule } from './page-verification/page-verification.module';
 
 @Module({
   imports: [
@@ -178,6 +179,7 @@ import { PaymentFlowModule } from './payment-flow/payment-flow.module';
     PageTipTiersModule,
     SuperDmsModule,
     PaymentFlowModule,
+    PageVerificationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
