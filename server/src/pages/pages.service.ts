@@ -84,6 +84,7 @@ export class PagesService {
       .leftJoinAndSelect('page.logo', 'logo')
       .leftJoinAndSelect('page.coverImage', 'cover_image')
       .leftJoinAndSelect('page.liveStreams', 'live_streams')
+      .leftJoinAndSelect('page.pageVerifications', 'pageVerifications')
       .leftJoin(tipsSubQuery, 'paid_tip', 'paid_tip.page_id = page.id')
       .where('page.isPublic = true')
       .andWhere('page.status != :status', { status: PageStatusEnum.DEACTIVE })
@@ -304,7 +305,7 @@ export class PagesService {
 
     return this.repo.findOne({
       where: { user: { id: user.id } },
-      relations: { tiers: true },
+      relations: { tiers: true, pageVerifications: true },
     });
   }
 

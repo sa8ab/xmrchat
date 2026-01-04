@@ -135,11 +135,9 @@ export class Page {
   @OneToMany(() => PageVerification, (p: PageVerification) => p.page)
   pageVerifications: PageVerification[];
 
-  @VirtualColumn({
-    query: (alias) =>
-      `SELECT COUNT(*) FROM "page_verifications" WHERE "page_id" = ${alias}.id`,
-  })
-  verificationsCount: number;
+  get verificationsCount(): number {
+    return this.pageVerifications?.length;
+  }
 
   totalTips: number | null;
   tipsCount: number | null;
