@@ -12,6 +12,7 @@ import {
   PrimaryGeneratedColumn,
   RelationId,
   Unique,
+  VirtualColumn,
 } from 'typeorm';
 import { Tier } from './tier.entity';
 import { PageSetting } from '../page-settings/page-setting.entity';
@@ -21,6 +22,7 @@ import { PageStatusEnum } from '../shared/constants';
 import { PageRecipient } from 'src/page-recipients/page-recipient.entity';
 import { LiveStream } from '../live-streams/live-stream.entity';
 import { PageTipTier } from 'src/page-tip-tiers/page-tip-tier.entity';
+import { PageVerification } from 'src/page-verification/page-verification.entity';
 
 @Entity({ name: 'pages' })
 @Unique(['path'])
@@ -129,6 +131,15 @@ export class Page {
 
   @OneToMany(() => User, (u: User) => u.cohostPage)
   cohosts: User[];
+
+  @OneToMany(() => PageVerification, (p: PageVerification) => p.page)
+  pageVerifications: PageVerification[];
+
+  @VirtualColumn({
+    query: (alias) =>
+      `(SELECT EXISTS(SELECT 1 FROM "page_verifications" WHERE "page_id" = ${alias}.id))`,
+  })
+  isVerified: boolean;
 
   totalTips: number | null;
   tipsCount: number | null;

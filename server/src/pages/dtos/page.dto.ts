@@ -6,6 +6,7 @@ import { Link } from 'src/links/link.entity';
 import { LinkDto } from 'src/links/dto/link.dto';
 import { LiveStreamDto } from 'src/live-streams/dtos/live-stream.dto';
 import { PageTipTierDto } from 'src/page-tip-tiers/dtos/page-tip-tier.dto';
+import { PageVerificationDto } from 'src/page-verification/dtos/page-verification.dto';
 
 export class PageDto {
   @Expose()
@@ -67,4 +68,11 @@ export class PageDto {
 
   @Expose()
   ability?: any;
+
+  @Expose()
+  isVerified: boolean;
+
+  @Expose()
+  @Type(() => PageVerificationDto)
+  pageVerifications: PageVerificationDto[];
 }
