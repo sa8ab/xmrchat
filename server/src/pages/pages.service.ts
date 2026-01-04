@@ -286,6 +286,7 @@ export class PagesService {
         recipients: true,
         liveStreams: true,
         pageTipTiers: { sound: true },
+        pageVerifications: true,
       },
       order: {
         pageTipTiers: { minAmount: { direction: 'ASC', nulls: 'LAST' } },

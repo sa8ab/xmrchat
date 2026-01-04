@@ -137,9 +137,9 @@ export class Page {
 
   @VirtualColumn({
     query: (alias) =>
-      `(SELECT EXISTS(SELECT 1 FROM "page_verifications" WHERE "page_id" = ${alias}.id))`,
+      `SELECT COUNT(*) FROM "page_verifications" WHERE "page_id" = ${alias}.id`,
   })
-  isVerified: boolean;
+  verificationsCount: number;
 
   totalTips: number | null;
   tipsCount: number | null;

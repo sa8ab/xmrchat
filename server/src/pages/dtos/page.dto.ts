@@ -70,7 +70,7 @@ export class PageDto {
   ability?: any;
 
   @Expose()
-  isVerified: boolean;
+  verificationsCount: number;
 
   @Expose()
   @Type(() => PageVerificationDto)
