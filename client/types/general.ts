@@ -354,5 +354,7 @@ export interface PageVerification {
   id: number;
   type: PageVerificationTypeEnum;
   url: string;
+  verifiedUrl?: string;
+  name?: string;
   createdAt: Date;
 }
