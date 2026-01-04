@@ -85,7 +85,10 @@ const { getValidationAttrs } = useValidations(v);
         <div v-for="item in data">
           <div class="font-medium">{{ item.type }}:</div>
           <div>
-            <ULink></ULink>
+            <ULink v-if="item.verifiedUrl" :to="item.verifiedUrl" external>
+              {{ item.name }}
+            </ULink>
+            <ULink :to="item.url" external> Verification </ULink>
           </div>
         </div>
       </div>
@@ -94,7 +97,7 @@ const { getValidationAttrs } = useValidations(v);
           <p>To auto-verify your Twitter account:</p>
 
           <p class="pt-4">
-            1. Post a tweet containing your XmrBazaar link:
+            1. Post a tweet containing your XMRChat link:
             {{ verificationUrl }} (max 280 characters). Make sure to use this
             specific verification link, not your regular profile link or a
             listing.

@@ -70,11 +70,12 @@ export class TwitterVerificationHandler implements IPageVerificationHandler {
 
     const isValid = resolved === expected;
 
-    return { valid: isValid };
+    return { valid: isValid, name, verifiedUrl: userUrl };
   }
 
   async getTweetUrl(page: Page) {
-    const clientUrl = this.configService.get('CLIENT_BASE_URL');
+    // const clientUrl = this.configService.get('CLIENT_BASE_URL');
+    const clientUrl = 'https://xmrchat.com';
     return `${clientUrl}/${page.path}`;
   }
 }

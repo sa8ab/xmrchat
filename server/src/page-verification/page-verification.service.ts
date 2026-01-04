@@ -55,18 +55,24 @@ export class PageVerificationService {
       throw new BadRequestException('Verification already exists');
 
     const type = dto.type;
+    let verifiedUrl: string;
+    let name: string;
     if (type === PageVerificationTypeEnum.X) {
-      const { valid } = await this.twitterVerificationHandler.verify({
+      const result = await this.twitterVerificationHandler.verify({
         page,
         data: { tweetUrl: dto.url },
       });
-      if (!valid) throw new BadRequestException('Invalid tweet URL');
+      if (!result.valid) throw new BadRequestException('Invalid tweet URL');
+      verifiedUrl = result.verifiedUrl;
+      name = result.name;
     }
 
     const verification = this.repo.create({
       page: { id: page.id },
       type: dto.type,
       url: dto.url,
+      verifiedUrl,
+      name,
     });
 
     return this.repo.save(verification);

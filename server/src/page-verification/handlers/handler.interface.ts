@@ -7,6 +7,8 @@ export interface IPageVerificationHandlerData {
 
 export interface IPageVerificationHandlerResponse {
   valid: boolean;
+  name?: string;
+  verifiedUrl?: string;
 }
 
 export interface IPageVerificationHandler {
