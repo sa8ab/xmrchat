@@ -6,6 +6,7 @@ import {
   LiveStreamPlatformEnum,
   NotificationChannelEnum,
   NotificationPreferenceType,
+  PageVerificationTypeEnum,
 } from "~/types/enums";
 
 export const useConstants = () => {
@@ -287,6 +288,19 @@ export const useConstants = () => {
     return PAGE_TIER_COLORS[v];
   };
 
+  const PAGE_VERIFICATION_TYPES = {
+    [PageVerificationTypeEnum.X]: {
+      name: "X (formerly Twitter)",
+      icon: "i-tabler-brand-x",
+      colorClassName: "",
+    },
+  };
+
+  const getPageVerificationType = (v?: PageVerificationTypeEnum) => {
+    if (!v) return null;
+    return PAGE_VERIFICATION_TYPES[v];
+  };
+
   return {
     getContentLink,
     CONTENT_LINKS,
@@ -302,5 +316,7 @@ export const useConstants = () => {
     getLiveStreamPlatform,
     getPageTierColorsList,
     getPageTierColor,
+    PAGE_VERIFICATION_TYPES,
+    getPageVerificationType,
   };
 };

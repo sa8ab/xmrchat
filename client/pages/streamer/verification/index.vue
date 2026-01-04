@@ -8,6 +8,7 @@ const toast = useToast();
 const { t } = useI18n();
 const authStore = useAuthStore();
 const requestUrl = useRequestURL();
+const { getPageVerificationType } = useConstants();
 const { url, required } = useValidations();
 
 const state = reactive({
@@ -81,15 +82,9 @@ const { getValidationAttrs } = useValidations(v);
 
     <div v-else>
       <div v-if="data?.length">
-        <h3>Verifications</h3>
-        <div v-for="item in data">
-          <div class="font-medium">{{ item.type }}:</div>
-          <div>
-            <ULink v-if="item.verifiedUrl" :to="item.verifiedUrl" external>
-              {{ item.name }}
-            </ULink>
-            <ULink :to="item.url" external> Verification </ULink>
-          </div>
+        <h3 class="text-lg font-medium">Verifications</h3>
+        <div class="mt-4 flex flex-col gap-2">
+          <PageVerificationItem v-for="item in data" :item="item" />
         </div>
       </div>
       <div v-else>

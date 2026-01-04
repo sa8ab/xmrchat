@@ -12,6 +12,12 @@ export class PageVerificationDto {
   url: string;
 
   @Expose()
+  name: string;
+
+  @Expose()
+  verifiedUrl: string;
+
+  @Expose()
   createdAt: Date;
 }
 
