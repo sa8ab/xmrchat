@@ -110,6 +110,8 @@ export interface StreamerPage {
   expirationMinutes?: number;
   liveStreams?: LiveStream[];
   pageTipTiers?: PageTipTier[];
+  pageVerifications?: PageVerification[];
+  verificationsCount?: number;
   ability?: any;
 }
 

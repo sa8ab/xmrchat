@@ -161,7 +161,18 @@ const items = computed(() => {
         variant="logo"
         class="w-[80px] h-[80px]"
       />
-      <span class="font-medium text-lg">{{ page?.path || "-" }}</span>
+      <div class="flex items-center gap-1">
+        <span class="font-medium text-lg">
+          {{ page?.path || "-" }}
+        </span>
+
+        <UIcon
+          v-if="page?.verificationsCount"
+          name="i-heroicons-check-badge-20-solid"
+          class="text-blue-500"
+          size="20"
+        />
+      </div>
       <UBadge v-if="authStore.isPremium">Premium</UBadge>
       <span class="text-pale text-sm">{{ state.user?.email }}</span>
     </div>
