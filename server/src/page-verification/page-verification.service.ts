@@ -39,6 +39,12 @@ export class PageVerificationService {
     return pageVerification;
   }
 
+  async findByUser(user: User) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page not found');
+    return this.repo.find({ where: { page: { id: page.id } } });
+  }
+
   async create(user: User, dto: CreatePageVerificationDto) {
     const page = await this.pagesService.findMyPage(user);
 

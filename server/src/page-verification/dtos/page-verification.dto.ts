@@ -20,3 +20,9 @@ export class PageVerificationRo {
   @Type(() => PageVerificationDto)
   pageVerification: PageVerificationDto;
 }
+
+export class PageVerificationsRo {
+  @Expose()
+  @Type(() => PageVerificationDto)
+  pageVerifications: PageVerificationDto[];
+}

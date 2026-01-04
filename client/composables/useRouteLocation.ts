@@ -49,5 +49,6 @@ export const useRouteLocation = () => {
       localeRoute(`/${streamerId}/super-dm`),
     toSuperDm: (streamerId: Numberic, superDmId: Numberic) =>
       localeRoute(`/${streamerId}/super-dm/${superDmId}`),
+    toStreamerVerification: () => localeRoute("/streamer/verification"),
   };
 };

@@ -19,11 +19,19 @@ export class PageVerification {
   @ManyToOne(() => Page, { onDelete: 'CASCADE' })
   page: Page;
 
+  @Column({ nullable: true })
+  name?: string;
+
   @Column({})
   type: PageVerificationTypeEnum;
 
+  // url that is sent for verification
   @Column({ nullable: true })
   url?: string;
+
+  // url of the user
+  @Column({ nullable: true })
+  verifiedUrl?: string;
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
