@@ -70,8 +70,7 @@ const { getValidationAttrs } = useValidations(v);
     </p>
     <p class="pt-2">
       2. Then paste the full URL of the tweet in this form, for example:
-      https://x.com/MyUsername/status/123123123123123123 and click on Verify
-      Tweet.
+      https://x.com/username/status/12341234 and click on Verify Tweet.
     </p>
   </div>
 
@@ -84,7 +83,7 @@ const { getValidationAttrs } = useValidations(v);
       >
         <UInput
           v-model="state.url"
-          placeholder="https://x.com/username/status/123123123123123123"
+          placeholder="https://x.com/username/status/12341234"
           type="url"
           @blur="getValidationAttrs('url').onBlur"
         />
