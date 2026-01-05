@@ -81,17 +81,32 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
 
       const res = await fetch(tCoUrl, {
         headers: {
-          'User-Agent': 'curl/7.68.0',
+          'User-Agent':
+            'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0',
           Referer: 'https://reddit.com',
         },
-        redirect: 'follow',
+        redirect: 'manual',
       });
-      console.log('status', res.status);
-      console.log('redirected', res.redirected);
-      console.log('response.url', res.url);
 
-      resolvedUrl = res.url;
-      console.log('Resolved URL:', resolvedUrl);
+      const htmlText = await res.text();
+
+      // Try to extract URL from meta refresh tag: <META http-equiv="refresh" content="0;URL=https://...">
+      const metaRefreshMatch = htmlText.match(
+        /<META\s+http-equiv=["']refresh["']\s+content=["']\d+;URL=([^"']+)["']/i,
+      );
+      if (metaRefreshMatch && metaRefreshMatch[1]) {
+        resolvedUrl = metaRefreshMatch[1];
+        console.log('Resolved URL from meta refresh:', resolvedUrl);
+      } else {
+        // Try to extract URL from JavaScript location.replace: location.replace("https://...")
+        const locationReplaceMatch = htmlText.match(
+          /location\.replace\(["']([^"']+)["']\)/i,
+        );
+        if (locationReplaceMatch && locationReplaceMatch[1]) {
+          resolvedUrl = locationReplaceMatch[1];
+          console.log('Resolved URL from location.replace:', resolvedUrl);
+        }
+      }
     } catch (error) {
       console.log(
         'Failed to resolve t.co redirect to get final URL',
