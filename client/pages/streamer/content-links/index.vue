@@ -119,9 +119,9 @@ const v = useVuelidate<any>(
 
 const { getValidationAttrs } = useValidations(v);
 
-const getLinkVerification = (platform: ContentLinkPlatformEnum) => {
-  return data.value?.links?.find((l: any) => l.platform === platform)
-    ?.verification;
+// gets link from data
+const getLink = (platform: ContentLinkPlatformEnum) => {
+  return data.value?.links?.find((l: any) => l.platform === platform);
 };
 </script>
 
@@ -166,13 +166,13 @@ const getLinkVerification = (platform: ContentLinkPlatformEnum) => {
           </span>
         </template>
         <template #hint>
-          <div v-if="getContentLink(p).verify">
+          <div v-if="getContentLink(p).verify && getLink(p)?.value">
             <UButton
               variant="link"
               :to="toStreamerContentLink(p)"
               :padded="false"
             >
-              {{ getLinkVerification(p) ? "Verfied" : "Verify" }}
+              {{ getLink(p)?.verification ? "Verfied" : "Verify" }}
             </UButton>
           </div>
         </template>

@@ -27,3 +27,9 @@ export class LinkDtoRO {
   @Type(() => LinkDto)
   links: LinkDto[];
 }
+
+export class LinkRO {
+  @Expose()
+  @Type(() => LinkDto)
+  link: LinkDto;
+}

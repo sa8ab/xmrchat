@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Link } from './link.entity';
 import { And, IsNull, Not, Repository } from 'typeorm';
@@ -7,6 +11,7 @@ import { UpdateLinksDto } from './dto/update-links.dto';
 import { Page } from 'src/pages/page.entity';
 import { contentLinksWithDefaults } from 'src/shared/utils';
 import { LinkPlatformEnum, PageStatusEnum } from 'src/shared/constants';
+import { User } from 'src/users/user.entity';
 
 @Injectable()
 export class LinksService {
@@ -24,6 +29,18 @@ export class LinksService {
     });
 
     return contentLinksWithDefaults(res);
+  }
+
+  async findOneByUserAndPlatform(user: User, platform: LinkPlatformEnum) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page is not found.');
+
+    const link = await this.repo.findOne({
+      where: { page: { id: page.id }, platform },
+      relations: { verification: true },
+    });
+    if (!link) throw new NotFoundException('Link is not found.');
+    return link;
   }
 
   async findByPlatform(platform: LinkPlatformEnum) {
