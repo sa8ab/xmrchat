@@ -142,7 +142,7 @@ export class PagesService {
         logo: true,
         coverImage: true,
         liveStreams: true,
-        links: true,
+        links: { verification: true },
       },
     });
 
@@ -307,7 +307,7 @@ export class PagesService {
       where: { path },
       relations: {
         tiers: true,
-        links: true,
+        links: { verification: true },
         recipients: true,
         liveStreams: true,
         pageTipTiers: { sound: true },

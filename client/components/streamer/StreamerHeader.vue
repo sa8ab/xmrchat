@@ -11,8 +11,6 @@ const props = withDefaults(
     links?: ContentLink[];
     streamerId?: string;
     superDmActive?: boolean;
-    verificationsCount?: number;
-    pageVerifications?: PageVerification[];
   }>(),
   {
     showTitle: true,
@@ -25,6 +23,7 @@ const { liveStream, livePlatforms } = useLiveStreamPlayer(
 );
 
 const showLogo = computed(() => !liveStream.value);
+const verified = computed(() => props.links?.some((l) => l.verification));
 </script>
 
 <template>
@@ -61,7 +60,7 @@ const showLogo = computed(() => !liveStream.value);
         <div class="name p-2 flex flex-col flex-1" v-if="showTitle">
           <div class="flex items-center gap-1">
             <span class="text-lg lg:text-2xl font-bold">{{ name }}</span>
-            <VerifiedBadge v-if="verificationsCount" />
+            <VerifiedBadge v-if="verified" />
           </div>
           <!-- <span class="text-pale">Streamer name</span> -->
           <StreamerLinks

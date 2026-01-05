@@ -61,7 +61,7 @@ const { status, refresh, error, data } = useLazyAsyncData("creators", () =>
             />
             <div class="flex items-center gap-1 pt-3">
               <div class="font-medium">{{ item.name || item.path }}</div>
-              <VerifiedBadge v-if="item.verificationsCount" />
+              <VerifiedBadge v-if="item.links?.some((l) => l.verification)" />
             </div>
             <LiveStreamIcons
               v-if="item.liveStreams?.length"
