@@ -24,6 +24,8 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
     const tweetUrl = data.data.tweetUrl;
     let tweetData: any;
     try {
+      console.log('Sending tweet data to Twitter API');
+
       const { data } = await this.httpService.axiosRef.get(
         `https://publish.twitter.com/oembed?url=${tweetUrl}&hide_thread=true&hide_media=true`,
         {
@@ -36,6 +38,7 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
       );
       tweetData = data;
     } catch (error) {
+      console.log('Failed to load tweet data.', error.message);
       return { valid: false, message: 'Failed to load tweet data.' };
     }
 
@@ -74,12 +77,17 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
     // Resolve t.co redirect to get final URL
     let resolvedUrl: string;
     try {
+      console.log('Resolving t.co redirect to get final URL');
       const { request } = await this.httpService.axiosRef.get(tCoUrl, {
         validateStatus: () => true,
       });
 
       resolvedUrl = request?.res?.responseUrl;
     } catch (error) {
+      console.log(
+        'Failed to resolve t.co redirect to get final URL',
+        error.message,
+      );
       return { valid: false };
     }
 
