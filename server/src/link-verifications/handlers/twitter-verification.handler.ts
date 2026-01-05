@@ -81,8 +81,7 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
 
       const res = await fetch(tCoUrl, {
         headers: {
-          'User-Agent':
-            'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0',
+          'User-Agent': 'curl/7.68.0',
           Referer: 'https://reddit.com',
         },
         redirect: 'follow',
