@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ContentLink, LiveStream } from "~/types";
+import type { ContentLink, LiveStream, PageVerification } from "~/types";
 
 const props = withDefaults(
   defineProps<{
@@ -11,6 +11,8 @@ const props = withDefaults(
     links?: ContentLink[];
     streamerId?: string;
     superDmActive?: boolean;
+    verificationsCount?: number;
+    pageVerifications?: PageVerification[];
   }>(),
   {
     showTitle: true,
@@ -57,7 +59,10 @@ const showLogo = computed(() => !liveStream.value);
           </div>
         </div>
         <div class="name p-2 flex flex-col flex-1" v-if="showTitle">
-          <span class="text-lg lg:text-2xl font-bold">{{ name }}</span>
+          <div class="flex items-center gap-1">
+            <span class="text-lg lg:text-2xl font-bold">{{ name }}</span>
+            <VerifiedBadge v-if="verificationsCount" />
+          </div>
           <!-- <span class="text-pale">Streamer name</span> -->
           <StreamerLinks
             class="mt-3"

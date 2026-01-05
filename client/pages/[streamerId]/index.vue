@@ -81,6 +81,8 @@ useStreamerIdSeoMeta(computed(() => data.value?.page));
           :links="data.page.links"
           :superDmActive="data.superDmState.active"
           :streamerId="streamerId"
+          :verificationsCount="data.page.verificationsCount"
+          :pageVerifications="data.page.pageVerifications"
         />
         <TipContent
           ref="contentRef"

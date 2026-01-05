@@ -166,12 +166,7 @@ const items = computed(() => {
           {{ page?.path || "-" }}
         </span>
 
-        <UIcon
-          v-if="page?.verificationsCount"
-          name="i-heroicons-check-badge-20-solid"
-          class="text-blue-500"
-          size="20"
-        />
+        <VerifiedBadge v-if="page?.verificationsCount" />
       </div>
       <UBadge v-if="authStore.isPremium">Premium</UBadge>
       <span class="text-pale text-sm">{{ state.user?.email }}</span>
