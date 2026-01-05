@@ -79,19 +79,14 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
     try {
       console.log('Resolving t.co redirect to get final URL');
 
-      const res = await this.httpService.axiosRef.head(tCoUrl, {
-        validateStatus: () => true,
+      const res = await fetch(tCoUrl, {
         headers: {
           'User-Agent': 'curl/7.68.0',
           Referer: 'https://reddit.com',
         },
-        timeout: 10000,
       });
 
-      resolvedUrl =
-        (res.request?.res?.responseUrl as string) ||
-        (res.request?.responseURL as string) ||
-        (res.config?.url as string);
+      resolvedUrl = res.url;
       console.log('Resolved URL:', resolvedUrl);
     } catch (error) {
       console.log(
