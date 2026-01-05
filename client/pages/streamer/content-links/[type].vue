@@ -6,7 +6,9 @@ const { axios } = useApp();
 const route = useRoute();
 const type = computed(() => route.params.type as ContentLinkPlatformEnum);
 const { getContentLink } = useConstants();
+const toast = useToast();
 
+const pendingUnlink = ref(false);
 const { data, pending, refresh, error } = await useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{ link: ContentLink }>(
@@ -16,6 +18,23 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
   },
   { server: false }
 );
+
+const handleUnlink = async () => {
+  try {
+    await axios.delete(`/link-verifications/${type.value}`);
+    toast.add({
+      color: "green",
+      title: "Account unlinked.",
+    });
+    await refresh();
+  } catch (error) {
+    toast.add({
+      color: "red",
+      title: getErrorMessage(error),
+    });
+  }
+  refresh();
+};
 </script>
 
 <template>
@@ -31,10 +50,27 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
     </UAlert>
   </div>
   <div v-else>
-    <template v-if="data.verification">
-      Verification
-      <pre>{{ data.verification }}</pre>
-    </template>
+    <div v-if="data.verification">
+      <p class="font-medium">
+        Link is currently verified with the following URL:
+        <UButton
+          :to="data.verification.url"
+          :padded="false"
+          variant="link"
+          external
+          target="_blank"
+        >
+          {{ data.verification.url }} </UButton
+        >.
+      </p>
+      <p class="mt-2">
+        If you want to change the verification URL, please unlink the current
+        URL and link the new one.
+      </p>
+      <UButton @click="handleUnlink" :loading="pendingUnlink" class="mt-4">
+        Unlink Account
+      </UButton>
+    </div>
     <template v-else>
       <XVerification v-if="type === ContentLinkPlatformEnum.X" />
       <div v-else>Verification is not supported for this link.</div>

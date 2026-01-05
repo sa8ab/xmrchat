@@ -91,4 +91,20 @@ export class LinkVerificationsService {
     });
     return this.repo.save(verification);
   }
+
+  async delete(user: User, linkType: LinkPlatformEnum) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page not found');
+
+    const link = await this.linkRepo.findOne({
+      where: { page: { id: page.id }, platform: linkType },
+      relations: { verification: true },
+    });
+    if (!link) throw new NotFoundException('Link not found');
+
+    if (!link.verification)
+      throw new NotFoundException('Verification not found');
+
+    await this.repo.remove(link.verification);
+  }
 }

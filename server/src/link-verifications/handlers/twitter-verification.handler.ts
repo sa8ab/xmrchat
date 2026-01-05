@@ -7,6 +7,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { Page } from 'src/pages/page.entity';
 import { HttpService } from '@nestjs/axios';
+import { getErrorMessage } from 'src/shared/utils/errors';
 
 @Injectable()
 export class TwitterVerificationHandler implements ILinkVerificationHandler {
@@ -21,16 +22,22 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
 
     // load tweet
     const tweetUrl = data.data.tweetUrl;
-    const { data: tweetData } = await this.httpService.axiosRef.get(
-      `https://publish.twitter.com/oembed?url=${tweetUrl}&hide_thread=true&hide_media=true`,
-      {
-        headers: {
-          'User-Agent':
-            'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0',
-          Referer: 'https://reddit.com',
+    let tweetData: any;
+    try {
+      const { data } = await this.httpService.axiosRef.get(
+        `https://publish.twitter.com/oembed?url=${tweetUrl}&hide_thread=true&hide_media=true`,
+        {
+          headers: {
+            'User-Agent':
+              'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0',
+            Referer: 'https://reddit.com',
+          },
         },
-      },
-    );
+      );
+      tweetData = data;
+    } catch (error) {
+      return { valid: false, message: 'Failed to load tweet data.' };
+    }
 
     const name = tweetData.author_name;
     const userUrl = tweetData.author_url as string;

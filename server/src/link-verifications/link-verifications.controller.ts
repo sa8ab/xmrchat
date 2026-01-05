@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
 import { LinkVerificationsService } from './link-verifications.service';
 import { CreateLinkVerificationDto } from './dtos/create-link-verification.dto';
 import { LinkPlatformEnum } from 'src/shared/constants';
@@ -24,5 +24,14 @@ export class LinkVerificationsController {
       body,
     );
     return { linkVerification: verification };
+  }
+
+  @Delete('/:type')
+  async delete(
+    @Param('type') type: LinkPlatformEnum,
+    @CurrentUser() user: User,
+  ) {
+    await this.linkVerificationsService.delete(user, type);
+    return { message: 'Link verification deleted.' };
   }
 }
