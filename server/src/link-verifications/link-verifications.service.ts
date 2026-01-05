@@ -64,21 +64,23 @@ export class LinkVerificationsService {
     });
     if (!link) throw new NotFoundException('Link not found');
 
+    if (!link.value)
+      throw new BadRequestException('Link value is required for verification.');
+
     const existingVerification = await this.findOneByLinkId(link.id);
 
     if (existingVerification)
       throw new BadRequestException('Verification already exists');
 
-    const type = linkType;
-
-    if (type === LinkPlatformEnum.X) {
+    if (linkType === LinkPlatformEnum.X) {
       const result = await this.twitterVerificationHandler.verify({
         page,
         link,
         data: { tweetUrl: dto.url },
       });
 
-      if (!result.valid) throw new BadRequestException('Invalid tweet URL');
+      if (!result.valid)
+        throw new BadRequestException(result.message || 'Invalid tweet URL');
     } else {
       throw new BadRequestException('Only verification of X is supported.');
     }

@@ -33,8 +33,26 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
     );
 
     const name = tweetData.author_name;
-    const userUrl = tweetData.author_url;
+    const userUrl = tweetData.author_url as string;
     const html = tweetData.html;
+
+    // Validate that link.value matches the username from author_url
+    const linkValue = data.link.value.toLowerCase();
+    // Extract username from author_url by taking last segment after "/"
+    const authorUsername = userUrl.split('/').pop()?.toLowerCase();
+    if (!authorUsername) {
+      return {
+        valid: false,
+        message: 'Invalid tweet URL.',
+      };
+    }
+
+    if (authorUsername !== linkValue) {
+      return {
+        valid: false,
+        message: 'Tweet should be from the same user on the link.',
+      };
+    }
 
     // Extract first t.co link from tweet HTML
     const tCoLinkMatch = html.match(
@@ -70,7 +88,7 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
 
     const isValid = resolved === expected;
 
-    return { valid: isValid, name };
+    return { valid: isValid };
   }
 
   async getTweetUrl(page: Page) {

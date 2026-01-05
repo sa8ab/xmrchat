@@ -9,7 +9,7 @@ export interface ILinkVerificationHandlerData {
 
 export interface ILinkVerificationHandlerResponse {
   valid: boolean;
-  name?: string;
+  message?: string;
 }
 
 export interface ILinkVerificationHandler {
