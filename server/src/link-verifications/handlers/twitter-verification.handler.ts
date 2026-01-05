@@ -78,11 +78,16 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
     let resolvedUrl: string;
     try {
       console.log('Resolving t.co redirect to get final URL');
-      const { request } = await this.httpService.axiosRef.get(tCoUrl, {
+
+      // Use HEAD request to resolve redirect (lighter and faster)
+      const { request } = await this.httpService.axiosRef.head(tCoUrl, {
         validateStatus: () => true,
+        maxRedirects: 5,
+        timeout: 10000, // 10 second timeout to prevent hanging
       });
 
       resolvedUrl = request?.res?.responseUrl;
+      console.log('Resolved URL:', resolvedUrl);
     } catch (error) {
       console.log(
         'Failed to resolve t.co redirect to get final URL',
