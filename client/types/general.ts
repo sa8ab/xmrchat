@@ -192,6 +192,14 @@ export interface PageSettingField {
 export interface ContentLink {
   platform: ContentLinkPlatformEnum;
   value: string;
+  verification?: LinkVerification;
+}
+
+export interface LinkVerification {
+  id: number;
+  url: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface ContentLinkFull {
@@ -201,6 +209,7 @@ export interface ContentLinkFull {
   icon: string;
   inputLabel: string;
   linkCreator?: (v?: string) => string | undefined;
+  verify?: boolean;
 }
 
 export interface Coin {

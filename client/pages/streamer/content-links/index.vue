@@ -22,8 +22,9 @@ const { url, notUrl, rumbleApiUrl } = useValidations();
 const toast = useToast();
 const { getContentLink } = useConstants();
 const { t } = useI18n();
+const { toStreamerContentLink } = useRouteLocation();
 
-const { data } = useLazyAsyncData(
+const { data, refresh } = useLazyAsyncData(
   async () => {
     const res = await getMyLinksReq();
 
@@ -35,7 +36,7 @@ const { data } = useLazyAsyncData(
       ...rest,
     };
 
-    return {};
+    return { links };
   },
   { server: false }
 );
@@ -84,6 +85,7 @@ const save = async () => {
     toast.add({
       title: t("changesAreSaved"),
     });
+    refresh();
   } catch (error) {
     state.saveError = getErrorMessage(error);
   } finally {
@@ -116,6 +118,11 @@ const v = useVuelidate<any>(
 );
 
 const { getValidationAttrs } = useValidations(v);
+
+const getLinkVerification = (platform: ContentLinkPlatformEnum) => {
+  return data.value?.links?.find((l: any) => l.platform === platform)
+    ?.verification;
+};
 </script>
 
 <template>
@@ -146,7 +153,6 @@ const { getValidationAttrs } = useValidations(v);
       )}, 1fr)`"
     >
       <UFormGroup
-        label="Website"
         v-for="p in CONTENT_LINKS_LIST"
         :error="getValidationAttrs(`links.${p}.value`).error"
       >
@@ -158,6 +164,17 @@ const { getValidationAttrs } = useValidations(v);
             />
             <span>{{ getContentLink(p).inputLabel }}</span>
           </span>
+        </template>
+        <template #hint>
+          <div v-if="getContentLink(p).verify">
+            <UButton
+              variant="link"
+              :to="toStreamerContentLink(p)"
+              :padded="false"
+            >
+              {{ getLinkVerification(p) ? "Verfied" : "Verify" }}
+            </UButton>
+          </div>
         </template>
         <UInput
           v-model="state.form.links[p].value"
