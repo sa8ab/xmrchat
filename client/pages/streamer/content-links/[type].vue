@@ -7,6 +7,7 @@ const route = useRoute();
 const type = computed(() => route.params.type as ContentLinkPlatformEnum);
 const { getContentLink } = useConstants();
 const toast = useToast();
+const authStore = useAuthStore();
 
 const pendingUnlink = ref(false);
 const { data, pending, refresh, error } = await useLazyAsyncData(
@@ -28,6 +29,7 @@ const handleUnlink = async () => {
       title: "Account unlinked.",
     });
     await refresh();
+    authStore.getMe();
   } catch (error) {
     toast.add({
       color: "red",

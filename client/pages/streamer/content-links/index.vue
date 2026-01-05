@@ -23,6 +23,7 @@ const toast = useToast();
 const { getContentLink } = useConstants();
 const { t } = useI18n();
 const { toStreamerContentLink } = useRouteLocation();
+const authStore = useAuthStore();
 
 const { data, refresh } = useLazyAsyncData(
   async () => {
@@ -86,6 +87,7 @@ const save = async () => {
       title: t("changesAreSaved"),
     });
     refresh();
+    authStore.getMe();
   } catch (error) {
     state.saveError = getErrorMessage(error);
   } finally {
