@@ -166,7 +166,7 @@ const getLink = (platform: ContentLinkPlatformEnum) => {
           </span>
         </template>
         <template #hint>
-          <div v-if="getContentLink(p).verify && getLink(p)?.value">
+          <div v-if="getContentLink(p).verify">
             <UButton
               variant="link"
               :to="toStreamerContentLink(p)"

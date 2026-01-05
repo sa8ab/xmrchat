@@ -30,8 +30,7 @@ const handleVerify = async () => {
   state.pending = true;
 
   try {
-    await axios.post("/link-verifications", {
-      type: ContentLinkPlatformEnum.X,
+    await axios.post(`/link-verifications/${ContentLinkPlatformEnum.X}`, {
       url: state.url.trim(),
     });
     toast.add({
