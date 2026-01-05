@@ -132,13 +132,6 @@ export class Page {
   @OneToMany(() => User, (u: User) => u.cohostPage)
   cohosts: User[];
 
-  @OneToMany(() => PageVerification, (p: PageVerification) => p.page)
-  pageVerifications: PageVerification[];
-
-  get verificationsCount(): number {
-    return this.pageVerifications?.length;
-  }
-
   totalTips: number | null;
   tipsCount: number | null;
 }

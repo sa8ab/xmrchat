@@ -68,11 +68,4 @@ export class PageDto {
 
   @Expose()
   ability?: any;
-
-  @Expose()
-  verificationsCount: number;
-
-  @Expose()
-  @Type(() => PageVerificationDto)
-  pageVerifications: PageVerificationDto[];
 }
