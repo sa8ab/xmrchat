@@ -99,8 +99,7 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
   }
 
   async getTweetUrl(page: Page) {
-    // const clientUrl = this.configService.get('CLIENT_BASE_URL');
-    const clientUrl = 'https://xmrchat.com';
+    const clientUrl = this.configService.get('CLIENT_BASE_URL');
     return `${clientUrl}/${page.path}`;
   }
 }
