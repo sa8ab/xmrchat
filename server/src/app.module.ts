@@ -53,6 +53,7 @@ import { PageTipTiersModule } from './page-tip-tiers/page-tip-tiers.module';
 import { SuperDmsModule } from './super-dms/super-dms.module';
 import { PaymentFlowModule } from './payment-flow/payment-flow.module';
 import { PageVerificationModule } from './page-verification/page-verification.module';
+import { LinkVerificationsModule } from './link-verifications/link-verifications.module';
 
 @Module({
   imports: [
@@ -180,6 +181,7 @@ import { PageVerificationModule } from './page-verification/page-verification.mo
     SuperDmsModule,
     PaymentFlowModule,
     PageVerificationModule,
+    LinkVerificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
