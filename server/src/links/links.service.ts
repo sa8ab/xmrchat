@@ -12,12 +12,14 @@ import { Page } from 'src/pages/page.entity';
 import { contentLinksWithDefaults } from 'src/shared/utils';
 import { LinkPlatformEnum, PageStatusEnum } from 'src/shared/constants';
 import { User } from 'src/users/user.entity';
+import { LinkVerificationsService } from 'src/link-verifications/link-verifications.service';
 
 @Injectable()
 export class LinksService {
   constructor(
     private pagesService: PagesService,
     @InjectRepository(Link) private repo: Repository<Link>,
+    private linkVerificationsService: LinkVerificationsService,
   ) {}
 
   async findByPageId(id: number) {
@@ -70,6 +72,27 @@ export class LinksService {
       searchTerms: data.searchTerms,
     });
 
+    // Get existing links to compare values
+    const existingLinks = await this.repo.find({
+      where: { page: { id: page.id } },
+      relations: { verification: true },
+    });
+
+    // Check for value changes and remove verifications
+    for (const link of data.links) {
+      const existingLink = existingLinks.find(
+        (l) => l.platform === link.platform,
+      );
+
+      // If link exists and value has changed, remove verification
+      if (
+        existingLink &&
+        existingLink.value !== link.value &&
+        existingLink.verification
+      )
+        await this.linkVerificationsService.deleteByLinkId(existingLink.id);
+    }
+
     // upsert
     const links = data.links.map((l) => {
       return {
@@ -79,8 +102,6 @@ export class LinksService {
         data: this.getLinkData(data, l.platform),
       };
     });
-
-    // TODO: remove verification if link value is changed
 
     return this.repo.upsert(links, ['page.id', 'platform']);
   }

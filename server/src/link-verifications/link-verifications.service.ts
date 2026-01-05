@@ -92,6 +92,11 @@ export class LinkVerificationsService {
     return this.repo.save(verification);
   }
 
+  async deleteByLinkId(linkId: number) {
+    const verification = await this.findOneByLinkId(linkId);
+    if (verification) await this.repo.remove(verification);
+  }
+
   async delete(user: User, linkType: LinkPlatformEnum) {
     const page = await this.pagesService.findMyPage(user);
     if (!page) throw new NotFoundException('Page not found');

@@ -16,5 +16,6 @@ import { PagesModule } from 'src/pages/pages.module';
   ],
   providers: [LinkVerificationsService, TwitterVerificationHandler],
   controllers: [LinkVerificationsController],
+  exports: [LinkVerificationsService],
 })
 export class LinkVerificationsModule {}
