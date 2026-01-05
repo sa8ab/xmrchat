@@ -85,7 +85,11 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
             'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0',
           Referer: 'https://reddit.com',
         },
+        redirect: 'follow',
       });
+      console.log('status', res.status);
+      console.log('redirected', res.redirected);
+      console.log('response.url', res.url);
 
       resolvedUrl = res.url;
       console.log('Resolved URL:', resolvedUrl);
