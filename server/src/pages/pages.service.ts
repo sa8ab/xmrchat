@@ -328,7 +328,7 @@ export class PagesService {
 
     return this.repo.findOne({
       where: { user: { id: user.id } },
-      relations: { tiers: true },
+      relations: { tiers: true, links: { verification: true } },
     });
   }
 

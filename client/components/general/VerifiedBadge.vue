@@ -4,7 +4,7 @@ import type { ContentLink } from "~/types";
 const props = withDefaults(
   defineProps<{
     links?: ContentLink[];
-    size?: number;
+    size?: number | string;
     tooltip?: boolean;
   }>(),
   {
