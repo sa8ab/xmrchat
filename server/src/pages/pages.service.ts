@@ -13,7 +13,7 @@ import { ReserveSlugDto } from './dtos/reserve-slug.dto';
 import { User } from 'src/users/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Page } from './page.entity';
-import { QueryBuilder, Repository, SelectQueryBuilder } from 'typeorm';
+import { In, QueryBuilder, Repository, SelectQueryBuilder } from 'typeorm';
 import { makeIntegratedAddress } from 'src/shared/utils/monero';
 import { LwsService } from 'src/lws/lws.service';
 import { ConfigService } from '@nestjs/config';
@@ -79,13 +79,10 @@ export class PagesService {
         .innerJoin('tip.payment', 'payment')
         .where('payment.paid_at IS NOT NULL');
 
-    let query = this.repo
+    // First, get page IDs without extra joins that cause row multiplication
+    let idsQuery = this.repo
       .createQueryBuilder('page')
-      .leftJoinAndSelect('page.logo', 'logo')
-      .leftJoinAndSelect('page.coverImage', 'cover_image')
-      .leftJoinAndSelect('page.liveStreams', 'live_streams')
-      .leftJoinAndSelect('page.links', 'links')
-      .leftJoinAndSelect('links.linkVerifications', 'linkVerifications')
+      .select('page.id', 'id')
       .leftJoin(tipsSubQuery, 'paid_tip', 'paid_tip.page_id = page.id')
       .where('page.isPublic = true')
       .andWhere('page.status != :status', { status: PageStatusEnum.DEACTIVE })
@@ -112,7 +109,7 @@ export class PagesService {
       .orderBy('final_score', 'DESC', 'NULLS LAST');
 
     if (slug) {
-      query = query.andWhere(
+      idsQuery = idsQuery.andWhere(
         '(LOWER(page.path) LIKE :path OR LOWER(page.name) LIKE :name OR LOWER(page.searchTerms) LIKE :searchTerms)',
         {
           path: `%${slug.toLowerCase()}%`,
@@ -122,13 +119,39 @@ export class PagesService {
       );
     }
 
-    query = query.offset(offset).limit(limit);
+    // Get total count before applying offset/limit
+    const total = await idsQuery.getCount();
 
-    const pages = await query.getMany();
-    const total = await query.getCount();
+    // Apply pagination to get the correct page IDs
+    idsQuery = idsQuery.offset(offset).limit(limit);
+
+    const idsResult = await idsQuery.getRawMany();
+    const pageIds = idsResult.map((row) => row.id);
+
+    if (pageIds.length === 0) {
+      return {
+        pages: [],
+        total,
+      };
+    }
+
+    // Now fetch the full pages with relations using the IDs
+    const pages = await this.repo.find({
+      where: { id: In(pageIds) },
+      relations: {
+        logo: true,
+        coverImage: true,
+        liveStreams: true,
+        links: true,
+      },
+    });
+
+    // Maintain the order from the IDs query
+    const pagesMap = new Map(pages.map((page) => [page.id, page]));
+    const orderedPages = pageIds.map((id) => pagesMap.get(id)).filter(Boolean);
 
     return {
-      pages,
+      pages: orderedPages,
       total,
     };
   }
