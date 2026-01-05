@@ -2,11 +2,9 @@ import { Expose, Transform, Type } from 'class-transformer';
 import { FileDto } from 'src/files/dtos/file.dto';
 import { TierDto } from './tier/tier.dto';
 import { MoneroUtils } from 'monero-ts';
-import { Link } from 'src/links/link.entity';
 import { LinkDto } from 'src/links/dto/link.dto';
 import { LiveStreamDto } from 'src/live-streams/dtos/live-stream.dto';
 import { PageTipTierDto } from 'src/page-tip-tiers/dtos/page-tip-tier.dto';
-import { PageVerificationDto } from 'src/page-verification/dtos/page-verification.dto';
 
 export class PageDto {
   @Expose()

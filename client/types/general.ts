@@ -13,7 +13,6 @@ import type {
   LiveStreamPlatformEnum,
   CohostInvitationStatusEnum,
   SuperDmMessageSenderTypeEnum,
-  PageVerificationTypeEnum,
 } from "./enums";
 
 export type Numberic = string | number;
@@ -110,8 +109,6 @@ export interface StreamerPage {
   expirationMinutes?: number;
   liveStreams?: LiveStream[];
   pageTipTiers?: PageTipTier[];
-  pageVerifications?: PageVerification[];
-  verificationsCount?: number;
   ability?: any;
 }
 
@@ -359,13 +356,4 @@ export interface GeneratedKeys {
 
 export interface SavedViewerSuperDmKeys extends GeneratedKeys {
   superDmId: string;
-}
-
-export interface PageVerification {
-  id: number;
-  type: PageVerificationTypeEnum;
-  url: string;
-  verifiedUrl?: string;
-  name?: string;
-  createdAt: Date;
 }

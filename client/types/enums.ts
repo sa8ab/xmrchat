@@ -109,7 +109,3 @@ export enum SuperDmMessageSenderTypeEnum {
   CREATOR = "creator",
   VIEWER = "viewer",
 }
-
-export enum PageVerificationTypeEnum {
-  X = "x",
-}

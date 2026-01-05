@@ -22,7 +22,6 @@ import { PageStatusEnum } from '../shared/constants';
 import { PageRecipient } from 'src/page-recipients/page-recipient.entity';
 import { LiveStream } from '../live-streams/live-stream.entity';
 import { PageTipTier } from 'src/page-tip-tiers/page-tip-tier.entity';
-import { PageVerification } from 'src/page-verification/page-verification.entity';
 
 @Entity({ name: 'pages' })
 @Unique(['path'])

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ContentLink, LiveStream, PageVerification } from "~/types";
+import type { ContentLink, LiveStream } from "~/types";
 
 const props = withDefaults(
   defineProps<{
@@ -60,7 +60,7 @@ const verified = computed(() => props.links?.some((l) => l.verification));
         <div class="name p-2 flex flex-col flex-1" v-if="showTitle">
           <div class="flex items-center gap-1">
             <span class="text-lg lg:text-2xl font-bold">{{ name }}</span>
-            <VerifiedBadge v-if="verified" />
+            <VerifiedBadge :links="links" />
           </div>
           <!-- <span class="text-pale">Streamer name</span> -->
           <StreamerLinks

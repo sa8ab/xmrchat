@@ -166,7 +166,7 @@ const items = computed(() => {
           {{ page?.path || "-" }}
         </span>
 
-        <VerifiedBadge v-if="page?.verificationsCount" />
+        <!-- <VerifiedBadge v-if="page?.verificationsCount" /> -->
       </div>
       <UBadge v-if="authStore.isPremium">Premium</UBadge>
       <span class="text-pale text-sm">{{ state.user?.email }}</span>
