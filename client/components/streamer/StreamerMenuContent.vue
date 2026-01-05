@@ -21,7 +21,6 @@ const {
   toStreamerCohostPage,
   toStreamerPageTiers,
   toStreamerSuperDms,
-  toStreamerVerification,
 } = useRouteLocation();
 
 const items = computed(() => {
@@ -122,11 +121,6 @@ const items = computed(() => {
             label: "Integrations",
             icon: "i-tabler-plug",
             to: toStreamerIntegrations(),
-          },
-          {
-            label: "Verification",
-            icon: "i-heroicons-check-badge",
-            to: toStreamerVerification(),
           },
         ]
       );
