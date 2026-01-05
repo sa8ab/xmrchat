@@ -37,7 +37,7 @@ const handleVerify = async () => {
       color: "green",
       title: "Verification successful!",
     });
-    state.url = "";
+
     emit("verified");
   } catch (error) {
     toast.add({

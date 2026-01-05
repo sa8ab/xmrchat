@@ -21,6 +21,7 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
 
 const handleUnlink = async () => {
   try {
+    pendingUnlink.value = true;
     await axios.delete(`/link-verifications/${type.value}`);
     toast.add({
       color: "green",
@@ -32,8 +33,9 @@ const handleUnlink = async () => {
       color: "red",
       title: getErrorMessage(error),
     });
+  } finally {
+    pendingUnlink.value = false;
   }
-  refresh();
 };
 </script>
 
@@ -72,7 +74,10 @@ const handleUnlink = async () => {
       </UButton>
     </div>
     <template v-else>
-      <XVerification v-if="type === ContentLinkPlatformEnum.X" />
+      <XVerification
+        v-if="type === ContentLinkPlatformEnum.X"
+        @verified="refresh"
+      />
       <div v-else>Verification is not supported for this link.</div>
     </template>
   </div>
