@@ -18,7 +18,10 @@ export class LinksService {
   async findByPageId(id: number) {
     if (!id) return null;
 
-    const res = await this.repo.findBy({ page: { id } });
+    const res = await this.repo.find({
+      where: { page: { id } },
+      relations: { verification: true },
+    });
 
     return contentLinksWithDefaults(res);
   }
@@ -59,6 +62,8 @@ export class LinksService {
         data: this.getLinkData(data, l.platform),
       };
     });
+
+    // TODO: remove verification if link value is changed
 
     return this.repo.upsert(links, ['page.id', 'platform']);
   }

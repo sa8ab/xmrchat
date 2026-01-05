@@ -14,7 +14,7 @@ export class LinkVerification {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => Link, { onDelete: 'CASCADE' })
+  @OneToOne(() => Link, (l: Link) => l.verification, { onDelete: 'CASCADE' })
   @JoinColumn()
   link: Link;
 
