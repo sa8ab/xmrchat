@@ -24,8 +24,6 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
     const tweetUrl = data.data.tweetUrl;
     let tweetData: any;
     try {
-      console.log('Sending tweet data to Twitter API');
-
       const { data } = await this.httpService.axiosRef.get(
         `https://publish.twitter.com/oembed?url=${tweetUrl}&hide_thread=true&hide_media=true`,
         {
@@ -77,8 +75,6 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
     // Resolve t.co redirect to get final URL
     let resolvedUrl: string;
     try {
-      console.log('Resolving t.co redirect to get final URL');
-
       const response = await this.httpService.axiosRef.get(tCoUrl, {
         headers: {
           'User-Agent':
