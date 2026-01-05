@@ -1,4 +1,5 @@
 import { Expose, Type } from 'class-transformer';
+import { LinkVerificationDto } from 'src/link-verifications/dtos/link-verification.dto';
 
 export class LinkDto {
   @Expose()
@@ -6,6 +7,10 @@ export class LinkDto {
 
   @Expose()
   value: string;
+
+  @Expose()
+  @Type(() => LinkVerificationDto)
+  verification?: LinkVerificationDto;
 }
 
 export class LinkDtoRO {
