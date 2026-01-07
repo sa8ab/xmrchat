@@ -22,7 +22,8 @@ export class SwapsController {
           (c.network === 'Mainnet' && c.ticker === 'bch') || // Bitcoin Cash
           (c.network === 'SOL' &&
             c.ticker === 'usdc' &&
-            c.name === 'USDC (SOL)'), // USDC
+            c.name === 'USDC (SOL)') || // USDC
+          (c.network === 'ERC20' && c.ticker === 'usdt'),
       ),
     };
   }
