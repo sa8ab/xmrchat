@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   NotFoundException,
+  Param,
   Put,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -12,7 +13,7 @@ import { User } from 'src/users/user.entity';
 import { LinksService } from './links.service';
 import { UpdateLinksDto } from './dto/update-links.dto';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
-import { LinkDtoRO } from './dto/link.dto';
+import { LinkDtoRO, LinkRO } from './dto/link.dto';
 import { LinkPlatformEnum } from 'src/shared/constants';
 
 @Controller('links')
@@ -42,6 +43,19 @@ export class LinksController {
       searchTerms: page.searchTerms,
       rumbleLiveStreamUrl,
     };
+  }
+
+  @Get('/:platform')
+  @Serialize(LinkRO)
+  async getLink(
+    @Param('platform') platform: LinkPlatformEnum,
+    @CurrentUser() user: User,
+  ) {
+    const link = await this.linksService.findOneByUserAndPlatform(
+      user,
+      platform,
+    );
+    return { link };
   }
 
   @Put('/me')
