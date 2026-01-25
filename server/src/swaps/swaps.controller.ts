@@ -44,7 +44,7 @@ export class SwapsController {
     const xmrUsdPrice = xmrPrices.usd;
 
     // If price is not available, return original minimum
-    if (!xmrUsdPrice)
+    if (!xmrUsdPrice || !xmr)
       return {
         minimum: xmr?.minimum,
         maximum: xmr?.maximum,
