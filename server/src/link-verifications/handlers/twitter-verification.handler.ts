@@ -45,7 +45,9 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
     const html = tweetData.html;
 
     // Validate that link.value matches the username from author_url
-    const linkValue = data.link.value.toLowerCase();
+    let linkValue = data.link.value.toLowerCase();
+    if (linkValue.startsWith('@')) linkValue = linkValue.slice(1);
+    
     // Extract username from author_url by taking last segment after "/"
     const authorUsername = userUrl.split('/').pop()?.toLowerCase();
     if (!authorUsername) {
