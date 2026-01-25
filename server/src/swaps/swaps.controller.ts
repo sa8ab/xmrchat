@@ -3,10 +3,15 @@ import { SwapsService } from './swaps.service';
 import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 import { CoinDtoRO } from './dtos/swap.dto';
 import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
+import { PricesService } from 'src/prices/prices.service';
+import { FiatEnum } from 'src/shared/constants';
 
 @Controller('swaps')
 export class SwapsController {
-  constructor(private swapsService: SwapsService) {}
+  constructor(
+    private swapsService: SwapsService,
+    private pricesService: PricesService,
+  ) {}
 
   @IsPublic()
   @Serialize(CoinDtoRO)
@@ -34,8 +39,27 @@ export class SwapsController {
     const coins = await this.swapsService.findAllCoins();
     const xmr = coins.find((c) => c.ticker === 'xmr');
 
+    // Get XMR price in USD
+    const xmrPrices = await this.pricesService.getMoneroPrices();
+    const xmrUsdPrice = xmrPrices.usd;
+
+    // If price is not available, return original minimum
+    if (!xmrUsdPrice || !xmr)
+      return {
+        minimum: xmr?.minimum,
+        maximum: xmr?.maximum,
+      };
+
+    const minUsd = xmr.minimum * xmrUsdPrice;
+
+    const minUsdRequired = 10;
+    const adjustedMinUsd = Math.max(minUsd, minUsdRequired);
+    const adjustedMinimum = adjustedMinUsd / xmrUsdPrice;
+
+    const roundedMinimum = parseFloat(adjustedMinimum.toFixed(8));
+
     return {
-      minimum: xmr?.minimum,
+      minimum: roundedMinimum,
       maximum: xmr?.maximum,
     };
   }

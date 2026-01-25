@@ -19,6 +19,7 @@ export const useConstants = () => {
       icon: "i-tabler-brand-x",
       inputLabel: t("xUsername", { platform: "X (Twitter)" }),
       linkCreator: (v?: string) => `https://x.com/${v}`,
+      verify: true,
     },
     [ContentLinkPlatformEnum.WEBSITE]: {
       name: "Website",

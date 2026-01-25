@@ -12,6 +12,7 @@ import {
   PrimaryGeneratedColumn,
   RelationId,
   Unique,
+  VirtualColumn,
 } from 'typeorm';
 import { Tier } from './tier.entity';
 import { PageSetting } from '../page-settings/page-setting.entity';

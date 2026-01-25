@@ -59,7 +59,10 @@ const { status, refresh, error, data } = useLazyAsyncData("creators", () =>
               :url="item?.logo.thumbnail || item.logo.url"
               class="w-[90px] h-[90px]"
             />
-            <div class="pt-3 font-medium">{{ item.name || item.path }}</div>
+            <div class="flex items-center gap-1 pt-3">
+              <div class="font-medium">{{ item.name || item.path }}</div>
+              <VerifiedBadge :links="item.links" size="18" />
+            </div>
             <LiveStreamIcons
               v-if="item.liveStreams?.length"
               class="pt-1"

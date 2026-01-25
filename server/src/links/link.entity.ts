@@ -1,3 +1,4 @@
+import { LinkVerification } from 'src/link-verifications/link-verification.entity';
 import { Page } from '../pages/page.entity';
 import { LinkPlatformEnum } from '../shared/constants';
 import {
@@ -5,6 +6,7 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   RelationId,
   Unique,
@@ -37,4 +39,7 @@ export class Link {
 
   @RelationId((l: Link) => l.page)
   page_id: number;
+
+  @OneToOne(() => LinkVerification, (lv: LinkVerification) => lv.link)
+  verification: LinkVerification;
 }

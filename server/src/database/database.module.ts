@@ -21,6 +21,7 @@ import { Swap } from 'src/swaps/swap.entity';
 import { Tip } from 'src/tips/tip.entity';
 import { User } from 'src/users/user.entity';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { LinkVerification } from 'src/link-verifications/link-verification.entity';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
           PageTipTier,
           SuperDm,
           SuperDmMessage,
+          LinkVerification,
         ],
         namingStrategy: new SnakeNamingStrategy(),
         migrationsRun: process.env.NODE_ENV === 'production',
