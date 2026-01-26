@@ -97,7 +97,7 @@ const save = async () => {
 
 const rules = computed(() => {
   const notUrlWithMessage = helpers.withMessage(t("notUrlWithMessage"), notUrl);
-  const { WEBSITE, PODCAST_RSS, ...rest } = ContentLinkPlatformEnum;
+  const { WEBSITE, PODCAST_RSS, PEERTUBE, ...rest } = ContentLinkPlatformEnum;
 
   const notUrls: Record<string, any> = {};
   Object.values(rest).forEach((nUrl) => {
@@ -108,6 +108,7 @@ const rules = computed(() => {
     links: {
       [WEBSITE]: { value: { url } },
       [PODCAST_RSS]: { value: { url } },
+      [PEERTUBE]: { value: { url } },
       ...notUrls,
     },
     rumbleLiveStreamUrl: { url, rumbleApiUrl },
