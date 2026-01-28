@@ -16,7 +16,7 @@ export class CreateTipDto {
   name: string;
 
   @MinLength(3)
-  @MaxLength(280)
+  // @MaxLength(280)
   @IsOptional()
   message?: string;
 

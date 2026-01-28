@@ -52,7 +52,7 @@ export class TipsService {
     private casl: CaslAbilityFactory,
     private paymentFlowService: PaymentFlowService,
     @InjectRepository(Tip) private repo: Repository<Tip>,
-  ) {}
+  ) { }
 
   findOneById(id: number) {
     if (!id) return null;
@@ -129,6 +129,15 @@ export class TipsService {
       throw new BadRequestException(
         `Tip amount must be more than or equal to ${minTipAmountXmr} XMR.`,
       );
+
+
+    const tier = getTipTier(xmrUnits.toString(), page.pageTipTiers);
+
+    const messageLength = tier?.messageLength || 255;
+
+    if (payload.message && payload.message?.length > messageLength) {
+      throw new BadRequestException(`Message length must be less than or equal to ${messageLength}.`);
+    }
 
     const { baseSwap, eventId, inputCoin, integratedAddress } =
       await this.paymentFlowService.create({
@@ -301,7 +310,7 @@ export class TipsService {
 
     try {
       await this.lwsService.deleteWebhook(payment.eventId);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   @Cron(CronExpression.EVERY_MINUTE)
