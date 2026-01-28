@@ -21,6 +21,10 @@ export class PageTipTierDto {
   maxAmount?: number;
 
   @Expose()
+  @Type(() => Number)
+  messageLength?: number;
+
+  @Expose()
   color?: string;
 
   @Expose()

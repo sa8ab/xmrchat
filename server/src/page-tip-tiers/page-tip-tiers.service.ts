@@ -81,6 +81,7 @@ export class PageTipTiersService {
       minAmount: dto.minAmount,
       maxAmount: dto.maxAmount,
       color: dto.color,
+      messageLength: dto.messageLength,
       sound,
       page: { id: page.id },
     });
@@ -117,6 +118,7 @@ export class PageTipTiersService {
     tier.description = dto.description;
     tier.minAmount = dto.minAmount;
     tier.maxAmount = dto.maxAmount;
+    tier.messageLength = dto.messageLength;
     tier.color = dto.color;
     tier.sound = sound;
 

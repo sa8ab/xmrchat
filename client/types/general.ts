@@ -297,6 +297,7 @@ export interface PageTipTier {
   name: string;
   description?: string;
   minAmount?: number;
+  messageLength?: number;
   color?: string;
   sound?: UploadedFile;
 }
