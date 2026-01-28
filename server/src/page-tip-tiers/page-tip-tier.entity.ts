@@ -25,6 +25,9 @@ export class PageTipTier {
   @Column({ type: 'bigint', nullable: true })
   maxAmount?: string;
 
+  @Column({ type: 'integer', nullable: true })
+  messageLength?: number;
+
   @Column({ nullable: true })
   color?: string;
 
