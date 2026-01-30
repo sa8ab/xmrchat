@@ -6,6 +6,7 @@ import {
   IsOptional,
   IsRgbColor,
   IsString,
+  Max,
   MaxLength,
   Min,
 } from 'class-validator';
@@ -45,6 +46,7 @@ export class CreatePageTipTierDto {
 
   @IsNumber()
   @IsOptional()
+  @Max(1000)
   @Type(() => Number)
   messageLength?: number;
 

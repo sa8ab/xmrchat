@@ -18,7 +18,7 @@ interface State {
 }
 
 const { getPageTierColorsList } = useConstants();
-const { required, maxLength, numberic, integer, minValue } = useValidations();
+const { required, maxLength, numberic, integer, maxValue } = useValidations();
 const { toStreamerPageTiers } = useRouteLocation();
 const { axios } = useApp();
 const route = useRoute();
@@ -99,7 +99,7 @@ const v = useVuelidate<any>(
     name: { required, maxLength: maxLength(20) },
     description: { maxLength: maxLength(255) },
     minAmount: { numberic, required },
-    messageLength: { integer },
+    messageLength: { integer, maxValue: maxValue(1000) },
   },
   computed(() => state.form)
 );
@@ -125,11 +125,12 @@ const { getValidationAttrs } = useValidations(v);
           @blur="getValidationAttrs('minAmount').onBlur"
         />
       </UFormGroup>
-      <UFormGroup label="Message length limit" :error="getValidationAttrs('messageLength').error">
+      <UFormGroup
+        label="Message length limit"
+        :error="getValidationAttrs('messageLength').error"
+      >
         <template #hint>
-          <span class="text-xs">
-            Optional
-          </span>
+          <span class="text-xs"> Optional </span>
         </template>
         <UInput
           v-model="state.form.messageLength"
