@@ -45,7 +45,6 @@ export class CreatePageTipTierDto {
 
   @IsNumber()
   @IsOptional()
-  @Min(255)
   @Type(() => Number)
   messageLength?: number;
 

@@ -99,7 +99,7 @@ const v = useVuelidate<any>(
     name: { required, maxLength: maxLength(20) },
     description: { maxLength: maxLength(255) },
     minAmount: { numberic, required },
-    messageLength: { integer, minValue: minValue(255) },
+    messageLength: { integer },
   },
   computed(() => state.form)
 );
@@ -128,7 +128,7 @@ const { getValidationAttrs } = useValidations(v);
       <UFormGroup label="Message length limit" :error="getValidationAttrs('messageLength').error">
         <template #hint>
           <span class="text-xs">
-            Optional ( Min. 255 )
+            Optional
           </span>
         </template>
         <UInput
