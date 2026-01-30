@@ -6,7 +6,7 @@ export default {
     minLength: "Should be at least {length} characters.",
     maxLength: "Should not be more than {length} characters.",
     minValue: "Should be at least {value}.",
-    maxValue: "Should be at most {value}.",
+    maxValue: "Should be less than or equal to {value}.",
     sameAs: "Should be same as {otherName}",
     someFieldsAreIncorrect: "Some of the fields are not filled correctly.",
     url: "The link is invalid.",
