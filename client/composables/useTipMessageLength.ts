@@ -24,11 +24,23 @@ export const useTipMessageLength = (params?: IParams) => {
     }
   });
 
+  const defaultMessageLength = computed(() => {
+    const pageTiers = unref(params?.pageTipTiers)
+
+    const tiers = pageTiers?.filter((tier) => Boolean(tier.messageLength)).toSorted((a: PageTipTier, b: PageTipTier) => {
+      const messageLengthA = a.messageLength || 0
+      const messageLengthB = b.messageLength || 0
+      return messageLengthA - messageLengthB;
+    })
+    const defaultLength = tiers?.[0]?.messageLength || 255;
+    return Math.min(defaultLength, 255);
+  });
+
   const pageTierMessageLength = computed(() => {
     const pageTiers = unref(params?.pageTipTiers);
-    if (!pageTiers?.length) return undefined;
+    if (!pageTiers?.length) return defaultMessageLength.value;
 
-    if (!xmrAmount.value) return undefined;
+    if (!xmrAmount.value) return defaultMessageLength.value;
 
     const tiers = pageTiers
       .filter((tier) => {
@@ -41,14 +53,13 @@ export const useTipMessageLength = (params?: IParams) => {
         return minAmountB - minAmountA;
       });
 
-    if (!tiers.length) return undefined;
+    if (!tiers.length) return defaultMessageLength.value;
 
 
     const firstTier = tiers[0];
-    if (!firstTier) return undefined;
 
 
-    return firstTier.messageLength;
+    return firstTier?.messageLength || defaultMessageLength.value;
   });
 
 

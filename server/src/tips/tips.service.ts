@@ -32,7 +32,7 @@ import { PageRecipientsService } from 'src/page-recipients/page-recipients.servi
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { Action } from 'src/shared/constants';
 import { PageTipTier } from 'src/page-tip-tiers/page-tip-tier.entity';
-import { getTipTier } from 'src/shared/utils';
+import { getDefaultMessageLength, getTipTier } from 'src/shared/utils';
 import { PaymentFlowService } from 'src/payment-flow/payment-flow.service';
 
 @Injectable()
@@ -133,7 +133,7 @@ export class TipsService {
 
     const tier = getTipTier(xmrUnits.toString(), page.pageTipTiers);
 
-    const messageLength = tier?.messageLength || 255;
+    const messageLength = tier?.messageLength || getDefaultMessageLength(page.pageTipTiers);
 
     if (payload.message && payload.message?.length > messageLength) {
       throw new BadRequestException(`Message length must be less than or equal to ${messageLength}.`);
