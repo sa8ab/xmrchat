@@ -80,7 +80,7 @@ const v = useVuelidate<State["form"]>(
       },
       message: {
         minLength: minLength(3),
-        // maxLength: maxLength(pageTierMessageLength.value || 255),
+        maxLength: maxLength(pageTierMessageLength.value || 255),
       },
     };
   }),
