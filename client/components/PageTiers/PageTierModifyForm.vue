@@ -9,6 +9,7 @@ interface State {
     name?: string;
     description?: string;
     minAmount?: number;
+    messageLength?: number;
     color?: string;
     soundId?: number;
   };
@@ -17,7 +18,7 @@ interface State {
 }
 
 const { getPageTierColorsList } = useConstants();
-const { required, maxLength, numberic } = useValidations();
+const { required, maxLength, numberic, integer, maxValue } = useValidations();
 const { toStreamerPageTiers } = useRouteLocation();
 const { axios } = useApp();
 const route = useRoute();
@@ -31,7 +32,7 @@ const state: State = reactive({
     description: undefined,
     minAmount: undefined,
     color: undefined,
-
+    messageLength: undefined,
     soundId: undefined,
   },
   sound: undefined,
@@ -48,6 +49,7 @@ useLazyAsyncData(
     state.form.description = data.pageTipTier.description;
     state.form.minAmount = data.pageTipTier.minAmount;
     state.form.color = data.pageTipTier.color;
+    state.form.messageLength = data.pageTipTier.messageLength;
     state.form.soundId = data.pageTipTier.sound?.id;
     state.sound = data.pageTipTier.sound;
   },
@@ -97,6 +99,7 @@ const v = useVuelidate<any>(
     name: { required, maxLength: maxLength(20) },
     description: { maxLength: maxLength(255) },
     minAmount: { numberic, required },
+    messageLength: { integer, maxValue: maxValue(1000) },
   },
   computed(() => state.form)
 );
@@ -120,6 +123,18 @@ const { getValidationAttrs } = useValidations(v);
         <UInput
           v-model="state.form.minAmount"
           @blur="getValidationAttrs('minAmount').onBlur"
+        />
+      </UFormGroup>
+      <UFormGroup
+        label="Message length limit"
+        :error="getValidationAttrs('messageLength').error"
+      >
+        <template #hint>
+          <span class="text-xs"> Optional </span>
+        </template>
+        <UInput
+          v-model="state.form.messageLength"
+          @blur="getValidationAttrs('messageLength').onBlur"
         />
       </UFormGroup>
       <UFormGroup

@@ -1,4 +1,4 @@
-import { Transform } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
   IsHexColor,
   IsNumber,
@@ -6,7 +6,9 @@ import {
   IsOptional,
   IsRgbColor,
   IsString,
+  Max,
   MaxLength,
+  Min,
 } from 'class-validator';
 import { MoneroUtils } from 'monero-ts';
 
@@ -41,6 +43,12 @@ export class CreatePageTipTierDto {
     { toClassOnly: true },
   )
   maxAmount?: string;
+
+  @IsNumber()
+  @IsOptional()
+  @Max(1000)
+  @Type(() => Number)
+  messageLength?: number;
 
   @IsRgbColor()
   @IsOptional()

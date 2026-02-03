@@ -138,7 +138,7 @@ export const useConstants = () => {
       iconClassName: "",
       icon: "i-icon-peertube",
       inputLabel: t("peertubeChannel"),
-      linkCreator: (v?: string) => `https://peertube.tv/c/${v}`,
+      linkCreator: (v?: string) => `${v}`,
     },
   };
   const getContentLink = (v: ContentLinkPlatformEnum) => {

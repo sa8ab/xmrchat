@@ -27,6 +27,14 @@ const { minFiatAmount, price, minSwapFiatAmount, minXmr, minSwapXMR } =
     pageMinXmr: computed(() => props.streamerPage?.minTipAmount),
     pageFiat: computed(() => props.streamerPage?.fiat),
   });
+
+const { pageTierMessageLength } = useTipMessageLength({
+  amount: computed(() => state.form.amount),
+  pageTipTiers: computed(() => props.streamerPage?.pageTipTiers),
+  price: computed(() => price.value as number),
+  tipDisplayValue: computed(() => generalState.tipDisplayValue),
+});
+
 const { money } = useMoney();
 
 const emit = defineEmits<{
@@ -70,7 +78,10 @@ const v = useVuelidate<State["form"]>(
             : minFiatValue
         ),
       },
-      message: { minLength: minLength(3), maxLength: maxLength(255) },
+      message: {
+        minLength: minLength(3),
+        maxLength: maxLength(pageTierMessageLength.value || 255),
+      },
     };
   }),
   toRef(state, "form")
@@ -217,7 +228,7 @@ const renderInputPadding = computed(
             :error="getValidationAttrs('message').error"
             :label="t('tipMessage')"
             name="message"
-            :hint="`${messageLength} / 255`"
+            :hint="`${messageLength} / ${pageTierMessageLength}`"
           >
             <UTextarea
               @blur="getValidationAttrs('message').onBlur"

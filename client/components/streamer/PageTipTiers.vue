@@ -85,6 +85,10 @@ const handleItemClick = (item: PageTipTier) => {
               <span>{{ item.minAmount }} XMR </span>
               <span>( {{ getFiatAmount(item.minAmount) }} )</span>
             </div>
+            <div>
+              <span class="text-pale text-sm">Message length: </span>
+              <span>{{ item.messageLength ? `${item.messageLength} characters` : '-' }}</span>
+            </div>
             <div v-if="item.description">{{ item.description }}</div>
           </div>
         </div>
