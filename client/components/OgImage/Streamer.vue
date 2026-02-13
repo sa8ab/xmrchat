@@ -73,7 +73,7 @@ const baseUrl = computed(() => imageServerSideBaseUrl || imageBaseUrl);
       <p
         v-if="description"
         class="text-[32px] text-[#232323] leading-tight"
-        style="display: block; line-clamp: 3; text-overflow: ellipsis"
+        style="display: block; line-clamp: 4; text-overflow: ellipsis"
       >
         {{ description }}
       </p>
