@@ -67,7 +67,7 @@ const description = computed(() => (props.description || "").slice(0, 200));
       <p
         v-if="description"
         class="text-[32px] text-[#232323] leading-tight"
-        style="display: block; line-clamp: 3; text-overflow: ellipsis"
+        style="display: block; line-clamp: 7; text-overflow: ellipsis"
       >
         {{ description }}
       </p>
