@@ -16,14 +16,12 @@ XMRChat is a tip-for-chat application. Users can set up a page and have others s
 - [Technology Stack 🚀](#tech-stack)
 
 - Business Strategy
-
   - [Payment Strategy 🧾](#payment-strategy)
 
 - [Requirements 📝](#requirements)
 - [Project Structure 📍](#structure)
 
 - [Install & Build 🛠️](#install-and-build)
-
   - [Traefik](#traefik)
   - [Monero](#monero)
   - [Server](#server)
@@ -31,6 +29,7 @@ XMRChat is a tip-for-chat application. Users can set up a page and have others s
 
 - [Development](#development)
 - [Testing 🔬](#testing)
+- [Troubleshooting](#troubleshooting)
 
 ## <a name="tech-stack">Technology Stack 🚀</a>
 
@@ -38,7 +37,6 @@ XMRChat is a tip-for-chat application. Users can set up a page and have others s
   - **Framework:** [Nuxt Js](https://nuxt.com/) - [Vue Js](https://vuejs.org/)
   - **Language:** [TypeScript](https://www.typescriptlang.org/)
 - **Server Side:**
-
   - **Framework:** [Nest Js](https://nestjs.com/)
   - **Language:** [TypeScript](https://www.typescriptlang.org/)
   - **Cache:** [Redis](https://redis.io/)
@@ -47,7 +45,6 @@ XMRChat is a tip-for-chat application. Users can set up a page and have others s
   - **Queues:** [BullMQ](https://docs.bullmq.io/)
 
 - **Infrastructure:**
-
   - **Containerization:** [Docker 🐳](https://www.docker.com/)
   - **Gateway:** [Traefik](https://traefik.io/)
 
@@ -259,6 +256,10 @@ npx playwright test
 ```
 
 We also provide a GitHub Actions workflow to SSH into your server, spin up containers, run migrations, and execute Playwright tests. See [TESTING.md](./TESTING.md) for more information.
+
+## <a name="troubleshooting">Troubleshooting</a>
+
+For detailed troubleshooting instructions, see [TROUBLESHOOTING.md](./TROUBLESHOOTING.md).
 
 ## License
 
