@@ -39,7 +39,7 @@ const { data, refresh } = useLazyAsyncData(
 
     return { links };
   },
-  { server: false }
+  { server: false },
 );
 
 const state = reactive<State>({
@@ -61,6 +61,7 @@ const state = reactive<State>({
       kick: {},
       kuno: {},
       peertube: {},
+      upscrolled: {},
     },
     name: undefined,
     searchTerms: undefined,
@@ -97,7 +98,8 @@ const save = async () => {
 
 const rules = computed(() => {
   const notUrlWithMessage = helpers.withMessage(t("notUrlWithMessage"), notUrl);
-  const { WEBSITE, PODCAST_RSS, PEERTUBE, ...rest } = ContentLinkPlatformEnum;
+  const { WEBSITE, PODCAST_RSS, PEERTUBE, UPSCROLLED, ...rest } =
+    ContentLinkPlatformEnum;
 
   const notUrls: Record<string, any> = {};
   Object.values(rest).forEach((nUrl) => {
@@ -109,6 +111,7 @@ const rules = computed(() => {
       [WEBSITE]: { value: { url } },
       [PODCAST_RSS]: { value: { url } },
       [PEERTUBE]: { value: { url } },
+      [UPSCROLLED]: { value: { url } },
       ...notUrls,
     },
     rumbleLiveStreamUrl: { url, rumbleApiUrl },
@@ -117,7 +120,7 @@ const rules = computed(() => {
 
 const v = useVuelidate<any>(
   rules,
-  computed(() => state.form)
+  computed(() => state.form),
 );
 
 const { getValidationAttrs } = useValidations(v);
@@ -152,7 +155,7 @@ const getLink = (platform: ContentLinkPlatformEnum) => {
     <div
       class="grid md:grid-cols-2 md:grid-flow-col gap-4"
       :style="`grid-template-rows: repeat(${Math.ceil(
-        CONTENT_LINKS_LIST.length / 2
+        CONTENT_LINKS_LIST.length / 2,
       )}, 1fr)`"
     >
       <UFormGroup

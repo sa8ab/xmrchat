@@ -140,6 +140,14 @@ export const useConstants = () => {
       inputLabel: t("peertubeChannel"),
       linkCreator: (v?: string) => `${v}`,
     },
+    [ContentLinkPlatformEnum.UPSCROLLED]: {
+      name: "Upscrolled",
+      colorClassName: "text-[#000000]",
+      iconClassName: "",
+      icon: "i-icon-upscrolled",
+      inputLabel: "Upscrolled link",
+      linkCreator: (v?: string) => `${v}`,
+    },
   };
   const getContentLink = (v: ContentLinkPlatformEnum) => {
     return CONTENT_LINKS[v];

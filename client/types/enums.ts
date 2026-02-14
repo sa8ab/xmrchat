@@ -32,6 +32,7 @@ export enum ContentLinkPlatformEnum {
   KICK = "kick",
   KUNO = "kuno",
   PEERTUBE = "peertube",
+  UPSCROLLED = "upscrolled",
 }
 
 export enum TipDisplayMode {
