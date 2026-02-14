@@ -4,6 +4,7 @@ This guide helps you resolve common issues when setting up and running XMRChat.
 
 ## Emails are not sending
 
+Emails are sent using the email added in `MAIL_FROM_ADDRESS` and `MAIL_FROM_NAME` in the `.env` file.
 If emails are not being sent from the application, follow these steps to diagnose and fix the issue:
 
 ### 1. Check Email Configuration in `.env`
