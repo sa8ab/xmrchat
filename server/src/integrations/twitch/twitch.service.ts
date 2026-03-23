@@ -64,7 +64,7 @@ export class TwitchService implements OnModuleInit {
     try {
       await this.client.connect();
     } catch (error) {
-      console.log('Twtich connect to server error: ', error);
+      console.log('Twitch connect to server error: ', error);
     }
   }
 

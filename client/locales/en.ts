@@ -128,7 +128,7 @@ export default {
         "Alex Anarcho has a great tutorial on how to use XMRChat on {youtube}.",
       ifStreamyard: "If you use Streamyard:",
       ifOBS: "If you use OBS:",
-      streamyard: `Go to "Edit tip page" menu item. Make sure you have added your twitch channel username. When starting the stream in Streamyard add Twtich as a destination. XMRChat bot ( xmr-chat on twitch ) will send the tip message on Twitch and you can display it on your screen from Streamyard. Displayed xmrchat bot logo looks best with "Minimal" setting.`,
+      streamyard: `Go to "Edit tip page" menu item. Make sure you have added your twitch channel username. When starting the stream in Streamyard add Twitch as a destination. XMRChat bot ( xmr-chat on twitch ) will send the tip message on Twitch and you can display it on your screen from Streamyard. Displayed xmrchat bot logo looks best with "Minimal" setting.`,
       obs: `Go to "OBS" menu item. Click on "Copy OBS Page Link". Add a browser source in OBS and paste the link.`,
     },
   },
