@@ -45,7 +45,7 @@ export class PagesService {
     private notificationsService: NotificationsService,
     private twitchService: TwitchService,
     private auditsService: AuditsService,
-  ) {}
+  ) { }
 
   async searchPages(slug: string = '', offset: number = 0, limit: number = 8) {
     const tipsSubQuery = (qb: SelectQueryBuilder<any>) =>
@@ -250,7 +250,7 @@ export class PagesService {
       );
       if (!twitchExists)
         throw new BadRequestException(
-          'Twtich channel does not exist. Only provide the name of the channel.',
+          'Twitch channel does not exist. Only provide the name of the channel.',
         );
     }
 
@@ -416,7 +416,7 @@ export class PagesService {
     // clear webhook
     try {
       await this.lwsService.deleteWebhook(payment.eventId);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   async update(slug: string, attrs: UpdatePageDto, user: User) {
@@ -452,7 +452,7 @@ export class PagesService {
       );
       if (!twitchExists)
         throw new BadRequestException(
-          'Twtich channel does not exist. Only provide the name of the channel.',
+          'Twitch channel does not exist. Only provide the name of the channel.',
         );
     }
 
