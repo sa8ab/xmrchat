@@ -70,6 +70,7 @@ export enum LinkPlatformEnum {
   KUNO = 'kuno',
   PEERTUBE = 'peertube',
   UPSCROLLED = 'upscrolled',
+  BITCHUTE = 'bitchute'
 }
 
 export enum TrocadorStatusEnum {

@@ -148,6 +148,14 @@ export const useConstants = () => {
       inputLabel: "Upscrolled link",
       linkCreator: (v?: string) => `${v}`,
     },
+    [ContentLinkPlatformEnum.BITCHUTE]: {
+      name: "Bitchute",
+      colorClassName: "text-[#FF6600]",
+      iconClassName: "",
+      icon: "i-icon-bitchute",
+      inputLabel: 'Bitchute channel',
+      linkCreator: (v?: string) => `${v}`,
+    },
   };
   const getContentLink = (v: ContentLinkPlatformEnum) => {
     return CONTENT_LINKS[v];

@@ -62,6 +62,7 @@ const state = reactive<State>({
       kuno: {},
       peertube: {},
       upscrolled: {},
+      bitchute: {},
     },
     name: undefined,
     searchTerms: undefined,
@@ -98,7 +99,7 @@ const save = async () => {
 
 const rules = computed(() => {
   const notUrlWithMessage = helpers.withMessage(t("notUrlWithMessage"), notUrl);
-  const { WEBSITE, PODCAST_RSS, PEERTUBE, UPSCROLLED, ...rest } =
+  const { WEBSITE, PODCAST_RSS, PEERTUBE, UPSCROLLED, BITCHUTE, ...rest } =
     ContentLinkPlatformEnum;
 
   const notUrls: Record<string, any> = {};
@@ -112,6 +113,7 @@ const rules = computed(() => {
       [PODCAST_RSS]: { value: { url } },
       [PEERTUBE]: { value: { url } },
       [UPSCROLLED]: { value: { url } },
+      [BITCHUTE]: { value: { url } },
       ...notUrls,
     },
     rumbleLiveStreamUrl: { url, rumbleApiUrl },
