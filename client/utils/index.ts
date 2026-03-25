@@ -41,7 +41,7 @@ export const getProperty = (obj: any, path: string): any => {
 
 export const getFirstStreamerPage = (pages?: StreamerPage[]) => {
   if (!pages || !pages.length) return undefined;
-  return pages.toSorted((a, b) => b.path.localeCompare(a.path))[0];
+  return [...pages].sort((a, b) => b.path.localeCompare(a.path))[0];
 };
 
 export const unitsToXmr = (v?: string) => {
@@ -70,9 +70,8 @@ export const generateWalletLink = (data: {
 }) => {
   if (!data.address || !data.amount) return undefined;
   if (data.ticker === "xmr")
-    return `monero:${data.address}?tx_amount=${data.amount}&tx_description=${
-      data.description || ""
-    }`;
+    return `monero:${data.address}?tx_amount=${data.amount}&tx_description=${data.description || ""
+      }`;
 
   if (data.ticker === "ltc")
     return `litecoin:${data.address}?amount=${data.amount}`;

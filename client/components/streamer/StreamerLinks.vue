@@ -12,7 +12,7 @@ const { getContentLink } = useConstants();
 const nostrActive = ref(false);
 
 const linksComputed = computed(() =>
-  props.links
+  [...(props.links || [])]
     ?.filter((l) => !!l.value)
     .map((l) => {
       return {
@@ -21,16 +21,16 @@ const linksComputed = computed(() =>
         platform: l.platform,
       };
     })
-    .toSorted((a, b) => {
+    .sort((a, b) => {
       const indexOfA = CONTENT_LINKS_LIST.indexOf(a.platform);
       const indexOfB = CONTENT_LINKS_LIST.indexOf(b.platform);
 
       return indexOfA - indexOfB;
-    })
+    }),
 );
 
 const handleLinkClick = (
-  item: ContentLinkFull & { platform: ContentLinkPlatformEnum }
+  item: ContentLinkFull & { platform: ContentLinkPlatformEnum },
 ) => {
   if (item.platform === ContentLinkPlatformEnum.NOSTR) {
     nostrActive.value = true;
@@ -39,12 +39,12 @@ const handleLinkClick = (
 
 const isLive = (platform: ContentLinkPlatformEnum) => {
   return props.livePlatforms?.includes(
-    platform as unknown as LiveStreamPlatformEnum
+    platform as unknown as LiveStreamPlatformEnum,
   );
 };
 
 const getName = (
-  item: ContentLinkFull & { platform: ContentLinkPlatformEnum }
+  item: ContentLinkFull & { platform: ContentLinkPlatformEnum },
 ) => {
   const live = isLive(item.platform);
   return live ? `${item.name} ( Live )` : item.name;
@@ -93,7 +93,7 @@ const getName = (
       v-model="nostrActive"
       :nostr="
         linksComputed?.find(
-          ({ platform }) => platform === ContentLinkPlatformEnum.NOSTR
+          ({ platform }) => platform === ContentLinkPlatformEnum.NOSTR,
         )?.value
       "
     />

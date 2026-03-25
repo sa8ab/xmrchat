@@ -7,7 +7,7 @@ const config = useRuntimeConfig();
 const items = computed<DropdownItem[][]>(() => {
   const activeLocales = config.public.activeLocales.split(",");
   return [
-    locales.value
+    [...locales.value]
       .filter((l) => activeLocales.includes(l.code))
       .map((l) => ({
         code: l.code,
@@ -15,7 +15,7 @@ const items = computed<DropdownItem[][]>(() => {
         label: l.name || "",
         click: () => setLocale(l.code),
       }))
-      .toSorted((a, b) => a.label.localeCompare(b.label)),
+      .sort((a, b) => a.label.localeCompare(b.label)),
   ];
 });
 </script>
