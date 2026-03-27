@@ -137,7 +137,7 @@ export const useConstants = () => {
       colorClassName: "",
       iconClassName: "",
       icon: "i-icon-peertube",
-      inputLabel: 'Peertube channel (enter full URL)',
+      inputLabel: 'Peertube link (enter full URL)',
       linkCreator: (v?: string) => `${v}`,
     },
     [ContentLinkPlatformEnum.UPSCROLLED]: {
