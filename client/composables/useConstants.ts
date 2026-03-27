@@ -137,7 +137,7 @@ export const useConstants = () => {
       colorClassName: "",
       iconClassName: "",
       icon: "i-icon-peertube",
-      inputLabel: t("peertubeChannel"),
+      inputLabel: 'Peertube channel (enter full URL)',
       linkCreator: (v?: string) => `${v}`,
     },
     [ContentLinkPlatformEnum.UPSCROLLED]: {
@@ -145,7 +145,7 @@ export const useConstants = () => {
       colorClassName: "text-[#000000]",
       iconClassName: "",
       icon: "i-icon-upscrolled",
-      inputLabel: "Upscrolled link",
+      inputLabel: "Upscrolled link (enter full URL)",
       linkCreator: (v?: string) => `${v}`,
     },
     [ContentLinkPlatformEnum.BITCHUTE]: {
@@ -153,7 +153,7 @@ export const useConstants = () => {
       colorClassName: "text-[#FF6600]",
       iconClassName: "",
       icon: "i-icon-bitchute",
-      inputLabel: 'Bitchute channel',
+      inputLabel: 'Bitchute link (enter full URL)',
       linkCreator: (v?: string) => `${v}`,
     },
   };
