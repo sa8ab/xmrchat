@@ -8,13 +8,15 @@ import { ConfigService } from '@nestjs/config';
 import { Page } from 'src/pages/page.entity';
 import { HttpService } from '@nestjs/axios';
 import { getErrorMessage } from 'src/shared/utils/errors';
+import { LinkVerification } from '../link-verification.entity';
+import { AxiosRequestConfig } from 'axios';
 
 @Injectable()
 export class TwitterVerificationHandler implements ILinkVerificationHandler {
   constructor(
     private configService: ConfigService,
     private httpService: HttpService,
-  ) {}
+  ) { }
   async verify(
     data: ILinkVerificationHandlerData,
   ): Promise<ILinkVerificationHandlerResponse> {
@@ -24,15 +26,8 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
     const tweetUrl = data.data.tweetUrl;
     let tweetData: any;
     try {
-      const { data } = await this.httpService.axiosRef.get(
+      const { data } = await this.sendRequest(
         `https://publish.twitter.com/oembed?url=${tweetUrl}&hide_thread=true&hide_media=true`,
-        {
-          headers: {
-            'User-Agent':
-              'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0',
-            Referer: 'https://reddit.com',
-          },
-        },
       );
       tweetData = data;
     } catch (error) {
@@ -47,7 +42,7 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
     // Validate that link.value matches the username from author_url
     let linkValue = data.link.value.toLowerCase();
     if (linkValue.startsWith('@')) linkValue = linkValue.slice(1);
-    
+
     // Extract username from author_url by taking last segment after "/"
     const authorUsername = userUrl.split('/').pop()?.toLowerCase();
     if (!authorUsername) {
@@ -77,12 +72,7 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
     // Resolve t.co redirect to get final URL
     let resolvedUrl: string;
     try {
-      const response = await this.httpService.axiosRef.get(tCoUrl, {
-        headers: {
-          'User-Agent':
-            'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0',
-          Referer: 'https://reddit.com',
-        },
+      const response = await this.sendRequest(tCoUrl, {
         maxRedirects: 0,
         validateStatus: () => true,
         responseType: 'text',
@@ -128,6 +118,27 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
     const isValid = resolved === expected;
 
     return { valid: isValid };
+  }
+
+  /**
+   * Validate if the page still exists and verification is still valid.
+   */
+  async validate(verification: LinkVerification) {
+
+
+  }
+
+  async sendRequest(url: string, options?: AxiosRequestConfig) {
+    const response = await this.httpService.axiosRef.get(url, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0',
+        Referer: 'https://reddit.com',
+      },
+      ...options,
+    });
+
+    return response
   }
 
   async getTweetUrl(page: Page) {
