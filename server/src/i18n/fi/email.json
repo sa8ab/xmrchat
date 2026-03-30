@@ -55,5 +55,12 @@
     "invitationMessage": "Sinut on kutsuttu co-isännäksi {pageName} sivulle.",
     "acceptInvitation": "Hyväksy kutsu",
     "ifYouDidNotExpectThisInvitation": "Jos et odottanut tätä kutsu, voit jättää tämän viestin huomiotta."
+  },
+  "verificationRemoved": {
+    "subject": "X-vahvistuksesi poistettiin",
+    "title": "Vahvistus poistettu",
+    "emailTitle": "Vahvistuksesi poistettiin",
+    "couldNotFindAccount": "Emme löytäneet {platform}-tiliäsi ({account}), joten vahvistus poistettiin.",
+    "whatToDoNext": "Päivitä linkkisi ja luo uusi vahvistus."
   }
 }

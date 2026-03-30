@@ -17,7 +17,7 @@ export class NotificationsService {
     private i18n: I18nService,
     private notificationDispatcherService: NotificationDispatcherService,
     @InjectQueue('notifications-email') private emailQueue: Queue,
-  ) {}
+  ) { }
 
   async sendTestEmail() {
     const lang = I18nContext.current?.().lang;
@@ -177,6 +177,23 @@ export class NotificationsService {
         context: {
           ...options,
           acceptLink,
+        },
+      },
+    });
+  }
+
+  async sendVerificationRemovedEmail(options: {
+    to: string;
+    platform: string;
+    account: string;
+  }) {
+    return this.emailQueue.add('send-email', {
+      to: options.to,
+      options: {
+        subject: this.i18n.t('email.verificationRemoved.subject'),
+        template: 'verification-removed.hbs',
+        context: {
+          ...options,
         },
       },
     });

@@ -55,5 +55,12 @@
     "invitationMessage": "تم دعوتك لتكون مشاركاً في {pageName} صفحة.",
     "acceptInvitation": "قبول الدعوة",
     "ifYouDidNotExpectThisInvitation": "إذا لم تكن تتوقع هذه الدعوة، يمكنك تجاهل هذا البريد الإلكتروني."
+  },
+  "verificationRemoved": {
+    "subject": "تمت إزالة التحقق من X الخاص بك",
+    "title": "تمت إزالة التحقق",
+    "emailTitle": "تمت إزالة التحقق الخاص بك",
+    "couldNotFindAccount": "لم نتمكن من العثور على حسابك على {platform} ({account})، لذلك تمت إزالة التحقق.",
+    "whatToDoNext": "يرجى تحديث الرابط الخاص بك وإنشاء تحقق جديد."
   }
 }

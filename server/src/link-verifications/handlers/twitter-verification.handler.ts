@@ -120,12 +120,20 @@ export class TwitterVerificationHandler implements ILinkVerificationHandler {
     return { valid: isValid };
   }
 
-  /**
-   * Validate if the page still exists and verification is still valid.
-   */
   async validate(verification: LinkVerification) {
+    let linkValue = verification.link.value.toLowerCase();
+    if (linkValue.startsWith('@')) linkValue = linkValue.slice(1);
 
+    if (!linkValue) return { valid: false, message: 'Link value is required for verification.' }
 
+    const url = `https://publish.twitter.com/oembed?url=https://x.com/${linkValue}`
+
+    try {
+      const { data } = await this.sendRequest(url)
+      return { valid: true }
+    } catch (error) {
+      return { valid: false, message: getErrorMessage(error) }
+    }
   }
 
   async sendRequest(url: string, options?: AxiosRequestConfig) {

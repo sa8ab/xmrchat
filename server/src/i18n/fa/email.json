@@ -55,5 +55,12 @@
     "invitationMessage": "شما برای همکاری در {pageName} صفحه دعوت شده‌اید.",
     "acceptInvitation": "پذیرش دعوت",
     "ifYouDidNotExpectThisInvitation": "اگر این دعوت را انتظار نداشتید، می‌توانید این ایمیل را نادیده بگیرید."
+  },
+  "verificationRemoved": {
+    "subject": "تأیید X شما حذف شد",
+    "title": "تأیید حذف شد",
+    "emailTitle": "تأیید شما حذف شد",
+    "couldNotFindAccount": "ما نتوانستیم حساب {platform} شما ({account}) را پیدا کنیم، بنابراین تأیید حذف شد.",
+    "whatToDoNext": "لطفاً لینک خود را به‌روزرسانی کنید و یک تأیید جدید ایجاد کنید."
   }
 }

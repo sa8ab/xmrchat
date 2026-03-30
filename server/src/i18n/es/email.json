@@ -55,5 +55,12 @@
     "invitationMessage": "Te has invitado a ser co-anfitrión en {pageName} página.",
     "acceptInvitation": "Aceptar Invitación",
     "ifYouDidNotExpectThisInvitation": "Si no esperabas esta invitación, puedes ignorar este correo electrónico."
+  },
+  "verificationRemoved": {
+    "subject": "Tu verificación de X fue eliminada",
+    "title": "Verificación eliminada",
+    "emailTitle": "Tu verificación fue eliminada",
+    "couldNotFindAccount": "No pudimos encontrar tu cuenta de {platform} ({account}), por eso se eliminó la verificación.",
+    "whatToDoNext": "Por favor, actualiza tu enlace y crea una nueva verificación."
   }
 }

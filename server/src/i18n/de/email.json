@@ -55,5 +55,12 @@
     "invitationMessage": "Sie wurden als Co-Host auf {pageName} Seite eingeladen.",
     "acceptInvitation": "Einladung annehmen",
     "ifYouDidNotExpectThisInvitation": "Wenn Sie diese Einladung nicht erwartet haben, können Sie diese E-Mail ignorieren."
+  },
+  "verificationRemoved": {
+    "subject": "Ihre X-Verifizierung wurde entfernt",
+    "title": "Verifizierung entfernt",
+    "emailTitle": "Ihre Verifizierung wurde entfernt",
+    "couldNotFindAccount": "Wir konnten Ihr {platform}-Konto ({account}) nicht finden, daher wurde die Verifizierung entfernt.",
+    "whatToDoNext": "Bitte aktualisieren Sie Ihren Link und erstellen Sie eine neue Verifizierung."
   }
 }

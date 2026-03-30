@@ -55,5 +55,12 @@
     "invitationMessage": "Dem don invite you to become cohost for {pageName} page.",
     "acceptInvitation": "Accept di invitation",
     "ifYouDidNotExpectThisInvitation": "If na no be you expect dis invitation, you fit just ignore dis email."
+  },
+  "verificationRemoved": {
+    "subject": "Dem don remove your X verification",
+    "title": "Verification Don Remove",
+    "emailTitle": "Dem don remove your verification",
+    "couldNotFindAccount": "We no fit find your {platform} account ({account}), so we remove di verification.",
+    "whatToDoNext": "Abeg update your link and create new verification."
   }
 }
