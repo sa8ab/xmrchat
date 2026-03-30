@@ -131,6 +131,7 @@ export class LinkVerificationsService {
   async validateAll() {
     const verifications = await this.repo.find()
 
+    console.log('validating', verifications.length, 'verifications');
 
     await this.linkVerificationValidationQueue.addBulk(verifications.map((verification) => {
       return {

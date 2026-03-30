@@ -21,6 +21,7 @@ import { ConfigCommand } from './commands/config.command';
 import { TwitchModule } from 'src/integrations/twitch/twitch.module';
 import { LiveStreamsModule } from 'src/live-streams/live-streams.module';
 import { CliUtilityService } from 'nest-commander';
+import { LinkVerificationsModule } from 'src/link-verifications/link-verifications.module';
 
 @Module({
   providers: [
@@ -43,6 +44,7 @@ import { CliUtilityService } from 'nest-commander';
     TypeOrmModule.forFeature([Page, Tip, Payment, User, File]),
     TwitchModule,
     LiveStreamsModule,
+    LinkVerificationsModule
   ],
 })
-export class CommanderModule {}
+export class CommanderModule { }
