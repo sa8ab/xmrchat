@@ -54,9 +54,9 @@ docker compose exec -it nest npm run commander:send-email
 
 This will attempt to send a test email and help identify any configuration issues.
 
-## XMRChats appear after a few minutes (instead of a few seconds)
+## Xmrchats appear after a few minutes (instead of a few seconds)
 
-If XMRChats are appearing after a few minutes (rather than within a few seconds), lws likely needs to be restarted to sync with the node.
+If xmrchats are appearing after a few minutes (rather than within a few seconds), lws likely needs to be restarted to sync with the node.
 
 ### Fix
 
