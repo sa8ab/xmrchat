@@ -53,6 +53,8 @@ import { PageTipTiersModule } from './page-tip-tiers/page-tip-tiers.module';
 import { SuperDmsModule } from './super-dms/super-dms.module';
 import { PaymentFlowModule } from './payment-flow/payment-flow.module';
 import { LinkVerificationsModule } from './link-verifications/link-verifications.module';
+import { NetworkModule } from './network/network.module';
+import { IsMoneroPrimaryAdrress } from './shared/validations/monero-primary-address.validation';
 
 @Module({
   imports: [
@@ -180,8 +182,9 @@ import { LinkVerificationsModule } from './link-verifications/link-verifications
     SuperDmsModule,
     PaymentFlowModule,
     LinkVerificationsModule,
+    NetworkModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, IsMoneroPrimaryAdrress],
 })
-export class AppModule {}
+export class AppModule { }
