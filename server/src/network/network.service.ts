@@ -9,7 +9,7 @@ export class NetworkService {
 
 
   getNetworkType() {
-    return this.configService.get<MoneroNetworkTypeEnum>('MONERO_NETWORK') || MoneroNetworkType.MAINNET;
+    return this.configService.get<MoneroNetworkTypeEnum>('MONERO_NETWORK') || MoneroNetworkTypeEnum.MAINNET;
   }
 
   getNetwork() {
