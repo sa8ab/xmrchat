@@ -4,7 +4,7 @@ import {
   ValidatorConstraintInterface,
   ValidationArguments,
 } from 'class-validator';
-import { MoneroNetworkType, MoneroUtils } from 'monero-ts';
+import { MoneroUtils } from 'monero-ts';
 import { NetworkService } from 'src/network/network.service';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class IsMoneroPrimaryAdrress implements ValidatorConstraintInterface {
   constructor(private networkService: NetworkService) { }
   async validate(text: string, args: ValidationArguments) {
 
-    const networkType = this.networkService.getNetwork().type
+    const networkType = this.networkService.getNetwork().validationNetwork
     return MoneroUtils.isValidAddress(text, networkType);
   }
 
