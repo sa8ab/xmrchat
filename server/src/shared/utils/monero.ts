@@ -27,9 +27,9 @@ export const makeIntegratedAddress = (
     // Generate 8-byte payment ID
     var payment_id = randomBytes(8);
   }
-  // Encode integrated address
+  // Encode integrated address (network byte: mainnet 0x12→0x13, testnet 0x35→0x36, stagenet 0x18→0x19)
   var integrated_address = new Uint8Array(77);
-  integrated_address[0] = 0x13;
+  integrated_address[0] = network[0] + 1;
   integrated_address.set(public_spend_key, 1);
   integrated_address.set(public_view_key, 33);
   integrated_address.set(payment_id, 65);
