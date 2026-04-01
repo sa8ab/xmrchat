@@ -15,6 +15,7 @@ export default defineNuxtConfig({
       activeLocales: "en,fr,de,es",
       showPremiumPages: "",
       showTipSplits: "",
+      moneroNetwork: "mainnet",
     },
   },
 

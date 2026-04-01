@@ -12,7 +12,7 @@ export default {
     notUrl: " در این قسمت نباید لینک نوشته شود. ",
     streamerSlug:
       "متن شما باید شامل حروف بزرگ، حروف کوچک، اعداد، زیر خط و خط تیره باشد.  ",
-    moneroPrimaryAddress: "آدرس اصلی نامعتبر است. باید با 4 شروع شود.",
+    moneroPrimaryAddress: "آدرس اصلی نامعتبر است. باید با {characters} شروع شود.",
   },
 
   account: "حساب کاربری",

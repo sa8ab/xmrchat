@@ -12,7 +12,7 @@ export default {
     notUrl: "링크일 수 없습니다.",
     streamerSlug: "경로는 소문자, 숫자, 밑줄 및 하이픈만 포함할 수 있습니다.",
     moneroPrimaryAddress:
-      "기본 주소가 유효하지 않습니다. 주소는 4로 시작해야 합니다.",
+      "기본 주소가 유효하지 않습니다. {characters}(으)로 시작해야 합니다.",
   },
 
   account: "계정",

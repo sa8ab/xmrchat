@@ -13,7 +13,7 @@ export default {
     streamerSlug:
       "Der Pfad darf nur Kleinbuchstaben, Zahlen, Unterstriche und Bindestriche enthalten.",
     moneroPrimaryAddress:
-      "Die Primäre Adresse ist ungültig. Sie muss mit der Zahl 4 beginnen.",
+      "Die primäre Adresse ist ungültig. Sie muss mit {characters} beginnen.",
   },
 
   account: "Konto",

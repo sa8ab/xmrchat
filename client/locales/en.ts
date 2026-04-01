@@ -13,7 +13,7 @@ export default {
     notUrl: "Should not be a link.",
     streamerSlug:
       "Your path can only contain lowercase letters, numbers, underscores, and hyphens.",
-    moneroPrimaryAddress: "Primary address is invalid. It should start with 4.",
+    moneroPrimaryAddress: "Primary address is invalid. It should start with {characters}.",
   },
 
   account: "Account",

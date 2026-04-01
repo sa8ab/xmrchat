@@ -13,7 +13,7 @@ export default {
     streamerSlug:
       "Na only lowercase letters, numbers, underscores and hyphens di path fi contain.",
     moneroPrimaryAddress:
-      "The primary address no correct. E suppose start with the number 4.",
+      "The primary address no correct. E suppose start with {characters}.",
   },
 
   account: "Account",

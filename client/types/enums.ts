@@ -111,3 +111,10 @@ export enum SuperDmMessageSenderTypeEnum {
   CREATOR = "creator",
   VIEWER = "viewer",
 }
+
+export enum MoneroNetworkTypeEnum {
+  MAINNET = 'mainnet',
+  TESTNET = 'testnet',
+  STAGENET = 'stagenet',
+  STRESSNET = 'stressnet',
+}

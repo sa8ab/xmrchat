@@ -4,6 +4,7 @@ import {
   FiatEnum,
   IntegrationConfigType,
   LiveStreamPlatformEnum,
+  MoneroNetworkTypeEnum,
   NotificationChannelEnum,
   NotificationPreferenceType,
 } from "~/types/enums";
@@ -304,6 +305,32 @@ export const useConstants = () => {
     return PAGE_TIER_COLORS[v];
   };
 
+
+
+
+  const NETWORK_CONFIGS: Record<MoneroNetworkTypeEnum, { type: MoneroNetworkTypeEnum, validationCharacters: string[] }> = {
+    [MoneroNetworkTypeEnum.MAINNET]: {
+      type: MoneroNetworkTypeEnum.MAINNET,
+      validationCharacters: ['4'],
+    },
+    [MoneroNetworkTypeEnum.TESTNET]: {
+      type: MoneroNetworkTypeEnum.TESTNET,
+      validationCharacters: ['9', 'A'],
+    },
+    [MoneroNetworkTypeEnum.STAGENET]: {
+      type: MoneroNetworkTypeEnum.STAGENET,
+      validationCharacters: ['5'],
+    },
+    [MoneroNetworkTypeEnum.STRESSNET]: {
+      type: MoneroNetworkTypeEnum.STRESSNET,
+      validationCharacters: ['9', 'A'],
+    }
+  }
+
+  const getNetworkConfig = (v: MoneroNetworkTypeEnum) => {
+    return NETWORK_CONFIGS[v];
+  }
+
   return {
     getContentLink,
     CONTENT_LINKS,
@@ -319,5 +346,7 @@ export const useConstants = () => {
     getLiveStreamPlatform,
     getPageTierColorsList,
     getPageTierColor,
+    NETWORK_CONFIGS,
+    getNetworkConfig
   };
 };
