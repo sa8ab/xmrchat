@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { MoneroNetworkType } from 'monero-ts';
 import { MoneroNetworkTypeEnum, NETWORK_CONFIGS } from 'src/shared/constants';
 
 @Injectable()
