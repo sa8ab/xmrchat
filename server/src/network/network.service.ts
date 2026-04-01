@@ -8,6 +8,7 @@ export class NetworkService {
 
 
   getNetworkType() {
+    // TODO: Add validation for network type
     return this.configService.get<MoneroNetworkTypeEnum>('MONERO_NETWORK') || MoneroNetworkTypeEnum.MAINNET;
   }
 
