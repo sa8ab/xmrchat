@@ -219,7 +219,7 @@ export default {
   pageSlug: "Identifiant de la page",
   moneroPrmReciveAddress: "Adresse principale de réception Monero",
   prmMoneroReciveAdressBegin:
-    "Les adresses Monero commencent par le chiffre 4.",
+    "Les adresses Monero de réception principales commencent par {characters}.",
   moneroSecretViewKey: "Clé de vue secrète Monero",
   weNeedSecretViewKey:
     "Nous avons besoin de la clé de vue secrète pour voir les transactions entrantes des spectateurs. {whereToFind}",

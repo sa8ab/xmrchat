@@ -206,7 +206,8 @@ export default {
   yourId: "귀하의 ID",
   pageSlug: "페이지 슬러그",
   moneroPrmReciveAddress: "모네로 기본 수신 주소",
-  prmMoneroReciveAdressBegin: "기본 모네로 수신 주소는 숫자 4로 시작합니다.",
+  prmMoneroReciveAdressBegin:
+    "기본 모네로 수신 주소는 {characters} 중 하나로 시작합니다.",
   moneroSecretViewKey: "모네로 시크릿 뷰 키",
   weNeedSecretViewKey:
     "시청자의 입금 거래를 확인하기 위해 시크릿 뷰 키가 필요합니다. {whereToFind}",

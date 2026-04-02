@@ -206,7 +206,8 @@ export default {
   yourId: "Vaše ID",
   pageSlug: "Označení stránky (slug)",
   moneroPrmReciveAddress: "Primární přijímací adresa Monera",
-  prmMoneroReciveAdressBegin: "Primární Monero adresy začínají číslem 4.",
+  prmMoneroReciveAdressBegin:
+    "Primární Monero adresy začínají jedním z následujících znaků: {characters}.",
   moneroSecretViewKey: "Tajný prohlížecí klíč Monera",
   weNeedSecretViewKey:
     "Potřebujeme prohlížecí klíč, abychom mohli zobrazit příchozí transakce od diváků. {whereToFind}",
