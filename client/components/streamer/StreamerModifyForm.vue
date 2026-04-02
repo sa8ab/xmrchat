@@ -31,7 +31,7 @@ const emit = defineEmits<{
       data: SlugReservationResponse;
       slug?: string;
       fiat?: FiatEnum;
-    }
+    },
   ];
 }>();
 
@@ -52,6 +52,7 @@ const {
 } = useValidations();
 
 const { minXMRPayAmount } = useAppConfig();
+const { network } = useMoneroNetwork();
 
 const {
   checkSlug: checkSlugApi,
@@ -135,7 +136,7 @@ const showExpirationWarning = computed(() => {
 
 watch(
   () => state.form.path,
-  (v) => chechSlugDebounced(v)
+  (v) => chechSlugDebounced(v),
 );
 
 const handleSubmit = async () => {
@@ -206,7 +207,7 @@ const v = useVuelidate<State["form"]>(
     },
     minTipAmount: { numberic, minValue: minValue(minXMRPayAmount) },
   },
-  toRef(state, "form")
+  toRef(state, "form"),
 );
 
 const getPage = async () => {
@@ -336,7 +337,11 @@ const handleBannerUpload = (file: UploadedFile) => {
           :label="t('moneroPrmReciveAddress')"
           name="payment_address"
           :error="getValidationAttrs('primaryAddress').error"
-          :help="t('prmMoneroReciveAdressBegin')"
+          :help="
+            t('prmMoneroReciveAdressBegin', {
+              characters: network.validationCharacters.join(', '),
+            })
+          "
         >
           <UInput
             type="text"

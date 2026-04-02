@@ -209,7 +209,7 @@ export default {
   pageSlug: "اسلاگ صفحه",
   moneroPrmReciveAddress: "آدرس اصلی دریافت Monero",
   prmMoneroReciveAdressBegin:
-    "آدرس‌های اصلی دریافت Monero با عدد 4 شروع می‌شوند.",
+    "آدرس‌های اصلی دریافت Monero با {characters} شروع می‌شوند.",
   moneroSecretViewKey: "کلید دید مخفی Monero",
   weNeedSecretViewKey:
     "ما به کلید مشاهده مخفی نیاز داریم تا بتوانیم تراکنش‌های ورودی از طرف بینندگان را مشاهده کنیم. {whereToFind}",

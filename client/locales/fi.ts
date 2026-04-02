@@ -207,7 +207,7 @@ export default {
   pageSlug: "Sivun osoite (slug)",
   moneroPrmReciveAddress: "Monero ensisijainen vastaanotto-osoite",
   prmMoneroReciveAdressBegin:
-    "Ensisijaiset Monero-osoitteet alkavat numerolla 4.",
+    "Ensisijäiset Monero-vastaanotto-osoitteet alkavat merkillä {characters}.",
   moneroSecretViewKey: "Monero salainen katseluavain",
   weNeedSecretViewKey:
     "Tarvitsemme salaisen katseluavaimen, jotta voimme nähdä katsojien maksut. {whereToFind}",

@@ -208,7 +208,7 @@ export default {
   pageSlug: "Page Slug",
   moneroPrmReciveAddress: "Monero main address wey go receive money",
   prmMoneroReciveAdressBegin:
-    "Monero address wey dey collect money dey start with number 4.",
+    "Primary Monero receive addresses dey begin with {characters}.",
   moneroSecretViewKey: "Monero secret view key",
   weNeedSecretViewKey:
     "We need dis secret view key so you fi see money wey people dey send. {whereToFind}",
