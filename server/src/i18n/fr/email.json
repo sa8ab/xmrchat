@@ -55,5 +55,12 @@
     "invitationMessage": "Vous avez été invité à devenir co-hôte sur {pageName} page.",
     "acceptInvitation": "Accepter l'invitation",
     "ifYouDidNotExpectThisInvitation": "Si vous ne vous attendiez pas à cette invitation, vous pouvez ignorer cet email."
+  },
+  "verificationRemoved": {
+    "subject": "Votre vérification X a été supprimée",
+    "title": "Vérification supprimée",
+    "emailTitle": "Votre vérification a été supprimée",
+    "couldNotFindAccount": "Nous n'avons pas pu trouver votre compte {platform} ({account}), donc la vérification a été supprimée.",
+    "whatToDoNext": "Veuillez mettre à jour votre lien et créer une nouvelle vérification."
   }
 }

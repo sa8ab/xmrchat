@@ -11,7 +11,7 @@ export default {
     url: "الرابط غير صالح",
     notUrl: "يجب ألا يكون رابطاً",
     streamerSlug: "يمكن أن يحتوي الرابط على أحرف صغيرة، أرقام، أسطر و أسطورة",
-    moneroPrimaryAddress: "عنوان الاستلام غير صالح. يجب أن يبدأ بـ 4",
+    moneroPrimaryAddress: "عنوان الاستلام غير صالح. يجب أن يبدأ بـ {characters}.",
   },
 
   account: "الحساب",

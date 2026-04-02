@@ -13,7 +13,7 @@ export default {
     streamerSlug:
       "El camino puede contener solo letras minúsculas, números, guiones bajos y guiones.",
     moneroPrimaryAddress:
-      "La dirección principal es inválida. Debe comenzar con el número 4.",
+      "La dirección principal es inválida. Debe comenzar con {characters}.",
   },
 
   account: "Cuenta",

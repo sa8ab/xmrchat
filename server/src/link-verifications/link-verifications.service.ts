@@ -12,6 +12,9 @@ import { LinkPlatformEnum } from 'src/shared/constants';
 import { CreateLinkVerificationDto } from './dtos/create-link-verification.dto';
 import { PagesService } from 'src/pages/pages.service';
 import { User } from 'src/users/user.entity';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class LinkVerificationsService {
@@ -22,7 +25,9 @@ export class LinkVerificationsService {
     private linkRepo: Repository<Link>,
     private twitterVerificationHandler: TwitterVerificationHandler,
     private pagesService: PagesService,
-  ) {}
+    @InjectQueue('link-verification-validation')
+    private linkVerificationValidationQueue: Queue,
+  ) { }
 
   async findOne(id: number) {
     if (!id) throw new BadRequestException('id is required');
@@ -38,6 +43,7 @@ export class LinkVerificationsService {
     if (!id) return null;
     return this.repo.findOne({
       where: { id },
+      relations: { link: { page: { user: true } } },
     });
   }
 
@@ -92,6 +98,11 @@ export class LinkVerificationsService {
     return this.repo.save(verification);
   }
 
+  async deleteById(id: number) {
+    const verification = await this.findOne(id);
+    if (verification) await this.repo.remove(verification);
+  }
+
   async deleteByLinkId(linkId: number) {
     const verification = await this.findOneByLinkId(linkId);
     if (verification) await this.repo.remove(verification);
@@ -111,5 +122,20 @@ export class LinkVerificationsService {
       throw new NotFoundException('Verification not found');
 
     await this.repo.remove(link.verification);
+  }
+
+  /**
+   * Validate all verifications every day.
+   */
+  @Cron(CronExpression.EVERY_DAY_AT_NOON)
+  async validateAll() {
+    const verifications = await this.repo.find()
+
+    await this.linkVerificationValidationQueue.addBulk(verifications.map((verification) => {
+      return {
+        name: `validate-verification`,
+        data: { verificationId: verification.id }
+      }
+    }));
   }
 }

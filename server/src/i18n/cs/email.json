@@ -55,5 +55,12 @@
     "invitationMessage": "Byli jste pozváni k spolupráci na {pageName} stránce.",
     "acceptInvitation": "Přijmout pozvánku",
     "ifYouDidNotExpectThisInvitation": "Pokud jste neočekávali tuto pozvánku, můžete tento e-mail ignorovat."
+  },
+  "verificationRemoved": {
+    "subject": "Vaše ověření na X bylo odstraněno",
+    "title": "Ověření odstraněno",
+    "emailTitle": "Vaše ověření bylo odstraněno",
+    "couldNotFindAccount": "Nepodařilo se nám najít váš účet na {platform} ({account}), proto bylo ověření odstraněno.",
+    "whatToDoNext": "Prosím aktualizujte svůj odkaz a vytvořte nové ověření."
   }
 }

@@ -11,6 +11,7 @@ import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
       { name: 'notifications-signal' },
       { name: 'live-stream' },
       { name: 'notifications-daily-summary' },
+      { name: 'link-verification-validation' }
     ),
 
     BullBoardModule.forFeature({
@@ -33,7 +34,11 @@ import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
       name: 'notifications-daily-summary',
       adapter: BullMQAdapter,
     }),
+    BullBoardModule.forFeature({
+      name: 'link-verification-validation',
+      adapter: BullMQAdapter,
+    }),
   ],
   exports: [BullModule],
 })
-export class QueuesModule {}
+export class QueuesModule { }

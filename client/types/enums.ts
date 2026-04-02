@@ -32,6 +32,8 @@ export enum ContentLinkPlatformEnum {
   KICK = "kick",
   KUNO = "kuno",
   PEERTUBE = "peertube",
+  UPSCROLLED = "upscrolled",
+  BITCHUTE = "bitchute",
 }
 
 export enum TipDisplayMode {
@@ -108,4 +110,11 @@ export enum CohostInvitationStatusEnum {
 export enum SuperDmMessageSenderTypeEnum {
   CREATOR = "creator",
   VIEWER = "viewer",
+}
+
+export enum MoneroNetworkTypeEnum {
+  MAINNET = 'mainnet',
+  TESTNET = 'testnet',
+  STAGENET = 'stagenet',
+  STRESSNET = 'stressnet',
 }

@@ -13,7 +13,7 @@ export default {
     streamerSlug:
       "Le chemin peut contenir uniquement des lettres minuscules, des chiffres, des traits de soulignement et des traits de soulignement.",
     moneroPrimaryAddress:
-      "L'adresse principale est invalide. Elle doit commencer par le chiffre 4.",
+      "L'adresse principale est invalide. Elle doit commencer par {characters}.",
   },
 
   account: "Compte",

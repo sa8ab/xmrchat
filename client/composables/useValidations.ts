@@ -17,6 +17,7 @@ import {
 
 export const useValidations = (generalV?: Ref<Validation>) => {
   const { t } = useI18n();
+  const { network } = useMoneroNetwork()
   const required = helpers.withMessage(
     () => t("validations.required"),
     baseRequired
@@ -82,11 +83,10 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     streamerSlugBase
   );
 
-  const moneroPrimaryAddressBase = (v: any) =>
-    typeof v === "string" && v.startsWith("4");
+  const moneroPrimaryAddressBase = (v: any) => typeof v === "string" && network.value.validationCharacters.includes(v[0])
 
   const moneroPrimaryAddress = helpers.withMessage(
-    t("validations.moneroPrimaryAddress"),
+    t("validations.moneroPrimaryAddress", { characters: network.value?.validationCharacters.join(", ") || "" }),
     moneroPrimaryAddressBase
   );
 

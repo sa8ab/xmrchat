@@ -12,7 +12,8 @@ export default {
     notUrl: "Nesmí to být odkaz.",
     streamerSlug:
       "Cesta může obsahovat pouze malá písmena, čísla, podtržítka a pomlčky.",
-    moneroPrimaryAddress: "Primární adresa je neplatná. Musí začínat číslem 4.",
+    moneroPrimaryAddress:
+      "Primární adresa je neplatná. Musí začínat na {characters}.",
   },
 
   account: "Účet",

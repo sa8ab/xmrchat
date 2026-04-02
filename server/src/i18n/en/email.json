@@ -55,5 +55,12 @@
     "invitationMessage": "You've been invited to become a cohost on {pageName} page.",
     "acceptInvitation": "Accept Invitation",
     "ifYouDidNotExpectThisInvitation": "If you didn't expect this invitation, you can ignore this email."
+  },
+  "verificationRemoved": {
+    "subject": "Your X verification was removed",
+    "title": "Verification Removed",
+    "emailTitle": "Your verification was removed",
+    "couldNotFindAccount": "We could not find your {platform} account ({account}), so the verification was removed.",
+    "whatToDoNext": "Please update your link and create a new verification."
   }
 }

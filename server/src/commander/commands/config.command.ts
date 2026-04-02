@@ -1,6 +1,7 @@
 import { Logger } from '@nestjs/common';
 import { Command, CommandRunner } from 'nest-commander';
 import { TwitchTokenService } from 'src/integrations/twitch/twitch-token.service';
+import { LinkVerificationsService } from 'src/link-verifications/link-verifications.service';
 import { LiveStreamsService } from 'src/live-streams/live-streams.service';
 
 @Command({
@@ -14,6 +15,7 @@ export class ConfigCommand extends CommandRunner {
   constructor(
     private twitchTokenService: TwitchTokenService,
     private liveStreamsService: LiveStreamsService,
+    private linkVerificationsService: LinkVerificationsService,
   ) {
     super();
   }
@@ -46,6 +48,11 @@ export class ConfigCommand extends CommandRunner {
       return;
     }
 
+    if (config === 'validate-link-verifications') {
+      await this.validateLinkVerifications();
+      return;
+    }
+
     this.logger.error(`Parameter is invalid: ${config}`);
   }
 
@@ -73,5 +80,10 @@ export class ConfigCommand extends CommandRunner {
   async updateYoutubeLiveStreams() {
     this.logger.log('updating youtube live streams');
     await this.liveStreamsService.getYoutubeLiveStreams();
+  }
+
+  async validateLinkVerifications() {
+    this.logger.log('validating link verifications');
+    await this.linkVerificationsService.validateAll();
   }
 }

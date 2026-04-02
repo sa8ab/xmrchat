@@ -13,7 +13,7 @@ export default {
     streamerSlug:
       "Polun saa sisältää vain pieniä kirjaimia, numeroita, alaviivoja ja väliviivoja.",
     moneroPrimaryAddress:
-      "Monero ensisijainen osoite on virheellinen. Se pitää aloittaa numerolla 4.",
+      "Monero ensisijainen osoite on virheellinen. Sen pitää alkaa {characters}.",
   },
 
   account: "Tili",
