@@ -204,7 +204,7 @@ export default {
   pageSlug: "رابط الصفحة",
   moneroPrmReciveAddress: "عنوان استلام Monero الرئيسي",
   prmMoneroReciveAdressBegin:
-    "تبدأ عناوين استلام Monero الرئيسية بـ {characters}",
+    "تبدأ عناوين استلام Monero الرئيسية بـ {characters}.",
   moneroSecretViewKey: "مفتاح عرض Monero السري",
   weNeedSecretViewKey:
     "نحتاج إلى مفتاح العرض السري لنتمكن من عرض المعاملات الواردة من المشاهدين. {whereToFind}",

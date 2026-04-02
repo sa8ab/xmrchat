@@ -207,7 +207,7 @@ export default {
   pageSlug: "Slug страницы",
   moneroPrmReciveAddress: "Основной адрес для получения Monero",
   prmMoneroReciveAdressBegin:
-    "Основные адреса Monero начинаются с {characters}.",
+    "Основные адреса для получения Monero начинаются с {characters}.",
   moneroSecretViewKey: "Секретный ключ просмотра Monero",
   weNeedSecretViewKey:
     "Нам нужен секретный ключ просмотра, чтобы видеть входящие транзакции от зрителей. {whereToFind}",
