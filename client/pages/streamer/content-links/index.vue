@@ -18,7 +18,7 @@ interface State {
 }
 
 const { getMyLinks: getMyLinksReq, updateLinks } = useServices();
-const { url, notUrl, rumbleApiUrl } = useValidations();
+const { url, notUrl, rumbleApiUrl, notStartingWithAt } = useValidations();
 const toast = useToast();
 const { getContentLink } = useConstants();
 const { t } = useI18n();
@@ -104,7 +104,7 @@ const rules = computed(() => {
 
   const notUrls: Record<string, any> = {};
   Object.values(rest).forEach((nUrl) => {
-    notUrls[nUrl] = { value: { notUrlWithMessage } };
+    notUrls[nUrl] = { value: { notUrlWithMessage, notStartingWithAt } };
   });
 
   return {
