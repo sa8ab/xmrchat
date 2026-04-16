@@ -104,7 +104,15 @@ const rules = computed(() => {
 
   const notUrls: Record<string, any> = {};
   Object.values(rest).forEach((nUrl) => {
-    notUrls[nUrl] = { value: { notUrlWithMessage, notStartingWithAt } };
+    notUrls[nUrl] = {
+      value: {
+        notUrlWithMessage,
+        notStartingWithAt: helpers.withMessage(
+          `Don't include the "@" symbol at the beginning.`,
+          notStartingWithAt,
+        ),
+      },
+    };
   });
 
   return {
