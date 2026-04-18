@@ -7,15 +7,13 @@ watch(
   () => route.fullPath,
   () => {
     active.value = false;
-  }
+  },
 );
 </script>
 
 <template>
   <div class="mt-4">
-    <div
-      class="border rounded-lg border-border p-4 pt-8 sticky top-0 hidden lg:block"
-    >
+    <div class="border rounded-lg border-border sticky top-0 hidden lg:block">
       <slot />
     </div>
     <div class="lg:hidden">
@@ -31,9 +29,7 @@ watch(
           width: 'max-w-[320px]',
         }"
       >
-        <div class="p-4 py-6">
-          <slot />
-        </div>
+        <slot />
       </USlideover>
     </div>
   </div>

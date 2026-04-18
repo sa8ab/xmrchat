@@ -38,7 +38,7 @@ const items = computed(() => {
         {
           divider: true,
         },
-      ]
+      ],
     );
   }
 
@@ -55,7 +55,7 @@ const items = computed(() => {
         icon: "i-heroicons-user",
         to: toStreamerAccount(),
       },
-    ]
+    ],
   );
 
   if (authStore.isCohost) {
@@ -79,7 +79,7 @@ const items = computed(() => {
           icon: "i-heroicons-banknotes",
           to: toStreamer(page.value.path),
         },
-      ]
+      ],
     );
 
     const showTipSplits = config.public.showTipSplits;
@@ -92,7 +92,7 @@ const items = computed(() => {
             icon: "i-heroicons-users",
             to: toStreamerRecipients(),
           },
-        ]
+        ],
       );
     }
 
@@ -122,7 +122,7 @@ const items = computed(() => {
             icon: "i-tabler-plug",
             to: toStreamerIntegrations(),
           },
-        ]
+        ],
       );
     }
 
@@ -138,7 +138,7 @@ const items = computed(() => {
           icon: "i-heroicons-video-camera",
           to: toStreamerOBS(),
         },
-      ]
+      ],
     );
   }
 
@@ -147,8 +147,8 @@ const items = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col">
-    <div class="flex flex-col items-center gap-2">
+  <div class="flex flex-col h-full pt-8">
+    <div class="flex flex-col items-center gap-2 px-4">
       <GeneralImage
         v-if="page"
         :url="page?.logo.url"
@@ -165,7 +165,7 @@ const items = computed(() => {
       <UBadge v-if="authStore.isPremium">Premium</UBadge>
       <span class="text-pale text-sm">{{ state.user?.email }}</span>
     </div>
-    <div class="flex flex-col gap-1 mt-6">
+    <div class="flex flex-col gap-1 mt-6 px-4 pb-4 overflow-y-auto">
       <template v-for="item in items">
         <UDivider v-if="item.divider" class="my-2" />
         <ULink
