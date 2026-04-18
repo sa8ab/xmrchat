@@ -55,6 +55,8 @@ import { PaymentFlowModule } from './payment-flow/payment-flow.module';
 import { LinkVerificationsModule } from './link-verifications/link-verifications.module';
 import { NetworkModule } from './network/network.module';
 import { IsMoneroPrimaryAdrress } from './shared/validations/monero-primary-address.validation';
+import { OfferingsModule } from './offerings/offerings.module';
+import { EntitlementsModule } from './entitlements/entitlements.module';
 
 @Module({
   imports: [
@@ -183,6 +185,8 @@ import { IsMoneroPrimaryAdrress } from './shared/validations/monero-primary-addr
     PaymentFlowModule,
     LinkVerificationsModule,
     NetworkModule,
+    OfferingsModule,
+    EntitlementsModule,
   ],
   controllers: [AppController],
   providers: [AppService, IsMoneroPrimaryAdrress],
