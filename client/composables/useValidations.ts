@@ -12,6 +12,7 @@ import {
   url as baseUrl,
   integer as baseInteger,
   helpers,
+  not
 } from "@vuelidate/validators";
 // import { getProperty } from "~/utils";
 
@@ -120,6 +121,17 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     rumbleApiUrlBase
   );
 
+  const notStartingWithAtBase = (v: any) => {
+    if (!v) return true;
+    if (typeof v !== "string") return true;
+    return !v.trimStart().startsWith("@");
+  };
+
+  const notStartingWithAt = helpers.withMessage(
+    "Text cannot start with '@'.",
+    notStartingWithAtBase
+  );
+
   const getValidationAttrs = (path: string, v?: MaybeRef<Validation>) => {
     v = unref(v || generalV);
     const instance = getProperty(v, path);
@@ -159,6 +171,7 @@ export const useValidations = (generalV?: Ref<Validation>) => {
     streamerSlugInternal,
     moneroPrimaryAddress,
     rumbleApiUrl,
+    notStartingWithAt,
     getValidationAttrs,
     validate,
   };
