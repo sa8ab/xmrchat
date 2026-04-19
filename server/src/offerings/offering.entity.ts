@@ -1,25 +1,36 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Page } from 'src/pages/page.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity({ name: 'offerings' })
 export class Offering {
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
   @Column()
-  name: string
+  name: string;
 
   @Column()
-  description: string
+  description: string;
 
   @Column({ type: 'integer', nullable: true })
-  duration?: number
+  duration?: number;
 
   @Column({ type: 'bigint' })
-  amount: number
+  amount: string;
+
+  @ManyToOne(() => Page, { onDelete: 'CASCADE' })
+  page: Page;
 
   @CreateDateColumn({ type: 'timestamptz' })
-  createdAt: Date
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamptz' })
-  updatedAt: Date
+  updatedAt: Date;
 }
