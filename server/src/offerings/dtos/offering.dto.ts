@@ -1,4 +1,5 @@
 import { Expose, Type } from 'class-transformer';
+import { OfferingTypeEnum } from 'src/shared/constants';
 import { AtomicToXmrTransform } from 'src/shared/decorators/atomic-to-xmr-transform.decorator';
 
 export class OfferingDto {
@@ -17,6 +18,9 @@ export class OfferingDto {
   @Expose()
   @AtomicToXmrTransform()
   amount: string;
+
+  @Expose()
+  type: OfferingTypeEnum;
 
   @Expose()
   createdAt: Date;
