@@ -52,5 +52,10 @@ export const useRouteLocation = () => {
       localeRoute(`/${streamerId}/super-dm`),
     toSuperDm: (streamerId: Numberic, superDmId: Numberic) =>
       localeRoute(`/${streamerId}/super-dm/${superDmId}`),
+
+    toStreamerOfferings: () => localeRoute("/streamer/offerings"),
+    toCreateStreamerOffering: () => localeRoute("/streamer/offerings/create"),
+    toEditStreamerOffering: (id: Numberic) =>
+      localeRoute(`/streamer/offerings/${id}/edit`),
   };
 };
