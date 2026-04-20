@@ -70,7 +70,7 @@ export enum LinkPlatformEnum {
   KUNO = 'kuno',
   PEERTUBE = 'peertube',
   UPSCROLLED = 'upscrolled',
-  BITCHUTE = 'bitchute'
+  BITCHUTE = 'bitchute',
 }
 
 export enum TrocadorStatusEnum {
@@ -175,4 +175,8 @@ export enum SuperDmMessageSenderType {
 
 export enum PageVerificationTypeEnum {
   X = 'x',
+}
+
+export enum OfferingTypeEnum {
+  TELEGRAM = 'telegram',
 }

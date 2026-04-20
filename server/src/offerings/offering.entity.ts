@@ -1,4 +1,5 @@
 import { Page } from 'src/pages/page.entity';
+import { OfferingTypeEnum } from 'src/shared/constants';
 import {
   Column,
   CreateDateColumn,
@@ -25,6 +26,9 @@ export class Offering {
 
   @Column({ type: 'bigint' })
   amount: string;
+
+  @Column({ default: OfferingTypeEnum.TELEGRAM })
+  type: OfferingTypeEnum;
 
   @ManyToOne(() => Page, { onDelete: 'CASCADE' })
   page: Page;
