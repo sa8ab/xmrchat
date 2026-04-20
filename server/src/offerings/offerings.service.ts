@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Offering } from './offering.entity';
@@ -10,11 +11,14 @@ import { CreateOfferingDto } from './dtos/create-offering.dto';
 import { User } from 'src/users/user.entity';
 import { PagesService } from 'src/pages/pages.service';
 import { UpdateOfferingDto } from './dtos/update-offering.dto';
+import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
+import { Action } from 'src/shared/constants';
 
 @Injectable()
 export class OfferingsService {
   constructor(
     private pagesService: PagesService,
+    private casl: CaslAbilityFactory,
     @InjectRepository(Offering) private repo: Repository<Offering>,
   ) {}
 
@@ -24,11 +28,23 @@ export class OfferingsService {
     const result = await this.repo.find({
       where: { page: { id: page.id } },
     });
+
+    return result;
   }
 
-  findOne(id: number) {
+  async findOne(id: number, user: User) {
     if (!id) throw new BadRequestException('id is required');
-    return this.repo.findOneBy({ id });
+
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page is not found');
+
+    const offering = await this.repo.findOneBy({ id });
+    if (!offering) throw new NotFoundException('Offering is not found');
+
+    const casl = await this.casl.createForUser(user);
+    if (!casl.can(Action.Read, offering)) throw new UnauthorizedException();
+
+    return offering;
   }
 
   findOneOptional(id: number) {

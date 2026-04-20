@@ -22,7 +22,7 @@ export class OfferingsController {
   @Get('/:id')
   @Serialize(OfferingRO)
   async findOne(@Param('id') id: number, @CurrentUser() user: User) {
-    const offering = await this.offeringsService.findOne(id);
+    const offering = await this.offeringsService.findOne(id, user);
 
     return { offering };
   }

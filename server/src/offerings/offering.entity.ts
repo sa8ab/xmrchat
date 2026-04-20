@@ -5,6 +5,7 @@ import {
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
+  RelationId,
   UpdateDateColumn,
 } from 'typeorm';
 
@@ -27,6 +28,9 @@ export class Offering {
 
   @ManyToOne(() => Page, { onDelete: 'CASCADE' })
   page: Page;
+
+  @RelationId((o: Offering) => o.page)
+  pageId: number;
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
