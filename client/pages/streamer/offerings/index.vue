@@ -1,5 +1,19 @@
 <script setup lang="ts">
+import type { Offering } from "~/types";
+
 const { toCreateStreamerOffering } = useRouteLocation();
+
+const { axios } = useApp();
+
+const { data, pending, error } = useLazyAsyncData(
+  async () => {
+    const { data } = await axios.get<{ offerings: Offering[] }>(`/offerings`);
+    return data.offerings;
+  },
+  {
+    server: false,
+  },
+);
 </script>
 
 <template>

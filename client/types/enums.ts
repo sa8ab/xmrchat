@@ -113,8 +113,12 @@ export enum SuperDmMessageSenderTypeEnum {
 }
 
 export enum MoneroNetworkTypeEnum {
-  MAINNET = 'mainnet',
-  TESTNET = 'testnet',
-  STAGENET = 'stagenet',
-  STRESSNET = 'stressnet',
+  MAINNET = "mainnet",
+  TESTNET = "testnet",
+  STAGENET = "stagenet",
+  STRESSNET = "stressnet",
+}
+
+export enum OfferingTypeEnum {
+  TELEGRAM = "telegram",
 }
