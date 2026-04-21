@@ -22,8 +22,7 @@ import { Tip } from 'src/tips/tip.entity';
 import { User } from 'src/users/user.entity';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { LinkVerification } from 'src/link-verifications/link-verification.entity';
-import { Offering } from 'src/offerings/offering.entity';
-import { Entitlement } from 'src/entitlements/entitlement.entity';
+import { PaidContent } from 'src/paid-content/paid-content.entity';
 
 @Module({
   imports: [
@@ -56,8 +55,7 @@ import { Entitlement } from 'src/entitlements/entitlement.entity';
           SuperDm,
           SuperDmMessage,
           LinkVerification,
-          Offering,
-          Entitlement,
+          PaidContent,
         ],
         namingStrategy: new SnakeNamingStrategy(),
         migrationsRun: process.env.NODE_ENV === 'production',
@@ -66,4 +64,4 @@ import { Entitlement } from 'src/entitlements/entitlement.entity';
     }),
   ],
 })
-export class DatabaseModule { }
+export class DatabaseModule {}

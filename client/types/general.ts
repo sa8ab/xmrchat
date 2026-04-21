@@ -360,12 +360,11 @@ export interface SavedViewerSuperDmKeys extends GeneratedKeys {
   superDmId: string;
 }
 
-export interface Offering {
+export interface PaidContent {
   id: number;
   name: string;
-  description: string;
+  description?: string;
   duration?: number;
   amount: string;
-  type: OfferingTypeEnum;
   createdAt: string;
 }

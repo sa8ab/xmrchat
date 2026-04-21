@@ -1,20 +1,17 @@
-import { IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 import { XmrToAtomicTransform } from 'src/shared/decorators/xmr-to-atomic-transform.decorator';
 
-export class CreateOfferingDto {
+export class CreatePaidContentDto {
   @IsString()
   name: string;
 
   @IsString()
-  @IsOptional()
-  @MaxLength(255)
-  description?: string;
+  description: string;
+
+  @IsNumber()
+  duration: number;
 
   @IsString()
   @XmrToAtomicTransform({ toClassOnly: true })
   amount: string;
-
-  @IsOptional()
-  @IsNumber()
-  duration?: number;
 }

@@ -1,5 +1,5 @@
 import { Page } from 'src/pages/page.entity';
-import { OfferingTypeEnum } from 'src/shared/constants';
+import { PaidContentTypeEnum } from 'src/shared/constants';
 import {
   Column,
   CreateDateColumn,
@@ -10,8 +10,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'offerings' })
-export class Offering {
+@Entity({ name: 'paid_content' })
+export class PaidContent {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -27,13 +27,13 @@ export class Offering {
   @Column({ type: 'bigint' })
   amount: string;
 
-  @Column({ default: OfferingTypeEnum.TELEGRAM })
-  type: OfferingTypeEnum;
+  @Column({ default: PaidContentTypeEnum.TELEGRAM })
+  type: PaidContentTypeEnum;
 
   @ManyToOne(() => Page, { onDelete: 'CASCADE' })
   page: Page;
 
-  @RelationId((o: Offering) => o.page)
+  @RelationId((p: PaidContent) => p.page)
   pageId: number;
 
   @CreateDateColumn({ type: 'timestamptz' })

@@ -1,8 +1,7 @@
 import { Expose, Type } from 'class-transformer';
-import { OfferingTypeEnum } from 'src/shared/constants';
 import { AtomicToXmrTransform } from 'src/shared/decorators/atomic-to-xmr-transform.decorator';
 
-export class OfferingDto {
+export class PaidContentDto {
   @Expose()
   id: number;
 
@@ -20,23 +19,20 @@ export class OfferingDto {
   amount: string;
 
   @Expose()
-  type: OfferingTypeEnum;
-
-  @Expose()
   createdAt: Date;
 
   @Expose()
   updatedAt: Date;
 }
 
-export class OfferingRO {
+export class PaidContentRO {
   @Expose()
-  @Type(() => OfferingDto)
-  offering: OfferingDto;
+  @Type(() => PaidContentDto)
+  paidContent: PaidContentDto;
 }
 
-export class OfferingsRO {
+export class PaidContentsRO {
   @Expose()
-  @Type(() => OfferingDto)
-  offerings: OfferingDto[];
+  @Type(() => PaidContentDto)
+  paidContents: PaidContentDto[];
 }

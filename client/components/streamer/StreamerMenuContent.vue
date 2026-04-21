@@ -21,7 +21,7 @@ const {
   toStreamerCohostPage,
   toStreamerPageTiers,
   toStreamerSuperDms,
-  toStreamerOfferings,
+  toStreamerPaidContents,
 } = useRouteLocation();
 
 const items = computed(() => {
@@ -114,9 +114,9 @@ const items = computed(() => {
             to: toStreamerSuperDms(),
           },
           {
-            label: "Offerings",
-            icon: "i-heroicons-tag",
-            to: toStreamerOfferings(),
+            label: "Paid Content",
+            icon: "i-heroicons-credit-card",
+            to: toStreamerPaidContents(),
           },
           {
             label: "Notifications",

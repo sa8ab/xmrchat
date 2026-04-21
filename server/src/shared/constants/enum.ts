@@ -177,6 +177,6 @@ export enum PageVerificationTypeEnum {
   X = 'x',
 }
 
-export enum OfferingTypeEnum {
+export enum PaidContentTypeEnum {
   TELEGRAM = 'telegram',
 }
