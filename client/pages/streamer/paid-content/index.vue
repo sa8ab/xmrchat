@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { PaidContent } from "~/types";
 
-const { toStreamerPaidContentCreate } = useRouteLocation();
-
+const { toStreamerPaidContentCreate, toStreamerPaidContent } =
+  useRouteLocation();
+const { t } = useI18n();
 const { axios } = useApp();
 
 const { data, pending, error } = useLazyAsyncData(
@@ -16,6 +17,24 @@ const { data, pending, error } = useLazyAsyncData(
     server: false,
   },
 );
+
+const columns = computed(() => [
+  {
+    key: "name",
+    label: t("name"),
+  },
+  {
+    key: "duration",
+    label: "Duration",
+  },
+  {
+    key: "amount",
+    label: "Amount",
+  },
+  {
+    key: "actions",
+  },
+]);
 </script>
 
 <template>
@@ -25,6 +44,39 @@ const { data, pending, error } = useLazyAsyncData(
     <div class="flex justify-end mb-4">
       <UButton :to="toStreamerPaidContentCreate()">Create Paid Content</UButton>
     </div>
+
+    <UTable
+      :rows="data || []"
+      :columns="columns"
+      class="border border-border rounded-md"
+      :ui="{
+        td: { base: 'whitespace-normal text-text dark:text-text' },
+      }"
+    >
+      <template #amount-data="{ row }">
+        <span>{{ row.amount ? `${row.amount} XMR` : "-" }}</span>
+      </template>
+      <template #actions-data="{ row }">
+        <div class="flex gap-2 justify-end">
+          <UButton
+            variant="ghost"
+            color="primary"
+            :to="toStreamerPaidContent(row.id)"
+          >
+            {{ $t("edit") }}
+          </UButton>
+          <!-- <UButton
+            variant="ghost"
+            color="red"
+          >
+            {{ $t("delete") }}
+          </UButton> -->
+        </div>
+      </template>
+      <template #empty-state>
+        <NoItems />
+      </template>
+    </UTable>
   </div>
 </template>
 
