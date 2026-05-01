@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import useVuelidate from "@vuelidate/core";
-import type { PaidContentDurationEnum } from "~/types/enums";
+import type { PaidContent } from "~/types";
 
 interface State {
   form: {
     name?: string;
     description?: string;
-    amount?: number;
-    duration?: PaidContentDurationEnum;
+    amount?: string;
+    duration?: number;
   };
   loading: boolean;
 }
@@ -33,6 +33,20 @@ const state: State = reactive({
   },
   loading: false,
 });
+
+useLazyAsyncData(
+  async () => {
+    if (!id.value) return;
+    const { data } = await axios.get<{ paidContent: PaidContent }>(
+      `/paid-content/${id.value}`,
+    );
+    state.form.name = data.paidContent.name;
+    state.form.description = data.paidContent.description;
+    state.form.amount = data.paidContent.amount;
+    state.form.duration = data.paidContent.duration;
+  },
+  { server: false },
+);
 
 const durationOptions = computed(() => {
   return Object.values(durations).map((v) => ({

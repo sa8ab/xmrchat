@@ -12,6 +12,7 @@ import { Repository } from 'typeorm';
 import { User } from 'src/users/user.entity';
 import { Action } from 'src/shared/constants';
 import { CreatePaidContentDto } from './dtos/create-paid-content.dto';
+import { UpdatePaidContentDto } from './dtos/update-paid-content.dto';
 
 @Injectable()
 export class PaidContentService {
@@ -58,6 +59,19 @@ export class PaidContentService {
       page,
     });
     const result = await this.repo.save(created);
+    return result;
+  }
+
+  async update(id: number, dto: UpdatePaidContentDto, user: User) {
+    const paidContent = await this.findOne(id, user);
+    if (!paidContent) throw new NotFoundException('Paid content is not found');
+
+    // TODO: Add casl check
+    // const casl = await this.casl.createForUser(user);
+    // if (!casl.can(Action.Update, paidContent)) throw new UnauthorizedException();
+
+    const updated = Object.assign(paidContent, dto);
+    const result = await this.repo.save(updated);
     return result;
   }
 }

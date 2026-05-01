@@ -56,7 +56,7 @@ export const useRouteLocation = () => {
     toStreamerPaidContents: () => localeRoute("/streamer/paid-content"),
     toStreamerPaidContentCreate: () =>
       localeRoute("/streamer/paid-content/create"),
-    toStreamerPaidContent: (id: Numberic) =>
-      localeRoute(`/streamer/paid-content/${id}`),
+    toStreamerPaidContentEdit: (id: Numberic) =>
+      localeRoute(`/streamer/paid-content/${id}/edit`),
   };
 };

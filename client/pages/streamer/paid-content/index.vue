@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PaidContent } from "~/types";
 
-const { toStreamerPaidContentCreate, toStreamerPaidContent } =
+const { toStreamerPaidContentCreate, toStreamerPaidContentEdit } =
   useRouteLocation();
 const { t } = useI18n();
 const { axios } = useApp();
@@ -61,7 +61,7 @@ const columns = computed(() => [
           <UButton
             variant="ghost"
             color="primary"
-            :to="toStreamerPaidContent(row.id)"
+            :to="toStreamerPaidContentEdit(row.id)"
           >
             {{ $t("edit") }}
           </UButton>
