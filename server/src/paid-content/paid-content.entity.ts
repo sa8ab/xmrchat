@@ -18,8 +18,8 @@ export class PaidContent {
   @Column()
   name: string;
 
-  @Column()
-  description: string;
+  @Column({ nullable: true })
+  description?: string;
 
   @Column({ type: 'integer', nullable: true })
   duration?: number;

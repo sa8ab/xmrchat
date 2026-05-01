@@ -12,7 +12,17 @@ interface State {
   loading: boolean;
 }
 
+const route = useRoute();
+const toast = useToast();
+const { axios } = useApp();
 const { required, numberic, maxLength } = useValidations();
+const { toStreamerPaidContents } = useRouteLocation();
+const {
+  PAID_CONTENT_DURATIONS: durations,
+  getPaidContentDuration: getDuration,
+} = useConstants();
+
+const id = computed(() => route.params.id as string);
 
 const state: State = reactive({
   form: {
@@ -24,7 +34,6 @@ const state: State = reactive({
   loading: false,
 });
 
-const { PAID_CONTENT_DURATIONS: durations } = useConstants();
 const durationOptions = computed(() => {
   return Object.values(durations).map((v) => ({
     label: v.label,
@@ -37,6 +46,18 @@ const handleSubmit = async () => {
   if (!valid) return;
 
   state.loading = true;
+
+  try {
+    const { data } = id.value
+      ? await axios.put(`/paid-content/${id.value}`, state.form)
+      : await axios.post("/paid-content", state.form);
+
+    await navigateTo(toStreamerPaidContents());
+  } catch (error) {
+    toast.add({ description: getErrorMessage(error) });
+  } finally {
+    state.loading = false;
+  }
 };
 
 const v = useVuelidate<any>(
@@ -60,7 +81,10 @@ const { getValidationAttrs } = useValidations(v);
           @blur="getValidationAttrs('name').onBlur"
         />
       </UFormGroup>
-      <UFormGroup label="Amount" :error="getValidationAttrs('amount').error">
+      <UFormGroup
+        label="Amount ( XMR )"
+        :error="getValidationAttrs('amount').error"
+      >
         <UInput
           v-model="state.form.amount"
           @blur="getValidationAttrs('amount').onBlur"
@@ -71,7 +95,13 @@ const { getValidationAttrs } = useValidations(v);
         label="Duration"
         :error="getValidationAttrs('duration').error"
       >
-        <USelectMenu v-model="state.form.duration" :options="durationOptions" />
+        <USelectMenu
+          v-model="state.form.duration"
+          :options="durationOptions"
+          valueAttribute="value"
+          optionAttribute="label"
+          @blur="getValidationAttrs('duration').onBlur"
+        />
       </UFormGroup>
 
       <!-- <UFormGroup

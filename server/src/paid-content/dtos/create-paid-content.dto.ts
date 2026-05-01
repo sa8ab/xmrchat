@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { XmrToAtomicTransform } from 'src/shared/decorators/xmr-to-atomic-transform.decorator';
 
 export class CreatePaidContentDto {
@@ -6,7 +6,8 @@ export class CreatePaidContentDto {
   name: string;
 
   @IsString()
-  description: string;
+  @IsOptional()
+  description?: string;
 
   @IsNumber()
   duration: number;

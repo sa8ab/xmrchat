@@ -48,6 +48,8 @@ export class PaidContentService {
     const page = await this.pagesService.findMyPage(user);
     if (!page) throw new NotFoundException('Page is not found');
 
+    // TODO: Add casl check
+
     const created = this.repo.create({
       name: dto.name,
       description: dto.description,
