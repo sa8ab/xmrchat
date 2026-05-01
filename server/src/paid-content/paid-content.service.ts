@@ -49,7 +49,9 @@ export class PaidContentService {
     const page = await this.pagesService.findMyPage(user);
     if (!page) throw new NotFoundException('Page is not found');
 
-    // TODO: Add casl check
+    const casl = await this.casl.createForUser(user);
+    if (!casl.can(Action.Create, PaidContent))
+      throw new UnauthorizedException();
 
     const created = this.repo.create({
       name: dto.name,
@@ -66,9 +68,9 @@ export class PaidContentService {
     const paidContent = await this.findOne(id, user);
     if (!paidContent) throw new NotFoundException('Paid content is not found');
 
-    // TODO: Add casl check
-    // const casl = await this.casl.createForUser(user);
-    // if (!casl.can(Action.Update, paidContent)) throw new UnauthorizedException();
+    const casl = await this.casl.createForUser(user);
+    if (!casl.can(Action.Update, paidContent))
+      throw new UnauthorizedException();
 
     const updated = Object.assign(paidContent, dto);
     const result = await this.repo.save(updated);
