@@ -24,6 +24,14 @@ const state: State = reactive({
   loading: false,
 });
 
+const { PAID_CONTENT_DURATIONS: durations } = useConstants();
+const durationOptions = computed(() => {
+  return Object.values(durations).map((v) => ({
+    label: v.label,
+    value: v.days,
+  }));
+});
+
 const handleSubmit = async () => {
   const valid = await v.value.$validate();
   if (!valid) return;
@@ -35,6 +43,7 @@ const v = useVuelidate<any>(
   {
     name: { required, maxLength: maxLength(20) },
     amount: { required, numberic },
+    duration: { required },
   },
   computed(() => state.form),
 );
@@ -56,6 +65,13 @@ const { getValidationAttrs } = useValidations(v);
           v-model="state.form.amount"
           @blur="getValidationAttrs('amount').onBlur"
         />
+      </UFormGroup>
+
+      <UFormGroup
+        label="Duration"
+        :error="getValidationAttrs('duration').error"
+      >
+        <USelectMenu v-model="state.form.duration" :options="durationOptions" />
       </UFormGroup>
 
       <!-- <UFormGroup
