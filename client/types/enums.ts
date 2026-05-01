@@ -122,3 +122,8 @@ export enum MoneroNetworkTypeEnum {
 export enum OfferingTypeEnum {
   TELEGRAM = "telegram",
 }
+
+export enum PaidContentDurationEnum {
+  WEEK = "week",
+  MONTH = "month",
+}

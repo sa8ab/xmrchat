@@ -7,6 +7,7 @@ import {
   MoneroNetworkTypeEnum,
   NotificationChannelEnum,
   NotificationPreferenceType,
+  PaidContentDurationEnum,
 } from "~/types/enums";
 
 export const useConstants = () => {
@@ -138,7 +139,7 @@ export const useConstants = () => {
       colorClassName: "",
       iconClassName: "",
       icon: "i-icon-peertube",
-      inputLabel: 'Peertube link (enter full URL)',
+      inputLabel: "Peertube link (enter full URL)",
       linkCreator: (v?: string) => `${v}`,
     },
     [ContentLinkPlatformEnum.UPSCROLLED]: {
@@ -154,7 +155,7 @@ export const useConstants = () => {
       colorClassName: "text-[#FF6600]",
       iconClassName: "",
       icon: "i-icon-bitchute",
-      inputLabel: 'Bitchute link (enter full URL)',
+      inputLabel: "Bitchute link (enter full URL)",
       linkCreator: (v?: string) => `${v}`,
     },
   };
@@ -305,31 +306,43 @@ export const useConstants = () => {
     return PAGE_TIER_COLORS[v];
   };
 
-
-
-
-  const NETWORK_CONFIGS: Record<MoneroNetworkTypeEnum, { type: MoneroNetworkTypeEnum, validationCharacters: string[] }> = {
+  const NETWORK_CONFIGS: Record<
+    MoneroNetworkTypeEnum,
+    { type: MoneroNetworkTypeEnum; validationCharacters: string[] }
+  > = {
     [MoneroNetworkTypeEnum.MAINNET]: {
       type: MoneroNetworkTypeEnum.MAINNET,
-      validationCharacters: ['4'],
+      validationCharacters: ["4"],
     },
     [MoneroNetworkTypeEnum.TESTNET]: {
       type: MoneroNetworkTypeEnum.TESTNET,
-      validationCharacters: ['9', 'A'],
+      validationCharacters: ["9", "A"],
     },
     [MoneroNetworkTypeEnum.STAGENET]: {
       type: MoneroNetworkTypeEnum.STAGENET,
-      validationCharacters: ['5'],
+      validationCharacters: ["5"],
     },
     [MoneroNetworkTypeEnum.STRESSNET]: {
       type: MoneroNetworkTypeEnum.STRESSNET,
-      validationCharacters: ['9', 'A'],
-    }
-  }
+      validationCharacters: ["9", "A"],
+    },
+  };
 
   const getNetworkConfig = (v: MoneroNetworkTypeEnum) => {
     return NETWORK_CONFIGS[v];
-  }
+  };
+
+  const PAID_CONTENT_DURATIONS: Record<
+    PaidContentDurationEnum,
+    { days: number; label: string }
+  > = {
+    [PaidContentDurationEnum.WEEK]: { days: 7, label: "Week" },
+    [PaidContentDurationEnum.MONTH]: { days: 30, label: "Month" },
+  };
+
+  const getPaidContentDuration = (v: PaidContentDurationEnum) => {
+    return PAID_CONTENT_DURATIONS[v];
+  };
 
   return {
     getContentLink,
@@ -347,6 +360,8 @@ export const useConstants = () => {
     getPageTierColorsList,
     getPageTierColor,
     NETWORK_CONFIGS,
-    getNetworkConfig
+    getNetworkConfig,
+    PAID_CONTENT_DURATIONS,
+    getPaidContentDuration,
   };
 };
