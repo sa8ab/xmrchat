@@ -57,9 +57,9 @@ const amountClass = computed(() => {
           >
             {{ item.private ? $t("private.title") : item.name }}
           </p>
-	  <p class="pb-1 text-xs">
+          <p class="pb-1 text-xs">
             {{ dayjs(item.createdAt).format("L") }}
-	  </p>
+          </p>
           <UTooltip
             v-if="disappearText"
             :popper="{ placement: 'top' }"
