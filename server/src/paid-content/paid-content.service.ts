@@ -30,6 +30,14 @@ export class PaidContentService {
     return result;
   }
 
+  async findByPagePath(path: string) {
+    const page = await this.pagesService.findByPath(path);
+    if (!page) throw new NotFoundException('Page is not found');
+
+    const result = await this.repo.find({ where: { page: { id: page.id } } });
+    return result;
+  }
+
   async findOne(id: number, user: User) {
     if (!id) throw new BadRequestException('id is required');
 

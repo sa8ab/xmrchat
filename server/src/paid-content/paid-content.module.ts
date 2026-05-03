@@ -9,5 +9,6 @@ import { PagesModule } from 'src/pages/pages.module';
   imports: [TypeOrmModule.forFeature([PaidContent]), PagesModule],
   providers: [PaidContentService],
   controllers: [PaidContentController],
+  exports: [PaidContentService],
 })
 export class PaidContentModule {}

@@ -56,6 +56,7 @@ import { LinkVerificationsModule } from './link-verifications/link-verifications
 import { NetworkModule } from './network/network.module';
 import { IsMoneroPrimaryAdrress } from './shared/validations/monero-primary-address.validation';
 import { PaidContentModule } from './paid-content/paid-content.module';
+import { TelegramModule } from './paid-content/telegram/telegram.module';
 
 @Module({
   imports: [
@@ -185,6 +186,7 @@ import { PaidContentModule } from './paid-content/paid-content.module';
     LinkVerificationsModule,
     NetworkModule,
     PaidContentModule,
+    TelegramModule,
   ],
   controllers: [AppController],
   providers: [AppService, IsMoneroPrimaryAdrress],
