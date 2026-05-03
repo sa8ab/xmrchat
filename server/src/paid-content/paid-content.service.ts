@@ -38,17 +38,17 @@ export class PaidContentService {
     return result;
   }
 
-  async findOne(id: number, user: User) {
+  async findOne(id: number, user?: User) {
     if (!id) throw new BadRequestException('id is required');
 
-    const page = await this.pagesService.findMyPage(user);
-    if (!page) throw new NotFoundException('Page is not found');
+    // const page = await this.pagesService.findMyPage(user);
+    // if (!page) throw new NotFoundException('Page is not found');
 
     const paidContent = await this.repo.findOneBy({ id });
     if (!paidContent) throw new NotFoundException('Paid content is not found');
 
-    const casl = await this.casl.createForUser(user);
-    if (!casl.can(Action.Read, paidContent)) throw new UnauthorizedException();
+    // const casl = await this.casl.createForUser(user);
+    // if (!casl.can(Action.Read, paidContent)) throw new UnauthorizedException();
 
     return paidContent;
   }

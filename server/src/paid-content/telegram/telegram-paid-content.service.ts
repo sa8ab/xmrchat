@@ -62,6 +62,23 @@ export class TelegramPaidContentService implements OnModuleInit {
       }
     });
 
+    telegram.on('callback_query:data', async (ctx) => {
+      const data = ctx.callbackQuery.data;
+      if (!data) {
+        await ctx.answerCallbackQuery();
+        return;
+      }
+      const [path, id] = data.split('-');
+      const userId = ctx.from?.id;
+
+      const paidContent = await this.paidContentService.findOne(Number(id));
+
+      // TODO: Create an Entity and show payment information similar to tips
+      await ctx.reply(`Clicked on ${paidContent.name} for ${path}`);
+
+      await ctx.answerCallbackQuery();
+    });
+
     telegram.start();
   }
 }
