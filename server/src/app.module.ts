@@ -57,6 +57,7 @@ import { NetworkModule } from './network/network.module';
 import { IsMoneroPrimaryAdrress } from './shared/validations/monero-primary-address.validation';
 import { PaidContentModule } from './paid-content/paid-content.module';
 import { TelegramModule } from './paid-content/telegram/telegram.module';
+import { EntitlementsModule } from './entitlements/entitlements.module';
 
 @Module({
   imports: [
@@ -187,6 +188,7 @@ import { TelegramModule } from './paid-content/telegram/telegram.module';
     NetworkModule,
     PaidContentModule,
     TelegramModule,
+    EntitlementsModule,
   ],
   controllers: [AppController],
   providers: [AppService, IsMoneroPrimaryAdrress],

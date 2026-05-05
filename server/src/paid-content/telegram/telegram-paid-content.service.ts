@@ -3,13 +3,17 @@ import { TelegramService } from './telegram.service';
 import { PaidContentService } from '../paid-content.service';
 import { FormattedString } from '@grammyjs/parse-mode';
 import { MoneroUtils } from 'monero-ts';
-import { InlineKeyboard } from 'grammy';
+import { InlineKeyboard, InputFile, Keyboard } from 'grammy';
+import { EntitlementsService } from 'src/entitlements/entitlements.service';
+import { CreateEntitlementDto } from 'src/entitlements/dto/create-entitlement.dto';
+import QRCode from 'qrcode';
 
 @Injectable()
 export class TelegramPaidContentService implements OnModuleInit {
   constructor(
     private telegramService: TelegramService,
     private paidContentService: PaidContentService,
+    private entitlementsService: EntitlementsService,
   ) {}
 
   onModuleInit() {
@@ -75,6 +79,32 @@ export class TelegramPaidContentService implements OnModuleInit {
 
       // TODO: Create an Entity and show payment information similar to tips
       await ctx.reply(`Clicked on ${paidContent.name} for ${path}`);
+
+      const dto: CreateEntitlementDto = {
+        path,
+        name: paidContent.name,
+        amount: paidContent.amount,
+        duration: paidContent.duration,
+        type: paidContent.type,
+      };
+
+      const { amount, paymentAddress } =
+        await this.entitlementsService.createEntitlement(dto);
+
+      const uri = `monero:${paymentAddress}?tx_amount=${amount}`;
+
+      let message = new FormattedString('');
+      message = message.plain(`Please send a minimum `);
+      message = message.bold(`${MoneroUtils.atomicUnitsToXmr(amount)} XMR `);
+      message = message.plain(`to the following address.`);
+      message = message.plain(`\n`);
+      message = message.plain(`\n`);
+      message = message.code(paymentAddress);
+
+      await ctx.replyWithPhoto(new InputFile(await QRCode.toBuffer(uri)), {
+        caption: message.text,
+        caption_entities: message.entities,
+      });
 
       await ctx.answerCallbackQuery();
     });
