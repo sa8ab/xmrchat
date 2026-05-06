@@ -4,12 +4,13 @@ import {
   InternalServerErrorException,
   Logger,
   OnModuleInit,
+  OnApplicationBootstrap,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Bot as Telegram } from 'grammy';
 
 @Injectable()
-export class TelegramService implements OnModuleInit {
+export class TelegramService implements OnModuleInit, OnApplicationBootstrap {
   logger = new Logger(TelegramService.name);
   private telegram: Telegram;
 
@@ -17,6 +18,10 @@ export class TelegramService implements OnModuleInit {
 
   onModuleInit() {
     this.init();
+  }
+
+  onApplicationBootstrap() {
+    this.getTelegram().start();
   }
 
   init() {

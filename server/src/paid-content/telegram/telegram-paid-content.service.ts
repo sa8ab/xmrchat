@@ -108,7 +108,5 @@ export class TelegramPaidContentService implements OnModuleInit {
 
       await ctx.answerCallbackQuery();
     });
-
-    telegram.start();
   }
 }
