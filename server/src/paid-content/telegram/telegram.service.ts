@@ -1,44 +1,112 @@
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-  Logger,
-  OnModuleInit,
-  OnApplicationBootstrap,
-} from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { Bot as Telegram } from 'grammy';
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { TelegramService as TelegramIntegrationService } from 'src/integrations/telegram/telegram.service';
+import { PaidContentService } from '../paid-content.service';
+import { FormattedString } from '@grammyjs/parse-mode';
+import { MoneroUtils } from 'monero-ts';
+import { InlineKeyboard, InputFile, Keyboard } from 'grammy';
+import { EntitlementsService } from 'src/entitlements/entitlements.service';
+import { CreateEntitlementDto } from 'src/entitlements/dto/create-entitlement.dto';
+import QRCode from 'qrcode';
 
 @Injectable()
-export class TelegramService implements OnModuleInit, OnApplicationBootstrap {
-  logger = new Logger(TelegramService.name);
-  private telegram: Telegram;
-
-  constructor(private configService: ConfigService) {}
+export class TelegramService implements OnModuleInit {
+  constructor(
+    private telegramIntegrationService: TelegramIntegrationService,
+    private paidContentService: PaidContentService,
+    private entitlementsService: EntitlementsService,
+  ) {}
 
   onModuleInit() {
     this.init();
   }
 
-  onApplicationBootstrap() {
-    this.getTelegram().start();
-  }
-
   init() {
-    const token = this.configService.get('TELEGRAM_PAID_CONTENT_TOKEN');
-    if (!token) {
-      this.logger.warn('TELEGRAM_PAID_CONTENT_TOKEN is not set');
-      return;
-    }
+    const telegram = this.telegramIntegrationService.getTelegram();
 
-    this.telegram = new Telegram(token);
-  }
+    telegram.command('start', async (ctx) => {
+      try {
+        const path = ctx.match;
+        if (!path) {
+          await ctx.reply('Please start with a creator page.');
+          return;
+        }
 
-  getTelegram() {
-    if (!this.telegram)
-      throw new InternalServerErrorException(
-        'Telegram bot is not initialized, please add the TELEGRAM_PAID_CONTENT_TOKEN on the env.',
-      );
-    return this.telegram;
+        const paidContents = await this.paidContentService.findByPagePath(path);
+
+        let message = new FormattedString('');
+        message = message.plain(
+          `Please select an option to get the paid content for page ${path}:\n\n`,
+        );
+        paidContents.forEach((item) => {
+          message = message.bold(`${item.name}\n`);
+          message = message.plain(`Duration: ${item.duration} days\n`);
+          message = message.bold(
+            `${MoneroUtils.atomicUnitsToXmr(item.amount)} XMR\n`,
+          );
+          if (item.description) {
+            message = message.plain(`${item.description}\n`);
+          }
+          message = message.plain(`\n`);
+        });
+
+        const keyboard = new InlineKeyboard();
+        paidContents.forEach((item) => {
+          const text = `${item.name} - ${MoneroUtils.atomicUnitsToXmr(item.amount)} XMR`;
+          keyboard.text(text, `${path}-${item.id}`).row();
+        });
+
+        await ctx.reply(message.text, {
+          entities: message.entities,
+          reply_markup: keyboard,
+        });
+      } catch (error) {
+        console.log('error', error);
+
+        await ctx.reply('Failed to load the paid content for this page.');
+      }
+    });
+
+    telegram.on('callback_query:data', async (ctx) => {
+      const data = ctx.callbackQuery.data;
+      if (!data) {
+        await ctx.answerCallbackQuery();
+        return;
+      }
+      const [path, id] = data.split('-');
+      const userId = ctx.from?.id;
+
+      const paidContent = await this.paidContentService.findOne(Number(id));
+
+      // TODO: Create an Entity and show payment information similar to tips
+      await ctx.reply(`Clicked on ${paidContent.name} for ${path}`);
+
+      const dto: CreateEntitlementDto = {
+        path,
+        name: paidContent.name,
+        amount: paidContent.amount,
+        duration: paidContent.duration,
+        type: paidContent.type,
+      };
+
+      const { amount, paymentAddress } =
+        await this.entitlementsService.createEntitlement(dto);
+
+      const uri = `monero:${paymentAddress}?tx_amount=${amount}`;
+
+      let message = new FormattedString('');
+      message = message.plain(`Please send a minimum `);
+      message = message.bold(`${MoneroUtils.atomicUnitsToXmr(amount)} XMR `);
+      message = message.plain(`to the following address.`);
+      message = message.plain(`\n`);
+      message = message.plain(`\n`);
+      message = message.code(paymentAddress);
+
+      await ctx.replyWithPhoto(new InputFile(await QRCode.toBuffer(uri)), {
+        caption: message.text,
+        caption_entities: message.entities,
+      });
+
+      await ctx.answerCallbackQuery();
+    });
   }
 }

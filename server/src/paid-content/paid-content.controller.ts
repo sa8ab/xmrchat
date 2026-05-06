@@ -6,10 +6,14 @@ import { Serialize } from 'src/shared/interceptors/serialize.interceptor';
 import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import { CreatePaidContentDto } from './dtos/create-paid-content.dto';
 import { UpdatePaidContentDto } from './dtos/update-paid-content.dto';
+import { PaidContentSettingsService } from './paid-content-settings.service';
 
 @Controller('paid-content')
 export class PaidContentController {
-  constructor(private paidContentService: PaidContentService) {}
+  constructor(
+    private paidContentService: PaidContentService,
+    private paidContentSettingsService: PaidContentSettingsService,
+  ) {}
 
   @Get('/')
   @Serialize(PaidContentRO)
