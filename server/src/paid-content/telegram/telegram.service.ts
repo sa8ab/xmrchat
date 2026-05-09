@@ -3,7 +3,7 @@ import { TelegramService as TelegramIntegrationService } from 'src/integrations/
 import { PaidContentService } from '../paid-content.service';
 import { FormattedString } from '@grammyjs/parse-mode';
 import { MoneroUtils } from 'monero-ts';
-import { InlineKeyboard, InputFile, Keyboard } from 'grammy';
+import { InlineKeyboard, InputFile } from 'grammy';
 import { EntitlementsService } from 'src/entitlements/entitlements.service';
 import { CreateEntitlementDto } from 'src/entitlements/dto/create-entitlement.dto';
 import QRCode from 'qrcode';
@@ -77,7 +77,6 @@ export class TelegramService implements OnModuleInit {
 
       const paidContent = await this.paidContentService.findOne(Number(id));
 
-      // TODO: Create an Entity and show payment information similar to tips
       await ctx.reply(`Clicked on ${paidContent.name} for ${path}`);
 
       const dto: CreateEntitlementDto = {
