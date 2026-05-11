@@ -29,6 +29,9 @@ export class Entitlement {
   @Column({ default: PaidContentTypeEnum.TELEGRAM })
   type: PaidContentTypeEnum;
 
+  @Column({ type: 'jsonb', nullable: true })
+  data?: Record<string, any>;
+
   @ManyToOne(() => Page, { onDelete: 'CASCADE' })
   page: Page;
 

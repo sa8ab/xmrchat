@@ -1,4 +1,10 @@
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsNumber,
+  IsObject,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { PaidContentTypeEnum } from 'src/shared/constants';
 
 export class CreateEntitlementDto {
@@ -16,4 +22,8 @@ export class CreateEntitlementDto {
 
   @IsEnum(PaidContentTypeEnum)
   type: PaidContentTypeEnum;
+
+  @IsOptional()
+  @IsObject()
+  data?: Record<string, any>;
 }

@@ -85,6 +85,7 @@ export class TelegramService implements OnModuleInit {
         amount: paidContent.amount,
         duration: paidContent.duration,
         type: paidContent.type,
+        data: { telegramUserId: userId },
       };
 
       const { amount, paymentAddress } =
