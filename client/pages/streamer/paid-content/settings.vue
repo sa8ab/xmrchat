@@ -3,8 +3,8 @@
 <template>
   <div>
     <PageTitle
-      title="SuperDM Settings"
-      description="Configure your SuperDM settings"
+      title="Telegram Settings"
+      description="Configure your paid content settings"
     ></PageTitle>
     <PaidContentSettings />
   </div>

@@ -44,7 +44,8 @@ export class PaidContentController {
 
   @Post('/telegram-url')
   async createTelegramUrl(@CurrentUser() user: User) {
-    return this.paidContentSettingsService.createTelegramUrl(user);
+    const url = await this.paidContentSettingsService.createTelegramUrl(user);
+    return { url };
   }
 
   @Get('/:pageSlug/settings/state')

@@ -59,11 +59,6 @@ const v = useVuelidate<State["form"]>(
 
 const { getValidationAttrs } = useValidations(v);
 
-enum StepsEnum {
-  START,
-  ADD,
-}
-
 const showCreateUrl = computed(() => !state.telegramUrl);
 </script>
 
@@ -84,16 +79,24 @@ const showCreateUrl = computed(() => !state.telegramUrl);
       </template>
       <template v-else>
         <div>
-          <p>Click the button bellow to start Telegram.</p>
-          <UButton :to="state.telegramUrl" external target="_blank">
+          <p class="text-lg font-medium">Start Telegram</p>
+          <p class="pt-2">Click the button to start Telegram.</p>
+          <UButton
+            :to="state.telegramUrl"
+            external
+            target="_blank"
+            class="mt-2"
+            trailingIcon="i-heroicons-arrow-top-right-on-square"
+          >
             Open Telegram
           </UButton>
         </div>
 
-        <UDivider />
+        <UDivider class="my-4" />
         <div>
-          <p>
-            Add it to the group and make admin using the user that has already
+          <p class="text-lg font-medium">Add to your group</p>
+          <p class="pt-2">
+            Add it to the group as an admin using the user that you already
             started telegram in the previous step.
           </p>
         </div>
