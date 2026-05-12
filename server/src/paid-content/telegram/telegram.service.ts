@@ -91,7 +91,7 @@ export class TelegramService implements OnModuleInit {
       const { amount, paymentAddress } =
         await this.entitlementsService.createEntitlement(dto);
 
-      const uri = `monero:${paymentAddress}?tx_amount=${amount}`;
+      const uri = `monero:${paymentAddress}?tx_amount=${MoneroUtils.atomicUnitsToXmr(amount)}`;
 
       let message = new FormattedString('');
       message = message.plain(`Please send a minimum `);

@@ -14,6 +14,8 @@ import { MoneroUtils } from 'monero-ts';
 import { PaymentsService } from 'src/payments/payments.service';
 import { Payment } from 'src/payments/payment.entity';
 import { LwsService } from 'src/lws/lws.service';
+import { TelegramService as TelegramIntegrationService } from 'src/integrations/telegram/telegram.service';
+import { getErrorMessage } from 'src/shared/utils/errors';
 
 @Injectable()
 export class EntitlementsService {
@@ -23,6 +25,7 @@ export class EntitlementsService {
     private paymentFlowService: PaymentFlowService,
     private paymentsService: PaymentsService,
     private lwsService: LwsService,
+    private telegramService: TelegramIntegrationService,
     @InjectRepository(Entitlement) private repo: Repository<Entitlement>,
   ) {}
 
@@ -99,6 +102,18 @@ export class EntitlementsService {
     }
 
     // TODO: Send message in telegram
+    const telegramUserId = entitlement.data?.telegramUserId;
+    if (telegramUserId) {
+      const telegram = this.telegramService.getTelegram();
+      try {
+        await telegram.api.sendMessage(telegramUserId, `Entitlement created.`);
+        this.logger.log(`Message sent to telegram: ${telegramUserId}`);
+      } catch (error) {
+        this.logger.error(
+          `Error sending message to telegram: ${getErrorMessage(error)}`,
+        );
+      }
+    }
     // TODO: Add tip item
     // TODO: Notifications for creating new entitlement
 
