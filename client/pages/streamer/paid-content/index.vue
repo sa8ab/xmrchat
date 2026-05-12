@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import type { PaidContent } from "~/types";
 
-const { toStreamerPaidContentCreate, toStreamerPaidContentEdit } =
-  useRouteLocation();
+const {
+  toStreamerPaidContentCreate,
+  toStreamerPaidContentEdit,
+  toStreamerPaidContentSettings,
+} = useRouteLocation();
 const { t } = useI18n();
 const { axios } = useApp();
 
@@ -41,8 +44,11 @@ const columns = computed(() => [
   <div>
     <PageTitle title="Paid Content" description="Manage your paid content" />
 
-    <div class="flex justify-end mb-4">
+    <div class="flex justify-end mb-4 gap-2 flex-wrap">
       <UButton :to="toStreamerPaidContentCreate()">Create Paid Content</UButton>
+      <UButton :to="toStreamerPaidContentSettings()" variant="soft">
+        Settings
+      </UButton>
     </div>
 
     <UTable

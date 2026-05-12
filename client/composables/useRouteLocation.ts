@@ -58,5 +58,7 @@ export const useRouteLocation = () => {
       localeRoute("/streamer/paid-content/create"),
     toStreamerPaidContentEdit: (id: Numberic) =>
       localeRoute(`/streamer/paid-content/${id}/edit`),
+    toStreamerPaidContentSettings: () =>
+      localeRoute("/streamer/paid-content/settings"),
   };
 };
