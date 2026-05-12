@@ -1,12 +1,16 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { TelegramService as TelegramIntegrationService } from 'src/integrations/telegram/telegram.service';
 import { PaidContentService } from '../paid-content.service';
 import { FormattedString } from '@grammyjs/parse-mode';
 import { MoneroUtils } from 'monero-ts';
-import { InlineKeyboard, InputFile } from 'grammy';
+import { Context, InlineKeyboard, InputFile } from 'grammy';
 import { EntitlementsService } from 'src/entitlements/entitlements.service';
 import { CreateEntitlementDto } from 'src/entitlements/dto/create-entitlement.dto';
 import QRCode from 'qrcode';
+import { validate as uuidValidate } from 'uuid';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
+import { PagesService } from 'src/pages/pages.service';
 
 @Injectable()
 export class TelegramService implements OnModuleInit {
@@ -14,6 +18,8 @@ export class TelegramService implements OnModuleInit {
     private telegramIntegrationService: TelegramIntegrationService,
     private paidContentService: PaidContentService,
     private entitlementsService: EntitlementsService,
+    private pagesService: PagesService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   onModuleInit() {
@@ -24,46 +30,12 @@ export class TelegramService implements OnModuleInit {
     const telegram = this.telegramIntegrationService.getTelegram();
 
     telegram.command('start', async (ctx) => {
-      try {
-        const path = ctx.match;
-        if (!path) {
-          await ctx.reply('Please start with a creator page.');
-          return;
-        }
+      const match = ctx.match;
 
-        const paidContents = await this.paidContentService.findByPagePath(path);
+      const isUuid = uuidValidate(match);
 
-        let message = new FormattedString('');
-        message = message.plain(
-          `Please select an option to get the paid content for page ${path}:\n\n`,
-        );
-        paidContents.forEach((item) => {
-          message = message.bold(`${item.name}\n`);
-          message = message.plain(`Duration: ${item.duration} days\n`);
-          message = message.bold(
-            `${MoneroUtils.atomicUnitsToXmr(item.amount)} XMR\n`,
-          );
-          if (item.description) {
-            message = message.plain(`${item.description}\n`);
-          }
-          message = message.plain(`\n`);
-        });
-
-        const keyboard = new InlineKeyboard();
-        paidContents.forEach((item) => {
-          const text = `${item.name} - ${MoneroUtils.atomicUnitsToXmr(item.amount)} XMR`;
-          keyboard.text(text, `${path}-${item.id}`).row();
-        });
-
-        await ctx.reply(message.text, {
-          entities: message.entities,
-          reply_markup: keyboard,
-        });
-      } catch (error) {
-        console.log('error', error);
-
-        await ctx.reply('Failed to load the paid content for this page.');
-      }
+      if (isUuid) return this.handleCreatorStart(ctx);
+      else return this.handleStart(ctx);
     });
 
     telegram.on('callback_query:data', async (ctx) => {
@@ -108,5 +80,74 @@ export class TelegramService implements OnModuleInit {
 
       await ctx.answerCallbackQuery();
     });
+  }
+
+  async handleStart(ctx: Context) {
+    try {
+      const path = ctx.match as string;
+      if (!path) {
+        await ctx.reply('Please start with a creator page.');
+        return;
+      }
+
+      const paidContents = await this.paidContentService.findByPagePath(path);
+
+      let message = new FormattedString('');
+      message = message.plain(
+        `Please select an option to get the paid content for page ${path}:\n\n`,
+      );
+      paidContents.forEach((item) => {
+        message = message.bold(`${item.name}\n`);
+        message = message.plain(`Duration: ${item.duration} days\n`);
+        message = message.bold(
+          `${MoneroUtils.atomicUnitsToXmr(item.amount)} XMR\n`,
+        );
+        if (item.description) {
+          message = message.plain(`${item.description}\n`);
+        }
+        message = message.plain(`\n`);
+      });
+
+      const keyboard = new InlineKeyboard();
+      paidContents.forEach((item) => {
+        const text = `${item.name} - ${MoneroUtils.atomicUnitsToXmr(item.amount)} XMR`;
+        keyboard.text(text, `${path}-${item.id}`).row();
+      });
+
+      await ctx.reply(message.text, {
+        entities: message.entities,
+        reply_markup: keyboard,
+      });
+    } catch (error) {
+      console.log('error', error);
+
+      await ctx.reply('Failed to load the paid content for this page.');
+    }
+  }
+  async handleCreatorStart(ctx: Context) {
+    // Get uuid from cache
+    const uuid = ctx.match as string;
+
+    // Search with values
+    const keys = await this.cacheManager.store.keys(`telegram-start-id:*`);
+    let pagePath: string;
+
+    for (const key of keys) {
+      const value = await this.cacheManager.get(key);
+      if (value === uuid) pagePath = key.split(':')[1];
+    }
+
+    if (!pagePath)
+      return ctx.reply(
+        'Please create new url from settings page. This links seems to be expired.',
+      );
+
+    console.log('pagePath', pagePath);
+
+    // add user id to telegram user id setting
+    const page = await this.pagesService.findByPath(pagePath);
+    if (!page) return ctx.reply('Page not found.');
+
+    // reply with message to add to the group as admin
   }
 }
