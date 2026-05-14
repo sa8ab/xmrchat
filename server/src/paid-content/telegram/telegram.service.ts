@@ -11,6 +11,7 @@ import { validate as uuidValidate } from 'uuid';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { PagesService } from 'src/pages/pages.service';
+import { PaidContentSettingsService } from '../paid-content-settings.service';
 
 @Injectable()
 export class TelegramService implements OnModuleInit {
@@ -19,6 +20,7 @@ export class TelegramService implements OnModuleInit {
     private paidContentService: PaidContentService,
     private entitlementsService: EntitlementsService,
     private pagesService: PagesService,
+    private paidContentSettingsService: PaidContentSettingsService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
@@ -127,6 +129,9 @@ export class TelegramService implements OnModuleInit {
   async handleCreatorStart(ctx: Context) {
     // Get uuid from cache
     const uuid = ctx.match as string;
+    const userId = ctx.from?.id;
+
+    if (!userId) return ctx.reply('User not found.');
 
     // Search with values
     const keys = await this.cacheManager.store.keys(`telegram-start-id:*`);
@@ -148,6 +153,14 @@ export class TelegramService implements OnModuleInit {
     const page = await this.pagesService.findByPath(pagePath);
     if (!page) return ctx.reply('Page not found.');
 
+    await this.paidContentSettingsService.updateSettings(
+      { telegramUserId: userId.toString() },
+      page.user,
+    );
+
     // reply with message to add to the group as admin
+    return ctx.reply(
+      'You have set your telegram user to you page. Please add this user to your group as admin.',
+    );
   }
 }

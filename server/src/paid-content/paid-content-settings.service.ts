@@ -9,6 +9,7 @@ import { PageSettingCategory, PageSettingKey } from 'src/shared/constants';
 import { User } from 'src/users/user.entity';
 import { ConfigService } from '@nestjs/config';
 import { v4 as uuidv4 } from 'uuid';
+import { UpdatePaidContentSettingDto } from './dtos/update-paid-content-setting.dto';
 
 @Injectable()
 export class PaidContentSettingsService {
@@ -67,7 +68,23 @@ export class PaidContentSettingsService {
     return `https://t.me/${username}?start=${id}`;
   }
 
-  async updateSettings(_dto: unknown, _user: User) {
-    return {};
+  async updateSettings(dto: UpdatePaidContentSettingDto, user: User) {
+    const page = await this.pagesService.findMyPage(user);
+    if (!page) throw new NotFoundException('Page not found');
+
+    await this.pageSettingsService.upsert(
+      page.id,
+      [
+        {
+          key: PageSettingKey.TELEGRAM_USER_ID,
+          value: dto.telegramUserId,
+        },
+        {
+          key: PageSettingKey.TELEGRAM_PAID_CONTENT_ID,
+          value: dto.telegramPaidContentId,
+        },
+      ],
+      user,
+    );
   }
 }
