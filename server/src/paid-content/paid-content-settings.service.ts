@@ -35,6 +35,14 @@ export class PaidContentSettingsService {
     );
   }
 
+  async getTelegramUserIdByValue(value: string) {
+    const setting = await this.pageSettingsService.getByKeyAndValue(
+      PageSettingKey.TELEGRAM_USER_ID,
+      value,
+    );
+    return setting;
+  }
+
   async settingsConfigured(page: Page) {
     const telegramUserId = await this.pageSettingsService.getSettingValue(
       page.path,

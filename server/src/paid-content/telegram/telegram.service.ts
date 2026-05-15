@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { TelegramService as TelegramIntegrationService } from 'src/integrations/telegram/telegram.service';
 import { PaidContentService } from '../paid-content.service';
-import { FormattedString } from '@grammyjs/parse-mode';
+import { FormattedString, link } from '@grammyjs/parse-mode';
 import { MoneroUtils } from 'monero-ts';
 import { Context, InlineKeyboard, InputFile } from 'grammy';
 import { EntitlementsService } from 'src/entitlements/entitlements.service';
@@ -14,9 +14,12 @@ import { PagesService } from 'src/pages/pages.service';
 import { PaidContentSettingsService } from '../paid-content-settings.service';
 import { PageSettingKey } from 'src/shared/constants';
 import { chatMemberIs, myChatMemberFilter } from '@grammyjs/chat-members';
+import { Logger } from '@nestjs/common';
 
 @Injectable()
 export class TelegramService implements OnModuleInit {
+  private logger = new Logger(TelegramService.name);
+
   constructor(
     private telegramIntegrationService: TelegramIntegrationService,
     private paidContentService: PaidContentService,
@@ -32,6 +35,21 @@ export class TelegramService implements OnModuleInit {
 
   init() {
     const telegram = this.telegramIntegrationService.getTelegram();
+
+    telegram.on('message:text', async (ctx) => {
+      if (ctx.message.text === 'Create link') {
+        try {
+          const link = await telegram.api.createChatInviteLink(ctx.chat.id, {
+            name: 'Create link',
+            member_limit: 1,
+          });
+          await ctx.reply(`${link.invite_link}`);
+          await ctx.reply(`Member limit:${link.member_limit}`);
+        } catch (error) {
+          this.logger.log('Failed to create link', error);
+        }
+      }
+    });
 
     telegram.command('start', async (ctx) => {
       const match = ctx.match;
@@ -184,6 +202,9 @@ export class TelegramService implements OnModuleInit {
   }
 
   async handleAddingMyMembers(ctx: Context) {
+    const userId = ctx.from?.id;
+    const chatId = ctx.chat?.id;
+
     const myChatMember = ctx.myChatMember?.new_chat_member;
 
     if (chatMemberIs(myChatMember, 'regular'))
@@ -193,9 +214,40 @@ export class TelegramService implements OnModuleInit {
 
     if (chatMemberIs(myChatMember, 'administrator')) {
       const canInviteUsers = myChatMember.can_invite_users;
-      const message = canInviteUsers
-        ? 'Your fans can now join using the links.'
-        : 'Added as adminstrator but does not have permission to invite users. Add this user as admin with permission to invite users.';
+
+      if (!canInviteUsers)
+        return ctx.reply(
+          'Added as adminstrator but does not have permission to invite users. Add this user as admin with permission to invite users.',
+        );
+
+      const message = 'Your fans can now join using the links.';
+
+      const telegramUserIdSetting =
+        await this.paidContentSettingsService.getTelegramUserIdByValue(
+          userId.toString(),
+        );
+
+      if (!telegramUserIdSetting?.value) {
+        return ctx.reply(
+          'Telegram user id not found. Please create new url from settings page.',
+        );
+      }
+
+      const pageId = telegramUserIdSetting.pageId;
+      const page = await this.pagesService.findById(pageId);
+      if (!page) {
+        return ctx.reply('Page not found.');
+      }
+
+      // This is only to get user from page because we load page in findByPath.
+      const pagePath = page.path;
+      const pageWithUser = await this.pagesService.findByPath(pagePath);
+
+      await this.paidContentSettingsService.updateSettings(
+        { telegramPaidContentId: chatId.toString() },
+        pageWithUser.user,
+      );
+
       return ctx.reply(message);
     }
   }
