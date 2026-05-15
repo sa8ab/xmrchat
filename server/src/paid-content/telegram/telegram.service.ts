@@ -30,7 +30,11 @@ export class TelegramService implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    this.init();
+    try {
+      this.init();
+    } catch (error) {
+      this.logger.warn('Failed to initialize telegram service', error);
+    }
   }
 
   init() {
