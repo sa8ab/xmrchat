@@ -1,5 +1,10 @@
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { randomBytes } from 'crypto';
 import { Cache } from 'cache-manager';
 import { PageSettingsService } from 'src/page-settings/page-settings.service';
@@ -46,6 +51,14 @@ export class PaidContentSettingsService {
   async createTelegramUrl(user: User) {
     const page = await this.pagesService.findMyPage(user);
     if (!page) throw new NotFoundException('Page not found');
+
+    const settings = await this.getSettings(user);
+    const telegramUserId = settings.find(
+      (s) => s.key === PageSettingKey.TELEGRAM_USER_ID,
+    )?.value;
+
+    if (telegramUserId)
+      throw new BadRequestException('You already have a telegram user set.');
 
     const cachedId = await this.cacheManager.get(
       `telegram-start-id:${page.path}`,

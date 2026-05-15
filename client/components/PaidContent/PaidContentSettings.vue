@@ -59,7 +59,9 @@ const v = useVuelidate<State["form"]>(
 
 const { getValidationAttrs } = useValidations(v);
 
-const showCreateUrl = computed(() => !state.telegramUrl);
+const showCreateUrl = computed(
+  () => !state.telegramUrl && !data.value?.telegramUserId,
+);
 </script>
 
 <template>
@@ -67,11 +69,12 @@ const showCreateUrl = computed(() => !state.telegramUrl);
     <div v-if="pending">Pending...</div>
     <div v-else>
       <template v-if="showCreateUrl">
-        <p>
+        <p class="text-lg font-medium">Create a link to start your Telegram</p>
+        <p class="pt-2">
           Click the button bellow to create the link for your telegram. The link
           will start Telegram directly.
         </p>
-        <div>
+        <div class="mt-4">
           <UButton :loading="state.loadingUrl" @click="createTelegramUrl">
             Create Link
           </UButton>
@@ -80,16 +83,23 @@ const showCreateUrl = computed(() => !state.telegramUrl);
       <template v-else>
         <div>
           <p class="text-lg font-medium">Start Telegram</p>
-          <p class="pt-2">Click the button to start Telegram.</p>
-          <UButton
-            :to="state.telegramUrl"
-            external
-            target="_blank"
-            class="mt-2"
-            trailingIcon="i-heroicons-arrow-top-right-on-square"
-          >
-            Open Telegram
-          </UButton>
+          <template v-if="!data?.telegramUserId">
+            <p class="pt-2">Click the button to start Telegram.</p>
+            <UButton
+              :to="state.telegramUrl"
+              external
+              target="_blank"
+              class="mt-2"
+              trailingIcon="i-heroicons-arrow-top-right-on-square"
+            >
+              Open Telegram
+            </UButton>
+          </template>
+          <template v-else>
+            <p class="pt-2 text-pale">
+              Your Telegram is already set to your page.
+            </p>
+          </template>
         </div>
 
         <UDivider class="my-4" />

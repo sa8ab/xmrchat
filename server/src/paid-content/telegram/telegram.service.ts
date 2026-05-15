@@ -12,6 +12,7 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { PagesService } from 'src/pages/pages.service';
 import { PaidContentSettingsService } from '../paid-content-settings.service';
+import { PageSettingKey } from 'src/shared/constants';
 
 @Injectable()
 export class TelegramService implements OnModuleInit {
@@ -147,11 +148,19 @@ export class TelegramService implements OnModuleInit {
         'Please create new url from settings page. This links seems to be expired.',
       );
 
-    console.log('pagePath', pagePath);
-
     // add user id to telegram user id setting
     const page = await this.pagesService.findByPath(pagePath);
     if (!page) return ctx.reply('Page not found.');
+
+    const settings = await this.paidContentSettingsService.getSettings(
+      page.user,
+    );
+    const telegramUserId = settings.find(
+      (s) => s.key === PageSettingKey.TELEGRAM_USER_ID,
+    )?.value;
+
+    if (telegramUserId)
+      return ctx.reply('You have already set your telegram user to your page.');
 
     await this.paidContentSettingsService.updateSettings(
       { telegramUserId: userId.toString() },
@@ -160,7 +169,7 @@ export class TelegramService implements OnModuleInit {
 
     // reply with message to add to the group as admin
     return ctx.reply(
-      'You have set your telegram user to you page. Please add this user to your group as admin.',
+      'You have set your telegram user to your page. Please add to your group as admin.',
     );
   }
 }
