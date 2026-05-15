@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { PaidContent } from "~/types";
+import type { PageSetting, PaidContent } from "~/types";
+import { PageSettingKey } from "~/types/enums";
 
 const {
   toStreamerPaidContentCreate,
@@ -16,10 +17,24 @@ const { copy } = useCopy();
 
 const { data, pending, error } = useLazyAsyncData(
   async () => {
-    const { data } = await axios.get<{ paidContent: PaidContent[] }>(
-      `/paid-content`,
+    const { data: paidContentData } = await axios.get<{
+      paidContent: PaidContent[];
+    }>(`/paid-content`);
+
+    const { data } = await axios.get<{ settings: PageSetting[] }>(
+      `/paid-content/settings`,
     );
-    return data.paidContent;
+    const telegramUserId = data.settings.find(
+      (s) => s.key === PageSettingKey.TELEGRAM_USER_ID,
+    )?.value;
+    const telegramPaidContentId = data.settings.find(
+      (s) => s.key === PageSettingKey.TELEGRAM_PAID_CONTENT_ID,
+    )?.value;
+
+    return {
+      paidContent: paidContentData.paidContent,
+      settings: { telegramUserId, telegramPaidContentId },
+    };
   },
   {
     server: false,
@@ -53,6 +68,15 @@ const columns = computed(() => [
   <div>
     <PageTitle title="Paid Content" description="Manage your paid content" />
 
+    <PaidContentNotConfigured
+      v-if="
+        (!data?.settings.telegramUserId ||
+          !data?.settings.telegramPaidContentId) &&
+        !pending
+      "
+      class="mb-6"
+    />
+
     <div class="flex justify-end mb-4 gap-2 flex-wrap">
       <UButton
         variant="soft"
@@ -68,7 +92,7 @@ const columns = computed(() => [
     </div>
 
     <UTable
-      :rows="data || []"
+      :rows="data?.paidContent || []"
       :columns="columns"
       class="border border-border rounded-md"
       :ui="{
