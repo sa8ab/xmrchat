@@ -9,6 +9,11 @@ const {
 const { t } = useI18n();
 const { axios } = useApp();
 
+const config = useRuntimeConfig();
+
+const authStore = useAuthStore();
+const { copy } = useCopy();
+
 const { data, pending, error } = useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{ paidContent: PaidContent[] }>(
@@ -20,6 +25,10 @@ const { data, pending, error } = useLazyAsyncData(
     server: false,
   },
 );
+
+const startUrl = computed(() => {
+  return `https://t.me/${config.public.telegramPaidContentUsername}?start=${authStore.state.page?.path}`;
+});
 
 const columns = computed(() => [
   {
@@ -45,10 +54,17 @@ const columns = computed(() => [
     <PageTitle title="Paid Content" description="Manage your paid content" />
 
     <div class="flex justify-end mb-4 gap-2 flex-wrap">
-      <UButton :to="toStreamerPaidContentCreate()">Create Paid Content</UButton>
+      <UButton
+        variant="soft"
+        @click="copy(startUrl)"
+        leadingIcon="i-heroicons-clipboard"
+      >
+        Copy start url
+      </UButton>
       <UButton :to="toStreamerPaidContentSettings()" variant="soft">
         Settings
       </UButton>
+      <UButton :to="toStreamerPaidContentCreate()">Create Paid Content</UButton>
     </div>
 
     <UTable
