@@ -7,7 +7,7 @@ import {
   OnApplicationBootstrap,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Bot as Telegram } from 'grammy';
+import { GrammyError, HttpError, Bot as Telegram } from 'grammy';
 
 @Injectable()
 export class TelegramService implements OnModuleInit, OnApplicationBootstrap {
@@ -32,6 +32,19 @@ export class TelegramService implements OnModuleInit, OnApplicationBootstrap {
     }
 
     this.telegram = new Telegram(token);
+
+    this.telegram.catch((err) => {
+      const ctx = err.ctx;
+      this.logger.error(`Error while handling update ${ctx.update.update_id}:`);
+      const e = err.error;
+      if (e instanceof GrammyError) {
+        this.logger.error('Error in request:', e.description);
+      } else if (e instanceof HttpError) {
+        this.logger.error('Could not contact Telegram:', e);
+      } else {
+        this.logger.error('Unknown error:', e);
+      }
+    });
   }
 
   getTelegram() {
