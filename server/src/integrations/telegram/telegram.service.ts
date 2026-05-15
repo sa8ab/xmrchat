@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { GrammyError, HttpError, Bot as Telegram } from 'grammy';
+import { getErrorMessage } from 'src/shared/utils/errors';
 
 @Injectable()
 export class TelegramService implements OnModuleInit, OnApplicationBootstrap {
@@ -20,8 +21,12 @@ export class TelegramService implements OnModuleInit, OnApplicationBootstrap {
     this.init();
   }
 
-  onApplicationBootstrap() {
-    this.getTelegram().start();
+  async onApplicationBootstrap() {
+    try {
+      await this.getTelegram().start();
+    } catch (error) {
+      this.logger.error('Failed to start telegram bot', getErrorMessage(error));
+    }
   }
 
   init() {

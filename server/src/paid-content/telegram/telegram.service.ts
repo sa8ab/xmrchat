@@ -40,21 +40,6 @@ export class TelegramService implements OnModuleInit {
   init() {
     const telegram = this.telegramIntegrationService.getTelegram();
 
-    // telegram.on('message:text', async (ctx) => {
-    //   if (ctx.message.text === 'Create link') {
-    //     try {
-    //       const link = await telegram.api.createChatInviteLink(ctx.chat.id, {
-    //         name: 'Create link',
-    //         member_limit: 1,
-    //       });
-    //       await ctx.reply(`${link.invite_link}`);
-    //       await ctx.reply(`Member limit:${link.member_limit}`);
-    //     } catch (error) {
-    //       this.logger.log('Failed to create link', error);
-    //     }
-    //   }
-    // });
-
     telegram.command('start', async (ctx) => {
       const match = ctx.match;
 
