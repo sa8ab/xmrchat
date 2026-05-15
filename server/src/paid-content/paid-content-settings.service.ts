@@ -93,19 +93,18 @@ export class PaidContentSettingsService {
     const page = await this.pagesService.findMyPage(user);
     if (!page) throw new NotFoundException('Page not found');
 
-    await this.pageSettingsService.upsert(
-      page.id,
-      [
-        {
-          key: PageSettingKey.TELEGRAM_USER_ID,
-          value: dto.telegramUserId,
-        },
-        {
-          key: PageSettingKey.TELEGRAM_PAID_CONTENT_ID,
-          value: dto.telegramPaidContentId,
-        },
-      ],
-      user,
-    );
+    const list = [];
+    if (dto.telegramUserId)
+      list.push({
+        key: PageSettingKey.TELEGRAM_USER_ID,
+        value: dto.telegramUserId,
+      });
+    if (dto.telegramPaidContentId)
+      list.push({
+        key: PageSettingKey.TELEGRAM_PAID_CONTENT_ID,
+        value: dto.telegramPaidContentId,
+      });
+
+    await this.pageSettingsService.upsert(page.id, list, user);
   }
 }

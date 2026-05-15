@@ -36,20 +36,20 @@ export class TelegramService implements OnModuleInit {
   init() {
     const telegram = this.telegramIntegrationService.getTelegram();
 
-    telegram.on('message:text', async (ctx) => {
-      if (ctx.message.text === 'Create link') {
-        try {
-          const link = await telegram.api.createChatInviteLink(ctx.chat.id, {
-            name: 'Create link',
-            member_limit: 1,
-          });
-          await ctx.reply(`${link.invite_link}`);
-          await ctx.reply(`Member limit:${link.member_limit}`);
-        } catch (error) {
-          this.logger.log('Failed to create link', error);
-        }
-      }
-    });
+    // telegram.on('message:text', async (ctx) => {
+    //   if (ctx.message.text === 'Create link') {
+    //     try {
+    //       const link = await telegram.api.createChatInviteLink(ctx.chat.id, {
+    //         name: 'Create link',
+    //         member_limit: 1,
+    //       });
+    //       await ctx.reply(`${link.invite_link}`);
+    //       await ctx.reply(`Member limit:${link.member_limit}`);
+    //     } catch (error) {
+    //       this.logger.log('Failed to create link', error);
+    //     }
+    //   }
+    // });
 
     telegram.command('start', async (ctx) => {
       const match = ctx.match;
@@ -155,6 +155,7 @@ export class TelegramService implements OnModuleInit {
       await ctx.reply('Failed to load the paid content for this page.');
     }
   }
+
   async handleCreatorStart(ctx: Context) {
     // Get uuid from cache
     const uuid = ctx.match as string;
@@ -187,6 +188,7 @@ export class TelegramService implements OnModuleInit {
       (s) => s.key === PageSettingKey.TELEGRAM_USER_ID,
     )?.value;
 
+    this.logger.log('telegramUserId', telegramUserId);
     if (telegramUserId)
       return ctx.reply('You have already set your telegram user to your page.');
 
@@ -242,6 +244,17 @@ export class TelegramService implements OnModuleInit {
       // This is only to get user from page because we load page in findByPath.
       const pagePath = page.path;
       const pageWithUser = await this.pagesService.findByPath(pagePath);
+
+      const settings = await this.paidContentSettingsService.getSettings(
+        pageWithUser.user,
+      );
+      const telegramPaidContentId = settings.find(
+        (s) => s.key === PageSettingKey.TELEGRAM_PAID_CONTENT_ID,
+      )?.value;
+
+      if (telegramPaidContentId) {
+        return ctx.reply('You have already set your telegram group.');
+      }
 
       await this.paidContentSettingsService.updateSettings(
         { telegramPaidContentId: chatId.toString() },
