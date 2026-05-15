@@ -13,6 +13,7 @@ import { Cache } from 'cache-manager';
 import { PagesService } from 'src/pages/pages.service';
 import { PaidContentSettingsService } from '../paid-content-settings.service';
 import { PageSettingKey } from 'src/shared/constants';
+import { chatMemberIs, myChatMemberFilter } from '@grammyjs/chat-members';
 
 @Injectable()
 export class TelegramService implements OnModuleInit {
@@ -83,6 +84,15 @@ export class TelegramService implements OnModuleInit {
 
       await ctx.answerCallbackQuery();
     });
+
+    const groups = telegram.chatType(['group', 'channel', 'supergroup']);
+
+    groups.filter(
+      myChatMemberFilter(['out', 'in'], ['admin', 'regular']),
+      async (ctx: Context) => {
+        return this.handleAddingMyMembers(ctx);
+      },
+    );
   }
 
   async handleStart(ctx: Context) {
@@ -171,5 +181,22 @@ export class TelegramService implements OnModuleInit {
     return ctx.reply(
       'You have set your telegram user to your page. Please add to your group as admin.',
     );
+  }
+
+  async handleAddingMyMembers(ctx: Context) {
+    const myChatMember = ctx.myChatMember?.new_chat_member;
+
+    if (chatMemberIs(myChatMember, 'regular'))
+      return ctx.reply(
+        'You have added me as regular member, please promote to admin with ability to create join links.',
+      );
+
+    if (chatMemberIs(myChatMember, 'administrator')) {
+      const canInviteUsers = myChatMember.can_invite_users;
+      const message = canInviteUsers
+        ? 'Your fans can now join using the links.'
+        : 'Added as adminstrator but does not have permission to invite users. Add this user as admin with permission to invite users.';
+      return ctx.reply(message);
+    }
   }
 }
