@@ -21,12 +21,8 @@ export class TelegramService implements OnModuleInit, OnApplicationBootstrap {
     this.init();
   }
 
-  async onApplicationBootstrap() {
-    try {
-      await this.getTelegram().start();
-    } catch (error) {
-      this.logger.error('Failed to start telegram bot', getErrorMessage(error));
-    }
+  onApplicationBootstrap() {
+    this.getTelegram().start();
   }
 
   init() {
