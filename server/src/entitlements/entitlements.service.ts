@@ -16,6 +16,10 @@ import { Payment } from 'src/payments/payment.entity';
 import { LwsService } from 'src/lws/lws.service';
 import { TelegramService as TelegramIntegrationService } from 'src/integrations/telegram/telegram.service';
 import { getErrorMessage } from 'src/shared/utils/errors';
+import { PageSettingsService } from 'src/page-settings/page-settings.service';
+import { PageSettingCategory, PageSettingKey } from 'src/shared/constants';
+import { ChatInviteLink } from 'grammy/types';
+import { Page } from 'src/pages/page.entity';
 
 @Injectable()
 export class EntitlementsService {
@@ -26,6 +30,7 @@ export class EntitlementsService {
     private paymentsService: PaymentsService,
     private lwsService: LwsService,
     private telegramService: TelegramIntegrationService,
+    private pageSettingsService: PageSettingsService,
     @InjectRepository(Entitlement) private repo: Repository<Entitlement>,
   ) {}
 
@@ -102,23 +107,77 @@ export class EntitlementsService {
     }
 
     // TODO: Send message in telegram
-    const telegramUserId = entitlement.data?.telegramUserId;
-    if (telegramUserId) {
-      const telegram = this.telegramService.getTelegram();
-      try {
-        await telegram.api.sendMessage(telegramUserId, `Entitlement created.`);
-        this.logger.log(`Message sent to telegram: ${telegramUserId}`);
-      } catch (error) {
-        this.logger.error(
-          `Error sending message to telegram: ${getErrorMessage(error)}`,
-        );
-      }
-    }
+    await this.handleSendingTelegramMessage(entitlement, page);
+
     // TODO: Add tip item
     // TODO: Notifications for creating new entitlement
 
     try {
       await this.lwsService.deleteWebhook(payment.eventId);
     } catch (error) {}
+  }
+
+  async handleSendingTelegramMessage(entitlement: Entitlement, page: Page) {
+    const telegramUserId = entitlement.data?.telegramUserId;
+
+    if (!telegramUserId) {
+      this.logger.warn(
+        `Telegram user id is not found on entitlement with id: ${entitlement.id}`,
+      );
+      return;
+    }
+
+    const settings = await this.pageSettingsService.getByPageId(
+      page.id,
+      PageSettingCategory.PAID_CONTENT,
+    );
+    const telegramChatId = settings.find(
+      (s) => s.key === PageSettingKey.TELEGRAM_PAID_CONTENT_ID,
+    )?.value;
+
+    if (!telegramChatId) {
+      this.logger.warn(
+        `Telegram chat id is not found on page with id: ${page.id}`,
+      );
+      // TODO: Send message to user also.
+      return;
+    }
+
+    const telegram = this.telegramService.getTelegram();
+
+    // create a link with the chat id, send it to the user with user id
+    try {
+      const inviteLink = await telegram.api.createChatInviteLink(
+        telegramChatId,
+        {
+          name: `Join ${entitlement.name}`,
+          member_limit: 1,
+        },
+      );
+
+      await this.sendMessageToTelegram(
+        telegramUserId,
+        `Join ${entitlement.name} using the following link: ${inviteLink.invite_link}`,
+      );
+    } catch (error) {
+      this.logger.error(
+        `Error creating invite link for telegram: ${getErrorMessage(error)}`,
+      );
+      await this.sendMessageToTelegram(
+        telegramUserId,
+        `Error creating invite link for telegram: ${getErrorMessage(error)}`,
+      );
+    }
+  }
+
+  async sendMessageToTelegram(telegramUserId: string, message: string) {
+    const telegram = this.telegramService.getTelegram();
+    try {
+      await telegram.api.sendMessage(telegramUserId, message);
+    } catch (error) {
+      this.logger.error(
+        `Error sending message to telegram: ${getErrorMessage(error)}`,
+      );
+    }
   }
 }
