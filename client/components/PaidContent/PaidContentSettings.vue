@@ -105,9 +105,13 @@ const showCreateUrl = computed(
         <UDivider class="my-4" />
         <div>
           <p class="text-lg font-medium">Add to your group</p>
-          <p class="pt-2">
+          <p class="pt-2" v-if="!data?.telegramPaidContentId">
             Add it to the group as an admin using the user that you already
-            started telegram in the previous step.
+            started telegram in the previous step. Make sure the "Invite users
+            via link" item is enabled when adding the user as admin.
+          </p>
+          <p class="pt-2 text-pale" v-else>
+            Your Telegram is already set to your group.
           </p>
         </div>
       </template>
