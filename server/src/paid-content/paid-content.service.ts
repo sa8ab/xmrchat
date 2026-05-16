@@ -84,4 +84,15 @@ export class PaidContentService {
     const result = await this.repo.save(updated);
     return result;
   }
+
+  async delete(id: number, user: User) {
+    const paidContent = await this.findOne(id, user);
+    if (!paidContent) throw new NotFoundException('Paid content is not found');
+
+    const casl = await this.casl.createForUser(user);
+    if (!casl.can(Action.Delete, paidContent))
+      throw new UnauthorizedException();
+
+    await this.repo.remove(paidContent);
+  }
 }

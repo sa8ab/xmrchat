@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
@@ -85,5 +86,12 @@ export class PaidContentController {
     await this.paidContentService.update(id, dto, user);
 
     return { message: 'Paid content updated.' };
+  }
+
+  @Delete('/:id')
+  async delete(@Param('id') id: number, @CurrentUser() user: User) {
+    await this.paidContentService.delete(id, user);
+
+    return { message: 'Paid content deleted.' };
   }
 }
