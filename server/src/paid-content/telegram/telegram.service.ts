@@ -15,6 +15,8 @@ import { PaidContentSettingsService } from '../paid-content-settings.service';
 import { PageSettingKey } from 'src/shared/constants';
 import { chatMemberIs, myChatMemberFilter } from '@grammyjs/chat-members';
 import { Logger } from '@nestjs/common';
+import { PaidContent } from '../paid-content.entity';
+import { getErrorMessage } from 'src/shared/utils/errors';
 
 @Injectable()
 export class TelegramService implements OnModuleInit {
@@ -58,12 +60,19 @@ export class TelegramService implements OnModuleInit {
       const [path, id] = data.split('-');
       const userId = ctx.from?.id;
 
-      const paidContent = await this.paidContentService.findOne(Number(id));
+      let paidContent: PaidContent;
+      try {
+        paidContent = await this.paidContentService.findOne(Number(id));
+      } catch (error) {
+        this.logger.error(
+          `Error getting paid content: ${getErrorMessage(error)}`,
+        );
+        return;
+      }
 
       if (!paidContent) {
         await ctx.reply(`The item is not found.`);
-        await ctx.answerCallbackQuery();
-        return;
+        return ctx.answerCallbackQuery();
       }
 
       await ctx.reply(`Clicked on ${paidContent.name} for ${path}`);
