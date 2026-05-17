@@ -64,7 +64,7 @@ export class TelegramService implements OnModuleInit {
       try {
         paidContent = await this.paidContentService.findOne(Number(id));
       } catch (error) {
-        this.logger.error(
+        this.logger.warn(
           `Error getting paid content: ${getErrorMessage(error)}`,
         );
       }
