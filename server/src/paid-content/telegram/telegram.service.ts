@@ -67,7 +67,6 @@ export class TelegramService implements OnModuleInit {
         this.logger.error(
           `Error getting paid content: ${getErrorMessage(error)}`,
         );
-        return;
       }
 
       if (!paidContent) {
