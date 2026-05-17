@@ -60,6 +60,12 @@ export class TelegramService implements OnModuleInit {
 
       const paidContent = await this.paidContentService.findOne(Number(id));
 
+      if (!paidContent) {
+        await ctx.reply(`The item is not found.`);
+        await ctx.answerCallbackQuery();
+        return;
+      }
+
       await ctx.reply(`Clicked on ${paidContent.name} for ${path}`);
 
       const dto: CreateEntitlementDto = {
