@@ -86,20 +86,21 @@ const handleDelete = async (id: number) => {
     });
   }
 };
+
+const showNotConfigured = computed(() => {
+  return (
+    (!data?.value?.settings.telegramUserId ||
+      !data?.value?.settings.telegramPaidContentId) &&
+    (!pending.value || data.value)
+  );
+});
 </script>
 
 <template>
   <div>
     <PageTitle title="Paid Content" description="Manage your paid content" />
 
-    <PaidContentNotConfigured
-      v-if="
-        (!data?.settings.telegramUserId ||
-          !data?.settings.telegramPaidContentId) &&
-        !pending
-      "
-      class="mb-6"
-    />
+    <PaidContentNotConfigured v-if="showNotConfigured" class="mb-6" />
 
     <div class="flex justify-end mb-4 gap-2 flex-wrap">
       <UButton
