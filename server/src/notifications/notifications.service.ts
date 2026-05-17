@@ -17,7 +17,7 @@ export class NotificationsService {
     private i18n: I18nService,
     private notificationDispatcherService: NotificationDispatcherService,
     @InjectQueue('notifications-email') private emailQueue: Queue,
-  ) { }
+  ) {}
 
   async sendTestEmail() {
     const lang = I18nContext.current?.().lang;
@@ -198,4 +198,11 @@ export class NotificationsService {
       },
     });
   }
+
+  async handleNewEntitlement(options: {
+    to: string;
+    lang: string;
+    userName: string;
+    userLink?: string;
+  }) {}
 }

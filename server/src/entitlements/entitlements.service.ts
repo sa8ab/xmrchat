@@ -18,7 +18,6 @@ import { TelegramService as TelegramIntegrationService } from 'src/integrations/
 import { getErrorMessage } from 'src/shared/utils/errors';
 import { PageSettingsService } from 'src/page-settings/page-settings.service';
 import { PageSettingCategory, PageSettingKey } from 'src/shared/constants';
-import { ChatInviteLink } from 'grammy/types';
 import { Page } from 'src/pages/page.entity';
 
 @Injectable()
@@ -111,6 +110,7 @@ export class EntitlementsService {
 
     // TODO: Add tip item
     // TODO: Notifications for creating new entitlement
+    // TODO: Add queue for expiration of entitlement
 
     try {
       await this.lwsService.deleteWebhook(payment.eventId);
