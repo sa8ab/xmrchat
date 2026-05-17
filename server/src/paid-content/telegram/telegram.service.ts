@@ -124,6 +124,21 @@ export class TelegramService implements OnModuleInit {
         return;
       }
 
+      const page = await this.pagesService.findByPath(path);
+      if (!page) {
+        await ctx.reply('Page not found.');
+        return;
+      }
+
+      const settingsConfigured =
+        await this.paidContentSettingsService.settingsConfigured(page);
+      if (!settingsConfigured) {
+        await ctx.reply(
+          `This page hasn't setup their paid content yet. Please try again later.`,
+        );
+        return;
+      }
+
       const paidContents = await this.paidContentService.findByPagePath(path);
 
       let message = new FormattedString('');
