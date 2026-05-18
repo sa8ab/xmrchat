@@ -8,6 +8,7 @@ import { PaymentsModule } from 'src/payments/payments.module';
 import { LwsModule } from 'src/lws/lws.module';
 import { TelegramModule as TelegramIntegrationModule } from 'src/integrations/telegram/telegram.module';
 import { PageSettingsModule } from 'src/page-settings/page-settings.module';
+import { NotificationsModule } from 'src/notifications/notifications.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { PageSettingsModule } from 'src/page-settings/page-settings.module';
     LwsModule,
     TelegramIntegrationModule,
     PageSettingsModule,
+    NotificationsModule,
     TypeOrmModule.forFeature([Entitlement]),
   ],
   providers: [EntitlementsService],

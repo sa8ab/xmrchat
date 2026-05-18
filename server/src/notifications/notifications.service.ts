@@ -199,10 +199,34 @@ export class NotificationsService {
     });
   }
 
+  sendNewEntitlementEmail(options: {
+    to: string;
+    lang: string;
+    userName: string;
+    userLink?: string;
+  }) {
+    return this.emailQueue.add('send-email', {
+      to: options.to,
+      options: {
+        subject: this.i18n.t('email.newEntitlement.subject'),
+        template: 'new-entitlement.hbs',
+        context: {
+          ...options,
+        },
+      },
+    });
+  }
+
   async handleNewEntitlement(options: {
     to: string;
     lang: string;
     userName: string;
     userLink?: string;
-  }) {}
+  }) {
+    try {
+      await this.sendNewEntitlementEmail(options);
+    } catch (error) {
+      this.logger.error(`Error notifying new entitlement: ${error}`);
+    }
+  }
 }

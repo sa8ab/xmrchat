@@ -56,6 +56,15 @@
     "acceptInvitation": "Accept Invitation",
     "ifYouDidNotExpectThisInvitation": "If you didn't expect this invitation, you can ignore this email."
   },
+  "newEntitlement": {
+    "subject": "New entitlement purchase on XMRChat",
+    "title": "New Entitlement",
+    "emailTitle": "Someone purchased paid content!",
+    "purchaseMessage": "{userName} purchased access to your paid content.",
+    "viewUser": "View user",
+    "thankYouForYourContent": "Thank you for your great content! Keep up the amazing work.",
+    "visitXMRChat": "Visit XMRChat"
+  },
   "verificationRemoved": {
     "subject": "Your X verification was removed",
     "title": "Verification Removed",

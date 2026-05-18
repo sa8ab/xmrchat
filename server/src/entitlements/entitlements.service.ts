@@ -19,6 +19,7 @@ import { getErrorMessage } from 'src/shared/utils/errors';
 import { PageSettingsService } from 'src/page-settings/page-settings.service';
 import { PageSettingCategory, PageSettingKey } from 'src/shared/constants';
 import { Page } from 'src/pages/page.entity';
+import { NotificationsService } from 'src/notifications/notifications.service';
 
 @Injectable()
 export class EntitlementsService {
@@ -30,6 +31,7 @@ export class EntitlementsService {
     private lwsService: LwsService,
     private telegramService: TelegramIntegrationService,
     private pageSettingsService: PageSettingsService,
+    private notificationsService: NotificationsService,
     @InjectRepository(Entitlement) private repo: Repository<Entitlement>,
   ) {}
 
@@ -109,13 +111,18 @@ export class EntitlementsService {
     await this.handleSendingTelegramMessage(entitlement, page);
 
     // TODO: Add tip item
-    // TODO: Notifications for creating new entitlement
+    await this.handleNewEntitlementNotification(entitlement, page);
     // TODO: Add queue for expiration of entitlement
 
     try {
       await this.lwsService.deleteWebhook(payment.eventId);
     } catch (error) {}
   }
+
+  async handleNewEntitlementNotification(
+    entitlement: Entitlement,
+    page: Page,
+  ) {}
 
   async handleSendingTelegramMessage(entitlement: Entitlement, page: Page) {
     const telegramUserId = entitlement.data?.telegramUserId;
