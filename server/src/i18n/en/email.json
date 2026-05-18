@@ -57,10 +57,10 @@
     "ifYouDidNotExpectThisInvitation": "If you didn't expect this invitation, you can ignore this email."
   },
   "newEntitlement": {
-    "subject": "New entitlement purchase on XMRChat",
+    "subject": "New entitlement",
     "title": "New Entitlement",
-    "emailTitle": "Someone purchased paid content!",
-    "purchaseMessage": "{userName} purchased access to your paid content.",
+    "emailTitle": "Someone paid for your paid content!",
+    "message": "{userName} paid for access to your paid content.",
     "viewUser": "View user",
     "thankYouForYourContent": "Thank you for your great content! Keep up the amazing work.",
     "visitXMRChat": "Visit XMRChat"

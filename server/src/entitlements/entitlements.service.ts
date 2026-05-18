@@ -130,7 +130,7 @@ export class EntitlementsService {
     const telegram = this.telegramService.getTelegram();
     const chat = await telegram.api.getChat(telegramUserId);
 
-    const userName = `${chat.first_name} ${chat.last_name}`;
+    const userName = `${chat.first_name} ${chat.last_name || ''}`;
 
     const link = chat.username ? `https://t.me/${chat.username}` : undefined;
 
