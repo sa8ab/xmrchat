@@ -203,8 +203,11 @@ export class NotificationsService {
     to: string;
     lang: string;
     userName: string;
-    userLink?: string;
+    link?: string;
+    name: string;
   }) {
+    console.log(options);
+
     return this.emailQueue.add('send-email', {
       to: options.to,
       options: {
@@ -215,18 +218,5 @@ export class NotificationsService {
         },
       },
     });
-  }
-
-  async handleNewEntitlement(options: {
-    to: string;
-    lang: string;
-    userName: string;
-    userLink?: string;
-  }) {
-    try {
-      await this.sendNewEntitlementEmail(options);
-    } catch (error) {
-      this.logger.error(`Error notifying new entitlement: ${error}`);
-    }
   }
 }

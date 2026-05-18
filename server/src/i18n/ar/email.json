@@ -56,15 +56,6 @@
     "acceptInvitation": "قبول الدعوة",
     "ifYouDidNotExpectThisInvitation": "إذا لم تكن تتوقع هذه الدعوة، يمكنك تجاهل هذا البريد الإلكتروني."
   },
-  "newEntitlement": {
-    "subject": "شراء جديد لمحتوى مدفوع على XMRChat",
-    "title": "وصول مدفوع جديد",
-    "emailTitle": "شخص ما اشترى محتوى مدفوعًا!",
-    "purchaseMessage": "اشترى {userName} الوصول إلى محتواك المدفوع.",
-    "viewUser": "عرض المستخدم",
-    "thankYouForYourContent": "شكرًا على محتواك الرائع! استمر في العمل المذهل.",
-    "visitXMRChat": "زيارة XMRChat"
-  },
   "verificationRemoved": {
     "subject": "تمت إزالة التحقق من X الخاص بك",
     "title": "تمت إزالة التحقق",

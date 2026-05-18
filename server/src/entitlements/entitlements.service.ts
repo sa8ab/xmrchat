@@ -86,6 +86,7 @@ export class EntitlementsService {
     }
 
     const page = await this.pagesService.findById(entitlement.pageId);
+    const pageWithUser = await this.pagesService.findByPath(page.path);
     if (!page) {
       this.logger.warn(
         `Page is not found on entitlement with id: ${entitlement.id}`,
@@ -108,10 +109,13 @@ export class EntitlementsService {
     }
 
     // TODO: Send message in telegram
-    await this.handleSendingTelegramMessage(entitlement, page);
+    await this.handleSendingTelegramMessage(entitlement, pageWithUser);
 
     // TODO: Add tip item
-    await this.handleNewEntitlementNotification(entitlement, page);
+
+    // Send email to streamer
+    await this.handleNewEntitlementNotification(entitlement, pageWithUser);
+
     // TODO: Add queue for expiration of entitlement
 
     try {
@@ -119,10 +123,25 @@ export class EntitlementsService {
     } catch (error) {}
   }
 
-  async handleNewEntitlementNotification(
-    entitlement: Entitlement,
-    page: Page,
-  ) {}
+  async handleNewEntitlementNotification(entitlement: Entitlement, page: Page) {
+    const streamer = page.user;
+
+    const telegramUserId = entitlement.data?.telegramUserId;
+    const telegram = this.telegramService.getTelegram();
+    const chat = await telegram.api.getChat(telegramUserId);
+
+    const userName = `${chat.first_name} ${chat.last_name}`;
+
+    const link = chat.username ? `https://t.me/${chat.username}` : undefined;
+
+    await this.notificationsService.sendNewEntitlementEmail({
+      to: streamer.email,
+      lang: streamer.language,
+      name: entitlement.name,
+      userName,
+      link,
+    });
+  }
 
   async handleSendingTelegramMessage(entitlement: Entitlement, page: Page) {
     const telegramUserId = entitlement.data?.telegramUserId;

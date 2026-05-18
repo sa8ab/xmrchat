@@ -56,15 +56,6 @@
     "acceptInvitation": "Einladung annehmen",
     "ifYouDidNotExpectThisInvitation": "Wenn Sie diese Einladung nicht erwartet haben, können Sie diese E-Mail ignorieren."
   },
-  "newEntitlement": {
-    "subject": "Neuer Entitlement-Kauf auf XMRChat",
-    "title": "Neues Entitlement",
-    "emailTitle": "Jemand hat kostenpflichtige Inhalte gekauft!",
-    "purchaseMessage": "{userName} hat Zugang zu Ihren kostenpflichtigen Inhalten gekauft.",
-    "viewUser": "Benutzer anzeigen",
-    "thankYouForYourContent": "Vielen Dank für Ihren großartigen Inhalt! Machen Sie weiter so.",
-    "visitXMRChat": "XMRChat besuchen"
-  },
   "verificationRemoved": {
     "subject": "Ihre X-Verifizierung wurde entfernt",
     "title": "Verifizierung entfernt",

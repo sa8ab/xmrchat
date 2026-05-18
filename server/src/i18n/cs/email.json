@@ -56,15 +56,6 @@
     "acceptInvitation": "Přijmout pozvánku",
     "ifYouDidNotExpectThisInvitation": "Pokud jste neočekávali tuto pozvánku, můžete tento e-mail ignorovat."
   },
-  "newEntitlement": {
-    "subject": "Nový nákup placeného obsahu na XMRChat",
-    "title": "Nový placený přístup",
-    "emailTitle": "Někdo zakoupil placený obsah!",
-    "purchaseMessage": "{userName} zakoupil přístup k vašemu placenému obsahu.",
-    "viewUser": "Zobrazit uživatele",
-    "thankYouForYourContent": "Děkujeme za váš skvělý obsah! Pokračujte v této skvělé práci.",
-    "visitXMRChat": "Navštívit XMRChat"
-  },
   "verificationRemoved": {
     "subject": "Vaše ověření na X bylo odstraněno",
     "title": "Ověření odstraněno",
