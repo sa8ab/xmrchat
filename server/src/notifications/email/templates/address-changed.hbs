@@ -1,0 +1,51 @@
+{{#>layout title="{{translate 'email.addressChanged.title' lang=lang}}" }}
+  <h1 style="padding-bottom: 12px">{{translate "email.addressChanged.emailTitle" lang=lang}}</h1>
+  <p style="padding-bottom: 16px">
+    {{translate "email.addressChanged.intro" lang=lang pagePath=pagePath}}
+  </p>
+
+  {{#if showPrimaryChanged}}
+    <p style="padding-bottom: 8px">{{translate "email.addressChanged.primaryAddressChanged" lang=lang}}</p>
+    <div style="padding-bottom: 16px">
+      <p style="padding-bottom: 4px; font-size: 13px; font-weight: 600; color: #52525b;">
+        {{translate "email.addressChanged.from" lang=lang}}
+      </p>
+      <div
+        style="display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 8px;">
+        <code
+          style="display: block; padding: 10px 12px; border-radius: 6px; background: #f4f4f5; border: 1px solid #e4e4e7; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 12px; line-height: 1.5; color: #18181b; white-space: nowrap;">{{addressFrom}}</code>
+      </div>
+      <p style="padding-bottom: 4px; font-size: 13px; font-weight: 600; color: #52525b;">
+        {{translate "email.addressChanged.to" lang=lang}}
+      </p>
+      <div style="display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+        <code
+          style="display: block; padding: 10px 12px; border-radius: 6px; background: #f4f4f5; border: 1px solid #e4e4e7; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 12px; line-height: 1.5; color: #18181b; white-space: nowrap;">{{addressTo}}</code>
+      </div>
+    </div>
+  {{/if}}
+
+  {{#if showSecretViewKeyChanged}}
+    <p style="padding-bottom: 8px">{{translate "email.addressChanged.secretViewKeyChanged" lang=lang}}</p>
+    <div style="padding-bottom: 16px">
+      <p style="padding-bottom: 4px; font-size: 13px; font-weight: 600; color: #52525b;">
+        {{translate "email.addressChanged.from" lang=lang}}
+      </p>
+      <div
+        style="display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 8px;">
+        <code
+          style="display: block; padding: 10px 12px; border-radius: 6px; background: #f4f4f5; border: 1px solid #e4e4e7; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 12px; line-height: 1.5; color: #18181b; white-space: nowrap;">{{secretViewKeyFrom}}</code>
+      </div>
+      <p style="padding-bottom: 4px; font-size: 13px; font-weight: 600; color: #52525b;">
+        {{translate "email.addressChanged.to" lang=lang}}
+      </p>
+      <div style="display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+        <code
+          style="display: block; padding: 10px 12px; border-radius: 6px; background: #f4f4f5; border: 1px solid #e4e4e7; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 12px; line-height: 1.5; color: #18181b; white-space: nowrap;">{{secretViewKeyTo}}</code>
+      </div>
+    </div>
+  {{/if}}
+
+  <p style="padding-bottom: 16px">{{translate "email.addressChanged.ifItWasNotYou" lang=lang}}</p>
+  {{>ending}}
+{{/layout}}

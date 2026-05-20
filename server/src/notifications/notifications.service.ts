@@ -17,7 +17,7 @@ export class NotificationsService {
     private i18n: I18nService,
     private notificationDispatcherService: NotificationDispatcherService,
     @InjectQueue('notifications-email') private emailQueue: Queue,
-  ) { }
+  ) {}
 
   async sendTestEmail() {
     const lang = I18nContext.current?.().lang;
@@ -194,6 +194,34 @@ export class NotificationsService {
         template: 'verification-removed.hbs',
         context: {
           ...options,
+        },
+      },
+    });
+  }
+
+  sendAddressChangedEmail(options: {
+    to: string;
+    lang: string;
+    addressFrom: string;
+    addressTo: string;
+    secretViewKeyFrom: string;
+    secretViewKeyTo: string;
+    pagePath: string;
+  }) {
+    const showPrimaryChanged = options.addressFrom !== options.addressTo;
+    const showSecretViewKeyChanged =
+      options.secretViewKeyFrom !== options.secretViewKeyTo;
+
+    return this.emailQueue.add('send-email', {
+      to: options.to,
+      options: {
+        subject: this.i18n.t('email.addressChanged.subject'),
+        text: this.i18n.t('email.addressChanged.text'),
+        template: 'address-changed.hbs',
+        context: {
+          ...options,
+          showPrimaryChanged,
+          showSecretViewKeyChanged,
         },
       },
     });

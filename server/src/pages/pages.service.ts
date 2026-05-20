@@ -28,6 +28,7 @@ import { TwitchService } from 'src/integrations/twitch/twitch.service';
 import { AuditsService } from 'src/audits/audits.service';
 import { AuditTypeEnum, PageStatusEnum } from 'src/shared/constants';
 import { File as FileEntity } from 'src/files/file.entity';
+import { I18nContext } from 'nestjs-i18n';
 
 @Injectable()
 export class PagesService {
@@ -465,6 +466,16 @@ export class PagesService {
       page.primaryAddress != attrs.primaryAddress ||
       page.secretViewKey != attrs.secretViewKey
     ) {
+      await this.notificationsService.sendAddressChangedEmail({
+        to: page.user.email,
+        lang: I18nContext.current().lang,
+        pagePath: page.path,
+        secretViewKeyFrom: page.secretViewKey,
+        secretViewKeyTo: attrs.secretViewKey || '',
+        addressFrom: page.primaryAddress,
+        addressTo: attrs.primaryAddress,
+      });
+
       await this.addLwsAccount({
         address: attrs.primaryAddress,
         key: attrs.secretViewKey,
