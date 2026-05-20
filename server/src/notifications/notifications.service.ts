@@ -219,4 +219,32 @@ export class NotificationsService {
       },
     });
   }
+
+  sendAddressChangedEmail(options: {
+    to: string;
+    lang: string;
+    addressFrom: string;
+    addressTo: string;
+    secretViewKeyFrom: string;
+    secretViewKeyTo: string;
+    pagePath: string;
+  }) {
+    const showPrimaryChanged = options.addressFrom !== options.addressTo;
+    const showSecretViewKeyChanged =
+      options.secretViewKeyFrom !== options.secretViewKeyTo;
+
+    return this.emailQueue.add('send-email', {
+      to: options.to,
+      options: {
+        subject: this.i18n.t('email.addressChanged.subject'),
+        text: this.i18n.t('email.addressChanged.text'),
+        template: 'address-changed.hbs',
+        context: {
+          ...options,
+          showPrimaryChanged,
+          showSecretViewKeyChanged,
+        },
+      },
+    });
+  }
 }

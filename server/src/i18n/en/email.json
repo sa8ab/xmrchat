@@ -71,5 +71,17 @@
     "emailTitle": "Your verification was removed",
     "couldNotFindAccount": "We could not find your {platform} account ({account}), so the verification was removed.",
     "whatToDoNext": "Please update your link and create a new verification."
+  },
+  "addressChanged": {
+    "subject": "Your XMRChat Monero receiving details were updated",
+    "text": "The Monero receiving details for your page were updated. If you did not make this change, please contact us immediately.",
+    "title": "Monero receiving details updated",
+    "emailTitle": "Monero Receiving Details Updated",
+    "intro": "The Monero receiving details for your page {pagePath} were updated.",
+    "primaryAddressChanged": "Your primary Monero address was changed.",
+    "secretViewKeyChanged": "Your secret view key was changed.",
+    "from": "From",
+    "to": "To",
+    "ifItWasNotYou": "If you did not make this change, please contact us immediately so we can help secure your account."
   }
 }
