@@ -20,6 +20,8 @@ import { PageSettingsService } from 'src/page-settings/page-settings.service';
 import { PageSettingCategory, PageSettingKey } from 'src/shared/constants';
 import { Page } from 'src/pages/page.entity';
 import { NotificationsService } from 'src/notifications/notifications.service';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
 
 @Injectable()
 export class EntitlementsService {
@@ -33,6 +35,8 @@ export class EntitlementsService {
     private pageSettingsService: PageSettingsService,
     private notificationsService: NotificationsService,
     @InjectRepository(Entitlement) private repo: Repository<Entitlement>,
+    @InjectQueue('entitlement-expiration')
+    private entitlementExpirationQueue: Queue,
   ) {}
 
   async createEntitlement(dto: CreateEntitlementDto) {
@@ -117,6 +121,9 @@ export class EntitlementsService {
     await this.handleNewEntitlementNotification(entitlement, pageWithUser);
 
     // TODO: Add queue for expiration of entitlement
+    await this.entitlementExpirationQueue.add('entitlement-expiration', {
+      entitlementId: entitlement.id,
+    });
 
     try {
       await this.lwsService.deleteWebhook(payment.eventId);
