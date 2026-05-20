@@ -46,7 +46,7 @@ export class PagesService {
     private notificationsService: NotificationsService,
     private twitchService: TwitchService,
     private auditsService: AuditsService,
-  ) { }
+  ) {}
 
   async searchPages(slug: string = '', offset: number = 0, limit: number = 8) {
     const tipsSubQuery = (qb: SelectQueryBuilder<any>) =>
@@ -312,6 +312,7 @@ export class PagesService {
         recipients: true,
         liveStreams: true,
         pageTipTiers: { sound: true },
+        user: true,
       },
       order: {
         pageTipTiers: { minAmount: { direction: 'ASC', nulls: 'LAST' } },
@@ -417,7 +418,7 @@ export class PagesService {
     // clear webhook
     try {
       await this.lwsService.deleteWebhook(payment.eventId);
-    } catch (error) { }
+    } catch (error) {}
   }
 
   async update(slug: string, attrs: UpdatePageDto, user: User) {
