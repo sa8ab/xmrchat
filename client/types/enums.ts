@@ -34,6 +34,7 @@ export enum ContentLinkPlatformEnum {
   PEERTUBE = "peertube",
   UPSCROLLED = "upscrolled",
   BITCHUTE = "bitchute",
+  DISCORD = "discord",
 }
 
 export enum TipDisplayMode {
@@ -113,8 +114,8 @@ export enum SuperDmMessageSenderTypeEnum {
 }
 
 export enum MoneroNetworkTypeEnum {
-  MAINNET = 'mainnet',
-  TESTNET = 'testnet',
-  STAGENET = 'stagenet',
-  STRESSNET = 'stressnet',
+  MAINNET = "mainnet",
+  TESTNET = "testnet",
+  STAGENET = "stagenet",
+  STRESSNET = "stressnet",
 }

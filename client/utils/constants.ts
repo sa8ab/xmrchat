@@ -23,6 +23,7 @@ export const CONTENT_LINKS_LIST = [
   ContentLinkPlatformEnum.PEERTUBE,
   ContentLinkPlatformEnum.UPSCROLLED,
   ContentLinkPlatformEnum.BITCHUTE,
+  ContentLinkPlatformEnum.DISCORD,
 ];
 
 export const SWAP_STATUSES = {
