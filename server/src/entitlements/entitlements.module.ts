@@ -9,6 +9,7 @@ import { LwsModule } from 'src/lws/lws.module';
 import { TelegramModule as TelegramIntegrationModule } from 'src/integrations/telegram/telegram.module';
 import { PageSettingsModule } from 'src/page-settings/page-settings.module';
 import { NotificationsModule } from 'src/notifications/notifications.module';
+import { QueuesModule } from 'src/queues/queues.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { NotificationsModule } from 'src/notifications/notifications.module';
     TelegramIntegrationModule,
     PageSettingsModule,
     NotificationsModule,
+    QueuesModule,
     TypeOrmModule.forFeature([Entitlement]),
   ],
   providers: [EntitlementsService],
