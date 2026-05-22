@@ -27,7 +27,7 @@ export const useTipMessageLength = (params?: IParams) => {
   const defaultMessageLength = computed(() => {
     const pageTiers = unref(params?.pageTipTiers)
 
-    const tiers = pageTiers?.filter((tier) => Boolean(tier.messageLength)).toSorted((a: PageTipTier, b: PageTipTier) => {
+    const tiers = [...(pageTiers || [])]?.filter((tier) => Boolean(tier.messageLength)).sort((a: PageTipTier, b: PageTipTier) => {
       const messageLengthA = a.messageLength || 0
       const messageLengthB = b.messageLength || 0
       return messageLengthA - messageLengthB;

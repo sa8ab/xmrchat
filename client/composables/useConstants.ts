@@ -87,6 +87,14 @@ export const useConstants = () => {
       inputLabel: t("xUsername", { platform: "Telegram" }),
       linkCreator: (v?: string) => `https://t.me/${v}`,
     },
+    [ContentLinkPlatformEnum.DISCORD]: {
+      name: "Discord",
+      colorClassName: "text-[#5865F2]",
+      iconClassName: "",
+      icon: "i-tabler-brand-discord",
+      inputLabel: "Discord link (enter full URL)",
+      linkCreator: (v?: string) => `${v}`,
+    },
     [ContentLinkPlatformEnum.TIKTOK]: {
       name: "Tiktok",
       colorClassName: "text-[#FE2C55]",

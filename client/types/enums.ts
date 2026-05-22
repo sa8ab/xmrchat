@@ -37,6 +37,7 @@ export enum ContentLinkPlatformEnum {
   PEERTUBE = "peertube",
   UPSCROLLED = "upscrolled",
   BITCHUTE = "bitchute",
+  DISCORD = "discord",
 }
 
 export enum TipDisplayMode {
