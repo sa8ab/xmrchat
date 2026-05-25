@@ -34,6 +34,7 @@ import { Action } from 'src/shared/constants';
 import { PageTipTier } from 'src/page-tip-tiers/page-tip-tier.entity';
 import { getDefaultMessageLength, getTipTier } from 'src/shared/utils';
 import { PaymentFlowService } from 'src/payment-flow/payment-flow.service';
+import { TipsBroadcastGateway } from 'src/tips-broadcast/tips-broadcast.gateway';
 
 @Injectable()
 export class TipsService {
@@ -51,8 +52,9 @@ export class TipsService {
     private pageRecipientsService: PageRecipientsService,
     private casl: CaslAbilityFactory,
     private paymentFlowService: PaymentFlowService,
+    private tipsBroadcastGateway: TipsBroadcastGateway,
     @InjectRepository(Tip) private repo: Repository<Tip>,
-  ) { }
+  ) {}
 
   findOneById(id: number) {
     if (!id) return null;
@@ -130,13 +132,15 @@ export class TipsService {
         `Tip amount must be more than or equal to ${minTipAmountXmr} XMR.`,
       );
 
-
     const tier = getTipTier(xmrUnits.toString(), page.pageTipTiers);
 
-    const messageLength = tier?.messageLength || getDefaultMessageLength(page.pageTipTiers);
+    const messageLength =
+      tier?.messageLength || getDefaultMessageLength(page.pageTipTiers);
 
     if (payload.message && payload.message?.length > messageLength) {
-      throw new BadRequestException(`Message length must be less than or equal to ${messageLength}.`);
+      throw new BadRequestException(
+        `Message length must be less than or equal to ${messageLength}.`,
+      );
     }
 
     const { baseSwap, eventId, inputCoin, integratedAddress } =
@@ -297,6 +301,7 @@ export class TipsService {
     );
 
     await this.pagesGateway.notifyNewTip(page.path, tip.id);
+    await this.tipsBroadcastGateway.notifyNewTip(tip.id);
 
     // send twitch message
     if (page.twitchChannel) {
@@ -310,7 +315,7 @@ export class TipsService {
 
     try {
       await this.lwsService.deleteWebhook(payment.eventId);
-    } catch (error) { }
+    } catch (error) {}
   }
 
   @Cron(CronExpression.EVERY_MINUTE)
