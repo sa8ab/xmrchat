@@ -10,6 +10,7 @@ const props = defineProps<{
 }>();
 
 const { getPageTierColor } = useConstants();
+const { dayjs } = useDate();
 
 const tier = computed(() => props.item.pageTipTier);
 const tierColor = computed(() => tier.value?.color);
@@ -55,6 +56,9 @@ const amountClass = computed(() => {
             :class="{ 'opacity-80': item.private }"
           >
             {{ item.private ? $t("private.title") : item.name }}
+          </p>
+          <p class="pb-1 text-xs">
+            {{ dayjs(item.createdAt).format("L") }}
           </p>
           <UTooltip
             v-if="disappearText"
