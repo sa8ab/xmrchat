@@ -14,6 +14,7 @@ import { PageSettingsModule } from 'src/page-settings/page-settings.module';
 import { TipMessageModule } from 'src/tip-message/tip-message.module';
 import { PageRecipientsModule } from 'src/page-recipients/page-recipients.module';
 import { PaymentFlowModule } from 'src/payment-flow/payment-flow.module';
+import { TipsBroadcastModule } from 'src/tips-broadcast/tips-broadcast.module';
 
 @Module({
   controllers: [TipsController],
@@ -30,6 +31,7 @@ import { PaymentFlowModule } from 'src/payment-flow/payment-flow.module';
     TipMessageModule,
     PageRecipientsModule,
     PaymentFlowModule,
+    TipsBroadcastModule,
   ],
   exports: [TipsService, TipsGateway],
 })

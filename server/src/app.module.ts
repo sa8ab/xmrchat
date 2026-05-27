@@ -57,6 +57,7 @@ import { NetworkModule } from './network/network.module';
 import { IsMoneroPrimaryAdrress } from './shared/validations/monero-primary-address.validation';
 import { OfferingsModule } from './offerings/offerings.module';
 import { EntitlementsModule } from './entitlements/entitlements.module';
+import { TipsBroadcastModule } from './tips-broadcast/tips-broadcast.module';
 
 @Module({
   imports: [
@@ -187,6 +188,7 @@ import { EntitlementsModule } from './entitlements/entitlements.module';
     NetworkModule,
     OfferingsModule,
     EntitlementsModule,
+    TipsBroadcastModule,
   ],
   controllers: [AppController],
   providers: [AppService, IsMoneroPrimaryAdrress],
