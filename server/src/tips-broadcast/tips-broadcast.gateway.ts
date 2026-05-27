@@ -72,6 +72,6 @@ export class TipsBroadcastGateway implements OnGatewayConnection {
 
     const t = serializer(TipDto, tip);
 
-    return { tip: t, message };
+    return { tip: t, message, pagePath: tip.page.path };
   }
 }
