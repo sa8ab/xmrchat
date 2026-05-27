@@ -70,10 +70,9 @@ export class TipsBroadcastGateway implements OnGatewayConnection {
     );
 
     tip = Object.assign({}, tip, { pageTipTier: tier });
-    const page = serializer(PageDto, tip.page);
 
     const t = serializer(TipDto, tip);
 
-    return { tip: t, message, page };
+    return { tip: t, message, pagePath: tip.page.path };
   }
 }
