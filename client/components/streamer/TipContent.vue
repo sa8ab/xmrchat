@@ -169,7 +169,7 @@ const renderInputPadding = computed(
         :state="state.form"
         @submit="handleSubmit"
       >
-        <div class="both pb-4">
+        <div class="both md:pb-4">
           <UFormGroup
             size="lg"
             :label="t('tipName')"
@@ -223,7 +223,7 @@ const renderInputPadding = computed(
           </UFormGroup>
         </div>
 
-        <div class="single">
+        <div class="single md:pb-4">
           <UFormGroup
             :error="getValidationAttrs('message').error"
             :label="t('tipMessage')"
@@ -237,8 +237,6 @@ const renderInputPadding = computed(
             />
           </UFormGroup>
         </div>
-
-        <div class="single"></div>
 
         <div class="flex gap-8 items-center flex-wrap-reverse">
           <div class="flex">
