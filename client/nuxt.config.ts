@@ -16,8 +16,8 @@ export default defineNuxtConfig({
       showPremiumPages: "",
       showTipSplits: "",
       moneroNetwork: "mainnet",
-      // Suggest a name here
       telegramPaidContentUsername: "",
+      testTip: "",
     },
   },
 

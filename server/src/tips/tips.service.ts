@@ -324,13 +324,7 @@ export class TipsService {
     if (!testTipEnabled)
       throw new BadRequestException('Test tip is not enabled');
 
-    const result = await this.createTip({
-      amount: '0.001',
-      name: 'Test Tip',
-      message: 'Test Message',
-      path: dto.path,
-      private: false,
-    });
+    const result = await this.createTip(dto);
 
     const tip = await this.repo.findOne({
       where: { id: result.tip.id },

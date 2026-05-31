@@ -10,11 +10,11 @@ const { t } = useI18n();
 
 const { data, pending, refresh, error } = await useLazyAsyncData(
   "streamer-profile",
-  () => getMyPage()
+  () => getMyPage(),
 );
 
 const tipValue = ref<TipDisplayMode | undefined>(
-  data.value?.page?.tipDisplayMode
+  data.value?.page?.tipDisplayMode,
 );
 const { getFiat } = useConstants();
 </script>
