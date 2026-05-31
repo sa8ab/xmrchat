@@ -43,6 +43,12 @@ export class TipsController {
     return this.tipsService.updateTip(id, body, user);
   }
 
+  @Post(`/create-test-tip`)
+  async createTestTip(@CurrentUser() user: User) {
+    await this.tipsService.createTestTip(user);
+    return { message: 'Test tip created.' };
+  }
+
   @Get('/test/test')
   @IsPublic()
   test() {
