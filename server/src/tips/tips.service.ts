@@ -319,19 +319,16 @@ export class TipsService {
   }
 
   // Add creating test tip:
-  async createTestTip(user: User) {
+  async createTestTip(dto: CreateTipDto) {
     const testTipEnabled = this.configService.get('TEST_TIP') === 'true';
     if (!testTipEnabled)
       throw new BadRequestException('Test tip is not enabled');
-
-    const page = await this.pagesService.findMyPage(user);
-    if (!page) throw new NotFoundException('Page not found');
 
     const result = await this.createTip({
       amount: '0.001',
       name: 'Test Tip',
       message: 'Test Message',
-      path: page.path,
+      path: dto.path,
       private: false,
     });
 

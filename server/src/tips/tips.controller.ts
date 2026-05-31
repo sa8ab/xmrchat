@@ -44,8 +44,8 @@ export class TipsController {
   }
 
   @Post(`/create-test-tip`)
-  async createTestTip(@CurrentUser() user: User) {
-    await this.tipsService.createTestTip(user);
+  async createTestTip(@Body() body: CreateTipDto) {
+    await this.tipsService.createTestTip(body);
     return { message: 'Test tip created.' };
   }
 
