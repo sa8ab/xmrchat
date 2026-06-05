@@ -75,7 +75,7 @@ const v = useVuelidate<State["form"]>(
         minValue: minValue(
           generalState.tipDisplayValue === TipDisplayMode.XMR
             ? minXmrValue
-            : minFiatValue
+            : minFiatValue,
         ),
       },
       message: {
@@ -84,7 +84,7 @@ const v = useVuelidate<State["form"]>(
       },
     };
   }),
-  toRef(state, "form")
+  toRef(state, "form"),
 );
 
 const { getValidationAttrs } = useValidations(v);
@@ -157,7 +157,7 @@ const renderInputPrefix = computed(() => {
   return fiat.value.symbol;
 });
 const renderInputPadding = computed(
-  () => `${renderInputPrefix.value.length * 0.6 + 2}rem`
+  () => `${renderInputPrefix.value.length * 0.6 + 2}rem`,
 );
 </script>
 
@@ -169,7 +169,7 @@ const renderInputPadding = computed(
         :state="state.form"
         @submit="handleSubmit"
       >
-        <div class="both pb-4">
+        <div class="both md:pb-4">
           <UFormGroup
             size="lg"
             :label="t('tipName')"
@@ -223,7 +223,7 @@ const renderInputPadding = computed(
           </UFormGroup>
         </div>
 
-        <div class="single">
+        <div class="single md:pb-4">
           <UFormGroup
             :error="getValidationAttrs('message').error"
             :label="t('tipMessage')"
@@ -238,20 +238,7 @@ const renderInputPadding = computed(
           </UFormGroup>
         </div>
 
-        <div class="single">
-          <UTooltip :popper="{ placement: 'top' }">
-            <template #text>
-              <p>{{ t("tipPrivateTooltip") }}</p>
-            </template>
-            <UCheckbox
-              color="primary"
-              :label="t('tipPrivate')"
-              v-model="state.form.private"
-            />
-          </UTooltip>
-        </div>
-
-        <div class="singe">
+        <div class="flex gap-8 items-center flex-wrap-reverse">
           <div class="flex">
             <UFormGroup :label="t('tipCoin')">
               <USelectMenu
@@ -278,8 +265,19 @@ const renderInputPadding = computed(
                 <p class="text-xs">{{ t("tipSwapUnavailable") }}</p>
               </template>
             </UFormGroup>
+            <!-- <p v-if="!false" class="text-pale text-sm mt-1"></p> -->
           </div>
-          <!-- <p v-if="!false" class="text-pale text-sm mt-1"></p> -->
+
+          <UTooltip :popper="{ placement: 'top' }">
+            <template #text>
+              <p>{{ t("tipPrivateTooltip") }}</p>
+            </template>
+            <UCheckbox
+              color="primary"
+              :label="t('tipPrivate')"
+              v-model="state.form.private"
+            />
+          </UTooltip>
         </div>
 
         <div class="single" v-if="state.errorMessage">
