@@ -50,6 +50,7 @@ export interface CreateFormFields {
   messageTipDisplayMode?: TipDisplayMode;
   fiat?: FiatEnum;
   expirationMinutes?: number;
+  bio?: string;
 }
 
 export interface TipFormFields {
