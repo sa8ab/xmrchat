@@ -73,6 +73,7 @@ const state = reactive<State>({
     isPublic: true,
     tipDisplayMode: undefined,
     fiat: undefined,
+    bio: undefined,
   },
   slugAvailable: false,
   loadingSlug: false,
@@ -206,6 +207,7 @@ const v = useVuelidate<State["form"]>(
       maxLength: maxLength(16),
     },
     minTipAmount: { numberic, minValue: minValue(minXMRPayAmount) },
+    bio: { maxLength: maxLength(255) },
   },
   toRef(state, "form"),
 );
@@ -451,6 +453,17 @@ const handleBannerUpload = (file: UploadedFile) => {
             variant="soft"
           ></UAlert>
         </div>
+      </div>
+
+      <div class="single">
+        <UFormGroup label="Bio">
+          <template #hint>
+            <span class="text-xs">
+              {{ state.form.bio?.length || 0 }} / 255
+            </span>
+          </template>
+          <UTextarea v-model="state.form.bio" />
+        </UFormGroup>
       </div>
 
       <!-- <div class="single" v-if="editable">
