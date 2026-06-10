@@ -455,7 +455,7 @@ const handleBannerUpload = (file: UploadedFile) => {
         </div>
       </div>
 
-      <div class="single">
+      <div class="single" v-if="editable">
         <UFormGroup label="Bio">
           <template #hint>
             <span class="text-xs">
