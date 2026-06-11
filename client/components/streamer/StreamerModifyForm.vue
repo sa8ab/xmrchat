@@ -208,7 +208,7 @@ const v = useVuelidate<State["form"]>(
       maxLength: maxLength(16),
     },
     minTipAmount: { numberic, minValue: minValue(minXMRPayAmount) },
-    bio: { maxLength: maxLength(255) },
+    bio: { maxLength: maxLength(150) },
   },
   toRef(state, "form"),
 );
@@ -461,7 +461,7 @@ const handleBannerUpload = (file: UploadedFile) => {
         <UFormGroup label="Bio" :error="getValidationAttrs('bio').error">
           <template #hint>
             <span class="text-xs">
-              {{ state.form.bio?.length || 0 }} / 255
+              {{ state.form.bio?.length || 0 }} / 150
             </span>
           </template>
           <UTextarea
