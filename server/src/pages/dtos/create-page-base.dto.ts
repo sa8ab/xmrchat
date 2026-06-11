@@ -33,7 +33,7 @@ export class CreatePageBaseDto {
 
   @IsString()
   @IsOptional()
-  @MaxLength(255)
+  @MaxLength(150)
   bio?: string;
 
   @IsString()

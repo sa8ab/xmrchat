@@ -20,7 +20,7 @@ const { status, refresh, error, data } = useLazyAsyncData("creators", () =>
     limit,
     offset: offset.value,
     search: route.query.search,
-  })
+  }),
 );
 </script>
 
@@ -54,11 +54,16 @@ const { status, refresh, error, data } = useLazyAsyncData("creators", () =>
             class="streamer-link hover:bg-background-2/30 transition-colors"
             :to="item?.path"
           >
-            <GeneralImage
-              variant="logo"
-              :url="item?.logo.thumbnail || item.logo.url"
-              class="w-[90px] h-[90px]"
-            />
+            <div class="flex items-center gap-4">
+              <GeneralImage
+                variant="logo"
+                :url="item?.logo.thumbnail || item.logo.url"
+                class="w-[90px] h-[90px]"
+              />
+              <p v-if="item.bio" class="pt-1 text-xs text-pale line-clamp-2">
+                {{ item.bio }}
+              </p>
+            </div>
             <div class="flex items-center gap-1 pt-3">
               <div class="font-medium">{{ item.name || item.path }}</div>
               <VerifiedBadge :links="item.links" size="18" />
