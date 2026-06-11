@@ -456,13 +456,16 @@ const handleBannerUpload = (file: UploadedFile) => {
       </div>
 
       <div class="single" v-if="editable">
-        <UFormGroup label="Bio">
+        <UFormGroup label="Bio" :error="getValidationAttrs('bio').error">
           <template #hint>
             <span class="text-xs">
               {{ state.form.bio?.length || 0 }} / 255
             </span>
           </template>
-          <UTextarea v-model="state.form.bio" />
+          <UTextarea
+            v-model="state.form.bio"
+            @blur="getValidationAttrs('bio').onBlur"
+          />
         </UFormGroup>
       </div>
 
