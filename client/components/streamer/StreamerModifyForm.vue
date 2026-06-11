@@ -172,6 +172,7 @@ const handleSubmit = async () => {
         fiat: state.form.fiat,
         minTipAmount: state.form.minTipAmount?.toString() || null,
         expirationMinutes: state.form.expirationMinutes || null,
+        bio: state.form.bio || null,
       });
       toast.add({ title: t("pageUpdated") });
       navigateTo(toStreamerDisplay()?.path);
@@ -234,6 +235,7 @@ const getPage = async () => {
     fiat: page.fiat,
     expirationMinutes: page.expirationMinutes,
     tiers: page.tiers || [],
+    bio: page.bio,
   };
 
   state.stagedLogoUrl = page.logo.url;
