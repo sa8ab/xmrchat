@@ -111,6 +111,7 @@ export interface StreamerPage {
   liveStreams?: LiveStream[];
   pageTipTiers?: PageTipTier[];
   ability?: any;
+  bio?: string;
 }
 
 interface TipPayment {
