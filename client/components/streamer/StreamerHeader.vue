@@ -33,7 +33,7 @@ const verified = computed(() => props.links?.some((l) => l.verification));
     <div v-else class="banner-container">
       <GeneralImage variant="banner" :url="bannerUrl" class="banner" />
     </div>
-    <div class="options flex-wrap gap-4">
+    <div class="options gap-4">
       <div class="logo-and-name">
         <div class="flex flex-col items-center ms-4">
           <GeneralImage
@@ -75,7 +75,7 @@ const verified = computed(() => props.links?.some((l) => l.verification));
         </div>
       </div>
       <div v-if="bio" class="bio hidden md:block">
-        <p class="text-pale text-sm max-w-[300px]">
+        <p class="text-pale text-sm max-w-[400px]">
           {{ bio }}
         </p>
       </div>
