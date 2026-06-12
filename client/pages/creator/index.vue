@@ -60,7 +60,7 @@ const { status, refresh, error, data } = useLazyAsyncData("creators", () =>
                 :url="item?.logo.thumbnail || item.logo.url"
                 class="w-[90px] h-[90px]"
               />
-              <p v-if="item.bio" class="pt-1 text-xs text-pale line-clamp-2">
+              <p v-if="item.bio" class="pt-1 text-xs text-pale line-clamp-3">
                 {{ item.bio }}
               </p>
             </div>
