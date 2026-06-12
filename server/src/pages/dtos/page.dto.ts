@@ -65,5 +65,8 @@ export class PageDto {
   pageTipTiers: PageTipTierDto[];
 
   @Expose()
+  bio: string;
+
+  @Expose()
   ability?: any;
 }

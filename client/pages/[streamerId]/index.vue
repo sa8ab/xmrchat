@@ -19,7 +19,7 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
   async () => {
     const pageR = getStreamerPage(streamerId.value);
     const superDmStateR = axios.get<{ active: boolean; configured: boolean }>(
-      `/super-dms/${streamerId.value}/settings/state`
+      `/super-dms/${streamerId.value}/settings/state`,
     );
 
     const [page, { data: superDmState }] = await Promise.all([
@@ -37,7 +37,7 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
         v.page.tipDisplayMode || TipDisplayMode.FIAT;
       return v;
     },
-  }
+  },
 );
 
 if (error.value) {
@@ -81,6 +81,7 @@ useStreamerIdSeoMeta(computed(() => data.value?.page));
           :links="data.page.links"
           :superDmActive="data.superDmState.active"
           :streamerId="streamerId"
+          :bio="data.page.bio"
         />
         <TipContent
           ref="contentRef"

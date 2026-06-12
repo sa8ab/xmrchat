@@ -73,6 +73,7 @@ const state = reactive<State>({
     isPublic: true,
     tipDisplayMode: undefined,
     fiat: undefined,
+    bio: undefined,
   },
   slugAvailable: false,
   loadingSlug: false,
@@ -171,6 +172,7 @@ const handleSubmit = async () => {
         fiat: state.form.fiat,
         minTipAmount: state.form.minTipAmount?.toString() || null,
         expirationMinutes: state.form.expirationMinutes || null,
+        bio: state.form.bio || null,
       });
       toast.add({ title: t("pageUpdated") });
       navigateTo(toStreamerDisplay()?.path);
@@ -206,6 +208,7 @@ const v = useVuelidate<State["form"]>(
       maxLength: maxLength(16),
     },
     minTipAmount: { numberic, minValue: minValue(minXMRPayAmount) },
+    bio: { maxLength: maxLength(150) },
   },
   toRef(state, "form"),
 );
@@ -232,6 +235,7 @@ const getPage = async () => {
     fiat: page.fiat,
     expirationMinutes: page.expirationMinutes,
     tiers: page.tiers || [],
+    bio: page.bio,
   };
 
   state.stagedLogoUrl = page.logo.url;
@@ -451,6 +455,20 @@ const handleBannerUpload = (file: UploadedFile) => {
             variant="soft"
           ></UAlert>
         </div>
+      </div>
+
+      <div class="single" v-if="editable">
+        <UFormGroup label="Bio" :error="getValidationAttrs('bio').error">
+          <template #hint>
+            <span class="text-xs">
+              {{ state.form.bio?.length || 0 }} / 150
+            </span>
+          </template>
+          <UTextarea
+            v-model="state.form.bio"
+            @blur="getValidationAttrs('bio').onBlur"
+          />
+        </UFormGroup>
       </div>
 
       <!-- <div class="single" v-if="editable">

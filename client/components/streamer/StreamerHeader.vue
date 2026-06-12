@@ -11,15 +11,16 @@ const props = withDefaults(
     links?: ContentLink[];
     streamerId?: string;
     superDmActive?: boolean;
+    bio?: string;
   }>(),
   {
     showTitle: true,
-  }
+  },
 );
 
 const { toSuperDmCreate } = useRouteLocation();
 const { liveStream, livePlatforms } = useLiveStreamPlayer(
-  computed(() => props.liveStreams)
+  computed(() => props.liveStreams),
 );
 
 const showLogo = computed(() => !liveStream.value);
@@ -32,7 +33,7 @@ const verified = computed(() => props.links?.some((l) => l.verification));
     <div v-else class="banner-container">
       <GeneralImage variant="banner" :url="bannerUrl" class="banner" />
     </div>
-    <div class="options">
+    <div class="options gap-4">
       <div class="logo-and-name">
         <div class="flex flex-col items-center ms-4">
           <GeneralImage
@@ -61,6 +62,9 @@ const verified = computed(() => props.links?.some((l) => l.verification));
           <div class="flex items-center gap-1">
             <span class="text-lg lg:text-2xl font-bold">{{ name }}</span>
             <VerifiedBadge :links="links" />
+            <div v-if="bio" class="md:hidden">
+              <StreamerBio :bio="bio" />
+            </div>
           </div>
           <!-- <span class="text-pale">Streamer name</span> -->
           <StreamerLinks
@@ -69,6 +73,11 @@ const verified = computed(() => props.links?.some((l) => l.verification));
             :livePlatforms="livePlatforms"
           />
         </div>
+      </div>
+      <div v-if="bio" class="bio hidden md:block">
+        <p class="text-pale text-sm max-w-[400px]">
+          {{ bio }}
+        </p>
       </div>
     </div>
   </div>
@@ -81,7 +90,7 @@ const verified = computed(() => props.links?.some((l) => l.verification));
     @apply w-full;
   }
   .options {
-    @apply flex justify-between items-start;
+    @apply flex justify-between items-center;
   }
   .logo-and-name {
     @apply flex gap-2;

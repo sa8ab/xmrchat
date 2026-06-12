@@ -55,6 +55,9 @@ export class Page {
   secretViewKey: string;
 
   @Column({ nullable: true })
+  bio?: string;
+
+  @Column({ nullable: true })
   twitchChannel: string;
 
   @Column({ type: 'bigint', nullable: true })

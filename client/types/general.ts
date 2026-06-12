@@ -49,6 +49,7 @@ export interface CreateFormFields {
   messageTipDisplayMode?: TipDisplayMode;
   fiat?: FiatEnum;
   expirationMinutes?: number;
+  bio?: string;
 }
 
 export interface TipFormFields {
@@ -110,6 +111,7 @@ export interface StreamerPage {
   liveStreams?: LiveStream[];
   pageTipTiers?: PageTipTier[];
   ability?: any;
+  bio?: string;
 }
 
 interface TipPayment {
