@@ -132,8 +132,11 @@ export default {
         "Alex Anarcho a un excellent tutoriel sur l'utilisation de XMRChat sur {youtube}.",
       ifStreamyard: "Si vous utilisez Streamyard :",
       ifOBS: "Si vous utilisez OBS :",
+      ifLiveJoiner: "Si vous utilisez LiveJoiner :",
       streamyard: `Allez dans le menu "Modifier la page de pourboires". Assurez-vous d'avoir ajouté votre nom d'utilisateur de chaîne Twitch. Lors du démarrage du stream dans Streamyard, ajoutez Twitch comme destination. Le bot XMRChat (xmr-chat sur Twitch) enverra le message de pourboire sur Twitch et vous pourrez l'afficher sur votre écran depuis Streamyard. Le logo du bot xmrchat s'affiche le mieux avec le paramètre "Minimal".`,
       obs: `Allez dans le menu "OBS". Cliquez sur "Copier le lien de la page OBS". Ajoutez une source navigateur dans OBS et collez le lien.`,
+      liveJoiner:
+        "Choisissez XMRChat dans la liste des plateformes prises en charge, puis saisissez le chemin ou l’URL de votre page de pourboires XMRChat.",
     },
   },
   forFans: {

@@ -127,8 +127,11 @@ export default {
         "Alex Anarcho má skvělý návod jak používat XMRChat na {youtube}.",
       ifStreamyard: "Pokud používáte Streamyard:",
       ifOBS: "Pokud používáte OBS:",
+      ifLiveJoiner: "Pokud používáte LiveJoiner:",
       streamyard: `Jděte do nabídky "Upravit tip stránku". Ujistěte se, že jste přidali uživatelské jméno Twitch kanálu. Při spuštění streamu ve Streamyard přidejte Twitch jako cíl. XMRChat bot (xmr-chat na twitchi) odešle tip zprávy na Twitch a můžete je zobrazit na obrazovce přes Streamyard. Nejlépe vypadá s nastavením "Minimal".`,
       obs: `Přejděte do položky "OBS". Klikněte na "Zkopírovat odkaz na OBS stránku". V OBS přidejte zdroj prohlížeče a vložte odkaz.`,
+      liveJoiner:
+        "Vyberte XMRChat ze seznamu podporovaných platforem a zadejte cestu nebo URL své stránky s tipy na XMRChat.",
     },
   },
   forFans: {

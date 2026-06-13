@@ -130,8 +130,11 @@ export default {
         "Alex Anarcho tiene un excelente tutorial sobre cómo usar XMRChat en {youtube}.",
       ifStreamyard: "Si usas Streamyard:",
       ifOBS: "Si usas OBS:",
+      ifLiveJoiner: "Si utiliza LiveJoiner:",
       streamyard: `Ve al elemento del menú "Editar página de propinas". Asegúrate de haber añadido tu nombre de usuario de canal de Twitch. Al iniciar el stream en Streamyard, añade Twitch como destino. El bot XMRChat (xmr-chat en Twitch) enviará el mensaje de propina en Twitch y podrás mostrarlo en tu pantalla desde Streamyard. El logo del bot xmrchat se ve mejor con la configuración "Minimal".`,
       obs: `Ve al elemento del menú "OBS". Haz clic en "Copiar enlace de página OBS". Añade una fuente de navegador en OBS y pega el enlace.`,
+      liveJoiner:
+        "Seleccione XMRChat de la lista de plataformas compatibles e introduzca la ruta o URL de su página de propinas de XMRChat.",
     },
   },
   forFans: {

@@ -130,8 +130,11 @@ export default {
         "Alex Anarcho hat ein großartiges Tutorial zur Verwendung von XMRChat auf {youtube}.",
       ifStreamyard: "Wenn Sie Streamyard verwenden:",
       ifOBS: "Wenn du OBS verwendest:",
+      ifLiveJoiner: "Wenn Sie LiveJoiner verwenden:",
       streamyard: `Gehe zum Menüpunkt "Trinkgeld-Seite bearbeiten". Stelle sicher, dass du deinen Twitch-Kanalnamen hinzugefügt hast. Wenn du den Stream in Streamyard startest, füge Twitch als Ziel hinzu. Der XMRChat-Bot (xmr-chat auf Twitch) wird die Trinkgeld-Nachricht auf Twitch senden und du kannst sie auf deinem Bildschirm von Streamyard anzeigen. Das angezeigte xmrchat-Bot-Logo sieht am besten mit der "Minimal"-Einstellung aus.`,
       obs: `Gehe zum "OBS"-Menüpunkt. Klicke auf "OBS-Seitenlink kopieren". Füge eine Browserquelle in OBS hinzu und füge den Link ein.`,
+      liveJoiner:
+        "Wählen Sie XMRChat aus der Liste der unterstützten Plattformen aus und geben Sie den Pfad oder die URL Ihrer XMRChat-Trinkgeldseite ein.",
     },
   },
   forFans: {
