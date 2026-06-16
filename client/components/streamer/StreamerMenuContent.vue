@@ -52,7 +52,7 @@ const items = computed(() => {
         exact: true,
       },
       {
-        label: "Accounts",
+        label: t("accounts"),
         icon: "i-heroicons-user",
         to: toStreamerAccount(),
       },

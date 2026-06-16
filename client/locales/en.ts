@@ -13,7 +13,8 @@ export default {
     notUrl: "Should not be a link.",
     streamerSlug:
       "Your path can only contain lowercase letters, numbers, underscores, and hyphens.",
-    moneroPrimaryAddress: "Primary address is invalid. It should start with {characters}.",
+    moneroPrimaryAddress:
+      "Primary address is invalid. It should start with {characters}.",
   },
 
   account: "Account",
@@ -128,8 +129,11 @@ export default {
         "Alex Anarcho has a great tutorial on how to use XMRChat on {youtube}.",
       ifStreamyard: "If you use Streamyard:",
       ifOBS: "If you use OBS:",
+      ifLiveJoiner: "If you use LiveJoiner:",
       streamyard: `Go to "Edit tip page" menu item. Make sure you have added your twitch channel username. When starting the stream in Streamyard add Twitch as a destination. XMRChat bot ( xmr-chat on twitch ) will send the tip message on Twitch and you can display it on your screen from Streamyard. Displayed xmrchat bot logo looks best with "Minimal" setting.`,
       obs: `Go to "OBS" menu item. Click on "Copy OBS Page Link". Add a browser source in OBS and paste the link.`,
+      liveJoiner:
+        "Choose XMRChat from the list of supported platforms, and enter your XMRChat tip page path or URL.",
     },
   },
   forFans: {
@@ -256,10 +260,12 @@ export default {
   splitPaymentToMultipleRecipients: "Split tip",
   backToSinglePayment: "Back to single recipient",
   recipients: "Recipients",
+  bioHelp: "Will appear on tip page and in search results.",
 
   // STREAMER MENU
   menu: "Menu",
   myXmrchats: "My xmrchats",
+  accounts: "Accounts",
   editTipPage: "Edit Tip Page",
   tipPage: "Tip Page",
   contentLinks: "Content Links",
@@ -314,6 +320,10 @@ export default {
   podcastRssLink: "Podcast RSS Link",
   nostrPubKey: "Nostr Pub Key",
   kunoFundraiser: "Kuno fundraiser",
+  rumbleLiveStreamApi: "Rumble live stream API",
+  rumbleLiveStreamApiHelp:
+    "Rumble live stream API from {guide}. XMRChat uses this URL for getting current live streams of your channel.",
+  thisGuide: "this guide",
 
   // OBS
   obsDescription: "OBS widget and settings.",

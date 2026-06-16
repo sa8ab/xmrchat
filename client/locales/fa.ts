@@ -12,7 +12,8 @@ export default {
     notUrl: " در این قسمت نباید لینک نوشته شود. ",
     streamerSlug:
       "متن شما باید شامل حروف بزرگ، حروف کوچک، اعداد، زیر خط و خط تیره باشد.  ",
-    moneroPrimaryAddress: "آدرس اصلی نامعتبر است. باید با {characters} شروع شود.",
+    moneroPrimaryAddress:
+      "آدرس اصلی نامعتبر است. باید با {characters} شروع شود.",
   },
 
   account: "حساب کاربری",
@@ -128,9 +129,12 @@ export default {
         "الکس آنارکو یک آموزش عالی درباره نحوه استفاده از XMRChat در {youtube} دارد.",
       ifStreamyard: "اگر از Streamyard استفاده می‌کنید:",
       ifOBS: "اگر از OBS استفاده می‌کنید:",
+      ifLiveJoiner: "اگر از LiveJoiner استفاده می‌کنید:",
       streamyard:
         'به منوی "ویرایش صفحه انعام" بروید. مطمئن شوید که نام کاربری کانال توییچ خود را اضافه کرده‌اید. هنگام شروع استریم در Streamyard، توییچ را به عنوان مقصد اضافه کنید. ربات XMRChat (xmr-chat در توییچ) پیام انعام را در توییچ ارسال می‌کند و شما می‌توانید آن را از Streamyard روی صفحه نمایش خود نشان دهید. لوگوی ربات xmrchat با تنظیم "Minimal" بهترین ظاهر را دارد.',
       obs: 'به منوی "OBS" بروید. روی "کپی لینک صفحه OBS" کلیک کنید. یک منبع مرورگر در OBS اضافه کنید و لینک را جایگذاری کنید.',
+      liveJoiner:
+        "XMRChat را از فهرست پلتفرم‌های پشتیبانی‌شده انتخاب کنید و مسیر یا آدرس URL صفحه انعام XMRChat خود را وارد کنید.",
     },
   },
   forFans: {
@@ -252,11 +256,13 @@ export default {
   paymentCheckingDis: "بررسی پرداخت قطع شده است.",
   ifPaymentMade:
     "اگر پرداخت انجام شده باشد، در لیست راهنماها نمایش داده می‌شود.",
+  bioHelp: "در صفحه انعام و نتایج جستجو نمایش داده خواهد شد.",
 
   // STREAMER MENU
   menu: "منو",
   myXmrchats: "انعام‌های من",
   editTipPage: "ویرایش صفحه انعام",
+  accounts: "حساب‌ها",
   tipPage: "صفحه انعام",
   contentLinks: "لینک‌های محتوا",
   obs: "OBS",
@@ -309,6 +315,10 @@ export default {
   youtubeChannel: "کانال یوتیوب",
   podcastRssLink: "لینک RSS پادکست",
   nostrPubKey: "کلید عمومی Nostr",
+  rumbleLiveStreamApi: "API پخش زنده Rumble",
+  rumbleLiveStreamApiHelp:
+    "API پخش زنده Rumble از {guide}. XMRChat از این آدرس URL برای دریافت پخش‌های زنده فعلی کانال شما استفاده می‌کند.",
+  thisGuide: "این راهنما",
 
   // OBS
   obsDescription: "ویجت و تنظیمات OBS.",

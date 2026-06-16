@@ -127,8 +127,11 @@ export default {
         "Alex Anarcho가 {youtube}에서 XMRChat 사용법에 대한 훌륭한 튜토리얼을 제공합니다.",
       ifStreamyard: "Streamyard를 사용하는 경우:",
       ifOBS: "OBS를 사용하는 경우:",
+      ifLiveJoiner: "LiveJoiner를 사용하는 경우:",
       streamyard: `"팁 페이지 편집" 메뉴 항목으로 이동하세요. 트위치 채널 사용자 이름을 추가했는지 확인하세요. Streamyard에서 스트림을 시작할 때 Twitch를 대상으로 추가하세요. XMRChat 봇(트위치의 xmr-chat)이 트위치에 팁 메시지를 보내고 Streamyard에서 화면에 표시할 수 있습니다. xmrchat 봇 로고는 "Minimal" 설정에서 가장 잘 보입니다.`,
       obs: `"OBS" 메뉴 항목으로 이동하세요. "OBS 페이지 링크 복사"를 클릭하세요. OBS에 브라우저 소스를 추가하고 링크를 붙여넣으세요.`,
+      liveJoiner:
+        "지원되는 플랫폼 목록에서 XMRChat을 선택한 후 XMRChat 팁 페이지의 경로 또는 URL을 입력하세요.",
     },
   },
   forFans: {
@@ -247,11 +250,13 @@ export default {
   pageReservationExpired: "페이지 예약이 만료되었습니다.",
   paymentCheckingDis: "결제 확인이 끊어졌습니다.",
   ifPaymentMade: "이미 결제하셨다면 팁 목록에 표시됩니다.",
+  bioHelp: "팁 페이지와 검색 결과에 표시됩니다.",
 
   // STREAMER MENU
   menu: "메뉴",
   myXmrchats: "내 xmrchats",
   editTipPage: "팁 페이지 편집",
+  accounts: "계정",
   tipPage: "팁 페이지",
   contentLinks: "콘텐츠 링크",
   obs: "OBS",
@@ -301,6 +306,10 @@ export default {
   youtubeChannel: "유튜브 채널",
   podcastRssLink: "팟캐스트 RSS 링크",
   nostrPubKey: "Nostr 공개 키",
+  rumbleLiveStreamApi: "Rumble 라이브 스트림 API",
+  rumbleLiveStreamApiHelp:
+    "{guide}의 Rumble 라이브 스트림 API입니다. XMRChat은 이 URL을 사용하여 채널의 현재 라이브 스트림을 가져옵니다.",
+  thisGuide: "이 가이드",
 
   // OBS
   obsDescription: "OBS 위젯 및 설정.",
