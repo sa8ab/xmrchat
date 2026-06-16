@@ -252,6 +252,7 @@ export default {
   pageReservationExpired: "Резервация страницы истекла.",
   paymentCheckingDis: "Проверка платежа отключена.",
   ifPaymentMade: "Если платеж уже был произведён, он появится в списке чаевых.",
+  bioHelp: "Будет отображаться на странице чаевых и в результатах поиска.",
 
   // STREAMER MENU
   menu: "Меню",
@@ -307,6 +308,10 @@ export default {
   youtubeChannel: "Youtube канал",
   podcastRssLink: "Ссылка на RSS-канал",
   nostrPubKey: "Nostr Публичный Ключ",
+  rumbleLiveStreamApi: "API прямых трансляций Rumble",
+  rumbleLiveStreamApiHelp:
+    "API прямых трансляций Rumble из {guide}. XMRChat использует этот URL для получения текущих прямых трансляций вашего канала.",
+  thisGuide: "этого руководства",
 
   // OBS
   obsDescription: "Виджет и настройки OBS.",

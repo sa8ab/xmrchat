@@ -252,6 +252,7 @@ export default {
   pageReservationExpired: "Sivun varaus on vanhentunut.",
   paymentCheckingDis: "Maksun tarkistus on katkaistu.",
   ifPaymentMade: "Jos maksu on jo tehty, se näkyy vinkkilistassa.",
+  bioHelp: "Näkyy tippisivulla ja hakutuloksissa.",
 
   // STREAMER MENU
   menu: "Valikko",
@@ -307,6 +308,10 @@ export default {
   youtubeChannel: "Youtube-kanava",
   podcastRssLink: "Podcast-RSS-linkki",
   nostrPubKey: "Nostr-julkinen avain",
+  rumbleLiveStreamApi: "Rumble-live-lähetysrajapinta",
+  rumbleLiveStreamApiHelp:
+    "Rumble-live-lähetysrajapinta lähteestä {guide}. XMRChat käyttää tätä URL-osoitetta kanavasi nykyisten live-lähetysten hakemiseen.",
+  thisGuide: "tästä oppaasta",
 
   // OBS
   obsDescription: "OBS-widget ja asetukset.",

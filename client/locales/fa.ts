@@ -256,6 +256,7 @@ export default {
   paymentCheckingDis: "بررسی پرداخت قطع شده است.",
   ifPaymentMade:
     "اگر پرداخت انجام شده باشد، در لیست راهنماها نمایش داده می‌شود.",
+  bioHelp: "در صفحه انعام و نتایج جستجو نمایش داده خواهد شد.",
 
   // STREAMER MENU
   menu: "منو",
@@ -313,6 +314,10 @@ export default {
   youtubeChannel: "کانال یوتیوب",
   podcastRssLink: "لینک RSS پادکست",
   nostrPubKey: "کلید عمومی Nostr",
+  rumbleLiveStreamApi: "API پخش زنده Rumble",
+  rumbleLiveStreamApiHelp:
+    "API پخش زنده Rumble از {guide}. XMRChat از این آدرس URL برای دریافت پخش‌های زنده فعلی کانال شما استفاده می‌کند.",
+  thisGuide: "این راهنما",
 
   // OBS
   obsDescription: "ویجت و تنظیمات OBS.",

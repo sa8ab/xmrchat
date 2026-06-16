@@ -250,6 +250,7 @@ export default {
   pageReservationExpired: "페이지 예약이 만료되었습니다.",
   paymentCheckingDis: "결제 확인이 끊어졌습니다.",
   ifPaymentMade: "이미 결제하셨다면 팁 목록에 표시됩니다.",
+  bioHelp: "팁 페이지와 검색 결과에 표시됩니다.",
 
   // STREAMER MENU
   menu: "메뉴",
@@ -304,6 +305,10 @@ export default {
   youtubeChannel: "유튜브 채널",
   podcastRssLink: "팟캐스트 RSS 링크",
   nostrPubKey: "Nostr 공개 키",
+  rumbleLiveStreamApi: "Rumble 라이브 스트림 API",
+  rumbleLiveStreamApiHelp:
+    "{guide}의 Rumble 라이브 스트림 API입니다. XMRChat은 이 URL을 사용하여 채널의 현재 라이브 스트림을 가져옵니다.",
+  thisGuide: "이 가이드",
 
   // OBS
   obsDescription: "OBS 위젯 및 설정.",

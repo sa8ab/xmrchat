@@ -258,6 +258,7 @@ export default {
   paymentCheckingDis: "Die Zahlungsüberprüfung wurde getrennt.",
   ifPaymentMade:
     "Wenn die Zahlung bereits erfolgt ist, wird sie in der Tipp-Liste angezeigt.",
+  bioHelp: "Wird auf der Trinkgeldseite und in den Suchergebnissen angezeigt.",
 
   // STREAMER MENU
   menu: "Menü",
@@ -313,6 +314,10 @@ export default {
   youtubeChannel: "Youtube-Kanal",
   podcastRssLink: "Podcast-RSS-Link",
   nostrPubKey: "Nostr öffentlicher Schlüssel (npub)",
+  rumbleLiveStreamApi: "Rumble-Livestream-API",
+  rumbleLiveStreamApiHelp:
+    "Rumble-Livestream-API aus {guide}. XMRChat verwendet diese URL, um die aktuellen Livestreams deines Kanals abzurufen.",
+  thisGuide: "dieser Anleitung",
 
   // OBS
   obsDescription: "OBS-Widget und Einstellungen.",

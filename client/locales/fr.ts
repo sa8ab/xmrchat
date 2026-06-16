@@ -269,6 +269,8 @@ export default {
     "Diviser le paiement entre plusieurs destinataires",
   backToSinglePayment: "Retour au paiement unique",
   recipients: "Destinataires",
+  bioHelp:
+    "S'affichera sur la page de pourboires et dans les résultats de recherche.",
 
   // STREAMER MENU
   menu: "Menu",
@@ -325,6 +327,10 @@ export default {
   youtubeChannel: "Chaîne Youtube",
   podcastRssLink: "Lien RSS du Podcast",
   nostrPubKey: "Clé Publique Nostr",
+  rumbleLiveStreamApi: "API de diffusion en direct Rumble",
+  rumbleLiveStreamApiHelp:
+    "API de diffusion en direct Rumble provenant de {guide}. XMRChat utilise cette URL pour récupérer les diffusions en direct actuelles de votre chaîne.",
+  thisGuide: "ce guide",
 
   // OBS
   obsDescription: "Widget et paramètres OBS.",

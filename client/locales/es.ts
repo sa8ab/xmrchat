@@ -258,6 +258,8 @@ export default {
   pageReservationExpired: "La reserva de la página ha expirado.",
   paymentCheckingDis: "La verificación de pago se ha desconectado.",
   ifPaymentMade: "Si el pago ya se realizó, aparecerá en la lista de propinas.",
+  bioHelp:
+    "Se mostrará en la página de propinas y en los resultados de búsqueda.",
 
   // STREAMER MENU
   menu: "Menú",
@@ -314,6 +316,10 @@ export default {
   youtubeChannel: "Canal de Youtube",
   podcastRssLink: "Enlace RSS del Podcast",
   nostrPubKey: "Clave Pública de Nostr",
+  rumbleLiveStreamApi: "API de transmisiones en vivo de Rumble",
+  rumbleLiveStreamApiHelp:
+    "API de transmisiones en vivo de Rumble de {guide}. XMRChat utiliza esta URL para obtener las transmisiones en vivo actuales de tu canal.",
+  thisGuide: "esta guía",
 
   // OBS
   obsDescription: "Widget y configuración de OBS.",

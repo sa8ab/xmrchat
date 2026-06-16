@@ -247,6 +247,7 @@ export default {
   pageReservationExpired: "انتهت صلاحية حجز الصفحة.",
   paymentCheckingDis: "تم فصل التحقق من الدفع.",
   ifPaymentMade: "إذا تم الدفع بالفعل، فسيتم عرضه في قائمة النصائح.",
+  bioHelp: "سيظهر في صفحة الإكراميات وفي نتائج البحث.",
 
   // STREAMER MENU
   menu: "القائمة",
@@ -302,6 +303,10 @@ export default {
   youtubeChannel: "قناة Youtube",
   podcastRssLink: "رابط RSS البودكاست",
   nostrPubKey: "مفتاح Nostr",
+  rumbleLiveStreamApi: "واجهة برمجة تطبيقات البث المباشر لـ Rumble",
+  rumbleLiveStreamApiHelp:
+    "واجهة برمجة تطبيقات البث المباشر لـ Rumble من {guide}. يستخدم XMRChat هذا الرابط للحصول على البثوث المباشرة الحالية لقناتك.",
+  thisGuide: "هذا الدليل",
 
   // OBS
   obsDescription: "إعدادات وأدوات OBS",

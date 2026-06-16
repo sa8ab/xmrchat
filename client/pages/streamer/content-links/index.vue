@@ -100,8 +100,15 @@ const save = async () => {
 
 const rules = computed(() => {
   const notUrlWithMessage = helpers.withMessage(t("notUrlWithMessage"), notUrl);
-  const { WEBSITE, PODCAST_RSS, PEERTUBE, UPSCROLLED, BITCHUTE, DISCORD, ...rest } =
-    ContentLinkPlatformEnum;
+  const {
+    WEBSITE,
+    PODCAST_RSS,
+    PEERTUBE,
+    UPSCROLLED,
+    BITCHUTE,
+    DISCORD,
+    ...rest
+  } = ContentLinkPlatformEnum;
 
   const notUrls: Record<string, any> = {};
   Object.values(rest).forEach((nUrl) => {
@@ -202,22 +209,24 @@ const getLink = (platform: ContentLinkPlatformEnum) => {
     </div>
 
     <UFormGroup
-      label="Rumble live stream API"
+      :label="$t('rumbleLiveStreamApi')"
       class="mt-4"
       :error="getValidationAttrs('rumbleLiveStreamUrl').error"
     >
       <template #description>
-        Rumble live stream API from
-        <UButton
-          :padded="false"
-          variant="link"
-          target="_blank"
-          external
-          to="https://rumblefaq.groovehq.com/help/how-to-use-rumble-s-live-stream-api"
-        >
-          this guide </UButton
-        >. XMRChat uses this URL for getting current live streams of your
-        channel.
+        <I18nT keypath="rumbleLiveStreamApiHelp">
+          <template #guide>
+            <UButton
+              :padded="false"
+              variant="link"
+              target="_blank"
+              external
+              to="https://rumblefaq.groovehq.com/help/how-to-use-rumble-s-live-stream-api"
+            >
+              {{ $t("thisGuide") }}
+            </UButton>
+          </template>
+        </I18nT>
       </template>
       <PasswordInput
         defaultVisible

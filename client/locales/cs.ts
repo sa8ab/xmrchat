@@ -251,6 +251,7 @@ export default {
   pageReservationExpired: "Rezervace stránky vypršela.",
   paymentCheckingDis: "Ověřování platby bylo přerušeno.",
   ifPaymentMade: "Pokud již byla platba provedena, zobrazí se v seznamu tipů.",
+  bioHelp: "Zobrazí se na stránce s tipy a ve výsledcích vyhledávání.",
 
   // STREAMER MENU
   menu: "Menu",
@@ -308,6 +309,10 @@ export default {
   youtubeChannel: "YouTube kanál",
   podcastRssLink: "Podcast RSS odkaz",
   nostrPubKey: "Veřejný klíč Nostr",
+  rumbleLiveStreamApi: "API živého vysílání Rumble",
+  rumbleLiveStreamApiHelp:
+    "API živého vysílání Rumble z {guide}. XMRChat používá tuto URL k získání aktuálních živých vysílání vašeho kanálu.",
+  thisGuide: "tohoto průvodce",
 
   //   OSB
   obsDescription: "OBS widget a nastavení.",

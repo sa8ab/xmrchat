@@ -260,6 +260,7 @@ export default {
   splitPaymentToMultipleRecipients: "Split tip",
   backToSinglePayment: "Back to single recipient",
   recipients: "Recipients",
+  bioHelp: "Will appear on tip page and in search results.",
 
   // STREAMER MENU
   menu: "Menu",
@@ -318,6 +319,10 @@ export default {
   podcastRssLink: "Podcast RSS Link",
   nostrPubKey: "Nostr Pub Key",
   kunoFundraiser: "Kuno fundraiser",
+  rumbleLiveStreamApi: "Rumble live stream API",
+  rumbleLiveStreamApiHelp:
+    "Rumble live stream API from {guide}. XMRChat uses this URL for getting current live streams of your channel.",
+  thisGuide: "this guide",
 
   // OBS
   obsDescription: "OBS widget and settings.",
