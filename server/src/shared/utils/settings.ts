@@ -45,6 +45,14 @@ export const PAGE_SETTINGS = {
     category: PageSettingCategory.SUPER_DM,
     type: PageSettingValueType.BOOLEAN,
   },
+  [PageSettingKey.TELEGRAM_USER_ID]: {
+    category: PageSettingCategory.PAID_CONTENT,
+    type: PageSettingValueType.STRING,
+  },
+  [PageSettingKey.TELEGRAM_PAID_CONTENT_ID]: {
+    category: PageSettingCategory.PAID_CONTENT,
+    type: PageSettingValueType.STRING,
+  },
 };
 
 export const getPageSettingCategory = (key: PageSettingKey) =>

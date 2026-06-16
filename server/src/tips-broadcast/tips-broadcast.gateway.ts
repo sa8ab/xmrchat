@@ -8,6 +8,7 @@ import {
 } from '@nestjs/websockets';
 import { Namespace, Socket } from 'socket.io';
 import { PageTipTier } from 'src/page-tip-tiers/page-tip-tier.entity';
+import { PageDto } from 'src/pages/dtos/page.dto';
 import { serializer } from 'src/shared/interceptors/serialize.interceptor';
 import { getTipTier } from 'src/shared/utils';
 import { TipMessageService } from 'src/tip-message/tip-message.service';

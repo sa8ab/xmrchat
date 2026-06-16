@@ -13,6 +13,7 @@ import type {
   LiveStreamPlatformEnum,
   CohostInvitationStatusEnum,
   SuperDmMessageSenderTypeEnum,
+  OfferingTypeEnum,
 } from "./enums";
 
 export type Numberic = string | number;
@@ -359,4 +360,13 @@ export interface GeneratedKeys {
 
 export interface SavedViewerSuperDmKeys extends GeneratedKeys {
   superDmId: string;
+}
+
+export interface PaidContent {
+  id: number;
+  name: string;
+  description?: string;
+  duration?: number;
+  amount: string;
+  createdAt: string;
 }

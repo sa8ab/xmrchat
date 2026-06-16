@@ -1,0 +1,24 @@
+{{#>layout title="{{translate 'email.newEntitlement.title' lang=lang}}" }}
+  <h1 style="padding-bottom: 12px">{{translate "email.newEntitlement.emailTitle" lang=lang}}</h1>
+  <p style="padding-bottom: 16px">
+    {{translate "email.newEntitlement.message" lang=lang userName=userName}}
+  </p>
+
+  {{#if link}}
+    <a href="{{link}}" target="_blank"
+      style="padding: 12px 24px; margin-bottom: 16px; border-radius: 4px; color: #FFF; background: #ff7f0a; display: inline-flex;">
+      {{translate "email.newEntitlement.viewUser" lang=lang}}
+    </a>
+  {{/if}}
+
+  <p style="padding-bottom: 16px">{{translate "email.newEntitlement.thankYouForYourContent" lang=lang}}</p>
+
+  <div style="text-align: center; margin-top: 24px;">
+    <a href="https://xmrchat.com" target="_blank"
+      style="padding: 12px 24px; border-radius: 4px; color: #FFF; background: #ff7f0a; display: inline-flex; text-decoration: none;">
+      {{translate "email.newEntitlement.visitXMRChat" lang=lang}}
+    </a>
+  </div>
+
+  {{>ending}}
+{{/layout}}

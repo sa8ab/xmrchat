@@ -12,6 +12,7 @@ import { CohostInvitation } from 'src/cohost/cohost-invitations/entities/cohost-
 import { PageSetting } from 'src/page-settings/page-setting.entity';
 import { PageTipTier } from 'src/page-tip-tiers/page-tip-tier.entity';
 import { Page } from 'src/pages/page.entity';
+import { PaidContent } from 'src/paid-content/paid-content.entity';
 import { Action, PageSettingKey, RolesEnum } from 'src/shared/constants/enum';
 import { SuperDm } from 'src/super-dms/super-dm.entity';
 import { Tip } from 'src/tips/tip.entity';
@@ -26,6 +27,7 @@ type Subjects =
       | typeof Tip
       | typeof PageSetting
       | typeof PageTipTier
+      | typeof PaidContent
     >
   | 'notification'
   | 'cohost'
@@ -63,6 +65,7 @@ export class CaslAbilityFactory {
       can(Action.Manage, 'cohost');
       can(Action.Create, CohostInvitation);
       can(Action.Manage, PageTipTier, { pageId: pageResult?.id });
+      can(Action.Manage, PaidContent, { pageId: pageResult?.id });
     }
 
     // OBS ACTIONS

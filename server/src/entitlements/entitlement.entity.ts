@@ -1,26 +1,49 @@
-import { Offering } from "src/offerings/offering.entity"
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Page } from 'src/pages/page.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  RelationId,
+  UpdateDateColumn,
+} from 'typeorm';
+import { PaidContentTypeEnum } from 'src/shared/constants';
+import { Payment } from 'src/payments/payment.entity';
 
 @Entity({ name: 'entitlements' })
 export class Entitlement {
-  @PrimaryGeneratedColumn()
-  id: number
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @ManyToOne(() => Offering, { onDelete: 'SET NULL', nullable: true })
-  offering?: Offering
-
-  @Column()
-  name: string
+  @Column({ nullable: false })
+  name: string;
 
   @Column({ type: 'integer', nullable: true })
-  duration?: number
+  duration?: number;
 
   @Column({ type: 'bigint' })
-  amount: number
+  amount: string;
 
-  @Column()
-  description: string
+  @Column({ default: PaidContentTypeEnum.TELEGRAM })
+  type: PaidContentTypeEnum;
 
-  @Column({ type: 'timestamptz' })
-  createdAt: Date
+  @Column({ type: 'jsonb', nullable: true })
+  data?: Record<string, any>;
+
+  @ManyToOne(() => Page, { onDelete: 'CASCADE' })
+  page: Page;
+
+  @RelationId((e: Entitlement) => e.page)
+  pageId: number;
+
+  @OneToOne(() => Payment, (p: Payment) => p.entitlement)
+  payment: Payment;
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt: Date;
 }

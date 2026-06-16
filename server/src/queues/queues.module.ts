@@ -11,7 +11,8 @@ import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
       { name: 'notifications-signal' },
       { name: 'live-stream' },
       { name: 'notifications-daily-summary' },
-      { name: 'link-verification-validation' }
+      { name: 'link-verification-validation' },
+      { name: 'entitlement-expiration' },
     ),
 
     BullBoardModule.forFeature({
@@ -38,7 +39,11 @@ import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
       name: 'link-verification-validation',
       adapter: BullMQAdapter,
     }),
+    BullBoardModule.forFeature({
+      name: 'entitlement-expiration',
+      adapter: BullMQAdapter,
+    }),
   ],
   exports: [BullModule],
 })
-export class QueuesModule { }
+export class QueuesModule {}

@@ -13,6 +13,9 @@ export enum PageSettingKey {
   SUPER_DM_MIN_AMOUNT = "super-dm-min-amount",
   SUPER_DM_PUBLIC_KEY = "super-dm-public-key",
   SUPER_DM_ACTIVE = "super-dm-active",
+
+  TELEGRAM_USER_ID = "telegram-user-id",
+  TELEGRAM_PAID_CONTENT_ID = "telegram-paid-content-id",
 }
 
 export enum ContentLinkPlatformEnum {
@@ -118,4 +121,13 @@ export enum MoneroNetworkTypeEnum {
   TESTNET = "testnet",
   STAGENET = "stagenet",
   STRESSNET = "stressnet",
+}
+
+export enum OfferingTypeEnum {
+  TELEGRAM = "telegram",
+}
+
+export enum PaidContentDurationEnum {
+  WEEK = "week",
+  MONTH = "month",
 }
