@@ -256,6 +256,7 @@ export default {
   menu: "메뉴",
   myXmrchats: "내 xmrchats",
   editTipPage: "팁 페이지 편집",
+  accounts: "계정",
   tipPage: "팁 페이지",
   contentLinks: "콘텐츠 링크",
   obs: "OBS",

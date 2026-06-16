@@ -265,6 +265,7 @@ export default {
   // STREAMER MENU
   menu: "Menu",
   myXmrchats: "My xmrchats",
+  accounts: "Accounts",
   editTipPage: "Edit Tip Page",
   tipPage: "Tip Page",
   contentLinks: "Content Links",

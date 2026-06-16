@@ -258,6 +258,7 @@ export default {
   menu: "Меню",
   myXmrchats: "Мои xmrchats",
   editTipPage: "Редактировать Страницу Чаевых",
+  accounts: "Аккаунты",
   tipPage: "Страница Чаевых",
   contentLinks: "Ссылки на Контент",
   obs: "OBS",

@@ -264,6 +264,7 @@ export default {
   menu: "Menü",
   myXmrchats: "Meine xmrchats",
   editTipPage: "Trinkgeld-Seite bearbeiten",
+  accounts: "Konten",
   tipPage: "Trinkgeld-Seite",
   contentLinks: "Content-Links",
   obs: "OBS",

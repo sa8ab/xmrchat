@@ -276,6 +276,7 @@ export default {
   menu: "Menu",
   myXmrchats: "Mes xmrchats",
   editTipPage: "Modifier la Page de Pourboires",
+  accounts: "Comptes",
   tipPage: "Page de Pourboires",
   contentLinks: "Liens de Contenu",
   obs: "OBS",

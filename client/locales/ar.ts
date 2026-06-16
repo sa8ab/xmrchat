@@ -253,6 +253,7 @@ export default {
   menu: "القائمة",
   myXmrchats: "xmrchats الخاصة بي",
   editTipPage: "تعديل صفحة التبرع",
+  accounts: "الحسابات",
   tipPage: "صفحة التبرع",
   contentLinks: "روابط المحتوى",
   obs: "OBS",

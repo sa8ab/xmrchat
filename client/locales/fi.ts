@@ -258,6 +258,7 @@ export default {
   menu: "Valikko",
   myXmrchats: "Omat xmrchats",
   editTipPage: "Muokkaa Tippisivua",
+  accounts: "Tilit",
   tipPage: "Tippisivu",
   contentLinks: "Sisältölinkit",
   obs: "OBS",

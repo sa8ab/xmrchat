@@ -257,6 +257,7 @@ export default {
   menu: "Menu",
   myXmrchats: "Moje XMRChaty",
   editTipPage: "Upravit stránku s tipy",
+  accounts: "Účty",
   tipPage: "Stránka s tipy",
   contentLinks: "Odkazy na obsah",
   obs: "OBS",

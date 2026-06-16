@@ -262,6 +262,7 @@ export default {
   menu: "منو",
   myXmrchats: "انعام‌های من",
   editTipPage: "ویرایش صفحه انعام",
+  accounts: "حساب‌ها",
   tipPage: "صفحه انعام",
   contentLinks: "لینک‌های محتوا",
   obs: "OBS",
