@@ -52,13 +52,5 @@ export const useRouteLocation = () => {
       localeRoute(`/${streamerId}/super-dm`),
     toSuperDm: (streamerId: Numberic, superDmId: Numberic) =>
       localeRoute(`/${streamerId}/super-dm/${superDmId}`),
-
-    toStreamerPaidContents: () => localeRoute("/streamer/paid-content"),
-    toStreamerPaidContentCreate: () =>
-      localeRoute("/streamer/paid-content/create"),
-    toStreamerPaidContentEdit: (id: Numberic) =>
-      localeRoute(`/streamer/paid-content/${id}/edit`),
-    toStreamerPaidContentSettings: () =>
-      localeRoute("/streamer/paid-content/settings"),
   };
 };

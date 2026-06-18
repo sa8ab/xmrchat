@@ -22,8 +22,6 @@ import { Tip } from 'src/tips/tip.entity';
 import { User } from 'src/users/user.entity';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { LinkVerification } from 'src/link-verifications/link-verification.entity';
-import { PaidContent } from 'src/paid-content/paid-content.entity';
-import { Entitlement } from 'src/entitlements/entitlement.entity';
 
 @Module({
   imports: [
@@ -56,8 +54,6 @@ import { Entitlement } from 'src/entitlements/entitlement.entity';
           SuperDm,
           SuperDmMessage,
           LinkVerification,
-          PaidContent,
-          Entitlement,
         ],
         namingStrategy: new SnakeNamingStrategy(),
         migrationsRun: process.env.NODE_ENV === 'production',

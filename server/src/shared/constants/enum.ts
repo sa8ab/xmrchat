@@ -20,7 +20,6 @@ export enum PageSettingCategory {
   STREAMING = 'streaming',
   NOTIFICATIONS = 'notifications',
   SUPER_DM = 'super-dm',
-  PAID_CONTENT = 'paid-content',
 }
 
 export enum PageSettingKey {
@@ -34,8 +33,6 @@ export enum PageSettingKey {
   SUPER_DM_MIN_AMOUNT = 'super-dm-min-amount',
   SUPER_DM_PUBLIC_KEY = 'super-dm-public-key',
   SUPER_DM_ACTIVE = 'super-dm-active',
-  TELEGRAM_USER_ID = 'telegram-user-id',
-  TELEGRAM_PAID_CONTENT_ID = 'telegram-paid-content-id',
 }
 
 export enum TipDisplayMode {
@@ -179,8 +176,4 @@ export enum SuperDmMessageSenderType {
 
 export enum PageVerificationTypeEnum {
   X = 'x',
-}
-
-export enum PaidContentTypeEnum {
-  TELEGRAM = 'telegram',
 }
