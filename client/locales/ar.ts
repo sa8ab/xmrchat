@@ -11,7 +11,8 @@ export default {
     url: "الرابط غير صالح",
     notUrl: "يجب ألا يكون رابطاً",
     streamerSlug: "يمكن أن يحتوي الرابط على أحرف صغيرة، أرقام، أسطر و أسطورة",
-    moneroPrimaryAddress: "عنوان الاستلام غير صالح. يجب أن يبدأ بـ {characters}.",
+    moneroPrimaryAddress:
+      "عنوان الاستلام غير صالح. يجب أن يبدأ بـ {characters}.",
   },
 
   account: "الحساب",
@@ -124,8 +125,11 @@ export default {
         "لدى Alex Anarcho برنامج تعليمي رائع حول كيفية استخدام XMRChat على {youtube}.",
       ifStreamyard: "إذا كنت تستخدم Streamyard:",
       ifOBS: "إذا كنت تستخدم OBS:",
+      ifLiveJoiner: "إذا كنت تستخدم LiveJoiner:",
       streamyard: `انتقل إلى عنصر القائمة "تعديل صفحة التبرع". تأكد من إضافة اسم مستخدم قناة Twitch الخاصة بك. عند بدء البث في Streamyard، أضف Twitch كوجهة. سيرسل روبوت XMRChat (xmr-chat على Twitch) رسالة التبرع على Twitch ويمكنك عرضها على شاشتك من Streamyard. يبدو شعار روبوت xmrchat أفضل مع إعداد "Minimal".`,
       obs: `انتقل إلى عنصر القائمة "OBS". انقر على "نسخ رابط صفحة OBS". أضف مصدر متصفح في OBS والصق الرابط.`,
+      liveJoiner:
+        "اختر XMRChat من قائمة المنصات المدعومة، ثم أدخل مسار أو رابط صفحة الإكراميات الخاصة بك على XMRChat.",
     },
   },
   forFans: {
@@ -243,11 +247,13 @@ export default {
   pageReservationExpired: "انتهت صلاحية حجز الصفحة.",
   paymentCheckingDis: "تم فصل التحقق من الدفع.",
   ifPaymentMade: "إذا تم الدفع بالفعل، فسيتم عرضه في قائمة النصائح.",
+  bioHelp: "سيظهر في صفحة الإكراميات وفي نتائج البحث.",
 
   // STREAMER MENU
   menu: "القائمة",
   myXmrchats: "xmrchats الخاصة بي",
   editTipPage: "تعديل صفحة التبرع",
+  accounts: "الحسابات",
   tipPage: "صفحة التبرع",
   contentLinks: "روابط المحتوى",
   obs: "OBS",
@@ -298,6 +304,10 @@ export default {
   youtubeChannel: "قناة Youtube",
   podcastRssLink: "رابط RSS البودكاست",
   nostrPubKey: "مفتاح Nostr",
+  rumbleLiveStreamApi: "واجهة برمجة تطبيقات البث المباشر لـ Rumble",
+  rumbleLiveStreamApiHelp:
+    "واجهة برمجة تطبيقات البث المباشر لـ Rumble من {guide}. يستخدم XMRChat هذا الرابط للحصول على البثوث المباشرة الحالية لقناتك.",
+  thisGuide: "هذا الدليل",
 
   // OBS
   obsDescription: "إعدادات وأدوات OBS",

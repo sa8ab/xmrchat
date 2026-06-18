@@ -458,7 +458,11 @@ const handleBannerUpload = (file: UploadedFile) => {
       </div>
 
       <div class="single" v-if="editable">
-        <UFormGroup label="Bio" :error="getValidationAttrs('bio').error">
+        <UFormGroup
+          label="Bio"
+          :help="$t('bioHelp')"
+          :error="getValidationAttrs('bio').error"
+        >
           <template #hint>
             <span class="text-xs">
               {{ state.form.bio?.length || 0 }} / 150

@@ -129,8 +129,11 @@ export default {
         "У Алекса Анархо есть отличный урок по использованию XMRChat на {youtube}.",
       ifStreamyard: "Если вы используете Streamyard:",
       ifOBS: "Если вы используете OBS:",
+      ifLiveJoiner: "Если вы используете LiveJoiner:",
       streamyard: `Перейдите в пункт меню "Редактировать страницу чаевых". Убедитесь, что вы добавили имя пользователя вашего канала Twitch. При запуске стрима в Streamyard добавьте Twitch как направление. Бот XMRChat (xmr-chat на Twitch) отправит сообщение с чаевыми на Twitch, и вы сможете отобразить его на экране из Streamyard. Логотип бота xmrchat лучше всего выглядит с настройкой "Minimal".`,
       obs: `Перейдите в пункт меню "OBS". Нажмите "Копировать ссылку страницы OBS". Добавьте источник браузера в OBS и вставьте ссылку.`,
+      liveJoiner:
+        "Выберите XMRChat из списка поддерживаемых платформ и укажите путь или URL вашей страницы чаевых XMRChat.",
     },
   },
   forFans: {
@@ -249,11 +252,13 @@ export default {
   pageReservationExpired: "Резервация страницы истекла.",
   paymentCheckingDis: "Проверка платежа отключена.",
   ifPaymentMade: "Если платеж уже был произведён, он появится в списке чаевых.",
+  bioHelp: "Будет отображаться на странице чаевых и в результатах поиска.",
 
   // STREAMER MENU
   menu: "Меню",
   myXmrchats: "Мои xmrchats",
   editTipPage: "Редактировать Страницу Чаевых",
+  accounts: "Аккаунты",
   tipPage: "Страница Чаевых",
   contentLinks: "Ссылки на Контент",
   obs: "OBS",
@@ -304,6 +309,10 @@ export default {
   youtubeChannel: "Youtube канал",
   podcastRssLink: "Ссылка на RSS-канал",
   nostrPubKey: "Nostr Публичный Ключ",
+  rumbleLiveStreamApi: "API прямых трансляций Rumble",
+  rumbleLiveStreamApiHelp:
+    "API прямых трансляций Rumble из {guide}. XMRChat использует этот URL для получения текущих прямых трансляций вашего канала.",
+  thisGuide: "этого руководства",
 
   // OBS
   obsDescription: "Виджет и настройки OBS.",

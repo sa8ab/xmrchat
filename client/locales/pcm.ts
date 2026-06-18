@@ -140,8 +140,11 @@ export default {
         "Alex Anarcho get one great tutorial on how to use XMRChat on {youtube}.",
       ifStreamyard: "If you dey use Streamyard:",
       ifOBS: "If you dey use OBS:",
+      ifLiveJoiner: "If you dey use LiveJoiner:",
       streamyard: `Go to "Edit tip page" menu. Make sure say you don add your Twitch channel name. When you start stream for Streamyard, add Twitch as destination. XMRChat bot (xmr-chat for Twitch) go send di tip message for Twitch and you fit show am for your screen from Streamyard. Di xmrchat bot logo go look better with "Minimal" setting.`,
       obs: `Go to "OBS" menu. Click on "Copy OBS Page Link". Add browser source for OBS and paste di link.`,
+      liveJoiner:
+        "Choose XMRChat from di list of supported platforms, den enter di path or URL for your XMRChat tip page.",
     },
   },
   forFans: {
@@ -247,11 +250,13 @@ export default {
   pageReservationExpired: "Di page wey you hold don expire.",
   paymentCheckingDis: "Di payment checking don cut off.",
   ifPaymentMade: "If you don pay, e go show for di tip list.",
+  bioHelp: "E go show for tip page and for search results.",
 
   // STREAMER MENU
   menu: "Menu",
   myXmrchats: "My xmrchats",
   editTipPage: "Edit Tip Page",
+  accounts: "Accounts",
   tipPage: "Tip Page",
   contentLinks: "Content Links",
   obs: "OBS",
@@ -302,6 +307,10 @@ export default {
   podcastRssLink: "Podcast RSS Link",
   nostrPubKey: "Nostr Pub Key",
   kunoFundraiser: "Kuno fundraiser",
+  rumbleLiveStreamApi: "Rumble live stream API",
+  rumbleLiveStreamApiHelp:
+    "Rumble live stream API from {guide}. XMRChat dey use dis URL to get your channel current live streams.",
+  thisGuide: "dis guide",
 
   // OBS
   obsDescription: "OBS widget and settings.",

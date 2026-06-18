@@ -127,8 +127,11 @@ export default {
         "Alex Anarcholla on loistava opetusohjelma XMRChatin käytöstä {youtube}-palvelussa.",
       ifStreamyard: "Jos käytät Streamyardia:",
       ifOBS: "Jos käytät OBS:ia:",
+      ifLiveJoiner: "Jos käytät LiveJoineria:",
       streamyard: `Siirry "Muokkaa tippisivua" -valikkoon. Varmista, että olet lisännyt Twitch-kanavasi käyttäjänimen. Kun aloitat striimin Streamyardissa, lisää Twitch kohteena. XMRChat-botti (xmr-chat Twitchissä) lähettää tippiviestin Twitchiin ja voit näyttää sen ruudullasi Streamyardista. xmrchat-botin logo näyttää parhaalta "Minimal" -asetuksella.`,
       obs: `Siirry "OBS" -valikkoon. Klikkaa "Kopioi OBS-sivun linkki". Lisää selainlähde OBS:ään ja liitä linkki.`,
+      liveJoiner:
+        "Valitse XMRChat tuettujen alustojen luettelosta ja syötä XMRChat-tippisivusi polku tai URL-osoite.",
     },
   },
   forFans: {
@@ -249,11 +252,13 @@ export default {
   pageReservationExpired: "Sivun varaus on vanhentunut.",
   paymentCheckingDis: "Maksun tarkistus on katkaistu.",
   ifPaymentMade: "Jos maksu on jo tehty, se näkyy vinkkilistassa.",
+  bioHelp: "Näkyy tippisivulla ja hakutuloksissa.",
 
   // STREAMER MENU
   menu: "Valikko",
   myXmrchats: "Omat xmrchats",
   editTipPage: "Muokkaa Tippisivua",
+  accounts: "Tilit",
   tipPage: "Tippisivu",
   contentLinks: "Sisältölinkit",
   obs: "OBS",
@@ -304,6 +309,10 @@ export default {
   youtubeChannel: "Youtube-kanava",
   podcastRssLink: "Podcast-RSS-linkki",
   nostrPubKey: "Nostr-julkinen avain",
+  rumbleLiveStreamApi: "Rumble-live-lähetysrajapinta",
+  rumbleLiveStreamApiHelp:
+    "Rumble-live-lähetysrajapinta lähteestä {guide}. XMRChat käyttää tätä URL-osoitetta kanavasi nykyisten live-lähetysten hakemiseen.",
+  thisGuide: "tästä oppaasta",
 
   // OBS
   obsDescription: "OBS-widget ja asetukset.",

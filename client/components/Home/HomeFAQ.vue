@@ -170,18 +170,26 @@ const linkProps = { padded: false, target: "_blank", variant: "link" } as any; /
                 <div class="list">
                   <div>
                     <h3 class="text-text font-medium pb-1">
-                      {{ $t("forContentCreators.description.ifStreamyard") }}
-                    </h3>
-                    <p>
-                      {{ $t("forContentCreators.description.streamyard") }}
-                    </p>
-                  </div>
-                  <div>
-                    <h3 class="text-text font-medium pb-1">
                       {{ $t("forContentCreators.description.ifOBS") }}
                     </h3>
                     <p>
                       {{ $t("forContentCreators.description.obs") }}
+                    </p>
+                  </div>
+                  <div>
+                    <h3 class="text-text font-medium pb-1">
+                      {{ $t("forContentCreators.description.ifLiveJoiner") }}
+                    </h3>
+                    <p>
+                      {{ $t("forContentCreators.description.liveJoiner") }}
+                    </p>
+                  </div>
+                  <div>
+                    <h3 class="text-text font-medium pb-1">
+                      {{ $t("forContentCreators.description.ifStreamyard") }}
+                    </h3>
+                    <p>
+                      {{ $t("forContentCreators.description.streamyard") }}
                     </p>
                   </div>
                 </div>
