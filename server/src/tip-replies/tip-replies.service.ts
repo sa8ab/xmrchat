@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -22,6 +23,16 @@ export class TipRepliesService {
     @InjectRepository(TipReply)
     private repo: Repository<TipReply>,
   ) {}
+
+  async findOneById(id: number) {
+    if (!id) throw new BadRequestException('Id is required.');
+    const reply = await this.repo.findOne({
+      where: { id },
+      relations: { tip: true },
+    });
+    if (!reply) throw new NotFoundException('Tip reply is not found.');
+    return reply;
+  }
 
   async create(dto: CreateTipReplyDto, user: User, tipId: number) {
     const tip = await this.tipsService.findOneById(tipId);
@@ -58,5 +69,21 @@ export class TipRepliesService {
     await this.repo.save(reply);
 
     return { message: 'Tip reply updated.' };
+  }
+
+  async delete(id: number, user: User) {
+    const reply = await this.repo.findOne({
+      where: { id },
+      relations: { tip: { page: true } },
+    });
+    if (!reply) throw new NotFoundException('Tip reply is not found.');
+
+    const ability = await this.caslAbilityFactory.createForUser(user);
+    if (!ability.can(Action.Delete, reply))
+      throw new UnauthorizedException(
+        'You are not authorized to delete a tip reply.',
+      );
+
+    await this.repo.remove(reply);
   }
 }
