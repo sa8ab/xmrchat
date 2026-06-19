@@ -59,6 +59,7 @@ import { PaidContentModule } from './paid-content/paid-content.module';
 import { TelegramModule } from './paid-content/telegram/telegram.module';
 import { EntitlementsModule } from './entitlements/entitlements.module';
 import { TipsBroadcastModule } from './tips-broadcast/tips-broadcast.module';
+import { TipRepliesModule } from './tip-replies/tip-replies.module';
 
 @Module({
   imports: [
@@ -191,6 +192,7 @@ import { TipsBroadcastModule } from './tips-broadcast/tips-broadcast.module';
     TelegramModule,
     EntitlementsModule,
     TipsBroadcastModule,
+    TipRepliesModule,
   ],
   controllers: [AppController],
   providers: [AppService, IsMoneroPrimaryAdrress],
