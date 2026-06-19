@@ -11,7 +11,9 @@ import {
   OneToOne,
   JoinColumn,
   RelationId,
+  OneToMany,
 } from 'typeorm';
+import { TipReply } from 'src/tip-replies/tip-reply.entity';
 
 @Entity({ name: 'tips' })
 export class Tip {
@@ -54,6 +56,9 @@ export class Tip {
 
   @RelationId((t: Tip) => t.swap)
   swapId: number;
+
+  @OneToMany(() => TipReply, (t: TipReply) => t.tip)
+  tipReplies: TipReply[];
 
   get clearedMessage() {
     return '';

@@ -17,7 +17,7 @@ export class TipReply {
   @Column({})
   message: string;
 
-  @ManyToOne(() => Tip, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Tip, (t: Tip) => t.tipReplies, { onDelete: 'CASCADE' })
   tip: Tip;
 
   @RelationId((t: TipReply) => t.tip)
