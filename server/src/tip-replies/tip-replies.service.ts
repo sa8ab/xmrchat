@@ -11,6 +11,7 @@ import { TipReply } from './tip-reply.entity';
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { Action } from 'src/shared/constants/enum';
 import { User } from 'src/users/user.entity';
+import { UpdateTipReplyDto } from './dtos/update-tip-reply.dto';
 
 @Injectable()
 export class TipRepliesService {
@@ -22,8 +23,8 @@ export class TipRepliesService {
     private repo: Repository<TipReply>,
   ) {}
 
-  async create(dto: CreateTipReplyDto, user: User) {
-    const tip = await this.tipsService.findOneById(dto.tipId);
+  async create(dto: CreateTipReplyDto, user: User, tipId: number) {
+    const tip = await this.tipsService.findOneById(tipId);
     if (!tip) throw new NotFoundException('Tip is not found.');
 
     const ability = await this.caslAbilityFactory.createForUser(user);
@@ -38,5 +39,24 @@ export class TipRepliesService {
     });
 
     return await this.repo.save(created);
+  }
+
+  async update(id: number, dto: UpdateTipReplyDto, user: User) {
+    const reply = await this.repo.findOne({
+      where: { id },
+      relations: { tip: { page: true } },
+    });
+    if (!reply) throw new NotFoundException('Tip reply is not found.');
+
+    const ability = await this.caslAbilityFactory.createForUser(user);
+    if (!ability.can(Action.Update, reply))
+      throw new UnauthorizedException(
+        'You are not authorized to update a tip reply.',
+      );
+
+    reply.message = dto.message;
+    await this.repo.save(reply);
+
+    return { message: 'Tip reply updated.' };
   }
 }
