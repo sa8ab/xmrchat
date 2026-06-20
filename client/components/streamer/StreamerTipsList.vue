@@ -5,6 +5,7 @@ import type {
   PageSetting,
   StreamerPage,
   Tip,
+  TipReply,
 } from "~/types";
 import { FiatEnum, PageSettingKey, TipDisplayMode } from "~/types/enums";
 
@@ -19,7 +20,7 @@ const props = withDefaults(
   }>(),
   {
     showPrivateNameAndMessage: true,
-  }
+  },
 );
 
 const { axios } = useApp();
@@ -51,23 +52,23 @@ const toast = useToast();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
   `recent-tips-${props.slug}`,
-  () => getTipsApi(props.slug)
+  () => getTipsApi(props.slug),
 );
 const { data: obsSettings } = useLazyAsyncData(
   async () => {
     const { data } = await axios.get<{ settings: PageSetting[] }>(
-      `/page-settings/${props.slug}/obs`
+      `/page-settings/${props.slug}/obs`,
     );
 
     const obsSound = data.settings.find(
-      ({ key }) => key === PageSettingKey.OBS_SOUND
+      ({ key }) => key === PageSettingKey.OBS_SOUND,
     )?.data;
 
     return {
       obsSound,
     };
   },
-  { server: false }
+  { server: false },
 );
 
 const interval = ref<NodeJS.Timeout | undefined>(undefined);
@@ -182,6 +183,47 @@ const { markdownAndSanitize } = useMarkdown();
 const makePublicAbility = computed(() => props.page?.ability?.makeTipPublic);
 const getPrivateDisabled = (privateValue: boolean) =>
   privateValue && !makePublicAbility.value;
+
+const tipReplyModal = reactive<{
+  pending: boolean;
+  tipReply?: TipReply;
+  active: boolean;
+  tip?: Tip;
+}>({
+  pending: false,
+  tipReply: undefined,
+  active: false,
+  tip: undefined,
+});
+
+const handleReplyClick = async (tip?: Tip) => {
+  tipReplyModal.tip = tip;
+  tipReplyModal.active = true;
+
+  const tipReplyId = tip?.tipReplies?.[0]?.id;
+  if (!tipReplyId) return;
+
+  const tipReply = await getTipReply(tipReplyId);
+  tipReplyModal.tipReply = tipReply;
+};
+
+const getTipReply = async (id: number) => {
+  try {
+    tipReplyModal.pending = true;
+    const { data } = await axios.get<{ tipReply: TipReply }>(
+      `/tip-replies/${id}`,
+    );
+    return data.tipReply;
+  } catch (error) {
+    toast.add({
+      title: t("error"),
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+    tipReplyModal.pending = false;
+  }
+};
 </script>
 
 <template>
@@ -242,11 +284,20 @@ const getPrivateDisabled = (privateValue: boolean) =>
         <div v-if="row.private && !showPrivateNameAndMessage">
           <p class="text-pale">{{ t("tipPrivateMessage") }}</p>
         </div>
-        <div
-          v-else
-          class="break-words max-w-[20rem] min-w-[8rem]"
-          v-html="markdownAndSanitize(row?.message)"
-        />
+        <template v-else>
+          <div class="flex items-center gap-2">
+            <div
+              class="break-words max-w-[20rem] min-w-[8rem] flex-1"
+              v-html="markdownAndSanitize(row?.message)"
+            />
+            <UButton variant="ghost" size="xs" @click="handleReplyClick(row)">
+              Reply
+            </UButton>
+          </div>
+          <div v-if="row.tipReplies?.[0]">
+            <p>{{ row.tipReplies?.[0]?.message }}</p>
+          </div>
+        </template>
       </template>
       <template #private-data="{ row }">
         <div class="private">
@@ -280,6 +331,13 @@ const getPrivateDisabled = (privateValue: boolean) =>
         <NoItems :text="t('noItems')" />
       </template>
     </UTable>
+
+    <TipReplyModal
+      v-model="tipReplyModal.active"
+      :tip="tipReplyModal.tip"
+      :tipReply="tipReplyModal.tipReply"
+      :pending="tipReplyModal.pending"
+    />
   </PendingView>
 </template>
 

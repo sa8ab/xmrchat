@@ -6,14 +6,18 @@ export class TipReplyDto {
   id: number;
 
   @Expose()
+  @Type(() => TipDto)
+  tip: TipDto;
+
+  @Expose()
   message: string;
 
   @Expose()
   createdAt: Date;
 }
 
-export class TipReplyDtoRO extends TipReplyDto {
+export class TipReplyDtoRO {
   @Expose()
-  @Type(() => TipDto)
-  tip: TipDto;
+  @Type(() => TipReplyDto)
+  tipReply: TipReplyDto;
 }

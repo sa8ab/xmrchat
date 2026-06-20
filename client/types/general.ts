@@ -135,6 +135,7 @@ export interface Tip {
   swap?: Swap;
   createdAt?: string;
   pageTipTier?: PageTipTier;
+  tipReplies?: TipReply[];
 }
 
 export interface TipTier {
@@ -142,6 +143,13 @@ export interface TipTier {
   name?: string;
   description?: string;
   id: string;
+}
+
+export interface TipReply {
+  id: number;
+  message: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface TipTierField {
