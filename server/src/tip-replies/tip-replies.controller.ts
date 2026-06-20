@@ -23,8 +23,8 @@ export class TipRepliesController {
   @Get('/:id')
   @Serialize(TipReplyDtoRO)
   async findOne(@Param('id', ParseIntPipe) id: number) {
-    const reply = await this.tipRepliesService.findOneById(id);
-    return { reply };
+    const tipReply = await this.tipRepliesService.findOneById(id);
+    return { tipReply };
   }
 
   @Post('/:tipId')
