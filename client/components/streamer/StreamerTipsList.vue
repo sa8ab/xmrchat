@@ -201,6 +201,8 @@ const handleReplyClick = async (tip?: Tip) => {
   tipReplyModal.active = true;
 
   const tipReplyId = tip?.tipReplies?.[0]?.id;
+  console.log(tip?.tipReplies);
+
   if (!tipReplyId) return;
 
   const tipReply = await getTipReply(tipReplyId);
@@ -294,7 +296,11 @@ const getTipReply = async (id: number) => {
               Reply
             </UButton>
           </div>
-          <div v-if="row.tipReplies?.[0]">
+          <div
+            v-if="row.tipReplies?.[0]"
+            style="background: #13700b; color: #fff"
+            class="p-1 rounded-md text-xs mt-2"
+          >
             <p>{{ row.tipReplies?.[0]?.message }}</p>
           </div>
         </template>
