@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import useVuelidate from "@vuelidate/core";
 import type { Tip, TipReply } from "~/types";
 
 const props = defineProps<{
@@ -9,7 +10,61 @@ const props = defineProps<{
 
 const model = defineModel<boolean>();
 
-const message = ref("");
+const state = reactive<{
+  message?: string;
+  loading: boolean;
+}>({
+  message: undefined,
+  loading: false,
+});
+
+const { axios } = useApp();
+const toast = useToast();
+const { required, maxLength } = useValidations();
+
+const handleSubmit = async () => {
+  state.loading = true;
+  const tipreplyId = props.tipReply?.id;
+  try {
+    tipreplyId
+      ? await axios.put(`/tip-replies/${tipreplyId}`, {
+          message: state.message,
+        })
+      : await axios.post(`/tip-replies/${props.tip?.id}`, {
+          message: state.message,
+        });
+
+    toast.add({
+      description: "Reply sent successfully",
+      color: "green",
+    });
+  } catch (error) {
+    toast.add({
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+    state.loading = false;
+  }
+};
+
+const reset = () => {
+  v.value.$reset();
+  state.message = undefined;
+};
+
+const v = useVuelidate<any>(
+  {
+    message: { required, maxLength: maxLength(255) },
+  },
+  computed(() => state),
+);
+
+const { getValidationAttrs } = useValidations(v);
+
+watch(model, (v) => {
+  if (v) reset();
+});
 </script>
 
 <template>
@@ -29,8 +84,17 @@ const message = ref("");
         <span>{{ tip?.message }}</span>
       </div>
 
-      <UFormGroup class="mt-4" name="message" label="Reply message">
-        <UTextarea v-model="message" autoresize />
+      <UFormGroup
+        class="mt-4"
+        name="message"
+        label="Reply message"
+        :error="getValidationAttrs('message').error"
+      >
+        <UTextarea
+          v-model="state.message"
+          autoresize
+          @blur="getValidationAttrs('message').onBlur"
+        />
       </UFormGroup>
 
       <template #footer>
@@ -42,7 +106,7 @@ const message = ref("");
             <UButton variant="ghost" @click="model = false">
               {{ $t("cancel") }}
             </UButton>
-            <UButton>
+            <UButton :loading="state.loading" @click="handleSubmit">
               {{ $t("save") }}
             </UButton>
           </div>
