@@ -65,6 +65,12 @@ const { getValidationAttrs } = useValidations(v);
 watch(model, (v) => {
   if (v) reset();
 });
+watch(
+  () => props.tipReply,
+  (v) => {
+    if (v) state.message = v.message;
+  },
+);
 </script>
 
 <template>

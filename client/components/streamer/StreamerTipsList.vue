@@ -198,10 +198,10 @@ const tipReplyModal = reactive<{
 
 const handleReplyClick = async (tip?: Tip) => {
   tipReplyModal.tip = tip;
+  tipReplyModal.tipReply = undefined;
   tipReplyModal.active = true;
 
   const tipReplyId = tip?.tipReplies?.[0]?.id;
-  console.log(tip?.tipReplies);
 
   if (!tipReplyId) return;
 
