@@ -41,7 +41,34 @@ const amountClass = computed(() => {
   return tierColor.value ? "" : "text-primary";
 });
 
+const REPLY_PREVIEW_LENGTH = 200;
+
 const reply = computed(() => props.item.tipReplies?.[0]);
+const isReplyExpanded = ref(false);
+
+const replyPreview = computed(() => {
+  const message = reply.value?.message ?? "";
+  const isLong = message.length > REPLY_PREVIEW_LENGTH;
+  const showFull = !isLong || isReplyExpanded.value;
+
+  return {
+    text: showFull ? message : message.slice(0, REPLY_PREVIEW_LENGTH),
+    showEllipsis: isLong && !isReplyExpanded.value,
+    showToggle: isLong,
+    toggleLabel: isReplyExpanded.value ? "show less" : "show more",
+  };
+});
+
+const toggleReply = () => {
+  isReplyExpanded.value = !isReplyExpanded.value;
+};
+
+watch(
+  () => reply.value?.message,
+  () => {
+    isReplyExpanded.value = false;
+  },
+);
 </script>
 
 <template>
@@ -84,7 +111,18 @@ const reply = computed(() => props.item.tipReplies?.[0]);
         style="background: #13700b; color: #fff"
       >
         <span>Replied:</span>
-        <p class="mt-0.5">{{ reply.message }}</p>
+        <p class="mt-0.5">
+          {{ replyPreview.text
+          }}<template v-if="replyPreview.showEllipsis">...</template>
+          <button
+            v-if="replyPreview.showToggle"
+            type="button"
+            class="ml-1 underline opacity-90 hover:opacity-100"
+            @click="toggleReply"
+          >
+            {{ replyPreview.toggleLabel }}
+          </button>
+        </p>
       </div>
     </div>
   </div>
