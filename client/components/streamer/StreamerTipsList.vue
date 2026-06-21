@@ -324,7 +324,7 @@ const handleDelete = async (tipReply: TipReply) => {
           <div v-if="row.tipReplies?.[0]" class="flex items-start mt-2 gap-2">
             <div
               style="background: #13700b; color: #fff"
-              class="p-1.5 rounded-md text-xs flex-1"
+              class="p-1.5 rounded-md text-xs break-words max-w-[20rem] min-w-[8rem] flex-1"
             >
               <p>{{ row.tipReplies?.[0]?.message }}</p>
             </div>
