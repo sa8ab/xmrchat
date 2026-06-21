@@ -8,6 +8,10 @@ const props = defineProps<{
   pending?: boolean;
 }>();
 
+const emit = defineEmits<{
+  update: [];
+}>();
+
 const model = defineModel<boolean>();
 
 const state = reactive<{
@@ -38,6 +42,8 @@ const handleSubmit = async () => {
       description: "Reply sent successfully",
       color: "green",
     });
+    emit("update");
+    model.value = false;
   } catch (error) {
     toast.add({
       description: getErrorMessage(error),
