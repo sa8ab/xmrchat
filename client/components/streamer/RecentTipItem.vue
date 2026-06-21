@@ -40,6 +40,8 @@ const messageStyle = computed(() => {
 const amountClass = computed(() => {
   return tierColor.value ? "" : "text-primary";
 });
+
+const reply = computed(() => props.item.tipReplies?.[0]);
 </script>
 
 <template>
@@ -74,6 +76,15 @@ const amountClass = computed(() => {
           {{ $t("tipPrivateMessage") }}
         </p>
         <div v-else v-html="message" />
+      </div>
+    </div>
+    <div v-if="reply">
+      <div
+        class="mt-1 text-xs p-1.5 rounded-md"
+        style="background: #13700b; color: #fff"
+      >
+        <span>Replied:</span>
+        <p class="mt-0.5">{{ reply.message }}</p>
       </div>
     </div>
   </div>
