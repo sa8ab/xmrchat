@@ -114,14 +114,17 @@ watch(
         <p class="mt-0.5">
           {{ replyPreview.text
           }}<template v-if="replyPreview.showEllipsis">...</template>
-          <button
+          <UButton
             v-if="replyPreview.showToggle"
             type="button"
-            class="ml-1 underline opacity-90 hover:opacity-100"
+            class="ms-1 text-inherit underline hover:opacity-80 hover:text-inherit"
+            size="xs"
+            variant="link"
+            :padded="false"
             @click="toggleReply"
           >
             {{ replyPreview.toggleLabel }}
-          </button>
+          </UButton>
         </p>
       </div>
     </div>
