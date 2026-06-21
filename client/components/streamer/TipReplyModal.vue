@@ -62,14 +62,18 @@ const reset = () => {
   state.message = undefined;
 };
 
+const TIP_REPLY_MAX_LENGTH = 1000;
+
 const v = useVuelidate<any>(
   {
-    message: { required, maxLength: maxLength(255) },
+    message: { required, maxLength: maxLength(TIP_REPLY_MAX_LENGTH) },
   },
   computed(() => state),
 );
 
 const { getValidationAttrs } = useValidations(v);
+
+const messageLength = computed(() => state.message?.length || 0);
 
 watch(model, (v) => {
   if (v) reset();
@@ -104,6 +108,7 @@ watch(
         name="message"
         label="Reply message"
         :error="getValidationAttrs('message').error"
+        :hint="`${messageLength} / ${TIP_REPLY_MAX_LENGTH}`"
       >
         <UTextarea
           v-model="state.message"
