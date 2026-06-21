@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ConfirmModal } from "#components";
 import type {
   Numberic,
   ObsTipSocketEvent,
@@ -226,6 +227,30 @@ const getTipReply = async (id: number) => {
     tipReplyModal.pending = false;
   }
 };
+
+const modal = useModal();
+
+const handleDeleteClick = (tipReply: TipReply) => {
+  modal.open(ConfirmModal, {
+    title: t("delete"),
+    text: "Are you sure you want to delete this reply?",
+    color: "red",
+    onConfirm: () => handleDelete(tipReply),
+  });
+};
+
+const handleDelete = async (tipReply: TipReply) => {
+  try {
+    await axios.delete(`/tip-replies/${tipReply.id}`);
+    refresh();
+  } catch (error) {
+    toast.add({
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+  }
+};
 </script>
 
 <template>
@@ -296,12 +321,23 @@ const getTipReply = async (id: number) => {
               Reply
             </UButton>
           </div>
-          <div
-            v-if="row.tipReplies?.[0]"
-            style="background: #13700b; color: #fff"
-            class="p-1 rounded-md text-xs mt-2"
-          >
-            <p>{{ row.tipReplies?.[0]?.message }}</p>
+          <div v-if="row.tipReplies?.[0]" class="flex items-start mt-2 gap-2">
+            <div
+              style="background: #13700b; color: #fff"
+              class="p-1.5 rounded-md text-xs flex-1"
+            >
+              <p>{{ row.tipReplies?.[0]?.message }}</p>
+            </div>
+            <div>
+              <UButton
+                variant="soft"
+                size="xs"
+                color="red"
+                square
+                icon="i-heroicons-trash"
+                @click="handleDeleteClick(row.tipReplies[0])"
+              ></UButton>
+            </div>
           </div>
         </template>
       </template>
