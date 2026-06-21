@@ -27,6 +27,9 @@ const toast = useToast();
 const { required, maxLength } = useValidations();
 
 const handleSubmit = async () => {
+  const valid = await v.value.$validate();
+  if (!valid) return;
+
   state.loading = true;
   const tipreplyId = props.tipReply?.id;
   try {
@@ -110,18 +113,13 @@ watch(
       </UFormGroup>
 
       <template #footer>
-        <div class="flex items-center justify-between gap-2">
-          <UButton color="red" variant="ghost">
-            {{ $t("delete") }}
+        <div class="flex gap-2 justify-end">
+          <UButton variant="ghost" @click="model = false">
+            {{ $t("cancel") }}
           </UButton>
-          <div class="flex gap-2">
-            <UButton variant="ghost" @click="model = false">
-              {{ $t("cancel") }}
-            </UButton>
-            <UButton :loading="state.loading" @click="handleSubmit">
-              {{ $t("save") }}
-            </UButton>
-          </div>
+          <UButton :loading="state.loading" @click="handleSubmit">
+            {{ $t("save") }}
+          </UButton>
         </div>
       </template>
     </UCard>
