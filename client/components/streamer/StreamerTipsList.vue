@@ -343,6 +343,7 @@ const getTipReply = async (id: number) => {
       :tip="tipReplyModal.tip"
       :tipReply="tipReplyModal.tipReply"
       :pending="tipReplyModal.pending"
+      @update="refresh"
     />
   </PendingView>
 </template>
