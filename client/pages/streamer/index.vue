@@ -39,7 +39,8 @@ const { getFiat } = useConstants();
             class="my-4"
           />
 
-          <div class="flex justify-end mb-2">
+          <div class="flex justify-end mb-2 gap-2 items-center">
+            <TipReplySettingsModal @update="refresh" />
             <UTooltip
               :text="
                 $t('tipDisplayValueTooltip', {

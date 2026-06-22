@@ -378,3 +378,8 @@ export interface PaidContent {
   amount: string;
   createdAt: string;
 }
+
+export interface TipReplySettings {
+  backgroundColor?: string;
+  textColor?: string;
+}

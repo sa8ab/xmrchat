@@ -15,10 +15,39 @@ import { CreateTipReplyDto } from './dtos/create-tip-reply.dto';
 import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import { User } from 'src/users/user.entity';
 import { UpdateTipReplyDto } from './dtos/update-tip-reply.dto';
+import { TipReplySettingsService } from './tip-reply-settings.service';
+import { UpdateTipReplySettingsDto } from './dtos/update-tip-reply-settings.dto';
+import { IsPublic } from 'src/shared/decorators/is-public.decorator';
 
 @Controller('tip-replies')
 export class TipRepliesController {
-  constructor(private tipRepliesService: TipRepliesService) {}
+  constructor(
+    private tipRepliesService: TipRepliesService,
+    private tipReplySettingsService: TipReplySettingsService,
+  ) {}
+
+  @Get('/settings')
+  async getSettings(@CurrentUser() user: User) {
+    const settings = await this.tipReplySettingsService.getSettings(user);
+    return { settings };
+  }
+
+  @Put('/settings')
+  async updateSettings(
+    @Body() dto: UpdateTipReplySettingsDto,
+    @CurrentUser() user: User,
+  ) {
+    await this.tipReplySettingsService.updateSettings(dto, user);
+    return { message: 'Tip reply settings updated.' };
+  }
+
+  @Get('/:pageSlug/settings')
+  @IsPublic()
+  async getSettingsByPageSlug(@Param('pageSlug') pageSlug: string) {
+    const settings =
+      await this.tipReplySettingsService.getSettingsByPageSlug(pageSlug);
+    return { settings };
+  }
 
   @Get('/:id')
   @Serialize(TipReplyDtoRO)

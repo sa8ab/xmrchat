@@ -16,6 +16,9 @@ export enum PageSettingKey {
 
   TELEGRAM_USER_ID = "telegram-user-id",
   TELEGRAM_PAID_CONTENT_ID = "telegram-paid-content-id",
+
+  TIP_REPLY_BACKGROUND_COLOR = "tip-reply-background-color",
+  TIP_REPLY_TEXT_COLOR = "tip-reply-text-color",
 }
 
 export enum ContentLinkPlatformEnum {

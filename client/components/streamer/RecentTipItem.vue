@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { _backgroundColor } from "#tailwind-config/theme";
-import type { Tip } from "~/types";
+import type { Tip, TipReplySettings } from "~/types";
 
 const props = defineProps<{
   item: Tip;
   disappearText?: string;
   computedPrice?: string;
   message?: string;
+  replySettings?: TipReplySettings;
 }>();
 
 const { getPageTierColor } = useConstants();
@@ -63,6 +63,8 @@ const toggleReply = () => {
   isReplyExpanded.value = !isReplyExpanded.value;
 };
 
+const replyStyle = computed(() => tipReplyStyle(props.replySettings));
+
 watch(
   () => reply.value?.message,
   () => {
@@ -106,10 +108,7 @@ watch(
       </div>
     </div>
     <div v-if="reply">
-      <div
-        class="mt-1 text-xs p-1.5 rounded-md"
-        style="background: #13700b; color: #fff"
-      >
+      <div class="mt-1 text-xs p-1.5 rounded-md" :style="replyStyle">
         <span>Replied:</span>
         <p class="mt-0.5">
           {{ replyPreview.text
