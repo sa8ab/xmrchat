@@ -109,7 +109,7 @@ watch(
       </div>
     </div>
     <div v-if="reply">
-      <div class="mt-1 text-xs p-1.5 rounded-md" :style="replyStyle">
+      <div class="mt-1 p-1.5 rounded-md" :style="replyStyle">
         <span>{{ name }} replied:</span>
         <p class="mt-0.5">
           {{ replyPreview.text
