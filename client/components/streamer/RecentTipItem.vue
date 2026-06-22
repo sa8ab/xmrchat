@@ -7,6 +7,7 @@ const props = defineProps<{
   computedPrice?: string;
   message?: string;
   replySettings?: TipReplySettings;
+  name?: string;
 }>();
 
 const { getPageTierColor } = useConstants();
@@ -109,7 +110,7 @@ watch(
     </div>
     <div v-if="reply">
       <div class="mt-1 text-xs p-1.5 rounded-md" :style="replyStyle">
-        <span>Replied:</span>
+        <span>{{ name }} replied:</span>
         <p class="mt-0.5">
           {{ replyPreview.text
           }}<template v-if="replyPreview.showEllipsis">...</template>
