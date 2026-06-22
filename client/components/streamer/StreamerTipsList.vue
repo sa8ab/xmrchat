@@ -34,7 +34,7 @@ const { dayjs } = useDate();
 const tipEvents = ref<ObsTipSocketEvent[]>([]);
 
 const { getSoundUrl } = useTip({
-  soundUrl: computed(() => obsSettings.value?.obsSound?.url),
+  soundUrl: computed(() => data.value?.obsSound?.url),
 });
 
 const { init, disconnect, sendTipToObs, removeTipFromObs } = usePageSocket({
@@ -54,38 +54,61 @@ const toast = useToast();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
   `recent-tips-${props.slug}`,
-  () => getTipsApi(props.slug),
-);
-const { data: obsSettings } = useLazyAsyncData(
   async () => {
-    const { data } = await axios.get<{ settings: PageSetting[] }>(
-      `/page-settings/${props.slug}/obs`,
-    );
+    // const data = await getTipsApi(props.slug);
 
-    const obsSound = data.settings.find(
+    const [data, obsSettings, tipReplySettings] = await Promise.all([
+      getTipsApi(props.slug),
+      axios.get<{ settings: PageSetting[] }>(
+        `/page-settings/${props.slug}/obs`,
+      ),
+      axios.get<{ settings: TipReplySettings }>(
+        `/tip-replies/${props.slug}/settings`,
+      ),
+    ]);
+
+    const obsSound = obsSettings.data.settings.find(
       ({ key }) => key === PageSettingKey.OBS_SOUND,
     )?.data;
 
     return {
+      data,
       obsSound,
+      tipReplySettings: tipReplySettings.data.settings,
     };
   },
-  { server: false },
 );
 
-const { data: replySettings } = useLazyAsyncData(
-  `tip-reply-settings-${props.slug}`,
-  async () => {
-    const { data } = await axios.get<{ settings: TipReplySettings }>(
-      `/tip-replies/${props.slug}/settings`,
-    );
+// const { data: obsSettings } = useLazyAsyncData(
+//   async () => {
+//     const { data } = await axios.get<{ settings: PageSetting[] }>(
+//       `/page-settings/${props.slug}/obs`,
+//     );
 
-    return data.settings;
-  },
-  { server: false },
-);
+//     const obsSound = data.settings.find(
+//       ({ key }) => key === PageSettingKey.OBS_SOUND,
+//     )?.data;
 
-const replyStyle = computed(() => tipReplyStyle(replySettings.value));
+//     return {
+//       obsSound,
+//     };
+//   },
+//   { server: false },
+// );
+
+// const { data: replySettings } = useLazyAsyncData(
+//   `tip-reply-settings-${props.slug}`,
+//   async () => {
+//     const { data } = await axios.get<{ settings: TipReplySettings }>(
+//       `/tip-replies/${props.slug}/settings`,
+//     );
+
+//     return data.settings;
+//   },
+//   { server: false },
+// );
+
+const replyStyle = computed(() => tipReplyStyle(data.value?.tipReplySettings));
 
 const interval = ref<NodeJS.Timeout | undefined>(undefined);
 
@@ -272,7 +295,7 @@ const handleDelete = async (tipReply: TipReply) => {
   <PendingView :error="error" :pending="pending && !data">
     <UTable
       v-if="data"
-      :rows="data"
+      :rows="data.data"
       :columns="columns"
       class="border border-border rounded-md"
       :ui="{
