@@ -93,6 +93,7 @@ const { getDisappearText } = useTip({
             :disappearText="getDisappearText(item.createdAt)"
             :computedPrice="getComputedPrice(item.payment?.amount)"
             :message="markdownAndSanitize(item?.message)"
+            :name="page?.name || page?.path"
           />
         </div>
       </template>
