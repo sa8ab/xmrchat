@@ -53,7 +53,7 @@ const { t } = useI18n();
 const toast = useToast();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
-  `recent-tips-${props.slug}`,
+  `streamer-recent-tips-${props.slug}`,
   async () => {
     // const data = await getTipsApi(props.slug);
 
