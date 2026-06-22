@@ -7,6 +7,7 @@ import type {
   StreamerPage,
   Tip,
   TipReply,
+  TipReplySettings,
 } from "~/types";
 import { FiatEnum, PageSettingKey, TipDisplayMode } from "~/types/enums";
 
@@ -71,6 +72,20 @@ const { data: obsSettings } = useLazyAsyncData(
   },
   { server: false },
 );
+
+const { data: replySettings } = useLazyAsyncData(
+  `tip-reply-settings-${props.slug}`,
+  async () => {
+    const { data } = await axios.get<{ settings: TipReplySettings }>(
+      `/tip-replies/${props.slug}/settings`,
+    );
+
+    return data.settings;
+  },
+  { server: false },
+);
+
+const replyStyle = computed(() => tipReplyStyle(replySettings.value));
 
 const interval = ref<NodeJS.Timeout | undefined>(undefined);
 
@@ -323,7 +338,7 @@ const handleDelete = async (tipReply: TipReply) => {
           </div>
           <div v-if="row.tipReplies?.[0]" class="flex items-start mt-2 gap-2">
             <div
-              style="background: #13700b; color: #fff"
+              :style="replyStyle"
               class="p-1.5 rounded-md text-xs break-words max-w-[20rem] min-w-[8rem] flex-1"
             >
               <p>{{ row.tipReplies?.[0]?.message }}</p>

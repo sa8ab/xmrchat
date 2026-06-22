@@ -4,47 +4,84 @@ import {
   PageSettingValueType,
 } from '../constants';
 
-export const PAGE_SETTINGS = {
-  [PageSettingKey.OBS_PLAY_SOUND]: {
-    category: PageSettingCategory.OBS,
-    type: PageSettingValueType.BOOLEAN,
-  },
-  [PageSettingKey.OBS_KEEP_MESSAGES]: {
-    category: PageSettingCategory.OBS,
-    type: PageSettingValueType.BOOLEAN,
-  },
-  [PageSettingKey.TWITCH_CHANNEL]: {
-    category: PageSettingCategory.STREAMING,
-    type: PageSettingValueType.STRING,
-  },
-  [PageSettingKey.OBS_AUTO_SHOW_TIPS]: {
-    category: PageSettingCategory.OBS,
-    type: PageSettingValueType.BOOLEAN,
-  },
-  [PageSettingKey.OBS_SOUND]: {
-    category: PageSettingCategory.OBS,
-    type: PageSettingValueType.NUMBER,
-  },
-  [PageSettingKey.MIN_NOTIFICATION_THRESHOLD]: {
-    category: PageSettingCategory.NOTIFICATIONS,
-    type: PageSettingValueType.NUMBER,
-  },
-  [PageSettingKey.DAILY_SUMMARY_NOTIFICATION_TIME]: {
-    category: PageSettingCategory.NOTIFICATIONS,
-    type: PageSettingValueType.STRING,
-  },
-  [PageSettingKey.SUPER_DM_MIN_AMOUNT]: {
-    category: PageSettingCategory.SUPER_DM,
-    type: PageSettingValueType.STRING,
-  },
-  [PageSettingKey.SUPER_DM_PUBLIC_KEY]: {
-    category: PageSettingCategory.SUPER_DM,
-    type: PageSettingValueType.STRING,
-  },
-  [PageSettingKey.SUPER_DM_ACTIVE]: {
-    category: PageSettingCategory.SUPER_DM,
-    type: PageSettingValueType.BOOLEAN,
-  },
+type PageSettingDefinition = {
+  category: PageSettingCategory;
+  type: PageSettingValueType;
+};
+
+const setting = (
+  category: PageSettingCategory,
+  type: PageSettingValueType,
+): PageSettingDefinition => ({ category, type });
+
+export const PAGE_SETTINGS: Record<PageSettingKey, PageSettingDefinition> = {
+  // OBS
+  [PageSettingKey.OBS_PLAY_SOUND]: setting(
+    PageSettingCategory.OBS,
+    PageSettingValueType.BOOLEAN,
+  ),
+  [PageSettingKey.OBS_KEEP_MESSAGES]: setting(
+    PageSettingCategory.OBS,
+    PageSettingValueType.BOOLEAN,
+  ),
+  [PageSettingKey.OBS_AUTO_SHOW_TIPS]: setting(
+    PageSettingCategory.OBS,
+    PageSettingValueType.BOOLEAN,
+  ),
+  [PageSettingKey.OBS_SOUND]: setting(
+    PageSettingCategory.OBS,
+    PageSettingValueType.NUMBER,
+  ),
+
+  // Twitch
+  [PageSettingKey.TWITCH_CHANNEL]: setting(
+    PageSettingCategory.STREAMING,
+    PageSettingValueType.STRING,
+  ),
+
+  // Notifications
+  [PageSettingKey.MIN_NOTIFICATION_THRESHOLD]: setting(
+    PageSettingCategory.NOTIFICATIONS,
+    PageSettingValueType.NUMBER,
+  ),
+  [PageSettingKey.DAILY_SUMMARY_NOTIFICATION_TIME]: setting(
+    PageSettingCategory.NOTIFICATIONS,
+    PageSettingValueType.STRING,
+  ),
+
+  // Super DM
+  [PageSettingKey.SUPER_DM_MIN_AMOUNT]: setting(
+    PageSettingCategory.SUPER_DM,
+    PageSettingValueType.STRING,
+  ),
+  [PageSettingKey.SUPER_DM_PUBLIC_KEY]: setting(
+    PageSettingCategory.SUPER_DM,
+    PageSettingValueType.STRING,
+  ),
+  [PageSettingKey.SUPER_DM_ACTIVE]: setting(
+    PageSettingCategory.SUPER_DM,
+    PageSettingValueType.BOOLEAN,
+  ),
+
+  // Paid content
+  [PageSettingKey.TELEGRAM_USER_ID]: setting(
+    PageSettingCategory.PAID_CONTENT,
+    PageSettingValueType.STRING,
+  ),
+  [PageSettingKey.TELEGRAM_PAID_CONTENT_ID]: setting(
+    PageSettingCategory.PAID_CONTENT,
+    PageSettingValueType.STRING,
+  ),
+
+  // Tip reply
+  [PageSettingKey.TIP_REPLY_BACKGROUND_COLOR]: setting(
+    PageSettingCategory.TIP_REPLIES,
+    PageSettingValueType.STRING,
+  ),
+  [PageSettingKey.TIP_REPLY_TEXT_COLOR]: setting(
+    PageSettingCategory.TIP_REPLIES,
+    PageSettingValueType.STRING,
+  ),
 };
 
 export const getPageSettingCategory = (key: PageSettingKey) =>

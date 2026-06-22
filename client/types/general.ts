@@ -368,3 +368,8 @@ export interface GeneratedKeys {
 export interface SavedViewerSuperDmKeys extends GeneratedKeys {
   superDmId: string;
 }
+
+export interface TipReplySettings {
+  backgroundColor?: string;
+  textColor?: string;
+}
