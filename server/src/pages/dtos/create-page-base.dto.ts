@@ -37,6 +37,11 @@ export class CreatePageBaseDto {
   bio?: string;
 
   @IsString()
+  @MaxLength(224)
+  @IsOptional()
+  searchTerms?: string;
+
+  @IsString()
   @IsOptional()
   @MaxLength(64)
   twitchChannel?: string;
