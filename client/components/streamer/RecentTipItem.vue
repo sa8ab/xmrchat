@@ -42,7 +42,7 @@ const amountClass = computed(() => {
   return tierColor.value ? "" : "text-primary";
 });
 
-const REPLY_PREVIEW_LENGTH = 200;
+const REPLY_PREVIEW_LENGTH = 180;
 
 const reply = computed(() => props.item.tipReplies?.[0]);
 const isReplyExpanded = ref(false);
