@@ -15,11 +15,11 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
   "cohost-page",
   async () => {
     const { data } = await axios.get<{ cohostPage: StreamerPage }>(
-      "/cohosts/my-page"
+      "/cohosts/my-page",
     );
     return data.cohostPage;
   },
-  { server: false }
+  { server: false },
 );
 
 const tipValue = ref<TipDisplayMode | undefined>(data.value?.tipDisplayMode);
@@ -85,6 +85,7 @@ const copyLink = () => {
       :fiat="data.fiat"
       :page="data"
       :showPrivateNameAndMessage="false"
+      :showReply="false"
       playSound
     />
   </div>

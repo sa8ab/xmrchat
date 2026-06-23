@@ -18,10 +18,12 @@ const props = withDefaults(
     fiat?: FiatEnum;
     page?: StreamerPage;
     showPrivateNameAndMessage?: boolean;
+    showReply?: boolean;
     playSound?: boolean;
   }>(),
   {
     showPrivateNameAndMessage: true,
+    showReply: true,
   },
 );
 
@@ -348,6 +350,14 @@ const handleDelete = async (tipReply: TipReply) => {
       <template #message-data="{ row }">
         <div v-if="row.private && !showPrivateNameAndMessage">
           <p class="text-pale">{{ t("tipPrivateMessage") }}</p>
+          <div v-if="row.tipReplies?.[0]" class="flex items-start mt-2 gap-2">
+            <div
+              :style="replyStyle"
+              class="p-1.5 rounded-md text-xs break-words max-w-[20rem] min-w-[8rem] flex-1"
+            >
+              <p>{{ row.tipReplies?.[0]?.message }}</p>
+            </div>
+          </div>
         </div>
         <template v-else>
           <div class="flex items-center gap-2">
@@ -355,7 +365,12 @@ const handleDelete = async (tipReply: TipReply) => {
               class="break-words max-w-[20rem] min-w-[8rem] flex-1"
               v-html="markdownAndSanitize(row?.message)"
             />
-            <UButton variant="ghost" size="xs" @click="handleReplyClick(row)">
+            <UButton
+              v-if="showReply"
+              variant="ghost"
+              size="xs"
+              @click="handleReplyClick(row)"
+            >
               Reply
             </UButton>
           </div>
@@ -366,7 +381,7 @@ const handleDelete = async (tipReply: TipReply) => {
             >
               <p>{{ row.tipReplies?.[0]?.message }}</p>
             </div>
-            <div>
+            <div v-if="showReply">
               <UButton
                 variant="soft"
                 size="xs"
