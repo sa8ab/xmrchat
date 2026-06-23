@@ -50,6 +50,8 @@ export interface CreateFormFields {
   fiat?: FiatEnum;
   expirationMinutes?: number;
   bio?: string;
+  name?: string;
+  searchTerms?: string;
 }
 
 export interface TipFormFields {
@@ -112,6 +114,7 @@ export interface StreamerPage {
   pageTipTiers?: PageTipTier[];
   ability?: any;
   bio?: string;
+  searchTerms?: string;
 }
 
 interface TipPayment {

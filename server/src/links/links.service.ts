@@ -67,10 +67,10 @@ export class LinksService {
     }
 
     // update name and search term from pages
-    await this.pagesService.updateNameAndSearchTerms(page.id, {
-      name: data.name,
-      searchTerms: data.searchTerms,
-    });
+    // await this.pagesService.updateNameAndSearchTerms(page.id, {
+    //   name: data.name,
+    //   searchTerms: data.searchTerms,
+    // });
 
     // Get existing links to compare values
     const existingLinks = await this.repo.find({

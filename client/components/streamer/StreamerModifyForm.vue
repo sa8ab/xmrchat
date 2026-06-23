@@ -173,6 +173,8 @@ const handleSubmit = async () => {
         minTipAmount: state.form.minTipAmount?.toString() || null,
         expirationMinutes: state.form.expirationMinutes || null,
         bio: state.form.bio || null,
+        name: state.form.name || null,
+        searchTerms: state.form.searchTerms || null,
       });
       toast.add({ title: t("pageUpdated") });
       navigateTo(toStreamerDisplay()?.path);
@@ -236,6 +238,8 @@ const getPage = async () => {
     expirationMinutes: page.expirationMinutes,
     tiers: page.tiers || [],
     bio: page.bio,
+    name: page.name,
+    searchTerms: page.searchTerms,
   };
 
   state.stagedLogoUrl = page.logo.url;
@@ -472,6 +476,15 @@ const handleBannerUpload = (file: UploadedFile) => {
             v-model="state.form.bio"
             @blur="getValidationAttrs('bio').onBlur"
           />
+        </UFormGroup>
+      </div>
+
+      <div class="both">
+        <UFormGroup :label="t('brandName')" :help="t('brandNameHelp')">
+          <UInput v-model="state.form.name" />
+        </UFormGroup>
+        <UFormGroup :label="t('searchTerms')" :help="t('searchTermsHelp')">
+          <UInput v-model="state.form.searchTerms" />
         </UFormGroup>
       </div>
 

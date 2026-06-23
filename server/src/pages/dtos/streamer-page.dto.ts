@@ -17,6 +17,9 @@ export class StreamerPageDto extends PageDto {
 
   @Expose()
   status: PageStatusEnum;
+
+  @Expose()
+  searchTerms: string;
 }
 
 export class StreamerPageRO {
