@@ -65,6 +65,9 @@ export class CaslAbilityFactory {
       can(Action.Manage, 'cohost');
       can(Action.Create, CohostInvitation);
       can(Action.Manage, PageTipTier, { pageId: pageResult?.id });
+
+      // TIP REPLY ACTIONS
+      can(Action.Manage, TipReply, { 'tip.pageId': pageResult?.id } as any);
     }
 
     // OBS ACTIONS
@@ -100,9 +103,6 @@ export class CaslAbilityFactory {
     // SUPER DM ACTIONS
     can(Action.SendSuperDmMessage, SuperDm, { 'page.userId': user.id } as any);
     can(Action.ReadSuperDmMessages, SuperDm, { 'page.userId': user.id } as any);
-
-    // TIP REPLY ACTIONS
-    can(Action.Manage, TipReply, { 'tip.page.userId': user.id } as any);
 
     return build({
       detectSubjectType: (item) =>
