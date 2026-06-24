@@ -33,6 +33,8 @@ const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
   useServices();
 const { dayjs } = useDate();
 
+const modal = useModal();
+
 const tipEvents = ref<ObsTipSocketEvent[]>([]);
 
 const { getSoundUrl } = useTip({
@@ -237,6 +239,8 @@ const tipReplyModal = reactive<{
   tip: undefined,
 });
 
+const showReply = computed(() => props.showReply && props.page?.isPremium);
+
 const handleReplyClick = async (tip?: Tip) => {
   tipReplyModal.tip = tip;
   tipReplyModal.tipReply = undefined;
@@ -267,8 +271,6 @@ const getTipReply = async (id: number) => {
     tipReplyModal.pending = false;
   }
 };
-
-const modal = useModal();
 
 const handleDeleteClick = (tipReply: TipReply) => {
   modal.open(ConfirmModal, {
