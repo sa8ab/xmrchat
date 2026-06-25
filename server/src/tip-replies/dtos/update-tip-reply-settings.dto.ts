@@ -1,9 +1,11 @@
-import { IsHexColor } from 'class-validator';
+import { IsHexColor, IsOptional } from 'class-validator';
 
 export class UpdateTipReplySettingsDto {
   @IsHexColor()
-  backgroundColor: string;
+  @IsOptional()
+  backgroundColor?: string;
 
   @IsHexColor()
-  textColor: string;
+  @IsOptional()
+  textColor?: string;
 }
