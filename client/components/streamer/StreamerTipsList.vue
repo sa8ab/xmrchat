@@ -133,32 +133,42 @@ const stopTipsInterval = () => {
 
 onBeforeUnmount(() => stopTipsInterval());
 
-const columns = [
-  {
-    key: "name",
-    label: t("tipName"),
-  },
-  {
-    key: "amount",
-    label: t("tipAmount"),
-  },
-  {
-    key: "message",
-    label: t("tipMessage"),
-  },
-  {
-    key: "paidAt",
-    label: t("tipDate"),
-  },
-  {
-    key: "private",
-    label: t("tipPrivate"),
-  },
-  {
-    key: "actions",
-    label: "OBS",
-  },
-];
+const columns = computed(() => {
+  const list = [
+    {
+      key: "name",
+      label: t("tipName"),
+    },
+    {
+      key: "amount",
+      label: t("tipAmount"),
+    },
+    {
+      key: "message",
+      label: t("tipMessage"),
+    },
+    {
+      key: "paidAt",
+      label: t("tipDate"),
+    },
+    {
+      key: "private",
+      label: t("tipPrivate"),
+    },
+    {
+      key: "actions",
+      label: "OBS",
+    },
+  ];
+
+  if (showReply.value) {
+    list.push({
+      key: "reply",
+      label: "Reply",
+    });
+  }
+  return list;
+});
 
 const updateTipPrivate = async (id: Numberic, isPrivate: boolean) => {
   try {
@@ -362,37 +372,16 @@ const handleDelete = async (tipReply: TipReply) => {
           </div>
         </div>
         <template v-else>
-          <div class="flex items-center gap-2">
-            <div
-              class="break-words max-w-[20rem] min-w-[8rem] flex-1"
-              v-html="markdownAndSanitize(row?.message)"
-            />
-            <UButton
-              v-if="showReply"
-              variant="ghost"
-              size="xs"
-              @click="handleReplyClick(row)"
-            >
-              Reply
-            </UButton>
-          </div>
-          <div v-if="row.tipReplies?.[0]" class="flex items-start mt-2 gap-2">
-            <div
-              :style="replyStyle"
-              class="p-1.5 rounded-md text-xs break-words max-w-[20rem] min-w-[8rem] flex-1"
-            >
-              <p>{{ row.tipReplies?.[0]?.message }}</p>
-            </div>
-            <div v-if="showReply">
-              <UButton
-                variant="soft"
-                size="xs"
-                color="red"
-                square
-                icon="i-heroicons-trash"
-                @click="handleDeleteClick(row.tipReplies[0])"
-              ></UButton>
-            </div>
+          <div
+            class="break-words max-w-[20rem] min-w-[8rem] flex-1"
+            v-html="markdownAndSanitize(row?.message)"
+          />
+          <div
+            v-if="row.tipReplies?.[0]"
+            :style="replyStyle"
+            class="p-1.5 rounded-md text-xs break-words mt-2"
+          >
+            <p>{{ row.tipReplies?.[0]?.message }}</p>
           </div>
         </template>
       </template>
@@ -422,6 +411,21 @@ const handleDelete = async (tipReply: TipReply) => {
           >
             {{ t("hide") }}
           </UButton>
+        </div>
+      </template>
+      <template #reply-data="{ row }" v-if="showReply">
+        <div class="flex gap-2">
+          <UButton variant="ghost" @click="handleReplyClick(row)">
+            {{ row.tipReplies?.[0] ? "Edit" : "Reply" }}
+          </UButton>
+          <UButton
+            v-if="row.tipReplies?.[0]"
+            variant="soft"
+            color="red"
+            square
+            icon="i-heroicons-trash"
+            @click="handleDeleteClick(row.tipReplies[0])"
+          ></UButton>
         </div>
       </template>
       <template #empty-state>
