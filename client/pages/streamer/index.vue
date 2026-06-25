@@ -17,6 +17,10 @@ const tipValue = ref<TipDisplayMode | undefined>(
   data.value?.page?.tipDisplayMode,
 );
 const { getFiat } = useConstants();
+
+const showReplyColors = computed(() => {
+  return data.value?.page?.isPremium;
+});
 </script>
 
 <template>
@@ -40,7 +44,7 @@ const { getFiat } = useConstants();
           />
 
           <div class="flex justify-end mb-2 gap-2 items-center">
-            <TipReplySettingsModal @update="refresh" />
+            <TipReplySettingsModal v-if="showReplyColors" @update="refresh" />
             <UTooltip
               :text="
                 $t('tipDisplayValueTooltip', {
