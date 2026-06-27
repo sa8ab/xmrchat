@@ -2,6 +2,7 @@ import { Expose, Transform, Type } from 'class-transformer';
 import { PageTipTierDto } from 'src/page-tip-tiers/dtos/page-tip-tier.dto';
 import { PaymentDto } from 'src/payments/dtos/payment.dto';
 import { SwapDto } from 'src/swaps/dtos/swap.dto';
+import { TipReplyDto } from 'src/tip-replies/dtos/tip-reply.dto';
 
 export class BaseTipDto {
   @Expose()
@@ -43,4 +44,8 @@ export class BaseTipDto {
   @Expose()
   @Type(() => PageTipTierDto)
   pageTipTier: PageTipTierDto;
+
+  @Expose()
+  @Type(() => TipReplyDto)
+  tipReplies: TipReplyDto[];
 }

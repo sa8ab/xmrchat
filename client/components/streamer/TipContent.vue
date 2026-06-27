@@ -5,6 +5,7 @@ import type {
   TipFormFields,
   StreamerPage,
   Coin,
+  TipReplySettings,
 } from "~/types";
 import { FiatEnum, TipDisplayMode } from "~/types/enums";
 
@@ -12,6 +13,7 @@ const props = defineProps<{
   streamerId: string;
   streamerPage?: StreamerPage | null;
   superDmActive?: boolean;
+  tipReplySettings?: TipReplySettings;
 }>();
 
 const { required, minLength, maxLength, minValue } = useValidations();
@@ -313,7 +315,11 @@ const renderInputPadding = computed(
       </UForm>
     </div>
     <div class="tip-side">
-      <RecentTipsSidebar :slug="streamerId" :page="streamerPage" />
+      <RecentTipsSidebar
+        :slug="streamerId"
+        :page="streamerPage"
+        :tipReplySettings="tipReplySettings"
+      />
     </div>
   </div>
 </template>

@@ -13,6 +13,12 @@ export enum PageSettingKey {
   SUPER_DM_MIN_AMOUNT = "super-dm-min-amount",
   SUPER_DM_PUBLIC_KEY = "super-dm-public-key",
   SUPER_DM_ACTIVE = "super-dm-active",
+
+  TELEGRAM_USER_ID = "telegram-user-id",
+  TELEGRAM_PAID_CONTENT_ID = "telegram-paid-content-id",
+
+  TIP_REPLY_BACKGROUND_COLOR = "tip-reply-background-color",
+  TIP_REPLY_TEXT_COLOR = "tip-reply-text-color",
 }
 
 export enum ContentLinkPlatformEnum {

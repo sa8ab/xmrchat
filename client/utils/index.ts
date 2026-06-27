@@ -1,5 +1,5 @@
 import { AxiosError, isAxiosError } from "axios";
-import type { Numberic, StreamerPage } from "~/types";
+import type { Numberic, StreamerPage, TipReplySettings } from "~/types";
 import type { H3Error } from "h3";
 
 const getFirstErrorMessage = (message: any) => {
@@ -51,15 +51,18 @@ export const unitsToXmr = (v?: string) => {
 
 export const arrayToObject = <T extends Record<K, any>, K extends keyof T>(
   array: T[],
-  key: K
+  key: K,
 ): Record<string, T> => {
-  return array.reduce((result, item) => {
-    const keyValue = item[key];
-    if (typeof keyValue === "string" || typeof keyValue === "number") {
-      result[keyValue] = item;
-    }
-    return result;
-  }, {} as Record<string, T>);
+  return array.reduce(
+    (result, item) => {
+      const keyValue = item[key];
+      if (typeof keyValue === "string" || typeof keyValue === "number") {
+        result[keyValue] = item;
+      }
+      return result;
+    },
+    {} as Record<string, T>,
+  );
 };
 
 export const generateWalletLink = (data: {
@@ -70,8 +73,9 @@ export const generateWalletLink = (data: {
 }) => {
   if (!data.address || !data.amount) return undefined;
   if (data.ticker === "xmr")
-    return `monero:${data.address}?tx_amount=${data.amount}&tx_description=${data.description || ""
-      }`;
+    return `monero:${data.address}?tx_amount=${data.amount}&tx_description=${
+      data.description || ""
+    }`;
 
   if (data.ticker === "ltc")
     return `litecoin:${data.address}?amount=${data.amount}`;
@@ -101,7 +105,7 @@ export const generateWalletLink = (data: {
 export const truncateMiddle = (
   text: string,
   startCount: number = 4,
-  endCount: number = 4
+  endCount: number = 4,
 ): string => {
   if (!text || text.length <= startCount + endCount + 3) {
     return text;
@@ -114,7 +118,7 @@ export const truncateMiddle = (
 };
 
 export const getForegroundColor = (
-  rgb?: string
+  rgb?: string,
 ): "white" | "black" | undefined => {
   if (!rgb) return undefined;
   if (rgb.startsWith("rgb(") && rgb.endsWith(")")) {
@@ -135,3 +139,9 @@ export const getColorWithOpacity = (color: string, opacity: number) => {
   const [r, g, b] = color.split(",").map((v) => parseInt(v.trim(), 10));
   return `rgba(${r},${g},${b},${opacity})`;
 };
+
+export const tipReplyStyle = (settings?: TipReplySettings | null) => ({
+  backgroundColor:
+    settings?.backgroundColor ?? `rgb(var(--color-primary-DEFAULT))`,
+  color: settings?.textColor ?? `rgb(var(--color-text-default))`,
+});

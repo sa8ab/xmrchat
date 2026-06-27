@@ -157,14 +157,14 @@ const getLink = (platform: ContentLinkPlatformEnum) => {
       :description="t('contentLinksDescription')"
     />
 
-    <div class="grid md:grid-cols-2 gap-4">
+    <!-- <div class="grid md:grid-cols-2 gap-4">
       <UFormGroup :label="t('brandName')" :help="t('brandNameHelp')">
         <UInput v-model="state.form.name" />
       </UFormGroup>
       <UFormGroup :label="t('searchTerms')" :help="t('searchTermsHelp')">
         <UInput v-model="state.form.searchTerms" />
       </UFormGroup>
-    </div>
+    </div> -->
 
     <h3 class="font-bold mt-8">{{ t("contentLinks") }}</h3>
     <p class="text-sm text-pale pt-1 mb-4">

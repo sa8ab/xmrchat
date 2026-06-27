@@ -50,6 +50,8 @@ export interface CreateFormFields {
   fiat?: FiatEnum;
   expirationMinutes?: number;
   bio?: string;
+  name?: string;
+  searchTerms?: string;
 }
 
 export interface TipFormFields {
@@ -112,6 +114,7 @@ export interface StreamerPage {
   pageTipTiers?: PageTipTier[];
   ability?: any;
   bio?: string;
+  searchTerms?: string;
 }
 
 interface TipPayment {
@@ -134,6 +137,7 @@ export interface Tip {
   swap?: Swap;
   createdAt?: string;
   pageTipTier?: PageTipTier;
+  tipReplies?: TipReply[];
 }
 
 export interface TipTier {
@@ -141,6 +145,13 @@ export interface TipTier {
   name?: string;
   description?: string;
   id: string;
+}
+
+export interface TipReply {
+  id: number;
+  message: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface TipTierField {
@@ -359,4 +370,9 @@ export interface GeneratedKeys {
 
 export interface SavedViewerSuperDmKeys extends GeneratedKeys {
   superDmId: string;
+}
+
+export interface TipReplySettings {
+  backgroundColor?: string;
+  textColor?: string;
 }
