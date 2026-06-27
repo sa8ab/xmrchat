@@ -317,7 +317,7 @@ const handleDelete = async (tipReply: TipReply) => {
       }"
     >
       <template #amount-data="{ row }">
-        <div class="inline-flex items-start gap-2">
+        <div class="inline-flex items-start gap-2 flex-wrap">
           <span>
             {{ getComputedPrice(row.payment.amount) }}
           </span>
