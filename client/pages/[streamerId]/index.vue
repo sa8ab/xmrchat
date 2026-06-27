@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { TipContent } from "#components";
-import type { TipCreationResponse } from "~/types";
+import type { TipCreationResponse, TipReplySettings } from "~/types";
 import { TipDisplayMode } from "~/types/enums";
 
 definePageMeta({
@@ -22,13 +22,16 @@ const { data, pending, refresh, error } = await useLazyAsyncData(
       `/super-dms/${streamerId.value}/settings/state`,
     );
 
-    const [page, { data: superDmState }] = await Promise.all([
-      pageR,
-      superDmStateR,
-    ]);
+    const tipReplySettingsR = axios.get<{ settings: TipReplySettings }>(
+      `/tip-replies/${streamerId.value}/settings`,
+    );
+
+    const [page, { data: superDmState }, { data: tipReplySettings }] =
+      await Promise.all([pageR, superDmStateR, tipReplySettingsR]);
     return {
       page,
       superDmState,
+      tipReplySettings,
     };
   },
   {
@@ -88,6 +91,7 @@ useStreamerIdSeoMeta(computed(() => data.value?.page));
           :streamerId="streamerId"
           :streamerPage="data.page"
           :superDmActive="data.superDmState.active"
+          :tipReplySettings="data.tipReplySettings.settings"
           @done="handlePayment"
         />
         <TipPaymentModal

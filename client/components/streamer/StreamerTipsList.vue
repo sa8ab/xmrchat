@@ -1,10 +1,13 @@
 <script lang="ts" setup>
+import { ConfirmModal } from "#components";
 import type {
   Numberic,
   ObsTipSocketEvent,
   PageSetting,
   StreamerPage,
   Tip,
+  TipReply,
+  TipReplySettings,
 } from "~/types";
 import { FiatEnum, PageSettingKey, TipDisplayMode } from "~/types/enums";
 
@@ -15,11 +18,13 @@ const props = withDefaults(
     fiat?: FiatEnum;
     page?: StreamerPage;
     showPrivateNameAndMessage?: boolean;
+    showReply?: boolean;
     playSound?: boolean;
   }>(),
   {
     showPrivateNameAndMessage: true,
-  }
+    showReply: true,
+  },
 );
 
 const { axios } = useApp();
@@ -28,10 +33,12 @@ const { getTips: getTipsApi, updateTipPrivate: updatePrivateApi } =
   useServices();
 const { dayjs } = useDate();
 
+const modal = useModal();
+
 const tipEvents = ref<ObsTipSocketEvent[]>([]);
 
 const { getSoundUrl } = useTip({
-  soundUrl: computed(() => obsSettings.value?.obsSound?.url),
+  soundUrl: computed(() => data.value?.obsSound?.url),
 });
 
 const { init, disconnect, sendTipToObs, removeTipFromObs } = usePageSocket({
@@ -50,25 +57,62 @@ const { t } = useI18n();
 const toast = useToast();
 
 const { data, refresh, pending, error } = useLazyAsyncData(
-  `recent-tips-${props.slug}`,
-  () => getTipsApi(props.slug)
-);
-const { data: obsSettings } = useLazyAsyncData(
+  `streamer-recent-tips-${props.slug}`,
   async () => {
-    const { data } = await axios.get<{ settings: PageSetting[] }>(
-      `/page-settings/${props.slug}/obs`
-    );
+    // const data = await getTipsApi(props.slug);
 
-    const obsSound = data.settings.find(
-      ({ key }) => key === PageSettingKey.OBS_SOUND
+    const [data, obsSettings, tipReplySettings] = await Promise.all([
+      getTipsApi(props.slug),
+      axios.get<{ settings: PageSetting[] }>(
+        `/page-settings/${props.slug}/obs`,
+      ),
+      axios.get<{ settings: TipReplySettings }>(
+        `/tip-replies/${props.slug}/settings`,
+      ),
+    ]);
+
+    const obsSound = obsSettings.data.settings.find(
+      ({ key }) => key === PageSettingKey.OBS_SOUND,
     )?.data;
 
     return {
+      data,
       obsSound,
+      tipReplySettings: tipReplySettings.data.settings,
     };
   },
-  { server: false }
 );
+
+// const { data: obsSettings } = useLazyAsyncData(
+//   async () => {
+//     const { data } = await axios.get<{ settings: PageSetting[] }>(
+//       `/page-settings/${props.slug}/obs`,
+//     );
+
+//     const obsSound = data.settings.find(
+//       ({ key }) => key === PageSettingKey.OBS_SOUND,
+//     )?.data;
+
+//     return {
+//       obsSound,
+//     };
+//   },
+//   { server: false },
+// );
+
+// const { data: replySettings } = useLazyAsyncData(
+//   `tip-reply-settings-${props.slug}`,
+//   async () => {
+//     const { data } = await axios.get<{ settings: TipReplySettings }>(
+//       `/tip-replies/${props.slug}/settings`,
+//     );
+
+//     return data.settings;
+//   },
+//   { server: false },
+// );
+
+const replyStyle = computed(() => tipReplyStyle(data.value?.tipReplySettings));
 
 const interval = ref<NodeJS.Timeout | undefined>(undefined);
 
@@ -89,32 +133,42 @@ const stopTipsInterval = () => {
 
 onBeforeUnmount(() => stopTipsInterval());
 
-const columns = [
-  {
-    key: "name",
-    label: t("tipName"),
-  },
-  {
-    key: "amount",
-    label: t("tipAmount"),
-  },
-  {
-    key: "message",
-    label: t("tipMessage"),
-  },
-  {
-    key: "paidAt",
-    label: t("tipDate"),
-  },
-  {
-    key: "private",
-    label: t("tipPrivate"),
-  },
-  {
-    key: "actions",
-    label: "OBS",
-  },
-];
+const columns = computed(() => {
+  const list = [
+    {
+      key: "name",
+      label: t("tipName"),
+    },
+    {
+      key: "amount",
+      label: t("tipAmount"),
+    },
+    {
+      key: "message",
+      label: t("tipMessage"),
+    },
+    {
+      key: "paidAt",
+      label: t("tipDate"),
+    },
+    {
+      key: "private",
+      label: t("tipPrivate"),
+    },
+    {
+      key: "actions",
+      label: "OBS",
+    },
+  ];
+
+  if (showReply.value) {
+    list.push({
+      key: "reply",
+      label: "Reply",
+    });
+  }
+  return list;
+});
 
 const updateTipPrivate = async (id: Numberic, isPrivate: boolean) => {
   try {
@@ -182,13 +236,80 @@ const { markdownAndSanitize } = useMarkdown();
 const makePublicAbility = computed(() => props.page?.ability?.makeTipPublic);
 const getPrivateDisabled = (privateValue: boolean) =>
   privateValue && !makePublicAbility.value;
+
+const tipReplyModal = reactive<{
+  pending: boolean;
+  tipReply?: TipReply;
+  active: boolean;
+  tip?: Tip;
+}>({
+  pending: false,
+  tipReply: undefined,
+  active: false,
+  tip: undefined,
+});
+
+const showReply = computed(() => props.showReply && props.page?.isPremium);
+
+const handleReplyClick = async (tip?: Tip) => {
+  tipReplyModal.tip = tip;
+  tipReplyModal.tipReply = undefined;
+  tipReplyModal.active = true;
+
+  const tipReplyId = tip?.tipReplies?.[0]?.id;
+
+  if (!tipReplyId) return;
+
+  const tipReply = await getTipReply(tipReplyId);
+  tipReplyModal.tipReply = tipReply;
+};
+
+const getTipReply = async (id: number) => {
+  try {
+    tipReplyModal.pending = true;
+    const { data } = await axios.get<{ tipReply: TipReply }>(
+      `/tip-replies/${id}`,
+    );
+    return data.tipReply;
+  } catch (error) {
+    toast.add({
+      title: t("error"),
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+    tipReplyModal.pending = false;
+  }
+};
+
+const handleDeleteClick = (tipReply: TipReply) => {
+  modal.open(ConfirmModal, {
+    title: t("delete"),
+    text: "Are you sure you want to delete this reply?",
+    color: "red",
+    onConfirm: () => handleDelete(tipReply),
+  });
+};
+
+const handleDelete = async (tipReply: TipReply) => {
+  try {
+    await axios.delete(`/tip-replies/${tipReply.id}`);
+    refresh();
+  } catch (error) {
+    toast.add({
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+  }
+};
 </script>
 
 <template>
   <PendingView :error="error" :pending="pending && !data">
     <UTable
       v-if="data"
-      :rows="data"
+      :rows="data.data"
       :columns="columns"
       class="border border-border rounded-md"
       :ui="{
@@ -241,12 +362,28 @@ const getPrivateDisabled = (privateValue: boolean) =>
       <template #message-data="{ row }">
         <div v-if="row.private && !showPrivateNameAndMessage">
           <p class="text-pale">{{ t("tipPrivateMessage") }}</p>
+          <div v-if="row.tipReplies?.[0]" class="flex items-start mt-2 gap-2">
+            <div
+              :style="replyStyle"
+              class="p-1.5 rounded-md text-xs break-words max-w-[20rem] min-w-[8rem] flex-1"
+            >
+              <p>{{ row.tipReplies?.[0]?.message }}</p>
+            </div>
+          </div>
         </div>
-        <div
-          v-else
-          class="break-words max-w-[20rem] min-w-[8rem]"
-          v-html="markdownAndSanitize(row?.message)"
-        />
+        <template v-else>
+          <div
+            class="break-words max-w-[20rem] min-w-[8rem] flex-1"
+            v-html="markdownAndSanitize(row?.message)"
+          />
+          <div
+            v-if="row.tipReplies?.[0]"
+            :style="replyStyle"
+            class="p-1.5 rounded-md text-xs break-words mt-2"
+          >
+            <p>{{ row.tipReplies?.[0]?.message }}</p>
+          </div>
+        </template>
       </template>
       <template #private-data="{ row }">
         <div class="private">
@@ -276,10 +413,33 @@ const getPrivateDisabled = (privateValue: boolean) =>
           </UButton>
         </div>
       </template>
+      <template #reply-data="{ row }" v-if="showReply">
+        <div class="flex gap-2">
+          <UButton variant="ghost" @click="handleReplyClick(row)">
+            {{ row.tipReplies?.[0] ? "Edit" : "Reply" }}
+          </UButton>
+          <UButton
+            v-if="row.tipReplies?.[0]"
+            variant="soft"
+            color="red"
+            square
+            icon="i-heroicons-trash"
+            @click="handleDeleteClick(row.tipReplies[0])"
+          ></UButton>
+        </div>
+      </template>
       <template #empty-state>
         <NoItems :text="t('noItems')" />
       </template>
     </UTable>
+
+    <TipReplyModal
+      v-model="tipReplyModal.active"
+      :tip="tipReplyModal.tip"
+      :tipReply="tipReplyModal.tipReply"
+      :pending="tipReplyModal.pending"
+      @update="refresh"
+    />
   </PendingView>
 </template>
 

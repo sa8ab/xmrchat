@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import type { StreamerPage } from "~/types";
+import type { StreamerPage, TipReplySettings } from "~/types";
 import { FiatEnum, TipDisplayMode } from "~/types/enums";
+
 const props = defineProps<{
   slug: string;
   page?: StreamerPage | null;
+  tipReplySettings?: TipReplySettings;
 }>();
 
 const { getTips: getTipsApi } = useServices();
@@ -18,7 +20,7 @@ const { markdownAndSanitize } = useMarkdown();
 const { data, refresh, pending, error } = useLazyAsyncData(
   `recent-tips-${props.slug}`,
   () => getTipsApi(props.slug),
-  { server: false }
+  { server: false },
 );
 
 const interval = ref<NodeJS.Timeout | undefined>(undefined);
@@ -92,6 +94,8 @@ const { getDisappearText } = useTip({
             :disappearText="getDisappearText(item.createdAt)"
             :computedPrice="getComputedPrice(item.payment?.amount)"
             :message="markdownAndSanitize(item?.message)"
+            :name="page?.name || page?.path"
+            :replySettings="tipReplySettings"
           />
         </div>
       </template>
