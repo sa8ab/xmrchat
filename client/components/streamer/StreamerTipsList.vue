@@ -355,7 +355,7 @@ const handleDelete = async (tipReply: TipReply) => {
         <div v-if="row.private && !showPrivateNameAndMessage">
           <p class="text-pale">{{ t("private.title") }}</p>
         </div>
-        <div v-else>
+        <div v-else class="break-words max-w-[8rem]">
           {{ row.name }}
         </div>
       </template>
