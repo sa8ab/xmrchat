@@ -396,8 +396,10 @@ const handleDelete = async (tipReply: TipReply) => {
       </template> -->
       <template #action-data="{ row }">
         <div class="flex">
-          <div class="grid grid-cols-2 gap-2 items-center">
-            <span> OBS: </span>
+          <div class="grid gap-2 grid-cols-[auto_1fr] items-center">
+            <div>
+              <span> OBS: </span>
+            </div>
             <div class="flex">
               <UButton
                 v-if="!tipEvents.find(({ tip }) => tip?.id === row.id)"
@@ -417,7 +419,9 @@ const handleDelete = async (tipReply: TipReply) => {
             </div>
 
             <template v-if="showReply">
-              <span> Reply: </span>
+              <div class="flex">
+                <span> Reply: </span>
+              </div>
               <div class="flex items-center gap-1">
                 <UButton variant="ghost" @click="handleReplyClick(row)">
                   {{ row.tipReplies?.[0] ? "Edit" : "Reply" }}
