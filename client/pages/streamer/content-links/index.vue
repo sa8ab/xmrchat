@@ -154,22 +154,9 @@ const getLink = (platform: ContentLinkPlatformEnum) => {
   <div>
     <PageTitle
       :title="t('contentLinks')"
-      :description="t('contentLinksDescription')"
+      description="Links to your social pages or websites. To reset a value leave the field empty.
+"
     />
-
-    <!-- <div class="grid md:grid-cols-2 gap-4">
-      <UFormGroup :label="t('brandName')" :help="t('brandNameHelp')">
-        <UInput v-model="state.form.name" />
-      </UFormGroup>
-      <UFormGroup :label="t('searchTerms')" :help="t('searchTermsHelp')">
-        <UInput v-model="state.form.searchTerms" />
-      </UFormGroup>
-    </div> -->
-
-    <h3 class="font-bold mt-8">{{ t("contentLinks") }}</h3>
-    <p class="text-sm text-pale pt-1 mb-4">
-      {{ t("contentLinksSecondDescription") }}
-    </p>
 
     <div
       class="grid md:grid-cols-2 md:grid-flow-col gap-4"
