@@ -154,8 +154,7 @@ const getLink = (platform: ContentLinkPlatformEnum) => {
   <div>
     <PageTitle
       :title="t('contentLinks')"
-      description="Links to your social pages or websites. To reset a value leave the field empty.
-"
+      description="Links to platforms where your fans can access your content. To reset a value leave the field empty."
     />
 
     <div
