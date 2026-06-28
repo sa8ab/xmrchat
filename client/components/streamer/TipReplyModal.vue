@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ConfirmModal } from "#components";
 import useVuelidate from "@vuelidate/core";
 import type { Tip, TipReply } from "~/types";
 
@@ -17,9 +18,13 @@ const model = defineModel<boolean>();
 const state = reactive<{
   message?: string;
   loading: boolean;
+  loadingDelete: boolean;
+  deleteModal: boolean;
 }>({
   message: undefined,
   loading: false,
+  loadingDelete: false,
+  deleteModal: false,
 });
 
 const { axios } = useApp();
@@ -31,10 +36,10 @@ const handleSubmit = async () => {
   if (!valid) return;
 
   state.loading = true;
-  const tipreplyId = props.tipReply?.id;
+  const tipReplyId = props.tipReply?.id;
   try {
-    tipreplyId
-      ? await axios.put(`/tip-replies/${tipreplyId}`, {
+    tipReplyId
+      ? await axios.put(`/tip-replies/${tipReplyId}`, {
           message: state.message,
         })
       : await axios.post(`/tip-replies/${props.tip?.id}`, {
@@ -54,6 +59,30 @@ const handleSubmit = async () => {
     });
   } finally {
     state.loading = false;
+  }
+};
+
+const handleDeleteClick = () => {
+  state.deleteModal = true;
+};
+
+const handleDelete = async () => {
+  state.deleteModal = false;
+  state.loadingDelete = true;
+  try {
+    const tipReplyId = props.tipReply?.id;
+    console.log(props.tipReply);
+
+    await axios.delete(`/tip-replies/${tipReplyId}`);
+    emit("update");
+  } catch (error) {
+    toast.add({
+      description: getErrorMessage(error),
+      color: "red",
+    });
+  } finally {
+    model.value = false;
+    state.loadingDelete = false;
   }
 };
 
@@ -87,7 +116,7 @@ watch(
 </script>
 
 <template>
-  <UModal v-model="model" :ui="{ container: 'items-center' }" >
+  <UModal v-model="model" :ui="{ container: 'items-center' }">
     <UCard>
       <template #header>
         <h2 class="text-lg font-medium">Reply</h2>
@@ -118,16 +147,38 @@ watch(
       </UFormGroup>
 
       <template #footer>
-        <div class="flex gap-2 justify-end">
-          <UButton variant="ghost" @click="model = false">
-            {{ $t("cancel") }}
-          </UButton>
-          <UButton :loading="state.loading" @click="handleSubmit">
-            {{ $t("save") }}
-          </UButton>
+        <div class="flex justify-between">
+          <div>
+            <UButton
+              v-if="tipReply?.id"
+              variant="ghost"
+              color="red"
+              :loading="state.loadingDelete"
+              @click="handleDeleteClick"
+            >
+              Delete
+            </UButton>
+          </div>
+          <div class="flex gap-2">
+            <UButton variant="ghost" @click="model = false">
+              {{ $t("cancel") }}
+            </UButton>
+            <UButton :loading="state.loading" @click="handleSubmit">
+              {{ $t("save") }}
+            </UButton>
+          </div>
         </div>
       </template>
     </UCard>
+
+    <ConfirmModal
+      v-model="state.deleteModal"
+      :title="$t('delete')"
+      text="Are you sure you want to delete this reply?"
+      color="red"
+      @confirm="handleDelete()"
+      @close="state.deleteModal = false"
+    />
   </UModal>
 </template>
 
