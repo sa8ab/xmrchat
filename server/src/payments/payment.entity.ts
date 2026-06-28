@@ -10,7 +10,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { SuperDm } from 'src/super-dms/super-dm.entity';
-import { Entitlement } from 'src/entitlements/entitlement.entity';
 
 @Entity({ name: 'payments' })
 export class Payment {
@@ -27,14 +26,6 @@ export class Payment {
   })
   @JoinColumn()
   tip?: Tip;
-
-  @OneToOne(() => Entitlement, (e: Entitlement) => e.payment, {
-    nullable: true,
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  })
-  @JoinColumn()
-  entitlement?: Entitlement;
 
   @Column({ nullable: true })
   pageSlug?: string;

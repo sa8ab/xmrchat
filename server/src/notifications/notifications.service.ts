@@ -199,27 +199,6 @@ export class NotificationsService {
     });
   }
 
-  sendNewEntitlementEmail(options: {
-    to: string;
-    lang: string;
-    userName: string;
-    link?: string;
-    name: string;
-  }) {
-    console.log(options);
-
-    return this.emailQueue.add('send-email', {
-      to: options.to,
-      options: {
-        subject: this.i18n.t('email.newEntitlement.subject'),
-        template: 'new-entitlement.hbs',
-        context: {
-          ...options,
-        },
-      },
-    });
-  }
-
   sendAddressChangedEmail(options: {
     to: string;
     lang: string;

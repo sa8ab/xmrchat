@@ -55,8 +55,7 @@ import { PaymentFlowModule } from './payment-flow/payment-flow.module';
 import { LinkVerificationsModule } from './link-verifications/link-verifications.module';
 import { NetworkModule } from './network/network.module';
 import { IsMoneroPrimaryAdrress } from './shared/validations/monero-primary-address.validation';
-import { PaidContentModule } from './paid-content/paid-content.module';
-import { TelegramModule } from './paid-content/telegram/telegram.module';
+import { OfferingsModule } from './offerings/offerings.module';
 import { EntitlementsModule } from './entitlements/entitlements.module';
 import { TipsBroadcastModule } from './tips-broadcast/tips-broadcast.module';
 import { TipRepliesModule } from './tip-replies/tip-replies.module';
@@ -188,8 +187,7 @@ import { TipRepliesModule } from './tip-replies/tip-replies.module';
     PaymentFlowModule,
     LinkVerificationsModule,
     NetworkModule,
-    PaidContentModule,
-    TelegramModule,
+    OfferingsModule,
     EntitlementsModule,
     TipsBroadcastModule,
     TipRepliesModule,
@@ -197,4 +195,4 @@ import { TipRepliesModule } from './tip-replies/tip-replies.module';
   controllers: [AppController],
   providers: [AppService, IsMoneroPrimaryAdrress],
 })
-export class AppModule {}
+export class AppModule { }

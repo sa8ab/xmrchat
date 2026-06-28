@@ -5,7 +5,6 @@ import { PagesModule } from 'src/pages/pages.module';
 import { TipsModule } from 'src/tips/tips.module';
 import { SwapsModule } from 'src/swaps/swaps.module';
 import { SuperDmsModule } from 'src/super-dms/super-dms.module';
-import { EntitlementsModule } from 'src/entitlements/entitlements.module';
 
 @Module({
   imports: [
@@ -14,7 +13,6 @@ import { EntitlementsModule } from 'src/entitlements/entitlements.module';
     TipsModule,
     SwapsModule,
     SuperDmsModule,
-    EntitlementsModule,
   ],
   controllers: [WebhooksController],
 })

@@ -183,7 +183,3 @@ export enum SuperDmMessageSenderType {
 export enum PageVerificationTypeEnum {
   X = 'x',
 }
-
-export enum PaidContentTypeEnum {
-  TELEGRAM = 'telegram',
-}

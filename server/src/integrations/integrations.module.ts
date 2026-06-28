@@ -8,7 +8,6 @@ import { IntegrationConfig } from './integration-configs.entity';
 import { PagesModule } from 'src/pages/pages.module';
 import { YoutubeModule } from './youtube/youtube.module';
 import { RumbleModule } from './rumble/rumble.module';
-import { TelegramModule } from './telegram/telegram.module';
 
 @Module({
   providers: [IntegrationsService],
@@ -19,7 +18,6 @@ import { TelegramModule } from './telegram/telegram.module';
     TypeOrmModule.forFeature([IntegrationConfig]),
     YoutubeModule,
     RumbleModule,
-    TelegramModule,
   ],
   exports: [SimplexModule, SignalModule, YoutubeModule],
   controllers: [IntegrationsController],

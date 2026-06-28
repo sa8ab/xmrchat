@@ -68,14 +68,6 @@ export class PageSettingsService {
     return await Promise.all(resultWithData);
   }
 
-  async getByKeyAndValue(key: PageSettingKey, value: string) {
-    const setting = await this.repo.findOne({
-      where: { key, value },
-    });
-
-    return setting;
-  }
-
   async upsert(
     pageId: number,
     settings: UpdatePageSettingBaseDto[],

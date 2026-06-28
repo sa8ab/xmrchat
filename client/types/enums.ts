@@ -125,12 +125,3 @@ export enum MoneroNetworkTypeEnum {
   STAGENET = "stagenet",
   STRESSNET = "stressnet",
 }
-
-export enum OfferingTypeEnum {
-  TELEGRAM = "telegram",
-}
-
-export enum PaidContentDurationEnum {
-  WEEK = "week",
-  MONTH = "month",
-}

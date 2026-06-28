@@ -12,7 +12,6 @@ export class PaymentsService {
     pageSlug?: string;
     tip?: { id: number };
     superDm?: { id: string };
-    entitlement?: { id: string };
     eventId: string;
   }) {
     const created = this.repo.create(payload);
@@ -23,7 +22,7 @@ export class PaymentsService {
     if (!eventId) return;
     return this.repo.findOne({
       where: { eventId },
-      relations: { tip: true, superDm: true, entitlement: true },
+      relations: { tip: true, superDm: true },
     });
   }
 

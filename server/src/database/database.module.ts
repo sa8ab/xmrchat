@@ -22,8 +22,6 @@ import { Tip } from 'src/tips/tip.entity';
 import { User } from 'src/users/user.entity';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { LinkVerification } from 'src/link-verifications/link-verification.entity';
-import { PaidContent } from 'src/paid-content/paid-content.entity';
-import { Entitlement } from 'src/entitlements/entitlement.entity';
 import { TipReply } from 'src/tip-replies/tip-reply.entity';
 
 @Module({
@@ -57,8 +55,6 @@ import { TipReply } from 'src/tip-replies/tip-reply.entity';
           SuperDm,
           SuperDmMessage,
           LinkVerification,
-          PaidContent,
-          Entitlement,
           TipReply,
         ],
         namingStrategy: new SnakeNamingStrategy(),
