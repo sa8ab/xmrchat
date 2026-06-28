@@ -13,10 +13,12 @@ const modal = useModal();
 
 const emit = defineEmits<{
   confirm: [];
+  close: [];
 }>();
 
 const hide = () => {
   modal.close();
+  emit("close");
 };
 </script>
 
@@ -31,7 +33,7 @@ const hide = () => {
       </div>
       <template #footer>
         <div class="flex gap-2 justify-end">
-          <UButton :color="color as any || 'red'" @click="handleAccept">{{
+          <UButton :color="(color as any) || 'red'" @click="handleAccept">{{
             $t("confirm")
           }}</UButton>
           <UButton variant="ghost" @click="hide">{{ $t("cancel") }}</UButton>
