@@ -151,22 +151,22 @@ const columns = computed(() => {
       key: "paidAt",
       label: t("tipDate"),
     },
+    // {
+    //   key: "private",
+    //   label: t("tipPrivate"),
+    // },
     {
-      key: "private",
-      label: t("tipPrivate"),
-    },
-    {
-      key: "actions",
-      label: "OBS",
+      key: "action",
+      label: "Action",
     },
   ];
 
-  if (showReply.value) {
-    list.push({
-      key: "reply",
-      label: "Reply",
-    });
-  }
+  // if (showReply.value) {
+  //   list.push({
+  //     key: "reply",
+  //     label: "Reply",
+  //   });
+  // }
   return list;
 });
 
@@ -379,13 +379,13 @@ const handleDelete = async (tipReply: TipReply) => {
           <div
             v-if="row.tipReplies?.[0]"
             :style="replyStyle"
-            class="p-1.5 rounded-md text-xs break-words mt-2"
+            class="p-1.5 rounded-md text-xs break-words max-w-[20rem] mt-2"
           >
             <p>{{ row.tipReplies?.[0]?.message }}</p>
           </div>
         </template>
       </template>
-      <template #private-data="{ row }">
+      <!-- <template #private-data="{ row }">
         <div class="private">
           <UCheckbox
             :disabled="getPrivateDisabled(row.private)"
@@ -393,41 +393,62 @@ const handleDelete = async (tipReply: TipReply) => {
             @change="updateTipPrivate(row.id, $event)"
           ></UCheckbox>
         </div>
-      </template>
-      <template #actions-data="{ row }">
+      </template> -->
+      <template #action-data="{ row }">
         <div class="flex">
-          <UButton
-            v-if="!tipEvents.find(({ tip }) => tip?.id === row.id)"
-            variant="ghost"
-            @click="handleSendClick(row)"
-          >
-            {{ t("show") }}
-          </UButton>
-          <UButton
-            v-else
-            variant="ghost"
-            color="red"
-            @click="handleRemoveClick(row)"
-          >
-            {{ t("hide") }}
-          </UButton>
+          <div class="grid gap-2 grid-cols-[auto_1fr] items-center">
+            <div>
+              <span> OBS: </span>
+            </div>
+            <div class="flex">
+              <UButton
+                v-if="!tipEvents.find(({ tip }) => tip?.id === row.id)"
+                variant="ghost"
+                @click="handleSendClick(row)"
+              >
+                {{ t("show") }}
+              </UButton>
+              <UButton
+                v-else
+                variant="ghost"
+                color="red"
+                @click="handleRemoveClick(row)"
+              >
+                {{ t("hide") }}
+              </UButton>
+            </div>
+
+            <template v-if="showReply">
+              <div class="flex">
+                <span> Reply: </span>
+              </div>
+              <div class="flex items-center gap-1">
+                <UButton variant="ghost" @click="handleReplyClick(row)">
+                  {{ row.tipReplies?.[0] ? "Edit" : "Reply" }}
+                </UButton>
+                <!-- <UButton
+                  v-if="row.tipReplies?.[0]"
+                  variant="ghost"
+                  color="red"
+                  square
+                  icon="i-heroicons-trash"
+                  @click="handleDeleteClick(row.tipReplies[0])"
+                ></UButton> -->
+              </div>
+            </template>
+
+            <span> Private: </span>
+            <div class="py-1.5 px-2.5">
+              <UCheckbox
+                :disabled="getPrivateDisabled(row.private)"
+                :modelValue="row.private"
+                @change="updateTipPrivate(row.id, $event)"
+              ></UCheckbox>
+            </div>
+          </div>
         </div>
       </template>
-      <template #reply-data="{ row }" v-if="showReply">
-        <div class="flex gap-2">
-          <UButton variant="ghost" @click="handleReplyClick(row)">
-            {{ row.tipReplies?.[0] ? "Edit" : "Reply" }}
-          </UButton>
-          <UButton
-            v-if="row.tipReplies?.[0]"
-            variant="soft"
-            color="red"
-            square
-            icon="i-heroicons-trash"
-            @click="handleDeleteClick(row.tipReplies[0])"
-          ></UButton>
-        </div>
-      </template>
+      <template #reply-data="{ row }"> </template>
       <template #empty-state>
         <NoItems :text="t('noItems')" />
       </template>
