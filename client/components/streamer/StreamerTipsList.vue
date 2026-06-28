@@ -379,7 +379,7 @@ const handleDelete = async (tipReply: TipReply) => {
           <div
             v-if="row.tipReplies?.[0]"
             :style="replyStyle"
-            class="p-1.5 rounded-md text-xs break-words mt-2"
+            class="p-1.5 rounded-md text-xs break-words max-w-[20rem] mt-2"
           >
             <p>{{ row.tipReplies?.[0]?.message }}</p>
           </div>
@@ -395,9 +395,9 @@ const handleDelete = async (tipReply: TipReply) => {
         </div>
       </template> -->
       <template #action-data="{ row }">
-        <div class="flex flex-col gap-1">
-          <div class="flex items-center gap-2">
-            <span> OBS </span>
+        <div class="flex">
+          <div class="grid grid-cols-2 gap-2 items-center">
+            <span> OBS: </span>
             <div class="flex">
               <UButton
                 v-if="!tipEvents.find(({ tip }) => tip?.id === row.id)"
@@ -415,30 +415,32 @@ const handleDelete = async (tipReply: TipReply) => {
                 {{ t("hide") }}
               </UButton>
             </div>
-          </div>
 
-          <div v-if="showReply" class="flex items-center gap-2">
-            <span> Reply: </span>
-            <UButton variant="ghost" @click="handleReplyClick(row)">
-              {{ row.tipReplies?.[0] ? "Edit" : "Reply" }}
-            </UButton>
-            <UButton
-              v-if="row.tipReplies?.[0]"
-              variant="ghost"
-              color="red"
-              square
-              icon="i-heroicons-trash"
-              @click="handleDeleteClick(row.tipReplies[0])"
-            ></UButton>
-          </div>
+            <template v-if="showReply">
+              <span> Reply: </span>
+              <div class="flex items-center gap-1">
+                <UButton variant="ghost" @click="handleReplyClick(row)">
+                  {{ row.tipReplies?.[0] ? "Edit" : "Reply" }}
+                </UButton>
+                <!-- <UButton
+                  v-if="row.tipReplies?.[0]"
+                  variant="ghost"
+                  color="red"
+                  square
+                  icon="i-heroicons-trash"
+                  @click="handleDeleteClick(row.tipReplies[0])"
+                ></UButton> -->
+              </div>
+            </template>
 
-          <div class="private flex items-center gap-2">
             <span> Private: </span>
-            <UCheckbox
-              :disabled="getPrivateDisabled(row.private)"
-              :modelValue="row.private"
-              @change="updateTipPrivate(row.id, $event)"
-            ></UCheckbox>
+            <div class="py-1.5 px-2.5">
+              <UCheckbox
+                :disabled="getPrivateDisabled(row.private)"
+                :modelValue="row.private"
+                @change="updateTipPrivate(row.id, $event)"
+              ></UCheckbox>
+            </div>
           </div>
         </div>
       </template>
