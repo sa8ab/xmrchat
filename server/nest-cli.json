@@ -6,14 +6,13 @@
     "deleteOutDir": true,
     "assets": [
       {
-        "include": "notifications/email/templates/**",
+        "include": "notifications/email/templates/**/*",
         "outDir": "dist/src/"
       },
       {
-        "include": "i18n/**",
+        "include": "i18n/**/*",
         "outDir": "dist/src/"
       }
-    ],
-    "watchAssets": true
+    ]
   }
 }

@@ -197,4 +197,4 @@ import { TipGoalsModule } from './tip-goals/tip-goals.module';
   controllers: [AppController],
   providers: [AppService, IsMoneroPrimaryAdrress],
 })
-export class AppModule { }
+export class AppModule {}
