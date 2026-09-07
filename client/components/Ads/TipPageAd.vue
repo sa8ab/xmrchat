@@ -4,11 +4,13 @@ const { toCreateAd } = useRouteLocation();
 
 <template>
   <div class="flex flex-col flex-1 items-end">
-    <div
-      class="aspect-[320/50] bg-background-2 border border-border rounded-lg min-w-[300px] w-full flex items-center justify-center relative overflow-hidden"
+    <ULink
+      :to="toCreateAd()"
+      class="aspect-[240/60] border border-border rounded-lg min-w-[300px] w-full flex items-center justify-center gap-4 overflow-hidden"
     >
-      <p class="relative z-10">Your ad here</p>
-    </div>
+      <p class="text-lg font-medium">Advertise with XMRChat</p>
+      <img src="/images/xmrchat-logo.png" alt="XMRChat Logo" class="w-[80px]" />
+    </ULink>
     <UButton
       size="xs"
       class="text-pale"
