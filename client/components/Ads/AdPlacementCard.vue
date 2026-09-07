@@ -27,18 +27,6 @@ const features = [
       </UBadge>
     </div>
 
-    <!-- <div
-      class="aspect-[4/1] w-full rounded-lg bg-background-2 flex items-center justify-center"
-    >
-      <p class="text-sm text-pale">4:1 banner</p>
-    </div> -->
-
-    <p class="text-3xl font-bold tracking-tight">
-      Email for pricing
-      <!-- {{ price || "$75.00" }} -->
-      <span class="text-base font-normal text-pale">/ week</span>
-    </p>
-
     <p class="text-pale">
       The high-visibility banner shown on creator tip pages across XMRChat.
     </p>

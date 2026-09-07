@@ -8,15 +8,12 @@ const url = computed(() => `mailto:${email.value}`);
 <template>
   <div>
     <div class="inner">
-      <div class="flex justify-center py-24 text-center">
+      <div class="flex justify-center py-8 md:py-24 text-center">
         <div class="max-w-lg flex flex-col gap-4">
-          <h1 class="text-3xl font-bold">
-            Contact us to feature your business to multiple audiences that love
-            using Monero!
+          <h1 class="text-xl md:text-3xl font-bold">
+            Contact us to feature your business to the audience of every content
+            creator on XMRChat!
           </h1>
-          <div>
-            <UButton size="lg" :to="url" target="_blank">Create an ad</UButton>
-          </div>
         </div>
       </div>
 

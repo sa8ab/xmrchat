@@ -16,7 +16,7 @@ const rules = [
     number: "03",
     title: "Every campaign is reviewed",
     description:
-      "An admin checks the service and creative before anything goes live on tip pages. A campaign rejected during this review receives a full refund.",
+      "An admin checks the service and creative before anything goes live on tip pages.",
   },
 ];
 </script>
