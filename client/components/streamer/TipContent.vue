@@ -273,87 +273,87 @@ const renderInputPadding = computed(
           </UFormGroup>
         </div>
 
-        <div class="flex gap-8 items-center flex-wrap-reverse">
-          <div class="flex">
-            <UFormGroup :label="t('tipCoin')">
-              <USelectMenu
-                :options="coinSelectOptions"
-                v-model="state.selectedCoin"
-                trailingIcon="i-heroicons-chevron-up-down-16-solid"
-                :placeholder="t('tipCoinPlaceholder')"
-                value-attribute="id"
-                :uiMenu="{}"
-                :ui="{ wrapper: 'min-w-[160px]' }"
-                :disabled="!swapActive"
-              >
-                <template #option="{ option }">
-                  <div class="flex items-center gap-2">
-                    <img :src="option.image" class="w-4 h-4" />
-                    <div class="flex flex-col">
-                      <span>{{ option.label }}</span>
-                      <span class="text-xs text-pale">{{ option.name }}</span>
-                    </div>
-                  </div>
+        <div class="flex gap-8 flex-wrap">
+          <div>
+            <div class="flex gap-8 items-center flex-wrap-reverse">
+              <div class="flex">
+                <UFormGroup :label="t('tipCoin')">
+                  <USelectMenu
+                    :options="coinSelectOptions"
+                    v-model="state.selectedCoin"
+                    trailingIcon="i-heroicons-chevron-up-down-16-solid"
+                    :placeholder="t('tipCoinPlaceholder')"
+                    value-attribute="id"
+                    :uiMenu="{}"
+                    :ui="{ wrapper: 'min-w-[160px]' }"
+                    :disabled="!swapActive"
+                  >
+                    <template #option="{ option }">
+                      <div class="flex items-center gap-2">
+                        <img :src="option.image" class="w-4 h-4" />
+                        <div class="flex flex-col">
+                          <span>{{ option.label }}</span>
+                          <span class="text-xs text-pale">{{
+                            option.name
+                          }}</span>
+                        </div>
+                      </div>
+                    </template>
+                  </USelectMenu>
+                  <template #help v-if="!swapActive">
+                    <p class="text-xs">{{ t("tipSwapUnavailable") }}</p>
+                  </template>
+                </UFormGroup>
+                <!-- <p v-if="!false" class="text-pale text-sm mt-1"></p> -->
+              </div>
+
+              <UTooltip :popper="{ placement: 'top' }">
+                <template #text>
+                  <p>{{ t("tipPrivateTooltip") }}</p>
                 </template>
-              </USelectMenu>
-              <template #help v-if="!swapActive">
-                <p class="text-xs">{{ t("tipSwapUnavailable") }}</p>
-              </template>
-            </UFormGroup>
-            <!-- <p v-if="!false" class="text-pale text-sm mt-1"></p> -->
+                <UCheckbox
+                  color="primary"
+                  :label="t('tipPrivate')"
+                  v-model="state.form.private"
+                />
+              </UTooltip>
+            </div>
+
+            <div v-if="state.errorMessage">
+              <UAlert
+                color="red"
+                :description="state.errorMessage"
+                :title="t('tipCreationFailed')"
+              >
+              </UAlert>
+            </div>
+
+            <div class="flex gap-2 pt-5">
+              <UButton
+                size="lg"
+                type="submit"
+                :loading="state.loading"
+                class="flex items-center gap-2 w-fit"
+              >
+                {{ $t("sendTip") }}
+                <DirectionalArrow />
+              </UButton>
+              <UButton
+                v-if="testTip"
+                size="lg"
+                variant="outline"
+                :loading="state.loadingTestTip"
+                class="flex items-center gap-2 w-fit"
+                @click="handleSendTestTip"
+              >
+                {{ $t("sendTestTip") }}
+              </UButton>
+            </div>
           </div>
 
-          <UTooltip :popper="{ placement: 'top' }">
-            <template #text>
-              <p>{{ t("tipPrivateTooltip") }}</p>
-            </template>
-            <UCheckbox
-              color="primary"
-              :label="t('tipPrivate')"
-              v-model="state.form.private"
-            />
-          </UTooltip>
-        </div>
-
-        <div class="single" v-if="state.errorMessage">
-          <UAlert
-            color="red"
-            :description="state.errorMessage"
-            :title="t('tipCreationFailed')"
-          >
-          </UAlert>
-        </div>
-
-        <div class="flex gap-2">
-          <UButton
-            size="lg"
-            type="submit"
-            :loading="state.loading"
-            class="flex items-center gap-2 w-fit"
-          >
-            {{ $t("sendTip") }}
-            <DirectionalArrow />
-          </UButton>
-          <UButton
-            v-if="testTip"
-            size="lg"
-            variant="outline"
-            :loading="state.loadingTestTip"
-            class="flex items-center gap-2 w-fit"
-            @click="handleSendTestTip"
-          >
-            Send Test Tip
-          </UButton>
-          <!-- <UButton
-            v-if="superDmActive"
-            :to="toSuperDmCreate(streamerId)"
-            size="lg"
-            type="button"
-            variant="ghost"
-            icon="i-heroicons-chat-bubble-left-right"
-          >
-            SuperDM
-          </UButton> -->
+          <div class="flex-1">
+            <TipPageAd />
+          </div>
         </div>
       </UForm>
     </div>
