@@ -3,6 +3,7 @@ import { EmailService } from './email.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { ConfigService } from '@nestjs/config';
+import { existsSync } from 'fs';
 import { join } from 'path';
 import { I18nService } from 'nestjs-i18n';
 import { EmailProcessor } from './email.processor';
@@ -28,10 +29,14 @@ import { AuditsModule } from 'src/audits/audits.module';
           };
         };
 
+        const templatesDir = existsSync(join(__dirname, 'templates'))
+          ? join(__dirname, 'templates')
+          : join(process.cwd(), 'dist', 'notifications', 'email', 'templates');
+
         return {
           transport: { ...getTransport() },
           template: {
-            dir: join(__dirname, 'templates'),
+            dir: templatesDir,
             adapter: new HandlebarsAdapter({
               translate: (key: string, options: any): string => {
                 const lang = options.hash.lang || 'en';
@@ -46,7 +51,7 @@ import { AuditsModule } from 'src/audits/audits.module';
           },
           options: {
             partials: {
-              dir: join(__dirname, 'templates', 'partials'),
+              dir: join(templatesDir, 'partials'),
               options: {
                 strict: true,
               },
