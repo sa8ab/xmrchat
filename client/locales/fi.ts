@@ -96,7 +96,7 @@ export default {
   quickAndEasy: {
     title: "Nopea ja helppo",
     description:
-      "Ei tiliä, ei sähköpostivahvistuksia, ei korttitietoja. Fani syöttää nimen, viestin, summan ja lähettää XMR:n.",
+      "kirjoittaa nimensä, viestinsä, summan, skannata QR-koodin maksaakseen ja lähettää XMR-tippinsä.",
   },
   openSource: {
     title: "Avoin lähdekoodi",
@@ -116,7 +116,7 @@ export default {
   accepted: {
     title: "Hyväksytty",
     description:
-      "Sinun ei tarvitse myydä Moneroa vaihtopalvelussa. Voit ostaa Monerolla myös suoraan {xmrbazaar}:sta ja {monerica}:sta.",
+      "hyväksyä Moneroa palveluissa {xmrbazaar} ja {monerica} tai conciergepalvelun {shopinbit} kautta.",
   },
   andMore: {
     title: "Ja paljon muuta",
@@ -131,7 +131,7 @@ export default {
       ifStreamyard: "Jos käytät Streamyardia:",
       ifOBS: "Jos käytät OBS:ia:",
       ifLiveJoiner: "Jos käytät LiveJoineria:",
-      streamyard: `Siirry "Muokkaa tippisivua" -valikkoon. Varmista, että olet lisännyt Twitch-kanavasi käyttäjänimen. Kun aloitat striimin Streamyardissa, lisää Twitch kohteena. XMRChat-botti (xmr-chat Twitchissä) lähettää tippiviestin Twitchiin ja voit näyttää sen ruudullasi Streamyardista. xmrchat-botin logo näyttää parhaalta "Minimal" -asetuksella.`,
+      streamyard: `Siirry valikkokohtaan "Edit tip page". Varmista, että olet lisännyt Twitch-kanavasi käyttäjänimen. Kun aloitat lähetyksen Streamyardissa, lisää Twitch kohteeksi. XMRChat-botti (xmr-chat Twitchissä) lähettää tippiviestin Twitchiin, ja voit näyttää sen näytölläsi Streamyardin kautta. Tarkista Twitchin Automod-asetukset, sillä ne saattavat suodattaa halutut superchatit pois. Näytettävä xmrchat-botin logo näyttää parhaalta "Minimal"-asetuksella.`,
       obs: `Siirry "OBS" -valikkoon. Klikkaa "Kopioi OBS-sivun linkki". Lisää selainlähde OBS:ään ja liitä linkki.`,
       liveJoiner:
         "Valitse XMRChat tuettujen alustojen luettelosta ja syötä XMRChat-tippisivusi polku tai URL-osoite.",

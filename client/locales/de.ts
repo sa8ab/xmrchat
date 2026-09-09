@@ -98,7 +98,7 @@ export default {
   quickAndEasy: {
     title: "Schnell und einfach",
     description:
-      "Zuschauer müssen kein Konto erstellen, keine E-Mail verifizieren oder Kreditkarteninformationen eingeben. Fans gehen zu deiner Trinkgeld-Seite, geben ihren Namen, Nachricht und Betrag ein und senden dir XMR-Trinkgeld",
+      "ihren Namen, ihre Nachricht und den Betrag eingeben, einen QR-Code zum Bezahlen scannen und ihr XMR-Trinkgeld senden.",
   },
   openSource: {
     title: "Open Source",
@@ -119,7 +119,7 @@ export default {
   accepted: {
     title: "Akzeptiert",
     description:
-      "Mit Monero kannst du bereits jetzt Waren und Dienstleistungen kaufen. Händler, die Monero akzeptieren, findest du auf {xmrbazaar} und {monerica}.",
+      "Monero auf {xmrbazaar} und {monerica} oder über den Concierge-Service {shopinbit} akzeptieren.",
   },
   andMore: {
     title: "Und mehr",
@@ -134,7 +134,7 @@ export default {
       ifStreamyard: "Wenn Sie Streamyard verwenden:",
       ifOBS: "Wenn du OBS verwendest:",
       ifLiveJoiner: "Wenn Sie LiveJoiner verwenden:",
-      streamyard: `Gehe zum Menüpunkt "Trinkgeld-Seite bearbeiten". Stelle sicher, dass du deinen Twitch-Kanalnamen hinzugefügt hast. Wenn du den Stream in Streamyard startest, füge Twitch als Ziel hinzu. Der XMRChat-Bot (xmr-chat auf Twitch) wird die Trinkgeld-Nachricht auf Twitch senden und du kannst sie auf deinem Bildschirm von Streamyard anzeigen. Das angezeigte xmrchat-Bot-Logo sieht am besten mit der "Minimal"-Einstellung aus.`,
+      streamyard: `Gehe zum Menüpunkt "Edit tip page". Stelle sicher, dass du deinen Twitch-Kanalnamen hinzugefügt hast. Wenn du den Stream in Streamyard startest, füge Twitch als Ziel hinzu. Der XMRChat-Bot (xmr-chat auf Twitch) sendet die Trinkgeldnachricht auf Twitch, und du kannst sie über Streamyard auf deinem Bildschirm anzeigen. Überprüfe die Automod-Einstellungen von Twitch, da diese gewünschte Superchats herausfiltern könnten. Das angezeigte xmrchat-Bot-Logo sieht mit der Einstellung "Minimal" am besten aus.`,
       obs: `Gehe zum "OBS"-Menüpunkt. Klicke auf "OBS-Seitenlink kopieren". Füge eine Browserquelle in OBS hinzu und füge den Link ein.`,
       liveJoiner:
         "Wählen Sie XMRChat aus der Liste der unterstützten Plattformen aus und geben Sie den Pfad oder die URL Ihrer XMRChat-Trinkgeldseite ein.",
