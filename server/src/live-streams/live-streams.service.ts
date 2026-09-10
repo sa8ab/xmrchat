@@ -241,40 +241,11 @@ export class LiveStreamsService implements OnModuleInit {
 
   async getXProviderParams() {
     const links = await this.linksService.findByPlatform(LinkPlatformEnum.X);
-    if (!links.length) return [];
 
-    const streamableLinkPlatforms = [
-      LinkPlatformEnum.YOUTUBE,
-      LinkPlatformEnum.TWITCH,
-      LinkPlatformEnum.KICK,
-      LinkPlatformEnum.RUMBLE,
-      LinkPlatformEnum.PEERTUBE,
-    ];
-
-    const streamableLinks = await Promise.all(
-      streamableLinkPlatforms.map((platform) =>
-        this.linksService.findByPlatform(platform),
-      ),
-    );
-    const streamablePageIds = new Set(
-      streamableLinks.flat().map((link) => link.page.id),
-    );
-
-    const twitchPages = await this.pagesRepo.find({
-      where: {
-        twitchChannel: And(Not(IsNull()), Not('')),
-        isPublic: true,
-        status: Not(PageStatusEnum.DEACTIVE),
-      },
-    });
-    twitchPages.forEach((page) => streamablePageIds.add(page.id));
-
-    return links
-      .filter((link) => !streamablePageIds.has(link.page.id))
-      .map((link) => ({
-        username: link.value,
-        pageId: link.page.id,
-      }));
+    return links.map((link) => ({
+      username: link.value,
+      pageId: link.page.id,
+    }));
   }
 
   async getXLiveStreams() {
