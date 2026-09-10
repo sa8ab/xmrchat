@@ -98,7 +98,7 @@ export default {
   quickAndEasy: {
     title: "Quick And Easy",
     description:
-      "type their name, message, amount, scan a QR code to pay, and submit their XMR tip.",
+      "No need for viewers to create an account, verify their email, or enter credit card info. Fans go to your tip page, type their name, message, amount, scan a QR code to pay, and submit their XMR tip.",
   },
   openSource: {
     title: "Open Source",
@@ -117,7 +117,7 @@ export default {
   accepted: {
     title: "Accepted",
     description:
-      "accept Monero on {xmrbazaar} and {monerica} or via concierge service {shopinbit}.",
+      "Avoid the hassle of selling your crypto on a centralized exchange. Buy goods and services directly from merchants that accept Monero on {xmrbazaar} and {monerica} or via concierge service {shopinbit}.",
   },
   andMore: {
     title: "And more",

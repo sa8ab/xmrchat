@@ -98,7 +98,7 @@ export default {
   quickAndEasy: {
     title: "Rápido y fácil",
     description:
-      "escriban su nombre, mensaje, monto, escaneen un código QR para pagar y envíen su propina en XMR.",
+      "Los espectadores no necesitan crear una cuenta, verificar su correo electrónico ni introducir los datos de su tarjeta de crédito. Los fans van a tu página de propinas, escriben su nombre, mensaje, monto, escanean un código QR para pagar y envían su propina en XMR.",
   },
   openSource: {
     title: "Código abierto",
@@ -119,7 +119,7 @@ export default {
   accepted: {
     title: "Aceptado",
     description:
-      "aceptar Monero en {xmrbazaar} y {monerica}, o a través del servicio de conserjería {shopinbit}.",
+      "Evita la molestia de vender tu criptomoneda en un exchange centralizado. Compra bienes y servicios directamente a comerciantes que aceptan Monero en {xmrbazaar} y {monerica}, o a través del servicio de conserjería {shopinbit}.",
   },
   andMore: {
     title: "Y más",

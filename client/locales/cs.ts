@@ -96,7 +96,7 @@ export default {
   quickAndEasy: {
     title: "Rychlé a snadné",
     description:
-      "napíší své jméno, zprávu, částku, naskenují QR kód k platbě a odešlou své spropitné v XMR.",
+      "Diváci nemusí vytvářet účet, ověřovat svůj e-mail ani zadávat údaje o kreditní kartě. Fanoušci přejdou na vaši stránku se spropitným, napíší své jméno, zprávu, částku, naskenují QR kód k platbě a odešlou své spropitné v XMR.",
   },
   openSource: {
     title: "Open Source",
@@ -115,7 +115,7 @@ export default {
   accepted: {
     title: "Akceptované",
     description:
-      "přijímat Monero na {xmrbazaar} a {monerica} nebo prostřednictvím concierge služby {shopinbit}.",
+      "Vyhněte se starostem s prodejem své kryptoměny na centralizované burze. Nakupujte zboží a služby přímo od obchodníků, kteří přijímají Monero na {xmrbazaar} a {monerica} nebo prostřednictvím concierge služby {shopinbit}.",
   },
   andMore: {
     title: "A mnoho dalšího",

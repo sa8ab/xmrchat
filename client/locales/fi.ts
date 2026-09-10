@@ -96,7 +96,7 @@ export default {
   quickAndEasy: {
     title: "Nopea ja helppo",
     description:
-      "kirjoittaa nimensä, viestinsä, summan, skannata QR-koodin maksaakseen ja lähettää XMR-tippinsä.",
+      "Katsojien ei tarvitse luoda tiliä, vahvistaa sähköpostiaan tai syöttää luottokorttitietoja. Fanit menevät tippisivullesi, kirjoittavat nimensä, viestinsä, summan, skannaavat QR-koodin maksaakseen ja lähettävät XMR-tippinsä.",
   },
   openSource: {
     title: "Avoin lähdekoodi",
@@ -116,7 +116,7 @@ export default {
   accepted: {
     title: "Hyväksytty",
     description:
-      "hyväksyä Moneroa palveluissa {xmrbazaar} ja {monerica} tai conciergepalvelun {shopinbit} kautta.",
+      "Vältä kryptosi myymisen vaiva keskitetyssä pörssissä. Osta tuotteita ja palveluita suoraan kauppiailta, jotka hyväksyvät Moneroa palveluissa {xmrbazaar} ja {monerica} tai conciergepalvelun {shopinbit} kautta.",
   },
   andMore: {
     title: "Ja paljon muuta",

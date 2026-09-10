@@ -95,7 +95,7 @@ export default {
   quickAndEasy: {
     title: "빠르고 쉬움",
     description:
-      "이름, 메시지, 금액을 입력하고 QR 코드를 스캔해 결제한 후 XMR 팁을 보냅니다.",
+      "시청자는 계정을 만들거나 이메일을 인증하거나 신용카드 정보를 입력할 필요가 없습니다. 팬들은 팁 페이지에 접속해 이름, 메시지, 금액을 입력하고 QR 코드를 스캔해 결제한 후 XMR 팁을 보냅니다.",
   },
   openSource: {
     title: "오픈 소스",
@@ -116,7 +116,7 @@ export default {
   accepted: {
     title: "사용 가능",
     description:
-      "{xmrbazaar}와 {monerica}에서, 또는 컨시어지 서비스 {shopinbit}를 통해 모네로를 받습니다.",
+      "중앙화 거래소에서 암호화폐를 파는 번거로움을 피하세요. {xmrbazaar}와 {monerica}에서, 또는 컨시어지 서비스 {shopinbit}를 통해 모네로를 받는 판매자로부터 직접 상품과 서비스를 구매하세요.",
   },
   andMore: {
     title: "그 외에도",

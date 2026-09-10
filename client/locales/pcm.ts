@@ -96,7 +96,7 @@ export default {
   quickAndEasy: {
     title: "Fast and Easy",
     description:
-      "type dia name, message, amount, scan QR code to pay, and send dia XMR tip.",
+      "Viewers no need to create account, verify dia email, or enter credit card info. Fans go go your tip page, type dia name, message, amount, scan QR code to pay, and send dia XMR tip.",
   },
   openSource: {
     title: "Open Source",
@@ -116,7 +116,7 @@ export default {
   accepted: {
     title: "E Dey Accepted",
     description:
-      "accept Monero for {xmrbazaar} and {monerica} or through concierge service {shopinbit}.",
+      "Avoid the wahala of selling your crypto for centralized exchange. Buy goods and services straight from merchants wey dey accept Monero for {xmrbazaar} and {monerica} or through concierge service {shopinbit}.",
   },
   andMore: {
     title: "And more",

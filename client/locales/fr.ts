@@ -100,7 +100,7 @@ export default {
   quickAndEasy: {
     title: "Rapide et Facile",
     description:
-      "saisissez leur nom, leur message, le montant, scannez un code QR pour payer, et envoyez leur pourboire en XMR.",
+      "Les spectateurs n'ont pas besoin de créer un compte, de vérifier leur e-mail ou de saisir leurs informations de carte bancaire. Les fans se rendent sur votre page de pourboires, saisissent leur nom, leur message, le montant, scannent un code QR pour payer, et envoient leur pourboire en XMR.",
   },
   openSource: {
     title: "Open Source",
@@ -121,7 +121,7 @@ export default {
   accepted: {
     title: "Accepté",
     description:
-      "accepter Monero sur {xmrbazaar} et {monerica}, ou via le service de conciergerie {shopinbit}.",
+      "Évitez la contrainte de vendre vos cryptomonnaies sur une plateforme d'échange centralisée. Achetez des biens et services directement auprès de commerçants qui acceptent Monero sur {xmrbazaar} et {monerica}, ou via le service de conciergerie {shopinbit}.",
   },
   andMore: {
     title: "Et plus encore",

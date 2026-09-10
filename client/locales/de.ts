@@ -98,7 +98,7 @@ export default {
   quickAndEasy: {
     title: "Schnell und einfach",
     description:
-      "ihren Namen, ihre Nachricht und den Betrag eingeben, einen QR-Code zum Bezahlen scannen und ihr XMR-Trinkgeld senden.",
+      "Zuschauer müssen kein Konto erstellen, ihre E-Mail-Adresse bestätigen oder Kreditkartendaten eingeben. Fans gehen auf deine Trinkgeldseite, geben ihren Namen, ihre Nachricht und den Betrag ein, scannen einen QR-Code zum Bezahlen und senden ihr XMR-Trinkgeld.",
   },
   openSource: {
     title: "Open Source",
@@ -119,7 +119,7 @@ export default {
   accepted: {
     title: "Akzeptiert",
     description:
-      "Monero auf {xmrbazaar} und {monerica} oder über den Concierge-Service {shopinbit} akzeptieren.",
+      "Vermeide den Aufwand, deine Kryptowährung auf einer zentralisierten Börse zu verkaufen. Kaufe Waren und Dienstleistungen direkt von Händlern, die Monero akzeptieren, auf {xmrbazaar} und {monerica} oder über den Concierge-Service {shopinbit}.",
   },
   andMore: {
     title: "Und mehr",
