@@ -145,6 +145,7 @@ export default {
       ifOBS: "If you dey use OBS:",
       ifLiveJoiner: "If you dey use LiveJoiner:",
       streamyard: `Go to "Edit tip page" menu item. Make sure say you don add your twitch channel username. When you dey start the stream for Streamyard, add Twitch as destination. XMRChat bot ( xmr-chat on twitch ) go send the tip message for Twitch and you fit show am for your screen from Streamyard. Check Twitch Automod settings because e fit filter out the superchats wey you want. The xmrchat bot logo wey dey show go look sharp well-well with "Minimal" setting.`,
+      obs: `Go to "OBS" menu. Click on "Copy OBS Page Link". Add browser source for OBS and paste di link.`,
       liveJoiner:
         "Choose XMRChat from di list of supported platforms, den enter di path or URL for your XMRChat tip page.",
     },

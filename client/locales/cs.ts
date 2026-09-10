@@ -132,6 +132,7 @@ export default {
       ifOBS: "Pokud používáte OBS:",
       ifLiveJoiner: "Pokud používáte LiveJoiner:",
       streamyard: `Přejděte na položku nabídky "Edit tip page". Ujistěte se, že jste přidali své uživatelské jméno kanálu Twitch. Při spouštění streamu ve Streamyardu přidejte Twitch jako cíl. Bot XMRChat (xmr-chat na Twitchi) odešle zprávu o spropitném na Twitch a vy ji můžete zobrazit na obrazovce ze Streamyardu. Zkontrolujte nastavení Automod na Twitchi, protože může odfiltrovat požadované superchaty. Zobrazené logo bota xmrchat vypadá nejlépe s nastavením "Minimal".`,
+      obs: `Přejděte do položky "OBS". Klikněte na "Zkopírovat odkaz na OBS stránku". V OBS přidejte zdroj prohlížeče a vložte odkaz.`,
       liveJoiner:
         "Vyberte XMRChat ze seznamu podporovaných platforem a zadejte cestu nebo URL své stránky s tipy na XMRChat.",
     },
