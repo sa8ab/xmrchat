@@ -1,4 +1,4 @@
-FROM node:22-alpine
+FROM node:22-slim
 
 ENV NODE_ENV production
 ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
