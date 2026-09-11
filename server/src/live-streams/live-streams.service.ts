@@ -20,6 +20,7 @@ import { Link } from 'src/links/link.entity';
 import { Tip } from 'src/tips/tip.entity';
 import { PeertubeProvider } from './providers/peertube.provider';
 import { KickProvider } from './providers/kick.provider';
+import { XProvider } from './providers/x.provider';
 
 @Injectable()
 export class LiveStreamsService implements OnModuleInit {
@@ -30,6 +31,7 @@ export class LiveStreamsService implements OnModuleInit {
     private youtubeProvider: YoutubeProvider,
     private twitchProvider: TwitchProvider,
     private kickProvider: KickProvider,
+    private xProvider: XProvider,
     private rumbleProvider: RumbleProvider,
     private peertubeProvider: PeertubeProvider,
     private config: ConfigService,
@@ -54,7 +56,6 @@ export class LiveStreamsService implements OnModuleInit {
       .leftJoinAndSelect('page.logo', 'logo')
       .distinctOn(['page.id'])
       .orderBy('page.id', 'ASC')
-      .addOrderBy('liveStream.startedAt', 'DESC', 'NULLS LAST')
       .addOrderBy(
         `CASE 
           WHEN liveStream.platform = '${LiveStreamPlatformEnum.TWITCH}' THEN 1
@@ -62,10 +63,12 @@ export class LiveStreamsService implements OnModuleInit {
           WHEN liveStream.platform = '${LiveStreamPlatformEnum.PEERTUBE}' THEN 3
           WHEN liveStream.platform = '${LiveStreamPlatformEnum.YOUTUBE}' THEN 4
           WHEN liveStream.platform = '${LiveStreamPlatformEnum.RUMBLE}' THEN 5
-          ELSE 6
+          WHEN liveStream.platform = '${LiveStreamPlatformEnum.X}' THEN 6
+          ELSE 7
         END`,
         'ASC',
       )
+      .addOrderBy('liveStream.startedAt', 'DESC', 'NULLS LAST')
       .getMany();
 
     return streams.sort((a, b) => {
@@ -103,6 +106,7 @@ export class LiveStreamsService implements OnModuleInit {
     const youtube = await this.getYoutubeLiveStreams();
     const twitch = await this.getTwitchLiveStreams();
     const kick = await this.getKickLiveStreams();
+    const x = await this.getXLiveStreams();
     const rumble = await this.getRumbleLiveStreams();
     const peertube = await this.getPeertubeLiveStreams();
 
@@ -112,6 +116,7 @@ export class LiveStreamsService implements OnModuleInit {
       ...kick,
       ...rumble,
       ...peertube,
+      ...x,
     ]);
     const result = await this.findAll();
     return result;
@@ -233,5 +238,21 @@ export class LiveStreamsService implements OnModuleInit {
 
   async getPeertubeLiveStreams() {
     return this.peertubeProvider.getLiveStreams();
+  }
+
+  async getXProviderParams() {
+    const links = await this.linksService.findByPlatform(LinkPlatformEnum.X);
+
+    return links.map((link) => ({
+      username: link.value,
+      pageId: link.page.id,
+    }));
+  }
+
+  async getXLiveStreams() {
+    if (!this.xProvider.isEnabled()) return [];
+
+    const params = await this.getXProviderParams();
+    return this.xProvider.getLiveStreams(params);
   }
 }

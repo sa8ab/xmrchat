@@ -25,6 +25,7 @@ import { AuditsModule } from './audits/audits.module';
 import { WinstonModule } from 'nest-winston';
 import winston from 'winston';
 import 'winston-daily-rotate-file';
+import { existsSync } from 'fs';
 import { join } from 'path';
 import { ClsModule } from 'nestjs-cls';
 import { ThrottlerModule } from '@nestjs/throttler';
@@ -122,7 +123,9 @@ import { TipGoalsModule } from './tip-goals/tip-goals.module';
         return {
           fallbackLanguage: config.get('DEFAULT_LOCALE') || 'en',
           loaderOptions: {
-            path: join(__dirname, '/i18n/'),
+            path: existsSync(join(__dirname, 'i18n'))
+              ? join(__dirname, 'i18n')
+              : join(__dirname, '..', 'i18n'),
             watch: true,
           },
         };

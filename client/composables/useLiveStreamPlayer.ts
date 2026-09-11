@@ -36,6 +36,12 @@ export const useLiveStreamPlayer = (
     )
   );
 
+  const x = computed(() =>
+    streams.value?.find(
+      (stream) => stream.platform === LiveStreamPlatformEnum.X
+    )
+  );
+
   const livePlatforms = computed<LiveStreamPlatformEnum[]>(
     () =>
       streams.value?.map((stream) => stream.platform).filter((p) => !!p) || []
@@ -47,6 +53,7 @@ export const useLiveStreamPlayer = (
     if (peertube.value) return peertube.value;
     if (youtube.value) return youtube.value;
     if (rumble.value) return rumble.value;
+    if (x.value) return x.value;
   });
 
   return {
