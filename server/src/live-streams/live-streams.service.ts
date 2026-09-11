@@ -56,7 +56,6 @@ export class LiveStreamsService implements OnModuleInit {
       .leftJoinAndSelect('page.logo', 'logo')
       .distinctOn(['page.id'])
       .orderBy('page.id', 'ASC')
-      .addOrderBy('liveStream.startedAt', 'DESC', 'NULLS LAST')
       .addOrderBy(
         `CASE 
           WHEN liveStream.platform = '${LiveStreamPlatformEnum.TWITCH}' THEN 1
@@ -64,10 +63,12 @@ export class LiveStreamsService implements OnModuleInit {
           WHEN liveStream.platform = '${LiveStreamPlatformEnum.PEERTUBE}' THEN 3
           WHEN liveStream.platform = '${LiveStreamPlatformEnum.YOUTUBE}' THEN 4
           WHEN liveStream.platform = '${LiveStreamPlatformEnum.RUMBLE}' THEN 5
-          ELSE 6
+          WHEN liveStream.platform = '${LiveStreamPlatformEnum.X}' THEN 6
+          ELSE 7
         END`,
         'ASC',
       )
+      .addOrderBy('liveStream.startedAt', 'DESC', 'NULLS LAST')
       .getMany();
 
     return streams.sort((a, b) => {
@@ -113,9 +114,9 @@ export class LiveStreamsService implements OnModuleInit {
       ...youtube,
       ...twitch,
       ...kick,
-      ...x,
       ...rumble,
       ...peertube,
+      ...x,
     ]);
     const result = await this.findAll();
     return result;
