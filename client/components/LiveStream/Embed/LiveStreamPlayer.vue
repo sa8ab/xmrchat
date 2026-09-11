@@ -30,4 +30,8 @@ const type = computed(() => props.liveStream?.platform);
     v-if="type === LiveStreamPlatformEnum.PEERTUBE"
     :liveStream="liveStream"
   />
+  <LiveStreamX
+    v-if="type === LiveStreamPlatformEnum.X"
+    :liveStream="liveStream"
+  />
 </template>

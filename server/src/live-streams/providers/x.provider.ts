@@ -37,6 +37,11 @@ export class XProvider implements LiveStreamProvider, OnModuleDestroy {
   ): Promise<CreateLiveStreamDto[]> {
     if (!this.isEnabled()) return [];
 
+    this.logger.log(
+      `Checking X live status for ${params.length} profiles:`,
+      params,
+    );
+
     const streams: CreateLiveStreamDto[] = [];
     // Check one profile at a time to limit load on X.
     for (const param of params) {
